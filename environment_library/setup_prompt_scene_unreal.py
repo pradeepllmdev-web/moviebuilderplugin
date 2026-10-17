@@ -97,7 +97,7 @@ try:
    x,y,z=row['location_cm']
    if character_name in routes:values=[x,y,z,0,0,row['yaw'],1,1,1]
    else:
-    focused=[rows for name,rows in routes.items() if p.get('focus','both')=='both' or profile_map[name]==p.get('focus')] or list(routes.values());cx=sum(rows[row['frame']]['location_cm'][0] for rows in focused)/len(focused);cy=sum(rows[row['frame']]['location_cm'][1] for rows in focused)/len(focused);close=p['camera'] in ['close','reaction'];pos=unreal.Vector(cx+(230 if close else 520 if len(routes)>1 else 420),cy+(150 if close else 220),180 if close else 230);target=unreal.Vector(cx,cy,145 if close else 105)
+    focused=[rows for name,rows in routes.items() if p.get('focus','both')=='both' or profile_map[name]==p.get('focus')] or list(routes.values());cx=sum(rows[row['frame']]['location_cm'][0] for rows in focused)/len(focused);cy=sum(rows[row['frame']]['location_cm'][1] for rows in focused)/len(focused);close=p['camera'] in ['close','reaction'];lion_close=close and (p.get('focus')=='lion' or (not p.get('focus') and p.get('character')=='lion'));scale=1.3 if lion_close else 1;pos=unreal.Vector(cx+(230*scale if close else 520 if len(routes)>1 else 420),cy+(150*scale if close else 220),(175 if lion_close else 180) if close else 230);target=unreal.Vector(cx,cy,(135 if lion_close else 145) if close else 105)
     if any(g['action']=='hold_ball' for a in p.get('actors',[]) for g in a['segments']):pos=unreal.Vector(cx-200,cy+180,130);target=unreal.Vector(cx,cy,105)
     if box_view:
      position,aim=box_camera.view(route[row['frame']]['location_cm'],route[row['frame']]['yaw'],p['camera'],box_view['side']);pos=unreal.Vector(*position);target=unreal.Vector(*aim)

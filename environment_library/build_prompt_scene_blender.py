@@ -143,6 +143,13 @@ for f,v in enumerate(amp,1):
 meshes=[o for o in s.objects if o.type=='MESH' and any(m.type=='ARMATURE' and m.object==rig for m in o.modifiers)]
 feet_bones=[b for b in rig.pose.bones if b.name.endswith(('LeftFoot','RightFoot'))];feet_rest=min((rig.matrix_world@b.bone.head_local).z for b in feet_bones)
 route=[];previous_yaw=0
+# Lion walking shots get the Tail bone too (see tail_rig.py); the old tail dragged below the feet and lifted the whole body.
+tail_walk=p['character']=='lion' and not sitting and all(g['action'] in ('idle','talk','walk','run','circle') for g in timeline)
+if tail_walk:
+ import numpy as np
+ from tail_rig import _tail_vertices
+ tail_body=max(meshes,key=lambda o:len(o.data.vertices));tail_index,_rest=_tail_vertices(tail_body,np.array(rig.matrix_world@next(b for b in rig.pose.bones if b.name.endswith('Hips')).bone.head_local))
+ keep=np.ones(len(tail_body.data.vertices),bool);keep[tail_index]=False;ground_levels={}
 turn_path=None
 if any(g['action']=='turn' for g in timeline) or p.get('motion_heading'):
  from turn_routes import route as make_turn_route
@@ -169,6 +176,10 @@ for f in range(frames):
  if sitting:
   # Seated poses fold the tail and thighs below the feet: ground on the feet, not the lowest vertex.
   minimum=min((rig.matrix_world@b.head).z for b in feet_bones)-feet_rest
+ elif tail_walk:
+  # Ground on the body without the tail; the tail bone is solved against this level afterwards.
+  e=tail_body.evaluated_get(deps);co=np.empty(len(e.data.vertices)*3);e.data.vertices.foreach_get('co',co);Wm=np.array(e.matrix_world)
+  minimum=min([float((co.reshape(-1,3)[keep]@Wm[2,:3]+Wm[2,3]).min())]+[min((o.evaluated_get(deps).matrix_world@Vector(v)).z for v in o.evaluated_get(deps).bound_box) for o in meshes if o is not tail_body]);ground_levels[f+1]=minimum
  else:minimum=min(min((o.evaluated_get(deps).matrix_world@Vector(v)).z for v in o.evaluated_get(deps).bound_box) for o in meshes)
  route.append({'frame':f,'location_cm':[x,y,ground+arc-minimum*100],'yaw':yaw})
 bpy.ops.object.select_all(action='DESELECT');rig.select_set(True);bpy.context.view_layer.objects.active=rig
@@ -190,6 +201,9 @@ if sitting:
   centre_y=-(seat['forward_cm']-3)/100+(route[frame-1]['location_cm'][1]-anchor)/100;centre_x=seat['lateral_cm']/100;top=seat['top_cm']/100
   return lambda P:np.where((abs(P[:,0]-centre_x)<.37)&(abs(P[:,1]-centre_y)<.18),top,0.)
  tail_report=rig_tail(s,rig,body,list(range(1,frames+1)),tail_floor,fps=fps);(D/'tail-check.json').write_text(json.dumps(tail_report))
+if tail_walk:
+ from tail_rig import rig_tail
+ tail_report=rig_tail(s,rig,tail_body,list(range(1,frames+1)),lambda frame:(lambda P,level=ground_levels[frame]:np.full(len(P),level)),fps=fps);(D/'tail-check.json').write_text(json.dumps(tail_report))
 from pose_continuity import blend_previous_pose,save_pose
 blend_previous_pose(s,rig,p.get('carry_pose'),fps)
 if any(g['action']=='hold_ball' for g in timeline):

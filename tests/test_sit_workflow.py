@@ -40,4 +40,15 @@ class SitTests(unittest.TestCase):
   with self.assertRaises(ValueError):require_requested_controls(standing,'The lion sits down on a bench and talks')
   require_requested_controls(seated,'The lion sits down on a bench, talks, then stands up')
   require_requested_controls(standing,'The lion talks about the sunrise')
+ def test_planner_puts_seated_dialogue_before_stand_up(self):
+  from scene_prompt import SYSTEM
+  self.assertIn('BEFORE stand_up',SYSTEM)
+  self.assertIn('Never put it on idle/talk after stand_up',SYSTEM)
+  # The reference movie follows the rule: every line spoken in a seated state is on sit/sit_talk, none on stand_up.
+  seated=False
+  for shot in test_sit_movie.PLAN['shots']:
+   for g in shot['segments']:
+    if g['action']=='stand_up':self.assertFalse(g['dialogue']);seated=False
+    elif g['action']=='sit_down':seated=True
+    elif seated and g['dialogue']:self.assertIn(g['action'],('sit','sit_talk'))
 if __name__=='__main__':unittest.main()
