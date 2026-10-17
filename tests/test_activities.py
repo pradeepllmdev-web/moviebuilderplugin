@@ -1,0 +1,37 @@
+import copy,sys,unittest
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'environment_library'))
+import activities,drink_actions
+from sit_actions import SIT_ACTIONS,CLIPS,SEATED,validate as validate_sitting
+from scene_prompt import ACTIONS,SYSTEM,validate as validate_scene,require_requested_controls
+# Seated lion, measured once from the evaluated body (cm, rig space, forward is -Y).
+LION={"bones":{"Hips":[-2.66,-14.85,37.61],"Spine":[-2.59,-11.25,49.74],"Spine1":[-1.4,-12.5,62.27],"Spine2":[-0.66,-14.4,75.15],"Neck":[-0.3,-15.77,84.58],"Head":[-0.37,-13.68,91.17],"RightArm":[-25.06,-16.12,76.19],"RightForeArm":[-29.88,-25.26,55.43],"RightHand":[-24.29,-41.18,38.57]},"snout_tip":[-1.8,-66.7,97.1],"arm_reach":47.0,"torso":{"y_front":-32.7,"z_top":72.6,"z_bottom":24.7},"thighs":{"y_front":-42.5,"z_top":42.9,"z_bottom":19.1},"lower_legs":{"y_front":-43.5,"z_top":31.4,"z_bottom":0.1},"feet":{"y_front":-56.7,"z_top":17.3,"z_bottom":-3.6}}
+def beat(action,duration=3,dialogue=''):return dict(action=action,duration=duration,dialogue=dialogue)
+def scene(segments):return dict(version=1,title='Tea',character='lion',environment='forest',mood='morning_fog',camera='full',segments=segments)
+class ActivityTests(unittest.TestCase):
+ def test_registry_feeds_every_consumer(self):
+  for name in activities.beats():
+   self.assertIn(name,SIT_ACTIONS);self.assertIn(name,CLIPS);self.assertIn(name,ACTIONS)
+  self.assertIn('drink',SEATED);self.assertIn('Drinking:',SYSTEM)
+ def test_drink_needs_a_seat_and_stays_seated(self):
+  self.assertTrue(validate_sitting([beat('sit_down'),beat('drink',5)]))
+  with self.assertRaises(ValueError):validate_sitting([beat('drink',5)],False)
+  with self.assertRaises(ValueError):validate_scene(scene([beat('sit_down'),beat('drink',5),beat('walk')]))
+  validate_scene(scene([beat('sit_down'),beat('drink',5),beat('stand_up')]))
+ def test_duration_limits(self):
+  with self.assertRaises(ValueError):validate_scene(scene([beat('sit_down'),beat('drink',2),beat('stand_up')]))
+  with self.assertRaises(ValueError):validate_scene(scene([beat('sit_down'),beat('drink',9),beat('stand_up')]))
+ def test_request_without_drink_beat_is_rejected(self):
+  plan=scene([beat('sit_down'),beat('sit'),beat('stand_up')])
+  with self.assertRaises(ValueError):require_requested_controls(plan,'The lion sits down and drinks from a cup, then stands up')
+  require_requested_controls(scene([beat('sit_down'),beat('drink',5),beat('stand_up')]),'The lion sits down and drinks from a cup, then stands up')
+ def test_lion_drink_layout_is_feasible(self):
+  l=activities.feasibility('drink',LION)
+  self.assertTrue(l['ok']);self.assertLessEqual(l['hand_to_cup_cm'],6);self.assertEqual(l['reach_shortfall_cm'],0)
+  self.assertGreater(l['table']['top_cm'],LION['feet']['z_top']+4);self.assertLess(l['table']['top_cm'],LION['bones']['RightArm'][2])
+ def test_short_arms_are_reported_infeasible(self):
+  short=copy.deepcopy(LION);short['arm_reach']=30.
+  self.assertFalse(activities.feasibility('drink',short)['ok'])
+ def test_nod_moves_the_muzzle_down_and_back(self):
+  tip=drink_actions.nodded_tip(LION,25);self.assertLess(tip[2],LION['snout_tip'][2]);self.assertGreater(tip[1],LION['snout_tip'][1])
+if __name__=='__main__':unittest.main()

@@ -201,6 +201,16 @@ if sitting:
   centre_y=-(seat['forward_cm']-3)/100+(route[frame-1]['location_cm'][1]-anchor)/100;centre_x=seat['lateral_cm']/100;top=seat['top_cm']/100
   return lambda P:np.where((abs(P[:,0]-centre_x)<.37)&(abs(P[:,1]-centre_y)<.18),top,0.)
  tail_report=rig_tail(s,rig,body,list(range(1,frames+1)),tail_floor,fps=fps);(D/'tail-check.json').write_text(json.dumps(tail_report))
+ # Body measurements for activity feasibility (cached per character) and the drink pose.
+ import body_measures
+ if seated:
+  calm=next((g for g in timeline if g['action'] in ('drink','sit')),None);reference=round((calm['start']+.5)*fps)+1 if calm else seated[len(seated)//2];measures=body_measures.measure(s,rig,body,reference);body_measures.save(p['character'],measures);(D/'body-measures.json').write_text(json.dumps(measures))
+  if any(g['action']=='drink' for g in timeline):
+   import drink_actions
+   solved=drink_actions.feasibility(measures)
+   (D/'drink-feasibility.json').write_text(json.dumps(solved))
+   if not solved.get('ok'):raise RuntimeError('Drinking is not feasible for this body: '+json.dumps({k:solved.get(k) for k in ('reason','hand_to_cup_cm','limits')}))
+   drink_actions.apply(s,rig,body,timeline,fps,solved,D,reference)
 if tail_walk:
  from tail_rig import rig_tail
  tail_report=rig_tail(s,rig,tail_body,list(range(1,frames+1)),lambda frame:(lambda P,level=ground_levels[frame]:np.full(len(P),level)),fps=fps);(D/'tail-check.json').write_text(json.dumps(tail_report))

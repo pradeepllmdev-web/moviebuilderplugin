@@ -66,6 +66,9 @@ try:
  import sit_props_unreal
  importlib.reload(sit_props_unreal)
  (D/'seat-prop-check.json').write_text(json.dumps(sit_props_unreal.apply(sequence,actors,r['level'].rsplit('/',1)[0],D,routes)))
+ import drink_props_unreal
+ importlib.reload(drink_props_unreal)
+ (D/'drink-prop-check.json').write_text(json.dumps(drink_props_unreal.apply(sequence,actors,r['level'].rsplit('/',1)[0],D,routes)))
  for camera_actor in actors.get_all_level_actors():
   if isinstance(camera_actor,unreal.CineCameraActor):
    component=camera_actor.get_cine_camera_component();film=component.get_editor_property('filmback');film.sensor_width=36;film.sensor_height=20.25;component.set_editor_property('filmback',film);component.set_editor_property('aspect_ratio',16/9)

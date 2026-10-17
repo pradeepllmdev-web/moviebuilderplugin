@@ -1,5 +1,6 @@
 """Fast iteration loop: one command builds, prints every check on a few lines, and saves one picture.
 
+  python quick_review.py activity drink    feasibility from cached body numbers (instant), then a one-shot Blender build of just that activity
   python quick_review.py shot 1            Blender-only build of shot 1 (~10 s) + check summary + side-view sheet
   python quick_review.py shot all          every shot in parallel Blender processes (~one shot's time); --no-sheet skips pictures
   python quick_review.py movie             full Unreal preview via the studio server (~1.5 min) + checks + frame sheet
@@ -45,6 +46,8 @@ def summary(folder):
  if c:lines.append(f"seat       top={c['top_cm']}cm spread={c['spread_cm']}cm at lateral {c['lateral_cm']} forward {c['forward_cm']} lean_capped={sum(c.get('lean_capped_frames',{}).values())}")
  c=read('tail-check.json')
  if c:lines.append(f"tail       ok={c['ok']} lift_max={c.get('max_lift_deg')}deg verts={c.get('tail_vertices')}")
+ c=read('drink-check.json')
+ if c:lines.append(f"drink      ok={c['ok']} muzzle_to_rim={c['muzzle_to_rim_cm']}cm hand_to_target={c['hand_to_target_cm']}cm hand_to_cup={c['hand_to_cup_cm']}cm nod={c['nod_deg']}deg table_top={c['table_top_cm']}cm")
  c=read('seat-prop-check.json')
  if c and c.get('benches'):lines.append(f"bench prop top={c['top_cm']}cm at {c['location_cm']}")
  c=read('eye-life-check.json')
@@ -56,6 +59,26 @@ def summary(folder):
  c=read('box-prop-check.json')
  if c and c.get('boxes'):lines.append(f"box prop   phase={c['phase']} stands={c['stands']} end={[round(v) for v in c['end_location_cm']]}")
  return lines
+
+def activity_plan(name,character='lion'):
+ """Smallest valid movie for an activity: its test beats in shot 1, an idle second shot (movies need 2+)."""
+ import activities
+ beat=lambda a,d:dict(action=a,duration=d,dialogue='')
+ def shot(title,beats):return dict(version=1,title=title,character=character,environment='forest',environment_id='RealisticRiver_20261015_093641',mood='morning_fog',lookdev='soft_portrait',camera='full',eye_life=True,segments=[beat(a,d) for a,d in beats],unsupported=[],notes=[])
+ return dict(version=1,title=name+' check',unsupported=[],shots=[shot(name,activities.ACTIVITIES[name]['test_beats']),shot('Rest',[('idle',2),('talk',2)])])
+
+def run_activity(args):
+ """Instant feasibility from cached body measurements, then a one-shot Blender build with its checks."""
+ import activities,body_measures
+ name=args.target;character=args.character;started=time.time()
+ if name not in activities.ACTIVITIES:print('unknown activity; choose from '+', '.join(activities.ACTIVITIES));return
+ measures=body_measures.load(character)
+ if not measures:
+  print(f'no cached body measurements for {character}; measuring with a sit shot');build_shot(activity_plan('sit',character),0,'side',None,False);measures=body_measures.load(character)
+ verdict=activities.feasibility(name,measures)
+ print('feasibility '+json.dumps({k:v for k,v in verdict.items() if k not in ('limits',)})+f'  ({time.time()-started:.2f}s)')
+ if args.feasibility_only or not verdict.get('ok'):return
+ print(chr(10).join(build_shot(activity_plan(name,character),0,args.view,args.frames,not args.no_sheet)))
 
 def shot_inputs(plan,index):
  """Plan.json for one shot as the worker writes it, chaining box state/position/heading from earlier shots."""
@@ -92,6 +115,11 @@ if os.path.exists(D+'/seat.json') and os.path.exists(D+'/route.json'):
  m=bpy.data.materials.new('bench');m.diffuse_color=(.35,.22,.1,1);bench.data.materials.append(m)
  for r in route:
   dy=(r['location_cm'][1]-at[1])/100;bench.location=(seat['lateral_cm']/100,-(seat['forward_cm']-3)/100+dy,seat['top_cm']/200);bench.keyframe_insert('location',frame=r['frame']+1)
+if os.path.exists(D+'/drink.json'):
+ # Table and cup proxies in rig space (cm -> m, forward is -Y; the rig stays at the origin).
+ d=json.load(open(D+'/drink.json'));tb=d['table'];top=tb['top_cm']/100;th=tb['thickness_cm']/100
+ bpy.ops.mesh.primitive_cube_add(size=1);table=bpy.context.object;table.name='Cube_table';table.scale=(tb['size_cm'][0]/100,tb['size_cm'][1]/100,th);table.location=(tb['center'][0]/100,tb['center'][1]/100,top-th/2)
+ bpy.ops.mesh.primitive_cylinder_add(radius=d['cup']['radius_cm']/100,depth=d['cup']['height_cm']/100);cup=bpy.context.object;cup.name='Cube_cup';cup.location=(d['cup_cm'][0]/100,d['cup_cm'][1]/100,d['cup_cm'][2]/100)
 for o in s.objects:
  if o.type=='MESH' and o.parent is None and not any(m.type=='ARMATURE' for m in o.modifiers) and not o.name.startswith('Cube'):o.hide_render=True
 cam=bpy.data.objects.new('Q',bpy.data.cameras.new('Q'));s.collection.objects.link(cam);s.camera=cam;cam.data.lens=35
@@ -189,9 +217,10 @@ def report(movie_id,frames):
 
 if __name__=='__main__':
  parser=argparse.ArgumentParser(description=__doc__,formatter_class=argparse.RawDescriptionHelpFormatter)
- parser.add_argument('mode',choices=['shot','movie','frames']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
- parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true')
+ parser.add_argument('mode',choices=['shot','movie','frames','activity']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
+ parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true');parser.add_argument('--character',default='lion');parser.add_argument('--feasibility-only',action='store_true')
  args=parser.parse_args();sys.path.insert(0,str(H))
  if args.mode=='shot':run_shot(args)
+ elif args.mode=='activity':run_activity(args)
  elif args.mode=='movie':run_movie(args)
  else:report(args.target,[int(f) for f in (args.frame_list or args.frames).split(',')])
