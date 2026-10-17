@@ -1,0 +1,46 @@
+{
+  "frames": 439,
+  "fps": 24,
+  "actors": {
+    "lion": {
+      "native_stride_speed": 0.957,
+      "finish_time": 12.100000000000001,
+      "travel_m": 16,
+      "vertical_correction": -0.015680895328521724
+    },
+    "cat": {
+      "native_stride_speed": 0.904,
+      "finish_time": 11.5,
+      "travel_m": 16,
+      "vertical_correction": -0.021349656283855434
+    }
+  },
+  "shots": [
+    {
+      "frame": 1,
+      "name": "Starting line"
+    },
+    {
+      "frame": 93,
+      "name": "River tracking wide"
+    },
+    {
+      "frame": 145,
+      "name": "Side race tracking"
+    },
+    {
+      "frame": 246,
+      "name": "Bridge finish wide"
+    },
+    {
+      "frame": 313,
+      "name": "Finish reaction"
+    }
+  ],
+  "meshy_calls": 0,
+  "limitations": [
+    "Prototype facial rigs and fur",
+    "Foot/toe contact needs visual review",
+    "No water interaction simulation"
+  ]
+}

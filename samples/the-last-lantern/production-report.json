@@ -1,0 +1,52 @@
+{
+  "snow": {
+    "profile": "snow",
+    "skinned_meshes": 19,
+    "original_saved": false,
+    "rest_arm_controls": [
+      {
+        "bone": "FK-UpperArm.L",
+        "rotation_radians": [
+          0.0,
+          0.0,
+          -1.2000000476837158
+        ]
+      },
+      {
+        "bone": "FK-UpperArm.R",
+        "rotation_radians": [
+          0.0,
+          0.0,
+          1.2000000476837158
+        ]
+      }
+    ],
+    "capabilities": [
+      "blink",
+      "brow",
+      "gaze",
+      "head_nod",
+      "head_yaw",
+      "jaw",
+      "smile",
+      "spread"
+    ],
+    "speech_active_frames": 62
+  },
+  "jacob": {
+    "profile": "jacob",
+    "skinned_meshes": 8,
+    "original_saved": false,
+    "capabilities": [
+      "blink",
+      "brow",
+      "gaze",
+      "head_nod",
+      "head_yaw",
+      "jaw",
+      "smile",
+      "spread"
+    ],
+    "speech_active_frames": 65
+  }
+}

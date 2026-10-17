@@ -1,0 +1,22 @@
+{
+  "name": "rowan",
+  "generator": "MPFB 2.0.18",
+  "body_bones": 52,
+  "face_units": 52,
+  "shape_keys_per_object": {
+    "Rowan-Body": 63,
+    "Rowan-Body.high-poly": 9,
+    "Rowan-Body.eyebrow001": 37,
+    "Rowan-Body.eyelashes01": 26,
+    "Rowan-Body.teeth_base": 5,
+    "Rowan-Body.tongue01": 6,
+    "Rowan-Body.short02": 30,
+    "Rowan-Body.male_casualsuit01": 1,
+    "Rowan-Body.shoes01": 1
+  },
+  "voice": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\the-last-lantern\\audio\\line_2.wav",
+  "body": "shared captured talking/listening adapter",
+  "face": "shared speech commands + captured expression bank",
+  "production_approved": false,
+  "limitations": "Human template creation, not image reconstruction. Upper-body audition; Unreal not yet tested."
+}

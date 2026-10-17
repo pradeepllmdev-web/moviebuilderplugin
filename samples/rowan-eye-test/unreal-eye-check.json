@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "frame": 0,
+  "eye_targets": [
+    "eyeBlinkLeft",
+    "eyeBlinkRight",
+    "eyeLookDownLeft",
+    "eyeLookDownRight",
+    "eyeLookInLeft",
+    "eyeLookInRight",
+    "eyeLookOutLeft",
+    "eyeLookOutRight",
+    "eyeLookUpLeft",
+    "eyeLookUpRight",
+    "eyeSquintLeft",
+    "eyeSquintRight",
+    "eyeWideLeft",
+    "eyeWideRight"
+  ],
+  "facial_import": {
+    "curves": 52,
+    "samples_per_curve": 144,
+    "max_sample_error": 1.5894571969710114e-07,
+    "missing_animated_targets": []
+  },
+  "sequence": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Performance",
+  "level": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Level"
+}

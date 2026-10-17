@@ -1,0 +1,24 @@
+{
+  "schema": "body-retarget/1",
+  "anatomy": "biped",
+  "alignment_bone": "CTRL-CHEST",
+  "source_alignment": "Spine2",
+  "gesture_strength": 0.55,
+  "mapping": {
+    "Spine2": "CTRL-CHEST",
+    "LeftArm": "CTRL-FK-UARM_01.L",
+    "LeftForeArm": "CTRL-FK-LARM_01.L",
+    "LeftHand": "CTRL-FK-HAND.L",
+    "RightArm": "CTRL-FK-UARM_01.R",
+    "RightForeArm": "CTRL-FK-LARM_01.R",
+    "RightHand": "CTRL-FK-HAND.R"
+  },
+  "properties": [
+    {
+      "bone": "PROPERTIES",
+      "name": "ARMS-IK/FK SWITCH",
+      "value": 1.0
+    }
+  ],
+  "limits": "Stationary upper-body talk/listen. No locomotion, hand contacts, fingers, or quadrupeds."
+}

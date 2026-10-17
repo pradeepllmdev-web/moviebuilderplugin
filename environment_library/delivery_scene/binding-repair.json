@@ -1,0 +1,45 @@
+{
+  "bindings": [
+    {
+      "name": "CharacterMesh0",
+      "resolved": 1
+    },
+    {
+      "name": "CharacterMesh0",
+      "resolved": 1
+    },
+    {
+      "name": "DeliveryCrate",
+      "resolved": 1
+    },
+    {
+      "name": "DeliveryShot_2",
+      "resolved": 1
+    },
+    {
+      "name": "DeliveryShot_3",
+      "resolved": 1
+    },
+    {
+      "name": "DeliveryShot_0",
+      "resolved": 1
+    },
+    {
+      "name": "Delivery_lion",
+      "resolved": 1
+    },
+    {
+      "name": "DeliveryParcel",
+      "resolved": 1
+    },
+    {
+      "name": "DeliveryShot_1",
+      "resolved": 1
+    },
+    {
+      "name": "Delivery_cat",
+      "resolved": 1
+    }
+  ],
+  "ok": true
+}

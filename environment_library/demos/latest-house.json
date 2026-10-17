@@ -1,0 +1,30 @@
+{
+  "id": "ModernHouse_20261015_095225",
+  "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\demos\\ModernHouse_20261015_095225",
+  "cameras": {
+    "interior": {
+      "location": [
+        -280,
+        -210,
+        165
+      ],
+      "target": [
+        90,
+        150,
+        125
+      ]
+    },
+    "exterior": {
+      "location": [
+        1200,
+        -1600,
+        500
+      ],
+      "target": [
+        0,
+        -50,
+        140
+      ]
+    }
+  }
+}

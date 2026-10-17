@@ -1,0 +1,53 @@
+{
+  "label": "ImageSet_5fb769b0ff",
+  "biome": "nordic_forest",
+  "terrain": "flat",
+  "actors": [
+    "ImageSet_5fb769b0ff_Ground",
+    "ImageSet_5fb769b0ff_Forest"
+  ],
+  "used": {
+    "ground": "Mossy Forest Floor",
+    "slopes": "Rocky Forest Floor",
+    "tree": [
+      "Norway Spruce",
+      "Silver Birch"
+    ],
+    "debris": [
+      "Broken Stump"
+    ],
+    "rock": [
+      "Mossy Forest Rock",
+      "Nordic Beach Rocks"
+    ],
+    "fern": [
+      "Fern"
+    ],
+    "grass": [
+      "Ribbon Grass",
+      "Wild Grass"
+    ],
+    "instances": 13740
+  },
+  "warnings": [],
+  "stage": [
+    0.0,
+    0.0,
+    650.0
+  ],
+  "level": "/Game/EnvironmentDemos/ImageSet_5fb769b0ff",
+  "camera": {
+    "location": [
+      -1100,
+      -900,
+      200
+    ],
+    "target": [
+      700,
+      1100,
+      200
+    ]
+  },
+  "reference_image": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\references\\e23a57ee2537414cbfa39578a67cf078.png",
+  "finished_at": 1792030181.5154095
+}

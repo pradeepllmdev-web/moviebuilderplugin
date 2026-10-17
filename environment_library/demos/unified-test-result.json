@@ -1,0 +1,91 @@
+{
+  "id": "658b727e51424479bef56f1a4962aaa6",
+  "status": "complete",
+  "stage": "Environment saved",
+  "preview": "/demos/PromptSet_93659096671b/preview.png",
+  "report": {
+    "mountains": {
+      "label": "PromptMountainBackdrop",
+      "params": {
+        "template": "alpine_range",
+        "shape": "range",
+        "size": 180000.0,
+        "height": 50000.0,
+        "sharpness": 0.7,
+        "roughness": 0.6,
+        "erosion": 0.5,
+        "snow_line": 0.55,
+        "rock_slope": 34.0,
+        "seed": 51,
+        "rotation": 180.0,
+        "edge_falloff": 0.12,
+        "crater": 0.5,
+        "terraces": 4,
+        "resolution": 96,
+        "uv_tile": 2000.0,
+        "colors": {
+          "grass": [
+            0.16,
+            0.24,
+            0.09
+          ],
+          "rock": [
+            0.29,
+            0.27,
+            0.25
+          ],
+          "snow": [
+            0.9,
+            0.92,
+            0.95
+          ],
+          "dirt": [
+            0.24,
+            0.18,
+            0.12
+          ]
+        },
+        "textures": {}
+      },
+      "peak_height": 50655.7,
+      "vertices": 9216
+    },
+    "reference_analysis": null,
+    "contract_version": 1,
+    "level": "/Game/EnvironmentDemos/PromptSet_93659096671b",
+    "biome": "prompt_modular_set",
+    "warnings": [
+      "Blockout architecture; no traffic or automatic navigation."
+    ],
+    "cameras": {
+      "overview": {
+        "location": [
+          4100,
+          -4900,
+          4200
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ]
+      },
+      "street": {
+        "location": [
+          1600,
+          -6500,
+          2400
+        ],
+        "target": [
+          0,
+          1800,
+          1600
+        ]
+      }
+    },
+    "part_count": 3,
+    "connection_count": 0,
+    "open_end_count": 2,
+    "box_count": 97
+  }
+}

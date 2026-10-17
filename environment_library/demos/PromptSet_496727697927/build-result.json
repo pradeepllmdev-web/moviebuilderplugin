@@ -1,0 +1,37 @@
+{
+  "level": "/Game/EnvironmentDemos/PromptSet_496727697927",
+  "biome": "prompt_modular_set",
+  "warnings": [
+    "Blockout architecture; no traffic or automatic navigation."
+  ],
+  "cameras": {
+    "overview": {
+      "location": [
+        4100,
+        -4900,
+        4200
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    "street": {
+      "location": [
+        450,
+        -2100,
+        180
+      ],
+      "target": [
+        50,
+        0,
+        100
+      ]
+    }
+  },
+  "part_count": 3,
+  "connection_count": 0,
+  "open_end_count": 2,
+  "box_count": 97
+}

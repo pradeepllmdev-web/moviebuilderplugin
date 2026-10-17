@@ -1,0 +1,23 @@
+{
+  "jaw_bone": "Leo-Jaw",
+  "tongue_bone": "Leo-Tongue",
+  "eye_bones": [
+    "Leo-Eye.L",
+    "Leo-Eye.R"
+  ],
+  "anatomy": [
+    "mouth opening",
+    "oral lining",
+    "separate upper/lower gums and teeth",
+    "jaw-attached tongue",
+    "separate eyes",
+    "spherical upper/lower lids"
+  ],
+  "source": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\blendplugin-next\\verification\\lion-detailed\\authored_probe.blend",
+  "source_sha256": "701246a7d7a0ada9245afcc7d3e578cfd032a1c5497bd26b8189c915808764cc",
+  "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\blendplugin-next\\verification\\lion-whisper\\audio\\voice_01.wav",
+  "audio_start": 0.55,
+  "frames": 192,
+  "fps": 24,
+  "approach": "New parametric stylized head over preserved biped body; not image-to-3D generation"
+}

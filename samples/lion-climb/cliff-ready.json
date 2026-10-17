@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "duration": 10,
+  "ascent_m": 1.6,
+  "holds": 17,
+  "views": [
+    "wide",
+    "side contact",
+    "upper section"
+  ],
+  "limitations": "Adapted ladder motion and joint IK; finger grip and summit transition not implemented"
+}

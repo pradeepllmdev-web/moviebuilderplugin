@@ -1,0 +1,5 @@
+[
+ {"id":"RiverbankGolden","params":{"biome":"birch_grove","terrain":"flat","river":"near","mountains":false,"size":22000,"stage_radius":600,"density":0.85,"seed":41,"mood":"golden_hour","clear":[[-1500,1600,450],[700,2300,450]],"label":"DemoRiverbank"},"camera":{"location":[-1500,1600,220],"target":[1000,3200,180]}},
+ {"id":"ForestMist","params":{"biome":"nordic_forest","terrain":"meadow","river":"none","mountains":false,"size":22000,"stage_radius":650,"density":0.75,"seed":42,"mood":"morning_fog","label":"DemoForest"},"camera":{"location":[-1100,-900,200],"target":[700,1100,200]}},
+ {"id":"RockyValley","params":{"biome":"rocky_highland","terrain":"valley","river":"far","mountains":true,"size":36000,"stage_radius":1100,"density":0.6,"seed":43,"mood":"blockbuster","label":"DemoValley"},"camera":{"location":[-2800,-2400,650],"target":[1200,10000,1100]}}
+]

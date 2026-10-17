@@ -1,0 +1,6 @@
+{
+  "schema": "shared-motion-library/1",
+  "file": "C:/Users/nagal/OneDrive/Documents/GitHub/blendplugin-next/scene_pipeline/assets/realistic/clips.blend",
+  "fps": 24,
+  "actions": {"talk": "clip|Talking", "listen": "clip|Listen"}
+}

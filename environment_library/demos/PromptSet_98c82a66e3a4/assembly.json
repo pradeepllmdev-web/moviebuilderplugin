@@ -1,0 +1,980 @@
+{
+  "boxes": [
+    {
+      "id": "main_road",
+      "position_cm": [
+        0,
+        0,
+        -10
+      ],
+      "size_cm": [
+        1000,
+        1000,
+        20
+      ],
+      "yaw": 0,
+      "material": "asphalt"
+    },
+    {
+      "id": "main_pavement-1-1",
+      "position_cm": [
+        -425,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "main_pavement-11",
+      "position_cm": [
+        -425,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "main_pavement1-1",
+      "position_cm": [
+        425,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "main_pavement11",
+      "position_cm": [
+        425,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "main_crosswalk0-10",
+      "position_cm": [
+        -270,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-11",
+      "position_cm": [
+        -180,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-12",
+      "position_cm": [
+        -90,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-13",
+      "position_cm": [
+        0,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-14",
+      "position_cm": [
+        90,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-15",
+      "position_cm": [
+        180,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-16",
+      "position_cm": [
+        270,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_edge01",
+      "position_cm": [
+        0,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        700,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "main_crosswalk-100",
+      "position_cm": [
+        -270,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-101",
+      "position_cm": [
+        -270,
+        -180,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-102",
+      "position_cm": [
+        -270,
+        -90,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-103",
+      "position_cm": [
+        -270,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-104",
+      "position_cm": [
+        -270,
+        90,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-105",
+      "position_cm": [
+        -270,
+        180,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-106",
+      "position_cm": [
+        -270,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk100",
+      "position_cm": [
+        270,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk101",
+      "position_cm": [
+        270,
+        -180,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk102",
+      "position_cm": [
+        270,
+        -90,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk103",
+      "position_cm": [
+        270,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk104",
+      "position_cm": [
+        270,
+        90,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk105",
+      "position_cm": [
+        270,
+        180,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk106",
+      "position_cm": [
+        270,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road1_road",
+      "position_cm": [
+        0,
+        -1000,
+        -10
+      ],
+      "size_cm": [
+        1000,
+        1000,
+        20
+      ],
+      "yaw": 0,
+      "material": "asphalt"
+    },
+    {
+      "id": "road1_pavement-1-1",
+      "position_cm": [
+        -425,
+        -1425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_pavement-11",
+      "position_cm": [
+        -425,
+        -575,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_pavement1-1",
+      "position_cm": [
+        425,
+        -1425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_pavement11",
+      "position_cm": [
+        425,
+        -575,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_edge-10",
+      "position_cm": [
+        -425,
+        -1000,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_edge10",
+      "position_cm": [
+        425,
+        -1000,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_lane-360",
+      "position_cm": [
+        0,
+        -1360,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road1_lane-120",
+      "position_cm": [
+        0,
+        -1120,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road1_lane120",
+      "position_cm": [
+        0,
+        -880,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road1_lane360",
+      "position_cm": [
+        0,
+        -640,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road2_road",
+      "position_cm": [
+        -1000,
+        0,
+        -10
+      ],
+      "size_cm": [
+        1000,
+        1000,
+        20
+      ],
+      "yaw": 90,
+      "material": "asphalt"
+    },
+    {
+      "id": "road2_pavement-1-1",
+      "position_cm": [
+        -575,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_pavement-11",
+      "position_cm": [
+        -1425,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_pavement1-1",
+      "position_cm": [
+        -575,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_pavement11",
+      "position_cm": [
+        -1425,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_edge-10",
+      "position_cm": [
+        -1000,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_edge10",
+      "position_cm": [
+        -1000,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_lane-360",
+      "position_cm": [
+        -640,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road2_lane-120",
+      "position_cm": [
+        -880,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road2_lane120",
+      "position_cm": [
+        -1120,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road2_lane360",
+      "position_cm": [
+        -1360,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road3_road",
+      "position_cm": [
+        1000,
+        0,
+        -10
+      ],
+      "size_cm": [
+        1000,
+        1000,
+        20
+      ],
+      "yaw": 90,
+      "material": "asphalt"
+    },
+    {
+      "id": "road3_pavement-1-1",
+      "position_cm": [
+        1425,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_pavement-11",
+      "position_cm": [
+        575,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_pavement1-1",
+      "position_cm": [
+        1425,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_pavement11",
+      "position_cm": [
+        575,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_edge-10",
+      "position_cm": [
+        1000,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_edge10",
+      "position_cm": [
+        1000,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_lane-360",
+      "position_cm": [
+        1360,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road3_lane-120",
+      "position_cm": [
+        1120,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road3_lane120",
+      "position_cm": [
+        880,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road3_lane360",
+      "position_cm": [
+        640,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    }
+  ],
+  "road_links": [
+    [
+      "main",
+      "road1"
+    ],
+    [
+      "main",
+      "road2"
+    ],
+    [
+      "main",
+      "road3"
+    ]
+  ],
+  "open_road_ends": 3,
+  "asset_placements": [
+    {
+      "asset_id": "building.0af7471b32",
+      "position_cm": [
+        -2800,
+        2600
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "building.0af7471b32",
+      "position_cm": [
+        2800,
+        2600
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "building.6d664d5005",
+      "position_cm": [
+        2800,
+        -2600
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "furniture.37c976889d",
+      "position_cm": [
+        -2200,
+        -2200
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "furniture.37c976889d",
+      "position_cm": [
+        -2200,
+        -2700
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "rock.0fcdf9d09c",
+      "position_cm": [
+        -5000,
+        0
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "rock.0fcdf9d09c",
+      "position_cm": [
+        5000,
+        0
+      ],
+      "scale": 0.5
+    }
+  ],
+  "mountains": {
+    "enabled": false
+  }
+}

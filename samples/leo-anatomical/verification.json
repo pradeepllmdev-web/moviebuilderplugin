@@ -1,0 +1,23 @@
+{
+  "native": {
+    "jaw_max_degrees": 24.75580549575236,
+    "blink_max": 1.0,
+    "lip_closure_max": 1.0,
+    "tongue_motion_m": 0.07074846460003303,
+    "tongue_is_jaw_child": true,
+    "feet_stationary": true
+  },
+  "unreal_verified": false,
+  "glb_roundtrip": {
+    "jaw_max_degrees": 24.75580549575236,
+    "blink_max": 1.0,
+    "lip_closure_max": 1.0,
+    "tongue_motion_m": 0.07074789297271905,
+    "tongue_is_jaw_child": true,
+    "feet_stationary": true
+  },
+  "jaw_timing_max_error": 3.0108727514743805e-05,
+  "blink_timing_max_error": 0.0,
+  "source_unchanged": true,
+  "passed": true
+}

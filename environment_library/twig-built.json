@@ -1,0 +1,90 @@
+{
+  "id": "6935db6d98c640d79b3f68d825cd7dce",
+  "status": "complete",
+  "stage": "All editable shots saved; review before rendering",
+  "active_shot": 4,
+  "movie_id": "6935db6d98c640d79b3f68d825cd7dce",
+  "report": {
+    "id": "6935db6d98c640d79b3f68d825cd7dce",
+    "title": "A Twig and a Brave Friend",
+    "shots": [
+      {
+        "scene_id": "b3c2fa58706545438e870676896eb234",
+        "title": "A sound behind them",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/2377e61aac6342a7b4cdd8d96b899bb6/Level",
+          "sequence": "/Game/StudioProduction/2377e61aac6342a7b4cdd8d96b899bb6/Performance",
+          "duration": 6.0,
+          "characters": [
+            "Leo",
+            "Amber"
+          ],
+          "camera": "full",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Blink disabled until deformation is verified"
+          ]
+        }
+      },
+      {
+        "scene_id": "e6e051286f1f428b86d30487eecc336f",
+        "title": "Did you hear that?",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/0fe15e2379f6453c9e654fb03c393bbb/Level",
+          "sequence": "/Game/StudioProduction/0fe15e2379f6453c9e654fb03c393bbb/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Leo",
+            "Amber"
+          ],
+          "camera": "reaction",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Blink disabled until deformation is verified"
+          ]
+        }
+      },
+      {
+        "scene_id": "243a832fe99c49bf9e7ef228d5551c4c",
+        "title": "A calm reply",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/194d6a3f8c2e406d96dabf5cbc29cfb3/Level",
+          "sequence": "/Game/StudioProduction/194d6a3f8c2e406d96dabf5cbc29cfb3/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Leo",
+            "Amber"
+          ],
+          "camera": "close",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Blink disabled until deformation is verified"
+          ]
+        }
+      },
+      {
+        "scene_id": "4b9ede01e1be431f8a41ffe14604a2b0",
+        "title": "Together again",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/e148fbf978e24d38aa4dbf20b70f60bc/Level",
+          "sequence": "/Game/StudioProduction/e148fbf978e24d38aa4dbf20b70f60bc/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Leo",
+            "Amber"
+          ],
+          "camera": "full",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Blink disabled until deformation is verified"
+          ]
+        }
+      }
+    ],
+    "rendered": false
+  }
+}

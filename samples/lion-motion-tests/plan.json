@@ -1,0 +1,26 @@
+[
+  {
+    "name": "standing",
+    "text": "Hello! I am Leo. Watch my eyes, my face, and my hands while I speak.",
+    "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-motion-tests\\standing.wav",
+    "duration": 7
+  },
+  {
+    "name": "walking",
+    "text": "Now I am walking and talking. My steps should feel steady and relaxed.",
+    "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-motion-tests\\walking.wav",
+    "duration": 7
+  },
+  {
+    "name": "running",
+    "text": "Time to run! I am picking up speed, but I can still talk to you.",
+    "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-motion-tests\\running.wav",
+    "duration": 7
+  },
+  {
+    "name": "circle",
+    "text": "Around the track I go! Watch my turns, my stride, and my balance as I race.",
+    "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-motion-tests\\circle.wav",
+    "duration": 8.55
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "label": "DemoValley",
+  "biome": "rocky_highland",
+  "terrain": "valley",
+  "actors": [
+    "DemoValley_Ground",
+    "DemoValley_River",
+    "DemoValley_Mountains",
+    "DemoValley_Forest"
+  ],
+  "used": {
+    "ground": "Rocky Forest Floor",
+    "slopes": "Forest Floor",
+    "mountains": [
+      "dirt",
+      "grass",
+      "rock"
+    ],
+    "tree": [
+      "Norway Spruce"
+    ],
+    "rock": [
+      "Mossy Forest Rock",
+      "Nordic Beach Rocks"
+    ],
+    "cliff": [
+      "Large Nordic Coastal Cliff"
+    ],
+    "grass": [
+      "Ribbon Grass",
+      "Wild Grass"
+    ],
+    "instances": 1225
+  },
+  "warnings": [],
+  "stage": [
+    0.0,
+    0.0,
+    1100.0
+  ],
+  "level": "/Game/EnvironmentDemos/RockyValley",
+  "camera": {
+    "location": [
+      -2800,
+      -2400,
+      650
+    ],
+    "target": [
+      1200,
+      10000,
+      1100
+    ]
+  },
+  "reference_image": null,
+  "finished_at": 1792029515.2416263
+}

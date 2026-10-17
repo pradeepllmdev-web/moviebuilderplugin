@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "duration": 12,
+  "gap_cm": 40,
+  "platform_height_cm": 25,
+  "camera": "one fixed view",
+  "dialogue": "That looked closer from over there.",
+  "landing": "animation and ground correction; no rigid-body impact simulation"
+}

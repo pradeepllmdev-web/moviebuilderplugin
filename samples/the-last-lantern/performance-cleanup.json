@@ -1,0 +1,12 @@
+{
+  "snow": {
+    "limited_body_keys": 207,
+    "maximum_native_joint_speed_degrees_per_second": 120,
+    "face_head_channels_modified": false
+  },
+  "jacob": {
+    "limited_body_keys": 145,
+    "maximum_native_joint_speed_degrees_per_second": 120,
+    "face_head_channels_modified": false
+  }
+}

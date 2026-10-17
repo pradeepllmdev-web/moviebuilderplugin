@@ -1,0 +1,27 @@
+{
+  "id": "HighlandPass_20261015_094058",
+  "params": {
+    "biome": "rocky_highland",
+    "terrain": "valley",
+    "river": "none",
+    "mountains": true,
+    "mood": "overcast_drizzle",
+    "density": 1.15,
+    "size": 36000,
+    "stage_radius": 400,
+    "seed": 93,
+    "label": "HighlandPass_20261015_094058"
+  },
+  "camera": {
+    "location": [
+      -1500,
+      -2300,
+      500
+    ],
+    "target": [
+      1000,
+      10000,
+      1500
+    ]
+  }
+}

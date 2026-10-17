@@ -1,0 +1,209 @@
+{
+  "version": 1,
+  "title": "Leo - A Call on the Trail",
+  "unsupported": [],
+  "shots": [
+    {
+      "version": 1,
+      "title": "Stop and step toward Rowan",
+      "environment": "forest",
+      "environment_id": "RealisticRiver_20261015_093641",
+      "mood": "morning_fog",
+      "lookdev": "soft_portrait",
+      "camera": "full",
+      "focus": "both",
+      "unsupported": [],
+      "notes": [],
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "facing_yaw_deg": 0,
+          "segments": [
+            {
+              "action": "walk",
+              "duration": 2,
+              "dialogue": "",
+              "distance_cm": 80
+            },
+            {
+              "action": "idle",
+              "duration": 2,
+              "dialogue": "",
+              "emotion": "curious",
+              "look_yaw_deg": -20
+            },
+            {
+              "action": "turn",
+              "duration": 2,
+              "dialogue": "",
+              "angle_deg": -90,
+              "radius_cm": 80
+            },
+            {
+              "action": "idle",
+              "duration": 2,
+              "dialogue": ""
+            }
+          ]
+        },
+        {
+          "character": "rowan",
+          "position_cm": [
+            180,
+            160
+          ],
+          "facing_yaw_deg": 90,
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 2,
+              "dialogue": ""
+            },
+            {
+              "action": "talk",
+              "duration": 2,
+              "dialogue": "Leo, wait!",
+              "emotion": "alert"
+            },
+            {
+              "action": "idle",
+              "duration": 4,
+              "dialogue": "",
+              "emotion": "curious"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "Listen before replying",
+      "environment": "forest",
+      "environment_id": "RealisticRiver_20261015_093641",
+      "mood": "morning_fog",
+      "lookdev": "soft_portrait",
+      "camera": "close",
+      "focus": "lion",
+      "unsupported": [],
+      "notes": [],
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "facing_yaw_deg": -90,
+          "segments": [
+            {
+              "action": "talk",
+              "duration": 3,
+              "dialogue": "What did you find?",
+              "emotion": "curious",
+              "look_at": "partner"
+            },
+            {
+              "action": "idle",
+              "duration": 2,
+              "dialogue": "",
+              "emotion": "reassuring",
+              "look_at": "partner"
+            }
+          ]
+        },
+        {
+          "character": "rowan",
+          "position_cm": [
+            180,
+            160
+          ],
+          "facing_yaw_deg": 90,
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 3,
+              "dialogue": "",
+              "emotion": "curious",
+              "look_at": "partner"
+            },
+            {
+              "action": "talk",
+              "duration": 2,
+              "dialogue": "The safer path.",
+              "emotion": "reassuring",
+              "look_at": "partner"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "Turn back and continue",
+      "environment": "forest",
+      "environment_id": "RealisticRiver_20261015_093641",
+      "mood": "morning_fog",
+      "lookdev": "soft_portrait",
+      "camera": "full",
+      "focus": "both",
+      "unsupported": [],
+      "notes": [],
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "facing_yaw_deg": 0,
+          "segments": [
+            {
+              "action": "talk",
+              "duration": 2,
+              "dialogue": "I will check.",
+              "emotion": "reassuring"
+            },
+            {
+              "action": "turn",
+              "duration": 2,
+              "dialogue": "",
+              "angle_deg": 90,
+              "radius_cm": 80
+            },
+            {
+              "action": "walk",
+              "duration": 2,
+              "dialogue": "",
+              "distance_cm": 100
+            },
+            {
+              "action": "idle",
+              "duration": 2,
+              "dialogue": ""
+            }
+          ]
+        },
+        {
+          "character": "rowan",
+          "position_cm": [
+            180,
+            160
+          ],
+          "facing_yaw_deg": 90,
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 8,
+              "dialogue": "",
+              "emotion": "reassuring"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

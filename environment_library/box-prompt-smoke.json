@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "title": "Leo the Lion's Box Handling",
+  "character": "lion",
+  "environment": "forest",
+  "mood": "morning_fog",
+  "camera": "full",
+  "segments": [
+    {
+      "action": "box_pickup",
+      "duration": 4.0,
+      "dialogue": "",
+      "look_yaw_deg": 0.0,
+      "look_pitch_deg": 0.0,
+      "emotion": "neutral"
+    },
+    {
+      "action": "box_carry",
+      "duration": 4.0,
+      "distance_cm": 160.0,
+      "speed_cm_s": 40,
+      "dialogue": "",
+      "look_yaw_deg": 0.0,
+      "look_pitch_deg": 0.0,
+      "emotion": "neutral"
+    },
+    {
+      "action": "box_hold",
+      "duration": 2.0,
+      "dialogue": "",
+      "look_yaw_deg": 0.0,
+      "look_pitch_deg": 0.0,
+      "emotion": "neutral"
+    },
+    {
+      "action": "box_setdown",
+      "duration": 4.0,
+      "dialogue": "",
+      "look_yaw_deg": 0.0,
+      "look_pitch_deg": 0.0,
+      "emotion": "neutral"
+    }
+  ],
+  "unsupported": [],
+  "notes": [],
+  "events": [],
+  "lookdev": "soft_portrait"
+}

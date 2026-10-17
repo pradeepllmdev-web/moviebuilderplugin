@@ -1,0 +1,11 @@
+{
+  "snow": {
+    "maximum_hand_step_metres": 0.04489655296669746,
+    "frame": 199
+  },
+  "jacob": {
+    "maximum_hand_step_metres": 0.11914328128558235,
+    "frame": 101
+  },
+  "passed": true
+}

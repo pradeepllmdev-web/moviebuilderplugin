@@ -1,0 +1,108 @@
+{
+  "id": "4958a018af3b419dab31fc3190495366",
+  "status": "complete",
+  "stage": "Movie ready: continuous Unreal preview and website draft",
+  "movie_id": "4958a018af3b419dab31fc3190495366",
+  "report": {
+    "id": "4958a018af3b419dab31fc3190495366",
+    "title": "Leo - Steady Palm Test",
+    "shots": [
+      {
+        "scene_id": "7f1cea86e3e149718f226604d20a8c8d",
+        "title": "Hold the blue ball",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/3e7c66262255456792819fb63a0f3518/Level",
+          "sequence": "/Game/StudioProduction/3e7c66262255456792819fb63a0f3518/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Leo"
+          ],
+          "camera": "full",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      },
+      {
+        "scene_id": "92bb46fe7f0a4744b11c7b702e02a7a2",
+        "title": "Keep the ball steady",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/5d8cb85e85ff4077b95e5a0bfbbf8cf8/Level",
+          "sequence": "/Game/StudioProduction/5d8cb85e85ff4077b95e5a0bfbbf8cf8/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Leo"
+          ],
+          "camera": "medium",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      }
+    ],
+    "rendered": true,
+    "master": {
+      "ok": true,
+      "level": "/Game/StudioMovies/259d40232a724ee68e603cbe626f7727/MasterLevel",
+      "sequence": "/Game/StudioMovies/259d40232a724ee68e603cbe626f7727/Master",
+      "duration": 8.0,
+      "shots": [
+        {
+          "shot": 1,
+          "spawnables": 2
+        },
+        {
+          "shot": 2,
+          "spawnables": 2
+        }
+      ],
+      "audio": "dialogue, twig snap and original procedural music"
+    },
+    "render_history": [
+      {
+        "job_id": "d863dfd5874d4012833c5c5ad097f181",
+        "quality": "draft",
+        "file": "movie-d863dfd5874d4012833c5c5ad097f181.mp4"
+      }
+    ],
+    "audio": {
+      "duration": 8.0,
+      "peak": 0.8026229946408421,
+      "music": "original procedural score",
+      "effects": "procedural footsteps; not surface-specific"
+    },
+    "quality": "draft",
+    "poster": "preview.png",
+    "quality_checks": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "Hold the blue ball: palm-anchor test; finger contact and body penetration require visual review",
+        "Keep the ball steady: palm-anchor test; finger contact and body penetration require visual review",
+        "Camera cropping, pupil contact and facial appeal still require visual review."
+      ],
+      "shots": [
+        {
+          "scene_id": "7f1cea86e3e149718f226604d20a8c8d",
+          "body_tracks": [
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 1
+        },
+        {
+          "scene_id": "92bb46fe7f0a4744b11c7b702e02a7a2",
+          "body_tracks": [
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 1
+        }
+      ]
+    }
+  }
+}

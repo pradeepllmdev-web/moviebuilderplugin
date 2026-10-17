@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "car_source": "https://sketchfab.com/3d-models/none-0a20e49ad5774d778567cb5c3f345786",
+  "license": "CC Attribution",
+  "speed_kmh": 93.6,
+  "distance_m": 310.9,
+  "duration": 12,
+  "views": [
+    "road approach",
+    "side tracking",
+    "driver close-up"
+  ],
+  "car_scale": 1.0,
+  "credit": "Fictional supercar - V12 Goblin by ollitei, CC Attribution",
+  "modifications": "normalized scale; separated wheels; glass removed for driver visibility"
+}

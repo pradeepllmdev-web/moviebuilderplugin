@@ -1,0 +1,53 @@
+{
+  "label": "DemoForest",
+  "biome": "nordic_forest",
+  "terrain": "meadow",
+  "actors": [
+    "DemoForest_Ground",
+    "DemoForest_Forest"
+  ],
+  "used": {
+    "ground": "Mossy Forest Floor",
+    "slopes": "Rocky Forest Floor",
+    "tree": [
+      "Norway Spruce",
+      "Silver Birch"
+    ],
+    "debris": [
+      "Broken Stump"
+    ],
+    "rock": [
+      "Mossy Forest Rock",
+      "Nordic Beach Rocks"
+    ],
+    "fern": [
+      "Fern"
+    ],
+    "grass": [
+      "Ribbon Grass",
+      "Wild Grass"
+    ],
+    "instances": 13102
+  },
+  "warnings": [],
+  "stage": [
+    0.0,
+    0.0,
+    650.0
+  ],
+  "level": "/Game/EnvironmentDemos/ForestMist",
+  "camera": {
+    "location": [
+      -1100,
+      -900,
+      200
+    ],
+    "target": [
+      700,
+      1100,
+      200
+    ]
+  },
+  "reference_image": null,
+  "finished_at": 1792029473.9241426
+}

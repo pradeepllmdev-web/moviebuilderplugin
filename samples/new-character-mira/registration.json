@@ -1,0 +1,21 @@
+{
+  "schema": "character-registration-candidate/1",
+  "id": "mira",
+  "anatomy": "biped",
+  "reference_image": "reference.png",
+  "model": "rigged.glb",
+  "generation_manifest": "generation.json",
+  "body_profile": "body-profile.json",
+  "capability_report": "capabilities.json",
+  "verification_report": "verification.json",
+  "capabilities": {
+    "stationary_talk_gestures": "Blender motion gates passed; preview review required",
+    "head_turn": "Blender motion gates passed; preview review required",
+    "walking": "not tested",
+    "lip_sync": "requires facial rig",
+    "blink": "requires facial rig",
+    "facial_expression": "requires facial rig"
+  },
+  "production_approved": false,
+  "approval_reason": "Body-only candidate; facial calibration and visual review remain."
+}

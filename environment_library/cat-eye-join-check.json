@@ -1,0 +1,12 @@
+[
+  {
+    "name": "BlinkL",
+    "affected": 435,
+    "max_delta": 0.07619
+  },
+  {
+    "name": "BlinkR",
+    "affected": 435,
+    "max_delta": 0.07891
+  }
+]

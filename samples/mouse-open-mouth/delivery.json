@@ -1,0 +1,9 @@
+{
+  "frames": 294,
+  "fps": 24,
+  "full_decode_passed": true,
+  "fresh_model_only": true,
+  "meshy_model_credits": 30,
+  "body_rig": "free local auto_rig after Meshy HTTP 402",
+  "production_approved": false
+}

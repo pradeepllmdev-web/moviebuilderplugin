@@ -1,0 +1,33 @@
+{
+  "level": "/Game/EnvironmentDemos/FreeKit_furniture_kit_v3",
+  "pack": "furniture-kit",
+  "biome": "furniture-kit",
+  "placed": [
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffee.tableCoffee",
+      "scale": 0.1956521739130432,
+      "height_cm": 45
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/furniture_kit/chair.chair",
+      "scale": 0.2127659574468085,
+      "height_cm": 100
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseOpen.bookcaseOpen",
+      "scale": 0.21590912085919756,
+      "height_cm": 190
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedDouble.bedDouble",
+      "scale": 0.2666666666666668,
+      "height_cm": 100
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampRoundFloor.lampRoundFloor",
+      "scale": 0.19767441860465115,
+      "height_cm": 170
+    }
+  ],
+  "finished_at": 1792074735.0322025
+}

@@ -1,0 +1,147 @@
+{
+  "label": "HighlandPass_20261015_094149",
+  "biome": "rocky_highland",
+  "terrain": "valley",
+  "actors": [
+    "HighlandPass_20261015_094149_Ground",
+    "HighlandPass_20261015_094149_Mountains",
+    "HighlandPass_20261015_094149_Forest"
+  ],
+  "used": {
+    "ground": "Rocky Forest Floor",
+    "slopes": "Forest Floor",
+    "mountains": [
+      "dirt",
+      "grass",
+      "rock"
+    ],
+    "tree": [
+      "Norway Spruce"
+    ],
+    "rock": [
+      "Mossy Forest Rock",
+      "Nordic Beach Rocks"
+    ],
+    "cliff": [
+      "Large Nordic Coastal Cliff"
+    ],
+    "grass": [
+      "Ribbon Grass",
+      "Wild Grass"
+    ],
+    "instances": 2431
+  },
+  "warnings": [],
+  "stage": [
+    0.0,
+    0.0,
+    400.0
+  ],
+  "camera_detail": {
+    "label": "HighlandPass_20261015_094149_CameraDetail",
+    "instances": 8130,
+    "by_mesh": {
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarA": 638,
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarB": 634,
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarC": 708,
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarD": 695,
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarE": 654,
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarF": 630,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarA": 650,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarB": 716,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarC": 669,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarD": 694,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarE": 675,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarF": 680,
+      "/Game/PN_Fern/Meshes/fern_01_01": 16,
+      "/Game/PN_Fern/Meshes/fern_01_02": 10,
+      "/Game/PN_Fern/Meshes/fern_01_03": 14,
+      "/Game/PN_Fern/Meshes/fern_01_04": 16,
+      "/Game/PN_Fern/Meshes/fern_02_01": 13,
+      "/Game/PN_Fern/Meshes/fern_02_02": 18
+    },
+    "params": {
+      "layers": [
+        {
+          "density": 140,
+          "scale": [
+            0.8,
+            1.35
+          ],
+          "within": [
+            -1500,
+            -2300,
+            4500
+          ],
+          "in_clear": true,
+          "meshes": [
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarA",
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarB",
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarC",
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarD",
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarE",
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarF",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarA",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarB",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarC",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarD",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarE",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarF"
+          ]
+        },
+        {
+          "density": 3,
+          "scale": [
+            0.7,
+            1.25
+          ],
+          "within": [
+            -1500,
+            -2300,
+            4000
+          ],
+          "meshes": [
+            "/Game/PN_Fern/Meshes/fern_01_01",
+            "/Game/PN_Fern/Meshes/fern_01_02",
+            "/Game/PN_Fern/Meshes/fern_01_03",
+            "/Game/PN_Fern/Meshes/fern_01_04",
+            "/Game/PN_Fern/Meshes/fern_02_01",
+            "/Game/PN_Fern/Meshes/fern_02_02"
+          ]
+        }
+      ],
+      "center": [
+        -1500.0,
+        -2300.0
+      ],
+      "size": [
+        12000.0,
+        12000.0
+      ],
+      "density": 1.0,
+      "seed": 193,
+      "clumping": 0.7,
+      "clearings": 0.03,
+      "max_slope": 35.0,
+      "tree_line": null,
+      "avoid_water": true,
+      "scale": 1.0,
+      "clear": []
+    }
+  },
+  "level": "/Game/EnvironmentDemos/HighlandPass_20261015_094149_CameraFixed",
+  "camera": {
+    "location": [
+      -4500,
+      -6000,
+      3500
+    ],
+    "target": [
+      1000,
+      10000,
+      1800
+    ]
+  },
+  "reference_image": null,
+  "finished_at": 1792075325.723169
+}

@@ -1,0 +1,140 @@
+{
+  "native": {
+    "facial_ranges": {
+      "jawOpen": [
+        0.0,
+        0.7367812991142273
+      ],
+      "eyeBlinkLeft": [
+        0.0,
+        1.0
+      ],
+      "eyeBlinkRight": [
+        0.0,
+        1.0
+      ],
+      "mouthFunnel": [
+        0.0,
+        0.38515692949295044
+      ],
+      "mouthStretchLeft": [
+        0.0,
+        0.2232406586408615
+      ],
+      "mouthStretchRight": [
+        0.0,
+        0.2232406586408615
+      ],
+      "mouthClose": [
+        0.0,
+        0.6499999761581421
+      ],
+      "mouthPressLeft": [
+        0.0,
+        0.0
+      ],
+      "mouthPressRight": [
+        0.0,
+        0.0
+      ],
+      "browInnerUp": [
+        0.004476743284612894,
+        0.29249998927116394
+      ],
+      "mouthSmileLeft": [
+        0.04399999976158142,
+        0.04399999976158142
+      ],
+      "mouthSmileRight": [
+        0.04399999976158142,
+        0.04399999976158142
+      ]
+    },
+    "body_span_m": {
+      "LeftHand": 0.34682457945140027,
+      "RightHand": 0.4033954679650047,
+      "Hips": 0.0,
+      "LeftFoot": 0.0,
+      "RightFoot": 0.0
+    },
+    "body_max_step_m": {
+      "LeftHand": 0.023346348678030093,
+      "RightHand": 0.024556418399783567,
+      "Hips": 0.0,
+      "LeftFoot": 0.0,
+      "RightFoot": 0.0
+    },
+    "head_range_degrees": 12.201957928630298
+  },
+  "unreal_verified": false,
+  "glb_roundtrip": {
+    "facial_ranges": {
+      "jawOpen": [
+        0.0,
+        0.7367812991142273
+      ],
+      "eyeBlinkLeft": [
+        0.0,
+        1.0
+      ],
+      "eyeBlinkRight": [
+        0.0,
+        1.0
+      ],
+      "mouthFunnel": [
+        0.0,
+        0.38515692949295044
+      ],
+      "mouthStretchLeft": [
+        0.0,
+        0.2232406586408615
+      ],
+      "mouthStretchRight": [
+        0.0,
+        0.2232406586408615
+      ],
+      "mouthClose": [
+        0.0,
+        0.6499999761581421
+      ],
+      "mouthPressLeft": [
+        0.0,
+        0.0
+      ],
+      "mouthPressRight": [
+        0.0,
+        0.0
+      ],
+      "browInnerUp": [
+        0.004476743284612894,
+        0.29249998927116394
+      ],
+      "mouthSmileLeft": [
+        0.04399999976158142,
+        0.04399999976158142
+      ],
+      "mouthSmileRight": [
+        0.04399999976158142,
+        0.04399999976158142
+      ]
+    },
+    "body_span_m": {
+      "LeftHand": 0.34682446264151645,
+      "RightHand": 0.4033964468562513,
+      "Hips": 0.0,
+      "LeftFoot": 0.0,
+      "RightFoot": 0.0
+    },
+    "body_max_step_m": {
+      "LeftHand": 0.0233455399247081,
+      "RightHand": 0.024556598917186836,
+      "Hips": 0.0,
+      "LeftFoot": 0.0,
+      "RightFoot": 0.0
+    },
+    "head_range_degrees": 12.202021961653767
+  },
+  "facial_timing_max_error": 0.0,
+  "source_unchanged": true,
+  "passed": true
+}

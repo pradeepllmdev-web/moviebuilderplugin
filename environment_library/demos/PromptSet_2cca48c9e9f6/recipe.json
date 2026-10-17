@@ -1,0 +1,60 @@
+{
+  "mood": "golden_hour",
+  "buildings": [
+    {
+      "position_cm": [
+        -1800,
+        -400
+      ],
+      "width_tiles": 3,
+      "depth_tiles": 3
+    },
+    {
+      "position_cm": [
+        1000,
+        -400
+      ],
+      "width_tiles": 3,
+      "depth_tiles": 3
+    }
+  ],
+  "roads": [
+    {
+      "id": "main",
+      "kind": "straight",
+      "cell": [
+        0,
+        0
+      ],
+      "yaw": 0
+    }
+  ],
+  "notes": [],
+  "unsupported": [],
+  "assets": [
+    {
+      "asset_id": "grass.130418899e",
+      "position_cm": [
+        -3500,
+        1000
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "grass.130418899e",
+      "position_cm": [
+        -3500,
+        3000
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "grass.130418899e",
+      "position_cm": [
+        -3500,
+        5000
+      ],
+      "scale": 1
+    }
+  ]
+}

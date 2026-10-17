@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "level": "/Game/EnvironmentDemos/DeliveryMishap_20261015_110921",
+  "id": "DeliveryMishap_20261015_110921",
+  "characters": [
+    {
+      "name": "cat",
+      "actor": "Delivery_cat",
+      "mesh": "/Game/PhysicsLab/package_20261015_101957/cat/cat.cat"
+    },
+    {
+      "name": "lion",
+      "actor": "Delivery_lion",
+      "mesh": "/Game/PhysicsLab/package_20261015_101957/lion/lion.lion"
+    }
+  ],
+  "source_house": "/Game/EnvironmentDemos/ModernHouse_20261015_095225_LightingFixed"
+}

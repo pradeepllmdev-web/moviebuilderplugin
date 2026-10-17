@@ -1,0 +1,28 @@
+{
+  "schema": "movie-environment-catalog/1",
+  "status": "starter definitions; not built or verified in the live Unreal project",
+  "builder_units": "centimeters",
+  "categories": ["woodland", "open_landscape", "waterfront", "urban", "rural", "interior", "industrial", "historical", "fantasy_scifi"],
+  "variation_axes": ["visual_style", "season", "time_of_day", "weather", "terrain", "vegetation_density", "architecture", "dressing", "water", "lighting", "camera_layout", "action_clearance"],
+  "starter_templates": [
+    {"id":"riverbank","category":"waterfront","builder":"add_real_world","status":"existing builder; asset and visual verification pending","params":{"biome":"meadow","terrain":"flat","river":"near","mountains":true,"size":40000,"stage_radius":2200,"density":0.8,"seed":41,"label":"Env_Riverbank"},"extensions_needed":["editable river/path placement","bridge asset and stage anchors"]},
+    {"id":"pine_forest","category":"woodland","builder":"add_real_world","status":"existing builder; asset and visual verification pending","params":{"biome":"nordic_forest","terrain":"meadow","river":"none","mountains":false,"size":40000,"stage_radius":1800,"density":1.0,"seed":42,"label":"Env_PineForest"},"extensions_needed":["camera and walking corridors"]},
+    {"id":"birch_grove","category":"woodland","builder":"add_real_world","status":"existing builder; asset and visual verification pending","params":{"biome":"birch_grove","terrain":"meadow","river":"none","mountains":false,"size":30000,"stage_radius":2000,"density":0.8,"seed":43,"label":"Env_BirchGrove"},"extensions_needed":["seasonal material variants"]},
+    {"id":"open_meadow","category":"open_landscape","builder":"add_real_world","status":"existing builder; asset and visual verification pending","params":{"biome":"meadow","terrain":"meadow","river":"far","mountains":true,"size":50000,"stage_radius":3000,"density":0.7,"seed":44,"label":"Env_Meadow"},"extensions_needed":["race-path anchors and unobstructed camera routes"]},
+    {"id":"mountain_valley","category":"open_landscape","builder":"add_real_world","status":"existing builder; asset and visual verification pending","params":{"biome":"rocky_highland","terrain":"valley","river":"far","mountains":true,"size":60000,"stage_radius":2000,"density":0.6,"seed":45,"label":"Env_MountainValley"},"extensions_needed":["close cliff detail and path collision checks"]},
+    {"id":"woodland_camp","category":"woodland","builder":"add_real_world","status":"existing builder; asset and visual verification pending","params":{"biome":"beech_woods","terrain":"flat","river":"none","mountains":false,"size":30000,"stage_radius":1800,"density":0.9,"seed":46,"label":"Env_WoodlandCamp"},"extensions_needed":["camp props","fire lighting and effects"]}
+  ],
+  "planned_templates": [
+    {"id":"home_room","category":"interior","requires":["modular room kit","furniture","window and doorway anchors"]},
+    {"id":"village_street","category":"rural","requires":["modular buildings","roads","market props"]},
+    {"id":"city_street","category":"urban","requires":["building facades","sidewalks","street props","traffic and pedestrian lanes"]},
+    {"id":"warehouse","category":"industrial","requires":["industrial building kit","shelves and machinery"]},
+    {"id":"coast","category":"waterfront","requires":["shoreline assets","ocean or beach water setup"]},
+    {"id":"desert","category":"open_landscape","requires":["sand materials","desert rocks and vegetation"]},
+    {"id":"snow_country","category":"open_landscape","requires":["snow materials","snow-compatible vegetation"]},
+    {"id":"castle_courtyard","category":"historical","requires":["stone architecture kit","historical props"]},
+    {"id":"fantasy_scifi_set","category":"fantasy_scifi","requires":["explicit art direction","matching modular asset kit"]}
+  ],
+  "instance_requirements": ["environment_id", "template_id", "recipe_version", "seed", "resolved_asset_ids", "reference_image_ids", "layout", "action_zones", "camera_zones", "lighting_overrides", "missing_assets", "review_status"],
+  "reference_pipeline": ["analyze visible layout/style/materials/light","select nearest supported template","record uncertain dimensions and unseen geometry","resolve available assets","generate layout and staging draft","render reference-matched and alternate camera previews","review and apply targeted overrides","freeze version for movie continuity"]
+}

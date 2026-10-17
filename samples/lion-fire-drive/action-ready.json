@@ -1,0 +1,14 @@
+{
+  "ok": true,
+  "car_source": "https://kenney.nl/assets/car-kit",
+  "license": "CC0",
+  "speed_kmh": 93.6,
+  "distance_m": 310.9,
+  "duration": 12,
+  "views": [
+    "road approach",
+    "side tracking",
+    "driver close-up"
+  ],
+  "car_scale": 1.7579687316047443
+}

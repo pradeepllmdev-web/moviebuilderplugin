@@ -1,0 +1,1162 @@
+{
+  "boxes": [
+    {
+      "id": "0_floor_0",
+      "position_cm": [
+        100,
+        100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "1_floor_0",
+      "position_cm": [
+        100,
+        300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "2_floor_0",
+      "position_cm": [
+        100,
+        500,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "3_window_0",
+      "position_cm": [
+        100,
+        0,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "3_window_1",
+      "position_cm": [
+        100,
+        0,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "3_window_2",
+      "position_cm": [
+        10,
+        0,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "3_window_3",
+      "position_cm": [
+        190,
+        0,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "4_wall_0",
+      "position_cm": [
+        100,
+        600,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "5_floor_0",
+      "position_cm": [
+        300,
+        100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "6_floor_0",
+      "position_cm": [
+        300,
+        300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "7_floor_0",
+      "position_cm": [
+        300,
+        500,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "8_door_0",
+      "position_cm": [
+        225,
+        0,
+        150
+      ],
+      "size_cm": [
+        50,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "8_door_1",
+      "position_cm": [
+        375,
+        0,
+        150
+      ],
+      "size_cm": [
+        50,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "8_door_2",
+      "position_cm": [
+        300,
+        0,
+        260
+      ],
+      "size_cm": [
+        100,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "9_wall_0",
+      "position_cm": [
+        300,
+        600,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "10_floor_0",
+      "position_cm": [
+        500,
+        100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "11_floor_0",
+      "position_cm": [
+        500,
+        300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "12_floor_0",
+      "position_cm": [
+        500,
+        500,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "13_window_0",
+      "position_cm": [
+        500,
+        0,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "13_window_1",
+      "position_cm": [
+        500,
+        0,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "13_window_2",
+      "position_cm": [
+        410,
+        0,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "13_window_3",
+      "position_cm": [
+        590,
+        0,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "14_wall_0",
+      "position_cm": [
+        500,
+        600,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "15_floor_0",
+      "position_cm": [
+        700,
+        100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "16_floor_0",
+      "position_cm": [
+        700,
+        300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "17_floor_0",
+      "position_cm": [
+        700,
+        500,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "18_window_0",
+      "position_cm": [
+        700,
+        0,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "18_window_1",
+      "position_cm": [
+        700,
+        0,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "18_window_2",
+      "position_cm": [
+        610,
+        0,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "18_window_3",
+      "position_cm": [
+        790,
+        0,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "19_wall_0",
+      "position_cm": [
+        700,
+        600,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "20_window_0",
+      "position_cm": [
+        0,
+        100,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "20_window_1",
+      "position_cm": [
+        0,
+        100,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "20_window_2",
+      "position_cm": [
+        0,
+        10,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "20_window_3",
+      "position_cm": [
+        0,
+        190,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "21_wall_0",
+      "position_cm": [
+        800,
+        100,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "22_window_0",
+      "position_cm": [
+        0,
+        300,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "22_window_1",
+      "position_cm": [
+        0,
+        300,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "22_window_2",
+      "position_cm": [
+        0,
+        210,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "22_window_3",
+      "position_cm": [
+        0,
+        390,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "23_wall_0",
+      "position_cm": [
+        800,
+        300,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "24_window_0",
+      "position_cm": [
+        0,
+        500,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "24_window_1",
+      "position_cm": [
+        0,
+        500,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "24_window_2",
+      "position_cm": [
+        0,
+        410,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "24_window_3",
+      "position_cm": [
+        0,
+        590,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "25_wall_0",
+      "position_cm": [
+        800,
+        500,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "26_corner_0",
+      "position_cm": [
+        0,
+        0,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "27_corner_0",
+      "position_cm": [
+        0,
+        600,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "28_corner_0",
+      "position_cm": [
+        800,
+        0,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "29_corner_0",
+      "position_cm": [
+        800,
+        600,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "roof_sample_0",
+      "position_cm": [
+        1200,
+        100,
+        310
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "stairs_sample_0",
+      "position_cm": [
+        1200,
+        410,
+        10
+      ],
+      "size_cm": [
+        200,
+        30,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "stairs_sample_1",
+      "position_cm": [
+        1200,
+        440,
+        20
+      ],
+      "size_cm": [
+        200,
+        30,
+        40
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "stairs_sample_2",
+      "position_cm": [
+        1200,
+        470,
+        30
+      ],
+      "size_cm": [
+        200,
+        30,
+        60
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "stairs_sample_3",
+      "position_cm": [
+        1200,
+        500,
+        40
+      ],
+      "size_cm": [
+        200,
+        30,
+        80
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "stairs_sample_4",
+      "position_cm": [
+        1200,
+        530,
+        50
+      ],
+      "size_cm": [
+        200,
+        30,
+        100
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "stairs_sample_5",
+      "position_cm": [
+        1200,
+        560,
+        60
+      ],
+      "size_cm": [
+        200,
+        30,
+        120
+      ],
+      "yaw": 0,
+      "material": "wood"
+    }
+  ],
+  "connectors": [
+    {
+      "part": "3_window",
+      "position_cm": [
+        0,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "3_window",
+      "position_cm": [
+        200,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "4_wall",
+      "position_cm": [
+        0,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "4_wall",
+      "position_cm": [
+        200,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "8_door",
+      "position_cm": [
+        200,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "8_door",
+      "position_cm": [
+        400,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "9_wall",
+      "position_cm": [
+        200,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "9_wall",
+      "position_cm": [
+        400,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "13_window",
+      "position_cm": [
+        400,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "13_window",
+      "position_cm": [
+        600,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "14_wall",
+      "position_cm": [
+        400,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "14_wall",
+      "position_cm": [
+        600,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "18_window",
+      "position_cm": [
+        600,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "18_window",
+      "position_cm": [
+        800,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "19_wall",
+      "position_cm": [
+        600,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "19_wall",
+      "position_cm": [
+        800,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "20_window",
+      "position_cm": [
+        0,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "20_window",
+      "position_cm": [
+        0,
+        200,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "21_wall",
+      "position_cm": [
+        800,
+        0,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "21_wall",
+      "position_cm": [
+        800,
+        200,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "22_window",
+      "position_cm": [
+        0,
+        200,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "22_window",
+      "position_cm": [
+        0,
+        400,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "23_wall",
+      "position_cm": [
+        800,
+        200,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "23_wall",
+      "position_cm": [
+        800,
+        400,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "24_window",
+      "position_cm": [
+        0,
+        400,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "24_window",
+      "position_cm": [
+        0,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "25_wall",
+      "position_cm": [
+        800,
+        400,
+        0
+      ],
+      "type": "wall_end"
+    },
+    {
+      "part": "25_wall",
+      "position_cm": [
+        800,
+        600,
+        0
+      ],
+      "type": "wall_end"
+    }
+  ],
+  "anchors": [
+    {
+      "part": "8_door",
+      "type": "passage",
+      "position_cm": [
+        300,
+        0,
+        0
+      ],
+      "clearance_cm": [
+        100,
+        220
+      ]
+    }
+  ],
+  "parts": [
+    "0_floor",
+    "1_floor",
+    "2_floor",
+    "3_window",
+    "4_wall",
+    "5_floor",
+    "6_floor",
+    "7_floor",
+    "8_door",
+    "9_wall",
+    "10_floor",
+    "11_floor",
+    "12_floor",
+    "13_window",
+    "14_wall",
+    "15_floor",
+    "16_floor",
+    "17_floor",
+    "18_window",
+    "19_wall",
+    "20_window",
+    "21_wall",
+    "22_window",
+    "23_wall",
+    "24_window",
+    "25_wall",
+    "26_corner",
+    "27_corner",
+    "28_corner",
+    "29_corner",
+    "roof_sample",
+    "stairs_sample"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "centers_world": [
+    [
+      -0.12324,
+      -0.46657,
+      0.66482
+    ],
+    [
+      0.12571,
+      -0.43566,
+      0.66704
+    ]
+  ],
+  "new_model_only": true,
+  "status": "visual-review-required"
+}

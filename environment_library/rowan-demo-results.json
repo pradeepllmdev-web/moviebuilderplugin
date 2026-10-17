@@ -1,0 +1,22 @@
+[
+  {
+    "id": "296cfdd87b0049759ebf460ee51e2814",
+    "status": "complete",
+    "stage": "Saved and opened in Unreal - play Sequencer",
+    "report": {
+      "ok": true,
+      "level": "/Game/StudioProduction/dcedd256aba44f2abed2210283948ba8/Level",
+      "sequence": "/Game/StudioProduction/dcedd256aba44f2abed2210283948ba8/Performance",
+      "duration": 6.0,
+      "characters": [
+        "Rowan"
+      ],
+      "camera": "full",
+      "warnings": [
+        "Animation grounding only; no collision simulation",
+        "Rowan native eyelids enabled; lion/cat blinks disabled"
+      ]
+    },
+    "scene_id": "296cfdd87b0049759ebf460ee51e2814"
+  }
+]

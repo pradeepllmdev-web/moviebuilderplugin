@@ -1,0 +1,21 @@
+{
+  "project": "../../../../../../Users/nagal/OneDrive/Documents/GitHub/unrealplugin-next/verification/LatestSceneProject/LatestSceneVerification.uproject",
+  "bridge": "http://127.0.0.1:8520",
+  "plugin": "C:\\Users/nagal/OneDrive/Documents/GitHub/unrealplugin-next/verification/LatestSceneProject/Plugins/UnrealBridge/Content/Python\\unreal_bridge\\__init__.py",
+  "biomes": [
+    "nordic_forest",
+    "birch_grove",
+    "beech_woods",
+    "meadow",
+    "rocky_highland"
+  ],
+  "asset_groups": {
+    "cliff": 1,
+    "debris": 1,
+    "fern": 1,
+    "grass": 2,
+    "rock": 2,
+    "surface": 4,
+    "tree": 3
+  }
+}

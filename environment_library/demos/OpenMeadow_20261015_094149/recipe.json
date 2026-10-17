@@ -1,0 +1,56 @@
+{
+  "id": "OpenMeadow_20261015_094149",
+  "params": {
+    "biome": "meadow",
+    "terrain": "meadow",
+    "river": "none",
+    "mountains": false,
+    "mood": "blockbuster",
+    "density": 1.35,
+    "size": 30000,
+    "stage_radius": 350,
+    "seed": 92,
+    "label": "OpenMeadow_20261015_094149"
+  },
+  "camera": {
+    "location": [
+      -1800,
+      -2200,
+      240
+    ],
+    "target": [
+      500,
+      8000,
+      200
+    ]
+  },
+  "detail_layers": [
+    {
+      "kind": "grass",
+      "density": 300,
+      "scale": [
+        0.8,
+        1.35
+      ],
+      "within": [
+        -1800,
+        -2200,
+        4500
+      ],
+      "in_clear": true
+    },
+    {
+      "kind": "fern",
+      "density": 3,
+      "scale": [
+        0.7,
+        1.25
+      ],
+      "within": [
+        -1800,
+        -2200,
+        4000
+      ]
+    }
+  ]
+}

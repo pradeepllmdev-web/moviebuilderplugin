@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "unreal_units_per_metre": 100,
+  "characters_cm": {"lion": 185, "cat": 150},
+  "architecture_cm": {"door_width": 100, "door_height": 220, "residential_floor": 300, "office_floor": 400, "road_lane_width": 350},
+  "profiles": {
+    "chair": {"axis": "z", "target_cm": 90, "note": "Overall height; seat height requires a separately authored seat anchor."},
+    "dining_table": {"axis": "z", "target_cm": 75},
+    "coffee_table": {"axis": "z", "target_cm": 45},
+    "sofa": {"axis": "x", "target_cm": 210},
+    "bookcase": {"axis": "z", "target_cm": 190},
+    "bed": {"axis": "y", "target_cm": 210},
+    "floor_lamp": {"axis": "z", "target_cm": 170}
+  },
+  "tree_height_range_cm": [800, 3000],
+  "pack_references": {
+    "furniture-kit": {"asset": "chair", "axis": "z", "target_cm": 90},
+    "city-kit-suburban": {"asset": "building_type_a", "axis": "z", "floors": 2, "kind": "residential", "roof_cm": 90},
+    "city-kit-industrial": {"asset": "building_a", "axis": "z", "floors": 2, "kind": "office", "roof_cm": 100}
+  },
+  "rules": ["Unreal asset bounds are centimetres; convert external units once at import.", "Scale uniformly to preserve proportions.", "Use authored anchors for seats, handles and foot soles; bounds cannot infer them.", "Building height follows explicit floor count and floor height, not arbitrary per-model height.", "Preserve tree variation; report out-of-range heights for review instead of resizing every tree."]
+}

@@ -1,0 +1,25 @@
+{
+  "backup": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\character_workflow_backups\\20261014-193457",
+  "files": [
+    {
+      "file": "server\\character_workflow.py",
+      "sha256": "d21dc3bb94e20c6c0e4eb1cdeebccb053d06754666e0e304e90c72ec3118a12b"
+    },
+    {
+      "file": "server\\character_workflow_face.py",
+      "sha256": "a40cc46a70690965dddf9cba02fce0eef095165caaff9dec483fd27ee7077b62"
+    },
+    {
+      "file": "server\\character_workflow_performance.py",
+      "sha256": "c722c3a2051ae77f4b13ae8ba70a7e05a7dece8b9a66587fa8a753c39a41be3a"
+    },
+    {
+      "file": "server\\blender_scripts\\character_workflow_demo.py",
+      "sha256": "8b092ac03b54387bc2c8561d1651b603026eeafd724e254990ebf72983161440"
+    },
+    {
+      "file": "client\\src\\components\\CharacterWorkflow.tsx",
+      "sha256": "b476612539f330a94493760d67792a33e03f80ffec189a51a290efcf05e40ee3"
+    }
+  ]
+}

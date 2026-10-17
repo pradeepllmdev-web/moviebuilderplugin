@@ -1,0 +1,76 @@
+{
+  "schema": "motion-families/1",
+  "families": {
+    "talk_gestures": {
+      "channels": [
+        "arms",
+        "wrists",
+        "torso"
+      ],
+      "reference": "visible upper-body speaking performance",
+      "status": "sample-tested in Blender; not yet verified in Unreal"
+    },
+    "head_attention": {
+      "channels": [
+        "head_yaw",
+        "head_nod",
+        "head_roll"
+      ],
+      "reference": "unobstructed head turns and nods",
+      "status": "sample-tested in Blender; not yet verified in Unreal"
+    },
+    "blink_brow_expression": {
+      "channels": [
+        "blink",
+        "brow",
+        "smile",
+        "gaze"
+      ],
+      "reference": "clear face close-up",
+      "status": "sample-tested in Blender; not yet verified in Unreal"
+    },
+    "walk": {
+      "channels": [
+        "root",
+        "hips",
+        "legs",
+        "feet",
+        "arms"
+      ],
+      "reference": "full body, feet visible, measured travel",
+      "status": "requires new adapter and source verification"
+    },
+    "run": {
+      "channels": [
+        "root",
+        "hips",
+        "legs",
+        "feet",
+        "arms"
+      ],
+      "reference": "full body running, floor contacts and travel visible",
+      "status": "requires new adapter and source verification"
+    },
+    "wave": {
+      "channels": [
+        "arm",
+        "wrist",
+        "fingers"
+      ],
+      "reference": "complete arm and hand visible",
+      "status": "requires dedicated capture review"
+    },
+    "sit_stand": {
+      "channels": [
+        "hips",
+        "spine",
+        "legs",
+        "feet",
+        "contacts"
+      ],
+      "reference": "full body and chair/floor visible",
+      "status": "requires contact-aware adapter"
+    }
+  },
+  "policy": "Verify each video visually and by tracking quality. A filename/title is not evidence of the motion. Do not infer leg or finger performance from a cropped upper-body reference."
+}

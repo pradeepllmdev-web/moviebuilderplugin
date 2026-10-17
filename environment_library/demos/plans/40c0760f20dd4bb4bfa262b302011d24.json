@@ -1,0 +1,71 @@
+{
+  "prompt": "A remote mountain village under soft overcast daylight, mood overcast_drizzle. Two small houses at [-1800,-400] and [1000,-400], width_tiles3 depth_tiles3. One straight road tile cell[0,0], yaw0. Three spruce trees spaced at [-4000,-2500], [-4000,2500], [4000,2500], scale0.6. A mountain behind at +Y, height_cm35000 size_cm180000 distance_cm150000 side_deg90. Use supported construction only.",
+  "plan": {
+    "mood": "overcast_drizzle",
+    "buildings": [
+      {
+        "position_cm": [
+          -1800,
+          -400
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      },
+      {
+        "position_cm": [
+          1000,
+          -400
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      }
+    ],
+    "roads": [
+      {
+        "id": "main",
+        "kind": "straight",
+        "cell": [
+          0,
+          0
+        ],
+        "yaw": 0
+      }
+    ],
+    "assets": [
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          -4000,
+          -2500
+        ],
+        "scale": 0.6
+      },
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          -4000,
+          2500
+        ],
+        "scale": 0.6
+      },
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          4000,
+          2500
+        ],
+        "scale": 0.6
+      }
+    ],
+    "mountains": {
+      "enabled": true,
+      "height_cm": 35000,
+      "size_cm": 180000,
+      "distance_cm": 150000,
+      "side_deg": 90
+    },
+    "notes": [],
+    "unsupported": [],
+    "contract_version": 1
+  }
+}

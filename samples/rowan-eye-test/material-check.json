@@ -1,0 +1,38 @@
+[
+  {
+    "slot": "Rowan-Body_body",
+    "material": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Character_0/Rowan-Body_body.Rowan-Body_body"
+  },
+  {
+    "slot": "Rowan-Body_high-poly",
+    "material": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Character_0/Rowan-Body_high-poly.Rowan-Body_high-poly"
+  },
+  {
+    "slot": "Rowan-Body_eyebrow001",
+    "material": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Character_0/Rowan-Body_eyebrow001.Rowan-Body_eyebrow001"
+  },
+  {
+    "slot": "Rowan-Body_eyelashes01",
+    "material": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Character_0/Rowan-Body_eyelashes01.Rowan-Body_eyelashes01"
+  },
+  {
+    "slot": "Rowan-Body_teeth_base",
+    "material": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Character_0/Rowan-Body_teeth_base.Rowan-Body_teeth_base"
+  },
+  {
+    "slot": "Rowan-Body_tongue01",
+    "material": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Character_0/Rowan-Body_tongue01.Rowan-Body_tongue01"
+  },
+  {
+    "slot": "Rowan-Body_short02",
+    "material": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Character_0/Rowan-Body_short02.Rowan-Body_short02"
+  },
+  {
+    "slot": "Rowan-Body_male_casualsuit01",
+    "material": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Character_0/Rowan-Body_male_casualsuit01.Rowan-Body_male_casualsuit01"
+  },
+  {
+    "slot": "Rowan-Body_shoes01",
+    "material": "/Game/StudioProduction/512872e98d634a5aa388fe6e706168e6/Character_0/Rowan-Body_shoes01.Rowan-Body_shoes01"
+  }
+]

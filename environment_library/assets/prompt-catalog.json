@@ -1,0 +1,5717 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "id": "cliff.4ec4f27b42",
+      "mesh_type": "static",
+      "category": "cliff",
+      "name": "Large Nordic Coastal Cliff",
+      "path": "/Game/Fab/Megascans/3D/Large_Nordic_Coastal_Cliff_ulkiejkva/Raw/ulkiejkva_tier_0/StaticMeshes/ulkiejkva_tier_0",
+      "dimensions_cm": [
+        294.0345153808594,
+        651.1172485351562,
+        222.94521141052246
+      ],
+      "bottom_cm": -8.101690292358398,
+      "style": "scanned",
+      "tags": [
+        "cliff",
+        "Large Nordic Coastal Cliff"
+      ]
+    },
+    {
+      "id": "debris.581c039a29",
+      "mesh_type": "static",
+      "category": "debris",
+      "name": "Broken Stump",
+      "path": "/Game/Fab/Megascans/3D/Broken_Stump_rkswd/Medium/rkswd_tier_2/StaticMeshes/rkswd_tier_2",
+      "dimensions_cm": [
+        88.0,
+        95.17395782470703,
+        38.10279989242554
+      ],
+      "bottom_cm": -5.513490200042725,
+      "style": "scanned",
+      "tags": [
+        "debris",
+        "Broken Stump"
+      ]
+    },
+    {
+      "id": "fern.4093de87c9",
+      "mesh_type": "static",
+      "category": "fern",
+      "name": "Fern",
+      "path": "/Game/PN_Fern/Meshes/fern_01_01",
+      "dimensions_cm": [
+        75.86004638671875,
+        66.80357360839844,
+        66.59906005859375
+      ],
+      "bottom_cm": -0.096282958984375,
+      "style": "scanned",
+      "tags": [
+        "fern",
+        "Fern"
+      ]
+    },
+    {
+      "id": "fern.a80cf4a278",
+      "mesh_type": "static",
+      "category": "fern",
+      "name": "Fern",
+      "path": "/Game/PN_Fern/Meshes/fern_01_02",
+      "dimensions_cm": [
+        70.44209289550781,
+        81.2052001953125,
+        53.39666748046875
+      ],
+      "bottom_cm": -0.6458797454833984,
+      "style": "scanned",
+      "tags": [
+        "fern",
+        "Fern"
+      ]
+    },
+    {
+      "id": "fern.41c5a5778e",
+      "mesh_type": "static",
+      "category": "fern",
+      "name": "Fern",
+      "path": "/Game/PN_Fern/Meshes/fern_01_03",
+      "dimensions_cm": [
+        99.47332763671875,
+        93.66278076171875,
+        54.39808654785156
+      ],
+      "bottom_cm": -0.1359081268310547,
+      "style": "scanned",
+      "tags": [
+        "fern",
+        "Fern"
+      ]
+    },
+    {
+      "id": "fern.51a886f9cb",
+      "mesh_type": "static",
+      "category": "fern",
+      "name": "Fern",
+      "path": "/Game/PN_Fern/Meshes/fern_01_04",
+      "dimensions_cm": [
+        98.27169799804688,
+        101.33236694335938,
+        64.08282470703125
+      ],
+      "bottom_cm": -0.19841575622558594,
+      "style": "scanned",
+      "tags": [
+        "fern",
+        "Fern"
+      ]
+    },
+    {
+      "id": "grass.130418899e",
+      "mesh_type": "static",
+      "category": "grass",
+      "name": "Ribbon Grass",
+      "path": "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarA",
+      "dimensions_cm": [
+        70.58598136901855,
+        72.39358520507812,
+        53.55622673034668
+      ],
+      "bottom_cm": -11.042928695678711,
+      "style": "scanned",
+      "tags": [
+        "grass",
+        "Ribbon Grass"
+      ]
+    },
+    {
+      "id": "grass.80a917a7e1",
+      "mesh_type": "static",
+      "category": "grass",
+      "name": "Ribbon Grass",
+      "path": "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarB",
+      "dimensions_cm": [
+        52.67666816711426,
+        62.4285831451416,
+        44.696961879730225
+      ],
+      "bottom_cm": -4.4469428062438965,
+      "style": "scanned",
+      "tags": [
+        "grass",
+        "Ribbon Grass"
+      ]
+    },
+    {
+      "id": "grass.2257b3b7ea",
+      "mesh_type": "static",
+      "category": "grass",
+      "name": "Ribbon Grass",
+      "path": "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarC",
+      "dimensions_cm": [
+        60.13575744628906,
+        53.12436103820801,
+        37.09740352630615
+      ],
+      "bottom_cm": -4.601836204528809,
+      "style": "scanned",
+      "tags": [
+        "grass",
+        "Ribbon Grass"
+      ]
+    },
+    {
+      "id": "grass.dc619eed09",
+      "mesh_type": "static",
+      "category": "grass",
+      "name": "Ribbon Grass",
+      "path": "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarD",
+      "dimensions_cm": [
+        43.2909049987793,
+        47.589176177978516,
+        35.68568658828735
+      ],
+      "bottom_cm": -3.8730626106262207,
+      "style": "scanned",
+      "tags": [
+        "grass",
+        "Ribbon Grass"
+      ]
+    },
+    {
+      "id": "grass.fc22ddf53c",
+      "mesh_type": "static",
+      "category": "grass",
+      "name": "Wild Grass",
+      "path": "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarA",
+      "dimensions_cm": [
+        52.991241455078125,
+        48.83023262023926,
+        40.16823387145996
+      ],
+      "bottom_cm": -4.673849105834961,
+      "style": "scanned",
+      "tags": [
+        "grass",
+        "Wild Grass"
+      ]
+    },
+    {
+      "id": "grass.3a582c2674",
+      "mesh_type": "static",
+      "category": "grass",
+      "name": "Wild Grass",
+      "path": "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarB",
+      "dimensions_cm": [
+        54.50709915161133,
+        54.039777755737305,
+        17.110073387622833
+      ],
+      "bottom_cm": -0.178913414478302,
+      "style": "scanned",
+      "tags": [
+        "grass",
+        "Wild Grass"
+      ]
+    },
+    {
+      "id": "grass.8a5a540aed",
+      "mesh_type": "static",
+      "category": "grass",
+      "name": "Wild Grass",
+      "path": "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarC",
+      "dimensions_cm": [
+        49.56337547302246,
+        47.505754470825195,
+        15.325823843479156
+      ],
+      "bottom_cm": -0.7627478241920471,
+      "style": "scanned",
+      "tags": [
+        "grass",
+        "Wild Grass"
+      ]
+    },
+    {
+      "id": "grass.8730776c0f",
+      "mesh_type": "static",
+      "category": "grass",
+      "name": "Wild Grass",
+      "path": "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarD",
+      "dimensions_cm": [
+        35.738179206848145,
+        41.33469009399414,
+        27.03444015979767
+      ],
+      "bottom_cm": -0.9670630693435669,
+      "style": "scanned",
+      "tags": [
+        "grass",
+        "Wild Grass"
+      ]
+    },
+    {
+      "id": "rock.27e7c46097",
+      "mesh_type": "static",
+      "category": "rock",
+      "name": "Mossy Forest Rock",
+      "path": "/Game/Fab/Megascans/3D/Mossy_Forest_Rock_vimrfjsaw/Medium/vimrfjsaw_tier_2/StaticMeshes/vimrfjsaw_tier_2",
+      "dimensions_cm": [
+        58.96551322937012,
+        86.97393035888672,
+        61.87961483001709
+      ],
+      "bottom_cm": -8.950404167175293,
+      "style": "scanned",
+      "tags": [
+        "rock",
+        "Mossy Forest Rock"
+      ]
+    },
+    {
+      "id": "rock.0fcdf9d09c",
+      "mesh_type": "static",
+      "category": "rock",
+      "name": "Nordic Beach Rocks",
+      "path": "/Game/Fab/Megascans/3D/Nordic_Beach_Rocks_ulznddxva/Medium/ulznddxva_tier_2/StaticMeshes/ulznddxva_tier_2",
+      "dimensions_cm": [
+        225.5500946044922,
+        185.46585083007812,
+        82.29498708248138
+      ],
+      "bottom_cm": -1.687923789024353,
+      "style": "scanned",
+      "tags": [
+        "rock",
+        "Nordic Beach Rocks"
+      ]
+    },
+    {
+      "id": "tree.75683037fc",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "European Beech",
+      "path": "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_A",
+      "dimensions_cm": [
+        887.869384765625,
+        825.7755126953125,
+        2382.4762958288193
+      ],
+      "bottom_cm": -1.698463797569275,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "European Beech"
+      ]
+    },
+    {
+      "id": "tree.3d2bfe1493",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "European Beech",
+      "path": "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_B",
+      "dimensions_cm": [
+        660.6484680175781,
+        702.1536865234375,
+        1848.211478471756
+      ],
+      "bottom_cm": -2.5331337451934814,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "European Beech"
+      ]
+    },
+    {
+      "id": "tree.e63767cf2e",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "European Beech",
+      "path": "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_C",
+      "dimensions_cm": [
+        243.6063995361328,
+        295.4562530517578,
+        705.7314997762442
+      ],
+      "bottom_cm": -0.2026911824941635,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "European Beech"
+      ]
+    },
+    {
+      "id": "tree.9a57e2f054",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "European Beech",
+      "path": "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_D",
+      "dimensions_cm": [
+        191.98800659179688,
+        128.30356979370117,
+        503.9402731657028
+      ],
+      "bottom_cm": -0.9538840055465698,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "European Beech"
+      ]
+    },
+    {
+      "id": "tree.28534d392b",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "Norway Spruce",
+      "path": "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_A",
+      "dimensions_cm": [
+        663.2972106933594,
+        661.6173095703125,
+        2684.4190784692764
+      ],
+      "bottom_cm": -0.5792347192764282,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "Norway Spruce"
+      ]
+    },
+    {
+      "id": "tree.419c67d7a2",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "Norway Spruce",
+      "path": "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_B",
+      "dimensions_cm": [
+        735.711181640625,
+        667.4759521484375,
+        2117.705939888954
+      ],
+      "bottom_cm": -0.5343090295791626,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "Norway Spruce"
+      ]
+    },
+    {
+      "id": "tree.1439ac610e",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "Norway Spruce",
+      "path": "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_C",
+      "dimensions_cm": [
+        388.5292663574219,
+        344.37806701660156,
+        1608.8773059546947
+      ],
+      "bottom_cm": -0.4256457984447479,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "Norway Spruce"
+      ]
+    },
+    {
+      "id": "tree.32d3f7e2d7",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "Norway Spruce",
+      "path": "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_D",
+      "dimensions_cm": [
+        248.32202911376953,
+        305.3882751464844,
+        647.2561465501785
+      ],
+      "bottom_cm": -0.5617495775222778,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "Norway Spruce"
+      ]
+    },
+    {
+      "id": "tree.35f06a0640",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "Silver Birch",
+      "path": "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_A",
+      "dimensions_cm": [
+        354.9265594482422,
+        377.6461944580078,
+        1491.955053806305
+      ],
+      "bottom_cm": -4.286108493804932,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "Silver Birch"
+      ]
+    },
+    {
+      "id": "tree.0f617f0eb0",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "Silver Birch",
+      "path": "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_B",
+      "dimensions_cm": [
+        508.4331512451172,
+        571.5223083496094,
+        1277.176854133606
+      ],
+      "bottom_cm": -3.411595344543457,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "Silver Birch"
+      ]
+    },
+    {
+      "id": "tree.88bdd05955",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "Silver Birch",
+      "path": "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_C",
+      "dimensions_cm": [
+        391.44017028808594,
+        363.1666564941406,
+        1116.3752183392644
+      ],
+      "bottom_cm": -0.09409040957689285,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "Silver Birch"
+      ]
+    },
+    {
+      "id": "tree.b7f8f596be",
+      "mesh_type": "skeletal",
+      "category": "tree",
+      "name": "Silver Birch",
+      "path": "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_D",
+      "dimensions_cm": [
+        170.9166259765625,
+        160.02420043945312,
+        719.5911668539047
+      ],
+      "bottom_cm": -0.3548387289047241,
+      "style": "scanned",
+      "tags": [
+        "tree",
+        "Silver Birch"
+      ]
+    },
+    {
+      "id": "furniture.f1302fae87",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bathroom Cabinet",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomCabinet.bathroomCabinet",
+      "dimensions_cm": [
+        44.04255319148936,
+        24.893617021276597,
+        74.68085106382979
+      ],
+      "bottom_cm": 2.842170943040401e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bathroom Cabinet",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.ff62249242",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bathroom Cabinet Drawer",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomCabinetDrawer.bathroomCabinetDrawer",
+      "dimensions_cm": [
+        82.34042553191489,
+        61.27659574468085,
+        90.33666521437624
+      ],
+      "bottom_cm": 58.241859436035156,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bathroom Cabinet Drawer",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.60923efc68",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bathroom Mirror",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomMirror.bathroomMirror",
+      "dimensions_cm": [
+        57.70340355406416,
+        27.651063391502866,
+        83.22608136116105
+      ],
+      "bottom_cm": 4.462208380573429e-12,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bathroom Mirror",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.fd7e350bb4",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bathroom Sink",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomSink.bathroomSink",
+      "dimensions_cm": [
+        65.1063829787234,
+        55.53191489361702,
+        107.23404255319149
+      ],
+      "bottom_cm": -400.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bathroom Sink",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.5d042eee3b",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bathroom Sink Square",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomSinkSquare.bathroomSinkSquare",
+      "dimensions_cm": [
+        82.34042553191489,
+        57.4468085106383,
+        111.06382467391643
+      ],
+      "bottom_cm": 56.80801010131836,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bathroom Sink Square",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.22aa15e23b",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bathtub",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathtub.bathtub",
+      "dimensions_cm": [
+        227.87234042553192,
+        107.23404255319151,
+        80.42553191489365
+      ],
+      "bottom_cm": -1.9895196601282805e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bathtub",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.7ece42568d",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bear",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bear.bear",
+      "dimensions_cm": [
+        74.6255863270861,
+        47.393617021276604,
+        86.17021276595743
+      ],
+      "bottom_cm": 5.684341886080802e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bear",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.50f856f9f2",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bed Bunk",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedBunk.bedBunk",
+      "dimensions_cm": [
+        109.34042553191489,
+        209.68085106382983,
+        162.76595744680847
+      ],
+      "bottom_cm": 2.2737367544323206e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bed Bunk",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.51dc1a9bcd",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bed Double",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedDouble.bedDouble",
+      "dimensions_cm": [
+        183.0638299787234,
+        215.4255319148936,
+        71.80851063829785
+      ],
+      "bottom_cm": 8.526512829121202e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bed Double",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.8ee0a8c646",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bed Single",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedSingle.bedSingle",
+      "dimensions_cm": [
+        109.34042553191489,
+        215.4255319148936,
+        71.80851063829151
+      ],
+      "bottom_cm": 3.319655661471188e-11,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bed Single",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.37c976889d",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bench",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bench.bench",
+      "dimensions_cm": [
+        76.59574468085107,
+        38.29787234042554,
+        90.0
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bench",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.99f7b78531",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bench Cushion",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/benchCushion.benchCushion",
+      "dimensions_cm": [
+        76.59574468085107,
+        38.29787234042554,
+        88.08510638297872
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bench Cushion",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.8661efdc8f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bench Cushion Low",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/benchCushionLow.benchCushionLow",
+      "dimensions_cm": [
+        80.42553173227513,
+        42.1276593918496,
+        38.297872340425535
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bench Cushion Low",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.8333694741",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bookcase Closed",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseClosed.bookcaseClosed",
+      "dimensions_cm": [
+        76.59574468085107,
+        47.87234042553195,
+        162.7659574468085
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bookcase Closed",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.e404cea2b4",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bookcase Closed Doors",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseClosedDoors.bookcaseClosedDoors",
+      "dimensions_cm": [
+        76.59574468085107,
+        47.87234042553195,
+        162.7659574468085
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bookcase Closed Doors",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.694e3b60ca",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bookcase Closed Wide",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseClosedWide.bookcaseClosedWide",
+      "dimensions_cm": [
+        153.19148936170214,
+        47.872340425531945,
+        151.27659574468086
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bookcase Closed Wide",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.5b2327f296",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bookcase Open",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseOpen.bookcaseOpen",
+      "dimensions_cm": [
+        76.59574468085107,
+        47.87234042553195,
+        168.5106149227061
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bookcase Open",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.ff3b925f29",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "bookcase Open Low",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseOpenLow.bookcaseOpenLow",
+      "dimensions_cm": [
+        76.59574468085107,
+        47.87234042553193,
+        76.59574468085107
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "bookcase Open Low",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.bcb6ee61ca",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "books",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/books.books",
+      "dimensions_cm": [
+        28.809115146068816,
+        18.095744680851066,
+        19.89618471835522
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "books",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.cc43eafbf1",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "cabinet Bed",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetBed.cabinetBed",
+      "dimensions_cm": [
+        50.93617003014747,
+        41.17021258333896,
+        44.655318564557014
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "cabinet Bed",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.ff53b73ed1",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "cabinet Bed Drawer",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetBedDrawer.cabinetBedDrawer",
+      "dimensions_cm": [
+        50.93617003014747,
+        41.610638334396036,
+        50.400002337516625
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "cabinet Bed Drawer",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.9ac93f7774",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "cabinet Bed Drawer Table",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetBedDrawerTable.cabinetBedDrawerTable",
+      "dimensions_cm": [
+        50.93617003014747,
+        41.610638334396036,
+        50.400002337516625
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "cabinet Bed Drawer Table",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.77bcc34399",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "cabinet Television",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetTelevision.cabinetTelevision",
+      "dimensions_cm": [
+        153.19148936170214,
+        47.872340425531924,
+        59.361702127659576
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "cabinet Television",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.0c724c4ffc",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "cabinet Television Doors",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetTelevisionDoors.cabinetTelevisionDoors",
+      "dimensions_cm": [
+        153.19148936170214,
+        49.787234042553195,
+        59.361702127659576
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "cabinet Television Doors",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.61b4eddd5e",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "cardboard Box Closed",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cardboardBoxClosed.cardboardBoxClosed",
+      "dimensions_cm": [
+        40.691489361702125,
+        40.69148936170215,
+        53.808510638297875
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "cardboard Box Closed",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.5097d18595",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "cardboard Box Open",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cardboardBoxOpen.cardboardBoxOpen",
+      "dimensions_cm": [
+        71.21010638297872,
+        40.69148936170215,
+        53.808510638297875
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "cardboard Box Open",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.365d4bb7ad",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "ceiling Fan",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/ceilingFan.ceilingFan",
+      "dimensions_cm": [
+        87.07704941769863,
+        100.54792688248006,
+        25.605574912213264
+      ],
+      "bottom_cm": -133.71800231933594,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "ceiling Fan",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.3072c09da8",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "chair",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chair.chair",
+      "dimensions_cm": [
+        38.297872340425535,
+        38.29787234042554,
+        90.0
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "chair",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.f3c0777709",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "chair Cushion",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairCushion.chairCushion",
+      "dimensions_cm": [
+        38.297872340425535,
+        38.29787234042554,
+        88.08510638297872
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "chair Cushion",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.efafcd7f62",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "chair Desk",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairDesk.chairDesk",
+      "dimensions_cm": [
+        64.13936403964428,
+        60.18491704413231,
+        116.34893149517951
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "chair Desk",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.8086080bd0",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "chair Modern Cushion",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairModernCushion.chairModernCushion",
+      "dimensions_cm": [
+        38.297872340425535,
+        38.29787234042554,
+        88.08510638297872
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "chair Modern Cushion",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.ddbc9c1cae",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "chair Modern Frame Cushion",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairModernFrameCushion.chairModernFrameCushion",
+      "dimensions_cm": [
+        38.297872340425535,
+        38.29787234042554,
+        88.08510638297872
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "chair Modern Frame Cushion",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.e4724804a7",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "chair Rounded",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairRounded.chairRounded",
+      "dimensions_cm": [
+        38.297872340425535,
+        38.29787234042554,
+        87.12765957446808
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "chair Rounded",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.47f670b09a",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "coat Rack",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/coatRack.coatRack",
+      "dimensions_cm": [
+        85.7872340425532,
+        25.736169044007656,
+        53.61702127659574
+      ],
+      "bottom_cm": 2.842170943040401e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "coat Rack",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.6a6b256863",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "coat Rack Standing",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/coatRackStanding.coatRackStanding",
+      "dimensions_cm": [
+        52.238295534823806,
+        52.238295534823806,
+        147.4468085106383
+      ],
+      "bottom_cm": -5.684341886080802e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "coat Rack Standing",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.2df8bb6146",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "computer Keyboard",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/computerKeyboard.computerKeyboard",
+      "dimensions_cm": [
+        54.03830020985705,
+        22.632510895424634,
+        5.276680804313497
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "computer Keyboard",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.6788c6b215",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "computer Mouse",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/computerMouse.computerMouse",
+      "dimensions_cm": [
+        9.517021422690533,
+        16.29647194071019,
+        4.513787330465114
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "computer Mouse",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.a199d3e3c0",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "computer Screen",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/computerScreen.computerScreen",
+      "dimensions_cm": [
+        75.19557222406942,
+        19.91565915371499,
+        56.35248257251496
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "computer Screen",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.2df7321ad5",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "desk",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/desk.desk",
+      "dimensions_cm": [
+        140.64422589160026,
+        75.12127663226838,
+        73.6099470422623
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "desk",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.c0c93c60e8",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "desk Corner",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/deskCorner.deskCorner",
+      "dimensions_cm": [
+        186.6016962578956,
+        186.60169625789564,
+        73.6099470422623
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "desk Corner",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.c20bceb2d6",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "doorway",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/doorway.doorway",
+      "dimensions_cm": [
+        93.06382978723404,
+        21.714893543973883,
+        193.31463493184842
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "doorway",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.4cc2687ee7",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "doorway Front",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/doorwayFront.doorwayFront",
+      "dimensions_cm": [
+        93.06382978723404,
+        21.714893543973883,
+        193.31463493184842
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "doorway Front",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.69234be14a",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "doorway Open",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/doorwayOpen.doorwayOpen",
+      "dimensions_cm": [
+        93.06382978723404,
+        17.06170183547004,
+        193.31463493184842
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "doorway Open",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.5c6e17d8f0",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "dryer",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/dryer.dryer",
+      "dimensions_cm": [
+        74.68085106382979,
+        72.76595744680851,
+        90.0
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "dryer",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.e81f6a3390",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "floor Corner",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorCorner.floorCorner",
+      "dimensions_cm": [
+        105.31914893617021,
+        105.31914893617021,
+        9.574468085106384
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "floor Corner",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.3f096a3e3e",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "floor Corner Round",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorCornerRound.floorCornerRound",
+      "dimensions_cm": [
+        105.31914893617021,
+        105.31914893617021,
+        9.574468085106384
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "floor Corner Round",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.aa3cf90281",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "floor Full",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorFull.floorFull",
+      "dimensions_cm": [
+        191.48936170212767,
+        191.48936170212767,
+        9.574468085106384
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "floor Full",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.a5bbe6671e",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "floor Half",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorHalf.floorHalf",
+      "dimensions_cm": [
+        95.74468085106383,
+        191.48936170212767,
+        9.574468085106384
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "floor Half",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.9eacb94bd5",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "hood Large",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/hoodLarge.hoodLarge",
+      "dimensions_cm": [
+        82.34042553191516,
+        54.55531798017786,
+        70.7613908483627
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "hood Large",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.8794304bea",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "hood Modern",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/hoodModern.hoodModern",
+      "dimensions_cm": [
+        82.34042553191516,
+        54.55531798017786,
+        76.50607169942653
+      ],
+      "bottom_cm": -30.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "hood Modern",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.25bbe60bde",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Bar",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenBar.kitchenBar",
+      "dimensions_cm": [
+        82.34042553191489,
+        40.21276595744683,
+        80.42553191489361
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Bar",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.7d7c112896",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Bar End",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenBarEnd.kitchenBarEnd",
+      "dimensions_cm": [
+        19.44813829787234,
+        40.21276595744683,
+        80.42553191489361
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Bar End",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.dd4c5069cd",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Blender",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenBlender.kitchenBlender",
+      "dimensions_cm": [
+        26.009272798578788,
+        20.895069852788406,
+        43.5676603925989
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Blender",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.3e88765ef5",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Cabinet",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinet.kitchenCabinet",
+      "dimensions_cm": [
+        82.34042553191489,
+        86.17021276595747,
+        86.17021276595744
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Cabinet",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.dc915de71f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Cabinet Corner Inner",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetCornerInner.kitchenCabinetCornerInner",
+      "dimensions_cm": [
+        88.08510638297872,
+        88.08510638297875,
+        86.17021276595744
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Cabinet Corner Inner",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.6c2201d8ed",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Cabinet Corner Round",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetCornerRound.kitchenCabinetCornerRound",
+      "dimensions_cm": [
+        86.17021276595744,
+        86.17021276595747,
+        86.17021276595744
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Cabinet Corner Round",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.e8ee28a486",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Cabinet Drawer",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetDrawer.kitchenCabinetDrawer",
+      "dimensions_cm": [
+        82.34042553191489,
+        86.17021276595747,
+        86.17021276595744
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Cabinet Drawer",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.d40cd5ebb4",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Cabinet Upper",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpper.kitchenCabinetUpper",
+      "dimensions_cm": [
+        82.34042553191489,
+        42.12765975708657,
+        74.68085106382979
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Cabinet Upper",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.00884e21c5",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Cabinet Upper Corner",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpperCorner.kitchenCabinetUpperCorner",
+      "dimensions_cm": [
+        41.170212765957444,
+        40.21276595744683,
+        74.68085106382979
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Cabinet Upper Corner",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.7c36463e3e",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Cabinet Upper Double",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpperDouble.kitchenCabinetUpperDouble",
+      "dimensions_cm": [
+        82.34042553191489,
+        42.12765975708657,
+        74.68085106382979
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Cabinet Upper Double",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.87fcd8994a",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Cabinet Upper Low",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpperLow.kitchenCabinetUpperLow",
+      "dimensions_cm": [
+        82.34042553191489,
+        42.12765975708657,
+        37.340425531914896
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Cabinet Upper Low",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.1e64759df0",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Coffee Machine",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCoffeeMachine.kitchenCoffeeMachine",
+      "dimensions_cm": [
+        36.29489233138713,
+        45.989441567278924,
+        33.98725501527178
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Coffee Machine",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.7d5f783719",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Fridge",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridge.kitchenFridge",
+      "dimensions_cm": [
+        82.34042553191489,
+        55.902235964511306,
+        176.17021276595744
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Fridge",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.18a53ec172",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Fridge Built In",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridgeBuiltIn.kitchenFridgeBuiltIn",
+      "dimensions_cm": [
+        82.34042553191489,
+        86.17021276595747,
+        166.3559622257314
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Fridge Built In",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.99a4042a33",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Fridge Large",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridgeLarge.kitchenFridgeLarge",
+      "dimensions_cm": [
+        99.57446808510639,
+        77.65849149988053,
+        176.17021276595744
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Fridge Large",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.8b2cc44090",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Fridge Small",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridgeSmall.kitchenFridgeSmall",
+      "dimensions_cm": [
+        82.34042553191489,
+        55.902235964511306,
+        114.94077641913232
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Fridge Small",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.f305d5d98b",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Microwave",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenMicrowave.kitchenMicrowave",
+      "dimensions_cm": [
+        55.53191489361702,
+        44.042553008870875,
+        34.46808510638298
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Microwave",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.84a44096d5",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Sink",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenSink.kitchenSink",
+      "dimensions_cm": [
+        82.34042553191489,
+        86.17021276595747,
+        93.82978723404256
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Sink",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.7828f20678",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Stove",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenStove.kitchenStove",
+      "dimensions_cm": [
+        82.34042553191489,
+        86.17021276595747,
+        86.17021276595744
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Stove",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.db44b4cac3",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "kitchen Stove Electric",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenStoveElectric.kitchenStoveElectric",
+      "dimensions_cm": [
+        82.34042553191489,
+        86.17021276595747,
+        86.17021276595744
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "kitchen Stove Electric",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.ba2f70bdbd",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lamp Round Floor",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampRoundFloor.lampRoundFloor",
+      "dimensions_cm": [
+        29.113929505043842,
+        33.61787223815918,
+        164.68085106382978
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lamp Round Floor",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.a392e02d1f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lamp Round Table",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampRoundTable.lampRoundTable",
+      "dimensions_cm": [
+        29.113929505043842,
+        33.61787223815918,
+        60.17553191489362
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lamp Round Table",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.c46259d52d",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lamp Square Ceiling",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampSquareCeiling.lampSquareCeiling",
+      "dimensions_cm": [
+        22.97872340425532,
+        22.978723404255323,
+        44.04255319148936
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lamp Square Ceiling",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.438ed37476",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lamp Square Floor",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampSquareFloor.lampSquareFloor",
+      "dimensions_cm": [
+        22.97872340425532,
+        22.978723404255355,
+        164.68085106382978
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lamp Square Floor",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.fe478a26dc",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lamp Square Table",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampSquareTable.lampSquareTable",
+      "dimensions_cm": [
+        22.97872340425532,
+        22.978723404255334,
+        55.53191489361702
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lamp Square Table",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.61e5cea6be",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lamp Wall",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampWall.lampWall",
+      "dimensions_cm": [
+        43.39825764108211,
+        28.78774440034907,
+        17.770213350336604
+      ],
+      "bottom_cm": -2.1316282072803006e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lamp Wall",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.992a62d50f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "laptop",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/laptop.laptop",
+      "dimensions_cm": [
+        50.5531914893617,
+        45.969920381586604,
+        30.984776273686833
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "laptop",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.3df87d474d",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lounge Chair",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeChair.loungeChair",
+      "dimensions_cm": [
+        93.82978723404256,
+        78.51063829787235,
+        88.08510638297872
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lounge Chair",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.8e542c3fce",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lounge Chair Relax",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeChairRelax.loungeChairRelax",
+      "dimensions_cm": [
+        93.82978723404256,
+        129.19647216796875,
+        120.63829787234043
+      ],
+      "bottom_cm": 5.684341886080802e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lounge Chair Relax",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.be907c8171",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lounge Design Chair",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeDesignChair.loungeDesignChair",
+      "dimensions_cm": [
+        139.7097336789395,
+        78.51063829787235,
+        76.59574468085107
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lounge Design Chair",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.04496abd7f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lounge Design Sofa",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeDesignSofa.loungeDesignSofa",
+      "dimensions_cm": [
+        214.46808510638297,
+        78.51063829787235,
+        76.59574468085107
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lounge Design Sofa",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.338fc153fb",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lounge Design Sofa Corner",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeDesignSofaCorner.loungeDesignSofaCorner",
+      "dimensions_cm": [
+        258.47788968999333,
+        258.47788968999333,
+        76.59574468085103
+      ],
+      "bottom_cm": 1.9895196601282805e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lounge Design Sofa Corner",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.1384785596",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lounge Sofa",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofa.loungeSofa",
+      "dimensions_cm": [
+        187.6595510929189,
+        78.51063829787235,
+        88.08510638297872
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lounge Sofa",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.f3d3c6cbb5",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lounge Sofa Corner",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofaCorner.loungeSofaCorner",
+      "dimensions_cm": [
+        187.6595510929189,
+        187.65955109291892,
+        88.08510638297872
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lounge Sofa Corner",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.daaaf4be7f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lounge Sofa Long",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofaLong.loungeSofaLong",
+      "dimensions_cm": [
+        187.6595510929189,
+        157.02127659574467,
+        88.08510638297875
+      ],
+      "bottom_cm": -8.526512829121202e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lounge Sofa Long",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.216dbcb19a",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "lounge Sofa Ottoman",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofaOttoman.loungeSofaOttoman",
+      "dimensions_cm": [
+        84.22250041555851,
+        86.17021276595744,
+        44.042553191489375
+      ],
+      "bottom_cm": -8.526512829121202e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "lounge Sofa Ottoman",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.e4a5cbe253",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "paneling",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/paneling.paneling",
+      "dimensions_cm": [
+        95.74468085106383,
+        5.74468085106383,
+        113.89134833153258
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "paneling",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.c6199babf8",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "pillow",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillow.pillow",
+      "dimensions_cm": [
+        44.04255319148936,
+        16.943664550781254,
+        42.54183245719747
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "pillow",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.9db72701f4",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "pillow Blue",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillowBlue.pillowBlue",
+      "dimensions_cm": [
+        44.04255319148936,
+        12.138501025260764,
+        24.608720495345743
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "pillow Blue",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.c011bc1b01",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "pillow Blue Long",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillowBlueLong.pillowBlueLong",
+      "dimensions_cm": [
+        98.91873039083278,
+        16.943664550781254,
+        42.54183245719754
+      ],
+      "bottom_cm": -3.552713678800501e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "pillow Blue Long",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.f44bfb0406",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "pillow Long",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillowLong.pillowLong",
+      "dimensions_cm": [
+        74.02511336955618,
+        16.943664550781254,
+        42.54183245719754
+      ],
+      "bottom_cm": -3.552713678800501e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "pillow Long",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.da405c3af0",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "plant Small1",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/plantSmall1.plantSmall1",
+      "dimensions_cm": [
+        18.126522470027844,
+        18.126522470027844,
+        26.80851063829787
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "plant Small1",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.0f435b679f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "plant Small2",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/plantSmall2.plantSmall2",
+      "dimensions_cm": [
+        18.126522470027844,
+        18.126522470027844,
+        26.80851063829787
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "plant Small2",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.71557ffb6f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "plant Small3",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/plantSmall3.plantSmall3",
+      "dimensions_cm": [
+        18.76595744680851,
+        16.25179615426571,
+        27.76595744680851
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "plant Small3",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.a7850f06f3",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "potted Plant",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pottedPlant.pottedPlant",
+      "dimensions_cm": [
+        40.60710062879197,
+        46.23738487730635,
+        125.23725663854721
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "potted Plant",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.3c28fd2adf",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "radio",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/radio.radio",
+      "dimensions_cm": [
+        60.319148936170215,
+        18.670212765957455,
+        43.69616829080785
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "radio",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.c14c93cd92",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "rug Doormat",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugDoormat.rugDoormat",
+      "dimensions_cm": [
+        82.20638064120678,
+        45.38470264191323,
+        1.9148934344027904
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "rug Doormat",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.4cbc7940ac",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "rug Rectangle",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugRectangle.rugRectangle",
+      "dimensions_cm": [
+        300.63829787234044,
+        176.17021276595744,
+        1.9148934344027904
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "rug Rectangle",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.e3e8b2c0d4",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "rug Round",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugRound.rugRound",
+      "dimensions_cm": [
+        176.17021276595744,
+        176.17021276595744,
+        1.9148934344027904
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "rug Round",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.37cdf6a32f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "rug Rounded",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugRounded.rugRounded",
+      "dimensions_cm": [
+        300.63829787234044,
+        176.17021276595744,
+        1.9148934344027904
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "rug Rounded",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.4e86d1eec8",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "rug Square",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugSquare.rugSquare",
+      "dimensions_cm": [
+        173.1687946725399,
+        176.17021276595744,
+        1.9148934344027904
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "rug Square",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.0da240392c",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "shower",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/shower.shower",
+      "dimensions_cm": [
+        107.57718999335226,
+        111.40697649691967,
+        209.49574312250664
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "shower",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.a78a1f5f00",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "shower Round",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/showerRound.showerRound",
+      "dimensions_cm": [
+        107.5771899933512,
+        107.57718999335107,
+        209.49567299700797
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "shower Round",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.a3ae344ae7",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "side Table",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/sideTable.sideTable",
+      "dimensions_cm": [
+        102.34637692634095,
+        42.1276593918496,
+        73.6099470422623
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "side Table",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.3949d2327d",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "side Table Drawers",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/sideTableDrawers.sideTableDrawers",
+      "dimensions_cm": [
+        102.34637692634095,
+        42.568085142906675,
+        73.6099470422623
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "side Table Drawers",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.623571aced",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "speaker",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/speaker.speaker",
+      "dimensions_cm": [
+        28.340425531915102,
+        28.340425531914832,
+        121.86383446226729
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "speaker",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.87c0ce42ef",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "speaker Small",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/speakerSmall.speakerSmall",
+      "dimensions_cm": [
+        28.340425531914892,
+        25.50638239434426,
+        57.059926134474736
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "speaker Small",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.3230b6398d",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "stairs",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairs.stairs",
+      "dimensions_cm": [
+        349.16841547539894,
+        151.27659574468092,
+        256.5061242935503
+      ],
+      "bottom_cm": 1.3642420526593924e-12,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "stairs",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.57c4af05f5",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "stairs Corner",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairsCorner.stairsCorner",
+      "dimensions_cm": [
+        339.6430381612575,
+        273.024582883145,
+        256.5061242935505
+      ],
+      "bottom_cm": 3.410605131648481e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "stairs Corner",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.d0659bcd2b",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "stairs Open",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairsOpen.stairsOpen",
+      "dimensions_cm": [
+        349.16841547539894,
+        151.27659574468092,
+        256.5061242935493
+      ],
+      "bottom_cm": 6.480149750132114e-12,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "stairs Open",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.f0786f6f78",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "stairs Open Single",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairsOpenSingle.stairsOpenSingle",
+      "dimensions_cm": [
+        349.16841547539894,
+        151.27659574468092,
+        256.50612429354874
+      ],
+      "bottom_cm": 9.43600753089413e-12,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "stairs Open Single",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.3bb1a455b7",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "stool Bar",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stoolBar.stoolBar",
+      "dimensions_cm": [
+        50.82893663771609,
+        44.01915465009975,
+        83.29787234042553
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "stool Bar",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.65bc0e3bba",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "stool Bar Square",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stoolBarSquare.stoolBarSquare",
+      "dimensions_cm": [
+        29.393617021276597,
+        28.268429289472863,
+        77.55319148936171
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "stool Bar Square",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.5b17df60eb",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/table.table",
+      "dimensions_cm": [
+        161.13599541846742,
+        85.66722593916224,
+        62.566086789394944
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.6009d2a1ef",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table Cloth",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCloth.tableCloth",
+      "dimensions_cm": [
+        161.13599541846742,
+        85.66722593918678,
+        62.566086789394944
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table Cloth",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.6b7f6a09db",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table Coffee",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffee.tableCoffee",
+      "dimensions_cm": [
+        126.57372007978724,
+        76.59574468085107,
+        44.04255319148942
+      ],
+      "bottom_cm": -2.984279490192421e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table Coffee",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.0fea8c4591",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table Coffee Glass",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffeeGlass.tableCoffeeGlass",
+      "dimensions_cm": [
+        126.57372007978724,
+        76.59574468085107,
+        44.04255319148942
+      ],
+      "bottom_cm": -2.984279490192421e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table Coffee Glass",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.e3e0751b2a",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table Coffee Glass Square",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffeeGlassSquare.tableCoffeeGlassSquare",
+      "dimensions_cm": [
+        76.59574760274684,
+        76.59574468085107,
+        44.04255319148942
+      ],
+      "bottom_cm": -2.984279490192421e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table Coffee Glass Square",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.3a99faa93a",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table Coffee Square",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffeeSquare.tableCoffeeSquare",
+      "dimensions_cm": [
+        76.59574760274684,
+        76.59574468085107,
+        44.04255319148942
+      ],
+      "bottom_cm": -2.984279490192421e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table Coffee Square",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.1a54aa444b",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table Cross",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCross.tableCross",
+      "dimensions_cm": [
+        163.17190227102725,
+        85.66726684570312,
+        66.52595682347075
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table Cross",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.2cd44fda8f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table Cross Cloth",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCrossCloth.tableCrossCloth",
+      "dimensions_cm": [
+        163.17190227102725,
+        85.66726684570312,
+        66.52595682347075
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table Cross Cloth",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.2981ef58ff",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table Glass",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableGlass.tableGlass",
+      "dimensions_cm": [
+        161.13599541846742,
+        85.66722593916224,
+        62.566086789394944
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table Glass",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.8aef531e4d",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "table Round",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableRound.tableRound",
+      "dimensions_cm": [
+        132.6677194148936,
+        153.19148936170214,
+        70.2256554136885
+      ],
+      "bottom_cm": -270.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "table Round",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.4198d96957",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "television Antenna",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/televisionAntenna.televisionAntenna",
+      "dimensions_cm": [
+        50.654259864320146,
+        15.319148936170212,
+        19.672525284138132
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "television Antenna",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.25a3393277",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "television Modern",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/televisionModern.televisionModern",
+      "dimensions_cm": [
+        131.1319125561004,
+        24.58723287379488,
+        87.07978723404256
+      ],
+      "bottom_cm": -2.842170943040401e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "television Modern",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.9319a430d8",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "television Vintage",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/televisionVintage.televisionVintage",
+      "dimensions_cm": [
+        78.51063829787233,
+        51.70212765957448,
+        51.702127659574465
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "television Vintage",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.c05d674aa9",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "toaster",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/toaster.toaster",
+      "dimensions_cm": [
+        35.99688525910073,
+        19.148936170212767,
+        24.893617021276597
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "toaster",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.28780a0c79",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "toilet",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/toilet.toilet",
+      "dimensions_cm": [
+        59.849997662483375,
+        91.3743019915643,
+        86.35499929874501
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "toilet",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.5502b03f03",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "toilet Square",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/toiletSquare.toiletSquare",
+      "dimensions_cm": [
+        58.139999064993354,
+        74.14021853183179,
+        86.35499929874501
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "toilet Square",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.0410721a9f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "trashcan",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/trashcan.trashcan",
+      "dimensions_cm": [
+        39.77109803544714,
+        44.83230363561752,
+        81.93178671978889
+      ],
+      "bottom_cm": -2.842170943040401e-14,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "trashcan",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.dd91738dd2",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "wall",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wall.wall",
+      "dimensions_cm": [
+        191.48936170212767,
+        9.574468085106437,
+        246.93165620844414
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "wall",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.fc703587d8",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "wall Corner",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallCorner.wallCorner",
+      "dimensions_cm": [
+        105.31914893617021,
+        105.31914893617028,
+        246.93165620844414
+      ],
+      "bottom_cm": -1.1368683772161603e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "wall Corner",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.9ac5ca1d41",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "wall Corner Rond",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallCornerRond.wallCornerRond",
+      "dimensions_cm": [
+        105.31914893617021,
+        105.31914893617028,
+        246.93165620844414
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "wall Corner Rond",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.f7d306087e",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "wall Doorway",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallDoorway.wallDoorway",
+      "dimensions_cm": [
+        191.48936170212767,
+        17.061702565943943,
+        246.93165620844414
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "wall Doorway",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.d164318318",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "wall Doorway Wide",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallDoorwayWide.wallDoorwayWide",
+      "dimensions_cm": [
+        191.48936170212767,
+        17.061702565943943,
+        246.9316562084442
+      ],
+      "bottom_cm": -2.2737367544323206e-13,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "wall Doorway Wide",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.dd4b54c8bc",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "wall Half",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallHalf.wallHalf",
+      "dimensions_cm": [
+        95.74468085106383,
+        9.574468085106437,
+        246.93165620844414
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "wall Half",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.67b4fa91b6",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "wall Window",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallWindow.wallWindow",
+      "dimensions_cm": [
+        191.48936170212767,
+        17.061702565943943,
+        246.93165620844414
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "wall Window",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.c2cc74281d",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "wall Window Slide",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallWindowSlide.wallWindowSlide",
+      "dimensions_cm": [
+        191.48936170212767,
+        17.061702565943943,
+        246.93165620844414
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "wall Window Slide",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.d0d79ba43c",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "washer",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/washer.washer",
+      "dimensions_cm": [
+        74.68085106382979,
+        74.68085106382979,
+        90.0
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "washer",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "furniture.d173c0963f",
+      "mesh_type": "static",
+      "category": "furniture",
+      "name": "washer Dryer Stacked",
+      "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/washerDryerStacked.washerDryerStacked",
+      "dimensions_cm": [
+        74.68085106382979,
+        74.68085106382979,
+        180.0
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 0.19148936170212766,
+      "style": "stylized",
+      "tags": [
+        "furniture",
+        "washer Dryer Stacked",
+        "furniture-kit"
+      ],
+      "source": "https://kenney.nl/assets/furniture-kit",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.0af7471b32",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building a",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_a.building_a",
+      "dimensions_cm": [
+        1275.666279695472,
+        760.4081912916533,
+        900.0
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building a",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.0fc99b605f",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building b",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_b.building_b",
+      "dimensions_cm": [
+        1275.6661395637357,
+        772.6530658955477,
+        900.0000000000001
+      ],
+      "bottom_cm": -4.263256414560601e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building b",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.ace0a986f7",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building c",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_c.building_c",
+      "dimensions_cm": [
+        1148.5315751056282,
+        1290.6252491230866,
+        765.3061224489809
+      ],
+      "bottom_cm": -2.2026824808563106e-13,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building c",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.9c566f93dd",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building d",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_d.building_d",
+      "dimensions_cm": [
+        540.9721685915576,
+        869.3878718784877,
+        866.0523395149077
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building d",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.7a61078eb3",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building e",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_e.building_e",
+      "dimensions_cm": [
+        1030.7680869589046,
+        789.796105209662,
+        1010.2040816326528
+      ],
+      "bottom_cm": 1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building e",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.7356c1e775",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building f",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_f.building_f",
+      "dimensions_cm": [
+        1095.9185308339645,
+        783.6735160983338,
+        1178.5714285714287
+      ],
+      "bottom_cm": -2.842170943040401e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building f",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.6d1a88ed82",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building g",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_g.building_g",
+      "dimensions_cm": [
+        1027.431550317881,
+        785.8703146175462,
+        783.6735662075102
+      ],
+      "bottom_cm": -5.55104293198383e-07,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building g",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.6d664d5005",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building h",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_h.building_h",
+      "dimensions_cm": [
+        809.2197972901013,
+        802.0408630371094,
+        449.1067536023223
+      ],
+      "bottom_cm": -4.192202140984591e-13,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building h",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.97b92b9280",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building i",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_i.building_i",
+      "dimensions_cm": [
+        629.4721243332843,
+        795.9184140575175,
+        449.1067536023197
+      ],
+      "bottom_cm": 7.105427357601002e-15,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building i",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.0f53b380fa",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building j",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_j.building_j",
+      "dimensions_cm": [
+        628.5439997303242,
+        795.9183673469387,
+        527.2321117167569
+      ],
+      "bottom_cm": 7.105427357601002e-15,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building j",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.b180de2d85",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building k",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_k.building_k",
+      "dimensions_cm": [
+        797.6688929966517,
+        559.3395388856226,
+        473.10702265525356
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building k",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.1f9e27827d",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building l",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_l.building_l",
+      "dimensions_cm": [
+        1275.6658826555524,
+        1144.8980058942523,
+        1178.5714285714287
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building l",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.6afcc7b98c",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building m",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_m.building_m",
+      "dimensions_cm": [
+        805.8829482720822,
+        1040.8163265306123,
+        930.0040731624682
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building m",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.e9e8d6b6f7",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building n",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_n.building_n",
+      "dimensions_cm": [
+        597.9317285576645,
+        869.3878134902642,
+        1166.0545858209562
+      ],
+      "bottom_cm": -6.857171115370875e-07,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building n",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.94593cc3a7",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building o",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_o.building_o",
+      "dimensions_cm": [
+        540.9722426716162,
+        759.1836848733376,
+        562.0407883001833
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building o",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.47950cc1be",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building p",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_p.building_p",
+      "dimensions_cm": [
+        1030.7680869589046,
+        607.3469200912787,
+        437.48091094347905
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building p",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.d241810efc",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building q",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_q.building_q",
+      "dimensions_cm": [
+        1310.204081632653,
+        1083.6070469447543,
+        538.7755102040817
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building q",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.3549d20411",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building r",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_r.building_r",
+      "dimensions_cm": [
+        1520.5641454579877,
+        778.775608296297,
+        852.8571615413744
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building r",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.51dd678207",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building s",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_s.building_s",
+      "dimensions_cm": [
+        1297.959277094627,
+        560.9849423778301,
+        512.3210673429529
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building s",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.e5cdad4ae3",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building t",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_t.building_t",
+      "dimensions_cm": [
+        1054.1178177814095,
+        851.0205950055803,
+        621.1543803312342
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building t",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.6e7646342a",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "chimney basic",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_basic.chimney_basic",
+      "dimensions_cm": [
+        122.44897959183673,
+        122.44897959183673,
+        612.2448979591836
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "chimney basic",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.474bf62a09",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "chimney large",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_large.chimney_large",
+      "dimensions_cm": [
+        661.2244430853395,
+        661.2244430853395,
+        1040.8163265306123
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "chimney large",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.19f6bc7264",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "chimney medium",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_medium.chimney_medium",
+      "dimensions_cm": [
+        275.51020408163265,
+        275.51020408163265,
+        1178.5714285714284
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "chimney medium",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.3429317564",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "chimney small",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_small.chimney_small",
+      "dimensions_cm": [
+        183.67348106539978,
+        183.67348106539978,
+        459.1836734693877
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "chimney small",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.6c1e153ea6",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "detail tank",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/detail_tank.detail_tank",
+      "dimensions_cm": [
+        519.183925706513,
+        315.4871492969746,
+        254.26265950105628
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "detail tank",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.435812aec9",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "detail tank large",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/detail_tank_large.detail_tank_large",
+      "dimensions_cm": [
+        923.5199908820949,
+        1009.2342765963807,
+        588.7383597237728
+      ],
+      "bottom_cm": -7.105427357601002e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "detail tank large",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.84a1a825c7",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "shipping container a",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/shipping_container_a.shipping_container_a",
+      "dimensions_cm": [
+        228.1225438020667,
+        503.6327128507653,
+        213.11019544073585
+      ],
+      "bottom_cm": 6.857303702645368e-08,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "shipping container a",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.4aa8b9c234",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "shipping container b",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/shipping_container_b.shipping_container_b",
+      "dimensions_cm": [
+        228.12253212442204,
+        503.6327128507653,
+        213.11019544073585
+      ],
+      "bottom_cm": 6.857303702645368e-08,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "shipping container b",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.40e091a533",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "shipping container c",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/shipping_container_c.shipping_container_c",
+      "dimensions_cm": [
+        228.12253212442204,
+        503.6327128507653,
+        213.11019544073585
+      ],
+      "bottom_cm": 6.857303702645368e-08,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "shipping container c",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.411b022fc0",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "solar panel flat",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_flat.solar_panel_flat",
+      "dimensions_cm": [
+        256.04081445810743,
+        436.77553449358254,
+        37.65306180837198
+      ],
+      "bottom_cm": 7.993605777301127e-15,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "solar panel flat",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.11b8bd33ac",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "solar panel landscape",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_landscape.solar_panel_landscape",
+      "dimensions_cm": [
+        436.77542939478036,
+        241.86736223649004,
+        160.62890479759292
+      ],
+      "bottom_cm": -6.705522537231445e-06,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "solar panel landscape",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.2579a23429",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "solar panel landscape group",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_landscape_group.solar_panel_landscape_group",
+      "dimensions_cm": [
+        926.5719666772959,
+        547.9898491684271,
+        160.62908158884073
+      ],
+      "bottom_cm": -1.4600591384805739e-05,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "solar panel landscape group",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.81fa0a988e",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "solar panel portrait",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_portrait.solar_panel_portrait",
+      "dimensions_cm": [
+        256.04079110281805,
+        397.0852287448182,
+        250.99626791720488
+      ],
+      "bottom_cm": -1.4901161193847656e-06,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "solar panel portrait",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.ec7d5ea192",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "solar panel portrait group",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_portrait_group.solar_panel_portrait_group",
+      "dimensions_cm": [
+        562.1635203458825,
+        764.4319106121452,
+        250.9962982060958
+      ],
+      "bottom_cm": -1.7881393432617188e-05,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "solar panel portrait group",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.fb16276729",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "water tower",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/water_tower.water_tower",
+      "dimensions_cm": [
+        521.7647786043128,
+        509.2650510826889,
+        1311.223773567044
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "water tower",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.76dd3affdc",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "windmill",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/windmill.windmill",
+      "dimensions_cm": [
+        370.2169535111408,
+        689.9172568807796,
+        1416.644878776706
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "windmill",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.24a706a349",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "windmill low",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/windmill_low.windmill_low",
+      "dimensions_cm": [
+        370.2169535111408,
+        689.9172335254902,
+        1098.2774384167728
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 6.122448979591836,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "windmill low",
+        "city-kit-industrial"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-industrial",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.b768d56930",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type a",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_a.building_type_a",
+      "dimensions_cm": [
+        1076.1318865746462,
+        851.0860685222345,
+        690.0000000000001
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type a",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.cd63820e1c",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type b",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_b.building_type_b",
+      "dimensions_cm": [
+        1513.2070165379937,
+        943.6848851500743,
+        941.6154639084672
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type b",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.19206ba89e",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type c",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_c.building_type_c",
+      "dimensions_cm": [
+        1064.8575922429482,
+        851.0860685222345,
+        855.5587517807148
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type c",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.5462dfa56d",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type d",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_d.building_type_d",
+      "dimensions_cm": [
+        1453.920658927628,
+        850.9720094151347,
+        1024.3948397988245
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type d",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.9ffceab7e2",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type e",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_e.building_type_e",
+      "dimensions_cm": [
+        1076.1318865746462,
+        850.9720094151347,
+        941.615463908467
+      ],
+      "bottom_cm": 1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type e",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.8d8908c1bb",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type f",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_f.building_type_f",
+      "dimensions_cm": [
+        1182.0895129765643,
+        1163.7879524278678,
+        941.6154639084672
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type f",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.e018efa17d",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type g",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_g.building_type_g",
+      "dimensions_cm": [
+        1200.3009504101822,
+        975.1410100950189,
+        635.9191838312745
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type g",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.c2244843b8",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type h",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_h.building_type_h",
+      "dimensions_cm": [
+        1076.1318865746462,
+        758.2590705245433,
+        610.4978340357341
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type h",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.3380d4ae84",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type i",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_i.building_type_i",
+      "dimensions_cm": [
+        1064.8575922429482,
+        850.9720094151347,
+        610.4978340357341
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type i",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.827892b541",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type j",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_j.building_type_j",
+      "dimensions_cm": [
+        1134.0774496978963,
+        758.2590705245433,
+        858.8360248624581
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type j",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.840f14a76a",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type k",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_k.building_type_k",
+      "dimensions_cm": [
+        762.3467253519966,
+        844.3496340816454,
+        951.6286030299336
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type k",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.68ab1fe8ab",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type l",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_l.building_type_l",
+      "dimensions_cm": [
+        855.5976556622062,
+        844.3496656594713,
+        868.515765298221
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type l",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.e00ab90615",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type m",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_m.building_type_m",
+      "dimensions_cm": [
+        1182.0895129765643,
+        1182.0895129765643,
+        610.4978340357341
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type m",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.527e47bac0",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type n",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_n.building_type_n",
+      "dimensions_cm": [
+        1477.0088494797621,
+        1140.6097019163071,
+        941.6154639084672
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type n",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.2f1bf3bee2",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type o",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_o.building_type_o",
+      "dimensions_cm": [
+        1051.2981053853648,
+        850.9720094151347,
+        941.6154639084672
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type o",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.7e8772ae1e",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type p",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_p.building_type_p",
+      "dimensions_cm": [
+        1026.4643873517352,
+        819.5158844701899,
+        759.9146327800898
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type p",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.ee82ad5cdb",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type q",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_q.building_type_q",
+      "dimensions_cm": [
+        1026.4642610404317,
+        733.0841540822165,
+        759.9146327800898
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type q",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.2a52f2e848",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type r",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_r.building_type_r",
+      "dimensions_cm": [
+        850.9720725707864,
+        844.3496656594713,
+        944.6309568136161
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type r",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.93da584f05",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type s",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_s.building_type_s",
+      "dimensions_cm": [
+        1163.9020746906197,
+        899.298935195711,
+        941.6154639084672
+      ],
+      "bottom_cm": -7.105427357601002e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type s",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.ed860b6dd5",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type t",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_t.building_type_t",
+      "dimensions_cm": [
+        1087.379908155207,
+        1164.1928433113771,
+        957.2032261005285
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type t",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "building.239b19d168",
+      "mesh_type": "static",
+      "category": "building",
+      "name": "building type u",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_u.building_type_u",
+      "dimensions_cm": [
+        1182.0897024435196,
+        899.7579820506145,
+        941.6154639084672
+      ],
+      "bottom_cm": -1.4210854715202004e-14,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "building",
+        "building type u",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.e7cc16f7d0",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "driveway long",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/driveway_long.driveway_long",
+      "dimensions_cm": [
+        298.0057532052866,
+        331.11750356142954,
+        8.277937589035764
+      ],
+      "bottom_cm": -3.1086244689504383e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "driveway long",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.61dbab1328",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "driveway short",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/driveway_short.driveway_short",
+      "dimensions_cm": [
+        298.0057532052866,
+        165.55875178071477,
+        8.277937589035746
+      ],
+      "bottom_cm": -8.881784197001252e-16,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "driveway short",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.f28255033b",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "fence",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence.fence",
+      "dimensions_cm": [
+        393.2020670570235,
+        62.084535864996276,
+        223.50429911505202
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "fence",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.3ef28c890f",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "fence 1x2",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_1x2.fence_1x2",
+      "dimensions_cm": [
+        724.3195390406272,
+        362.1597695203136,
+        223.50429911507888
+      ],
+      "bottom_cm": -3.248956659263058e-12,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "fence 1x2",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.e3e5a49b0c",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "fence 1x3",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_1x3.fence_1x3",
+      "dimensions_cm": [
+        1055.4371057577084,
+        362.1597695203136,
+        223.50429911507888
+      ],
+      "bottom_cm": -3.248956659263058e-12,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "fence 1x3",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.fba63de4ad",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "fence 1x4",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_1x4.fence_1x4",
+      "dimensions_cm": [
+        1386.5545461634863,
+        362.1597695203136,
+        223.50429911507888
+      ],
+      "bottom_cm": -3.248956659263058e-12,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "fence 1x4",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.82f029a276",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "fence 2x2",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_2x2.fence_2x2",
+      "dimensions_cm": [
+        724.3195390406272,
+        693.2772415039173,
+        223.50429911507885
+      ],
+      "bottom_cm": -3.2436275887448573e-12,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "fence 2x2",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.8a88acd7c0",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "fence 2x3",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_2x3.fence_2x3",
+      "dimensions_cm": [
+        1055.4371057577084,
+        693.2772415039173,
+        223.50429911507885
+      ],
+      "bottom_cm": -3.2436275887448573e-12,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "fence 2x3",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.349aceab4e",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "fence 3x2",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_3x2.fence_3x2",
+      "dimensions_cm": [
+        724.3195390406272,
+        1024.3948397988245,
+        223.50429911507882
+      ],
+      "bottom_cm": -3.240074875066057e-12,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "fence 3x2",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.0a14c07ad5",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "fence 3x3",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_3x3.fence_3x3",
+      "dimensions_cm": [
+        1055.4371057577084,
+        1024.3948397988245,
+        223.50429911507882
+      ],
+      "bottom_cm": -3.240074875066057e-12,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "fence 3x3",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.47f693d116",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "fence low",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_low.fence_low",
+      "dimensions_cm": [
+        1055.4371057577084,
+        693.2772415039173,
+        140.72493901360764
+      ],
+      "bottom_cm": -8.881784197001252e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "fence low",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.18c0493023",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "path long",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_long.path_long",
+      "dimensions_cm": [
+        165.55875178071477,
+        331.11750356142954,
+        8.277937589035764
+      ],
+      "bottom_cm": -3.1086244689504383e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "path long",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.337d0562f7",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "path short",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_short.path_short",
+      "dimensions_cm": [
+        165.55875178071477,
+        165.55875178071477,
+        8.277937589035746
+      ],
+      "bottom_cm": -8.881784197001252e-16,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "path short",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.998c394734",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "path stones long",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_stones_long.path_stones_long",
+      "dimensions_cm": [
+        115.89112624650035,
+        331.11750356142954,
+        8.277937589035776
+      ],
+      "bottom_cm": -4.440892098500626e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "path stones long",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.a14a065195",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "path stones messy",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_stones_messy.path_stones_messy",
+      "dimensions_cm": [
+        128.82467743937332,
+        299.1236398194737,
+        8.277937589035773
+      ],
+      "bottom_cm": -3.9968028886505635e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "path stones messy",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.1aaa50ea5e",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "path stones short",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_stones_short.path_stones_short",
+      "dimensions_cm": [
+        115.89112624650035,
+        165.55875178071477,
+        8.277937589035757
+      ],
+      "bottom_cm": -2.220446049250313e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "path stones short",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.1c8892eb67",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "planter",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/planter.planter",
+      "dimensions_cm": [
+        331.11750356142954,
+        248.33812767107216,
+        146.61017736852918
+      ],
+      "bottom_cm": -3.552713678800501e-15,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "planter",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.1f3b9b5f57",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "tree large",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/tree_large.tree_large",
+      "dimensions_cm": [
+        174.20438157436604,
+        201.15387709800328,
+        634.9177878167804
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "tree large",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    },
+    {
+      "id": "street_prop.4ca36e245c",
+      "mesh_type": "static",
+      "category": "street_prop",
+      "name": "tree small",
+      "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/tree_small.tree_small",
+      "dimensions_cm": [
+        174.20438157436604,
+        201.15387709800328,
+        469.35909919171746
+      ],
+      "bottom_cm": 0.0,
+      "base_scale": 8.277937589035739,
+      "style": "stylized",
+      "tags": [
+        "street_prop",
+        "tree small",
+        "city-kit-suburban"
+      ],
+      "source": "https://kenney.nl/assets/city-kit-suburban",
+      "creator": "Kenney",
+      "license": "CC0-1.0",
+      "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+    }
+  ]
+}

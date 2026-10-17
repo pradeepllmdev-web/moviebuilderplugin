@@ -1,0 +1,20 @@
+{
+  "schema": "body-retarget/1",
+  "anatomy": "biped",
+  "mapping": {
+    "Spine": "Spine02",
+    "LeftArm": "LeftArm",
+    "LeftForeArm": "LeftForeArm",
+    "LeftHand": "LeftHand",
+    "RightArm": "RightArm",
+    "RightForeArm": "RightForeArm",
+    "RightHand": "RightHand",
+    "Spine1": "Spine01",
+    "Spine2": "Spine"
+  },
+  "alignment_bone": "Spine",
+  "source_alignment": "Spine2",
+  "gesture_strength": 0.35,
+  "max_angular_speed_degrees": 100,
+  "torso_limit_degrees": 5
+}

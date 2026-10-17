@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Performance_Leo",
+    "location": "<Struct 'Vector' (0x0000022351038830) {x: 0.000000, y: 0.000000, z: 0.000000}>",
+    "bounds_center": "<Struct 'Vector' (0x000002234F767B70) {x: 182.603999, y: 6.521974, z: 82.952448}>",
+    "bounds_extent": "<Struct 'Vector' (0x000002235103BCB0) {x: 45.781982, y: 65.553953, z: 82.951696}>"
+  },
+  {
+    "name": "Transferred_Camera",
+    "location": "<Struct 'Vector' (0x000002235103BCB0) {x: -300.000000, y: 700.000000, z: 366.611115}>",
+    "bounds_center": "<Struct 'Vector' (0x0000022351038830) {x: -300.000000, y: 700.000000, z: 366.611115}>",
+    "bounds_extent": "<Struct 'Vector' (0x000002235103B6C0) {x: 1010.000000, y: 1010.000000, z: 1010.000000}>"
+  }
+]

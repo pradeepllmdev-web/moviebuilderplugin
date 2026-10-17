@@ -1,0 +1,298 @@
+{
+  "version": 1,
+  "title": "A Twig and a Brave Friend",
+  "unsupported": [],
+  "shots": [
+    {
+      "version": 1,
+      "title": "A sound behind them",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "full",
+      "focus": "both",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "walk",
+              "duration": 2.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral",
+              "distance_cm": 80.0
+            },
+            {
+              "action": "idle",
+              "duration": 2.0,
+              "dialogue": "",
+              "look_yaw_deg": 12.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "curious"
+            },
+            {
+              "action": "idle",
+              "duration": 2.0,
+              "dialogue": "",
+              "look_yaw_deg": 22.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "curious"
+            }
+          ]
+        },
+        {
+          "character": "cat",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "walk",
+              "duration": 2.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral",
+              "distance_cm": 80.0
+            },
+            {
+              "action": "idle",
+              "duration": 2.0,
+              "dialogue": "",
+              "look_yaw_deg": -30.0,
+              "look_pitch_deg": 3.0,
+              "emotion": "alert"
+            },
+            {
+              "action": "idle",
+              "duration": 2.0,
+              "dialogue": "",
+              "look_yaw_deg": 15.0,
+              "look_pitch_deg": 1.0,
+              "emotion": "curious"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "type": "twig_snap",
+          "time": 2.25
+        }
+      ],
+      "unsupported": [],
+      "notes": [],
+      "character": "lion",
+      "segments": [
+        {
+          "action": "walk",
+          "duration": 2.0,
+          "dialogue": "",
+          "look_yaw_deg": 0.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "neutral",
+          "distance_cm": 80.0
+        },
+        {
+          "action": "idle",
+          "duration": 2.0,
+          "dialogue": "",
+          "look_yaw_deg": 12.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "curious"
+        },
+        {
+          "action": "idle",
+          "duration": 2.0,
+          "dialogue": "",
+          "look_yaw_deg": 22.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "curious"
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "Did you hear that?",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "reaction",
+      "focus": "cat",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 4.0,
+              "dialogue": "",
+              "look_yaw_deg": 22.0,
+              "look_pitch_deg": -2.0,
+              "emotion": "curious"
+            }
+          ]
+        },
+        {
+          "character": "cat",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "talk",
+              "duration": 4.0,
+              "dialogue": "Did you hear that?",
+              "look_yaw_deg": 22.0,
+              "look_pitch_deg": 2.0,
+              "emotion": "alert"
+            }
+          ]
+        }
+      ],
+      "events": [],
+      "unsupported": [],
+      "notes": [],
+      "character": "lion",
+      "segments": [
+        {
+          "action": "idle",
+          "duration": 4.0,
+          "dialogue": "",
+          "look_yaw_deg": 22.0,
+          "look_pitch_deg": -2.0,
+          "emotion": "curious"
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "A calm reply",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "close",
+      "focus": "lion",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "talk",
+              "duration": 4.0,
+              "dialogue": "Just a twig. Come on.",
+              "look_yaw_deg": -18.0,
+              "look_pitch_deg": 1.0,
+              "emotion": "reassuring"
+            }
+          ]
+        },
+        {
+          "character": "cat",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 4.0,
+              "dialogue": "",
+              "look_yaw_deg": 22.0,
+              "look_pitch_deg": -2.0,
+              "emotion": "curious"
+            }
+          ]
+        }
+      ],
+      "events": [],
+      "unsupported": [],
+      "notes": [],
+      "character": "lion",
+      "segments": [
+        {
+          "action": "talk",
+          "duration": 4.0,
+          "dialogue": "Just a twig. Come on.",
+          "look_yaw_deg": -18.0,
+          "look_pitch_deg": 1.0,
+          "emotion": "reassuring"
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "Together again",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "full",
+      "focus": "both",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "walk",
+              "duration": 4.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral",
+              "distance_cm": 120.0
+            }
+          ]
+        },
+        {
+          "character": "cat",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "walk",
+              "duration": 4.0,
+              "dialogue": "All right, brave leader.",
+              "look_yaw_deg": 8.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "reassuring",
+              "distance_cm": 120.0
+            }
+          ]
+        }
+      ],
+      "events": [],
+      "unsupported": [],
+      "notes": [],
+      "character": "lion",
+      "segments": [
+        {
+          "action": "walk",
+          "duration": 4.0,
+          "dialogue": "",
+          "look_yaw_deg": 0.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "neutral",
+          "distance_cm": 120.0
+        }
+      ]
+    }
+  ]
+}

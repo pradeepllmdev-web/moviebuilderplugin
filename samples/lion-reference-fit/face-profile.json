@@ -1,0 +1,19 @@
+{
+  "schema": "blendshape-controls/1",
+  "name": "prepared-biped-lion-v4",
+  "mapping": {
+    "eyeBlinkLeft": "Repair_Blink_L",
+    "eyeBlinkRight": "Repair_Blink_R",
+    "mouthFunnel": "Repair_Round",
+    "mouthStretchLeft": "Repair_Wide",
+    "mouthStretchRight": "Repair_Wide",
+    "mouthClose": "Repair_Close",
+    "mouthPressLeft": "Repair_Press",
+    "mouthPressRight": "Repair_Press",
+    "browInnerUp": "BrowUp",
+    "mouthSmileLeft": "Repair_Smile",
+    "mouthSmileRight": "Repair_Smile"
+  },
+  "limits": "Original lion face with fitted jaw/teeth/tongue/eyes/lids. Calibrated for this exact asset.",
+  "require_jaw_morph": false
+}

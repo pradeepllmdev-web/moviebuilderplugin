@@ -1,0 +1,48 @@
+{
+  "level": "/Game/EnvironmentDemos/FreeKit_city_kit_suburban_v3",
+  "pack": "city-kit-suburban",
+  "biome": "city-kit-suburban",
+  "placed": [
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_a.building_type_a",
+      "scale": 8.397907699021763,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_b.building_type_b",
+      "scale": 6.1538457410978715,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_c.building_type_c",
+      "scale": 6.772832725122072,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_d.building_type_d",
+      "scale": 5.6565653078289415,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_e.building_type_e",
+      "scale": 6.153845741097873,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_f.building_type_f",
+      "scale": 6.1538457410978715,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_g.building_type_g",
+      "scale": 9.112095466933514,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_h.building_type_h",
+      "scale": 9.491526405621688,
+      "height_cm": 700
+    }
+  ],
+  "finished_at": 1792074743.9338052
+}

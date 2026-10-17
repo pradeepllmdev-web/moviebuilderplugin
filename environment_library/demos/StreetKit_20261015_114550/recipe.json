@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "tiles": [
+    {
+      "id": "junction",
+      "kind": "cross",
+      "cell": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "arm_0_-1_1",
+      "kind": "straight",
+      "cell": [
+        -1,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "arm_0_-1_2",
+      "kind": "straight",
+      "cell": [
+        -2,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "arm_0_1_1",
+      "kind": "straight",
+      "cell": [
+        1,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "arm_0_1_2",
+      "kind": "straight",
+      "cell": [
+        2,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "arm_1_-1_1",
+      "kind": "straight",
+      "cell": [
+        0,
+        -1
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "arm_1_-1_2",
+      "kind": "straight",
+      "cell": [
+        0,
+        -2
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "arm_1_1_1",
+      "kind": "straight",
+      "cell": [
+        0,
+        1
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "arm_1_1_2",
+      "kind": "straight",
+      "cell": [
+        0,
+        2
+      ],
+      "yaw": 0
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+[
+  {
+    "pixel": [
+      320,
+      370
+    ],
+    "object": "output_unwrapped",
+    "fit_point": [
+      0.0014,
+      -0.3954,
+      1.2258
+    ],
+    "rest_face_center": [
+      -0.0345,
+      -0.3985,
+      1.2347
+    ]
+  },
+  {
+    "pixel": [
+      310,
+      380
+    ],
+    "object": "output_unwrapped",
+    "fit_point": [
+      -0.015,
+      -0.3935,
+      1.2093
+    ],
+    "rest_face_center": [
+      -0.0581,
+      -0.3921,
+      1.2338
+    ]
+  },
+  {
+    "pixel": [
+      325,
+      385
+    ],
+    "object": "output_unwrapped",
+    "fit_point": [
+      0.0096,
+      -0.3961,
+      1.2013
+    ],
+    "rest_face_center": [
+      -0.0345,
+      -0.3985,
+      1.2347
+    ]
+  },
+  {
+    "pixel": [
+      320,
+      360
+    ],
+    "object": "output_unwrapped",
+    "fit_point": [
+      0.0014,
+      -0.3953,
+      1.2422
+    ],
+    "rest_face_center": [
+      -0.0345,
+      -0.3985,
+      1.2347
+    ]
+  }
+]

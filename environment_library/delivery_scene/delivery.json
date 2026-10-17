@@ -1,0 +1,38 @@
+{
+  "title": "Special Delivery, Extra Courage",
+  "duration": 21.0,
+  "fps": 24,
+  "frames": 504,
+  "resolution": [
+    960,
+    540
+  ],
+  "full_decode_passed": true,
+  "method": "Unreal Movie Render Queue; recorded collision physics baked into Sequencer",
+  "engine_hit_events": [
+    {
+      "time": 5.62220149859786,
+      "event": "cat_crate_engine_hit",
+      "normal_impulse": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "time": 10.632129900157452,
+      "event": "lion_crate_engine_hit",
+      "normal_impulse": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "limitations": [
+    "Flat-ground foot drift reduced but still 4\u20138 cm; no general runtime terrain IK",
+    "Parcel follows wrist midpoint; no finger grasp constraints",
+    "Basic materials and offline synthesized voices",
+    "Preview render uses one temporal/spatial sample"
+  ]
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "shot": 914,
+    "source": [
+      {
+        "rig": "Armature.001",
+        "moving_bones": 15,
+        "nla_tracks": 3
+      },
+      {
+        "rig": "Armature",
+        "moving_bones": 15,
+        "nla_tracks": 4
+      }
+    ],
+    "exported_face": [
+      {
+        "name": "Amber",
+        "active_channels": 8,
+        "max_range": 1.0
+      },
+      {
+        "name": "Leo",
+        "active_channels": 23,
+        "max_range": 1.0
+      }
+    ]
+  },
+  {
+    "shot": 915,
+    "source": [
+      {
+        "rig": "Armature.001",
+        "moving_bones": 15,
+        "nla_tracks": 3
+      },
+      {
+        "rig": "Armature",
+        "moving_bones": 15,
+        "nla_tracks": 4
+      }
+    ],
+    "exported_face": [
+      {
+        "name": "Amber",
+        "active_channels": 7,
+        "max_range": 1.0
+      },
+      {
+        "name": "Leo",
+        "active_channels": 22,
+        "max_range": 1.0
+      }
+    ]
+  }
+]

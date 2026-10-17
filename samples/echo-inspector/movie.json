@@ -1,0 +1,11 @@
+{
+  "movie_id": 36,
+  "scene_id": 140,
+  "title": "The Echo Inspector",
+  "duration": 16,
+  "bindings": {
+    "Leo": "DemoLeo",
+    "Amber": "DemoAmber"
+  },
+  "source_level": "/Game/EnvironmentDemos/PromptSet_75c53dbd326e"
+}

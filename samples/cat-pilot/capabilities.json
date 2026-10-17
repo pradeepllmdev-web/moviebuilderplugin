@@ -1,0 +1,133 @@
+{
+  "rigs": [
+    {
+      "name": "Armature",
+      "bones": [
+        "Root",
+        "Hip",
+        "Stomach",
+        "Chest",
+        "Neck",
+        "Head",
+        "Ear.L",
+        "Ear.R",
+        "HatFlap.L",
+        "HatFlap.R",
+        "Goggles",
+        "Shoulder.L",
+        "Humerous.L",
+        "Forearm.L",
+        "Hand.L",
+        "Shoulder.R",
+        "Humerous.R",
+        "Forearm.R",
+        "Hand.R",
+        "Scarf1",
+        "Scarf2",
+        "Tail1",
+        "Tail2",
+        "Tail3",
+        "Tail4",
+        "Tail5",
+        "Tail6",
+        "Thigh.L",
+        "Shin.L",
+        "Heel.L",
+        "Foot.L",
+        "Toes.L",
+        "Thigh.R",
+        "Shin.R",
+        "Heel.R",
+        "Foot.R",
+        "Toes.R",
+        "ArmPointer.R",
+        "ArmPointer.L",
+        "LegPointer.R",
+        "LegPointer.L",
+        "TailIK",
+        "FootIK.L",
+        "FootIK.R",
+        "HandIK.R",
+        "HandIK.L"
+      ]
+    }
+  ],
+  "shapes": {
+    "CatPilot": [
+      "Basis",
+      "Eyes"
+    ]
+  },
+  "actions": [
+    {
+      "name": "Cheer",
+      "frames": [
+        0.0,
+        60.0
+      ]
+    },
+    {
+      "name": "DefaultAnim",
+      "frames": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "FlyingPlane",
+      "frames": [
+        0.0,
+        40.0
+      ]
+    },
+    {
+      "name": "GogglesOn",
+      "frames": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "PutOnGoggles",
+      "frames": [
+        0.0,
+        76.0
+      ]
+    },
+    {
+      "name": "PutOnGogglesBlink",
+      "frames": [
+        0.0,
+        90.0
+      ]
+    },
+    {
+      "name": "Run",
+      "frames": [
+        0.0,
+        55.0
+      ]
+    },
+    {
+      "name": "Walk",
+      "frames": [
+        0.0,
+        80.0
+      ]
+    },
+    {
+      "name": "WalkBlink",
+      "frames": [
+        0.0,
+        80.0
+      ]
+    },
+    {
+      "name": "Default",
+      "frames": [
+        0.0,
+        80.0
+      ]
+    }
+  ]
+}

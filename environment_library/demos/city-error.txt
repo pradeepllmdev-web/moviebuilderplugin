@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/build_skyscraper_city_unreal.py", line 22, in <module>
+    custom.output_type=unreal.CustomMaterialOutputType.CMOT_FLOAT3
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'MaterialExpressionCustom' object has no attribute 'output_type'

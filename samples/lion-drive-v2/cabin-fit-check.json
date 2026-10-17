@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "samples": 288,
+  "steering_center_car_relative_cm": [
+    2.3004380395270454,
+    -39.89499345305896,
+    73.14316626645463
+  ],
+  "steering_radius_cm": 14.350677753600129,
+  "max_wrist_to_rim_error_cm": 1.2968288453879198,
+  "mean_wrist_to_rim_error_cm": 0.8455321846263107,
+  "max_driver_bounds_top_cm": 111.29938989067338,
+  "car_roof_top_cm": 119.1,
+  "car_scale_unchanged": true,
+  "finger_contact": "not measured; rig has no finger bones"
+}

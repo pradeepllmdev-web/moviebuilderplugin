@@ -1,0 +1,30 @@
+{
+  "id": "ModularKit_20261015_114221",
+  "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\demos\\ModularKit_20261015_114221",
+  "cameras": {
+    "overview": {
+      "location": [
+        1500,
+        -1400,
+        1150
+      ],
+      "target": [
+        500,
+        250,
+        90
+      ]
+    },
+    "doorway": {
+      "location": [
+        420,
+        -650,
+        165
+      ],
+      "target": [
+        340,
+        200,
+        140
+      ]
+    }
+  }
+}

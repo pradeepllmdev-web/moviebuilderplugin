@@ -1,0 +1,275 @@
+{
+  "plan_id": "316a539647533fd744b440be338247f2ff30959b4b551c2df5e11d2b5200c551",
+  "tool_plans": [
+    {
+      "shot_id": 914,
+      "tool": "blender",
+      "prompt": "Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech. Camera: Conversation two-shot with a gentle cinematic framing.",
+      "plan": {
+        "shot": {
+          "id": 914,
+          "title": "The complaint",
+          "action": "Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech.",
+          "camera": "Conversation two-shot with a gentle cinematic framing.",
+          "duration": 8.0,
+          "lines": [
+            {
+              "id": 360,
+              "file_id": 5008,
+              "character": "Amber",
+              "text": "Leo, the mountain keeps copying me.",
+              "start": 0.15,
+              "end": 3.0,
+              "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-1-1.wav",
+              "audio_hash": "975f64960eda599a66f8d80fa02815535f7c59b9de2c96bac178151ff2d0577d"
+            },
+            {
+              "id": 361,
+              "file_id": 5009,
+              "character": "Leo",
+              "text": "Then ask it for rent.",
+              "start": 3.25,
+              "end": 5.03,
+              "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-1-2.wav",
+              "audio_hash": "7ac775130e7350234494ba872c8be0a8f9d265240b321644b5f833b179ecb6c8"
+            }
+          ]
+        },
+        "bindings": {
+          "Leo": "DemoLeo",
+          "Amber": "DemoAmber"
+        }
+      }
+    },
+    {
+      "shot_id": 914,
+      "tool": "unreal",
+      "prompt": "Preserve Blender animation, faces, voices and cameras. Environment: mountains. Lighting: golden_hour. Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech.",
+      "plan": {
+        "shot": {
+          "id": 914,
+          "title": "The complaint",
+          "action": "Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech.",
+          "camera": "Conversation two-shot with a gentle cinematic framing.",
+          "duration": 8.0,
+          "lines": [
+            {
+              "id": 360,
+              "file_id": 5008,
+              "character": "Amber",
+              "text": "Leo, the mountain keeps copying me.",
+              "start": 0.15,
+              "end": 3.0,
+              "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-1-1.wav",
+              "audio_hash": "975f64960eda599a66f8d80fa02815535f7c59b9de2c96bac178151ff2d0577d"
+            },
+            {
+              "id": 361,
+              "file_id": 5009,
+              "character": "Leo",
+              "text": "Then ask it for rent.",
+              "start": 3.25,
+              "end": 5.03,
+              "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-1-2.wav",
+              "audio_hash": "7ac775130e7350234494ba872c8be0a8f9d265240b321644b5f833b179ecb6c8"
+            }
+          ]
+        },
+        "bindings": {
+          "Leo": "DemoLeo",
+          "Amber": "DemoAmber"
+        },
+        "input": "Blender performance package",
+        "environment": "mountains",
+        "mood": "golden_hour",
+        "source_level": "/Game/EnvironmentDemos/PromptSet_75c53dbd326e",
+        "preserve": [
+          "body",
+          "face",
+          "voice",
+          "camera"
+        ]
+      }
+    },
+    {
+      "shot_id": 915,
+      "tool": "blender",
+      "prompt": "Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech. Camera: Conversation two-shot with a gentle cinematic framing.",
+      "plan": {
+        "shot": {
+          "id": 915,
+          "title": "The verdict",
+          "action": "Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech.",
+          "camera": "Conversation two-shot with a gentle cinematic framing.",
+          "duration": 8.0,
+          "lines": [
+            {
+              "id": 362,
+              "file_id": 5010,
+              "character": "Amber",
+              "text": "Rent!",
+              "start": 0.15,
+              "end": 1.315,
+              "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-2-1.wav",
+              "audio_hash": "98f50d6e1836159e11fc89443134f92c3c9fecf795ab60c82a788adbb9a8b6e9"
+            },
+            {
+              "id": 363,
+              "file_id": 5011,
+              "character": "Leo",
+              "text": "A silent tenant. Perfect.",
+              "start": 1.565,
+              "end": 4.48,
+              "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-2-2.wav",
+              "audio_hash": "a6fe6f603cbe81495da82dc798e7de14f32f59add7065040bdcd407c95fdf6ba"
+            }
+          ]
+        },
+        "bindings": {
+          "Leo": "DemoLeo",
+          "Amber": "DemoAmber"
+        }
+      }
+    },
+    {
+      "shot_id": 915,
+      "tool": "unreal",
+      "prompt": "Preserve Blender animation, faces, voices and cameras. Environment: mountains. Lighting: golden_hour. Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech.",
+      "plan": {
+        "shot": {
+          "id": 915,
+          "title": "The verdict",
+          "action": "Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech.",
+          "camera": "Conversation two-shot with a gentle cinematic framing.",
+          "duration": 8.0,
+          "lines": [
+            {
+              "id": 362,
+              "file_id": 5010,
+              "character": "Amber",
+              "text": "Rent!",
+              "start": 0.15,
+              "end": 1.315,
+              "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-2-1.wav",
+              "audio_hash": "98f50d6e1836159e11fc89443134f92c3c9fecf795ab60c82a788adbb9a8b6e9"
+            },
+            {
+              "id": 363,
+              "file_id": 5011,
+              "character": "Leo",
+              "text": "A silent tenant. Perfect.",
+              "start": 1.565,
+              "end": 4.48,
+              "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-2-2.wav",
+              "audio_hash": "a6fe6f603cbe81495da82dc798e7de14f32f59add7065040bdcd407c95fdf6ba"
+            }
+          ]
+        },
+        "bindings": {
+          "Leo": "DemoLeo",
+          "Amber": "DemoAmber"
+        },
+        "input": "Blender performance package",
+        "environment": "mountains",
+        "mood": "golden_hour",
+        "source_level": "/Game/EnvironmentDemos/PromptSet_75c53dbd326e",
+        "preserve": [
+          "body",
+          "face",
+          "voice",
+          "camera"
+        ]
+      }
+    }
+  ],
+  "version": 1,
+  "engine": "combined",
+  "scene_id": 140,
+  "contract": {
+    "version": 1,
+    "scene_id": 140,
+    "movie_id": 36,
+    "title": "A mountain with excellent manners",
+    "story": "At a mountain crossroads, Amber hears her voice echo. Leo advises charging rent. Amber demands payment from the mountain. Its silence convinces Leo they have found the perfect tenant.",
+    "characters": [
+      "Amber",
+      "Leo"
+    ],
+    "shots": [
+      {
+        "id": 914,
+        "title": "The complaint",
+        "action": "Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech.",
+        "camera": "Conversation two-shot with a gentle cinematic framing.",
+        "duration": 8.0,
+        "lines": [
+          {
+            "id": 360,
+            "file_id": 5008,
+            "character": "Amber",
+            "text": "Leo, the mountain keeps copying me.",
+            "start": 0.15,
+            "end": 3.0,
+            "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-1-1.wav",
+            "audio_hash": "975f64960eda599a66f8d80fa02815535f7c59b9de2c96bac178151ff2d0577d"
+          },
+          {
+            "id": 361,
+            "file_id": 5009,
+            "character": "Leo",
+            "text": "Then ask it for rent.",
+            "start": 3.25,
+            "end": 5.03,
+            "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-1-2.wav",
+            "audio_hash": "7ac775130e7350234494ba872c8be0a8f9d265240b321644b5f833b179ecb6c8"
+          }
+        ]
+      },
+      {
+        "id": 915,
+        "title": "The verdict",
+        "action": "Two friends exchange a playful complaint and a dry joke. Restrained listening and expressive speech.",
+        "camera": "Conversation two-shot with a gentle cinematic framing.",
+        "duration": 8.0,
+        "lines": [
+          {
+            "id": 362,
+            "file_id": 5010,
+            "character": "Amber",
+            "text": "Rent!",
+            "start": 0.15,
+            "end": 1.315,
+            "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-2-1.wav",
+            "audio_hash": "98f50d6e1836159e11fc89443134f92c3c9fecf795ab60c82a788adbb9a8b6e9"
+          },
+          {
+            "id": 363,
+            "file_id": 5011,
+            "character": "Leo",
+            "text": "A silent tenant. Perfect.",
+            "start": 1.565,
+            "end": 4.48,
+            "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\movie_files\\echo-inspector-36-2-2.wav",
+            "audio_hash": "a6fe6f603cbe81495da82dc798e7de14f32f59add7065040bdcd407c95fdf6ba"
+          }
+        ]
+      }
+    ]
+  },
+  "revision": "2009ed2dd0845e776abcb20f0e45b84e6e0b262475c58499db17416005b0b7f9",
+  "bindings": {
+    "Leo": "DemoLeo",
+    "Amber": "DemoAmber"
+  },
+  "cast": null,
+  "tool_signature": "b77714bb6e645dd5c4f384a089c9383a55ac3e7ec345eb6ddcc4b5632de75561",
+  "environment": "mountains",
+  "mood": "golden_hour",
+  "source_level": "/Game/EnvironmentDemos/PromptSet_75c53dbd326e",
+  "source_job_id": null,
+  "notes": [
+    "Draft blocking uses fixed positions and restrained listening poses in Blender, or idle/talk clips in Unreal. Action and camera prose are retained for review, not interpreted by an AI planner.",
+    "Review the preview takes before requesting final rendering.",
+    "Combined mode preserves Blender body/facial animation, voices and cameras in Unreal. Generated environments are draft presets; select an existing /Game map for authored scenery. Reuse a completed Blender preview to retain its reviewed performance."
+  ]
+}

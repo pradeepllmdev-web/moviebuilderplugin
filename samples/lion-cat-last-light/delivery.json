@@ -1,0 +1,17 @@
+{
+  "frames": 567,
+  "fps": 24,
+  "duration": 23.625,
+  "complete_frame_sequence": true,
+  "full_decode_passed": true,
+  "meshy_calls": 0,
+  "characters": [
+    "existing lion",
+    "existing Amber cat"
+  ],
+  "limitations": [
+    "Existing prototype facial rigs",
+    "Body clips loop; no new walking or object contacts",
+    "Procedural Blender environment, not Unreal final render"
+  ]
+}

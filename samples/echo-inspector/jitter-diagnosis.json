@@ -1,0 +1,74 @@
+[
+  {
+    "shot": 914,
+    "rig": "Armature.001",
+    "joints": {
+      "mixamorig:Head": {
+        "max_deg_per_frame": 1.8763214803376145,
+        "p95_deg_per_frame": 0.4925767010769235
+      },
+      "mixamorig:Spine2": {
+        "max_deg_per_frame": 1.4585466631731434,
+        "p95_deg_per_frame": 0.478062228925529
+      },
+      "mixamorig:LeftArm": {
+        "max_deg_per_frame": 2.4151113480605497,
+        "p95_deg_per_frame": 1.6085985554406246
+      }
+    }
+  },
+  {
+    "shot": 914,
+    "rig": "Armature",
+    "joints": {
+      "mixamorig:Head": {
+        "max_deg_per_frame": 1.2524018423469325,
+        "p95_deg_per_frame": 0.9151361724766942
+      },
+      "mixamorig:Spine2": {
+        "max_deg_per_frame": 1.4628334606509725,
+        "p95_deg_per_frame": 1.1176629140335024
+      },
+      "mixamorig:LeftArm": {
+        "max_deg_per_frame": 2.422230966496642,
+        "p95_deg_per_frame": 1.8667022261087092
+      }
+    }
+  },
+  {
+    "shot": 915,
+    "rig": "Armature.001",
+    "joints": {
+      "mixamorig:Head": {
+        "max_deg_per_frame": 1.3240949229699712,
+        "p95_deg_per_frame": 0.5553173246887797
+      },
+      "mixamorig:Spine2": {
+        "max_deg_per_frame": 1.0118076817812929,
+        "p95_deg_per_frame": 0.478062228925529
+      },
+      "mixamorig:LeftArm": {
+        "max_deg_per_frame": 1.9790498733321333,
+        "p95_deg_per_frame": 1.1790061236298564
+      }
+    }
+  },
+  {
+    "shot": 915,
+    "rig": "Armature",
+    "joints": {
+      "mixamorig:Head": {
+        "max_deg_per_frame": 1.6149116779461261,
+        "p95_deg_per_frame": 1.1895805371255055
+      },
+      "mixamorig:Spine2": {
+        "max_deg_per_frame": 1.6999161569312853,
+        "p95_deg_per_frame": 1.2473922187558455
+      },
+      "mixamorig:LeftArm": {
+        "max_deg_per_frame": 2.422230966496642,
+        "p95_deg_per_frame": 1.5445552866880001
+      }
+    }
+  }
+]

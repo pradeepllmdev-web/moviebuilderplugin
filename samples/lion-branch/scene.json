@@ -1,0 +1,235 @@
+{
+  "title": "Leo Clears the Trail",
+  "scene_type": "motion",
+  "duration": 20,
+  "fps": 24,
+  "floor_size": [
+    24,
+    24
+  ],
+  "actors": [
+    {
+      "name": "Leo",
+      "segments": [
+        {
+          "action": "walk",
+          "start": 0,
+          "end": 3.54,
+          "from": [
+            0.0,
+            4.0,
+            0.0
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ],
+          "yaw_start": 0,
+          "yaw_end": 0.0,
+          "intensity": 0.4
+        },
+        {
+          "action": "idle",
+          "start": 3.54,
+          "end": 4,
+          "from": [
+            0,
+            0,
+            0
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ],
+          "yaw_start": 0,
+          "yaw_end": 0,
+          "intensity": 0.4
+        },
+        {
+          "action": "pick_up",
+          "start": 4,
+          "end": 9,
+          "from": [
+            0,
+            0,
+            0
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ],
+          "yaw_start": 0,
+          "yaw_end": 0,
+          "intensity": 0.4
+        },
+        {
+          "action": "carry",
+          "start": 9,
+          "end": 12.982,
+          "from": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "to": [
+            0,
+            -3,
+            0
+          ],
+          "yaw_start": 0,
+          "yaw_end": 0.0,
+          "intensity": 0.4
+        },
+        {
+          "action": "idle",
+          "start": 12.982,
+          "end": 14,
+          "from": [
+            0,
+            -3,
+            0
+          ],
+          "to": [
+            0,
+            -3,
+            0
+          ],
+          "yaw_start": 0,
+          "yaw_end": 0,
+          "intensity": 0.4
+        },
+        {
+          "action": "pick_up",
+          "start": 14,
+          "end": 17,
+          "from": [
+            0,
+            -3,
+            0
+          ],
+          "to": [
+            0,
+            -3,
+            0
+          ],
+          "yaw_start": 0,
+          "yaw_end": 0,
+          "intensity": 0.4
+        },
+        {
+          "action": "walk",
+          "start": 17,
+          "end": 19.655,
+          "from": [
+            0.0,
+            -3.0,
+            0.0
+          ],
+          "to": [
+            0,
+            -6,
+            0
+          ],
+          "yaw_start": 0,
+          "yaw_end": 0.0,
+          "intensity": 0.4
+        },
+        {
+          "action": "idle",
+          "start": 19.655,
+          "end": 20,
+          "from": [
+            0,
+            -6,
+            0
+          ],
+          "to": [
+            0,
+            -6,
+            0
+          ],
+          "yaw_start": 0,
+          "yaw_end": 0,
+          "intensity": 0.4
+        }
+      ]
+    }
+  ],
+  "obstacles": [],
+  "camera": {
+    "offset": [
+      0,
+      -7,
+      2.8
+    ],
+    "lens_mm": 42
+  },
+  "lighting": "golden",
+  "set": "field",
+  "lines": [
+    {
+      "speaker": "Leo",
+      "to": "Leo",
+      "text": "A fallen branch. This trail needs a little kindness.",
+      "start": 0,
+      "end": 4.8,
+      "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-branch\\voice-0\\voice.wav",
+      "tone": "natural",
+      "manner": "talk"
+    },
+    {
+      "speaker": "Leo",
+      "to": "Leo",
+      "text": "Heavy? No. Just a very lazy tree.",
+      "start": 9,
+      "end": 13.8,
+      "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-branch\\voice-1\\voice.wav",
+      "tone": "natural",
+      "manner": "talk"
+    },
+    {
+      "speaker": "Leo",
+      "to": "Leo",
+      "text": "There. Adventure can continue!",
+      "start": 17,
+      "end": 21.8,
+      "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-branch\\voice-2\\voice.wav",
+      "tone": "natural",
+      "manner": "talk"
+    }
+  ],
+  "camera_cuts": [],
+  "environment": {
+    "kind": "plain",
+    "seed": 42,
+    "tree_count": 0,
+    "rock_count": 0,
+    "mountain_count": 0,
+    "clearing_radius": 4
+  },
+  "staging": {
+    "left_count": 0,
+    "right_count": 0,
+    "crowd_action": "idle",
+    "road_width": 5,
+    "rider": "",
+    "mount": ""
+  },
+  "test_dialogue": [
+    [
+      0,
+      "A fallen branch. This trail needs a little kindness."
+    ],
+    [
+      9,
+      "Heavy? No. Just a very lazy tree."
+    ],
+    [
+      17,
+      "There. Adventure can continue!"
+    ]
+  ]
+}

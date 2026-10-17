@@ -1,0 +1,56 @@
+[
+  {
+    "id": "wood_floor_deck",
+    "source": "https://polyhaven.com/a/wood_floor_deck",
+    "license": "CC0-1.0",
+    "license_reference": "https://polyhaven.com/license",
+    "files": [
+      {
+        "role": "diff",
+        "path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\wood_floor_deck\\wood_floor_deck_diff_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor_deck/wood_floor_deck_diff_2k.jpg",
+        "sha256": "1b55c67104cf6398ab976ee7fe4f0d0831c8c9808c13ab286dfc1cf0e4fcf2d0"
+      },
+      {
+        "role": "rough",
+        "path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\wood_floor_deck\\wood_floor_deck_rough_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor_deck/wood_floor_deck_rough_2k.jpg",
+        "sha256": "c82ee0705926f7d0a235bb5d6a5879a666040a4d1438980f4ed5387935cba786"
+      },
+      {
+        "role": "nor_dx",
+        "path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\wood_floor_deck\\wood_floor_deck_nor_dx_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor_deck/wood_floor_deck_nor_dx_2k.jpg",
+        "sha256": "165e77b68a158cd096c16354f49a82d3b8e4addfd15398d8644451853d198f20"
+      }
+    ],
+    "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\wood_floor_deck"
+  },
+  {
+    "id": "painted_plaster_wall",
+    "source": "https://polyhaven.com/a/painted_plaster_wall",
+    "license": "CC0-1.0",
+    "license_reference": "https://polyhaven.com/license",
+    "files": [
+      {
+        "role": "diff",
+        "path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\painted_plaster_wall\\painted_plaster_wall_diff_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_diff_2k.jpg",
+        "sha256": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be"
+      },
+      {
+        "role": "rough",
+        "path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\painted_plaster_wall\\painted_plaster_wall_rough_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_rough_2k.jpg",
+        "sha256": "35aad595469533cc3b7cc209cc6c7e065d660211f02c867f4492d3b371b1fee1"
+      },
+      {
+        "role": "nor_dx",
+        "path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\painted_plaster_wall\\painted_plaster_wall_nor_dx_2k.jpg",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_nor_dx_2k.jpg",
+        "sha256": "258ed862e80c033b52171786483cb4be7bf9d6e3e1cb8fc3b8ed15a18d3c58c8"
+      }
+    ],
+    "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\painted_plaster_wall"
+  }
+]

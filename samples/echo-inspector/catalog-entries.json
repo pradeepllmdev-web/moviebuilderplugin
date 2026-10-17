@@ -1,0 +1,30 @@
+{
+  "DemoLeo": {
+    "asset_type": "rigged_realistic",
+    "asset_path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\echo-inspector\\DemoLeo.blend",
+    "collection": "DemoLeo",
+    "armature": "Armature",
+    "species": "lion",
+    "height_m": 1.85,
+    "rig_version": 2,
+    "color": [
+      0.5,
+      0.5,
+      0.5
+    ]
+  },
+  "DemoAmber": {
+    "asset_type": "rigged_realistic",
+    "asset_path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\echo-inspector\\DemoAmber.blend",
+    "collection": "DemoAmber",
+    "armature": "Armature.001",
+    "species": "cat",
+    "height_m": 1.5,
+    "rig_version": 2,
+    "color": [
+      0.5,
+      0.5,
+      0.5
+    ]
+  }
+}

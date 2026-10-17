@@ -1,0 +1,13 @@
+{
+  "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\physics_lab\\package_20261015_101957",
+  "checks": [
+    {
+      "name": "lion",
+      "required_foot_bones_present": true
+    },
+    {
+      "name": "cat",
+      "required_foot_bones_present": true
+    }
+  ]
+}

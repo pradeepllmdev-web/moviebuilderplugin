@@ -1,0 +1,9 @@
+{
+ "width_m":120,"depth_m":100,
+ "rivers":[{"points":[[5,28],[30,36],[55,42],[95,30]],"width_m":7}],
+ "paths":[{"points":[[8,65],[30,60],[54,56],[82,58]],"width_m":3,"style":"dirt"}],
+ "forests":[{"center":[22,27],"radius_m":23,"density":0.8},{"center":[78,25],"radius_m":22,"density":0.8}],
+ "clear":[{"center":[52,62],"radius_m":10}],
+ "bridges":[{"river":0,"at":[55,42],"width_m":3}],
+ "camera":{"position":[42,68],"target":[55,42],"height_m":3.0,"target_height_m":1.7}
+}

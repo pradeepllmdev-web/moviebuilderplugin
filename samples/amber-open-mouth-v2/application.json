@@ -1,0 +1,14 @@
+{
+  "frames": 212,
+  "fps": 24,
+  "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\character_workflows\\8fe21e60764a4190ae23f4f2df71fd65\\demo\\standing\\voice.wav",
+  "lead": 0.35,
+  "source_sha256": "e3245859a8a8452f3c643795491d39197512ec6ec2e28378cac292afddcb9975",
+  "fresh_geometry_only": true,
+  "limitations": [
+    "rest pose still shows teeth; full lip seal pending",
+    "stylized jagged fur remains",
+    "eyelids are fitted overlays",
+    "prototype facial controls, not complete ARKit"
+  ]
+}

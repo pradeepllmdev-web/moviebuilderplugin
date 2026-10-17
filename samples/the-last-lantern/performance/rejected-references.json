@@ -1,0 +1,19 @@
+[
+  {
+    "file": "face-reference.mp4",
+    "download": "https://videos.pexels.com/video-files/6100890/6100890-uhd_2160_4096_30fps.mp4",
+    "source": "https://www.pexels.com/video/man-gesturing-in-a-serious-talking-6100890/",
+    "author": "KATRIN BOLOVTSOVA",
+    "types": [
+      "blink_brow_expression"
+    ],
+    "capture": "face",
+    "selection": "Extract blinks and brow timing; keep target-dialogue mouth animation.",
+    "reason": "Eyes cropped in visual review; tracked-face coverage below 80 percent"
+  },
+  {
+    "source": "https://pixabay.com/videos/id-445/",
+    "previous_catalog_label": "Talk_1",
+    "reason": "Visual review showed a stretching/yoga performance, not dialogue acting. Original catalog left unchanged; excluded from this performance bank."
+  }
+]

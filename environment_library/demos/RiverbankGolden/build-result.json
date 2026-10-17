@@ -1,0 +1,51 @@
+{
+  "label": "DemoRiverbank",
+  "biome": "birch_grove",
+  "terrain": "flat",
+  "actors": [
+    "DemoRiverbank_Ground",
+    "DemoRiverbank_River",
+    "DemoRiverbank_Forest"
+  ],
+  "used": {
+    "ground": "Uncut Grass",
+    "slopes": "Rocky Forest Floor",
+    "tree": [
+      "Silver Birch",
+      "Norway Spruce"
+    ],
+    "rock": [
+      "Mossy Forest Rock",
+      "Nordic Beach Rocks"
+    ],
+    "fern": [
+      "Fern"
+    ],
+    "grass": [
+      "Ribbon Grass",
+      "Wild Grass"
+    ],
+    "instances": 1842
+  },
+  "warnings": [],
+  "stage": [
+    0.0,
+    0.0,
+    600.0
+  ],
+  "level": "/Game/EnvironmentDemos/RiverbankGolden_v2",
+  "camera": {
+    "location": [
+      -1500,
+      1600,
+      220
+    ],
+    "target": [
+      1000,
+      3200,
+      180
+    ]
+  },
+  "reference_image": null,
+  "finished_at": 1792029614.9362972
+}

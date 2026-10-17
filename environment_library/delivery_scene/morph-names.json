@@ -1,0 +1,42 @@
+{
+  "lion": [
+    "BlinkL",
+    "BlinkR",
+    "JawOpen",
+    "LipSeal",
+    "ActingBrowL",
+    "ActingBrowR",
+    "GazeLeft",
+    "GazeRight",
+    "GazeDown",
+    "Concern",
+    "LipPress",
+    "Round",
+    "Wide",
+    "LowerLipBite",
+    "Frown",
+    "WarmSmile",
+    "ConcernStrong"
+  ],
+  "cat": [
+    "BlinkL",
+    "BlinkR",
+    "JawClose",
+    "MouthRound",
+    "MouthWide",
+    "Smile",
+    "ActingBrowL",
+    "ActingBrowR",
+    "GazeLeft",
+    "GazeRight",
+    "GazeDown",
+    "Concern",
+    "LipPress",
+    "Round",
+    "Wide",
+    "LowerLipBite",
+    "Frown",
+    "WarmSmile",
+    "ConcernStrong"
+  ]
+}

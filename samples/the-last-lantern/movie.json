@@ -1,0 +1,48 @@
+{
+  "title": "The Last Lantern",
+  "genre": "gentle fantasy",
+  "fps": 24,
+  "resolution": [
+    960,
+    540
+  ],
+  "duration": 16,
+  "shots": [
+    {
+      "id": 1,
+      "speaker": "snow",
+      "text": "The path ends here.",
+      "voice": "Microsoft David Desktop",
+      "start": 0,
+      "duration": 4,
+      "camera": "snow_close"
+    },
+    {
+      "id": 2,
+      "speaker": "jacob",
+      "text": "Only if we stop walking.",
+      "voice": "Microsoft Mark",
+      "start": 4,
+      "duration": 4,
+      "camera": "jacob_close"
+    },
+    {
+      "id": 3,
+      "speaker": "snow",
+      "text": "Then let's find another way.",
+      "voice": "Microsoft David Desktop",
+      "start": 8,
+      "duration": 4,
+      "camera": "snow_close"
+    },
+    {
+      "id": 4,
+      "speaker": "jacob",
+      "text": "I was hoping you'd say that.",
+      "voice": "Microsoft Mark",
+      "start": 12,
+      "duration": 4,
+      "camera": "two_shot"
+    }
+  ]
+}

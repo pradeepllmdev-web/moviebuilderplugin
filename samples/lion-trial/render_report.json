@@ -1,0 +1,96 @@
+{
+  "frames": 432,
+  "framing_warning_frames": [],
+  "quality": "eevee",
+  "clip_warnings": [],
+  "foot_lock": {
+    "Leo": {}
+  },
+  "grounded_cm": {
+    "Leo": 1.5
+  },
+  "look_at": {},
+  "contacts": 0,
+  "extras": 0,
+  "held": 0,
+  "seats": 0,
+  "qa": {
+    "posture": {
+      "frames": 0,
+      "ok": true,
+      "first": []
+    },
+    "hands": {
+      "frames": 0,
+      "ok": true,
+      "first": []
+    },
+    "lens": {
+      "frames": 0,
+      "ok": true,
+      "first": []
+    },
+    "overlap": {
+      "frames": 0,
+      "ok": true,
+      "first": []
+    },
+    "props": {
+      "frames": 0,
+      "ok": true,
+      "first": []
+    },
+    "feet": {
+      "frames": 0,
+      "ok": true,
+      "first": []
+    },
+    "pops": {
+      "frames": 16,
+      "ok": false,
+      "first": [
+        "Leo LeftToeBase @ 6.0s",
+        "Leo LeftToeBase @ 6.8s",
+        "Leo LeftToeBase @ 7.4s"
+      ]
+    },
+    "sliding": {
+      "frames": 3,
+      "ok": true,
+      "first": [
+        "Leo @ 5.9s",
+        "Leo @ 5.9s",
+        "Leo @ 6.0s"
+      ]
+    },
+    "through": {
+      "frames": 0,
+      "ok": true,
+      "first": []
+    },
+    "framing": {
+      "frames": 0,
+      "ok": true,
+      "first": []
+    },
+    "ok": false
+  },
+  "walks": {
+    "Leo": [
+      {
+        "frames": [
+          137,
+          432
+        ],
+        "actions": [
+          "run",
+          "talk"
+        ],
+        "retimed": 0.2,
+        "path_m": 23.05,
+        "steps_m": 18.22,
+        "mode": "start closer"
+      }
+    ]
+  }
+}

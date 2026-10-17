@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "title": "Lion's Turn and Greeting",
+  "character": "lion",
+  "environment": "forest",
+  "mood": "morning_fog",
+  "camera": "full",
+  "segments": [
+    {
+      "action": "turn",
+      "duration": 2.0,
+      "angle_deg": -90,
+      "radius_cm": 80,
+      "dialogue": "",
+      "look_yaw_deg": 0.0,
+      "look_pitch_deg": 0.0,
+      "emotion": "neutral"
+    },
+    {
+      "action": "idle",
+      "duration": 2.0,
+      "dialogue": "Hello!",
+      "look_yaw_deg": 0.0,
+      "look_pitch_deg": 0.0,
+      "emotion": "neutral"
+    }
+  ],
+  "unsupported": [],
+  "notes": [],
+  "events": [],
+  "lookdev": "soft_portrait"
+}

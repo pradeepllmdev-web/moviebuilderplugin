@@ -1,0 +1,24 @@
+{
+  "name": "running",
+  "clip": "Mixamo_Running",
+  "frames": 168,
+  "fps": 24,
+  "speed_mps": 0.89,
+  "circle_radius_m": 0,
+  "vertical_correction_m": 0.021324649453163147,
+  "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-motion-tests\\running.wav",
+  "text": "Time to run! I am picking up speed, but I can still talk to you.",
+  "duration": 7.0,
+  "root_travel_m": 6.192916666666666,
+  "limitations": [
+    "prototype eyelid overlays",
+    "mouth corners need refinement",
+    "contact/stride diagnostics require visual review"
+  ],
+  "contact_correction": {
+    "plant_frames": 87,
+    "final_path_offset_m": 2.455200363543811,
+    "method": "low ankle contact lock in world XY; flight unchanged",
+    "limitation": "toe roll and exact circular lap closure still require review"
+  }
+}

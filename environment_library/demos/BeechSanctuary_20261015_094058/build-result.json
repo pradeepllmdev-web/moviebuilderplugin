@@ -1,0 +1,49 @@
+{
+  "label": "BeechSanctuary_20261015_094058",
+  "biome": "beech_woods",
+  "terrain": "meadow",
+  "actors": [
+    "BeechSanctuary_20261015_094058_Ground",
+    "BeechSanctuary_20261015_094058_Forest"
+  ],
+  "used": {
+    "ground": "Forest Floor",
+    "slopes": "Rocky Forest Floor",
+    "tree": [
+      "European Beech",
+      "Silver Birch"
+    ],
+    "debris": [
+      "Broken Stump"
+    ],
+    "rock": [
+      "Mossy Forest Rock",
+      "Nordic Beach Rocks"
+    ],
+    "fern": [
+      "Fern"
+    ],
+    "instances": 1869
+  },
+  "warnings": [],
+  "stage": [
+    0.0,
+    0.0,
+    300.0
+  ],
+  "level": "/Game/EnvironmentDemos/BeechSanctuary_20261015_094058",
+  "camera": {
+    "location": [
+      -850,
+      -1100,
+      210
+    ],
+    "target": [
+      550,
+      1800,
+      260
+    ]
+  },
+  "reference_image": null,
+  "finished_at": 1792075260.227978
+}

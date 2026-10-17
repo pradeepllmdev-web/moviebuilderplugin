@@ -1,0 +1,158 @@
+{
+  "face": {
+    "morphs": [
+      "jawOpen",
+      "mouthSmile",
+      "mouthFrown",
+      "mouthWide",
+      "mouthPucker",
+      "mouthClose",
+      "lowerLipBite",
+      "browRaise",
+      "browAngry",
+      "browSad",
+      "eyeBlinkRight",
+      "eyeBlinkLeft",
+      "eyeLookLeft",
+      "eyeLookRight",
+      "eyeLookUp",
+      "eyeLookDown"
+    ],
+    "report": {
+      "hidden_faces": 0,
+      "affected_vertices": {
+        "jawOpen": 2214,
+        "mouthSmile": 5157,
+        "mouthFrown": 5017,
+        "mouthWide": 4974,
+        "mouthPucker": 5407,
+        "mouthClose": 825,
+        "lowerLipBite": 476,
+        "browRaise": 3834,
+        "browAngry": 3954,
+        "browSad": 3897,
+        "eyeBlinkRight": 637,
+        "eyeBlinkLeft": 521,
+        "eyeLookLeft": 931,
+        "eyeLookRight": 931,
+        "eyeLookUp": 922,
+        "eyeLookDown": 922
+      },
+      "parts": 0,
+      "rim_z": 0.4422820508480072,
+      "mouth": {
+        "x": -0.014687999510765173,
+        "y": 1.2784111881095885,
+        "w": 0.14805503506851214,
+        "h": 0.04794163040313726
+      }
+    },
+    "lids": {
+      "lid_vertices": 442,
+      "skin": [
+        0.65,
+        0.54,
+        0.45
+      ]
+    },
+    "oral_parts": 0,
+    "anatomy_mode": "preserve source mouth",
+    "source_mouth": "open",
+    "performance_version": "character-performance/2",
+    "upper_face_jaw_error": 0.0,
+    "visual_review_required": true,
+    "limitations": [
+      "Source teeth and tongue are retained, not inferred or rebuilt",
+      "Separate unbound mouth parts may require fitting",
+      "Lip closure and facial likeness require visual review"
+    ]
+  },
+  "structure": {
+    "skinned": true,
+    "facial_controls": [
+      "browAngry",
+      "browRaise",
+      "browSad",
+      "eyeBlinkLeft",
+      "eyeBlinkRight",
+      "eyeLookDown",
+      "eyeLookLeft",
+      "eyeLookRight",
+      "eyeLookUp",
+      "jawOpen",
+      "lowerLipBite",
+      "mouthClose",
+      "mouthFrown",
+      "mouthPucker",
+      "mouthSmile",
+      "mouthWide"
+    ],
+    "structural_checks_passed": true,
+    "visual_checks_passed": false,
+    "production_approved": false,
+    "review_items": [
+      "lip closure and mouth position",
+      "eyelid coverage and color",
+      "teeth/tongue intersections",
+      "foot contact and turn quality"
+    ]
+  },
+  "demos": {
+    "standing": {
+      "frames": 72,
+      "clip": "Talk",
+      "quiet_clip": "Idle",
+      "mode": "standing",
+      "performance_version": "character-performance/2",
+      "gesture_strength": 0.18,
+      "max_hand_step": 0.008215258086395701,
+      "foot_contacts_verified": false,
+      "visual_review_required": true
+    },
+    "scene": {
+      "frames": 72,
+      "clip": "Talk",
+      "quiet_clip": "Idle",
+      "mode": "scene",
+      "performance_version": "character-performance/2",
+      "gesture_strength": 0.18,
+      "max_hand_step": 0.008215258086395701,
+      "foot_contacts_verified": false,
+      "visual_review_required": true
+    },
+    "walking": {
+      "frames": 24,
+      "clip": "Walk",
+      "quiet_clip": "Idle",
+      "mode": "walking",
+      "performance_version": "character-performance/2",
+      "gesture_strength": 0.18,
+      "max_hand_step": 0.05630247353947311,
+      "foot_contacts_verified": false,
+      "visual_review_required": true
+    },
+    "running": {
+      "frames": 24,
+      "clip": "Run",
+      "quiet_clip": "Idle",
+      "mode": "running",
+      "performance_version": "character-performance/2",
+      "gesture_strength": 0.18,
+      "max_hand_step": 0.16090474035819924,
+      "foot_contacts_verified": false,
+      "visual_review_required": true
+    },
+    "circle": {
+      "frames": 24,
+      "clip": "Run",
+      "quiet_clip": "Idle",
+      "mode": "circle",
+      "performance_version": "character-performance/2",
+      "gesture_strength": 0.18,
+      "max_hand_step": 0.5765780516561908,
+      "foot_contacts_verified": false,
+      "visual_review_required": true
+    }
+  },
+  "meshy_calls": 0
+}

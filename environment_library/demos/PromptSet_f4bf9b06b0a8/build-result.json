@@ -1,0 +1,52 @@
+{
+  "placed_assets": [
+    {
+      "id": "building.b768d56930",
+      "scale": 8.277937589035739,
+      "label": "Catalogue_0_building"
+    },
+    {
+      "id": "furniture.3072c09da8",
+      "scale": 0.19148936170212766,
+      "label": "Catalogue_1_furniture"
+    }
+  ],
+  "mountains": null,
+  "reference_analysis": null,
+  "contract_version": 1,
+  "level": "/Game/EnvironmentDemos/PromptSet_f4bf9b06b0a8",
+  "biome": "prompt_modular_set",
+  "warnings": [
+    "Blockout architecture; no traffic or automatic navigation."
+  ],
+  "cameras": {
+    "overview": {
+      "location": [
+        4100,
+        -4900,
+        4200
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    "street": {
+      "location": [
+        1600,
+        -6500,
+        2400
+      ],
+      "target": [
+        0,
+        1800,
+        1600
+      ]
+    }
+  },
+  "part_count": 1,
+  "connection_count": 0,
+  "open_end_count": 2,
+  "box_count": 11
+}

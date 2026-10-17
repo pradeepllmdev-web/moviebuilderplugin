@@ -1,0 +1,30 @@
+{
+  "source": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\blendplugin-next\\verification\\lion-detailed\\authored_probe.blend",
+  "source_sha256": "701246a7d7a0ada9245afcc7d3e578cfd032a1c5497bd26b8189c915808764cc",
+  "body_anatomy": "upright biped lion",
+  "existing_facial_controls": 12,
+  "new_eyelid_controls": 2,
+  "shared_face_adapter": true,
+  "shared_body_adapter": true,
+  "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\blendplugin-next\\verification\\lion-whisper\\audio\\voice_01.wav",
+  "audio_start": 0.55,
+  "frames": 192,
+  "fps": 24,
+  "unsupported": [
+    "detailed phoneme-specific tongue articulation",
+    "quadruped locomotion"
+  ],
+  "face_setup": "Original facial surface/UVs preserved; fitted oral anatomy and small eyes/lids added.",
+  "repair": {
+    "jaw_bone": "Repair-Jaw",
+    "tongue_bone": "Repair-Tongue",
+    "eye_bones": [
+      "Repair-Eye.L",
+      "Repair-Eye.R"
+    ],
+    "jaw_weighted_vertices": 571,
+    "interior_bridge_faces_removed": 22,
+    "neutral_surface_max_change_m": 0.0,
+    "approach": "Original facial surface/UVs preserved; fitted oral anatomy and small eyes/lids added."
+  }
+}

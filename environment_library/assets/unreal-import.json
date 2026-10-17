@@ -1,0 +1,2198 @@
+{
+  "started_at": 1792074615.615762,
+  "packs": [
+    {
+      "name": "furniture-kit",
+      "destination": "/Game/EnvironmentAssets/Kenney/furniture_kit",
+      "expected": 140,
+      "meshes": [
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomCabinet.bathroomCabinet",
+          "extent_cm": [
+            115.0,
+            65.0,
+            195.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomCabinetDrawer.bathroomCabinetDrawer",
+          "extent_cm": [
+            215.0,
+            160.0,
+            235.87907028198242
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomMirror.bathroomMirror",
+          "extent_cm": [
+            150.6699981689453,
+            72.19999885559082,
+            217.31254577636497
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomSink.bathroomSink",
+          "extent_cm": [
+            170.0,
+            145.0,
+            280.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomSinkSquare.bathroomSinkSquare",
+          "extent_cm": [
+            215.0,
+            150.0,
+            289.99998664855957
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathtub.bathtub",
+          "extent_cm": [
+            595.0,
+            280.00000000000006,
+            210.0000000000001
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bear.bear",
+          "extent_cm": [
+            194.85569763183594,
+            123.75000000000003,
+            224.99999999999997
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedBunk.bedBunk",
+          "extent_cm": [
+            285.5,
+            547.5000000000001,
+            424.9999999999999
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedDouble.bedDouble",
+          "extent_cm": [
+            478.0000005,
+            562.5,
+            187.49999999999994
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedSingle.bedSingle",
+          "extent_cm": [
+            285.5,
+            562.5,
+            187.4999999999834
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bench.bench",
+          "extent_cm": [
+            200.0,
+            100.00000000000003,
+            235.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/benchCushion.benchCushion",
+          "extent_cm": [
+            200.0,
+            100.00000000000003,
+            230.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/benchCushionLow.benchCushionLow",
+          "extent_cm": [
+            209.99999952316284,
+            109.99999952316284,
+            100.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseClosed.bookcaseClosed",
+          "extent_cm": [
+            200.0,
+            125.0000000000001,
+            425.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseClosedDoors.bookcaseClosedDoors",
+          "extent_cm": [
+            200.0,
+            125.0000000000001,
+            425.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseClosedWide.bookcaseClosedWide",
+          "extent_cm": [
+            400.0,
+            125.00000000000009,
+            395.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseOpen.bookcaseOpen",
+          "extent_cm": [
+            200.0,
+            125.0000000000001,
+            439.99993896484375
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseOpenLow.bookcaseOpenLow",
+          "extent_cm": [
+            200.0,
+            125.00000000000004,
+            200.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/books.books",
+          "extent_cm": [
+            75.22380065917969,
+            47.25000000000001,
+            51.951148986816406
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetBed.cabinetBed",
+          "extent_cm": [
+            132.99999952316284,
+            107.49999952316284,
+            116.5999984741211
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetBedDrawer.cabinetBedDrawer",
+          "extent_cm": [
+            132.99999952316284,
+            108.65000009536743,
+            131.60000610351562
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetBedDrawerTable.cabinetBedDrawerTable",
+          "extent_cm": [
+            132.99999952316284,
+            108.65000009536743,
+            131.60000610351562
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetTelevision.cabinetTelevision",
+          "extent_cm": [
+            400.0,
+            125.00000000000003,
+            155.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetTelevisionDoors.cabinetTelevisionDoors",
+          "extent_cm": [
+            400.0,
+            130.0,
+            155.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cardboardBoxClosed.cardboardBoxClosed",
+          "extent_cm": [
+            106.25,
+            106.25000000000007,
+            140.5
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/cardboardBoxOpen.cardboardBoxOpen",
+          "extent_cm": [
+            185.9375,
+            106.25000000000007,
+            140.5
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/ceilingFan.ceilingFan",
+          "extent_cm": [
+            227.36785125732422,
+            262.54180908203125,
+            66.85900115966797
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chair.chair",
+          "extent_cm": [
+            100.0,
+            100.00000000000003,
+            235.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairCushion.chairCushion",
+          "extent_cm": [
+            100.0,
+            100.00000000000003,
+            230.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairDesk.chairDesk",
+          "extent_cm": [
+            167.47500610351562,
+            157.14950561523438,
+            303.79998779296875
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairModernCushion.chairModernCushion",
+          "extent_cm": [
+            100.0,
+            100.00000000000003,
+            230.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairModernFrameCushion.chairModernFrameCushion",
+          "extent_cm": [
+            100.0,
+            100.00000000000003,
+            230.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairRounded.chairRounded",
+          "extent_cm": [
+            100.0,
+            100.00000000000003,
+            227.5
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/coatRack.coatRack",
+          "extent_cm": [
+            224.0,
+            67.19999694824222,
+            140.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/coatRackStanding.coatRackStanding",
+          "extent_cm": [
+            136.39999389648438,
+            136.39999389648438,
+            385.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/computerKeyboard.computerKeyboard",
+          "extent_cm": [
+            141.10000610351562,
+            59.09600067138654,
+            13.777999877929688
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/computerMouse.computerMouse",
+          "extent_cm": [
+            24.850000381469727,
+            42.55189895629883,
+            11.78600025177002
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/computerScreen.computerScreen",
+          "extent_cm": [
+            196.3439941406257,
+            52.00199890136692,
+            147.14259338378906
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/desk.desk",
+          "extent_cm": [
+            367.23770093917847,
+            196.15000009536743,
+            192.20375061035156
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/deskCorner.deskCorner",
+          "extent_cm": [
+            487.2377624511719,
+            487.23776245117193,
+            192.20375061035156
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/doorway.doorway",
+          "extent_cm": [
+            243.0,
+            56.69999980926514,
+            504.7659912109375
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/doorwayFront.doorwayFront",
+          "extent_cm": [
+            243.0,
+            56.69999980926514,
+            504.7659912109375
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/doorwayOpen.doorwayOpen",
+          "extent_cm": [
+            243.0,
+            44.54999923706066,
+            504.7659912109375
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/dryer.dryer",
+          "extent_cm": [
+            195.0,
+            190.0,
+            235.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorCorner.floorCorner",
+          "extent_cm": [
+            275.0,
+            275.0,
+            25.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorCornerRound.floorCornerRound",
+          "extent_cm": [
+            275.0,
+            275.0,
+            25.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorFull.floorFull",
+          "extent_cm": [
+            500.0,
+            500.0,
+            25.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorHalf.floorHalf",
+          "extent_cm": [
+            250.0,
+            500.0,
+            25.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/hoodLarge.hoodLarge",
+          "extent_cm": [
+            215.0000000000007,
+            142.4499969482422,
+            184.76585388183594
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/hoodModern.hoodModern",
+          "extent_cm": [
+            215.0000000000007,
+            142.4499969482422,
+            199.76585388183594
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenBar.kitchenBar",
+          "extent_cm": [
+            215.0,
+            105.00000000000004,
+            210.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenBarEnd.kitchenBarEnd",
+          "extent_cm": [
+            50.78125,
+            105.00000000000004,
+            210.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenBlender.kitchenBlender",
+          "extent_cm": [
+            67.91310119628906,
+            54.559349060058615,
+            113.76000213623047
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinet.kitchenCabinet",
+          "extent_cm": [
+            215.0,
+            225.00000000000006,
+            225.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetCornerInner.kitchenCabinetCornerInner",
+          "extent_cm": [
+            230.0,
+            230.00000000000006,
+            225.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetCornerRound.kitchenCabinetCornerRound",
+          "extent_cm": [
+            225.0,
+            225.00000000000006,
+            225.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetDrawer.kitchenCabinetDrawer",
+          "extent_cm": [
+            215.0,
+            225.00000000000006,
+            225.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpper.kitchenCabinetUpper",
+          "extent_cm": [
+            215.0,
+            110.00000047683716,
+            195.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpperCorner.kitchenCabinetUpperCorner",
+          "extent_cm": [
+            107.5,
+            105.00000000000004,
+            195.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpperDouble.kitchenCabinetUpperDouble",
+          "extent_cm": [
+            215.0,
+            110.00000047683716,
+            195.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpperLow.kitchenCabinetUpperLow",
+          "extent_cm": [
+            215.0,
+            110.00000047683716,
+            97.5
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCoffeeMachine.kitchenCoffeeMachine",
+          "extent_cm": [
+            94.7699966430664,
+            120.08354187011719,
+            88.74449920654297
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridge.kitchenFridge",
+          "extent_cm": [
+            215.0,
+            145.96694946289062,
+            460.0
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridgeBuiltIn.kitchenFridgeBuiltIn",
+          "extent_cm": [
+            215.0,
+            225.00000000000006,
+            434.3739013671875
+          ],
+          "material_slots": 5,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridgeLarge.kitchenFridgeLarge",
+          "extent_cm": [
+            260.0,
+            202.77495002746582,
+            460.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridgeSmall.kitchenFridgeSmall",
+          "extent_cm": [
+            215.0,
+            145.96694946289062,
+            300.1231384277344
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenMicrowave.kitchenMicrowave",
+          "extent_cm": [
+            145.0,
+            114.99999952316284,
+            90.0
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenSink.kitchenSink",
+          "extent_cm": [
+            215.0,
+            225.00000000000006,
+            245.0
+          ],
+          "material_slots": 6,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenStove.kitchenStove",
+          "extent_cm": [
+            215.0,
+            225.00000000000006,
+            225.0
+          ],
+          "material_slots": 5,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenStoveElectric.kitchenStoveElectric",
+          "extent_cm": [
+            215.0,
+            225.00000000000006,
+            225.0
+          ],
+          "material_slots": 6,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampRoundFloor.lampRoundFloor",
+          "extent_cm": [
+            76.01970481872559,
+            87.77999973297119,
+            430.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampRoundTable.lampRoundTable",
+          "extent_cm": [
+            76.01970481872559,
+            87.77999973297119,
+            157.125
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampSquareCeiling.lampSquareCeiling",
+          "extent_cm": [
+            60.0,
+            60.000000000000014,
+            115.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampSquareFloor.lampSquareFloor",
+          "extent_cm": [
+            60.0,
+            60.00000000000009,
+            430.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampSquareTable.lampSquareTable",
+          "extent_cm": [
+            60.0,
+            60.000000000000036,
+            145.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampWall.lampWall",
+          "extent_cm": [
+            113.31767272949219,
+            75.16799926757812,
+            46.40000152587891
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/laptop.laptop",
+          "extent_cm": [
+            132.0,
+            120.0325698852539,
+            80.90469360351562
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeChair.loungeChair",
+          "extent_cm": [
+            245.0,
+            205.00000000000003,
+            230.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeChairRelax.loungeChairRelax",
+          "extent_cm": [
+            245.0,
+            337.3463439941406,
+            315.0
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeDesignChair.loungeDesignChair",
+          "extent_cm": [
+            364.7976379394531,
+            205.00000000000003,
+            200.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeDesignSofa.loungeDesignSofa",
+          "extent_cm": [
+            560.0,
+            205.00000000000003,
+            200.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeDesignSofaCorner.loungeDesignSofaCorner",
+          "extent_cm": [
+            674.9144897460938,
+            674.9144897460938,
+            199.99999999999991
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofa.loungeSofa",
+          "extent_cm": [
+            489.99993896484375,
+            205.00000000000003,
+            230.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofaCorner.loungeSofaCorner",
+          "extent_cm": [
+            489.99993896484375,
+            489.9999389648438,
+            230.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofaLong.loungeSofaLong",
+          "extent_cm": [
+            489.99993896484375,
+            410.0,
+            230.00000000000006
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofaOttoman.loungeSofaOttoman",
+          "extent_cm": [
+            219.914306640625,
+            225.0,
+            115.00000000000004
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/paneling.paneling",
+          "extent_cm": [
+            250.0,
+            15.0,
+            297.3829650878906
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillow.pillow",
+          "extent_cm": [
+            115.0,
+            44.24179077148438,
+            111.08145141601562
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillowBlue.pillowBlue",
+          "extent_cm": [
+            115.0,
+            31.694974899291996,
+            64.256103515625
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillowBlueLong.pillowBlueLong",
+          "extent_cm": [
+            258.2877960205078,
+            44.24179077148438,
+            111.08145141601581
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillowLong.pillowLong",
+          "extent_cm": [
+            193.2877960205078,
+            44.24179077148438,
+            111.08145141601581
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/plantSmall1.plantSmall1",
+          "extent_cm": [
+            47.33036422729492,
+            47.33036422729492,
+            70.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/plantSmall2.plantSmall2",
+          "extent_cm": [
+            47.33036422729492,
+            47.33036422729492,
+            70.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/plantSmall3.plantSmall3",
+          "extent_cm": [
+            49.0,
+            42.435245513916016,
+            72.5
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/pottedPlant.pottedPlant",
+          "extent_cm": [
+            106.0296516418457,
+            120.73094940185547,
+            327.0083923339844
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/radio.radio",
+          "extent_cm": [
+            157.5,
+            48.75000000000002,
+            114.09555053710938
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugDoormat.rugDoormat",
+          "extent_cm": [
+            214.64999389648438,
+            118.50450134277344,
+            4.999999523162842
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugRectangle.rugRectangle",
+          "extent_cm": [
+            785.0,
+            460.0,
+            4.999999523162842
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugRound.rugRound",
+          "extent_cm": [
+            460.0,
+            460.0,
+            4.999999523162842
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugRounded.rugRounded",
+          "extent_cm": [
+            785.0,
+            460.0,
+            4.999999523162842
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugSquare.rugSquare",
+          "extent_cm": [
+            452.1629638671875,
+            460.0,
+            4.999999523162842
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/shower.shower",
+          "extent_cm": [
+            280.8959960937531,
+            290.89599418640137,
+            547.0166625976562
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/showerRound.showerRound",
+          "extent_cm": [
+            280.89599609375034,
+            280.89599609375,
+            547.0164794921875
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/sideTable.sideTable",
+          "extent_cm": [
+            267.2377619743347,
+            109.99999952316284,
+            192.20375061035156
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/sideTableDrawers.sideTableDrawers",
+          "extent_cm": [
+            267.2377619743347,
+            111.15000009536743,
+            192.20375061035156
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/speaker.speaker",
+          "extent_cm": [
+            74.00000000000054,
+            73.99999999999984,
+            318.20001220703125
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/speakerSmall.speakerSmall",
+          "extent_cm": [
+            74.0,
+            66.59999847412112,
+            148.98980712890625
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairs.stairs",
+          "extent_cm": [
+            911.717529296875,
+            395.00000000000017,
+            669.7659912109368
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairsCorner.stairsCorner",
+          "extent_cm": [
+            886.8457107543945,
+            712.8975219726564,
+            669.7659912109374
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairsOpen.stairsOpen",
+          "extent_cm": [
+            911.717529296875,
+            395.00000000000017,
+            669.7659912109343
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairsOpenSingle.stairsOpenSingle",
+          "extent_cm": [
+            911.717529296875,
+            395.00000000000017,
+            669.7659912109328
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stoolBar.stoolBar",
+          "extent_cm": [
+            132.72000122070312,
+            114.93890380859379,
+            217.5
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/stoolBarSquare.stoolBarSquare",
+          "extent_cm": [
+            76.75,
+            73.81200981140137,
+            202.5
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/table.table",
+          "extent_cm": [
+            420.7439880371094,
+            223.6866455078125,
+            163.36700439453125
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCloth.tableCloth",
+          "extent_cm": [
+            420.7439880371094,
+            223.6866455078766,
+            163.36700439453125
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffee.tableCoffee",
+          "extent_cm": [
+            330.498046875,
+            200.0,
+            115.00000000000016
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffeeGlass.tableCoffeeGlass",
+          "extent_cm": [
+            330.498046875,
+            200.0,
+            115.00000000000016
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffeeGlassSquare.tableCoffeeGlassSquare",
+          "extent_cm": [
+            200.00000762939453,
+            200.0,
+            115.00000000000016
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffeeSquare.tableCoffeeSquare",
+          "extent_cm": [
+            200.00000762939453,
+            200.0,
+            115.00000000000016
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCross.tableCross",
+          "extent_cm": [
+            426.0599670410156,
+            223.68675231933594,
+            173.7066650390625
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCrossCloth.tableCrossCloth",
+          "extent_cm": [
+            426.0599670410156,
+            223.68675231933594,
+            173.7066650390625
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableGlass.tableGlass",
+          "extent_cm": [
+            420.7439880371094,
+            223.6866455078125,
+            163.36700439453125
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableRound.tableRound",
+          "extent_cm": [
+            346.41015625,
+            400.0,
+            183.3669891357422
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/televisionAntenna.televisionAntenna",
+          "extent_cm": [
+            132.26390075683594,
+            40.0,
+            51.367149353027344
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/televisionModern.televisionModern",
+          "extent_cm": [
+            342.3999938964844,
+            64.19999694824219,
+            227.375
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/televisionVintage.televisionVintage",
+          "extent_cm": [
+            205.0,
+            135.00000000000003,
+            135.0
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/toaster.toaster",
+          "extent_cm": [
+            93.99186706542969,
+            50.0,
+            65.0
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/toilet.toilet",
+          "extent_cm": [
+            156.27499389648438,
+            238.58845520019565,
+            225.4824981689453
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/toiletSquare.toiletSquare",
+          "extent_cm": [
+            151.80999755859375,
+            193.5883483886719,
+            225.4824981689453
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/trashcan.trashcan",
+          "extent_cm": [
+            103.84675598144531,
+            117.06212615966797,
+            213.93299865722656
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wall.wall",
+          "extent_cm": [
+            500.0,
+            25.000000000000142,
+            644.7659912109375
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallCorner.wallCorner",
+          "extent_cm": [
+            275.0,
+            275.00000000000017,
+            644.7659912109375
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallCornerRond.wallCornerRond",
+          "extent_cm": [
+            275.0,
+            275.00000000000017,
+            644.7659912109375
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallDoorway.wallDoorway",
+          "extent_cm": [
+            500.0,
+            44.55000114440918,
+            644.7659912109375
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallDoorwayWide.wallDoorwayWide",
+          "extent_cm": [
+            500.0,
+            44.55000114440918,
+            644.7659912109376
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallHalf.wallHalf",
+          "extent_cm": [
+            250.0,
+            25.000000000000142,
+            644.7659912109375
+          ],
+          "material_slots": 3,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallWindow.wallWindow",
+          "extent_cm": [
+            500.0,
+            44.55000114440918,
+            644.7659912109375
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallWindowSlide.wallWindowSlide",
+          "extent_cm": [
+            500.0,
+            44.55000114440918,
+            644.7659912109375
+          ],
+          "material_slots": 4,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/washer.washer",
+          "extent_cm": [
+            195.0,
+            195.0,
+            235.0
+          ],
+          "material_slots": 6,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/furniture_kit/washerDryerStacked.washerDryerStacked",
+          "extent_cm": [
+            195.0,
+            195.0,
+            470.0
+          ],
+          "material_slots": 6,
+          "materials_present": true
+        }
+      ]
+    },
+    {
+      "name": "city-kit-industrial",
+      "destination": "/Game/EnvironmentAssets/Kenney/city_kit_industrial",
+      "expected": 37,
+      "meshes": [
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_a.building_a",
+          "extent_cm": [
+            104.17941284179688,
+            62.10000228881836,
+            73.5
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_b.building_b",
+          "extent_cm": [
+            104.17940139770508,
+            63.10000038146973,
+            73.50000000000001
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_c.building_c",
+          "extent_cm": [
+            93.79674530029297,
+            105.40106201171875,
+            62.50000000000011
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_d.building_d",
+          "extent_cm": [
+            44.17939376831055,
+            71.00000953674316,
+            70.7276077270508
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_e.building_e",
+          "extent_cm": [
+            84.17939376831055,
+            64.50001525878906,
+            82.49999999999999
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_f.building_f",
+          "extent_cm": [
+            89.50001335144043,
+            64.00000381469727,
+            96.25000000000001
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_g.building_g",
+          "extent_cm": [
+            83.90690994262695,
+            64.17940902709961,
+            64.00000790694668
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_h.building_h",
+          "extent_cm": [
+            66.08628344535828,
+            65.50000381469727,
+            36.67705154418966
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_i.building_i",
+          "extent_cm": [
+            51.40689015388489,
+            65.00000381469727,
+            36.677051544189446
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_j.building_j",
+          "extent_cm": [
+            51.331093311309814,
+            65.0,
+            43.05728912353515
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_k.building_k",
+          "extent_cm": [
+            65.14295959472656,
+            45.67939567565918,
+            38.63707351684571
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_l.building_l",
+          "extent_cm": [
+            104.17938041687012,
+            93.50000381469727,
+            96.25000000000001
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_m.building_m",
+          "extent_cm": [
+            65.81377410888672,
+            85.0,
+            75.95033264160158
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_n.building_n",
+          "extent_cm": [
+            48.8310911655426,
+            71.00000476837158,
+            95.22779117537809
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_o.building_o",
+          "extent_cm": [
+            44.17939981818199,
+            62.000000931322575,
+            45.89999771118164
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_p.building_p",
+          "extent_cm": [
+            84.17939376831055,
+            49.599998474121094,
+            35.72760772705079
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_q.building_q",
+          "extent_cm": [
+            107.0,
+            88.49457550048828,
+            44.00000000000001
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_r.building_r",
+          "extent_cm": [
+            124.17940521240234,
+            63.60000801086426,
+            69.6500015258789
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_s.building_s",
+          "extent_cm": [
+            106.00000762939453,
+            45.81377029418945,
+            41.83955383300782
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_t.building_t",
+          "extent_cm": [
+            86.08628845214844,
+            69.50001525878906,
+            50.72760772705079
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_basic.chimney_basic",
+          "extent_cm": [
+            10.0,
+            10.0,
+            50.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_large.chimney_large",
+          "extent_cm": [
+            53.999996185302734,
+            53.999996185302734,
+            85.0
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_medium.chimney_medium",
+          "extent_cm": [
+            22.5,
+            22.5,
+            96.25
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_small.chimney_small",
+          "extent_cm": [
+            15.000000953674316,
+            15.000000953674316,
+            37.5
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/detail_tank.detail_tank",
+          "extent_cm": [
+            42.400020599365234,
+            25.76478385925293,
+            20.76478385925293
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/detail_tank_large.detail_tank_large",
+          "extent_cm": [
+            75.4207992553711,
+            82.4207992553711,
+            48.08029937744144
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/shipping_container_a.shipping_container_a",
+          "extent_cm": [
+            18.63000774383545,
+            41.1300048828125,
+            17.403999294326763
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/shipping_container_b.shipping_container_b",
+          "extent_cm": [
+            18.630006790161133,
+            41.1300048828125,
+            17.403999294326763
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/shipping_container_c.shipping_container_c",
+          "extent_cm": [
+            18.630006790161133,
+            41.1300048828125,
+            17.403999294326763
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_flat.solar_panel_flat",
+          "extent_cm": [
+            20.90999984741211,
+            35.67000198364258,
+            3.075000047683712
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_landscape.solar_panel_landscape",
+          "extent_cm": [
+            35.66999340057373,
+            19.752501249313354,
+            13.118027225136757
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_landscape_group.solar_panel_landscape_group",
+          "extent_cm": [
+            75.6700439453125,
+            44.75250434875488,
+            13.118041663088661
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_portrait.solar_panel_portrait",
+          "extent_cm": [
+            20.909997940063477,
+            32.428627014160156,
+            20.49802854657173
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_portrait_group.solar_panel_portrait_group",
+          "extent_cm": [
+            45.91002082824707,
+            62.428606033325195,
+            20.49803102016449
+          ],
+          "material_slots": 2,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/water_tower.water_tower",
+          "extent_cm": [
+            42.61079025268555,
+            41.58997917175293,
+            107.0832748413086
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/windmill.windmill",
+          "extent_cm": [
+            30.234384536743164,
+            56.34324264526367,
+            115.69266510009766
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/windmill_low.windmill_low",
+          "extent_cm": [
+            30.234384536743164,
+            56.34324073791504,
+            89.69265747070312
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        }
+      ]
+    },
+    {
+      "name": "city-kit-suburban",
+      "destination": "/Game/EnvironmentAssets/Kenney/city_kit_suburban",
+      "expected": 40,
+      "meshes": [
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_a.building_type_a",
+          "extent_cm": [
+            65.0,
+            51.406890869140625,
+            41.677047729492195
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_b.building_type_b",
+          "extent_cm": [
+            91.4000015258789,
+            57.0,
+            56.87500381469727
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_c.building_type_c",
+          "extent_cm": [
+            64.31901550292969,
+            51.406890869140625,
+            51.677047729492195
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_d.building_type_d",
+          "extent_cm": [
+            87.81901550292969,
+            51.400001525878906,
+            61.87500381469727
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_e.building_type_e",
+          "extent_cm": [
+            65.0,
+            51.400001525878906,
+            56.87500381469726
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_f.building_type_f",
+          "extent_cm": [
+            71.4000015258789,
+            70.29455947875977,
+            56.87500381469727
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_g.building_type_g",
+          "extent_cm": [
+            72.5,
+            58.89999771118164,
+            38.41048431396485
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_h.building_type_h",
+          "extent_cm": [
+            65.0,
+            45.79999923706055,
+            36.87499618530274
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_i.building_type_i",
+          "extent_cm": [
+            64.31901550292969,
+            51.400001525878906,
+            36.87499618530274
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_j.building_type_j",
+          "extent_cm": [
+            68.5,
+            45.79999923706055,
+            51.87500000000001
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_k.building_type_k",
+          "extent_cm": [
+            46.04689979553223,
+            51.0,
+            57.47981262207032
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_l.building_type_l",
+          "extent_cm": [
+            51.67939758300781,
+            51.00000190734863,
+            52.45967102050782
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_m.building_type_m",
+          "extent_cm": [
+            71.4000015258789,
+            71.4000015258789,
+            36.87499618530274
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_n.building_type_n",
+          "extent_cm": [
+            89.21357727050781,
+            68.89455795288086,
+            56.87500381469727
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_o.building_type_o",
+          "extent_cm": [
+            63.50000190734863,
+            51.400001525878906,
+            56.87500381469727
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_p.building_type_p",
+          "extent_cm": [
+            62.00000762939453,
+            49.500003814697266,
+            45.89999771118165
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_q.building_type_q",
+          "extent_cm": [
+            62.0,
+            44.279396057128906,
+            45.89999771118165
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_r.building_type_r",
+          "extent_cm": [
+            51.40000534057617,
+            51.00000190734863,
+            57.05714416503906
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_s.building_type_s",
+          "extent_cm": [
+            70.30145263671875,
+            54.319021224975586,
+            56.87500381469727
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_t.building_type_t",
+          "extent_cm": [
+            65.67939758300781,
+            70.31901550292969,
+            57.81652832031251
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_u.building_type_u",
+          "extent_cm": [
+            71.4000129699707,
+            54.34674835205078,
+            56.87500381469727
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/driveway_long.driveway_long",
+          "extent_cm": [
+            18.0,
+            20.0,
+            0.5000000000000016
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/driveway_short.driveway_short",
+          "extent_cm": [
+            18.0,
+            10.0,
+            0.5000000000000004
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence.fence",
+          "extent_cm": [
+            23.750001907348633,
+            3.750000238418579,
+            13.499999046325684
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_1x2.fence_1x2",
+          "extent_cm": [
+            43.75,
+            21.875,
+            13.499999046327307
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_1x3.fence_1x3",
+          "extent_cm": [
+            63.750003814697266,
+            21.875,
+            13.499999046327307
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_1x4.fence_1x4",
+          "extent_cm": [
+            83.75,
+            21.875,
+            13.499999046327307
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_2x2.fence_2x2",
+          "extent_cm": [
+            43.75,
+            41.87499809265137,
+            13.499999046327305
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_2x3.fence_2x3",
+          "extent_cm": [
+            63.750003814697266,
+            41.87499809265137,
+            13.499999046327305
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_3x2.fence_3x2",
+          "extent_cm": [
+            43.75,
+            61.875003814697266,
+            13.499999046327304
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_3x3.fence_3x3",
+          "extent_cm": [
+            63.750003814697266,
+            61.875003814697266,
+            13.499999046327304
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_low.fence_low",
+          "extent_cm": [
+            63.750003814697266,
+            41.87499809265137,
+            8.500000000000005
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_long.path_long",
+          "extent_cm": [
+            10.0,
+            20.0,
+            0.5000000000000016
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_short.path_short",
+          "extent_cm": [
+            10.0,
+            10.0,
+            0.5000000000000004
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_stones_long.path_stones_long",
+          "extent_cm": [
+            7.0,
+            20.0,
+            0.5000000000000022
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_stones_messy.path_stones_messy",
+          "extent_cm": [
+            7.781206130981445,
+            18.067522048950195,
+            0.500000000000002
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_stones_short.path_stones_short",
+          "extent_cm": [
+            7.0,
+            10.0,
+            0.5000000000000011
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/planter.planter",
+          "extent_cm": [
+            20.0,
+            15.0,
+            8.85547733306885
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/tree_large.tree_large",
+          "extent_cm": [
+            10.522209167480469,
+            12.149999618530273,
+            38.349998474121094
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        },
+        {
+          "path": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/tree_small.tree_small",
+          "extent_cm": [
+            10.522209167480469,
+            12.149999618530273,
+            28.35000228881836
+          ],
+          "material_slots": 1,
+          "materials_present": true
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "finished_at": 1792074662.4999087
+}

@@ -1,0 +1,66 @@
+{
+  "Chest": {
+    "head_world": [
+      0.1613,
+      -0.1986,
+      -0.2383
+    ],
+    "length": 0.078
+  },
+  "Hips": {
+    "head_world": [
+      0.1632,
+      -0.1767,
+      -0.7228
+    ],
+    "length": 0.1047
+  },
+  "LeftUpperArm": {
+    "head_world": [
+      0.3059,
+      -0.1598,
+      0.0156
+    ],
+    "length": 0.1645
+  },
+  "LeftLowerArm": {
+    "head_world": [
+      0.1781,
+      -0.2634,
+      0.0158
+    ],
+    "length": 0.1587
+  },
+  "LeftHand": {
+    "head_world": [
+      0.1759,
+      -0.3365,
+      0.1566
+    ],
+    "length": 0.1587
+  },
+  "RightUpperArm": {
+    "head_world": [
+      -0.0814,
+      -0.2957,
+      -0.4169
+    ],
+    "length": 0.5068
+  },
+  "RightLowerArm": {
+    "head_world": [
+      0.0846,
+      -0.3208,
+      -0.8951
+    ],
+    "length": 0.2067
+  },
+  "RightHand": {
+    "head_world": [
+      0.1155,
+      -0.4651,
+      -0.7503
+    ],
+    "length": 0.2067
+  }
+}

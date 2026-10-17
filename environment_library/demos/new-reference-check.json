@@ -1,0 +1,85 @@
+{
+  "id": "7555bcd5484c48ee876cdc503b9a356e",
+  "status": "ready",
+  "stage": "Recipe ready for review",
+  "analysis": {
+    "category": "natural_outdoor",
+    "description": "A serene landscape with a winding river through open fields under a golden-hour sky, surrounded by scattered silver birch trees.",
+    "biome": "birch_grove",
+    "terrain": "flat",
+    "river": "near",
+    "mountains": false,
+    "mood": "golden_hour",
+    "density": 0.8,
+    "landmarks": [
+      "winding river",
+      "scattered silver birch trees",
+      "open fields"
+    ],
+    "missing_features": [],
+    "uncertainties": [
+      "unknown scale of river and fields",
+      "hidden river depth and bank structure"
+    ],
+    "camera_priority": "wide_landscape",
+    "source_sha256": "a2e0218ec2a36cc2aff482db87f42a2459c938761f171916c10e92506fb2813f"
+  },
+  "recipe": {
+    "id": "Reference_ecea08924d",
+    "params": {
+      "biome": "birch_grove",
+      "terrain": "flat",
+      "river": "near",
+      "mountains": false,
+      "mood": "golden_hour",
+      "density": 0.8,
+      "size": 22000,
+      "stage_radius": 650,
+      "seed": 51,
+      "label": "Reference_ecea08924d",
+      "clear": [
+        [
+          -1500,
+          1600,
+          450
+        ]
+      ]
+    },
+    "camera": {
+      "location": [
+        -1500,
+        1600,
+        220
+      ],
+      "target": [
+        1000,
+        3200,
+        180
+      ]
+    },
+    "analysis": {
+      "category": "natural_outdoor",
+      "description": "A serene landscape with a winding river through open fields under a golden-hour sky, surrounded by scattered silver birch trees.",
+      "biome": "birch_grove",
+      "terrain": "flat",
+      "river": "near",
+      "mountains": false,
+      "mood": "golden_hour",
+      "density": 0.8,
+      "landmarks": [
+        "winding river",
+        "scattered silver birch trees",
+        "open fields"
+      ],
+      "missing_features": [],
+      "uncertainties": [
+        "unknown scale of river and fields",
+        "hidden river depth and bank structure"
+      ],
+      "camera_priority": "wide_landscape",
+      "source_sha256": "a2e0218ec2a36cc2aff482db87f42a2459c938761f171916c10e92506fb2813f"
+    },
+    "status": "approximate recipe; preview and review required",
+    "reference_image": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\references\\7555bcd5484c48ee876cdc503b9a356e.png"
+  }
+}

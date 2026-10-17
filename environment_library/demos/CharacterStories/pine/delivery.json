@@ -1,0 +1,15 @@
+{
+  "id": "pine",
+  "title": "The Echo Detective",
+  "action": "listen",
+  "frames": 85,
+  "fps": 12,
+  "duration": 7.083333333333333,
+  "full_decode_passed": true,
+  "method": "Blender character performance composited over a still Unreal set view; previs, not in-engine interaction",
+  "limitations": [
+    "Still Unreal background plate; Blender foreground composite",
+    "No in-engine contact, occlusion or physically matched shadows",
+    "12 fps previs; facial rig approximations remain"
+  ]
+}

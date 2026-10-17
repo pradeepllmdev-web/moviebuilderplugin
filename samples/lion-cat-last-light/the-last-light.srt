@@ -1,0 +1,15 @@
+1
+00:00:01,000 --> 00:00:06,380
+Cat: Leo, the path has disappeared. How will we get home?
+
+2
+00:00:07,080 --> 00:00:12,095
+Lion: Look, Amber. One little light is still shining.
+
+3
+00:00:12,795 --> 00:00:16,380
+Cat: It is so small. Is it enough?
+
+4
+00:00:17,080 --> 00:00:21,945
+Lion: Enough for the next step. We will find the way together.

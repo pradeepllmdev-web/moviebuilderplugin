@@ -1,0 +1,109 @@
+{
+  "id": "f637d0d2d5d34f2692ae7163e2ba88d6",
+  "status": "complete",
+  "stage": "Movie ready: continuous Unreal preview and website draft",
+  "movie_id": "f637d0d2d5d34f2692ae7163e2ba88d6",
+  "report": {
+    "id": "f637d0d2d5d34f2692ae7163e2ba88d6",
+    "title": "The River Secret",
+    "shots": [
+      {
+        "scene_id": "6f2c2e9ee7684d75bd33e55cf383b020",
+        "title": "The River Secret - Shot 1",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/450e28c1ba2e4c8d942084ac1bd384f7/Level",
+          "sequence": "/Game/StudioProduction/450e28c1ba2e4c8d942084ac1bd384f7/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Rowan",
+            "Leo"
+          ],
+          "camera": "medium",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      },
+      {
+        "scene_id": "69993f32bdb444cda47c8a0182eb7887",
+        "title": "The River Secret - Shot 2",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/70e747a076834fed969c437936cae7e2/Level",
+          "sequence": "/Game/StudioProduction/70e747a076834fed969c437936cae7e2/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Rowan",
+            "Leo"
+          ],
+          "camera": "close",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      }
+    ],
+    "rendered": true,
+    "master": {
+      "ok": true,
+      "level": "/Game/StudioMovies/7c40d510c92c401899f56293fbdd8210/MasterLevel",
+      "sequence": "/Game/StudioMovies/7c40d510c92c401899f56293fbdd8210/Master",
+      "duration": 8.0,
+      "shots": [
+        {
+          "shot": 1,
+          "spawnables": 3
+        },
+        {
+          "shot": 2,
+          "spawnables": 3
+        }
+      ],
+      "audio": "dialogue, twig snap and original procedural music"
+    },
+    "render_history": [
+      {
+        "job_id": "44e9724577e14a61899c5276129a41dd",
+        "quality": "draft",
+        "file": "movie-44e9724577e14a61899c5276129a41dd.mp4"
+      }
+    ],
+    "audio": {
+      "duration": 8.0,
+      "peak": 0.6467353329062462,
+      "music": "original procedural score",
+      "effects": "procedural footsteps; not surface-specific"
+    },
+    "quality": "draft",
+    "quality_checks": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "Camera cropping, pupil contact and facial appeal still require visual review."
+      ],
+      "shots": [
+        {
+          "scene_id": "6f2c2e9ee7684d75bd33e55cf383b020",
+          "body_tracks": [
+            53,
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 1
+        },
+        {
+          "scene_id": "69993f32bdb444cda47c8a0182eb7887",
+          "body_tracks": [
+            53,
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 1
+        }
+      ]
+    }
+  }
+}

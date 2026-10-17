@@ -1,0 +1,91 @@
+{
+  "render": {
+    "id": 27,
+    "movie_id": 36,
+    "file_id": 5062,
+    "settings": {
+      "clips": [
+        {
+          "video_id": 707,
+          "trim_start": 0,
+          "length": 8.0
+        },
+        {
+          "video_id": 708,
+          "trim_start": 0,
+          "length": 8.0
+        }
+      ],
+      "tracks": [
+        {
+          "kind": "dialogue",
+          "ref_id": 360,
+          "start": 0.15,
+          "volume": 1.0,
+          "trim_start": 0,
+          "length": null,
+          "fade_out": 0,
+          "loop": false
+        },
+        {
+          "kind": "dialogue",
+          "ref_id": 361,
+          "start": 3.25,
+          "volume": 1.0,
+          "trim_start": 0,
+          "length": null,
+          "fade_out": 0,
+          "loop": false
+        },
+        {
+          "kind": "dialogue",
+          "ref_id": 362,
+          "start": 8.15,
+          "volume": 1.0,
+          "trim_start": 0,
+          "length": null,
+          "fade_out": 0,
+          "loop": false
+        },
+        {
+          "kind": "dialogue",
+          "ref_id": 363,
+          "start": 9.565,
+          "volume": 1.0,
+          "trim_start": 0,
+          "length": null,
+          "fade_out": 0,
+          "loop": false
+        }
+      ],
+      "duck_to": 0.35,
+      "width": 640,
+      "height": 360,
+      "state": {
+        "title": "The Echo Inspector",
+        "demo": true
+      },
+      "language": "en",
+      "transition": "cut",
+      "transition_seconds": 0.6
+    },
+    "duration_seconds": 16.0,
+    "status": "draft",
+    "created_at": "2026-10-15T21:52:31.419740"
+  },
+  "duration": 16.0,
+  "audio_end": 12.48,
+  "truncated": false,
+  "clips": [
+    {
+      "start": 0.0,
+      "end": 8.0
+    },
+    {
+      "start": 8.0,
+      "end": 16.0
+    }
+  ],
+  "width": 640,
+  "height": 360
+}

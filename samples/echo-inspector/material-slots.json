@@ -1,0 +1,96 @@
+[
+  {
+    "name": "Amber",
+    "new": [
+      "Material_0_002",
+      "Fresh_lid_crease_001",
+      "Fresh_lid_crease_002",
+      "Fresh_Amber_eyelid_fur_001",
+      "Fresh_Amber_eyelid_fur_002"
+    ],
+    "original": [
+      "Fresh_lid_crease",
+      "Fresh_Amber_eyelid_fur",
+      "Material_0_001"
+    ]
+  },
+  {
+    "name": "Leo",
+    "new": [
+      "Material_0_003",
+      "Lion_eyelid_crease_001",
+      "Lion_eyelid_crease_002",
+      "Oral_lining_001",
+      "Tongue_tissue_001",
+      "Lion_eyelid_fur_001",
+      "Lion_eyelid_fur_002",
+      "Fitted_ivory_001",
+      "Fitted_ivory_002",
+      "Fitted_ivory_003",
+      "Fitted_ivory_004",
+      "Fitted_ivory_005",
+      "Fitted_ivory_006",
+      "Fitted_ivory_007",
+      "Fitted_ivory_008",
+      "Fitted_ivory_009",
+      "Fitted_ivory_010",
+      "Fitted_ivory_011",
+      "Fitted_ivory_012"
+    ],
+    "original": [
+      "Lion_eyelid_crease",
+      "Oral_lining",
+      "Tongue_tissue",
+      "Lion_eyelid_fur",
+      "Fitted_ivory",
+      "Material_0"
+    ]
+  },
+  {
+    "name": "Amber",
+    "new": [
+      "Material_0_002",
+      "Fresh_lid_crease_001",
+      "Fresh_lid_crease_002",
+      "Fresh_Amber_eyelid_fur_001",
+      "Fresh_Amber_eyelid_fur_002"
+    ],
+    "original": [
+      "Fresh_lid_crease",
+      "Fresh_Amber_eyelid_fur",
+      "Material_0_001"
+    ]
+  },
+  {
+    "name": "Leo",
+    "new": [
+      "Material_0_003",
+      "Lion_eyelid_crease_001",
+      "Lion_eyelid_crease_002",
+      "Oral_lining_001",
+      "Tongue_tissue_001",
+      "Lion_eyelid_fur_001",
+      "Lion_eyelid_fur_002",
+      "Fitted_ivory_001",
+      "Fitted_ivory_002",
+      "Fitted_ivory_003",
+      "Fitted_ivory_004",
+      "Fitted_ivory_005",
+      "Fitted_ivory_006",
+      "Fitted_ivory_007",
+      "Fitted_ivory_008",
+      "Fitted_ivory_009",
+      "Fitted_ivory_010",
+      "Fitted_ivory_011",
+      "Fitted_ivory_012"
+    ],
+    "original": [
+      "Lion_eyelid_crease",
+      "Oral_lining",
+      "Tongue_tissue",
+      "Lion_eyelid_fur",
+      "Fitted_ivory",
+      "Material_0"
+    ]
+  }
+]

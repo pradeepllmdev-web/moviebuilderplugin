@@ -1,0 +1,18 @@
+{
+  "lion": {
+    "running_arm_pose_error": 0.0,
+    "shared_race_path_error_m": 0.0,
+    "old_max_jaw": 0.5414459705352783,
+    "new_max_jaw": 0.8353737592697144,
+    "max_added_head_rotation_degrees": 22.496061314515735,
+    "silent_boundaries_passed": true
+  },
+  "cat": {
+    "running_arm_pose_error": 0.0,
+    "shared_race_path_error_m": 0.0,
+    "old_max_jaw": 0.421750009059906,
+    "new_max_jaw": 0.6507000029087067,
+    "max_added_head_rotation_degrees": 24.66885889516539,
+    "silent_boundaries_passed": true
+  }
+}

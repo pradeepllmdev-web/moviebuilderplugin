@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/build_prompt_unreal.py", line 48, in <module>
+    mountain=compiled['mountains'];mountain_result=None
+             ~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'mountains'

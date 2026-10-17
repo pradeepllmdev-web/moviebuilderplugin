@@ -1,0 +1,23 @@
+{
+  "frames": 144,
+  "motion_span_m": {
+    "LeftHand": 0.4457361883768165,
+    "RightHand": 0.4973203614698112,
+    "LeftFoot": 0.0,
+    "RightFoot": 0.0,
+    "Hips": 0.0,
+    "Head": 0.01186680260442244
+  },
+  "max_step_m": {
+    "LeftHand": 0.028264162683951224,
+    "RightHand": 0.025929717545491573,
+    "LeftFoot": 0.0,
+    "RightFoot": 0.0,
+    "Hips": 0.0,
+    "Head": 0.001520195828164806
+  },
+  "head_variation_degrees": 12.436151454891695,
+  "body_motion_gates": "passed",
+  "facial_lipsync": "unavailable: generated asset has no facial rig",
+  "production_catalog_approved": false
+}

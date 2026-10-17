@@ -1,0 +1,73 @@
+{
+  "id": "e71f2d6ce95d41d5a5459c4b8b90b81f",
+  "status": "ready",
+  "stage": "Validated plan ready",
+  "plan": {
+    "mood": "golden_hour",
+    "buildings": [
+      {
+        "position_cm": [
+          -1800,
+          -400
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      },
+      {
+        "position_cm": [
+          1000,
+          -400
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      }
+    ],
+    "roads": [
+      {
+        "id": "main",
+        "kind": "straight",
+        "cell": [
+          0,
+          0
+        ],
+        "yaw": 0
+      }
+    ],
+    "mountains": {
+      "enabled": true,
+      "height_cm": 50000,
+      "size_cm": 180000,
+      "distance_cm": 140000,
+      "side_deg": 90
+    },
+    "assets": [
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          -3500,
+          -2000
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          -3500,
+          2000
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          3500,
+          2000
+        ],
+        "scale": 1
+      }
+    ],
+    "notes": [],
+    "unsupported": [],
+    "contract_version": 1
+  }
+}

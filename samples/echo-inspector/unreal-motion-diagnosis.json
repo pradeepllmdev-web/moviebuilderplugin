@@ -1,0 +1,64 @@
+[
+  {
+    "shot": 914,
+    "bindings": [
+      {
+        "name": "Transferred_Camera",
+        "resolved": 1
+      },
+      {
+        "name": "CameraComponent",
+        "resolved": 1
+      },
+      {
+        "name": "Performance_Amber",
+        "resolved": 1
+      },
+      {
+        "name": "Performance_Leo",
+        "resolved": 1
+      }
+    ],
+    "animations": [
+      {
+        "name": "Amber",
+        "moving_imported_tracks": 13
+      },
+      {
+        "name": "Leo",
+        "moving_imported_tracks": 12
+      }
+    ]
+  },
+  {
+    "shot": 915,
+    "bindings": [
+      {
+        "name": "CameraComponent",
+        "resolved": 1
+      },
+      {
+        "name": "Transferred_Camera",
+        "resolved": 1
+      },
+      {
+        "name": "Performance_Leo",
+        "resolved": 1
+      },
+      {
+        "name": "Performance_Amber",
+        "resolved": 1
+      }
+    ],
+    "animations": [
+      {
+        "name": "Amber",
+        "moving_imported_tracks": 13
+      },
+      {
+        "name": "Leo",
+        "moving_imported_tracks": 12
+      }
+    ]
+  }
+]

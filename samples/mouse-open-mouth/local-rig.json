@@ -1,0 +1,8 @@
+{
+  "method": "free local auto_rig",
+  "joints": 24,
+  "textured": true,
+  "outside_joints": [],
+  "review_required": true,
+  "meshy_rig_error": "HTTP 402; no successful paid rig task"
+}

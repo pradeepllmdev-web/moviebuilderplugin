@@ -1,0 +1,74 @@
+[
+  {
+    "id": "river",
+    "title": "The Floating Crown",
+    "action": "reach",
+    "duration": 6.833333333333333,
+    "video": "/demos/CharacterStories/river/movie.mp4",
+    "poster": "/demos/CharacterStories/river/poster.png"
+  },
+  {
+    "id": "pine",
+    "title": "The Echo Detective",
+    "action": "listen",
+    "duration": 7.083333333333333,
+    "video": "/demos/CharacterStories/pine/movie.mp4",
+    "poster": "/demos/CharacterStories/pine/poster.png"
+  },
+  {
+    "id": "woodland",
+    "title": "The Tiny Giant",
+    "action": "crouch",
+    "duration": 7.25,
+    "video": "/demos/CharacterStories/woodland/movie.mp4",
+    "poster": "/demos/CharacterStories/woodland/poster.png"
+  },
+  {
+    "id": "meadow",
+    "title": "The Backwards Race",
+    "action": "run",
+    "duration": 7.916666666666667,
+    "video": "/demos/CharacterStories/meadow/movie.mp4",
+    "poster": "/demos/CharacterStories/meadow/poster.png"
+  },
+  {
+    "id": "highland",
+    "title": "The Brave First Step",
+    "action": "balance",
+    "duration": 7.666666666666667,
+    "video": "/demos/CharacterStories/highland/movie.mp4",
+    "poster": "/demos/CharacterStories/highland/poster.png"
+  },
+  {
+    "id": "house",
+    "title": "The Secret Recipe",
+    "action": "stir",
+    "duration": 7.333333333333333,
+    "video": "/demos/CharacterStories/house/movie.mp4",
+    "poster": "/demos/CharacterStories/house/poster.png"
+  },
+  {
+    "id": "city",
+    "title": "The Cloud Inspectors",
+    "action": "look_up",
+    "duration": 7.666666666666667,
+    "video": "/demos/CharacterStories/city/movie.mp4",
+    "poster": "/demos/CharacterStories/city/poster.png"
+  },
+  {
+    "id": "industrial",
+    "title": "The Rhythm Factory",
+    "action": "dance",
+    "duration": 6.583333333333333,
+    "video": "/demos/CharacterStories/industrial/movie.mp4",
+    "poster": "/demos/CharacterStories/industrial/poster.png"
+  },
+  {
+    "id": "suburban",
+    "title": "The Surprise Delivery",
+    "action": "wave",
+    "duration": 8.666666666666666,
+    "video": "/demos/CharacterStories/suburban/movie.mp4",
+    "poster": "/demos/CharacterStories/suburban/poster.png"
+  }
+]

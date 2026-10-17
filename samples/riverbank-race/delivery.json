@@ -1,0 +1,19 @@
+{
+  "title": "The Riverbank Dash",
+  "duration": 18.291666666666668,
+  "frames": 439,
+  "fps": 24,
+  "full_decode_passed": true,
+  "meshy_calls": 0,
+  "characters": [
+    "existing lion",
+    "existing Amber cat"
+  ],
+  "music": "original local synthesized score",
+  "ambience": "synthesized river and stylized footstep bed",
+  "limitations": [
+    "Prototype facial rigs and fur",
+    "Foot/toe contact needs visual review",
+    "No water interaction simulation"
+  ]
+}

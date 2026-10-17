@@ -1,0 +1,14 @@
+{
+  "source_unchanged": true,
+  "frames": 192,
+  "nose_upper_face_shape_error_m": 0.0,
+  "hand_motion_span_m": 0.416486321600188,
+  "head_turn_degrees": 4.999969972468842,
+  "jaw_timed_to_audio": true,
+  "full_facial_rig": false,
+  "visual_limitations": [
+    "mouth corners still require refinement",
+    "no eyelid rig or independent gaze",
+    "jaw-based speech approximation, not full visemes"
+  ]
+}

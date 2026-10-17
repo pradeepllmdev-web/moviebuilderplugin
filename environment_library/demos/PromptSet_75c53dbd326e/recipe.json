@@ -1,0 +1,160 @@
+{
+  "mood": "golden_hour",
+  "buildings": [
+    {
+      "position_cm": [
+        -2800,
+        1800
+      ],
+      "width_tiles": 3,
+      "depth_tiles": 3
+    },
+    {
+      "position_cm": [
+        1800,
+        1800
+      ],
+      "width_tiles": 3,
+      "depth_tiles": 3
+    },
+    {
+      "position_cm": [
+        -2800,
+        -2800
+      ],
+      "width_tiles": 3,
+      "depth_tiles": 3
+    }
+  ],
+  "roads": [
+    {
+      "id": "main",
+      "kind": "cross",
+      "cell": [
+        0,
+        0
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "road1",
+      "kind": "straight",
+      "cell": [
+        0,
+        1
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "road2",
+      "kind": "straight",
+      "cell": [
+        0,
+        -1
+      ],
+      "yaw": 0
+    },
+    {
+      "id": "road3",
+      "kind": "straight",
+      "cell": [
+        1,
+        0
+      ],
+      "yaw": 90
+    },
+    {
+      "id": "road4",
+      "kind": "straight",
+      "cell": [
+        -1,
+        0
+      ],
+      "yaw": 90
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "furniture.37c976889d",
+      "position_cm": [
+        1700,
+        -1800
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "furniture.37c976889d",
+      "position_cm": [
+        1700,
+        -2400
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "furniture.5b17df60eb",
+      "position_cm": [
+        2300,
+        -2100
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "tree.28534d392b",
+      "position_cm": [
+        -5500,
+        3500
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "tree.28534d392b",
+      "position_cm": [
+        -5500,
+        -3500
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "tree.35f06a0640",
+      "position_cm": [
+        5500,
+        3500
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "tree.35f06a0640",
+      "position_cm": [
+        5500,
+        -3500
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "rock.27e7c46097",
+      "position_cm": [
+        -4000,
+        0
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "rock.27e7c46097",
+      "position_cm": [
+        4000,
+        0
+      ],
+      "scale": 0.5
+    }
+  ],
+  "mountains": {
+    "enabled": true,
+    "height_cm": 40000,
+    "size_cm": 180000,
+    "distance_cm": 150000,
+    "side_deg": 90
+  },
+  "notes": [],
+  "unsupported": [],
+  "contract_version": 1
+}

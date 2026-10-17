@@ -1,0 +1,30 @@
+{
+  "category": "natural_outdoor",
+  "description": "A misty forest clearing with tall coniferous trees, silver birch, and dense undergrowth under soft morning light.",
+  "biome": "nordic_forest",
+  "terrain": "flat",
+  "river": "none",
+  "mountains": false,
+  "mood": "morning_fog",
+  "density": 0.8,
+  "landmarks": [
+    "tall Norway spruce trees",
+    "silver birch trees",
+    "dense grasses and ferns",
+    "Nordic rocks"
+  ],
+  "missing_features": [
+    "bridges",
+    "houses",
+    "tropical plants",
+    "ocean",
+    "snow"
+  ],
+  "uncertainties": [
+    "unknown scale of trees",
+    "hidden geometry behind fog",
+    "camera angle assumption"
+  ],
+  "camera_priority": "wide_landscape",
+  "source_sha256": "b97b905da45d4ec4af9dc3e3b997695613a1a47ca2658a871e48953de6575304"
+}

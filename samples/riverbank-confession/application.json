@@ -1,0 +1,89 @@
+{
+  "frames": 839,
+  "fps": 24,
+  "controls": {
+    "lion": {
+      "eye_direction": "bounded eye-surface morph; limited range",
+      "controls": [
+        "Concern",
+        "GazeLeft",
+        "GazeRight",
+        "GazeDown",
+        "LipPress",
+        "Round",
+        "Wide",
+        "LowerLipBite"
+      ]
+    },
+    "cat": {
+      "eye_direction": "bounded eye-surface morph; limited range",
+      "controls": [
+        "Concern",
+        "GazeLeft",
+        "GazeRight",
+        "GazeDown",
+        "LipPress",
+        "Round",
+        "Wide",
+        "LowerLipBite"
+      ]
+    }
+  },
+  "shots": [
+    {
+      "frame": 1,
+      "name": "Together"
+    },
+    {
+      "frame": 22,
+      "name": "cat dialogue"
+    },
+    {
+      "frame": 98,
+      "name": "lion listening reaction"
+    },
+    {
+      "frame": 125,
+      "name": "cat dialogue"
+    },
+    {
+      "frame": 191,
+      "name": "lion dialogue"
+    },
+    {
+      "frame": 291,
+      "name": "cat dialogue"
+    },
+    {
+      "frame": 413,
+      "name": "lion dialogue"
+    },
+    {
+      "frame": 457,
+      "name": "cat listening reaction"
+    },
+    {
+      "frame": 488,
+      "name": "lion dialogue"
+    },
+    {
+      "frame": 552,
+      "name": "cat dialogue"
+    },
+    {
+      "frame": 681,
+      "name": "lion dialogue"
+    },
+    {
+      "frame": 809,
+      "name": "Together"
+    }
+  ],
+  "meshy_calls": 0,
+  "limitations": [
+    "Eye-surface morphs have limited range, not separate eyeballs",
+    "Lip contact and tongue performance remain approximate",
+    "Offline synthesized voices lack directed emotional delivery",
+    "Procedural stylized environment"
+  ]
+}

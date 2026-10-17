@@ -1,0 +1,19 @@
+{
+  "reference": "head_attention",
+  "types": [
+    "head_attention"
+  ],
+  "frames": 142,
+  "duration": 9.4094,
+  "tracking_coverage": 1.0,
+  "source_fps": 29.97002997002997,
+  "source": "https://www.pexels.com/video/man-hands-gesturing-while-in-virtual-meeting-6290465/",
+  "author": "Gustavo Fring",
+  "status": "captured; retarget/visual review still required",
+  "head_angle_range_degrees": [
+    19.359074599456697,
+    16.63119579426843,
+    12.66448407668928
+  ],
+  "maximum_interpolated_gap_seconds": 0
+}

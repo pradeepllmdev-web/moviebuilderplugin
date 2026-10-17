@@ -1,0 +1,59 @@
+{
+  "id": "88144bc8b9e546079f1a7f598573ba62",
+  "status": "ready",
+  "stage": "Validated plan ready",
+  "plan": {
+    "mood": "morning_fog",
+    "buildings": [
+      {
+        "position_cm": [
+          1000,
+          1000
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      }
+    ],
+    "roads": [],
+    "assets": [
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          -6000,
+          -6000
+        ],
+        "scale": 0.5
+      }
+    ],
+    "notes": [],
+    "unsupported": [
+      "dense undergrowth"
+    ],
+    "contract_version": 1,
+    "reference_analysis": {
+      "category": "natural_outdoor",
+      "description": "A misty forest clearing with tall coniferous trees, silver birch, and dense undergrowth under soft morning light.",
+      "biome": "nordic_forest",
+      "terrain": "flat",
+      "river": "none",
+      "mountains": false,
+      "mood": "morning_fog",
+      "density": 0.8,
+      "landmarks": [
+        "tall Norway spruce trees",
+        "silver birch trees",
+        "dense grasses and ferns",
+        "Nordic rocks"
+      ],
+      "missing_features": [],
+      "uncertainties": [
+        "unknown scale of trees",
+        "hidden geometry behind fog",
+        "camera angle assumption"
+      ],
+      "camera_priority": "wide_landscape",
+      "source_sha256": "b97b905da45d4ec4af9dc3e3b997695613a1a47ca2658a871e48953de6575304",
+      "analysis_cache_hit": true
+    }
+  }
+}

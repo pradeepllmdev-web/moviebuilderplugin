@@ -1,0 +1,56 @@
+{
+  "id": "HighlandPass_20261015_094149",
+  "params": {
+    "biome": "rocky_highland",
+    "terrain": "valley",
+    "river": "none",
+    "mountains": true,
+    "mood": "overcast_drizzle",
+    "density": 1.15,
+    "size": 36000,
+    "stage_radius": 400,
+    "seed": 93,
+    "label": "HighlandPass_20261015_094149"
+  },
+  "camera": {
+    "location": [
+      -1500,
+      -2300,
+      500
+    ],
+    "target": [
+      1000,
+      10000,
+      1500
+    ]
+  },
+  "detail_layers": [
+    {
+      "kind": "grass",
+      "density": 140,
+      "scale": [
+        0.8,
+        1.35
+      ],
+      "within": [
+        -1500,
+        -2300,
+        4500
+      ],
+      "in_clear": true
+    },
+    {
+      "kind": "fern",
+      "density": 3,
+      "scale": [
+        0.7,
+        1.25
+      ],
+      "within": [
+        -1500,
+        -2300,
+        4000
+      ]
+    }
+  ]
+}

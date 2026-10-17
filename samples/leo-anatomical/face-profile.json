@@ -1,0 +1,15 @@
+{
+  "schema": "blendshape-controls/1",
+  "require_jaw_morph": false,
+  "mapping": {
+    "eyeBlinkLeft": "eyeBlinkLeft",
+    "eyeBlinkRight": "eyeBlinkRight",
+    "browInnerUp": "browInnerUp",
+    "mouthStretchLeft": "mouthStretch",
+    "mouthStretchRight": "mouthStretch",
+    "mouthFunnel": "mouthFunnel",
+    "mouthSmileLeft": "mouthSmile",
+    "mouthSmileRight": "mouthSmile",
+    "mouthClose": "mouthClose"
+  }
+}

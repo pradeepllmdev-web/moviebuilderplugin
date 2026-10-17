@@ -1,0 +1,72 @@
+[
+  {
+    "state": "done",
+    "fingerprint": "6e0df8de6ac274b6a7f370c637d6b062e83c9e3a35cd26f4c33cb9ed16f02064",
+    "request_id": "56a35cbbf04c83585c15165e721b512c",
+    "sequence": "/Game/StudioProduction/56a35cbbf04c83585c15165e721b512c/Performance",
+    "level": "/Game/StudioProduction/56a35cbbf04c83585c15165e721b512c/Level",
+    "characters": [
+      {
+        "name": "Amber",
+        "mesh": "/Game/StudioProduction/56a35cbbf04c83585c15165e721b512c/Character_0/Amber.Amber",
+        "animation": "/Game/StudioProduction/56a35cbbf04c83585c15165e721b512c/Character_0/Amber_Anim.Amber_Anim",
+        "body_tracks": 25,
+        "facial": {
+          "curves": 19,
+          "samples_per_curve": 192,
+          "max_sample_error": 1.5894571969710114e-07,
+          "missing_animated_targets": []
+        }
+      },
+      {
+        "name": "Leo",
+        "mesh": "/Game/StudioProduction/56a35cbbf04c83585c15165e721b512c/Character_1/Leo.Leo",
+        "animation": "/Game/StudioProduction/56a35cbbf04c83585c15165e721b512c/Character_1/Leo_Anim.Leo_Anim",
+        "body_tracks": 24,
+        "facial": {
+          "curves": 17,
+          "samples_per_curve": 192,
+          "max_sample_error": 1.5894571969710114e-07,
+          "missing_animated_targets": []
+        }
+      }
+    ],
+    "warnings": [],
+    "package_hash": "a8b04da5f34c632dfce88f90439bbd0d90b7ed02b90980ccf8dda0a8def59e55"
+  },
+  {
+    "state": "done",
+    "fingerprint": "fb75f45d5dbebe25861d395d20e8bcd9b54b85a9ec71824d85edbbe96f63a1f4",
+    "request_id": "88c30ec87c16cb6ecfe88db4f3185d5d",
+    "sequence": "/Game/StudioProduction/88c30ec87c16cb6ecfe88db4f3185d5d/Performance",
+    "level": "/Game/StudioProduction/88c30ec87c16cb6ecfe88db4f3185d5d/Level",
+    "characters": [
+      {
+        "name": "Amber",
+        "mesh": "/Game/StudioProduction/88c30ec87c16cb6ecfe88db4f3185d5d/Character_0/Amber.Amber",
+        "animation": "/Game/StudioProduction/88c30ec87c16cb6ecfe88db4f3185d5d/Character_0/Amber_Anim.Amber_Anim",
+        "body_tracks": 25,
+        "facial": {
+          "curves": 19,
+          "samples_per_curve": 192,
+          "max_sample_error": 1.5894571969710114e-07,
+          "missing_animated_targets": []
+        }
+      },
+      {
+        "name": "Leo",
+        "mesh": "/Game/StudioProduction/88c30ec87c16cb6ecfe88db4f3185d5d/Character_1/Leo.Leo",
+        "animation": "/Game/StudioProduction/88c30ec87c16cb6ecfe88db4f3185d5d/Character_1/Leo_Anim.Leo_Anim",
+        "body_tracks": 24,
+        "facial": {
+          "curves": 17,
+          "samples_per_curve": 192,
+          "max_sample_error": 1.5894571969710114e-07,
+          "missing_animated_targets": []
+        }
+      }
+    ],
+    "warnings": [],
+    "package_hash": "0586b4fd75986fbff630209913ce6d743a0501240f5bc9000716ffca3f1169bc"
+  }
+]

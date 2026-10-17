@@ -1,0 +1,32 @@
+{
+  "bones": [
+    "Root",
+    "Hips",
+    "Spine",
+    "Chest",
+    "Neck",
+    "Head",
+    "LeftShoulder",
+    "LeftUpperArm",
+    "LeftLowerArm",
+    "LeftHand",
+    "RightShoulder",
+    "RightUpperArm",
+    "RightLowerArm",
+    "RightHand",
+    "LeftUpperLeg",
+    "LeftLowerLeg",
+    "LeftFoot",
+    "LeftToes",
+    "RightUpperLeg",
+    "RightLowerLeg",
+    "RightFoot",
+    "RightToes",
+    "Tail",
+    "TailTip"
+  ],
+  "mesh_count": 1,
+  "shape_keys": {},
+  "facial_status": "requires fitting and visual review",
+  "old_geometry_reused": false
+}

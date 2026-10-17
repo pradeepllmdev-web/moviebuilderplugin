@@ -1,0 +1,132 @@
+{
+  "placed_assets": [
+    {
+      "id": "furniture.37c976889d",
+      "scale": 0.19148936170212766,
+      "label": "Catalogue_0_furniture"
+    },
+    {
+      "id": "furniture.37c976889d",
+      "scale": 0.19148936170212766,
+      "label": "Catalogue_1_furniture"
+    },
+    {
+      "id": "furniture.5b17df60eb",
+      "scale": 0.19148936170212766,
+      "label": "Catalogue_2_furniture"
+    },
+    {
+      "id": "tree.28534d392b",
+      "scale": 0.5,
+      "label": "Catalogue_3_tree"
+    },
+    {
+      "id": "tree.28534d392b",
+      "scale": 0.5,
+      "label": "Catalogue_4_tree"
+    },
+    {
+      "id": "tree.35f06a0640",
+      "scale": 0.5,
+      "label": "Catalogue_5_tree"
+    },
+    {
+      "id": "tree.35f06a0640",
+      "scale": 0.5,
+      "label": "Catalogue_6_tree"
+    },
+    {
+      "id": "rock.27e7c46097",
+      "scale": 0.5,
+      "label": "Catalogue_7_rock"
+    },
+    {
+      "id": "rock.27e7c46097",
+      "scale": 0.5,
+      "label": "Catalogue_8_rock"
+    }
+  ],
+  "mountains": {
+    "label": "PromptMountainBackdrop",
+    "params": {
+      "template": "alpine_range",
+      "shape": "range",
+      "size": 180000.0,
+      "height": 40000.0,
+      "sharpness": 0.7,
+      "roughness": 0.6,
+      "erosion": 0.5,
+      "snow_line": 0.55,
+      "rock_slope": 34.0,
+      "seed": 51,
+      "rotation": 180.0,
+      "edge_falloff": 0.12,
+      "crater": 0.5,
+      "terraces": 4,
+      "resolution": 96,
+      "uv_tile": 2000.0,
+      "colors": {
+        "grass": [
+          0.16,
+          0.24,
+          0.09
+        ],
+        "rock": [
+          0.29,
+          0.27,
+          0.25
+        ],
+        "snow": [
+          0.9,
+          0.92,
+          0.95
+        ],
+        "dirt": [
+          0.24,
+          0.18,
+          0.12
+        ]
+      },
+      "textures": {}
+    },
+    "peak_height": 40524.0,
+    "vertices": 9216
+  },
+  "reference_analysis": null,
+  "contract_version": 1,
+  "level": "/Game/EnvironmentDemos/PromptSet_75c53dbd326e",
+  "biome": "prompt_modular_set",
+  "warnings": [
+    "Blockout architecture; no traffic or automatic navigation."
+  ],
+  "cameras": {
+    "overview": {
+      "location": [
+        4100,
+        -4900,
+        4200
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    "street": {
+      "location": [
+        1600,
+        -6500,
+        2400
+      ],
+      "target": [
+        0,
+        1800,
+        1600
+      ]
+    }
+  },
+  "part_count": 8,
+  "connection_count": 4,
+  "open_end_count": 4,
+  "box_count": 206
+}

@@ -1,0 +1,165 @@
+{
+  "source": "Unreal forest preview used as a test reference, not a user-provided image",
+  "analysis": {
+    "id": "e23a57ee2537414cbfa39578a67cf078",
+    "status": "ready",
+    "stage": "Recipe ready for review",
+    "analysis": {
+      "category": "natural_outdoor",
+      "description": "A misty forest clearing with tall coniferous trees, silver birch, and dense undergrowth under soft morning light.",
+      "biome": "nordic_forest",
+      "terrain": "flat",
+      "river": "none",
+      "mountains": false,
+      "mood": "morning_fog",
+      "density": 0.8,
+      "landmarks": [
+        "tall Norway spruce trees",
+        "silver birch trees",
+        "dense grasses and ferns",
+        "Nordic rocks"
+      ],
+      "missing_features": [
+        "bridges",
+        "houses",
+        "tropical plants",
+        "ocean",
+        "snow"
+      ],
+      "uncertainties": [
+        "unknown scale of trees",
+        "hidden geometry behind fog",
+        "camera angle assumption"
+      ],
+      "camera_priority": "wide_landscape",
+      "source_sha256": "b97b905da45d4ec4af9dc3e3b997695613a1a47ca2658a871e48953de6575304"
+    },
+    "recipe": {
+      "id": "Reference_115b3f8873",
+      "params": {
+        "biome": "nordic_forest",
+        "terrain": "flat",
+        "river": "none",
+        "mountains": false,
+        "mood": "morning_fog",
+        "density": 0.8,
+        "size": 22000,
+        "stage_radius": 650,
+        "seed": 51,
+        "label": "Reference_115b3f8873",
+        "clear": [
+          [
+            -1100,
+            -900,
+            450
+          ]
+        ]
+      },
+      "camera": {
+        "location": [
+          -1100,
+          -900,
+          200
+        ],
+        "target": [
+          700,
+          1100,
+          200
+        ]
+      },
+      "analysis": {
+        "category": "natural_outdoor",
+        "description": "A misty forest clearing with tall coniferous trees, silver birch, and dense undergrowth under soft morning light.",
+        "biome": "nordic_forest",
+        "terrain": "flat",
+        "river": "none",
+        "mountains": false,
+        "mood": "morning_fog",
+        "density": 0.8,
+        "landmarks": [
+          "tall Norway spruce trees",
+          "silver birch trees",
+          "dense grasses and ferns",
+          "Nordic rocks"
+        ],
+        "missing_features": [
+          "bridges",
+          "houses",
+          "tropical plants",
+          "ocean",
+          "snow"
+        ],
+        "uncertainties": [
+          "unknown scale of trees",
+          "hidden geometry behind fog",
+          "camera angle assumption"
+        ],
+        "camera_priority": "wide_landscape",
+        "source_sha256": "b97b905da45d4ec4af9dc3e3b997695613a1a47ca2658a871e48953de6575304"
+      },
+      "status": "approximate recipe; preview and review required",
+      "reference_image": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\references\\e23a57ee2537414cbfa39578a67cf078.png"
+    }
+  },
+  "build": {
+    "id": "f1de1237a4ec4832a9ce1bd34beedf24",
+    "status": "complete",
+    "stage": "New Unreal level saved",
+    "preview": "/demos/ImageSet_5fb769b0ff/preview.png",
+    "report": {
+      "label": "ImageSet_5fb769b0ff",
+      "biome": "nordic_forest",
+      "terrain": "flat",
+      "actors": [
+        "ImageSet_5fb769b0ff_Ground",
+        "ImageSet_5fb769b0ff_Forest"
+      ],
+      "used": {
+        "ground": "Mossy Forest Floor",
+        "slopes": "Rocky Forest Floor",
+        "tree": [
+          "Norway Spruce",
+          "Silver Birch"
+        ],
+        "debris": [
+          "Broken Stump"
+        ],
+        "rock": [
+          "Mossy Forest Rock",
+          "Nordic Beach Rocks"
+        ],
+        "fern": [
+          "Fern"
+        ],
+        "grass": [
+          "Ribbon Grass",
+          "Wild Grass"
+        ],
+        "instances": 13740
+      },
+      "warnings": [],
+      "stage": [
+        0.0,
+        0.0,
+        650.0
+      ],
+      "level": "/Game/EnvironmentDemos/ImageSet_5fb769b0ff",
+      "camera": {
+        "location": [
+          -1100,
+          -900,
+          200
+        ],
+        "target": [
+          700,
+          1100,
+          200
+        ]
+      },
+      "reference_image": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\references\\e23a57ee2537414cbfa39578a67cf078.png",
+      "finished_at": 1792030181.5154095
+    }
+  },
+  "paid_calls": 0,
+  "exact_reconstruction": false
+}

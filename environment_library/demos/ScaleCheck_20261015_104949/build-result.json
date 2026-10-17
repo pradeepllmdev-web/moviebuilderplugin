@@ -1,0 +1,56 @@
+{
+  "level": "/Game/EnvironmentDemos/ScaleCheck_20261015_104949",
+  "biome": "scale_check",
+  "warnings": [],
+  "characters": [
+    {
+      "name": "lion",
+      "height_cm": 185,
+      "uniform_scale": 0.9999999606931547
+    },
+    {
+      "name": "cat",
+      "height_cm": 150,
+      "uniform_scale": 0.9999998935063793
+    }
+  ],
+  "door_opening_cm": [
+    100,
+    220
+  ],
+  "ruler_cm": 200,
+  "table_top_cm": 75,
+  "chair_overall_cm": 90,
+  "building_height_cm": 990,
+  "tree_native_height_cm": 2382.4762958288193,
+  "cameras": {
+    "character_height": {
+      "location": [
+        80,
+        -650,
+        165
+      ],
+      "target": [
+        80,
+        80,
+        115
+      ]
+    },
+    "wide": {
+      "location": [
+        0,
+        -2800,
+        650
+      ],
+      "target": [
+        0,
+        700,
+        650
+      ]
+    }
+  },
+  "limitations": [
+    "Bounds-based normalization does not author seat/handle anchors",
+    "Static pose check; runtime foot IK remains pending"
+  ]
+}

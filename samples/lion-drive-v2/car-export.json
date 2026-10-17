@@ -1,0 +1,58 @@
+{
+  "parts": [
+    {
+      "name": "Body",
+      "file": "Body.fbx",
+      "pivot_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "radius_m": null
+    },
+    {
+      "name": "Wheel_BL",
+      "file": "Wheel_BL.fbx",
+      "pivot_m": [
+        -1.4152594804763794,
+        0.9077296257019043,
+        0.3170779347419739
+      ],
+      "radius_m": 0.3656506985425949
+    },
+    {
+      "name": "Wheel_BR",
+      "file": "Wheel_BR.fbx",
+      "pivot_m": [
+        -1.415259599685669,
+        -0.9077346324920654,
+        0.31683966517448425
+      ],
+      "radius_m": 0.3656506836414337
+    },
+    {
+      "name": "Wheel_FL",
+      "file": "Wheel_FL.fbx",
+      "pivot_m": [
+        1.2172050476074219,
+        0.800462007522583,
+        0.3013964295387268
+      ],
+      "radius_m": 0.34838713705539703
+    },
+    {
+      "name": "Wheel_FR",
+      "file": "Wheel_FR.fbx",
+      "pivot_m": [
+        1.2172048091888428,
+        -0.8004722595214844,
+        0.29719746112823486
+      ],
+      "radius_m": 0.34838713705539703
+    }
+  ],
+  "length_m": 4.6,
+  "credit": "Fictional supercar - V12 Goblin by ollitei, CC Attribution",
+  "source": "https://sketchfab.com/3d-models/none-0a20e49ad5774d778567cb5c3f345786",
+  "modifications": "normalized scale; separated wheels; glass removed for driver visibility"
+}

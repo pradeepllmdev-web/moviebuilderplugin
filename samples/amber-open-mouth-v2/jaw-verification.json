@@ -1,0 +1,7 @@
+{
+  "upper_face_error_m": 0.0,
+  "fresh_geometry_only": true,
+  "source_anatomy_preserved": true,
+  "status": "pose-review-required",
+  "eyes": "not yet rigged"
+}

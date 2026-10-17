@@ -1,0 +1,56 @@
+{
+  "id": "BeechSanctuary_20261015_094149",
+  "params": {
+    "biome": "beech_woods",
+    "terrain": "meadow",
+    "river": "none",
+    "mountains": false,
+    "mood": "blockbuster",
+    "density": 1.15,
+    "size": 24000,
+    "stage_radius": 250,
+    "seed": 91,
+    "label": "BeechSanctuary_20261015_094149"
+  },
+  "camera": {
+    "location": [
+      -850,
+      -1100,
+      210
+    ],
+    "target": [
+      550,
+      1800,
+      260
+    ]
+  },
+  "detail_layers": [
+    {
+      "kind": "grass",
+      "density": 140,
+      "scale": [
+        0.8,
+        1.35
+      ],
+      "within": [
+        -850,
+        -1100,
+        4500
+      ],
+      "in_clear": true
+    },
+    {
+      "kind": "fern",
+      "density": 24,
+      "scale": [
+        0.7,
+        1.25
+      ],
+      "within": [
+        -850,
+        -1100,
+        4000
+      ]
+    }
+  ]
+}

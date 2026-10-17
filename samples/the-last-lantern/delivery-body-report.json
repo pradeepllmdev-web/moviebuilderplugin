@@ -1,0 +1,22 @@
+{
+  "movie": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\the-last-lantern\\the-last-lantern-body.mp4",
+  "rendered_frames": 384,
+  "fps": 24,
+  "resolution": [
+    960,
+    540
+  ],
+  "story_seconds": 16,
+  "credits_seconds": 2,
+  "duration_seconds": 18,
+  "audio_video_decode_passed": true,
+  "voices": "installed Windows speech, generated locally",
+  "music": "original procedural demo score",
+  "characters": [
+    "Snow",
+    "Jacob"
+  ],
+  "engine": "Blender",
+  "original_assets_saved": false,
+  "recorded_body_clips": true
+}

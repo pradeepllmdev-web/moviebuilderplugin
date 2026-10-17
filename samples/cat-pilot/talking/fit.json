@@ -1,0 +1,14 @@
+{
+  "seam_world_z": 1.725,
+  "lip_edges": 40,
+  "speech_keys": [
+    "JawOpen",
+    "MouthRound",
+    "MouthWide",
+    "LipClose",
+    "Smile"
+  ],
+  "oral_parts": 10,
+  "source_eyes_preserved": true,
+  "status": "visual-review-required"
+}

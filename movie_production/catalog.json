@@ -1,0 +1,25 @@
+{
+  "schema": "production-characters/1",
+  "characters": {
+    "snow": {
+      "face_profile": "profiles/snow.json",
+      "body_profile": "profiles/snow-body.json",
+      "anatomy": "biped",
+      "body_actions": [
+        "talk",
+        "listen"
+      ],
+      "status": "stationary-body-sample-tested"
+    },
+    "jacob": {
+      "face_profile": "profiles/jacob.json",
+      "body_profile": "profiles/jacob-body.json",
+      "anatomy": "biped",
+      "body_actions": [
+        "talk",
+        "listen"
+      ],
+      "status": "stationary-body-sample-tested"
+    }
+  }
+}

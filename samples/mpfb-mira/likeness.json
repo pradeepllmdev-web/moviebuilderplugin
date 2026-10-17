@@ -1,0 +1,32 @@
+{
+  "method": "MediaPipe ratios on reference and neutral rendered preview; projection/landmark uncertainty applies",
+  "ratios": {
+    "eye_width": {
+      "reference": 0.23659,
+      "render": 0.19677,
+      "relative_difference_percent": -16.83
+    },
+    "nose_width": {
+      "reference": 0.2144,
+      "render": 0.21713,
+      "relative_difference_percent": 1.27
+    },
+    "mouth_width": {
+      "reference": 0.35494,
+      "render": 0.34573,
+      "relative_difference_percent": -2.59
+    },
+    "chin_width": {
+      "reference": 0.78082,
+      "render": 0.78365,
+      "relative_difference_percent": 0.36
+    },
+    "face_aspect": {
+      "reference": 1.12952,
+      "render": 1.13153,
+      "relative_difference_percent": 0.18
+    }
+  },
+  "conclusion": "Approximate proportions; rendered eyes remain smaller than the stylized reference. Hair and garments are substitutes.",
+  "identity_match_certified": false
+}

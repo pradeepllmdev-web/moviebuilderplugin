@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "duration": 8,
+  "rise_m": 0.36,
+  "scanned_dressing_rocks": 18,
+  "views": [
+    "front three-quarter",
+    "side",
+    "face reveal"
+  ],
+  "contact_surfaces": "rounded stepped rocks with scanned-rock material; surrounding scanned rocks are dressing"
+}

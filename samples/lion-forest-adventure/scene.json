@@ -1,0 +1,776 @@
+{
+  "title": "Leo and the Forest Rhythm",
+  "scene_type": "motion",
+  "duration": 20,
+  "fps": 24,
+  "floor_size": [
+    24,
+    24
+  ],
+  "actors": [
+    {
+      "name": "Leo",
+      "segments": [
+        {
+          "action": "walk",
+          "start": 0,
+          "end": 4.424,
+          "from": [
+            -5.0,
+            0.0,
+            0.0
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ],
+          "yaw_start": 90,
+          "yaw_end": 90.0,
+          "intensity": 0.5
+        },
+        {
+          "action": "idle",
+          "start": 4.424,
+          "end": 5,
+          "from": [
+            0,
+            0,
+            0
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ],
+          "yaw_start": 90,
+          "yaw_end": 90,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 5,
+          "end": 10,
+          "from": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "to": [
+            6,
+            0,
+            0
+          ],
+          "yaw_start": 90,
+          "yaw_end": 90.0,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 10,
+          "end": 10.1562,
+          "from": [
+            6.0,
+            0.0,
+            0.0
+          ],
+          "to": [
+            5.942355841209691,
+            0.5852709660483848,
+            0
+          ],
+          "yaw_start": -270.0,
+          "yaw_end": -174.375,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 10.1562,
+          "end": 10.3125,
+          "from": [
+            5.942355841209691,
+            0.5852709660483848,
+            0.0
+          ],
+          "to": [
+            5.77163859753386,
+            1.1480502970952693,
+            0
+          ],
+          "yaw_start": -174.375,
+          "yaw_end": -163.125,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 10.3125,
+          "end": 10.4688,
+          "from": [
+            5.77163859753386,
+            1.1480502970952693,
+            0.0
+          ],
+          "to": [
+            5.494408836907636,
+            1.6667106990588065,
+            0
+          ],
+          "yaw_start": -163.125,
+          "yaw_end": -151.875,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 10.4688,
+          "end": 10.625,
+          "from": [
+            5.494408836907636,
+            1.6667106990588065,
+            0.0
+          ],
+          "to": [
+            5.121320343559643,
+            2.121320343559643,
+            0
+          ],
+          "yaw_start": -151.875,
+          "yaw_end": -140.62500000000006,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 10.625,
+          "end": 10.7812,
+          "from": [
+            5.121320343559643,
+            2.121320343559643,
+            0.0
+          ],
+          "to": [
+            4.666710699058807,
+            2.4944088369076356,
+            0
+          ],
+          "yaw_start": -140.625,
+          "yaw_end": -129.375,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 10.7812,
+          "end": 10.9375,
+          "from": [
+            4.666710699058807,
+            2.4944088369076356,
+            0.0
+          ],
+          "to": [
+            4.14805029709527,
+            2.77163859753386,
+            0
+          ],
+          "yaw_start": -129.375,
+          "yaw_end": -118.125,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 10.9375,
+          "end": 11.0938,
+          "from": [
+            4.14805029709527,
+            2.77163859753386,
+            0.0
+          ],
+          "to": [
+            3.585270966048385,
+            2.9423558412096913,
+            0
+          ],
+          "yaw_start": -118.125,
+          "yaw_end": -106.875,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 11.0938,
+          "end": 11.25,
+          "from": [
+            3.585270966048385,
+            2.9423558412096913,
+            0.0
+          ],
+          "to": [
+            3.0,
+            3.0,
+            0
+          ],
+          "yaw_start": -106.875,
+          "yaw_end": -95.625,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 11.25,
+          "end": 11.4062,
+          "from": [
+            3.0,
+            3.0,
+            0.0
+          ],
+          "to": [
+            2.414729033951615,
+            2.9423558412096913,
+            0
+          ],
+          "yaw_start": -95.625,
+          "yaw_end": -84.375,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 11.4062,
+          "end": 11.5625,
+          "from": [
+            2.414729033951615,
+            2.9423558412096913,
+            0.0
+          ],
+          "to": [
+            1.8519497029047307,
+            2.77163859753386,
+            0
+          ],
+          "yaw_start": -84.375,
+          "yaw_end": -73.125,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 11.5625,
+          "end": 11.7188,
+          "from": [
+            1.8519497029047307,
+            2.77163859753386,
+            0.0
+          ],
+          "to": [
+            1.3332893009411941,
+            2.494408836907636,
+            0
+          ],
+          "yaw_start": -73.125,
+          "yaw_end": -61.875,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 11.7188,
+          "end": 11.875,
+          "from": [
+            1.3332893009411941,
+            2.494408836907636,
+            0.0
+          ],
+          "to": [
+            0.8786796564403576,
+            2.121320343559643,
+            0
+          ],
+          "yaw_start": -61.875,
+          "yaw_end": -50.625,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 11.875,
+          "end": 12.0312,
+          "from": [
+            0.8786796564403576,
+            2.121320343559643,
+            0.0
+          ],
+          "to": [
+            0.505591163092364,
+            1.6667106990588065,
+            0
+          ],
+          "yaw_start": -50.625,
+          "yaw_end": -39.375,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 12.0312,
+          "end": 12.1875,
+          "from": [
+            0.505591163092364,
+            1.6667106990588065,
+            0.0
+          ],
+          "to": [
+            0.22836140246614,
+            1.1480502970952697,
+            0
+          ],
+          "yaw_start": -39.375,
+          "yaw_end": -28.125,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 12.1875,
+          "end": 12.3438,
+          "from": [
+            0.22836140246614,
+            1.1480502970952697,
+            0.0
+          ],
+          "to": [
+            0.05764415879030871,
+            0.5852709660483858,
+            0
+          ],
+          "yaw_start": -28.125,
+          "yaw_end": -16.875,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 12.3438,
+          "end": 12.5,
+          "from": [
+            0.05764415879030871,
+            0.5852709660483858,
+            0.0
+          ],
+          "to": [
+            0.0,
+            3.6739403974420594e-16,
+            0
+          ],
+          "yaw_start": -16.875,
+          "yaw_end": -5.625,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 12.5,
+          "end": 12.6562,
+          "from": [
+            0.0,
+            3.6739403974420594e-16,
+            0.0
+          ],
+          "to": [
+            0.05764415879030871,
+            -0.585270966048385,
+            0
+          ],
+          "yaw_start": -5.625,
+          "yaw_end": 5.625,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 12.6562,
+          "end": 12.8125,
+          "from": [
+            0.05764415879030871,
+            -0.585270966048385,
+            0.0
+          ],
+          "to": [
+            0.22836140246613956,
+            -1.148050297095269,
+            0
+          ],
+          "yaw_start": 5.625,
+          "yaw_end": 16.875,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 12.8125,
+          "end": 12.9688,
+          "from": [
+            0.22836140246613956,
+            -1.148050297095269,
+            0.0
+          ],
+          "to": [
+            0.5055911630923635,
+            -1.6667106990588059,
+            0
+          ],
+          "yaw_start": 16.875,
+          "yaw_end": 28.125,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 12.9688,
+          "end": 13.125,
+          "from": [
+            0.5055911630923635,
+            -1.6667106990588059,
+            0.0
+          ],
+          "to": [
+            0.8786796564403572,
+            -2.1213203435596424,
+            0
+          ],
+          "yaw_start": 28.125,
+          "yaw_end": 39.375,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 13.125,
+          "end": 13.2812,
+          "from": [
+            0.8786796564403572,
+            -2.1213203435596424,
+            0.0
+          ],
+          "to": [
+            1.3332893009411935,
+            -2.4944088369076356,
+            0
+          ],
+          "yaw_start": 39.375,
+          "yaw_end": 50.625,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 13.2812,
+          "end": 13.4375,
+          "from": [
+            1.3332893009411935,
+            -2.4944088369076356,
+            0.0
+          ],
+          "to": [
+            1.851949702904729,
+            -2.7716385975338595,
+            0
+          ],
+          "yaw_start": 50.625,
+          "yaw_end": 61.875,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 13.4375,
+          "end": 13.5938,
+          "from": [
+            1.851949702904729,
+            -2.7716385975338595,
+            0.0
+          ],
+          "to": [
+            2.414729033951614,
+            -2.942355841209691,
+            0
+          ],
+          "yaw_start": 61.875,
+          "yaw_end": 73.125,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 13.5938,
+          "end": 13.75,
+          "from": [
+            2.414729033951614,
+            -2.942355841209691,
+            0.0
+          ],
+          "to": [
+            2.9999999999999996,
+            -3.0,
+            0
+          ],
+          "yaw_start": 73.125,
+          "yaw_end": 84.375,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 13.75,
+          "end": 13.9062,
+          "from": [
+            2.9999999999999996,
+            -3.0,
+            0.0
+          ],
+          "to": [
+            3.585270966048385,
+            -2.9423558412096913,
+            0
+          ],
+          "yaw_start": 84.375,
+          "yaw_end": 95.625,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 13.9062,
+          "end": 14.0625,
+          "from": [
+            3.585270966048385,
+            -2.9423558412096913,
+            0.0
+          ],
+          "to": [
+            4.14805029709527,
+            -2.77163859753386,
+            0
+          ],
+          "yaw_start": 95.625,
+          "yaw_end": 106.875,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 14.0625,
+          "end": 14.2188,
+          "from": [
+            4.14805029709527,
+            -2.77163859753386,
+            0.0
+          ],
+          "to": [
+            4.666710699058806,
+            -2.4944088369076365,
+            0
+          ],
+          "yaw_start": 106.875,
+          "yaw_end": 118.125,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 14.2188,
+          "end": 14.375,
+          "from": [
+            4.666710699058806,
+            -2.4944088369076365,
+            0.0
+          ],
+          "to": [
+            5.121320343559642,
+            -2.121320343559643,
+            0
+          ],
+          "yaw_start": 118.125,
+          "yaw_end": 129.375,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 14.375,
+          "end": 14.5312,
+          "from": [
+            5.121320343559642,
+            -2.121320343559643,
+            0.0
+          ],
+          "to": [
+            5.494408836907636,
+            -1.6667106990588065,
+            0
+          ],
+          "yaw_start": 129.375,
+          "yaw_end": 140.625,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 14.5312,
+          "end": 14.6875,
+          "from": [
+            5.494408836907636,
+            -1.6667106990588065,
+            0.0
+          ],
+          "to": [
+            5.77163859753386,
+            -1.148050297095271,
+            0
+          ],
+          "yaw_start": 140.625,
+          "yaw_end": 151.875,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 14.6875,
+          "end": 14.8438,
+          "from": [
+            5.77163859753386,
+            -1.148050297095271,
+            0.0
+          ],
+          "to": [
+            5.942355841209691,
+            -0.5852709660483861,
+            0
+          ],
+          "yaw_start": 151.875,
+          "yaw_end": 163.125,
+          "intensity": 0.5
+        },
+        {
+          "action": "run",
+          "start": 14.8438,
+          "end": 16.0437,
+          "from": [
+            5.942355841209691,
+            -0.5852709660483861,
+            0.0
+          ],
+          "to": [
+            6.0,
+            -7.347880794884119e-16,
+            0
+          ],
+          "yaw_start": 163.125,
+          "yaw_end": 174.375,
+          "intensity": 0.5
+        },
+        {
+          "action": "dance_a",
+          "start": 16.0437,
+          "end": 20,
+          "from": [
+            6.0,
+            -7.347880794884119e-16,
+            0
+          ],
+          "to": [
+            6.0,
+            -7.347880794884119e-16,
+            0
+          ],
+          "yaw_start": 174.375,
+          "yaw_end": 0,
+          "intensity": 0.5
+        }
+      ]
+    }
+  ],
+  "obstacles": [],
+  "camera": {
+    "offset": [
+      0,
+      -7,
+      2.8
+    ],
+    "lens_mm": 42
+  },
+  "lighting": "golden",
+  "set": "field",
+  "lines": [
+    {
+      "speaker": "Leo",
+      "to": "Leo",
+      "text": "The forest has a secret. Every trail has a rhythm.",
+      "start": 0,
+      "end": 4.8,
+      "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-forest-adventure\\voice-0\\voice.wav",
+      "tone": "natural",
+      "manner": "talk"
+    },
+    {
+      "speaker": "Leo",
+      "to": "Leo",
+      "text": "Listen! That is the sound of adventure catching up!",
+      "start": 5,
+      "end": 9.8,
+      "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-forest-adventure\\voice-1\\voice.wav",
+      "tone": "natural",
+      "manner": "talk"
+    },
+    {
+      "speaker": "Leo",
+      "to": "Leo",
+      "text": "Round the clearing! I think the trees are cheering.",
+      "start": 10,
+      "end": 14.8,
+      "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-forest-adventure\\voice-2\\voice.wav",
+      "tone": "natural",
+      "manner": "talk"
+    },
+    {
+      "speaker": "Leo",
+      "to": "Leo",
+      "text": "And now, my famous victory dance!",
+      "start": 15,
+      "end": 19.8,
+      "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-forest-adventure\\voice-3\\voice.wav",
+      "tone": "natural",
+      "manner": "talk"
+    }
+  ],
+  "camera_cuts": [
+    {
+      "time": 0,
+      "offset": [
+        0,
+        -8,
+        3
+      ],
+      "lens_mm": 45,
+      "focus": "Leo"
+    },
+    {
+      "time": 5,
+      "offset": [
+        5,
+        -8,
+        3
+      ],
+      "lens_mm": 38,
+      "focus": "Leo"
+    },
+    {
+      "time": 10,
+      "offset": [
+        0,
+        -11,
+        7
+      ],
+      "lens_mm": 35,
+      "focus": "Leo"
+    },
+    {
+      "time": 15,
+      "offset": [
+        0,
+        -5,
+        2
+      ],
+      "lens_mm": 48,
+      "focus": "Leo"
+    }
+  ],
+  "environment": {
+    "kind": "plain",
+    "seed": 42,
+    "tree_count": 0,
+    "rock_count": 0,
+    "mountain_count": 0,
+    "clearing_radius": 4
+  },
+  "staging": {
+    "left_count": 0,
+    "right_count": 0,
+    "crowd_action": "idle",
+    "road_width": 5,
+    "rider": "",
+    "mount": ""
+  }
+}

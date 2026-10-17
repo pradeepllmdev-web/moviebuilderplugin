@@ -1,0 +1,70 @@
+[
+  {
+    "pixel": [
+      333,
+      350
+    ],
+    "object": "output_unwrapped",
+    "fit_point": [
+      0.0223,
+      -0.4222,
+      1.2596
+    ],
+    "rest_face_center": [
+      -0.0235,
+      -0.4323,
+      1.2892
+    ]
+  },
+  {
+    "pixel": [
+      342,
+      364
+    ],
+    "object": "Fitted mouth cavity",
+    "fit_point": [
+      0.0389,
+      -0.328,
+      1.2319
+    ],
+    "rest_face_center": [
+      0.0054,
+      -0.3459,
+      1.2679
+    ]
+  },
+  {
+    "pixel": [
+      365,
+      356
+    ],
+    "object": "output_unwrapped",
+    "fit_point": [
+      0.074,
+      -0.4172,
+      1.2498
+    ],
+    "rest_face_center": [
+      0.0198,
+      -0.4361,
+      1.2942
+    ]
+  },
+  {
+    "pixel": [
+      320,
+      340
+    ],
+    "object": "Fitted mouth cavity",
+    "fit_point": [
+      0.0014,
+      -0.3597,
+      1.2738
+    ],
+    "rest_face_center": [
+      -0.0336,
+      -0.3594,
+      1.2874
+    ]
+  }
+]

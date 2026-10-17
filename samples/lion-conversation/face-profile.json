@@ -1,0 +1,19 @@
+{
+  "schema": "blendshape-controls/1",
+  "name": "prepared-biped-lion-v4",
+  "mapping": {
+    "jawOpen": "Lion_JawOpen",
+    "eyeBlinkLeft": "Lion_LidClosure_L",
+    "eyeBlinkRight": "Lion_LidClosure_R",
+    "mouthFunnel": "Lion_Round",
+    "mouthStretchLeft": "Lion_Wide",
+    "mouthStretchRight": "Lion_Wide",
+    "mouthClose": "Lion_Close",
+    "mouthPressLeft": "Lion_Press",
+    "mouthPressRight": "Lion_Press",
+    "browInnerUp": "BrowUp",
+    "mouthSmileLeft": "Smile",
+    "mouthSmileRight": "Smile"
+  },
+  "limits": "12 existing asset-specific controls plus fitted closure lids; no independent eyes or articulated tongue. Not ARKit-52."
+}

@@ -1,0 +1,14 @@
+{
+  "frames": 294,
+  "fps": 24,
+  "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\mouse-open-mouth\\voice.wav",
+  "lead": 0.35,
+  "source_sha256": "cd5675852c905323e639ec18e8994127c3d31b809c60e012f859240f56bed3ae",
+  "fresh_geometry_only": true,
+  "limitations": [
+    "rest pose still shows teeth; full lip seal pending",
+    "stylized jagged fur remains",
+    "eyelids are fitted overlays",
+    "prototype facial controls, not complete ARKit"
+  ]
+}

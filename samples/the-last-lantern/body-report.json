@@ -1,0 +1,39 @@
+{
+  "snow": {
+    "source_clips": [
+      "clip|Talking",
+      "clip|Listen"
+    ],
+    "body_controls": [
+      "FK-Spine",
+      "FK-Chest",
+      "FK-UpperArm.L",
+      "FK-Forearm.L",
+      "FK-Wrist.L",
+      "FK-UpperArm.R",
+      "FK-Forearm.R",
+      "FK-Wrist.R"
+    ],
+    "frames": 384,
+    "root_and_feet_keyed": false,
+    "face_controls_keyed": false
+  },
+  "jacob": {
+    "source_clips": [
+      "clip|Talking",
+      "clip|Listen"
+    ],
+    "body_controls": [
+      "CTRL-CHEST",
+      "CTRL-FK-UARM_01.L",
+      "CTRL-FK-LARM_01.L",
+      "CTRL-FK-HAND.L",
+      "CTRL-FK-UARM_01.R",
+      "CTRL-FK-LARM_01.R",
+      "CTRL-FK-HAND.R"
+    ],
+    "frames": 384,
+    "root_and_feet_keyed": false,
+    "face_controls_keyed": false
+  }
+}

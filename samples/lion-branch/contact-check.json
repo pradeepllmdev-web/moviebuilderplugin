@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "frames_sampled": 480,
+  "pickup_frame": 128,
+  "release_frame": 368,
+  "branch_center_to_hand_midpoint_max_cm": 0,
+  "settling": "keyframed; no rigid-body simulation",
+  "hand_grip": "single-hand pickup and lowering; two-hand carry; finger grip needs visual review"
+}

@@ -1,0 +1,15 @@
+{
+  "frames": 267,
+  "fps": 24,
+  "protected_upper_face_error_m": 0.0,
+  "jaw_peak": 0.9,
+  "jaw_at_end": 0.0,
+  "source_sha256": "c8506dada39953517b86ce28fa4c5d9c4867d375782f5c99e84392f6be1ea7d0",
+  "voice": "offline Windows SAPI",
+  "limitations": [
+    "original painted smile remains",
+    "single shared blink control",
+    "no full brow rig",
+    "mouth corners require visual review"
+  ]
+}

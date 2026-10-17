@@ -1,0 +1,15 @@
+1
+00:00:00,600 --> 00:00:02,635
+Cat: Race you to the bridge!
+
+2
+00:00:02,500 --> 00:00:04,890
+Lion: Ready? Go!
+
+3
+00:00:07,000 --> 00:00:09,520
+Cat: Try to keep up, Leo!
+
+4
+00:00:13,000 --> 00:00:17,495
+Lion: You win! Next time, I pick the shortcut.

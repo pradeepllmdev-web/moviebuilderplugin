@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "frames_checked": 192,
+  "summary": {
+    "Amber": {
+      "jaw_min": 0.17800000309944153,
+      "jaw_max": 1.0,
+      "blink_max": 1.0,
+      "hand_max_travel_cm": 17.586490763529664
+    },
+    "Leo": {
+      "jaw_min": 0.0,
+      "jaw_max": 0.8460000157356262,
+      "blink_max": 1.0,
+      "hand_max_travel_cm": 22.00914745042381
+    }
+  }
+}

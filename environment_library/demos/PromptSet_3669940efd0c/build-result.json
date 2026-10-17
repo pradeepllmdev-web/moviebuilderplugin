@@ -1,0 +1,87 @@
+{
+  "weather": {
+    "settings": {
+      "type": "rain",
+      "intensity": 0.4,
+      "wetness": 0.85,
+      "snow_cover": 0,
+      "wind_cm_s": [
+        40,
+        15
+      ]
+    },
+    "effect": {
+      "label": "PromptWeather",
+      "preset": "rain",
+      "parameters": {
+        "SpawnRate": 470400.0,
+        "BoxSize": [
+          14000.0,
+          14000.0,
+          1800.0
+        ],
+        "Velocity": [
+          40.0,
+          15.0,
+          -1500.0
+        ],
+        "SpriteSize": 4.0,
+        "Lifetime": 1.2,
+        "Color": [
+          0.75,
+          0.8,
+          0.9,
+          0.35
+        ],
+        "Stretch": 12.0
+      }
+    },
+    "material_slots_changed": 98,
+    "material_variants": 6,
+    "limitations": [
+      "Particle collision with roofs and interiors is not configured.",
+      "Snow coverage changes surface shading; it does not accumulate geometry.",
+      "Material instances retain original appearance; only direct materials receive surface variants.",
+      "Wetness changes surface shading; puddles and splashes are not implemented."
+    ]
+  },
+  "placed_assets": [],
+  "mountains": null,
+  "reference_analysis": null,
+  "contract_version": 1,
+  "level": "/Game/EnvironmentDemos/PromptSet_3669940efd0c",
+  "biome": "prompt_modular_set",
+  "warnings": [
+    "Blockout architecture; no traffic or automatic navigation."
+  ],
+  "cameras": {
+    "overview": {
+      "location": [
+        4100,
+        -4900,
+        4200
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    "street": {
+      "location": [
+        1600,
+        -6500,
+        2400
+      ],
+      "target": [
+        0,
+        1800,
+        1600
+      ]
+    }
+  },
+  "part_count": 3,
+  "connection_count": 0,
+  "open_end_count": 2,
+  "box_count": 97
+}

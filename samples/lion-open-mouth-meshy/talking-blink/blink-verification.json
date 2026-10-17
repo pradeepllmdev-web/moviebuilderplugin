@@ -1,0 +1,10 @@
+{
+  "coverage_probes": 10,
+  "all_covered": true,
+  "blink_frames": [
+    28,
+    79,
+    145
+  ],
+  "original_rigged_source_unchanged": true
+}

@@ -1,0 +1,642 @@
+[
+  {
+    "name": "ForestOutpost",
+    "prompt": "A quiet forest ranger outpost at morning fog. One small cabin at [1000,1000], width_tiles3 depth_tiles2. No road tiles. Four silver birch or beech trees spaced widely at [-5000,-3500], [-5000,3500], [5000,3500], [5000,-3500], scale0.6. Two mossy rocks at [-3000,0] and [4000,0], scale0.5. No mountains. Use only installed assets and supported construction.",
+    "status": "complete",
+    "plan": {
+      "mood": "morning_fog",
+      "buildings": [
+        {
+          "position_cm": [
+            1000,
+            1000
+          ],
+          "width_tiles": 3,
+          "depth_tiles": 2
+        }
+      ],
+      "roads": [],
+      "notes": [],
+      "unsupported": [],
+      "assets": [
+        {
+          "asset_id": "tree.35f06a0640",
+          "position_cm": [
+            -5000,
+            -3500
+          ],
+          "scale": 0.6
+        },
+        {
+          "asset_id": "tree.35f06a0640",
+          "position_cm": [
+            -5000,
+            3500
+          ],
+          "scale": 0.6
+        },
+        {
+          "asset_id": "tree.35f06a0640",
+          "position_cm": [
+            5000,
+            3500
+          ],
+          "scale": 0.6
+        },
+        {
+          "asset_id": "tree.35f06a0640",
+          "position_cm": [
+            5000,
+            -3500
+          ],
+          "scale": 0.6
+        },
+        {
+          "asset_id": "rock.27e7c46097",
+          "position_cm": [
+            -3000,
+            0
+          ],
+          "scale": 0.5
+        },
+        {
+          "asset_id": "rock.27e7c46097",
+          "position_cm": [
+            4000,
+            0
+          ],
+          "scale": 0.5
+        }
+      ],
+      "contract_version": 1
+    },
+    "preview": "/demos/PromptSet_7972eb1eeef7/preview.png",
+    "report": {
+      "mountains": null,
+      "reference_analysis": null,
+      "contract_version": 1,
+      "level": "/Game/EnvironmentDemos/PromptSet_7972eb1eeef7",
+      "biome": "prompt_modular_set",
+      "warnings": [
+        "Blockout architecture; no traffic or automatic navigation."
+      ],
+      "cameras": {
+        "overview": {
+          "location": [
+            4100,
+            -4900,
+            4200
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ]
+        },
+        "street": {
+          "location": [
+            1600,
+            -6500,
+            2400
+          ],
+          "target": [
+            0,
+            1800,
+            1600
+          ]
+        }
+      },
+      "part_count": 1,
+      "connection_count": 0,
+      "open_end_count": 0,
+      "box_count": 35
+    },
+    "inspection_note": "Fog is too heavy and the default camera is too distant for inspecting the cabin."
+  },
+  {
+    "name": "MountainVillage",
+    "prompt": "A remote mountain village under soft overcast daylight, mood overcast_drizzle. Two small houses at [-1800,-400] and [1000,-400], width_tiles3 depth_tiles3. One straight road tile cell[0,0], yaw0. Three spruce trees spaced at [-4000,-2500], [-4000,2500], [4000,2500], scale0.6. A mountain behind at +Y, height_cm35000 size_cm180000 distance_cm150000 side_deg90. Use supported construction only.",
+    "status": "complete",
+    "plan": {
+      "mood": "overcast_drizzle",
+      "buildings": [
+        {
+          "position_cm": [
+            -1800,
+            -400
+          ],
+          "width_tiles": 3,
+          "depth_tiles": 3
+        },
+        {
+          "position_cm": [
+            1000,
+            -400
+          ],
+          "width_tiles": 3,
+          "depth_tiles": 3
+        }
+      ],
+      "roads": [
+        {
+          "id": "main",
+          "kind": "straight",
+          "cell": [
+            0,
+            0
+          ],
+          "yaw": 0
+        }
+      ],
+      "assets": [
+        {
+          "asset_id": "tree.28534d392b",
+          "position_cm": [
+            -4000,
+            -2500
+          ],
+          "scale": 0.6
+        },
+        {
+          "asset_id": "tree.28534d392b",
+          "position_cm": [
+            -4000,
+            2500
+          ],
+          "scale": 0.6
+        },
+        {
+          "asset_id": "tree.28534d392b",
+          "position_cm": [
+            4000,
+            2500
+          ],
+          "scale": 0.6
+        }
+      ],
+      "mountains": {
+        "enabled": true,
+        "height_cm": 35000,
+        "size_cm": 180000,
+        "distance_cm": 150000,
+        "side_deg": 90
+      },
+      "notes": [],
+      "unsupported": [],
+      "contract_version": 1
+    },
+    "preview": "/demos/PromptSet_99ec26c99639/preview.png",
+    "report": {
+      "mountains": {
+        "label": "PromptMountainBackdrop",
+        "params": {
+          "template": "alpine_range",
+          "shape": "range",
+          "size": 180000.0,
+          "height": 35000.0,
+          "sharpness": 0.7,
+          "roughness": 0.6,
+          "erosion": 0.5,
+          "snow_line": 0.55,
+          "rock_slope": 34.0,
+          "seed": 51,
+          "rotation": 180.0,
+          "edge_falloff": 0.12,
+          "crater": 0.5,
+          "terraces": 4,
+          "resolution": 96,
+          "uv_tile": 2000.0,
+          "colors": {
+            "grass": [
+              0.16,
+              0.24,
+              0.09
+            ],
+            "rock": [
+              0.29,
+              0.27,
+              0.25
+            ],
+            "snow": [
+              0.9,
+              0.92,
+              0.95
+            ],
+            "dirt": [
+              0.24,
+              0.18,
+              0.12
+            ]
+          },
+          "textures": {}
+        },
+        "peak_height": 35458.2,
+        "vertices": 9216
+      },
+      "reference_analysis": null,
+      "contract_version": 1,
+      "level": "/Game/EnvironmentDemos/PromptSet_99ec26c99639",
+      "biome": "prompt_modular_set",
+      "warnings": [
+        "Blockout architecture; no traffic or automatic navigation."
+      ],
+      "cameras": {
+        "overview": {
+          "location": [
+            4100,
+            -4900,
+            4200
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ]
+        },
+        "street": {
+          "location": [
+            1600,
+            -6500,
+            2400
+          ],
+          "target": [
+            0,
+            1800,
+            1600
+          ]
+        }
+      },
+      "part_count": 3,
+      "connection_count": 0,
+      "open_end_count": 2,
+      "box_count": 97
+    },
+    "inspection_note": "Mountain backdrop is visible; architecture and ground remain basic."
+  },
+  {
+    "name": "RoadsideSettlement",
+    "prompt": "A sunny roadside settlement, mood blockbuster. Three modular buildings: southwest corners [-2400,-1000], [1400,-1000], [1400,1000], each width_tiles3 depth_tiles3. Straight north south road exactly three tiles: cells[0,-1],[0,0],[0,1], all yaw0. Three broadleaf beech trees spaced at [-5000,-3500], [-5000,3500], [5000,3500], scale0.5. Two Nordic rocks at [-3500,0] and [4500,-3000], scale0.5. No mountains. Do not add vehicles or unsupported props.",
+    "status": "complete",
+    "plan": {
+      "mood": "blockbuster",
+      "buildings": [
+        {
+          "position_cm": [
+            -2400,
+            -1000
+          ],
+          "width_tiles": 3,
+          "depth_tiles": 3
+        },
+        {
+          "position_cm": [
+            1400,
+            -1000
+          ],
+          "width_tiles": 3,
+          "depth_tiles": 3
+        },
+        {
+          "position_cm": [
+            1400,
+            1000
+          ],
+          "width_tiles": 3,
+          "depth_tiles": 3
+        }
+      ],
+      "roads": [
+        {
+          "id": "main",
+          "kind": "straight",
+          "cell": [
+            0,
+            0
+          ],
+          "yaw": 0
+        }
+      ],
+      "assets": [
+        {
+          "asset_id": "tree.3d2bfe1493",
+          "position_cm": [
+            -5000,
+            -3500
+          ],
+          "scale": 0.5
+        },
+        {
+          "asset_id": "tree.3d2bfe1493",
+          "position_cm": [
+            -5000,
+            3500
+          ],
+          "scale": 0.5
+        },
+        {
+          "asset_id": "tree.3d2bfe1493",
+          "position_cm": [
+            5000,
+            3500
+          ],
+          "scale": 0.5
+        },
+        {
+          "asset_id": "rock.0fcdf9d09c",
+          "position_cm": [
+            -3500,
+            0
+          ],
+          "scale": 0.5
+        },
+        {
+          "asset_id": "rock.0fcdf9d09c",
+          "position_cm": [
+            4500,
+            -3000
+          ],
+          "scale": 0.5
+        }
+      ],
+      "notes": [],
+      "unsupported": [],
+      "contract_version": 1
+    },
+    "preview": "/demos/PromptSet_8bca7c94e372/preview.png",
+    "report": {
+      "mountains": null,
+      "reference_analysis": null,
+      "contract_version": 1,
+      "level": "/Game/EnvironmentDemos/PromptSet_8bca7c94e372",
+      "biome": "prompt_modular_set",
+      "warnings": [
+        "Blockout architecture; no traffic or automatic navigation."
+      ],
+      "cameras": {
+        "overview": {
+          "location": [
+            4100,
+            -4900,
+            4200
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ]
+        },
+        "street": {
+          "location": [
+            1600,
+            -6500,
+            2400
+          ],
+          "target": [
+            0,
+            1800,
+            1600
+          ]
+        }
+      },
+      "part_count": 4,
+      "connection_count": 0,
+      "open_end_count": 2,
+      "box_count": 140
+    },
+    "inspection_note": "Requested three road tiles, but the AI returned one. Exact requested counts are not enforced yet."
+  },
+  {
+    "name": "Rain weather demo",
+    "prompt": "Weather contract build verification: rain",
+    "status": "complete",
+    "preview": "/demos/PromptSet_c2ec4adaca4b/preview.png",
+    "report": {
+      "weather": {
+        "settings": {
+          "type": "rain",
+          "intensity": 0.3,
+          "wetness": 0.85,
+          "snow_cover": 0,
+          "wind_cm_s": [
+            40,
+            15
+          ]
+        },
+        "effect": {
+          "label": "PromptWeather",
+          "preset": "rain",
+          "parameters": {
+            "SpawnRate": 352800.0,
+            "BoxSize": [
+              14000.0,
+              14000.0,
+              1800.0
+            ],
+            "Velocity": [
+              40.0,
+              15.0,
+              -1500.0
+            ],
+            "SpriteSize": 4.0,
+            "Lifetime": 1.2,
+            "Color": [
+              0.75,
+              0.8,
+              0.9,
+              0.35
+            ],
+            "Stretch": 12.0
+          }
+        },
+        "material_slots_changed": 98,
+        "material_variants": 6,
+        "limitations": [
+          "Particle collision with roofs and interiors is not configured.",
+          "Snow coverage changes surface shading; it does not accumulate geometry.",
+          "Material instances retain original appearance; only direct materials receive surface variants.",
+          "Wetness changes surface shading; puddles and splashes are not implemented."
+        ]
+      },
+      "placed_assets": [],
+      "mountains": null,
+      "reference_analysis": null,
+      "contract_version": 1,
+      "level": "/Game/EnvironmentDemos/PromptSet_c2ec4adaca4b",
+      "biome": "prompt_modular_set",
+      "warnings": [
+        "Blockout architecture; no traffic or automatic navigation."
+      ],
+      "cameras": {
+        "overview": {
+          "location": [
+            4100,
+            -4900,
+            4200
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ]
+        },
+        "street": {
+          "location": [
+            1600,
+            -6500,
+            2400
+          ],
+          "target": [
+            0,
+            1800,
+            1600
+          ]
+        }
+      },
+      "part_count": 3,
+      "connection_count": 0,
+      "open_end_count": 2,
+      "box_count": 97
+    },
+    "inspection_note": "Weather prototype: no roof collision, puddles, splashes or foliage accumulation."
+  },
+  {
+    "name": "Snow mountain demo",
+    "prompt": "Weather contract build verification: snow",
+    "status": "complete",
+    "preview": "/demos/PromptSet_f9144e11985c/preview.png",
+    "report": {
+      "weather": {
+        "settings": {
+          "type": "snow",
+          "intensity": 0.12,
+          "wetness": 0,
+          "snow_cover": 0.85,
+          "wind_cm_s": [
+            40,
+            15
+          ]
+        },
+        "effect": {
+          "label": "PromptWeather",
+          "preset": "snow",
+          "parameters": {
+            "SpawnRate": 18000.0,
+            "BoxSize": [
+              10000.0,
+              10000.0,
+              1500.0
+            ],
+            "Velocity": [
+              65.0,
+              25.0,
+              -120.0
+            ],
+            "SpriteSize": 2.0999999999999996,
+            "Lifetime": 14.0,
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              0.9
+            ],
+            "Stretch": 1.0
+          }
+        },
+        "snow_caps": 3,
+        "material_slots_changed": 0,
+        "material_variants": 0,
+        "limitations": [
+          "Particle collision with roofs and interiors is not configured.",
+          "Snow cover uses simple flat caps on generated ground and roofs; no simulation, footprints or foliage accumulation.",
+          "Material instances retain original appearance; only direct materials receive surface variants.",
+          "Wetness changes surface shading; puddles and splashes are not implemented."
+        ]
+      },
+      "placed_assets": [],
+      "mountains": {
+        "label": "PromptMountainBackdrop",
+        "params": {
+          "template": "alpine_range",
+          "shape": "range",
+          "size": 180000.0,
+          "height": 35000.0,
+          "sharpness": 0.7,
+          "roughness": 0.6,
+          "erosion": 0.5,
+          "snow_line": 0.55,
+          "rock_slope": 34.0,
+          "seed": 51,
+          "rotation": 180.0,
+          "edge_falloff": 0.12,
+          "crater": 0.5,
+          "terraces": 4,
+          "resolution": 96,
+          "uv_tile": 2000.0,
+          "colors": {
+            "grass": [
+              0.16,
+              0.24,
+              0.09
+            ],
+            "rock": [
+              0.29,
+              0.27,
+              0.25
+            ],
+            "snow": [
+              0.9,
+              0.92,
+              0.95
+            ],
+            "dirt": [
+              0.24,
+              0.18,
+              0.12
+            ]
+          },
+          "textures": {}
+        },
+        "peak_height": 35458.2,
+        "vertices": 9216
+      },
+      "reference_analysis": null,
+      "contract_version": 1,
+      "level": "/Game/EnvironmentDemos/PromptSet_f9144e11985c",
+      "biome": "prompt_modular_set",
+      "warnings": [
+        "Blockout architecture; no traffic or automatic navigation."
+      ],
+      "cameras": {
+        "overview": {
+          "location": [
+            4100,
+            -4900,
+            4200
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ]
+        },
+        "street": {
+          "location": [
+            1600,
+            -6500,
+            2400
+          ],
+          "target": [
+            0,
+            1800,
+            1600
+          ]
+        }
+      },
+      "part_count": 3,
+      "connection_count": 0,
+      "open_end_count": 2,
+      "box_count": 97
+    },
+    "inspection_note": "Weather prototype: no roof collision, puddles, splashes or foliage accumulation."
+  }
+]

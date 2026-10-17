@@ -1,0 +1,68 @@
+{
+  "lion-run-lipsync": {
+    "bone_pose_hash": "a36f1fd361839bb5ec1ee9fe6140731f8a47db062f6be3222533473078ccc508",
+    "controls": [
+      {
+        "mesh": "Crease L",
+        "key": "BlinkL",
+        "value": 0.0,
+        "affected": 66,
+        "max_local_delta": 0.035965215061442464
+      },
+      {
+        "mesh": "Crease R",
+        "key": "BlinkR",
+        "value": 0.0,
+        "affected": 66,
+        "max_local_delta": 0.03560505029350838
+      },
+      {
+        "mesh": "Lid L",
+        "key": "BlinkL",
+        "value": 0.0,
+        "affected": 429,
+        "max_local_delta": 0.06780468827621332
+      },
+      {
+        "mesh": "Lid R",
+        "key": "BlinkR",
+        "value": 0.0,
+        "affected": 429,
+        "max_local_delta": 0.07357117516723909
+      }
+    ]
+  },
+  "lion-run-blink": {
+    "bone_pose_hash": "a36f1fd361839bb5ec1ee9fe6140731f8a47db062f6be3222533473078ccc508",
+    "controls": [
+      {
+        "mesh": "Crease L",
+        "key": "BlinkL",
+        "value": 1.0,
+        "affected": 66,
+        "max_local_delta": 0.035965215061442464
+      },
+      {
+        "mesh": "Crease R",
+        "key": "BlinkR",
+        "value": 1.0,
+        "affected": 66,
+        "max_local_delta": 0.03560505029350838
+      },
+      {
+        "mesh": "Lid L",
+        "key": "BlinkL",
+        "value": 1.0,
+        "affected": 429,
+        "max_local_delta": 0.06780468827621332
+      },
+      {
+        "mesh": "Lid R",
+        "key": "BlinkR",
+        "value": 1.0,
+        "affected": 429,
+        "max_local_delta": 0.07357117516723909
+      }
+    ]
+  }
+}

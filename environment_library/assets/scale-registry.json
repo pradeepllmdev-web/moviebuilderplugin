@@ -1,0 +1,3330 @@
+{
+  "policy_version": 1,
+  "units": "centimetres",
+  "packs": [
+    {
+      "name": "furniture-kit",
+      "conversion": {
+        "native_dimensions_cm": [
+          200.0,
+          200.00000000000006,
+          470.0
+        ],
+        "uniform_scale": 0.19148936170212766,
+        "dimensions_cm": [
+          38.297872340425535,
+          38.29787234042554,
+          90.0
+        ],
+        "fit_axis": "z",
+        "target_cm": 90.0,
+        "profile": null,
+        "reference_asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/chair.chair",
+        "assumption": "Reference dimensions are configurable art-direction defaults, not inferred architectural measurements."
+      },
+      "assets": [
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomCabinet.bathroomCabinet",
+          "native_dimensions_cm": [
+            230.0,
+            130.0,
+            390.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            44.04255319148936,
+            24.893617021276597,
+            74.68085106382979
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomCabinetDrawer.bathroomCabinetDrawer",
+          "native_dimensions_cm": [
+            430.0,
+            320.0,
+            471.75814056396484
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            61.27659574468085,
+            90.33666521437624
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomMirror.bathroomMirror",
+          "native_dimensions_cm": [
+            301.3399963378906,
+            144.39999771118164,
+            434.62509155272994
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            57.70340355406416,
+            27.651063391502866,
+            83.22608136116105
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomSink.bathroomSink",
+          "native_dimensions_cm": [
+            340.0,
+            290.0,
+            560.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            65.1063829787234,
+            55.53191489361702,
+            107.23404255319149
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathroomSinkSquare.bathroomSinkSquare",
+          "native_dimensions_cm": [
+            430.0,
+            300.0,
+            579.9999732971191
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            57.4468085106383,
+            111.06382467391643
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bathtub.bathtub",
+          "native_dimensions_cm": [
+            1190.0,
+            560.0000000000001,
+            420.0000000000002
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            227.87234042553192,
+            107.23404255319151,
+            80.42553191489365
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bear.bear",
+          "native_dimensions_cm": [
+            389.7113952636719,
+            247.50000000000006,
+            449.99999999999994
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            74.6255863270861,
+            47.393617021276604,
+            86.17021276595743
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedBunk.bedBunk",
+          "native_dimensions_cm": [
+            571.0,
+            1095.0000000000002,
+            849.9999999999998
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            109.34042553191489,
+            209.68085106382983,
+            162.76595744680847
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedDouble.bedDouble",
+          "native_dimensions_cm": [
+            956.000001,
+            1125.0,
+            374.9999999999999
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            183.0638299787234,
+            215.4255319148936,
+            71.80851063829785
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bedSingle.bedSingle",
+          "native_dimensions_cm": [
+            571.0,
+            1125.0,
+            374.9999999999668
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            109.34042553191489,
+            215.4255319148936,
+            71.80851063829151
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bench.bench",
+          "native_dimensions_cm": [
+            400.0,
+            200.00000000000006,
+            470.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            76.59574468085107,
+            38.29787234042554,
+            90.0
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/benchCushion.benchCushion",
+          "native_dimensions_cm": [
+            400.0,
+            200.00000000000006,
+            460.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            76.59574468085107,
+            38.29787234042554,
+            88.08510638297872
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/benchCushionLow.benchCushionLow",
+          "native_dimensions_cm": [
+            419.9999990463257,
+            219.99999904632568,
+            200.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            80.42553173227513,
+            42.1276593918496,
+            38.297872340425535
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseClosed.bookcaseClosed",
+          "native_dimensions_cm": [
+            400.0,
+            250.0000000000002,
+            850.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            76.59574468085107,
+            47.87234042553195,
+            162.7659574468085
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseClosedDoors.bookcaseClosedDoors",
+          "native_dimensions_cm": [
+            400.0,
+            250.0000000000002,
+            850.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            76.59574468085107,
+            47.87234042553195,
+            162.7659574468085
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseClosedWide.bookcaseClosedWide",
+          "native_dimensions_cm": [
+            800.0,
+            250.00000000000017,
+            790.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            153.19148936170214,
+            47.872340425531945,
+            151.27659574468086
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseOpen.bookcaseOpen",
+          "native_dimensions_cm": [
+            400.0,
+            250.0000000000002,
+            879.9998779296875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            76.59574468085107,
+            47.87234042553195,
+            168.5106149227061
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/bookcaseOpenLow.bookcaseOpenLow",
+          "native_dimensions_cm": [
+            400.0,
+            250.00000000000009,
+            400.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            76.59574468085107,
+            47.87234042553193,
+            76.59574468085107
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/books.books",
+          "native_dimensions_cm": [
+            150.44760131835938,
+            94.50000000000001,
+            103.90229797363281
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            28.809115146068816,
+            18.095744680851066,
+            19.89618471835522
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetBed.cabinetBed",
+          "native_dimensions_cm": [
+            265.9999990463257,
+            214.99999904632568,
+            233.1999969482422
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            50.93617003014747,
+            41.17021258333896,
+            44.655318564557014
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetBedDrawer.cabinetBedDrawer",
+          "native_dimensions_cm": [
+            265.9999990463257,
+            217.30000019073486,
+            263.20001220703125
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            50.93617003014747,
+            41.610638334396036,
+            50.400002337516625
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetBedDrawerTable.cabinetBedDrawerTable",
+          "native_dimensions_cm": [
+            265.9999990463257,
+            217.30000019073486,
+            263.20001220703125
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            50.93617003014747,
+            41.610638334396036,
+            50.400002337516625
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetTelevision.cabinetTelevision",
+          "native_dimensions_cm": [
+            800.0,
+            250.00000000000006,
+            310.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            153.19148936170214,
+            47.872340425531924,
+            59.361702127659576
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/cabinetTelevisionDoors.cabinetTelevisionDoors",
+          "native_dimensions_cm": [
+            800.0,
+            260.0,
+            310.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            153.19148936170214,
+            49.787234042553195,
+            59.361702127659576
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/cardboardBoxClosed.cardboardBoxClosed",
+          "native_dimensions_cm": [
+            212.5,
+            212.50000000000014,
+            281.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            40.691489361702125,
+            40.69148936170215,
+            53.808510638297875
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/cardboardBoxOpen.cardboardBoxOpen",
+          "native_dimensions_cm": [
+            371.875,
+            212.50000000000014,
+            281.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            71.21010638297872,
+            40.69148936170215,
+            53.808510638297875
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/ceilingFan.ceilingFan",
+          "native_dimensions_cm": [
+            454.73570251464844,
+            525.0836181640625,
+            133.71800231933594
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            87.07704941769863,
+            100.54792688248006,
+            25.605574912213264
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/chair.chair",
+          "native_dimensions_cm": [
+            200.0,
+            200.00000000000006,
+            470.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            38.297872340425535,
+            38.29787234042554,
+            90.0
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairCushion.chairCushion",
+          "native_dimensions_cm": [
+            200.0,
+            200.00000000000006,
+            460.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            38.297872340425535,
+            38.29787234042554,
+            88.08510638297872
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairDesk.chairDesk",
+          "native_dimensions_cm": [
+            334.95001220703125,
+            314.29901123046875,
+            607.5999755859375
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            64.13936403964428,
+            60.18491704413231,
+            116.34893149517951
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairModernCushion.chairModernCushion",
+          "native_dimensions_cm": [
+            200.0,
+            200.00000000000006,
+            460.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            38.297872340425535,
+            38.29787234042554,
+            88.08510638297872
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairModernFrameCushion.chairModernFrameCushion",
+          "native_dimensions_cm": [
+            200.0,
+            200.00000000000006,
+            460.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            38.297872340425535,
+            38.29787234042554,
+            88.08510638297872
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/chairRounded.chairRounded",
+          "native_dimensions_cm": [
+            200.0,
+            200.00000000000006,
+            455.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            38.297872340425535,
+            38.29787234042554,
+            87.12765957446808
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/coatRack.coatRack",
+          "native_dimensions_cm": [
+            448.0,
+            134.39999389648443,
+            280.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            85.7872340425532,
+            25.736169044007656,
+            53.61702127659574
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/coatRackStanding.coatRackStanding",
+          "native_dimensions_cm": [
+            272.79998779296875,
+            272.79998779296875,
+            770.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            52.238295534823806,
+            52.238295534823806,
+            147.4468085106383
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/computerKeyboard.computerKeyboard",
+          "native_dimensions_cm": [
+            282.20001220703125,
+            118.19200134277308,
+            27.555999755859375
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            54.03830020985705,
+            22.632510895424634,
+            5.276680804313497
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/computerMouse.computerMouse",
+          "native_dimensions_cm": [
+            49.70000076293945,
+            85.10379791259766,
+            23.57200050354004
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            9.517021422690533,
+            16.29647194071019,
+            4.513787330465114
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/computerScreen.computerScreen",
+          "native_dimensions_cm": [
+            392.6879882812514,
+            104.00399780273383,
+            294.2851867675781
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            75.19557222406942,
+            19.91565915371499,
+            56.35248257251496
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/desk.desk",
+          "native_dimensions_cm": [
+            734.4754018783569,
+            392.30000019073486,
+            384.4075012207031
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            140.64422589160026,
+            75.12127663226838,
+            73.6099470422623
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/deskCorner.deskCorner",
+          "native_dimensions_cm": [
+            974.4755249023438,
+            974.4755249023439,
+            384.4075012207031
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            186.6016962578956,
+            186.60169625789564,
+            73.6099470422623
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/doorway.doorway",
+          "native_dimensions_cm": [
+            486.0,
+            113.39999961853027,
+            1009.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            93.06382978723404,
+            21.714893543973883,
+            193.31463493184842
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/doorwayFront.doorwayFront",
+          "native_dimensions_cm": [
+            486.0,
+            113.39999961853027,
+            1009.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            93.06382978723404,
+            21.714893543973883,
+            193.31463493184842
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/doorwayOpen.doorwayOpen",
+          "native_dimensions_cm": [
+            486.0,
+            89.09999847412132,
+            1009.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            93.06382978723404,
+            17.06170183547004,
+            193.31463493184842
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/dryer.dryer",
+          "native_dimensions_cm": [
+            390.0,
+            380.0,
+            470.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            74.68085106382979,
+            72.76595744680851,
+            90.0
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorCorner.floorCorner",
+          "native_dimensions_cm": [
+            550.0,
+            550.0,
+            50.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            105.31914893617021,
+            105.31914893617021,
+            9.574468085106384
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorCornerRound.floorCornerRound",
+          "native_dimensions_cm": [
+            550.0,
+            550.0,
+            50.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            105.31914893617021,
+            105.31914893617021,
+            9.574468085106384
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorFull.floorFull",
+          "native_dimensions_cm": [
+            1000.0,
+            1000.0,
+            50.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            191.48936170212767,
+            191.48936170212767,
+            9.574468085106384
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/floorHalf.floorHalf",
+          "native_dimensions_cm": [
+            500.0,
+            1000.0,
+            50.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            95.74468085106383,
+            191.48936170212767,
+            9.574468085106384
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/hoodLarge.hoodLarge",
+          "native_dimensions_cm": [
+            430.0000000000014,
+            284.8999938964844,
+            369.5317077636719
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191516,
+            54.55531798017786,
+            70.7613908483627
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/hoodModern.hoodModern",
+          "native_dimensions_cm": [
+            430.0000000000014,
+            284.8999938964844,
+            399.5317077636719
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191516,
+            54.55531798017786,
+            76.50607169942653
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenBar.kitchenBar",
+          "native_dimensions_cm": [
+            430.0,
+            210.00000000000009,
+            420.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            40.21276595744683,
+            80.42553191489361
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenBarEnd.kitchenBarEnd",
+          "native_dimensions_cm": [
+            101.5625,
+            210.00000000000009,
+            420.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            19.44813829787234,
+            40.21276595744683,
+            80.42553191489361
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenBlender.kitchenBlender",
+          "native_dimensions_cm": [
+            135.82620239257812,
+            109.11869812011723,
+            227.52000427246094
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            26.009272798578788,
+            20.895069852788406,
+            43.5676603925989
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinet.kitchenCabinet",
+          "native_dimensions_cm": [
+            430.0,
+            450.0000000000001,
+            450.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            86.17021276595747,
+            86.17021276595744
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetCornerInner.kitchenCabinetCornerInner",
+          "native_dimensions_cm": [
+            460.0,
+            460.0000000000001,
+            450.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            88.08510638297872,
+            88.08510638297875,
+            86.17021276595744
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetCornerRound.kitchenCabinetCornerRound",
+          "native_dimensions_cm": [
+            450.0,
+            450.0000000000001,
+            450.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            86.17021276595744,
+            86.17021276595747,
+            86.17021276595744
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetDrawer.kitchenCabinetDrawer",
+          "native_dimensions_cm": [
+            430.0,
+            450.0000000000001,
+            450.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            86.17021276595747,
+            86.17021276595744
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpper.kitchenCabinetUpper",
+          "native_dimensions_cm": [
+            430.0,
+            220.00000095367432,
+            390.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            42.12765975708657,
+            74.68085106382979
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpperCorner.kitchenCabinetUpperCorner",
+          "native_dimensions_cm": [
+            215.0,
+            210.00000000000009,
+            390.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            41.170212765957444,
+            40.21276595744683,
+            74.68085106382979
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpperDouble.kitchenCabinetUpperDouble",
+          "native_dimensions_cm": [
+            430.0,
+            220.00000095367432,
+            390.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            42.12765975708657,
+            74.68085106382979
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCabinetUpperLow.kitchenCabinetUpperLow",
+          "native_dimensions_cm": [
+            430.0,
+            220.00000095367432,
+            195.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            42.12765975708657,
+            37.340425531914896
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenCoffeeMachine.kitchenCoffeeMachine",
+          "native_dimensions_cm": [
+            189.5399932861328,
+            240.16708374023438,
+            177.48899841308594
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            36.29489233138713,
+            45.989441567278924,
+            33.98725501527178
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridge.kitchenFridge",
+          "native_dimensions_cm": [
+            430.0,
+            291.93389892578125,
+            920.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            55.902235964511306,
+            176.17021276595744
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridgeBuiltIn.kitchenFridgeBuiltIn",
+          "native_dimensions_cm": [
+            430.0,
+            450.0000000000001,
+            868.747802734375
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            86.17021276595747,
+            166.3559622257314
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridgeLarge.kitchenFridgeLarge",
+          "native_dimensions_cm": [
+            520.0,
+            405.54990005493164,
+            920.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            99.57446808510639,
+            77.65849149988053,
+            176.17021276595744
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenFridgeSmall.kitchenFridgeSmall",
+          "native_dimensions_cm": [
+            430.0,
+            291.93389892578125,
+            600.2462768554688
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            55.902235964511306,
+            114.94077641913232
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenMicrowave.kitchenMicrowave",
+          "native_dimensions_cm": [
+            290.0,
+            229.99999904632568,
+            180.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            55.53191489361702,
+            44.042553008870875,
+            34.46808510638298
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenSink.kitchenSink",
+          "native_dimensions_cm": [
+            430.0,
+            450.0000000000001,
+            490.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            86.17021276595747,
+            93.82978723404256
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenStove.kitchenStove",
+          "native_dimensions_cm": [
+            430.0,
+            450.0000000000001,
+            450.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            86.17021276595747,
+            86.17021276595744
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/kitchenStoveElectric.kitchenStoveElectric",
+          "native_dimensions_cm": [
+            430.0,
+            450.0000000000001,
+            450.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.34042553191489,
+            86.17021276595747,
+            86.17021276595744
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampRoundFloor.lampRoundFloor",
+          "native_dimensions_cm": [
+            152.03940963745117,
+            175.55999946594238,
+            860.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            29.113929505043842,
+            33.61787223815918,
+            164.68085106382978
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampRoundTable.lampRoundTable",
+          "native_dimensions_cm": [
+            152.03940963745117,
+            175.55999946594238,
+            314.25
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            29.113929505043842,
+            33.61787223815918,
+            60.17553191489362
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampSquareCeiling.lampSquareCeiling",
+          "native_dimensions_cm": [
+            120.0,
+            120.00000000000003,
+            230.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            22.97872340425532,
+            22.978723404255323,
+            44.04255319148936
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampSquareFloor.lampSquareFloor",
+          "native_dimensions_cm": [
+            120.0,
+            120.00000000000018,
+            860.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            22.97872340425532,
+            22.978723404255355,
+            164.68085106382978
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampSquareTable.lampSquareTable",
+          "native_dimensions_cm": [
+            120.0,
+            120.00000000000007,
+            290.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            22.97872340425532,
+            22.978723404255334,
+            55.53191489361702
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/lampWall.lampWall",
+          "native_dimensions_cm": [
+            226.63534545898438,
+            150.33599853515625,
+            92.80000305175783
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            43.39825764108211,
+            28.78774440034907,
+            17.770213350336604
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/laptop.laptop",
+          "native_dimensions_cm": [
+            264.0,
+            240.0651397705078,
+            161.80938720703125
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            50.5531914893617,
+            45.969920381586604,
+            30.984776273686833
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeChair.loungeChair",
+          "native_dimensions_cm": [
+            490.0,
+            410.00000000000006,
+            460.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            93.82978723404256,
+            78.51063829787235,
+            88.08510638297872
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeChairRelax.loungeChairRelax",
+          "native_dimensions_cm": [
+            490.0,
+            674.6926879882812,
+            630.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            93.82978723404256,
+            129.19647216796875,
+            120.63829787234043
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeDesignChair.loungeDesignChair",
+          "native_dimensions_cm": [
+            729.5952758789062,
+            410.00000000000006,
+            400.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            139.7097336789395,
+            78.51063829787235,
+            76.59574468085107
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeDesignSofa.loungeDesignSofa",
+          "native_dimensions_cm": [
+            1120.0,
+            410.00000000000006,
+            400.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            214.46808510638297,
+            78.51063829787235,
+            76.59574468085107
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeDesignSofaCorner.loungeDesignSofaCorner",
+          "native_dimensions_cm": [
+            1349.8289794921875,
+            1349.8289794921875,
+            399.99999999999983
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            258.47788968999333,
+            258.47788968999333,
+            76.59574468085103
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofa.loungeSofa",
+          "native_dimensions_cm": [
+            979.9998779296875,
+            410.00000000000006,
+            460.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            187.6595510929189,
+            78.51063829787235,
+            88.08510638297872
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofaCorner.loungeSofaCorner",
+          "native_dimensions_cm": [
+            979.9998779296875,
+            979.9998779296876,
+            460.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            187.6595510929189,
+            187.65955109291892,
+            88.08510638297872
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofaLong.loungeSofaLong",
+          "native_dimensions_cm": [
+            979.9998779296875,
+            820.0,
+            460.0000000000001
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            187.6595510929189,
+            157.02127659574467,
+            88.08510638297875
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/loungeSofaOttoman.loungeSofaOttoman",
+          "native_dimensions_cm": [
+            439.82861328125,
+            450.0,
+            230.00000000000009
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            84.22250041555851,
+            86.17021276595744,
+            44.042553191489375
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/paneling.paneling",
+          "native_dimensions_cm": [
+            500.0,
+            30.0,
+            594.7659301757812
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            95.74468085106383,
+            5.74468085106383,
+            113.89134833153258
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillow.pillow",
+          "native_dimensions_cm": [
+            230.0,
+            88.48358154296876,
+            222.16290283203125
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            44.04255319148936,
+            16.943664550781254,
+            42.54183245719747
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillowBlue.pillowBlue",
+          "native_dimensions_cm": [
+            230.0,
+            63.38994979858399,
+            128.51220703125
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            44.04255319148936,
+            12.138501025260764,
+            24.608720495345743
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillowBlueLong.pillowBlueLong",
+          "native_dimensions_cm": [
+            516.5755920410156,
+            88.48358154296876,
+            222.16290283203162
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            98.91873039083278,
+            16.943664550781254,
+            42.54183245719754
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/pillowLong.pillowLong",
+          "native_dimensions_cm": [
+            386.5755920410156,
+            88.48358154296876,
+            222.16290283203162
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            74.02511336955618,
+            16.943664550781254,
+            42.54183245719754
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/plantSmall1.plantSmall1",
+          "native_dimensions_cm": [
+            94.66072845458984,
+            94.66072845458984,
+            140.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            18.126522470027844,
+            18.126522470027844,
+            26.80851063829787
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/plantSmall2.plantSmall2",
+          "native_dimensions_cm": [
+            94.66072845458984,
+            94.66072845458984,
+            140.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            18.126522470027844,
+            18.126522470027844,
+            26.80851063829787
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/plantSmall3.plantSmall3",
+          "native_dimensions_cm": [
+            98.0,
+            84.87049102783203,
+            145.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            18.76595744680851,
+            16.25179615426571,
+            27.76595744680851
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/pottedPlant.pottedPlant",
+          "native_dimensions_cm": [
+            212.0593032836914,
+            241.46189880371094,
+            654.0167846679688
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            40.60710062879197,
+            46.23738487730635,
+            125.23725663854721
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/radio.radio",
+          "native_dimensions_cm": [
+            315.0,
+            97.50000000000004,
+            228.19110107421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            60.319148936170215,
+            18.670212765957455,
+            43.69616829080785
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugDoormat.rugDoormat",
+          "native_dimensions_cm": [
+            429.29998779296875,
+            237.00900268554688,
+            9.999999046325684
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            82.20638064120678,
+            45.38470264191323,
+            1.9148934344027904
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugRectangle.rugRectangle",
+          "native_dimensions_cm": [
+            1570.0,
+            920.0,
+            9.999999046325684
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            300.63829787234044,
+            176.17021276595744,
+            1.9148934344027904
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugRound.rugRound",
+          "native_dimensions_cm": [
+            920.0,
+            920.0,
+            9.999999046325684
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            176.17021276595744,
+            176.17021276595744,
+            1.9148934344027904
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugRounded.rugRounded",
+          "native_dimensions_cm": [
+            1570.0,
+            920.0,
+            9.999999046325684
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            300.63829787234044,
+            176.17021276595744,
+            1.9148934344027904
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/rugSquare.rugSquare",
+          "native_dimensions_cm": [
+            904.325927734375,
+            920.0,
+            9.999999046325684
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            173.1687946725399,
+            176.17021276595744,
+            1.9148934344027904
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/shower.shower",
+          "native_dimensions_cm": [
+            561.7919921875063,
+            581.7919883728027,
+            1094.0333251953125
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            107.57718999335226,
+            111.40697649691967,
+            209.49574312250664
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/showerRound.showerRound",
+          "native_dimensions_cm": [
+            561.7919921875007,
+            561.7919921875,
+            1094.032958984375
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            107.5771899933512,
+            107.57718999335107,
+            209.49567299700797
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/sideTable.sideTable",
+          "native_dimensions_cm": [
+            534.4755239486694,
+            219.99999904632568,
+            384.4075012207031
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            102.34637692634095,
+            42.1276593918496,
+            73.6099470422623
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/sideTableDrawers.sideTableDrawers",
+          "native_dimensions_cm": [
+            534.4755239486694,
+            222.30000019073486,
+            384.4075012207031
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            102.34637692634095,
+            42.568085142906675,
+            73.6099470422623
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/speaker.speaker",
+          "native_dimensions_cm": [
+            148.00000000000108,
+            147.9999999999997,
+            636.4000244140625
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            28.340425531915102,
+            28.340425531914832,
+            121.86383446226729
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/speakerSmall.speakerSmall",
+          "native_dimensions_cm": [
+            148.0,
+            133.19999694824224,
+            297.9796142578125
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            28.340425531914892,
+            25.50638239434426,
+            57.059926134474736
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairs.stairs",
+          "native_dimensions_cm": [
+            1823.43505859375,
+            790.0000000000003,
+            1339.5319824218736
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            349.16841547539894,
+            151.27659574468092,
+            256.5061242935503
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairsCorner.stairsCorner",
+          "native_dimensions_cm": [
+            1773.691421508789,
+            1425.7950439453127,
+            1339.5319824218748
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            339.6430381612575,
+            273.024582883145,
+            256.5061242935505
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairsOpen.stairsOpen",
+          "native_dimensions_cm": [
+            1823.43505859375,
+            790.0000000000003,
+            1339.5319824218686
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            349.16841547539894,
+            151.27659574468092,
+            256.5061242935493
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/stairsOpenSingle.stairsOpenSingle",
+          "native_dimensions_cm": [
+            1823.43505859375,
+            790.0000000000003,
+            1339.5319824218657
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            349.16841547539894,
+            151.27659574468092,
+            256.50612429354874
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/stoolBar.stoolBar",
+          "native_dimensions_cm": [
+            265.44000244140625,
+            229.87780761718759,
+            435.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            50.82893663771609,
+            44.01915465009975,
+            83.29787234042553
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/stoolBarSquare.stoolBarSquare",
+          "native_dimensions_cm": [
+            153.5,
+            147.62401962280273,
+            405.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            29.393617021276597,
+            28.268429289472863,
+            77.55319148936171
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/table.table",
+          "native_dimensions_cm": [
+            841.4879760742188,
+            447.373291015625,
+            326.7340087890625
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            161.13599541846742,
+            85.66722593916224,
+            62.566086789394944
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCloth.tableCloth",
+          "native_dimensions_cm": [
+            841.4879760742188,
+            447.3732910157532,
+            326.7340087890625
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            161.13599541846742,
+            85.66722593918678,
+            62.566086789394944
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffee.tableCoffee",
+          "native_dimensions_cm": [
+            660.99609375,
+            400.0,
+            230.0000000000003
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            126.57372007978724,
+            76.59574468085107,
+            44.04255319148942
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffeeGlass.tableCoffeeGlass",
+          "native_dimensions_cm": [
+            660.99609375,
+            400.0,
+            230.0000000000003
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            126.57372007978724,
+            76.59574468085107,
+            44.04255319148942
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffeeGlassSquare.tableCoffeeGlassSquare",
+          "native_dimensions_cm": [
+            400.00001525878906,
+            400.0,
+            230.0000000000003
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            76.59574760274684,
+            76.59574468085107,
+            44.04255319148942
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCoffeeSquare.tableCoffeeSquare",
+          "native_dimensions_cm": [
+            400.00001525878906,
+            400.0,
+            230.0000000000003
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            76.59574760274684,
+            76.59574468085107,
+            44.04255319148942
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCross.tableCross",
+          "native_dimensions_cm": [
+            852.1199340820312,
+            447.3735046386719,
+            347.413330078125
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            163.17190227102725,
+            85.66726684570312,
+            66.52595682347075
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableCrossCloth.tableCrossCloth",
+          "native_dimensions_cm": [
+            852.1199340820312,
+            447.3735046386719,
+            347.413330078125
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            163.17190227102725,
+            85.66726684570312,
+            66.52595682347075
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableGlass.tableGlass",
+          "native_dimensions_cm": [
+            841.4879760742188,
+            447.373291015625,
+            326.7340087890625
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            161.13599541846742,
+            85.66722593916224,
+            62.566086789394944
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/tableRound.tableRound",
+          "native_dimensions_cm": [
+            692.8203125,
+            800.0,
+            366.7339782714844
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            132.6677194148936,
+            153.19148936170214,
+            70.2256554136885
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/televisionAntenna.televisionAntenna",
+          "native_dimensions_cm": [
+            264.5278015136719,
+            80.0,
+            102.73429870605469
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            50.654259864320146,
+            15.319148936170212,
+            19.672525284138132
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/televisionModern.televisionModern",
+          "native_dimensions_cm": [
+            684.7999877929688,
+            128.39999389648438,
+            454.75
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            131.1319125561004,
+            24.58723287379488,
+            87.07978723404256
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/televisionVintage.televisionVintage",
+          "native_dimensions_cm": [
+            410.0,
+            270.00000000000006,
+            270.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            78.51063829787233,
+            51.70212765957448,
+            51.702127659574465
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/toaster.toaster",
+          "native_dimensions_cm": [
+            187.98373413085938,
+            100.0,
+            130.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            35.99688525910073,
+            19.148936170212767,
+            24.893617021276597
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/toilet.toilet",
+          "native_dimensions_cm": [
+            312.54998779296875,
+            477.1769104003913,
+            450.9649963378906
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            59.849997662483375,
+            91.3743019915643,
+            86.35499929874501
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/toiletSquare.toiletSquare",
+          "native_dimensions_cm": [
+            303.6199951171875,
+            387.1766967773438,
+            450.9649963378906
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            58.139999064993354,
+            74.14021853183179,
+            86.35499929874501
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/trashcan.trashcan",
+          "native_dimensions_cm": [
+            207.69351196289062,
+            234.12425231933594,
+            427.8659973144531
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            39.77109803544714,
+            44.83230363561752,
+            81.93178671978889
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/wall.wall",
+          "native_dimensions_cm": [
+            1000.0,
+            50.000000000000284,
+            1289.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            191.48936170212767,
+            9.574468085106437,
+            246.93165620844414
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallCorner.wallCorner",
+          "native_dimensions_cm": [
+            550.0,
+            550.0000000000003,
+            1289.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            105.31914893617021,
+            105.31914893617028,
+            246.93165620844414
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallCornerRond.wallCornerRond",
+          "native_dimensions_cm": [
+            550.0,
+            550.0000000000003,
+            1289.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            105.31914893617021,
+            105.31914893617028,
+            246.93165620844414
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallDoorway.wallDoorway",
+          "native_dimensions_cm": [
+            1000.0,
+            89.10000228881836,
+            1289.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            191.48936170212767,
+            17.061702565943943,
+            246.93165620844414
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallDoorwayWide.wallDoorwayWide",
+          "native_dimensions_cm": [
+            1000.0,
+            89.10000228881836,
+            1289.5319824218752
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            191.48936170212767,
+            17.061702565943943,
+            246.9316562084442
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallHalf.wallHalf",
+          "native_dimensions_cm": [
+            500.0,
+            50.000000000000284,
+            1289.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            95.74468085106383,
+            9.574468085106437,
+            246.93165620844414
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallWindow.wallWindow",
+          "native_dimensions_cm": [
+            1000.0,
+            89.10000228881836,
+            1289.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            191.48936170212767,
+            17.061702565943943,
+            246.93165620844414
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/wallWindowSlide.wallWindowSlide",
+          "native_dimensions_cm": [
+            1000.0,
+            89.10000228881836,
+            1289.531982421875
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            191.48936170212767,
+            17.061702565943943,
+            246.93165620844414
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/washer.washer",
+          "native_dimensions_cm": [
+            390.0,
+            390.0,
+            470.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            74.68085106382979,
+            74.68085106382979,
+            90.0
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/furniture_kit/washerDryerStacked.washerDryerStacked",
+          "native_dimensions_cm": [
+            390.0,
+            390.0,
+            940.0
+          ],
+          "uniform_scale": 0.19148936170212766,
+          "dimensions_cm": [
+            74.68085106382979,
+            74.68085106382979,
+            180.0
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        }
+      ]
+    },
+    {
+      "name": "city-kit-industrial",
+      "conversion": {
+        "native_dimensions_cm": [
+          208.35882568359375,
+          124.20000457763672,
+          147.0
+        ],
+        "uniform_scale": 6.122448979591836,
+        "dimensions_cm": [
+          1275.666279695472,
+          760.4081912916533,
+          900.0
+        ],
+        "fit_axis": "z",
+        "target_cm": 900.0,
+        "profile": null,
+        "reference_asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_a.building_a",
+        "assumption": "Reference dimensions are configurable art-direction defaults, not inferred architectural measurements."
+      },
+      "assets": [
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_a.building_a",
+          "native_dimensions_cm": [
+            208.35882568359375,
+            124.20000457763672,
+            147.0
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1275.666279695472,
+            760.4081912916533,
+            900.0
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_b.building_b",
+          "native_dimensions_cm": [
+            208.35880279541016,
+            126.20000076293945,
+            147.00000000000003
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1275.6661395637357,
+            772.6530658955477,
+            900.0000000000001
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_c.building_c",
+          "native_dimensions_cm": [
+            187.59349060058594,
+            210.8021240234375,
+            125.00000000000021
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1148.5315751056282,
+            1290.6252491230866,
+            765.3061224489809
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_d.building_d",
+          "native_dimensions_cm": [
+            88.3587875366211,
+            142.00001907348633,
+            141.4552154541016
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            540.9721685915576,
+            869.3878718784877,
+            866.0523395149077
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_e.building_e",
+          "native_dimensions_cm": [
+            168.3587875366211,
+            129.00003051757812,
+            164.99999999999997
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1030.7680869589046,
+            789.796105209662,
+            1010.2040816326528
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_f.building_f",
+          "native_dimensions_cm": [
+            179.00002670288086,
+            128.00000762939453,
+            192.50000000000003
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1095.9185308339645,
+            783.6735160983338,
+            1178.5714285714287
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_g.building_g",
+          "native_dimensions_cm": [
+            167.8138198852539,
+            128.35881805419922,
+            128.00001581389336
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1027.431550317881,
+            785.8703146175462,
+            783.6735662075102
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_h.building_h",
+          "native_dimensions_cm": [
+            132.17256689071655,
+            131.00000762939453,
+            73.35410308837932
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            809.2197972901013,
+            802.0408630371094,
+            449.1067536023223
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_i.building_i",
+          "native_dimensions_cm": [
+            102.81378030776978,
+            130.00000762939453,
+            73.35410308837889
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            629.4721243332843,
+            795.9184140575175,
+            449.1067536023197
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_j.building_j",
+          "native_dimensions_cm": [
+            102.66218662261963,
+            130.0,
+            86.1145782470703
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            628.5439997303242,
+            795.9183673469387,
+            527.2321117167569
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_k.building_k",
+          "native_dimensions_cm": [
+            130.28591918945312,
+            91.35879135131836,
+            77.27414703369142
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            797.6688929966517,
+            559.3395388856226,
+            473.10702265525356
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_l.building_l",
+          "native_dimensions_cm": [
+            208.35876083374023,
+            187.00000762939453,
+            192.50000000000003
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1275.6658826555524,
+            1144.8980058942523,
+            1178.5714285714287
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_m.building_m",
+          "native_dimensions_cm": [
+            131.62754821777344,
+            170.0,
+            151.90066528320315
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            805.8829482720822,
+            1040.8163265306123,
+            930.0040731624682
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_n.building_n",
+          "native_dimensions_cm": [
+            97.6621823310852,
+            142.00000953674316,
+            190.45558235075617
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            597.9317285576645,
+            869.3878134902642,
+            1166.0545858209562
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_o.building_o",
+          "native_dimensions_cm": [
+            88.35879963636398,
+            124.00000186264515,
+            91.79999542236328
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            540.9722426716162,
+            759.1836848733376,
+            562.0407883001833
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_p.building_p",
+          "native_dimensions_cm": [
+            168.3587875366211,
+            99.19999694824219,
+            71.45521545410158
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1030.7680869589046,
+            607.3469200912787,
+            437.48091094347905
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_q.building_q",
+          "native_dimensions_cm": [
+            214.0,
+            176.98915100097656,
+            88.00000000000001
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1310.204081632653,
+            1083.6070469447543,
+            538.7755102040817
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_r.building_r",
+          "native_dimensions_cm": [
+            248.3588104248047,
+            127.20001602172852,
+            139.3000030517578
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1520.5641454579877,
+            778.775608296297,
+            852.8571615413744
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_s.building_s",
+          "native_dimensions_cm": [
+            212.00001525878906,
+            91.6275405883789,
+            83.67910766601564
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1297.959277094627,
+            560.9849423778301,
+            512.3210673429529
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_t.building_t",
+          "native_dimensions_cm": [
+            172.17257690429688,
+            139.00003051757812,
+            101.45521545410158
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            1054.1178177814095,
+            851.0205950055803,
+            621.1543803312342
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_basic.chimney_basic",
+          "native_dimensions_cm": [
+            20.0,
+            20.0,
+            100.0
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            122.44897959183673,
+            122.44897959183673,
+            612.2448979591836
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_large.chimney_large",
+          "native_dimensions_cm": [
+            107.99999237060547,
+            107.99999237060547,
+            170.0
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            661.2244430853395,
+            661.2244430853395,
+            1040.8163265306123
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_medium.chimney_medium",
+          "native_dimensions_cm": [
+            45.0,
+            45.0,
+            192.5
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            275.51020408163265,
+            275.51020408163265,
+            1178.5714285714284
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/chimney_small.chimney_small",
+          "native_dimensions_cm": [
+            30.000001907348633,
+            30.000001907348633,
+            75.0
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            183.67348106539978,
+            183.67348106539978,
+            459.1836734693877
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/detail_tank.detail_tank",
+          "native_dimensions_cm": [
+            84.80004119873047,
+            51.52956771850586,
+            41.52956771850586
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            519.183925706513,
+            315.4871492969746,
+            254.26265950105628
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/detail_tank_large.detail_tank_large",
+          "native_dimensions_cm": [
+            150.8415985107422,
+            164.8415985107422,
+            96.16059875488288
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            923.5199908820949,
+            1009.2342765963807,
+            588.7383597237728
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/shipping_container_a.shipping_container_a",
+          "native_dimensions_cm": [
+            37.2600154876709,
+            82.260009765625,
+            34.807998588653525
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            228.1225438020667,
+            503.6327128507653,
+            213.11019544073585
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/shipping_container_b.shipping_container_b",
+          "native_dimensions_cm": [
+            37.260013580322266,
+            82.260009765625,
+            34.807998588653525
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            228.12253212442204,
+            503.6327128507653,
+            213.11019544073585
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/shipping_container_c.shipping_container_c",
+          "native_dimensions_cm": [
+            37.260013580322266,
+            82.260009765625,
+            34.807998588653525
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            228.12253212442204,
+            503.6327128507653,
+            213.11019544073585
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_flat.solar_panel_flat",
+          "native_dimensions_cm": [
+            41.81999969482422,
+            71.34000396728516,
+            6.150000095367424
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            256.04081445810743,
+            436.77553449358254,
+            37.65306180837198
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_landscape.solar_panel_landscape",
+          "native_dimensions_cm": [
+            71.33998680114746,
+            39.50500249862671,
+            26.236054450273514
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            436.77542939478036,
+            241.86736223649004,
+            160.62890479759292
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_landscape_group.solar_panel_landscape_group",
+          "native_dimensions_cm": [
+            151.340087890625,
+            89.50500869750977,
+            26.236083326177322
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            926.5719666772959,
+            547.9898491684271,
+            160.62908158884073
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_portrait.solar_panel_portrait",
+          "native_dimensions_cm": [
+            41.81999588012695,
+            64.85725402832031,
+            40.99605709314346
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            256.04079110281805,
+            397.0852287448182,
+            250.99626791720488
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/solar_panel_portrait_group.solar_panel_portrait_group",
+          "native_dimensions_cm": [
+            91.82004165649414,
+            124.85721206665039,
+            40.99606204032898
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            562.1635203458825,
+            764.4319106121452,
+            250.9962982060958
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/water_tower.water_tower",
+          "native_dimensions_cm": [
+            85.2215805053711,
+            83.17995834350586,
+            214.1665496826172
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            521.7647786043128,
+            509.2650510826889,
+            1311.223773567044
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/windmill.windmill",
+          "native_dimensions_cm": [
+            60.46876907348633,
+            112.68648529052734,
+            231.3853302001953
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            370.2169535111408,
+            689.9172568807796,
+            1416.644878776706
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/windmill_low.windmill_low",
+          "native_dimensions_cm": [
+            60.46876907348633,
+            112.68648147583008,
+            179.38531494140625
+          ],
+          "uniform_scale": 6.122448979591836,
+          "dimensions_cm": [
+            370.2169535111408,
+            689.9172335254902,
+            1098.2774384167728
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        }
+      ]
+    },
+    {
+      "name": "city-kit-suburban",
+      "conversion": {
+        "native_dimensions_cm": [
+          130.0,
+          102.81378173828125,
+          83.35409545898439
+        ],
+        "uniform_scale": 8.277937589035739,
+        "dimensions_cm": [
+          1076.1318865746462,
+          851.0860685222345,
+          690.0000000000001
+        ],
+        "fit_axis": "z",
+        "target_cm": 690.0,
+        "profile": null,
+        "reference_asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_a.building_type_a",
+        "assumption": "Reference dimensions are configurable art-direction defaults, not inferred architectural measurements."
+      },
+      "assets": [
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_a.building_type_a",
+          "native_dimensions_cm": [
+            130.0,
+            102.81378173828125,
+            83.35409545898439
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1076.1318865746462,
+            851.0860685222345,
+            690.0000000000001
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_b.building_type_b",
+          "native_dimensions_cm": [
+            182.8000030517578,
+            114.0,
+            113.75000762939455
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1513.2070165379937,
+            943.6848851500743,
+            941.6154639084672
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_c.building_type_c",
+          "native_dimensions_cm": [
+            128.63803100585938,
+            102.81378173828125,
+            103.35409545898439
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1064.8575922429482,
+            851.0860685222345,
+            855.5587517807148
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_d.building_type_d",
+          "native_dimensions_cm": [
+            175.63803100585938,
+            102.80000305175781,
+            123.75000762939455
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1453.920658927628,
+            850.9720094151347,
+            1024.3948397988245
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_e.building_type_e",
+          "native_dimensions_cm": [
+            130.0,
+            102.80000305175781,
+            113.75000762939452
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1076.1318865746462,
+            850.9720094151347,
+            941.615463908467
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_f.building_type_f",
+          "native_dimensions_cm": [
+            142.8000030517578,
+            140.58911895751953,
+            113.75000762939455
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1182.0895129765643,
+            1163.7879524278678,
+            941.6154639084672
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_g.building_type_g",
+          "native_dimensions_cm": [
+            145.0,
+            117.79999542236328,
+            76.8209686279297
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1200.3009504101822,
+            975.1410100950189,
+            635.9191838312745
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_h.building_type_h",
+          "native_dimensions_cm": [
+            130.0,
+            91.5999984741211,
+            73.74999237060548
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1076.1318865746462,
+            758.2590705245433,
+            610.4978340357341
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_i.building_type_i",
+          "native_dimensions_cm": [
+            128.63803100585938,
+            102.80000305175781,
+            73.74999237060548
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1064.8575922429482,
+            850.9720094151347,
+            610.4978340357341
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_j.building_type_j",
+          "native_dimensions_cm": [
+            137.0,
+            91.5999984741211,
+            103.75000000000001
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1134.0774496978963,
+            758.2590705245433,
+            858.8360248624581
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_k.building_type_k",
+          "native_dimensions_cm": [
+            92.09379959106445,
+            102.0,
+            114.95962524414064
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            762.3467253519966,
+            844.3496340816454,
+            951.6286030299336
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_l.building_type_l",
+          "native_dimensions_cm": [
+            103.35879516601562,
+            102.00000381469727,
+            104.91934204101564
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            855.5976556622062,
+            844.3496656594713,
+            868.515765298221
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_m.building_type_m",
+          "native_dimensions_cm": [
+            142.8000030517578,
+            142.8000030517578,
+            73.74999237060548
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1182.0895129765643,
+            1182.0895129765643,
+            610.4978340357341
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_n.building_type_n",
+          "native_dimensions_cm": [
+            178.42715454101562,
+            137.78911590576172,
+            113.75000762939455
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1477.0088494797621,
+            1140.6097019163071,
+            941.6154639084672
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_o.building_type_o",
+          "native_dimensions_cm": [
+            127.00000381469727,
+            102.80000305175781,
+            113.75000762939455
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1051.2981053853648,
+            850.9720094151347,
+            941.6154639084672
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_p.building_type_p",
+          "native_dimensions_cm": [
+            124.00001525878906,
+            99.00000762939453,
+            91.7999954223633
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1026.4643873517352,
+            819.5158844701899,
+            759.9146327800898
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_q.building_type_q",
+          "native_dimensions_cm": [
+            124.0,
+            88.55879211425781,
+            91.7999954223633
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1026.4642610404317,
+            733.0841540822165,
+            759.9146327800898
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_r.building_type_r",
+          "native_dimensions_cm": [
+            102.80001068115234,
+            102.00000381469727,
+            114.11428833007812
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            850.9720725707864,
+            844.3496656594713,
+            944.6309568136161
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_s.building_type_s",
+          "native_dimensions_cm": [
+            140.6029052734375,
+            108.63804244995117,
+            113.75000762939455
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1163.9020746906197,
+            899.298935195711,
+            941.6154639084672
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_t.building_type_t",
+          "native_dimensions_cm": [
+            131.35879516601562,
+            140.63803100585938,
+            115.63305664062501
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1087.379908155207,
+            1164.1928433113771,
+            957.2032261005285
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/building_type_u.building_type_u",
+          "native_dimensions_cm": [
+            142.8000259399414,
+            108.69349670410156,
+            113.75000762939455
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1182.0897024435196,
+            899.7579820506145,
+            941.6154639084672
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/driveway_long.driveway_long",
+          "native_dimensions_cm": [
+            36.0,
+            40.0,
+            1.000000000000003
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            298.0057532052866,
+            331.11750356142954,
+            8.277937589035764
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/driveway_short.driveway_short",
+          "native_dimensions_cm": [
+            36.0,
+            20.0,
+            1.0000000000000009
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            298.0057532052866,
+            165.55875178071477,
+            8.277937589035746
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence.fence",
+          "native_dimensions_cm": [
+            47.500003814697266,
+            7.500000476837158,
+            26.999998092651367
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            393.2020670570235,
+            62.084535864996276,
+            223.50429911505202
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_1x2.fence_1x2",
+          "native_dimensions_cm": [
+            87.5,
+            43.75,
+            26.999998092654614
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            724.3195390406272,
+            362.1597695203136,
+            223.50429911507888
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_1x3.fence_1x3",
+          "native_dimensions_cm": [
+            127.50000762939453,
+            43.75,
+            26.999998092654614
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1055.4371057577084,
+            362.1597695203136,
+            223.50429911507888
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_1x4.fence_1x4",
+          "native_dimensions_cm": [
+            167.5,
+            43.75,
+            26.999998092654614
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1386.5545461634863,
+            362.1597695203136,
+            223.50429911507888
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_2x2.fence_2x2",
+          "native_dimensions_cm": [
+            87.5,
+            83.74999618530273,
+            26.99999809265461
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            724.3195390406272,
+            693.2772415039173,
+            223.50429911507885
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_2x3.fence_2x3",
+          "native_dimensions_cm": [
+            127.50000762939453,
+            83.74999618530273,
+            26.99999809265461
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1055.4371057577084,
+            693.2772415039173,
+            223.50429911507885
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_3x2.fence_3x2",
+          "native_dimensions_cm": [
+            87.5,
+            123.75000762939453,
+            26.999998092654607
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            724.3195390406272,
+            1024.3948397988245,
+            223.50429911507882
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_3x3.fence_3x3",
+          "native_dimensions_cm": [
+            127.50000762939453,
+            123.75000762939453,
+            26.999998092654607
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1055.4371057577084,
+            1024.3948397988245,
+            223.50429911507882
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/fence_low.fence_low",
+          "native_dimensions_cm": [
+            127.50000762939453,
+            83.74999618530273,
+            17.00000000000001
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            1055.4371057577084,
+            693.2772415039173,
+            140.72493901360764
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_long.path_long",
+          "native_dimensions_cm": [
+            20.0,
+            40.0,
+            1.000000000000003
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            165.55875178071477,
+            331.11750356142954,
+            8.277937589035764
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_short.path_short",
+          "native_dimensions_cm": [
+            20.0,
+            20.0,
+            1.0000000000000009
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            165.55875178071477,
+            165.55875178071477,
+            8.277937589035746
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_stones_long.path_stones_long",
+          "native_dimensions_cm": [
+            14.0,
+            40.0,
+            1.0000000000000044
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            115.89112624650035,
+            331.11750356142954,
+            8.277937589035776
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_stones_messy.path_stones_messy",
+          "native_dimensions_cm": [
+            15.56241226196289,
+            36.13504409790039,
+            1.000000000000004
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            128.82467743937332,
+            299.1236398194737,
+            8.277937589035773
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/path_stones_short.path_stones_short",
+          "native_dimensions_cm": [
+            14.0,
+            20.0,
+            1.0000000000000022
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            115.89112624650035,
+            165.55875178071477,
+            8.277937589035757
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/planter.planter",
+          "native_dimensions_cm": [
+            40.0,
+            30.0,
+            17.7109546661377
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            331.11750356142954,
+            248.33812767107216,
+            146.61017736852918
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/tree_large.tree_large",
+          "native_dimensions_cm": [
+            21.044418334960938,
+            24.299999237060547,
+            76.69999694824219
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            174.20438157436604,
+            201.15387709800328,
+            634.9177878167804
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        },
+        {
+          "asset": "/Game/EnvironmentAssets/Kenney/city_kit_suburban/tree_small.tree_small",
+          "native_dimensions_cm": [
+            21.044418334960938,
+            24.299999237060547,
+            56.70000457763672
+          ],
+          "uniform_scale": 8.277937589035739,
+          "dimensions_cm": [
+            174.20438157436604,
+            201.15387709800328,
+            469.35909919171746
+          ],
+          "anchor_status": "Bounds-grounded; semantic seat/door anchors require authoring"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "seam_world_z": 1.224,
+  "cut_edges": 4,
+  "jaw_vertices": 921,
+  "upper_face_max_change_m": 0,
+  "status": "visual-review-required",
+  "facial_controls": [
+    "JawOpen"
+  ],
+  "limitations": [
+    "eyes not rigged",
+    "phoneme controls not fitted",
+    "mouth corners need topology refinement"
+  ]
+}

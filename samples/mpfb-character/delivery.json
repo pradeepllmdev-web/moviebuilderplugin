@@ -1,0 +1,11 @@
+{
+  "duration_seconds": 6,
+  "frames": 144,
+  "fps": 24,
+  "resolution": [
+    768,
+    768
+  ],
+  "audio": "local Windows voice from existing fixture",
+  "full_decode_passed": true
+}

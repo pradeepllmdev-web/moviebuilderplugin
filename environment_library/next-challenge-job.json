@@ -1,0 +1,142 @@
+{
+  "id": "519feecc02874dbbae5b733a7efa127a",
+  "status": "complete",
+  "stage": "Movie ready: continuous Unreal preview and website draft",
+  "movie_id": "519feecc02874dbbae5b733a7efa127a",
+  "report": {
+    "id": "519feecc02874dbbae5b733a7efa127a",
+    "title": "A Breath Through the Trees",
+    "shots": [
+      {
+        "scene_id": "984ea66a9a4e42da808b2bca9259c010",
+        "title": "The gust",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/df7768fcfb114937b01cfd2fcacc07d2/Level",
+          "sequence": "/Game/StudioProduction/df7768fcfb114937b01cfd2fcacc07d2/Performance",
+          "duration": 3.0,
+          "characters": [
+            "Rowan",
+            "Leo"
+          ],
+          "camera": "medium",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      },
+      {
+        "scene_id": "29c5edde7009468cb4a3b8ac4a24cf42",
+        "title": "Rowan notices",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/63e19566203e4ec496c0b12ee2f5713c/Level",
+          "sequence": "/Game/StudioProduction/63e19566203e4ec496c0b12ee2f5713c/Performance",
+          "duration": 3.0,
+          "characters": [
+            "Rowan",
+            "Leo"
+          ],
+          "camera": "reaction",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      },
+      {
+        "scene_id": "d03423281f37478986e4975bc6d06055",
+        "title": "Leo reassures",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/a11d3d8ce4de4843b804e96a3e635d9d/Level",
+          "sequence": "/Game/StudioProduction/a11d3d8ce4de4843b804e96a3e635d9d/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Rowan",
+            "Leo"
+          ],
+          "camera": "close",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      }
+    ],
+    "rendered": true,
+    "master": {
+      "ok": true,
+      "level": "/Game/StudioMovies/74c76d5e49bc4f72b5fed2b2358dbdff/MasterLevel",
+      "sequence": "/Game/StudioMovies/74c76d5e49bc4f72b5fed2b2358dbdff/Master",
+      "duration": 10.0,
+      "shots": [
+        {
+          "shot": 1,
+          "spawnables": 13
+        },
+        {
+          "shot": 2,
+          "spawnables": 3
+        },
+        {
+          "shot": 3,
+          "spawnables": 3
+        }
+      ],
+      "audio": "dialogue, twig snap and original procedural music"
+    },
+    "render_history": [
+      {
+        "job_id": "ab1f4a4d634d4f6fbecde2ad76378194",
+        "quality": "draft",
+        "file": "movie-ab1f4a4d634d4f6fbecde2ad76378194.mp4"
+      }
+    ],
+    "audio": {
+      "duration": 10.0,
+      "peak": 0.6706635557115078,
+      "music": "original procedural score",
+      "effects": "procedural footsteps; not surface-specific"
+    },
+    "quality": "draft",
+    "poster": "preview.png",
+    "quality_checks": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "Camera cropping, pupil contact and facial appeal still require visual review."
+      ],
+      "shots": [
+        {
+          "scene_id": "984ea66a9a4e42da808b2bca9259c010",
+          "body_tracks": [
+            53,
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 0
+        },
+        {
+          "scene_id": "29c5edde7009468cb4a3b8ac4a24cf42",
+          "body_tracks": [
+            53,
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 1
+        },
+        {
+          "scene_id": "d03423281f37478986e4975bc6d06055",
+          "body_tracks": [
+            53,
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 1
+        }
+      ]
+    }
+  }
+}

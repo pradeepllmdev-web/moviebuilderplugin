@@ -1,0 +1,33 @@
+{
+  "mood": "blockbuster",
+  "buildings": [],
+  "roads": [
+    {
+      "id": "road",
+      "kind": "straight",
+      "cell": [
+        0,
+        0
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "building.b768d56930",
+      "position_cm": [
+        5000,
+        0
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "furniture.3072c09da8",
+      "position_cm": [
+        1000,
+        -1000
+      ],
+      "scale": 1
+    }
+  ],
+  "unsupported": []
+}

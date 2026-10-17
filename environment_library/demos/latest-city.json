@@ -1,0 +1,30 @@
+{
+  "id": "SkyscraperCity_20261015_095734",
+  "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\demos\\SkyscraperCity_20261015_095734",
+  "cameras": {
+    "skyline": {
+      "location": [
+        -65000,
+        -85000,
+        40000
+      ],
+      "target": [
+        3000,
+        4000,
+        22000
+      ]
+    },
+    "street": {
+      "location": [
+        0,
+        -16000,
+        180
+      ],
+      "target": [
+        5000,
+        5000,
+        21000
+      ]
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "frames": 567,
+  "fps": 24,
+  "shots": [
+    {
+      "frame": 1,
+      "name": "Establishing forest"
+    },
+    {
+      "frame": 25,
+      "name": "Amber asks"
+    },
+    {
+      "frame": 171,
+      "name": "Leo finds light"
+    },
+    {
+      "frame": 308,
+      "name": "Amber doubts"
+    },
+    {
+      "frame": 411,
+      "name": "Together long shot"
+    }
+  ],
+  "limitations": [
+    "Existing prototype facial rigs",
+    "Body clips loop; no new walking or object contacts",
+    "Procedural Blender environment, not Unreal final render"
+  ]
+}

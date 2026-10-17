@@ -1,0 +1,11 @@
+[
+  {
+    "property": "on_component_hit",
+    "error": "<method 'get_editor_property' of '_ObjectBase' objects> returned NULL without setting an exception"
+  },
+  {
+    "property": "on_actor_hit",
+    "type": "<class 'ActorHitSignature'>",
+    "can_bind": true
+  }
+]

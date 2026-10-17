@@ -1,0 +1,45 @@
+{
+  "clips": [
+    {
+      "video_id": 707,
+      "length": 8
+    },
+    {
+      "video_id": 708,
+      "length": 8
+    }
+  ],
+  "tracks": [
+    {
+      "kind": "dialogue",
+      "ref_id": 360,
+      "start": 0.15,
+      "volume": 1
+    },
+    {
+      "kind": "dialogue",
+      "ref_id": 361,
+      "start": 3.25,
+      "volume": 1
+    },
+    {
+      "kind": "dialogue",
+      "ref_id": 362,
+      "start": 8.15,
+      "volume": 1
+    },
+    {
+      "kind": "dialogue",
+      "ref_id": 363,
+      "start": 9.565,
+      "volume": 1
+    }
+  ],
+  "width": 640,
+  "height": 360,
+  "transition": "cut",
+  "state": {
+    "title": "The Echo Inspector",
+    "demo": true
+  }
+}

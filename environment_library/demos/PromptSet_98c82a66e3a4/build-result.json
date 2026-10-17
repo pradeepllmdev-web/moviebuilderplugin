@@ -1,0 +1,77 @@
+{
+  "placed_assets": [
+    {
+      "id": "building.0af7471b32",
+      "scale": 6.122448979591836,
+      "label": "Catalogue_0_building"
+    },
+    {
+      "id": "building.0af7471b32",
+      "scale": 6.122448979591836,
+      "label": "Catalogue_1_building"
+    },
+    {
+      "id": "building.6d664d5005",
+      "scale": 6.122448979591836,
+      "label": "Catalogue_2_building"
+    },
+    {
+      "id": "furniture.37c976889d",
+      "scale": 0.19148936170212766,
+      "label": "Catalogue_3_furniture"
+    },
+    {
+      "id": "furniture.37c976889d",
+      "scale": 0.19148936170212766,
+      "label": "Catalogue_4_furniture"
+    },
+    {
+      "id": "rock.0fcdf9d09c",
+      "scale": 0.5,
+      "label": "Catalogue_5_rock"
+    },
+    {
+      "id": "rock.0fcdf9d09c",
+      "scale": 0.5,
+      "label": "Catalogue_6_rock"
+    }
+  ],
+  "mountains": null,
+  "reference_analysis": null,
+  "contract_version": 1,
+  "level": "/Game/EnvironmentDemos/PromptSet_98c82a66e3a4",
+  "biome": "prompt_modular_set",
+  "warnings": [
+    "Blockout architecture; no traffic or automatic navigation."
+  ],
+  "cameras": {
+    "overview": {
+      "location": [
+        4100,
+        -4900,
+        4200
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    "street": {
+      "location": [
+        1600,
+        -6500,
+        2400
+      ],
+      "target": [
+        0,
+        1800,
+        1600
+      ]
+    }
+  },
+  "part_count": 4,
+  "connection_count": 3,
+  "open_end_count": 3,
+  "box_count": 60
+}

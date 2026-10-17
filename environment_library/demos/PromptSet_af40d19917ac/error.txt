@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/build_prompt_unreal.py", line 61, in <module>
+    weather_result=weather_unreal.apply_weather(compiled['weather'],'/Game/EnvironmentAssets/WeatherStudies/'+name,actors)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nagal\OneDrive\Documents\GitHub\moviebuilderplugin\environment_library\weather_unreal.py", line 26, in apply_weather
+    mask=mel.create_material_expression(mat,unreal.MaterialExpressionComponentMask);mask.r=False;mask.g=False;mask.b=True;mask.a=False;connect(normal,mask,'Input')
+                                                                                    ^^^^^^
+AttributeError: 'MaterialExpressionComponentMask' object has no attribute 'r'

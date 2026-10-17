@@ -1,0 +1,30 @@
+{
+  "id": "ScaleCheck_20261015_104949",
+  "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\demos\\ScaleCheck_20261015_104949",
+  "cameras": {
+    "character_height": {
+      "location": [
+        80,
+        -650,
+        165
+      ],
+      "target": [
+        80,
+        80,
+        115
+      ]
+    },
+    "wide": {
+      "location": [
+        0,
+        -2800,
+        650
+      ],
+      "target": [
+        0,
+        700,
+        650
+      ]
+    }
+  }
+}

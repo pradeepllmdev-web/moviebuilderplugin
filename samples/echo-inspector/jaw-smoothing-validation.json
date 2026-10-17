@@ -1,0 +1,50 @@
+[
+  {
+    "shot": 914,
+    "name": "Amber",
+    "version": "before",
+    "max_jaw_change_per_frame": 0.49100000000000005
+  },
+  {
+    "shot": 914,
+    "name": "Leo",
+    "version": "before",
+    "max_jaw_change_per_frame": 0.48
+  },
+  {
+    "shot": 914,
+    "name": "Amber",
+    "version": "after",
+    "max_jaw_change_per_frame": 0.14400000000000002
+  },
+  {
+    "shot": 914,
+    "name": "Leo",
+    "version": "after",
+    "max_jaw_change_per_frame": 0.14400000000000002
+  },
+  {
+    "shot": 915,
+    "name": "Amber",
+    "version": "before",
+    "max_jaw_change_per_frame": 0.479
+  },
+  {
+    "shot": 915,
+    "name": "Leo",
+    "version": "before",
+    "max_jaw_change_per_frame": 0.529
+  },
+  {
+    "shot": 915,
+    "name": "Amber",
+    "version": "after",
+    "max_jaw_change_per_frame": 0.14400000000000002
+  },
+  {
+    "shot": 915,
+    "name": "Leo",
+    "version": "after",
+    "max_jaw_change_per_frame": 0.14400000000000002
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "flame_cards": 78,
+  "smoke": "existing separate smoke plumes retained",
+  "lights": "keyframed flicker",
+  "type": "procedural animated material; no fluid simulation"
+}

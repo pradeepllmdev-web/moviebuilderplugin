@@ -1,0 +1,163 @@
+{
+  "id": "25ffd6c81f664e88a794e283f3c455de",
+  "status": "complete",
+  "stage": "Movie ready: continuous Unreal preview",
+  "movie_id": "25ffd6c81f664e88a794e283f3c455de",
+  "report": {
+    "id": "25ffd6c81f664e88a794e283f3c455de",
+    "title": "Leo - A Careful Delivery",
+    "shots": [
+      {
+        "scene_id": "672d32c5934f47a694ddd9861c7f6185",
+        "title": "Lift and carry",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/3dfee29a0a704c1d84cd5096729d67c4/Level",
+          "sequence": "/Game/StudioProduction/3dfee29a0a704c1d84cd5096729d67c4/Performance",
+          "duration": 15.0,
+          "characters": [
+            "Leo"
+          ],
+          "camera": "full",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      },
+      {
+        "scene_id": "e476f38d8cff45f2b07be1c8724d34bf",
+        "title": "A gentle bump and safe landing",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/ff457dfc0f104a75b9aac75e94e979ca/Level",
+          "sequence": "/Game/StudioProduction/ff457dfc0f104a75b9aac75e94e979ca/Performance",
+          "duration": 11.0,
+          "characters": [
+            "Leo"
+          ],
+          "camera": "full",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      },
+      {
+        "scene_id": "c6bf21dd5c44491a8b313b019834225d",
+        "title": "Job done",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/1fb896f0537a41ed8d4d67a9bf8ff807/Level",
+          "sequence": "/Game/StudioProduction/1fb896f0537a41ed8d4d67a9bf8ff807/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Leo"
+          ],
+          "camera": "medium",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      }
+    ],
+    "rendered": false,
+    "master": {
+      "ok": true,
+      "level": "/Game/StudioMovies/571fde38c91f4763a05c09c91410d7ca/MasterLevel",
+      "sequence": "/Game/StudioMovies/571fde38c91f4763a05c09c91410d7ca/Master",
+      "duration": 30.0,
+      "shots": [
+        {
+          "shot": 1,
+          "spawnables": 14
+        },
+        {
+          "shot": 2,
+          "spawnables": 15
+        },
+        {
+          "shot": 3,
+          "spawnables": 15
+        }
+      ],
+      "audio": "dialogue, twig snap and original procedural music"
+    },
+    "quality_checks": {
+      "ok": true,
+      "errors": [],
+      "warnings": [
+        "Lift and carry: keyed box contact; inspect skin, fingers and torso clearance; no rigid-body simulation",
+        "Lift and carry: animal eyelid deformation remains unverified; no automatic blink-quality guarantee",
+        "Lift and carry: locomotion needs visual review; foot/joint realism is not certified",
+        "A gentle bump and safe landing: keyed box contact; inspect skin, fingers and torso clearance; no rigid-body simulation",
+        "A gentle bump and safe landing: animal eyelid deformation remains unverified; no automatic blink-quality guarantee",
+        "Job done: approximate camera bounds flag cropping; review framing",
+        "Job done: keyed box contact; inspect skin, fingers and torso clearance; no rigid-body simulation",
+        "Job done: animal eyelid deformation remains unverified; no automatic blink-quality guarantee",
+        "Camera cropping, pupil contact and facial appeal still require visual review."
+      ],
+      "shots": [
+        {
+          "scene_id": "672d32c5934f47a694ddd9861c7f6185",
+          "body_tracks": [
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 1
+        },
+        {
+          "scene_id": "e476f38d8cff45f2b07be1c8724d34bf",
+          "body_tracks": [
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 1
+        },
+        {
+          "scene_id": "c6bf21dd5c44491a8b313b019834225d",
+          "body_tracks": [
+            25
+          ],
+          "contacts": true,
+          "dialogue_lines": 1
+        }
+      ],
+      "root_continuity": {
+        "ok": true,
+        "boundaries": [
+          {
+            "shot": "A gentle bump and safe landing",
+            "actor": "Leo",
+            "root_xy_difference_cm": 0.0,
+            "heading_difference_deg": 0.0,
+            "ok": true
+          },
+          {
+            "shot": "Job done",
+            "actor": "Leo",
+            "root_xy_difference_cm": 0.0,
+            "heading_difference_deg": 0.0,
+            "ok": true
+          }
+        ],
+        "prop_boundaries": [
+          {
+            "shot": "A gentle bump and safe landing",
+            "id": "TrailCrate",
+            "position_difference_cm": 0.0,
+            "ok": true
+          },
+          {
+            "shot": "Job done",
+            "id": "TrailCrate",
+            "position_difference_cm": 0.0,
+            "ok": true
+          }
+        ],
+        "scope": "Root XY/heading and keyed box placement; no perceptual or physics continuity certification"
+      }
+    }
+  }
+}

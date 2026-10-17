@@ -1,0 +1,19 @@
+{
+  "characters": {
+    "lion": {
+      "added_head_yaw_degrees": 22.470808576330814,
+      "jaw_max": 0.8353737791134489,
+      "brow_regions": 2
+    },
+    "cat": {
+      "added_head_yaw_degrees": 24.64589928828987,
+      "jaw_max": 0.6507000000000002,
+      "brow_regions": 2
+    }
+  },
+  "limitations": [
+    "No independent pupil gaze controls",
+    "Prototype mouth and eyelid shapes",
+    "Brow fitting requires visual review"
+  ]
+}

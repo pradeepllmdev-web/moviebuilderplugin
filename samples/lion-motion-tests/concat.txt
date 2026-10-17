@@ -1,0 +1,4 @@
+file 'standing/standing.mp4'
+file 'walking/walking.mp4'
+file 'running/running.mp4'
+file 'circle/circle.mp4'

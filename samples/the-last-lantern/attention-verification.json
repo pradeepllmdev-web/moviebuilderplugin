@@ -1,0 +1,10 @@
+{
+  "snow": {
+    "actual_head_orientation_change_degrees": 26.059203576799625,
+    "control": "FK-Head"
+  },
+  "jacob": {
+    "actual_head_orientation_change_degrees": 23.241389132679323,
+    "control": "CTRL-HEAD"
+  }
+}

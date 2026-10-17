@@ -1,0 +1,20 @@
+{
+  "target": [
+    90,
+    150,
+    125
+  ],
+  "location": [
+    -280,
+    -210,
+    165
+  ],
+  "hide_labels": [
+    "DiningTable",
+    "DiningBench",
+    "TableLeg",
+    "BenchLeg",
+    "Rug"
+  ],
+  "level": "/Game/EnvironmentDemos/ModernHouse_20261015_095225_LightingFixed"
+}

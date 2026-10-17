@@ -1,0 +1,3194 @@
+{
+  "boxes": [
+    {
+      "id": "main_road",
+      "position_cm": [
+        0,
+        0,
+        -10
+      ],
+      "size_cm": [
+        1000,
+        1000,
+        20
+      ],
+      "yaw": 0,
+      "material": "asphalt"
+    },
+    {
+      "id": "main_pavement-1-1",
+      "position_cm": [
+        -425,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "main_pavement-11",
+      "position_cm": [
+        -425,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "main_pavement1-1",
+      "position_cm": [
+        425,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "main_pavement11",
+      "position_cm": [
+        425,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "main_crosswalk0-10",
+      "position_cm": [
+        -270,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-11",
+      "position_cm": [
+        -180,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-12",
+      "position_cm": [
+        -90,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-13",
+      "position_cm": [
+        0,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-14",
+      "position_cm": [
+        90,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-15",
+      "position_cm": [
+        180,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk0-16",
+      "position_cm": [
+        270,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk010",
+      "position_cm": [
+        -270,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk011",
+      "position_cm": [
+        -180,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk012",
+      "position_cm": [
+        -90,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk013",
+      "position_cm": [
+        0,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk014",
+      "position_cm": [
+        90,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk015",
+      "position_cm": [
+        180,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk016",
+      "position_cm": [
+        270,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        55,
+        120,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-100",
+      "position_cm": [
+        -270,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-101",
+      "position_cm": [
+        -270,
+        -180,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-102",
+      "position_cm": [
+        -270,
+        -90,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-103",
+      "position_cm": [
+        -270,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-104",
+      "position_cm": [
+        -270,
+        90,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-105",
+      "position_cm": [
+        -270,
+        180,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk-106",
+      "position_cm": [
+        -270,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk100",
+      "position_cm": [
+        270,
+        -270,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk101",
+      "position_cm": [
+        270,
+        -180,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk102",
+      "position_cm": [
+        270,
+        -90,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk103",
+      "position_cm": [
+        270,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk104",
+      "position_cm": [
+        270,
+        90,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk105",
+      "position_cm": [
+        270,
+        180,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "main_crosswalk106",
+      "position_cm": [
+        270,
+        270,
+        0.3
+      ],
+      "size_cm": [
+        120,
+        55,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road1_road",
+      "position_cm": [
+        0,
+        1000,
+        -10
+      ],
+      "size_cm": [
+        1000,
+        1000,
+        20
+      ],
+      "yaw": 0,
+      "material": "asphalt"
+    },
+    {
+      "id": "road1_pavement-1-1",
+      "position_cm": [
+        -425,
+        575,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_pavement-11",
+      "position_cm": [
+        -425,
+        1425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_pavement1-1",
+      "position_cm": [
+        425,
+        575,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_pavement11",
+      "position_cm": [
+        425,
+        1425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_edge-10",
+      "position_cm": [
+        -425,
+        1000,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_edge10",
+      "position_cm": [
+        425,
+        1000,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road1_lane-360",
+      "position_cm": [
+        0,
+        640,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road1_lane-120",
+      "position_cm": [
+        0,
+        880,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road1_lane120",
+      "position_cm": [
+        0,
+        1120,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road1_lane360",
+      "position_cm": [
+        0,
+        1360,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road2_road",
+      "position_cm": [
+        0,
+        -1000,
+        -10
+      ],
+      "size_cm": [
+        1000,
+        1000,
+        20
+      ],
+      "yaw": 0,
+      "material": "asphalt"
+    },
+    {
+      "id": "road2_pavement-1-1",
+      "position_cm": [
+        -425,
+        -1425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_pavement-11",
+      "position_cm": [
+        -425,
+        -575,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_pavement1-1",
+      "position_cm": [
+        425,
+        -1425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_pavement11",
+      "position_cm": [
+        425,
+        -575,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_edge-10",
+      "position_cm": [
+        -425,
+        -1000,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_edge10",
+      "position_cm": [
+        425,
+        -1000,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 0,
+      "material": "pavement"
+    },
+    {
+      "id": "road2_lane-360",
+      "position_cm": [
+        0,
+        -1360,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road2_lane-120",
+      "position_cm": [
+        0,
+        -1120,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road2_lane120",
+      "position_cm": [
+        0,
+        -880,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road2_lane360",
+      "position_cm": [
+        0,
+        -640,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 0,
+      "material": "paint"
+    },
+    {
+      "id": "road3_road",
+      "position_cm": [
+        1000,
+        0,
+        -10
+      ],
+      "size_cm": [
+        1000,
+        1000,
+        20
+      ],
+      "yaw": 90,
+      "material": "asphalt"
+    },
+    {
+      "id": "road3_pavement-1-1",
+      "position_cm": [
+        1425,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_pavement-11",
+      "position_cm": [
+        575,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_pavement1-1",
+      "position_cm": [
+        1425,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_pavement11",
+      "position_cm": [
+        575,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_edge-10",
+      "position_cm": [
+        1000,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_edge10",
+      "position_cm": [
+        1000,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road3_lane-360",
+      "position_cm": [
+        1360,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road3_lane-120",
+      "position_cm": [
+        1120,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road3_lane120",
+      "position_cm": [
+        880,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road3_lane360",
+      "position_cm": [
+        640,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road4_road",
+      "position_cm": [
+        -1000,
+        0,
+        -10
+      ],
+      "size_cm": [
+        1000,
+        1000,
+        20
+      ],
+      "yaw": 90,
+      "material": "asphalt"
+    },
+    {
+      "id": "road4_pavement-1-1",
+      "position_cm": [
+        -575,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road4_pavement-11",
+      "position_cm": [
+        -1425,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road4_pavement1-1",
+      "position_cm": [
+        -575,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road4_pavement11",
+      "position_cm": [
+        -1425,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        150,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road4_edge-10",
+      "position_cm": [
+        -1000,
+        -425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road4_edge10",
+      "position_cm": [
+        -1000,
+        425,
+        7.5
+      ],
+      "size_cm": [
+        150,
+        700,
+        15
+      ],
+      "yaw": 90,
+      "material": "pavement"
+    },
+    {
+      "id": "road4_lane-360",
+      "position_cm": [
+        -640,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road4_lane-120",
+      "position_cm": [
+        -880,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road4_lane120",
+      "position_cm": [
+        -1120,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "road4_lane360",
+      "position_cm": [
+        -1360,
+        0,
+        0.3
+      ],
+      "size_cm": [
+        8,
+        110,
+        0.6
+      ],
+      "yaw": 90,
+      "material": "paint"
+    },
+    {
+      "id": "building_0_0_floor_0",
+      "position_cm": [
+        -2700,
+        1900,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_0_1_floor_0",
+      "position_cm": [
+        -2700,
+        2100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_0_2_floor_0",
+      "position_cm": [
+        -2700,
+        2300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_0_3_window_0",
+      "position_cm": [
+        -2700,
+        1800,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_3_window_1",
+      "position_cm": [
+        -2700,
+        1800,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_3_window_2",
+      "position_cm": [
+        -2790,
+        1800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_3_window_3",
+      "position_cm": [
+        -2610,
+        1800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_4_wall_0",
+      "position_cm": [
+        -2700,
+        2400,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_5_floor_0",
+      "position_cm": [
+        -2500,
+        1900,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_0_6_floor_0",
+      "position_cm": [
+        -2500,
+        2100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_0_7_floor_0",
+      "position_cm": [
+        -2500,
+        2300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_0_8_door_0",
+      "position_cm": [
+        -2575,
+        1800,
+        150
+      ],
+      "size_cm": [
+        50,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_8_door_1",
+      "position_cm": [
+        -2425,
+        1800,
+        150
+      ],
+      "size_cm": [
+        50,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_8_door_2",
+      "position_cm": [
+        -2500,
+        1800,
+        260
+      ],
+      "size_cm": [
+        100,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_9_wall_0",
+      "position_cm": [
+        -2500,
+        2400,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_10_floor_0",
+      "position_cm": [
+        -2300,
+        1900,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_0_11_floor_0",
+      "position_cm": [
+        -2300,
+        2100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_0_12_floor_0",
+      "position_cm": [
+        -2300,
+        2300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_0_13_window_0",
+      "position_cm": [
+        -2300,
+        1800,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_13_window_1",
+      "position_cm": [
+        -2300,
+        1800,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_13_window_2",
+      "position_cm": [
+        -2390,
+        1800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_13_window_3",
+      "position_cm": [
+        -2210,
+        1800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_14_wall_0",
+      "position_cm": [
+        -2300,
+        2400,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_15_window_0",
+      "position_cm": [
+        -2800,
+        1900,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_15_window_1",
+      "position_cm": [
+        -2800,
+        1900,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_15_window_2",
+      "position_cm": [
+        -2800,
+        1810,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_15_window_3",
+      "position_cm": [
+        -2800,
+        1990,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_16_wall_0",
+      "position_cm": [
+        -2200,
+        1900,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_17_window_0",
+      "position_cm": [
+        -2800,
+        2100,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_17_window_1",
+      "position_cm": [
+        -2800,
+        2100,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_17_window_2",
+      "position_cm": [
+        -2800,
+        2010,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_17_window_3",
+      "position_cm": [
+        -2800,
+        2190,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_18_wall_0",
+      "position_cm": [
+        -2200,
+        2100,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_19_window_0",
+      "position_cm": [
+        -2800,
+        2300,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_19_window_1",
+      "position_cm": [
+        -2800,
+        2300,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_19_window_2",
+      "position_cm": [
+        -2800,
+        2210,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_19_window_3",
+      "position_cm": [
+        -2800,
+        2390,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_20_wall_0",
+      "position_cm": [
+        -2200,
+        2300,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_21_corner_0",
+      "position_cm": [
+        -2800,
+        1800,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_22_corner_0",
+      "position_cm": [
+        -2800,
+        2400,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_23_corner_0",
+      "position_cm": [
+        -2200,
+        1800,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_0_24_corner_0",
+      "position_cm": [
+        -2200,
+        2400,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "roof_0",
+      "position_cm": [
+        -2500,
+        2100,
+        310
+      ],
+      "size_cm": [
+        640,
+        640,
+        20
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_0_floor_0",
+      "position_cm": [
+        1900,
+        1900,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_1_1_floor_0",
+      "position_cm": [
+        1900,
+        2100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_1_2_floor_0",
+      "position_cm": [
+        1900,
+        2300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_1_3_window_0",
+      "position_cm": [
+        1900,
+        1800,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_3_window_1",
+      "position_cm": [
+        1900,
+        1800,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_3_window_2",
+      "position_cm": [
+        1810,
+        1800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_3_window_3",
+      "position_cm": [
+        1990,
+        1800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_4_wall_0",
+      "position_cm": [
+        1900,
+        2400,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_5_floor_0",
+      "position_cm": [
+        2100,
+        1900,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_1_6_floor_0",
+      "position_cm": [
+        2100,
+        2100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_1_7_floor_0",
+      "position_cm": [
+        2100,
+        2300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_1_8_door_0",
+      "position_cm": [
+        2025,
+        1800,
+        150
+      ],
+      "size_cm": [
+        50,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_8_door_1",
+      "position_cm": [
+        2175,
+        1800,
+        150
+      ],
+      "size_cm": [
+        50,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_8_door_2",
+      "position_cm": [
+        2100,
+        1800,
+        260
+      ],
+      "size_cm": [
+        100,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_9_wall_0",
+      "position_cm": [
+        2100,
+        2400,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_10_floor_0",
+      "position_cm": [
+        2300,
+        1900,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_1_11_floor_0",
+      "position_cm": [
+        2300,
+        2100,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_1_12_floor_0",
+      "position_cm": [
+        2300,
+        2300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_1_13_window_0",
+      "position_cm": [
+        2300,
+        1800,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_13_window_1",
+      "position_cm": [
+        2300,
+        1800,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_13_window_2",
+      "position_cm": [
+        2210,
+        1800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_13_window_3",
+      "position_cm": [
+        2390,
+        1800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_14_wall_0",
+      "position_cm": [
+        2300,
+        2400,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_15_window_0",
+      "position_cm": [
+        1800,
+        1900,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_15_window_1",
+      "position_cm": [
+        1800,
+        1900,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_15_window_2",
+      "position_cm": [
+        1800,
+        1810,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_15_window_3",
+      "position_cm": [
+        1800,
+        1990,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_16_wall_0",
+      "position_cm": [
+        2400,
+        1900,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_17_window_0",
+      "position_cm": [
+        1800,
+        2100,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_17_window_1",
+      "position_cm": [
+        1800,
+        2100,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_17_window_2",
+      "position_cm": [
+        1800,
+        2010,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_17_window_3",
+      "position_cm": [
+        1800,
+        2190,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_18_wall_0",
+      "position_cm": [
+        2400,
+        2100,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_19_window_0",
+      "position_cm": [
+        1800,
+        2300,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_19_window_1",
+      "position_cm": [
+        1800,
+        2300,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_19_window_2",
+      "position_cm": [
+        1800,
+        2210,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_19_window_3",
+      "position_cm": [
+        1800,
+        2390,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_20_wall_0",
+      "position_cm": [
+        2400,
+        2300,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_21_corner_0",
+      "position_cm": [
+        1800,
+        1800,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_22_corner_0",
+      "position_cm": [
+        1800,
+        2400,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_23_corner_0",
+      "position_cm": [
+        2400,
+        1800,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_1_24_corner_0",
+      "position_cm": [
+        2400,
+        2400,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "roof_1",
+      "position_cm": [
+        2100,
+        2100,
+        310
+      ],
+      "size_cm": [
+        640,
+        640,
+        20
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_0_floor_0",
+      "position_cm": [
+        -2700,
+        -2700,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_2_1_floor_0",
+      "position_cm": [
+        -2700,
+        -2500,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_2_2_floor_0",
+      "position_cm": [
+        -2700,
+        -2300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_2_3_window_0",
+      "position_cm": [
+        -2700,
+        -2800,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_3_window_1",
+      "position_cm": [
+        -2700,
+        -2800,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_3_window_2",
+      "position_cm": [
+        -2790,
+        -2800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_3_window_3",
+      "position_cm": [
+        -2610,
+        -2800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_4_wall_0",
+      "position_cm": [
+        -2700,
+        -2200,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_5_floor_0",
+      "position_cm": [
+        -2500,
+        -2700,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_2_6_floor_0",
+      "position_cm": [
+        -2500,
+        -2500,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_2_7_floor_0",
+      "position_cm": [
+        -2500,
+        -2300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_2_8_door_0",
+      "position_cm": [
+        -2575,
+        -2800,
+        150
+      ],
+      "size_cm": [
+        50,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_8_door_1",
+      "position_cm": [
+        -2425,
+        -2800,
+        150
+      ],
+      "size_cm": [
+        50,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_8_door_2",
+      "position_cm": [
+        -2500,
+        -2800,
+        260
+      ],
+      "size_cm": [
+        100,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_9_wall_0",
+      "position_cm": [
+        -2500,
+        -2200,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_10_floor_0",
+      "position_cm": [
+        -2300,
+        -2700,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_2_11_floor_0",
+      "position_cm": [
+        -2300,
+        -2500,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_2_12_floor_0",
+      "position_cm": [
+        -2300,
+        -2300,
+        -10
+      ],
+      "size_cm": [
+        200,
+        200,
+        20
+      ],
+      "yaw": 0,
+      "material": "wood"
+    },
+    {
+      "id": "building_2_13_window_0",
+      "position_cm": [
+        -2300,
+        -2800,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_13_window_1",
+      "position_cm": [
+        -2300,
+        -2800,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_13_window_2",
+      "position_cm": [
+        -2390,
+        -2800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_13_window_3",
+      "position_cm": [
+        -2210,
+        -2800,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_14_wall_0",
+      "position_cm": [
+        -2300,
+        -2200,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_15_window_0",
+      "position_cm": [
+        -2800,
+        -2700,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_15_window_1",
+      "position_cm": [
+        -2800,
+        -2700,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_15_window_2",
+      "position_cm": [
+        -2800,
+        -2790,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_15_window_3",
+      "position_cm": [
+        -2800,
+        -2610,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_16_wall_0",
+      "position_cm": [
+        -2200,
+        -2700,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_17_window_0",
+      "position_cm": [
+        -2800,
+        -2500,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_17_window_1",
+      "position_cm": [
+        -2800,
+        -2500,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_17_window_2",
+      "position_cm": [
+        -2800,
+        -2590,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_17_window_3",
+      "position_cm": [
+        -2800,
+        -2410,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_18_wall_0",
+      "position_cm": [
+        -2200,
+        -2500,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_19_window_0",
+      "position_cm": [
+        -2800,
+        -2300,
+        40
+      ],
+      "size_cm": [
+        200,
+        20,
+        80
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_19_window_1",
+      "position_cm": [
+        -2800,
+        -2300,
+        280
+      ],
+      "size_cm": [
+        200,
+        20,
+        40
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_19_window_2",
+      "position_cm": [
+        -2800,
+        -2390,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_19_window_3",
+      "position_cm": [
+        -2800,
+        -2210,
+        170
+      ],
+      "size_cm": [
+        20,
+        20,
+        180
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_20_wall_0",
+      "position_cm": [
+        -2200,
+        -2300,
+        150
+      ],
+      "size_cm": [
+        200,
+        20,
+        300
+      ],
+      "yaw": 90,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_21_corner_0",
+      "position_cm": [
+        -2800,
+        -2800,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_22_corner_0",
+      "position_cm": [
+        -2800,
+        -2200,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_23_corner_0",
+      "position_cm": [
+        -2200,
+        -2800,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "building_2_24_corner_0",
+      "position_cm": [
+        -2200,
+        -2200,
+        150
+      ],
+      "size_cm": [
+        20,
+        20,
+        300
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    },
+    {
+      "id": "roof_2",
+      "position_cm": [
+        -2500,
+        -2500,
+        310
+      ],
+      "size_cm": [
+        640,
+        640,
+        20
+      ],
+      "yaw": 0,
+      "material": "plaster"
+    }
+  ],
+  "road_links": [
+    [
+      "main",
+      "road2"
+    ],
+    [
+      "main",
+      "road1"
+    ],
+    [
+      "main",
+      "road4"
+    ],
+    [
+      "main",
+      "road3"
+    ]
+  ],
+  "open_road_ends": 4,
+  "asset_placements": [
+    {
+      "asset_id": "furniture.37c976889d",
+      "position_cm": [
+        1700,
+        -1800
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "furniture.37c976889d",
+      "position_cm": [
+        1700,
+        -2400
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "furniture.5b17df60eb",
+      "position_cm": [
+        2300,
+        -2100
+      ],
+      "scale": 1
+    },
+    {
+      "asset_id": "tree.28534d392b",
+      "position_cm": [
+        -5500,
+        3500
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "tree.28534d392b",
+      "position_cm": [
+        -5500,
+        -3500
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "tree.35f06a0640",
+      "position_cm": [
+        5500,
+        3500
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "tree.35f06a0640",
+      "position_cm": [
+        5500,
+        -3500
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "rock.27e7c46097",
+      "position_cm": [
+        -4000,
+        0
+      ],
+      "scale": 0.5
+    },
+    {
+      "asset_id": "rock.27e7c46097",
+      "position_cm": [
+        4000,
+        0
+      ],
+      "scale": 0.5
+    }
+  ],
+  "mountains": {
+    "enabled": true,
+    "height_cm": 40000,
+    "size_cm": 180000,
+    "distance_cm": 150000,
+    "side_deg": 90
+  }
+}

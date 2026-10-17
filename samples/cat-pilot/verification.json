@@ -1,0 +1,13 @@
+{
+  "frames": 192,
+  "fps": 24,
+  "foot_motion_span_m": {
+    "Walk": 0.31428873541120966,
+    "Run": 0.46454427720721586,
+    "Cheer": 0.3571565235620764
+  },
+  "blink_peak": 1.0,
+  "speech_controls": false,
+  "mouth": "painted smile, no jaw or visemes",
+  "source_preserved": true
+}

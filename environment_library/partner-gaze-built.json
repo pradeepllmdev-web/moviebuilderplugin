@@ -1,0 +1,52 @@
+{
+  "id": "1dc525ad9a1c419ea9b92188f4451075",
+  "status": "complete",
+  "stage": "All editable shots saved; review before rendering",
+  "active_shot": 2,
+  "movie_id": "1dc525ad9a1c419ea9b92188f4451075",
+  "report": {
+    "id": "1dc525ad9a1c419ea9b92188f4451075",
+    "title": "Look at Me - Partner Attention",
+    "shots": [
+      {
+        "scene_id": "382f42c16ac34d51b16d300dcea53ce9",
+        "title": "Are you still worried?",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/917ec94a10804df5a6e674fa77ab13e6/Level",
+          "sequence": "/Game/StudioProduction/917ec94a10804df5a6e674fa77ab13e6/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Leo",
+            "Amber"
+          ],
+          "camera": "full",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Blink disabled until deformation is verified"
+          ]
+        }
+      },
+      {
+        "scene_id": "09a9c4cf2202478599b14341c2328027",
+        "title": "A friend nearby",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/708dea99b9c04cf1b261642b782ae0c0/Level",
+          "sequence": "/Game/StudioProduction/708dea99b9c04cf1b261642b782ae0c0/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Leo",
+            "Amber"
+          ],
+          "camera": "close",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Blink disabled until deformation is verified"
+          ]
+        }
+      }
+    ],
+    "rendered": false
+  }
+}

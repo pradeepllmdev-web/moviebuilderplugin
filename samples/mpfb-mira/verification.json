@@ -1,0 +1,97 @@
+{
+  "native": {
+    "shape_deformation_max_m": {
+      "jawOpen": 0.038738342036593244,
+      "eyeBlinkLeft": 0.015520581065857181,
+      "eyeBlinkRight": 0.015520581065857181,
+      "mouthSmileLeft": 0.018682057686008672,
+      "browInnerUp": 0.005200028472785043
+    },
+    "animated_value_ranges": {
+      "jawOpen": [
+        0.0,
+        1.0
+      ],
+      "eyeBlinkLeft": [
+        0.0,
+        1.0
+      ],
+      "eyeBlinkRight": [
+        0.0,
+        1.0
+      ],
+      "mouthSmileLeft": [
+        0.06599999964237213,
+        0.06599999964237213
+      ],
+      "browInnerUp": [
+        0.005968990735709667,
+        0.38999998569488525
+      ]
+    },
+    "body_span_m": {
+      "LeftHand": 0.33045611098088173,
+      "RightHand": 0.3755859029832369,
+      "Hips": 0.0,
+      "LeftFoot": 0.0,
+      "RightFoot": 0.0
+    },
+    "body_max_step_m": {
+      "LeftHand": 0.02724965971167729,
+      "RightHand": 0.023508393090086982,
+      "Hips": 0.0,
+      "LeftFoot": 0.0,
+      "RightFoot": 0.0
+    },
+    "head_variation_degrees": 12.390538597840704
+  },
+  "unreal_verified": false,
+  "glb_roundtrip": {
+    "shape_deformation_max_m": {
+      "jawOpen": 0.038738342035125876,
+      "eyeBlinkLeft": 0.012613429752137051,
+      "eyeBlinkRight": 0.012613429752137051,
+      "mouthSmileLeft": 0.01868205865966446,
+      "browInnerUp": 0.005200028472785043
+    },
+    "animated_value_ranges": {
+      "jawOpen": [
+        0.0,
+        1.0
+      ],
+      "eyeBlinkLeft": [
+        0.0,
+        1.0
+      ],
+      "eyeBlinkRight": [
+        0.0,
+        1.0
+      ],
+      "mouthSmileLeft": [
+        0.06599999964237213,
+        0.06599999964237213
+      ],
+      "browInnerUp": [
+        0.005968990735709667,
+        0.38999998569488525
+      ]
+    },
+    "body_span_m": {
+      "LeftHand": 0.33045618707481916,
+      "RightHand": 0.37558602944550007,
+      "Hips": 0.0,
+      "LeftFoot": 0.0,
+      "RightFoot": 0.0
+    },
+    "body_max_step_m": {
+      "LeftHand": 0.02724585180267031,
+      "RightHand": 0.02350447861327951,
+      "Hips": 0.0,
+      "LeftFoot": 0.0,
+      "RightFoot": 0.0
+    },
+    "head_variation_degrees": 12.390538597840704
+  },
+  "facial_timing_max_error": 0.0,
+  "passed": true
+}

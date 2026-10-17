@@ -1,0 +1,24 @@
+{
+  "id": "8fe21e60764a4190ae23f4f2df71fd65",
+  "name": "Amber Cat",
+  "text": "Hello! I am Amber. Today we are testing my smile, my eyes, and the way I move.",
+  "anatomy": "biped",
+  "reference_file_id": 5007,
+  "reference": "reference.jpg",
+  "reference_sha256": "00ca2b9713f3f4b28bb976bead02cc4e01c3cf157cb06d1ea529e39d3ff48214",
+  "status": "queued",
+  "stage": null,
+  "completed": [],
+  "stages": [
+    "preflight",
+    "model_and_body_rig",
+    "face_landmarks",
+    "facial_controls",
+    "animation_library",
+    "validation",
+    "demo_videos"
+  ],
+  "demos": [],
+  "created_at": 1792017012.1201987,
+  "updated_at": 1792017012.1201987
+}

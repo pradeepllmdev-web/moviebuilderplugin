@@ -1,0 +1,115 @@
+{
+  "id": "ae66453ba3374754bf8b7f54c9b5d0e3",
+  "status": "complete",
+  "stage": "Movie preview assembled and decode checked",
+  "movie_id": "a9b0f57d182e4e709ff9d9e420bbc717",
+  "report": {
+    "id": "a9b0f57d182e4e709ff9d9e420bbc717",
+    "title": "The Forest Wakes - Polished Conversation",
+    "shots": [
+      {
+        "scene_id": "437058aa6b5f40d482e7bf7308bdb139",
+        "title": "A sound in the trees",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/a449bda95d3747cf86ff78cca2cc46d7/Level",
+          "sequence": "/Game/StudioProduction/a449bda95d3747cf86ff78cca2cc46d7/Performance",
+          "duration": 3.0,
+          "characters": [
+            "Rowan",
+            "Leo"
+          ],
+          "camera": "medium",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      },
+      {
+        "scene_id": "35772241edd145099d44d053900a270b",
+        "title": "Rowan hears it",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/15b9c1c18de84ea78bd5d4ce746e1127/Level",
+          "sequence": "/Game/StudioProduction/15b9c1c18de84ea78bd5d4ce746e1127/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Rowan",
+            "Leo"
+          ],
+          "camera": "reaction",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      },
+      {
+        "scene_id": "a8fd9dea9bd54e6d891f4de64c59bfc7",
+        "title": "Leo reassures him",
+        "report": {
+          "ok": true,
+          "level": "/Game/StudioProduction/2d00901bd7e74f92bcde093d6b1f5392/Level",
+          "sequence": "/Game/StudioProduction/2d00901bd7e74f92bcde093d6b1f5392/Performance",
+          "duration": 4.0,
+          "characters": [
+            "Rowan",
+            "Leo"
+          ],
+          "camera": "close",
+          "warnings": [
+            "Animation grounding only; no collision simulation",
+            "Rowan native eyelids enabled; lion/cat blinks disabled"
+          ]
+        }
+      }
+    ],
+    "rendered": true,
+    "master": {
+      "ok": true,
+      "level": "/Game/StudioMovies/2690fcb29fe3455c9c307a892cc3476e/MasterLevel",
+      "sequence": "/Game/StudioMovies/2690fcb29fe3455c9c307a892cc3476e/Master",
+      "duration": 11.0,
+      "shots": [
+        {
+          "shot": 1,
+          "spawnables": 3
+        },
+        {
+          "shot": 2,
+          "spawnables": 3
+        },
+        {
+          "shot": 3,
+          "spawnables": 3
+        }
+      ],
+      "audio": "dialogue, twig snap and original procedural music"
+    },
+    "render_history": [
+      {
+        "job_id": "b3790a6d651e41988f69c7870d4e2330",
+        "quality": "draft",
+        "file": "movie-b3790a6d651e41988f69c7870d4e2330.mp4"
+      },
+      {
+        "job_id": "a0f2cb8a954744e9934d938323f7edea",
+        "quality": "draft",
+        "file": "movie-a0f2cb8a954744e9934d938323f7edea.mp4"
+      },
+      {
+        "job_id": "ae66453ba3374754bf8b7f54c9b5d0e3",
+        "quality": "draft",
+        "file": "movie-ae66453ba3374754bf8b7f54c9b5d0e3.mp4"
+      }
+    ],
+    "audio": {
+      "duration": 11.0,
+      "peak": 0.801541039859876,
+      "music": "original procedural score",
+      "effects": "procedural footsteps; not surface-specific"
+    },
+    "quality": "draft"
+  }
+}

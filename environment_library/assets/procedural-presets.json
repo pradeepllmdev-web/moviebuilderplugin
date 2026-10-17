@@ -1,0 +1,105 @@
+[
+  {
+    "id": "preset.building.room",
+    "name": "Modular exterior building",
+    "category": "Architecture",
+    "status": "Supported generator",
+    "description": "200 cm wall/floor grid with door and window openings; flat roof. Basic exterior, not a detailed furnished interior.",
+    "prompt_hint": "Add a small modular building with width_tiles3 and depth_tiles3, placed clear of roads and other buildings.",
+    "preview": "/demos/ModularKit_20261015_114221/preview.png"
+  },
+  {
+    "id": "preset.road.straight",
+    "name": "Two-lane street",
+    "category": "Roads",
+    "status": "Supported generator",
+    "description": "Two 3.5 metre lanes with 1.5 metre pavements. No traffic simulation.",
+    "prompt_hint": "Add a connected straight two-lane road with pavements; north/south tiles use yaw0, east/west tiles use yaw90.",
+    "preview": "/demos/StreetKit_20261015_114550/preview.png"
+  },
+  {
+    "id": "preset.road.cross",
+    "name": "Crossroads",
+    "category": "Roads",
+    "status": "Supported generator",
+    "description": "Four-way junction with crossings. Adjacent road directions are validated.",
+    "prompt_hint": "Use a cross road tile at cell[0,0], yaw0. Extensions at [0,1] and [0,-1] use yaw0, at [1,0] and [-1,0] use yaw90. Keep buildings outside all road tiles.",
+    "preview": "/demos/StreetKit_20261015_114550/preview.png"
+  },
+  {
+    "id": "preset.mountain.alpine",
+    "name": "Alpine mountain backdrop",
+    "category": "Terrain",
+    "status": "Supported generator",
+    "description": "Procedural distant range. Flat foreground; not a downloaded mountain mesh.",
+    "prompt_hint": "Add a mountain backdrop behind the scene at +Y: enabled true, height_cm50000, size_cm180000, distance_cm140000, side_deg90.",
+    "preview": "/demos/PromptSet_93659096671b/preview.png"
+  },
+  {
+    "id": "preset.set.village",
+    "name": "Village starting layout",
+    "category": "Set starters",
+    "status": "Planning template",
+    "description": "A prompt starting point, not a finished dressed set. Generated plans still need review.",
+    "prompt_hint": "Build two modular houses at [-1800,-400] and [1000,-400], each width_tiles3 depth_tiles3, beside one straight road tile cell[0,0] yaw0. Add spruce trees well outside building and road footprints.",
+    "preview": "/demos/PromptSet_93659096671b/preview.png"
+  },
+  {
+    "id": "preset.lighting.golden_hour",
+    "name": "Golden hour",
+    "category": "Lighting",
+    "status": "Supported lighting preset",
+    "description": "Lighting and atmosphere preset; review brightness in the generated preview.",
+    "prompt_hint": "Use lighting mood golden_hour."
+  },
+  {
+    "id": "preset.lighting.morning_fog",
+    "name": "Morning fog",
+    "category": "Lighting",
+    "status": "Supported lighting preset",
+    "description": "Lighting and atmosphere preset; review brightness in the generated preview.",
+    "prompt_hint": "Use lighting mood morning_fog."
+  },
+  {
+    "id": "preset.lighting.overcast_drizzle",
+    "name": "Overcast",
+    "category": "Lighting",
+    "status": "Supported lighting preset",
+    "description": "Lighting and atmosphere preset; review brightness in the generated preview.",
+    "prompt_hint": "Use lighting mood overcast_drizzle."
+  },
+  {
+    "id": "preset.lighting.blue_hour",
+    "name": "Blue hour",
+    "category": "Lighting",
+    "status": "Supported lighting preset",
+    "description": "Lighting and atmosphere preset; review brightness in the generated preview.",
+    "prompt_hint": "Use lighting mood blue_hour."
+  },
+  {
+    "id": "preset.lighting.blockbuster",
+    "name": "Daylight",
+    "category": "Lighting",
+    "status": "Supported lighting preset",
+    "description": "Lighting and atmosphere preset; review brightness in the generated preview.",
+    "prompt_hint": "Use lighting mood blockbuster."
+  },
+  {
+    "id": "preset.weather.rain",
+    "name": "Rain & wet surfaces",
+    "category": "Weather",
+    "status": "Supported prototype",
+    "description": "Particles with configurable intensity/wind. No roof collision, puddles or splashes. Snow cover only on generated ground/roofs.",
+    "prompt_hint": "Use rain weather with intensity0.15, wind_cm_s[30,0], wetness0.8 and snow_cover0.",
+    "preview": "/demos/PromptSet_c2ec4adaca4b/preview.png"
+  },
+  {
+    "id": "preset.weather.snow",
+    "name": "Snowfall & simple snow cover",
+    "category": "Weather",
+    "status": "Supported prototype",
+    "description": "Particles with configurable intensity/wind. No roof collision, puddles or splashes. Snow cover only on generated ground/roofs.",
+    "prompt_hint": "Use snow weather with intensity0.15, wind_cm_s[30,0], snow_cover0.8 and wetness0.",
+    "preview": "/demos/PromptSet_f9144e11985c/preview.png"
+  }
+]

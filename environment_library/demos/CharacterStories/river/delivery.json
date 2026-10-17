@@ -1,0 +1,15 @@
+{
+  "id": "river",
+  "title": "The Floating Crown",
+  "action": "reach",
+  "frames": 82,
+  "fps": 12,
+  "duration": 6.833333333333333,
+  "full_decode_passed": true,
+  "method": "Blender character performance composited over a still Unreal set view; previs, not in-engine interaction",
+  "limitations": [
+    "Still Unreal background plate; Blender foreground composite",
+    "No in-engine contact, occlusion or physically matched shadows",
+    "12 fps previs; facial rig approximations remain"
+  ]
+}

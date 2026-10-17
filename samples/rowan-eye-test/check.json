@@ -1,0 +1,21 @@
+{
+  "character": "Rowan",
+  "controls": {
+    "eyeBlinkLeft": 3,
+    "eyeBlinkRight": 3,
+    "eyeLookInLeft": 4,
+    "eyeLookOutLeft": 4,
+    "eyeLookInRight": 4,
+    "eyeLookOutRight": 4,
+    "eyeLookUpLeft": 4,
+    "eyeLookUpRight": 4,
+    "eyeLookDownLeft": 4,
+    "eyeLookDownRight": 4
+  },
+  "blink_peak_frames": [
+    36,
+    100
+  ],
+  "body_and_speech": "existing animation preserved",
+  "unreal_verified": false
+}

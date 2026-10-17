@@ -1,0 +1,91 @@
+{
+  "id": "c1c9b5870ca64bccad0ed4867e3d223b",
+  "status": "ready",
+  "stage": "Scene plan ready for review",
+  "plan": {
+    "version": 1,
+    "title": "Stationary Conversation in the Forest",
+    "environment": "forest",
+    "mood": "golden_hour",
+    "camera": "full",
+    "actors": [
+      {
+        "character": "lion",
+        "position_cm": [
+          -120,
+          0
+        ],
+        "segments": [
+          {
+            "action": "idle",
+            "duration": 4.0,
+            "look_at": "partner",
+            "dialogue": "Are you still worried?",
+            "look_yaw_deg": 0.0,
+            "look_pitch_deg": 0.0,
+            "emotion": "neutral"
+          },
+          {
+            "action": "talk",
+            "duration": 4.0,
+            "look_at": "partner",
+            "dialogue": "",
+            "look_yaw_deg": 0.0,
+            "look_pitch_deg": 0.0,
+            "emotion": "neutral"
+          }
+        ]
+      },
+      {
+        "character": "cat",
+        "position_cm": [
+          120,
+          0
+        ],
+        "segments": [
+          {
+            "action": "idle",
+            "duration": 4.0,
+            "look_at": "partner",
+            "dialogue": "",
+            "look_yaw_deg": 0.0,
+            "look_pitch_deg": 0.0,
+            "emotion": "neutral"
+          },
+          {
+            "action": "talk",
+            "duration": 4.0,
+            "look_at": "partner",
+            "dialogue": "I feel better now.",
+            "look_yaw_deg": 0.0,
+            "look_pitch_deg": 0.0,
+            "emotion": "neutral"
+          }
+        ]
+      }
+    ],
+    "notes": [],
+    "unsupported": [],
+    "character": "lion",
+    "segments": [
+      {
+        "action": "idle",
+        "duration": 4.0,
+        "look_at": "partner",
+        "dialogue": "Are you still worried?",
+        "look_yaw_deg": 0.0,
+        "look_pitch_deg": 0.0,
+        "emotion": "neutral"
+      },
+      {
+        "action": "talk",
+        "duration": 4.0,
+        "look_at": "partner",
+        "dialogue": "",
+        "look_yaw_deg": 0.0,
+        "look_pitch_deg": 0.0,
+        "emotion": "neutral"
+      }
+    ]
+  }
+}

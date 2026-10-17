@@ -1,0 +1,35 @@
+[
+  {
+    "material": "Rowan-Body.high-poly",
+    "images": [
+      {
+        "name": "brown_eye.png",
+        "path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\rowan-eye-test\\..\\..\\.verification\\mpfb\\assets\\eyes\\materials\\brown_eye.png"
+      },
+      {
+        "name": "brown_eye.png",
+        "path": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\rowan-eye-test\\..\\..\\.verification\\mpfb\\assets\\eyes\\materials\\brown_eye.png"
+      }
+    ],
+    "links": [
+      [
+        "BSDF_PRINCIPLED",
+        "BSDF",
+        "OUTPUT_MATERIAL",
+        "Surface"
+      ],
+      [
+        "TEX_IMAGE",
+        "Color",
+        "BSDF_PRINCIPLED",
+        "Base Color"
+      ],
+      [
+        "TEX_IMAGE",
+        "Alpha",
+        "BSDF_PRINCIPLED",
+        "Alpha"
+      ]
+    ]
+  }
+]

@@ -1,0 +1,694 @@
+{
+  "source_note": "Existing Unreal forest preview used as the reference image; not a new generated image",
+  "reference": "/demos/Walkthrough/reference.png",
+  "result": "/demos/Walkthrough/result.png",
+  "level": "/Game/EnvironmentDemos/ImageSet_90d195163c",
+  "analysis": {
+    "category": "natural_outdoor",
+    "description": "A misty forest clearing with tall coniferous trees, silver birch, and dense undergrowth under soft morning light.",
+    "biome": "nordic_forest",
+    "terrain": "flat",
+    "river": "none",
+    "mountains": false,
+    "mood": "morning_fog",
+    "density": 0.8,
+    "landmarks": [
+      "tall Norway spruce trees",
+      "silver birch trees",
+      "dense grasses and ferns",
+      "Nordic rocks"
+    ],
+    "missing_features": [],
+    "uncertainties": [
+      "unknown scale of trees",
+      "hidden geometry behind fog",
+      "camera angle assumption"
+    ],
+    "camera_priority": "wide_landscape",
+    "source_sha256": "b97b905da45d4ec4af9dc3e3b997695613a1a47ca2658a871e48953de6575304",
+    "analysis_cache_hit": true
+  },
+  "layout": {
+    "width_m": 120,
+    "depth_m": 100,
+    "rivers": [
+      {
+        "points": [
+          [
+            5,
+            28
+          ],
+          [
+            30,
+            36
+          ],
+          [
+            55,
+            42
+          ],
+          [
+            95,
+            30
+          ]
+        ],
+        "width_m": 7
+      }
+    ],
+    "paths": [
+      {
+        "points": [
+          [
+            8,
+            65
+          ],
+          [
+            30,
+            60
+          ],
+          [
+            54,
+            56
+          ],
+          [
+            82,
+            58
+          ]
+        ],
+        "width_m": 3,
+        "style": "dirt"
+      }
+    ],
+    "forests": [
+      {
+        "center": [
+          22,
+          27
+        ],
+        "radius_m": 23,
+        "density": 0.8
+      },
+      {
+        "center": [
+          78,
+          25
+        ],
+        "radius_m": 22,
+        "density": 0.8
+      }
+    ],
+    "clear": [
+      {
+        "center": [
+          52,
+          62
+        ],
+        "radius_m": 10
+      }
+    ],
+    "bridges": [
+      {
+        "river": 0,
+        "at": [
+          55,
+          42
+        ],
+        "width_m": 3
+      }
+    ],
+    "camera": {
+      "position": [
+        42,
+        68
+      ],
+      "target": [
+        55,
+        42
+      ],
+      "height_m": 3.0,
+      "target_height_m": 1.7
+    }
+  },
+  "build": {
+    "label": "ImageSet_90d195163c",
+    "biome": "nordic_forest",
+    "terrain": "flat",
+    "actors": [
+      "ImageSet_90d195163c_Ground",
+      "ImageSet_90d195163c_GroundCover",
+      "ImageSet_90d195163c_ForestRegion_0",
+      "ImageSet_90d195163c_ForestRegion_1"
+    ],
+    "used": {
+      "ground": "Mossy Forest Floor",
+      "slopes": "Rocky Forest Floor",
+      "tree": [
+        "Norway Spruce",
+        "Silver Birch"
+      ],
+      "debris": [
+        "Broken Stump"
+      ],
+      "rock": [
+        "Mossy Forest Rock",
+        "Nordic Beach Rocks"
+      ],
+      "fern": [
+        "Fern"
+      ],
+      "grass": [
+        "Ribbon Grass",
+        "Wild Grass"
+      ],
+      "instances": 13636
+    },
+    "warnings": [],
+    "stage": [
+      0.0,
+      0.0,
+      650.0
+    ],
+    "layout": {
+      "rivers": [
+        {
+          "label": "ImageSet_90d195163c_LayoutRiver_0",
+          "points": [
+            [
+              -5400.0,
+              2200.0
+            ],
+            [
+              -2400.0,
+              1400.0
+            ],
+            [
+              600.0,
+              800.0
+            ],
+            [
+              5400.0,
+              2000.0
+            ]
+          ],
+          "length": 11142.2,
+          "drop": 0.0,
+          "carved": [
+            "ImageSet_90d195163c_Ground"
+          ],
+          "params": {
+            "points": [
+              [
+                -5400.0,
+                2200.0
+              ],
+              [
+                -2400.0,
+                1400.0
+              ],
+              [
+                600.0,
+                800.0
+              ],
+              [
+                5400.0,
+                2000.0
+              ]
+            ],
+            "width": [
+              700.0,
+              700.0
+            ],
+            "depth": 100.0,
+            "bank": 1200.0,
+            "kind": "river",
+            "speed": 150.0,
+            "carve": true,
+            "color": [
+              0.05,
+              0.25,
+              0.22
+            ],
+            "clarity": 0.55
+          }
+        }
+      ],
+      "paths": [
+        {
+          "label": "ImageSet_90d195163c_LayoutPath_0",
+          "length": 8965.0,
+          "lamps": 0,
+          "lights": 0,
+          "forests_regrown": [
+            "ImageSet_90d195163c_GroundCover"
+          ],
+          "points": [
+            [
+              -5040.0,
+              -1500.0
+            ],
+            [
+              -2400.0,
+              -1000.0
+            ],
+            [
+              480.0,
+              -600.0
+            ],
+            [
+              3840.0,
+              -800.0
+            ]
+          ],
+          "params": {
+            "style": "dirt",
+            "lamps": 0.0,
+            "lit": false,
+            "lights": 1.0,
+            "edges": "",
+            "clear_trees": true,
+            "seed": 1,
+            "points": [
+              [
+                -5040.0,
+                -1500.0
+              ],
+              [
+                -2400.0,
+                -1000.0
+              ],
+              [
+                480.0,
+                -600.0
+              ],
+              [
+                3840.0,
+                -800.0
+              ]
+            ],
+            "width": 300.0,
+            "connect": [],
+            "type": "path",
+            "clear": 300.0
+          }
+        }
+      ],
+      "bridges": [
+        {
+          "label": "ImageSet_90d195163c_LayoutBridge_0",
+          "span": 1700.0,
+          "start": [
+            789.2,
+            -36.6
+          ],
+          "end": [
+            626.6,
+            1655.6
+          ],
+          "deck": 120.0,
+          "water": -30.0,
+          "lights": 0,
+          "params": {
+            "style": "wood",
+            "extra": 500.0,
+            "lit": false,
+            "lights": 1.0,
+            "seed": 1,
+            "river": "ImageSet_90d195163c_LayoutRiver_0",
+            "at": [
+              600.0,
+              800.0
+            ],
+            "width": 300.0,
+            "type": "bridge"
+          }
+        }
+      ],
+      "forests": [
+        {
+          "label": "ImageSet_90d195163c_ForestRegion_0",
+          "instances": 9,
+          "by_mesh": {
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_A": 1,
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_B": 0,
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_C": 3,
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_D": 2,
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_A": 1,
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_B": 0,
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_C": 0,
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_D": 2
+          },
+          "params": {
+            "layers": [
+              {
+                "density": 1.4,
+                "scale": [
+                  0.55,
+                  1.0
+                ],
+                "meshes": [
+                  "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_A",
+                  "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_B",
+                  "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_C",
+                  "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_D"
+                ],
+                "within": [
+                  -3360.0,
+                  2300.0,
+                  2300.0
+                ]
+              },
+              {
+                "density": 0.45,
+                "scale": [
+                  0.6,
+                  1.0
+                ],
+                "meshes": [
+                  "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_A",
+                  "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_B",
+                  "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_C",
+                  "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_D"
+                ],
+                "within": [
+                  -3360.0,
+                  2300.0,
+                  2300.0
+                ]
+              }
+            ],
+            "center": [
+              -3360.0,
+              2300.0
+            ],
+            "size": [
+              4600.0,
+              4600.0
+            ],
+            "density": 0.8,
+            "seed": 51,
+            "clear": [
+              [
+                -1100.0,
+                -900.0,
+                450.0
+              ],
+              [
+                240.0,
+                -1200.0,
+                1000.0
+              ]
+            ],
+            "max_slope": 35.0,
+            "tree_line": null,
+            "clumping": 0.5,
+            "clearings": 0.2,
+            "avoid_water": true,
+            "scale": 1.0
+          }
+        },
+        {
+          "label": "ImageSet_90d195163c_ForestRegion_1",
+          "instances": 5,
+          "by_mesh": {
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_A": 1,
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_B": 2,
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_C": 0,
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_D": 0,
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_A": 0,
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_B": 1,
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_C": 1,
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_D": 0
+          },
+          "params": {
+            "layers": [
+              {
+                "density": 1.4,
+                "scale": [
+                  0.55,
+                  1.0
+                ],
+                "meshes": [
+                  "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_A",
+                  "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_B",
+                  "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_C",
+                  "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_D"
+                ],
+                "within": [
+                  3360.0,
+                  2500.0,
+                  2200.0
+                ]
+              },
+              {
+                "density": 0.45,
+                "scale": [
+                  0.6,
+                  1.0
+                ],
+                "meshes": [
+                  "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_A",
+                  "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_B",
+                  "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_C",
+                  "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_D"
+                ],
+                "within": [
+                  3360.0,
+                  2500.0,
+                  2200.0
+                ]
+              }
+            ],
+            "center": [
+              3360.0,
+              2500.0
+            ],
+            "size": [
+              4400.0,
+              4400.0
+            ],
+            "density": 0.8,
+            "seed": 52,
+            "clear": [
+              [
+                -1100.0,
+                -900.0,
+                450.0
+              ],
+              [
+                240.0,
+                -1200.0,
+                1000.0
+              ]
+            ],
+            "max_slope": 35.0,
+            "tree_line": null,
+            "clumping": 0.5,
+            "clearings": 0.2,
+            "avoid_water": true,
+            "scale": 1.0
+          }
+        }
+      ],
+      "clear": [
+        [
+          240.0,
+          -1200.0,
+          1000.0
+        ]
+      ],
+      "ground_cover": {
+        "label": "ImageSet_90d195163c_GroundCover",
+        "instances": 8929,
+        "by_mesh": {
+          "/Game/Fab/Megascans/3D/Broken_Stump_rkswd/Medium/rkswd_tier_2/StaticMeshes/rkswd_tier_2": 57,
+          "/Game/Fab/Megascans/3D/Mossy_Forest_Rock_vimrfjsaw/Medium/vimrfjsaw_tier_2/StaticMeshes/vimrfjsaw_tier_2": 37,
+          "/Game/Fab/Megascans/3D/Nordic_Beach_Rocks_ulznddxva/Medium/ulznddxva_tier_2/StaticMeshes/ulznddxva_tier_2": 32,
+          "/Game/PN_Fern/Meshes/fern_01_01": 252,
+          "/Game/PN_Fern/Meshes/fern_01_02": 268,
+          "/Game/PN_Fern/Meshes/fern_01_03": 281,
+          "/Game/PN_Fern/Meshes/fern_01_04": 259,
+          "/Game/PN_Fern/Meshes/fern_02_01": 292,
+          "/Game/PN_Fern/Meshes/fern_02_02": 272,
+          "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarA": 562,
+          "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarB": 580,
+          "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarC": 616,
+          "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarD": 628,
+          "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarE": 599,
+          "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarF": 620,
+          "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarA": 637,
+          "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarB": 599,
+          "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarC": 588,
+          "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarD": 573,
+          "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarE": 591,
+          "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarF": 586
+        },
+        "params": {
+          "layers": [
+            {
+              "density": 0.3,
+              "scale": [
+                0.8,
+                1.3
+              ],
+              "sink": 8,
+              "meshes": [
+                "/Game/Fab/Megascans/3D/Broken_Stump_rkswd/Medium/rkswd_tier_2/StaticMeshes/rkswd_tier_2"
+              ]
+            },
+            {
+              "density": 0.35,
+              "scale": [
+                0.6,
+                1.6
+              ],
+              "sink": 15,
+              "align": true,
+              "species": "rock",
+              "meshes": [
+                "/Game/Fab/Megascans/3D/Mossy_Forest_Rock_vimrfjsaw/Medium/vimrfjsaw_tier_2/StaticMeshes/vimrfjsaw_tier_2",
+                "/Game/Fab/Megascans/3D/Nordic_Beach_Rocks_ulznddxva/Medium/ulznddxva_tier_2/StaticMeshes/ulznddxva_tier_2"
+              ]
+            },
+            {
+              "density": 40,
+              "scale": [
+                0.8,
+                1.3
+              ],
+              "meshes": [
+                "/Game/PN_Fern/Meshes/fern_01_01",
+                "/Game/PN_Fern/Meshes/fern_01_02",
+                "/Game/PN_Fern/Meshes/fern_01_03",
+                "/Game/PN_Fern/Meshes/fern_01_04",
+                "/Game/PN_Fern/Meshes/fern_02_01",
+                "/Game/PN_Fern/Meshes/fern_02_02"
+              ],
+              "within": [
+                0,
+                0,
+                5000
+              ]
+            },
+            {
+              "density": 2,
+              "scale": [
+                0.8,
+                1.3
+              ],
+              "meshes": [
+                "/Game/PN_Fern/Meshes/fern_01_01",
+                "/Game/PN_Fern/Meshes/fern_01_02",
+                "/Game/PN_Fern/Meshes/fern_01_03",
+                "/Game/PN_Fern/Meshes/fern_01_04",
+                "/Game/PN_Fern/Meshes/fern_02_01",
+                "/Game/PN_Fern/Meshes/fern_02_02"
+              ]
+            },
+            {
+              "density": 260,
+              "scale": [
+                0.8,
+                1.3
+              ],
+              "in_clear": true,
+              "meshes": [
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarA",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarB",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarC",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarD",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarE",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarF",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarA",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarB",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarC",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarD",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarE",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarF"
+              ],
+              "within": [
+                0,
+                0,
+                3000
+              ]
+            },
+            {
+              "density": 60,
+              "scale": [
+                0.8,
+                1.3
+              ],
+              "meshes": [
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarA",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarB",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarC",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarD",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarE",
+                "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarF",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarA",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarB",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarC",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarD",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarE",
+                "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarF"
+              ],
+              "within": [
+                0,
+                0,
+                7000
+              ]
+            }
+          ],
+          "center": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            22000.0,
+            22000.0
+          ],
+          "density": 0.8,
+          "seed": 51,
+          "clear": [
+            [
+              -1100.0,
+              -900.0,
+              450.0
+            ],
+            [
+              240.0,
+              -1200.0,
+              1000.0
+            ]
+          ],
+          "max_slope": 35.0,
+          "tree_line": null,
+          "clumping": 0.5,
+          "clearings": 0.2,
+          "avoid_water": true,
+          "scale": 1.0
+        }
+      }
+    },
+    "level": "/Game/EnvironmentDemos/ImageSet_90d195163c",
+    "camera": {
+      "location": [
+        -960.0,
+        -1800.0,
+        300.0
+      ],
+      "target": [
+        600.0,
+        800.0,
+        170.0
+      ]
+    },
+    "reference_image": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\references\\a1a6ed08d63d44c4a948d37a0b86e7a4.png",
+    "finished_at": 1792073668.6707187
+  },
+  "paid_calls": 0,
+  "verification": {
+    "river_coordinates_preserved_cm": true,
+    "path_created": true,
+    "bridge_created": true,
+    "forest_regions_created": 2
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "prompt": "Create The Lantern Road, a quiet woodland stop in bright morning mist, mood morning_fog. Two small buildings beside one straight road: a ranger hut and a travellers shelter, represented by supported modular buildings. Use one road tile only, straight at cell [0,0] yaw0. Building southwest corners [-1800,-400] and [1000,-400], each width_tiles3 depth_tiles3. Three spruce trees far away at [-3500,-1500], [-3500,1500] and [3500,1500]. Add two rocks at [3500,-1500] and [4500,-1500]. Use installed catalogue IDs and report unsupported architectural details.",
+  "plan": {
+    "mood": "morning_fog",
+    "buildings": [
+      {
+        "position_cm": [
+          -1800,
+          -400
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      },
+      {
+        "position_cm": [
+          1000,
+          -400
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      }
+    ],
+    "roads": [
+      {
+        "id": "main",
+        "kind": "straight",
+        "cell": [
+          0,
+          0
+        ],
+        "yaw": 0
+      }
+    ],
+    "notes": [],
+    "unsupported": [],
+    "assets": [
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          -3500,
+          -1500
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          -3500,
+          1500
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          3500,
+          1500
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "rock.0fcdf9d09c",
+        "position_cm": [
+          3500,
+          -1500
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "rock.0fcdf9d09c",
+        "position_cm": [
+          4500,
+          -1500
+        ],
+        "scale": 1
+      }
+    ]
+  }
+}

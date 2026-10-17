@@ -1,0 +1,99 @@
+{
+  "id": "5b09d55beb5d4b46b91e48488833b9e1",
+  "scene_id": 140,
+  "engine": "combined",
+  "state": "done",
+  "result": {
+    "shots": [
+      {
+        "shot_id": 914,
+        "take": "studio-combined-a2fdeec6506c-914",
+        "image_ids": [
+          1831,
+          1832,
+          1833
+        ],
+        "video_id": 707,
+        "clip": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\studio_data\\jobs\\5b09d55beb5d4b46b91e48488833b9e1\\914\\shot.mp4",
+        "native_request_id": "f640541cc1bb79d6d575e279c25a3a68",
+        "native_scene": "/Game/StudioProduction/f640541cc1bb79d6d575e279c25a3a68/Level",
+        "warnings": [],
+        "performance_package": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\studio_data\\jobs\\a2fdeec6506c47668b218dc41132c824\\914\\performance",
+        "transfer_characters": [
+          {
+            "name": "Amber",
+            "mesh": "/Game/StudioProduction/f640541cc1bb79d6d575e279c25a3a68/Character_0/Amber.Amber",
+            "animation": "/Game/StudioProduction/f640541cc1bb79d6d575e279c25a3a68/Character_0/Amber_Anim.Amber_Anim",
+            "body_tracks": 25,
+            "facial": {
+              "curves": 19,
+              "samples_per_curve": 192,
+              "max_sample_error": 1.5894571969710114e-07,
+              "missing_animated_targets": []
+            }
+          },
+          {
+            "name": "Leo",
+            "mesh": "/Game/StudioProduction/f640541cc1bb79d6d575e279c25a3a68/Character_1/Leo.Leo",
+            "animation": "/Game/StudioProduction/f640541cc1bb79d6d575e279c25a3a68/Character_1/Leo_Anim.Leo_Anim",
+            "body_tracks": 24,
+            "facial": {
+              "curves": 17,
+              "samples_per_curve": 192,
+              "max_sample_error": 1.5894571969710114e-07,
+              "missing_animated_targets": []
+            }
+          }
+        ],
+        "workspace": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\studio_data\\jobs\\5b09d55beb5d4b46b91e48488833b9e1\\914"
+      },
+      {
+        "shot_id": 915,
+        "take": "studio-combined-a2fdeec6506c-915",
+        "image_ids": [
+          1834,
+          1835,
+          1836
+        ],
+        "video_id": 708,
+        "clip": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\studio_data\\jobs\\5b09d55beb5d4b46b91e48488833b9e1\\915\\shot.mp4",
+        "native_request_id": "b3ee842468f069bce086dfde1775ee69",
+        "native_scene": "/Game/StudioProduction/b3ee842468f069bce086dfde1775ee69/Level",
+        "warnings": [],
+        "performance_package": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\studio_data\\jobs\\a2fdeec6506c47668b218dc41132c824\\915\\performance",
+        "transfer_characters": [
+          {
+            "name": "Amber",
+            "mesh": "/Game/StudioProduction/b3ee842468f069bce086dfde1775ee69/Character_0/Amber.Amber",
+            "animation": "/Game/StudioProduction/b3ee842468f069bce086dfde1775ee69/Character_0/Amber_Anim.Amber_Anim",
+            "body_tracks": 25,
+            "facial": {
+              "curves": 19,
+              "samples_per_curve": 192,
+              "max_sample_error": 1.5894571969710114e-07,
+              "missing_animated_targets": []
+            }
+          },
+          {
+            "name": "Leo",
+            "mesh": "/Game/StudioProduction/b3ee842468f069bce086dfde1775ee69/Character_1/Leo.Leo",
+            "animation": "/Game/StudioProduction/b3ee842468f069bce086dfde1775ee69/Character_1/Leo_Anim.Leo_Anim",
+            "body_tracks": 24,
+            "facial": {
+              "curves": 17,
+              "samples_per_curve": 192,
+              "max_sample_error": 1.5894571969710114e-07,
+              "missing_animated_targets": []
+            }
+          }
+        ],
+        "workspace": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\3dobjectnew\\server\\studio_data\\jobs\\5b09d55beb5d4b46b91e48488833b9e1\\915"
+      }
+    ]
+  },
+  "message": "Takes stored in the shots. Review them in Shot images.",
+  "created": 1792101081.188129,
+  "updated": 1792101094.0410368,
+  "phase": "animation",
+  "parent_id": "a2fdeec6506c47668b218dc41132c824"
+}

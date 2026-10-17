@@ -1,0 +1,30 @@
+{
+  "id": "StreetKit_20261015_114550",
+  "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\demos\\StreetKit_20261015_114550",
+  "cameras": {
+    "overview": {
+      "location": [
+        4100,
+        -4900,
+        4200
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    "street": {
+      "location": [
+        450,
+        -2100,
+        180
+      ],
+      "target": [
+        50,
+        0,
+        100
+      ]
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "eye_bones": [],
+  "meshes": [
+    {
+      "name": "char1.001",
+      "eye_controls": []
+    },
+    {
+      "name": "Fresh crease L",
+      "eye_controls": [
+        {
+          "name": "BlinkL",
+          "changed_count": 58,
+          "below_upper_face_count": 20,
+          "max_displacement": 0.04167
+        }
+      ]
+    },
+    {
+      "name": "Fresh crease R",
+      "eye_controls": [
+        {
+          "name": "BlinkR",
+          "changed_count": 58,
+          "below_upper_face_count": 20,
+          "max_displacement": 0.0419
+        }
+      ]
+    },
+    {
+      "name": "Fresh lid L",
+      "eye_controls": [
+        {
+          "name": "BlinkL",
+          "changed_count": 377,
+          "below_upper_face_count": 130,
+          "max_displacement": 0.07619
+        }
+      ]
+    },
+    {
+      "name": "Fresh lid R",
+      "eye_controls": [
+        {
+          "name": "BlinkR",
+          "changed_count": 377,
+          "below_upper_face_count": 130,
+          "max_displacement": 0.07891
+        }
+      ]
+    }
+  ]
+}

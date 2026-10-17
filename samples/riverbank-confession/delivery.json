@@ -1,0 +1,14 @@
+{
+  "title": "No Shortcuts",
+  "duration": 34.958333333333336,
+  "fps": 24,
+  "frames": 839,
+  "full_decode_passed": true,
+  "meshy_calls": 0,
+  "limitations": [
+    "Eye-surface morphs have limited range, not separate eyeballs",
+    "Lip contact and tongue performance remain approximate",
+    "Offline synthesized voices lack directed emotional delivery",
+    "Procedural stylized environment"
+  ]
+}

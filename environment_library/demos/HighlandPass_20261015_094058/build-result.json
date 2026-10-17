@@ -1,0 +1,55 @@
+{
+  "label": "HighlandPass_20261015_094058",
+  "biome": "rocky_highland",
+  "terrain": "valley",
+  "actors": [
+    "HighlandPass_20261015_094058_Ground",
+    "HighlandPass_20261015_094058_Mountains",
+    "HighlandPass_20261015_094058_Forest"
+  ],
+  "used": {
+    "ground": "Rocky Forest Floor",
+    "slopes": "Forest Floor",
+    "mountains": [
+      "dirt",
+      "grass",
+      "rock"
+    ],
+    "tree": [
+      "Norway Spruce"
+    ],
+    "rock": [
+      "Mossy Forest Rock",
+      "Nordic Beach Rocks"
+    ],
+    "cliff": [
+      "Large Nordic Coastal Cliff"
+    ],
+    "grass": [
+      "Ribbon Grass",
+      "Wild Grass"
+    ],
+    "instances": 2431
+  },
+  "warnings": [],
+  "stage": [
+    0.0,
+    0.0,
+    400.0
+  ],
+  "level": "/Game/EnvironmentDemos/HighlandPass_20261015_094058",
+  "camera": {
+    "location": [
+      -1500,
+      -2300,
+      500
+    ],
+    "target": [
+      1000,
+      10000,
+      1500
+    ]
+  },
+  "reference_image": null,
+  "finished_at": 1792075277.064085
+}

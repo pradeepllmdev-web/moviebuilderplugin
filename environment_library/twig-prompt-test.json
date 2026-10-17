@@ -1,0 +1,81 @@
+{
+  "id": "5042ca09caee43d3bbd5e823b74883f1",
+  "status": "ready",
+  "stage": "Scene plan ready for review",
+  "plan": {
+    "version": 1,
+    "title": "Forest Encounter",
+    "environment": "forest",
+    "mood": "golden_hour",
+    "camera": "full",
+    "actors": [
+      {
+        "character": "lion",
+        "position_cm": [
+          -120,
+          0
+        ],
+        "segments": [
+          {
+            "action": "idle",
+            "duration": 6.0,
+            "dialogue": "",
+            "look_yaw_deg": 10.0,
+            "look_pitch_deg": 0.0,
+            "emotion": "neutral"
+          }
+        ]
+      },
+      {
+        "character": "cat",
+        "position_cm": [
+          120,
+          0
+        ],
+        "segments": [
+          {
+            "action": "idle",
+            "duration": 2.0,
+            "dialogue": "",
+            "look_yaw_deg": 0.0,
+            "look_pitch_deg": 0.0,
+            "emotion": "alert"
+          },
+          {
+            "action": "talk",
+            "duration": 4.0,
+            "dialogue": "Did you hear that?",
+            "look_yaw_deg": -30.0,
+            "look_pitch_deg": 2.0,
+            "emotion": "alert"
+          }
+        ]
+      }
+    ],
+    "scene_events": [
+      {
+        "type": "twig_snap",
+        "time": 2
+      }
+    ],
+    "unsupported": [],
+    "notes": [],
+    "character": "lion",
+    "segments": [
+      {
+        "action": "idle",
+        "duration": 6.0,
+        "dialogue": "",
+        "look_yaw_deg": 10.0,
+        "look_pitch_deg": 0.0,
+        "emotion": "neutral"
+      }
+    ],
+    "events": [
+      {
+        "type": "twig_snap",
+        "time": 2
+      }
+    ]
+  }
+}

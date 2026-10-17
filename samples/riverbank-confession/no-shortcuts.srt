@@ -1,0 +1,23 @@
+1
+00:00:01,000 --> 00:00:07,050
+Cat: Leo... I need to tell you something. I took the shortcut.
+
+2
+00:00:08,050 --> 00:00:11,550
+Lion: So... you did not run the whole race?
+
+3
+00:00:12,200 --> 00:00:16,290
+Cat: No. I wanted to win. I am sorry.
+
+4
+00:00:17,290 --> 00:00:22,090
+Lion: Winning is fun. But I thought we were racing together.
+
+5
+00:00:23,090 --> 00:00:27,805
+Cat: Can we try again? No shortcuts this time.
+
+6
+00:00:28,455 --> 00:00:33,295
+Lion: Together. And this time, the loser buys the picnic!

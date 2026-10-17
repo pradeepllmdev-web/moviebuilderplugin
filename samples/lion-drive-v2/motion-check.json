@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "wheels": [
+    {
+      "name": "Supercar_Wheel_FL",
+      "spin_degrees_first": 0.0,
+      "spin_degrees_last": 51133.3828125,
+      "samples": 288
+    },
+    {
+      "name": "Supercar_Wheel_BL",
+      "spin_degrees_first": 0.0,
+      "spin_degrees_last": 48719.20703125,
+      "samples": 288
+    },
+    {
+      "name": "Supercar_Wheel_FR",
+      "spin_degrees_first": 0.0,
+      "spin_degrees_last": 51133.3828125,
+      "samples": 288
+    },
+    {
+      "name": "Supercar_Wheel_BR",
+      "spin_degrees_first": 0.0,
+      "spin_degrees_last": 48719.2109375,
+      "samples": 288
+    }
+  ],
+  "steering_wheel_keys": 288,
+  "driver_scale": 0.85,
+  "physics": "keyframed motion; not vehicle dynamics simulation"
+}

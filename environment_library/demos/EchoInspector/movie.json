@@ -1,0 +1,19 @@
+{
+  "title": "The Echo Inspector",
+  "movie_id": 36,
+  "render_id": 27,
+  "duration": 16,
+  "width": 640,
+  "height": 360,
+  "full_decode_passed": true,
+  "method": "3dobjectnew story/shot records \u2192 Blender performance \u2192 native Unreal rendering \u2192 Movie Builder assembly",
+  "video": "/demos/EchoInspector/the-echo-inspector-v3.mp4",
+  "poster": "/demos/EchoInspector/poster.png",
+  "captions": "/demos/EchoInspector/captions.vtt",
+  "limitations": [
+    "Demo resolution; acting still needs refinement.",
+    "Gentler clip transitions, upper-body smoothing and jaw smoothing applied."
+  ],
+  "revision": 3,
+  "motion_verified": true
+}

@@ -1,0 +1,25 @@
+{
+  "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "name": "test",
+  "status": "running",
+  "stage": null,
+  "completed": [
+    "preflight",
+    "model_and_body_rig",
+    "face_landmarks",
+    "facial_controls",
+    "animation_library",
+    "validation"
+  ],
+  "stages": [
+    "preflight",
+    "model_and_body_rig",
+    "face_landmarks",
+    "facial_controls",
+    "animation_library",
+    "validation",
+    "demo_videos"
+  ],
+  "demos": [],
+  "updated_at": 1792024085.5651524
+}

@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "characters": [
+    {
+      "name": "lion",
+      "parts": [
+        {
+          "mesh": "/Game/PhysicsLab/package_20261015_101957/lion/lion.lion",
+          "animation": "/Game/PhysicsLab/package_20261015_101957/lion/lion_Anim.lion_Anim",
+          "origin": [
+            -7.62939453125e-06,
+            1.1444091796875e-05,
+            90.9319116473198
+          ],
+          "extent": [
+            77.47128295898438,
+            63.5358772277832,
+            92.50000363588333
+          ],
+          "morph_count": 17
+        }
+      ]
+    },
+    {
+      "name": "cat",
+      "parts": [
+        {
+          "mesh": "/Game/PhysicsLab/package_20261015_101957/cat/cat.cat",
+          "animation": "/Game/PhysicsLab/package_20261015_101957/cat/cat_Anim.cat_Anim",
+          "origin": [
+            9.5367431640625e-06,
+            -7.534027099609375e-05,
+            72.86504328250885
+          ],
+          "extent": [
+            53.430341720581055,
+            27.145442008972168,
+            75.0000079870224
+          ],
+          "morph_count": 19
+        }
+      ]
+    }
+  ],
+  "folder": "/Game/PhysicsLab/package_20261015_101957"
+}

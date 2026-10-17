@@ -1,0 +1,20 @@
+{
+  "snow": {
+    "body_reference": "talk_body",
+    "head_reference": "head_attention",
+    "expression_reference": "face_expression",
+    "existing_listening_clip_retained": true,
+    "target_dialogue_lipsync_retained": true,
+    "offset_seconds": 0,
+    "root_and_legs_captured": false
+  },
+  "jacob": {
+    "body_reference": "talk_body",
+    "head_reference": "head_attention",
+    "expression_reference": "face_expression",
+    "existing_listening_clip_retained": true,
+    "target_dialogue_lipsync_retained": true,
+    "offset_seconds": 2,
+    "root_and_legs_captured": false
+  }
+}

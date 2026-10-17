@@ -1,0 +1,18 @@
+{
+  "name": "standing",
+  "clip": "Talking",
+  "frames": 168,
+  "fps": 24,
+  "speed_mps": 0,
+  "circle_radius_m": 0,
+  "vertical_correction_m": 0.02237989753484726,
+  "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-motion-tests\\standing.wav",
+  "text": "Hello! I am Leo. Watch my eyes, my face, and my hands while I speak.",
+  "duration": 7.0,
+  "root_travel_m": 0.0,
+  "limitations": [
+    "prototype eyelid overlays",
+    "mouth corners need refinement",
+    "contact/stride diagnostics require visual review"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "category": "natural_outdoor",
+  "description": "A serene landscape with a winding river through open fields under a golden-hour sky, surrounded by scattered silver birch trees.",
+  "biome": "birch_grove",
+  "terrain": "flat",
+  "river": "near",
+  "mountains": false,
+  "mood": "golden_hour",
+  "density": 0.8,
+  "landmarks": [
+    "winding river",
+    "scattered silver birch trees",
+    "open fields"
+  ],
+  "missing_features": [],
+  "uncertainties": [
+    "unknown scale of river and fields",
+    "hidden river depth and bank structure"
+  ],
+  "camera_priority": "wide_landscape",
+  "source_sha256": "a2e0218ec2a36cc2aff482db87f42a2459c938761f171916c10e92506fb2813f"
+}

@@ -1,0 +1,310 @@
+{
+  "prompt": "Build Summit Crossing, a mountain checkpoint at golden hour, with a clear central crossroads and three small outpost buildings. This is a challenging layout; preserve every requested count and ID.\nRoads exactly five: cross at cell[0,0] yaw0, straight at [0,1] yaw0, straight at [0,-1] yaw0, straight at [1,0] yaw90, straight at [-1,0] yaw90. No other road tiles.\nGenerated buildings exactly three, width_tiles3 depth_tiles3, southwest corners [-2800,1800], [1800,1800], [-2800,-2800]. Do not duplicate buildings as imported assets.\nUse asset furniture.37c976889d twice at [1700,-1800] and [1700,-2400], scale1. Use asset furniture.5b17df60eb once at [2300,-2100], scale1.\nUse asset tree.28534d392b twice at [-5500,3500] and [-5500,-3500], scale0.5. Use asset tree.35f06a0640 twice at [5500,3500] and [5500,-3500], scale0.5.\nUse asset rock.27e7c46097 twice at [-4000,0] and [4000,0], scale0.5.\nA distant mountain range behind at +Y, enabled true, height_cm40000 size_cm180000 distance_cm150000 side_deg90. Mood golden_hour. Keep the foreground flat and clear. No rivers or vehicles. Report unsupported details rather than inventing assets.",
+  "plan": {
+    "mood": "golden_hour",
+    "buildings": [
+      {
+        "position_cm": [
+          -2800,
+          1800
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      },
+      {
+        "position_cm": [
+          1800,
+          1800
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      },
+      {
+        "position_cm": [
+          -2800,
+          -2800
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      }
+    ],
+    "roads": [
+      {
+        "id": "main",
+        "kind": "cross",
+        "cell": [
+          0,
+          0
+        ],
+        "yaw": 0
+      },
+      {
+        "id": "road1",
+        "kind": "straight",
+        "cell": [
+          0,
+          1
+        ],
+        "yaw": 0
+      },
+      {
+        "id": "road2",
+        "kind": "straight",
+        "cell": [
+          0,
+          -1
+        ],
+        "yaw": 0
+      },
+      {
+        "id": "road3",
+        "kind": "straight",
+        "cell": [
+          1,
+          0
+        ],
+        "yaw": 90
+      },
+      {
+        "id": "road4",
+        "kind": "straight",
+        "cell": [
+          -1,
+          0
+        ],
+        "yaw": 90
+      }
+    ],
+    "assets": [
+      {
+        "asset_id": "furniture.37c976889d",
+        "position_cm": [
+          1700,
+          -1800
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "furniture.37c976889d",
+        "position_cm": [
+          1700,
+          -2400
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "furniture.5b17df60eb",
+        "position_cm": [
+          2300,
+          -2100
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          -5500,
+          3500
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "tree.28534d392b",
+        "position_cm": [
+          -5500,
+          -3500
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "tree.35f06a0640",
+        "position_cm": [
+          5500,
+          3500
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "tree.35f06a0640",
+        "position_cm": [
+          5500,
+          -3500
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "rock.27e7c46097",
+        "position_cm": [
+          -4000,
+          0
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "rock.27e7c46097",
+        "position_cm": [
+          4000,
+          0
+        ],
+        "scale": 0.5
+      }
+    ],
+    "mountains": {
+      "enabled": true,
+      "height_cm": 40000,
+      "size_cm": 180000,
+      "distance_cm": 150000,
+      "side_deg": 90
+    },
+    "notes": [],
+    "unsupported": [],
+    "contract_version": 1
+  },
+  "coverage": {
+    "five_road_tiles": true,
+    "three_buildings": true,
+    "two_benches": true,
+    "one_table": true,
+    "four_trees": true,
+    "two_rocks": true,
+    "mountain": true
+  },
+  "result": {
+    "id": "e5e925c3a3b94605bd793d9424df72bf",
+    "status": "complete",
+    "stage": "Environment saved",
+    "preview": "/demos/PromptSet_75c53dbd326e/preview.png",
+    "report": {
+      "placed_assets": [
+        {
+          "id": "furniture.37c976889d",
+          "scale": 0.19148936170212766,
+          "label": "Catalogue_0_furniture"
+        },
+        {
+          "id": "furniture.37c976889d",
+          "scale": 0.19148936170212766,
+          "label": "Catalogue_1_furniture"
+        },
+        {
+          "id": "furniture.5b17df60eb",
+          "scale": 0.19148936170212766,
+          "label": "Catalogue_2_furniture"
+        },
+        {
+          "id": "tree.28534d392b",
+          "scale": 0.5,
+          "label": "Catalogue_3_tree"
+        },
+        {
+          "id": "tree.28534d392b",
+          "scale": 0.5,
+          "label": "Catalogue_4_tree"
+        },
+        {
+          "id": "tree.35f06a0640",
+          "scale": 0.5,
+          "label": "Catalogue_5_tree"
+        },
+        {
+          "id": "tree.35f06a0640",
+          "scale": 0.5,
+          "label": "Catalogue_6_tree"
+        },
+        {
+          "id": "rock.27e7c46097",
+          "scale": 0.5,
+          "label": "Catalogue_7_rock"
+        },
+        {
+          "id": "rock.27e7c46097",
+          "scale": 0.5,
+          "label": "Catalogue_8_rock"
+        }
+      ],
+      "mountains": {
+        "label": "PromptMountainBackdrop",
+        "params": {
+          "template": "alpine_range",
+          "shape": "range",
+          "size": 180000.0,
+          "height": 40000.0,
+          "sharpness": 0.7,
+          "roughness": 0.6,
+          "erosion": 0.5,
+          "snow_line": 0.55,
+          "rock_slope": 34.0,
+          "seed": 51,
+          "rotation": 180.0,
+          "edge_falloff": 0.12,
+          "crater": 0.5,
+          "terraces": 4,
+          "resolution": 96,
+          "uv_tile": 2000.0,
+          "colors": {
+            "grass": [
+              0.16,
+              0.24,
+              0.09
+            ],
+            "rock": [
+              0.29,
+              0.27,
+              0.25
+            ],
+            "snow": [
+              0.9,
+              0.92,
+              0.95
+            ],
+            "dirt": [
+              0.24,
+              0.18,
+              0.12
+            ]
+          },
+          "textures": {}
+        },
+        "peak_height": 40524.0,
+        "vertices": 9216
+      },
+      "reference_analysis": null,
+      "contract_version": 1,
+      "level": "/Game/EnvironmentDemos/PromptSet_75c53dbd326e",
+      "biome": "prompt_modular_set",
+      "warnings": [
+        "Blockout architecture; no traffic or automatic navigation."
+      ],
+      "cameras": {
+        "overview": {
+          "location": [
+            4100,
+            -4900,
+            4200
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ]
+        },
+        "street": {
+          "location": [
+            1600,
+            -6500,
+            2400
+          ],
+          "target": [
+            0,
+            1800,
+            1600
+          ]
+        }
+      },
+      "part_count": 8,
+      "connection_count": 4,
+      "open_end_count": 4,
+      "box_count": 206
+    }
+  }
+}

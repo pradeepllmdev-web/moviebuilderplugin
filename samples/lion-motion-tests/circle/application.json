@@ -1,0 +1,24 @@
+{
+  "name": "circle",
+  "clip": "Mixamo_Running",
+  "frames": 205,
+  "fps": 24,
+  "speed_mps": 0.89,
+  "circle_radius_m": 1.2110895394577776,
+  "vertical_correction_m": 0.021324649453163147,
+  "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-motion-tests\\circle.wav",
+  "text": "Around the track I go! Watch my turns, my stride, and my balance as I race.",
+  "duration": 8.541666666666666,
+  "root_travel_m": 7.565,
+  "limitations": [
+    "prototype eyelid overlays",
+    "mouth corners need refinement",
+    "contact/stride diagnostics require visual review"
+  ],
+  "contact_correction": {
+    "plant_frames": 107,
+    "final_path_offset_m": 0.0022723151765691525,
+    "method": "low ankle contact lock in world XY; flight unchanged",
+    "limitation": "toe roll and exact circular lap closure still require review"
+  }
+}

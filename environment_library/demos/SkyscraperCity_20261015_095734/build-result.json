@@ -1,0 +1,289 @@
+{
+  "level": "/Game/EnvironmentDemos/SkyscraperCity_20261015_095734",
+  "biome": "skyscraper_city",
+  "warnings": [],
+  "buildings": [
+    {
+      "location_cm": [
+        -15000,
+        -15000,
+        0
+      ],
+      "height_m": 137.0,
+      "width_m": 35.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        -15000,
+        -5000,
+        0
+      ],
+      "height_m": 129.4,
+      "width_m": 42.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        -15000,
+        5000,
+        0
+      ],
+      "height_m": 213.0,
+      "width_m": 43.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        -15000,
+        15000,
+        0
+      ],
+      "height_m": 251.0,
+      "width_m": 46.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        -15000,
+        25000,
+        0
+      ],
+      "height_m": 159.8,
+      "width_m": 41.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        -5000,
+        -15000,
+        0
+      ],
+      "height_m": 235.8,
+      "width_m": 31.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        -5000,
+        -5000,
+        0
+      ],
+      "height_m": 167.4,
+      "width_m": 43.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        -5000,
+        5000,
+        0
+      ],
+      "height_m": 118.0,
+      "width_m": 43.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        -5000,
+        15000,
+        0
+      ],
+      "height_m": 235.8,
+      "width_m": 43.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        -5000,
+        25000,
+        0
+      ],
+      "height_m": 80.0,
+      "width_m": 35.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        5000,
+        -15000,
+        0
+      ],
+      "height_m": 232.0,
+      "width_m": 35.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        5000,
+        -5000,
+        0
+      ],
+      "height_m": 258.6,
+      "width_m": 50.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        5000,
+        5000,
+        0
+      ],
+      "height_m": 600.0,
+      "width_m": 60.0,
+      "landmark": true
+    },
+    {
+      "location_cm": [
+        5000,
+        15000,
+        0
+      ],
+      "height_m": 194.0,
+      "width_m": 47.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        5000,
+        25000,
+        0
+      ],
+      "height_m": 171.2,
+      "width_m": 37.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        15000,
+        -15000,
+        0
+      ],
+      "height_m": 159.8,
+      "width_m": 33.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        15000,
+        -5000,
+        0
+      ],
+      "height_m": 99.0,
+      "width_m": 49.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        15000,
+        5000,
+        0
+      ],
+      "height_m": 83.8,
+      "width_m": 31.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        15000,
+        15000,
+        0
+      ],
+      "height_m": 159.8,
+      "width_m": 41.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        15000,
+        25000,
+        0
+      ],
+      "height_m": 235.8,
+      "width_m": 38.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        25000,
+        -15000,
+        0
+      ],
+      "height_m": 152.2,
+      "width_m": 42.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        25000,
+        -5000,
+        0
+      ],
+      "height_m": 159.8,
+      "width_m": 37.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        25000,
+        5000,
+        0
+      ],
+      "height_m": 167.4,
+      "width_m": 30.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        25000,
+        15000,
+        0
+      ],
+      "height_m": 148.4,
+      "width_m": 47.0,
+      "landmark": false
+    },
+    {
+      "location_cm": [
+        25000,
+        25000,
+        0
+      ],
+      "height_m": 220.6,
+      "width_m": 44.0,
+      "landmark": false
+    }
+  ],
+  "architectural_pieces": 824,
+  "cameras": {
+    "skyline": {
+      "location": [
+        -65000,
+        -85000,
+        40000
+      ],
+      "target": [
+        3000,
+        4000,
+        22000
+      ]
+    },
+    "street": {
+      "location": [
+        0,
+        -16000,
+        180
+      ],
+      "target": [
+        5000,
+        5000,
+        21000
+      ]
+    }
+  },
+  "limitations": [
+    "Procedural opaque reflective facades, not individual furnished interiors",
+    "No traffic or crowds",
+    "Roads and fa\u00e7ades need production detail"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "BeechSanctuary_20261015_094058",
+  "params": {
+    "biome": "beech_woods",
+    "terrain": "meadow",
+    "river": "none",
+    "mountains": false,
+    "mood": "blockbuster",
+    "density": 1.15,
+    "size": 24000,
+    "stage_radius": 250,
+    "seed": 91,
+    "label": "BeechSanctuary_20261015_094058"
+  },
+  "camera": {
+    "location": [
+      -850,
+      -1100,
+      210
+    ],
+    "target": [
+      550,
+      1800,
+      260
+    ]
+  }
+}

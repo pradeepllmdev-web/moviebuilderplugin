@@ -1,0 +1,13 @@
+{
+  "frames": 168,
+  "jaw_range": [
+    0.0,
+    0.800000011920929
+  ],
+  "blink_peak": 0.9358974099159241,
+  "max_foot_step_m": 0.14212306195474744,
+  "estimated_low_foot_sliding_mps_median": 4.470348358154297e-08,
+  "estimated_low_foot_sliding_mps_max": 4.57763671875e-05,
+  "contact_measurement": "ankle-height heuristic; not sole contact certification",
+  "status": "diagnostic preview; not perfect-model certification"
+}

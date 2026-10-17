@@ -1,0 +1,66 @@
+{
+  "source": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\blendplugin-next\\verification\\lion-detailed\\authored_probe.blend",
+  "bones": [
+    "mixamorig:Hips",
+    "mixamorig:Spine",
+    "mixamorig:Spine1",
+    "mixamorig:Spine2",
+    "mixamorig:Neck",
+    "mixamorig:Head",
+    "mixamorig:HeadTop_End",
+    "headfront",
+    "mixamorig:LeftShoulder",
+    "mixamorig:LeftArm",
+    "mixamorig:LeftForeArm",
+    "mixamorig:LeftHand",
+    "mixamorig:LeftHandMiddle4",
+    "mixamorig:RightShoulder",
+    "mixamorig:RightArm",
+    "mixamorig:RightForeArm",
+    "mixamorig:RightHand",
+    "mixamorig:RightHandMiddle4",
+    "mixamorig:LeftUpLeg",
+    "mixamorig:LeftLeg",
+    "mixamorig:LeftFoot",
+    "mixamorig:LeftToeBase",
+    "mixamorig:LeftToe_End",
+    "mixamorig:RightUpLeg",
+    "mixamorig:RightLeg",
+    "mixamorig:RightFoot",
+    "mixamorig:RightToeBase",
+    "mixamorig:RightToe_End"
+  ],
+  "face_version": 4,
+  "face_marks": {
+    "chin": 1.098690769886105,
+    "tip": 1.24293319599319,
+    "mid": -0.0009351994473642359,
+    "head_y": -0.09702712297439575
+  },
+  "meshes": [
+    {
+      "name": "Lion_Realistic InnerMouth",
+      "shape_keys": [],
+      "armature_bound": true
+    },
+    {
+      "name": "output_unwrapped",
+      "shape_keys": [
+        "Basis",
+        "Lion_JawOpen",
+        "Lion_Round",
+        "Lion_Wide",
+        "Lion_Close",
+        "Lion_Press",
+        "Lion_Blink_L",
+        "Lion_Blink_R",
+        "Smile",
+        "Frown",
+        "BrowUp",
+        "BrowAngry",
+        "BrowSad"
+      ],
+      "armature_bound": true
+    }
+  ]
+}

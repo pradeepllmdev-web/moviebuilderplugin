@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "states": {
+    "cat_walk": {
+      "animation": "/Game/DeliveryStudies/actions_20261015_110818/cat_walk/cat_walk.cat_walk",
+      "character": "cat",
+      "speed_cm_s": 49.5,
+      "duration": 1.0833333730697632
+    },
+    "cat_idle": {
+      "animation": "/Game/DeliveryStudies/actions_20261015_110818/cat_idle/cat_idle.cat_idle",
+      "character": "cat",
+      "speed_cm_s": 0,
+      "duration": 9.958333015441895
+    },
+    "cat_recoil": {
+      "animation": "/Game/DeliveryStudies/actions_20261015_110818/cat_recoil/cat_recoil.cat_recoil",
+      "character": "cat",
+      "speed_cm_s": 0,
+      "duration": 1.625
+    },
+    "lion_idle": {
+      "animation": "/Game/DeliveryStudies/actions_20261015_110818/lion_idle/lion_idle.lion_idle",
+      "character": "lion",
+      "speed_cm_s": 0,
+      "duration": 9.958333015441895
+    },
+    "lion_walk": {
+      "animation": "/Game/DeliveryStudies/actions_20261015_110818/lion_walk/lion_walk.lion_walk",
+      "character": "lion",
+      "speed_cm_s": 53.6,
+      "duration": 1.0833333730697632
+    },
+    "lion_help": {
+      "animation": "/Game/DeliveryStudies/actions_20261015_110818/lion_help/lion_help.lion_help",
+      "character": "lion",
+      "speed_cm_s": 0,
+      "duration": 4.708333492279053
+    }
+  },
+  "folder": "/Game/DeliveryStudies/actions_20261015_110818"
+}

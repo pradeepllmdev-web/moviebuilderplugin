@@ -1,0 +1,101 @@
+{
+  "assets": {
+    "cliff": [
+      {
+        "name": "Large Nordic Coastal Cliff",
+        "count": 1
+      }
+    ],
+    "debris": [
+      {
+        "name": "Broken Stump",
+        "count": 1
+      }
+    ],
+    "fern": [
+      {
+        "name": "Fern",
+        "count": 37
+      }
+    ],
+    "grass": [
+      {
+        "name": "Ribbon Grass",
+        "count": 6
+      },
+      {
+        "name": "Wild Grass",
+        "count": 8
+      }
+    ],
+    "rock": [
+      {
+        "name": "Mossy Forest Rock",
+        "count": 1
+      },
+      {
+        "name": "Nordic Beach Rocks",
+        "count": 1
+      }
+    ],
+    "surface": [
+      {
+        "name": "Forest Floor",
+        "role": "forest",
+        "count": 0
+      },
+      {
+        "name": "Mossy Forest Floor",
+        "role": "moss",
+        "count": 0
+      },
+      {
+        "name": "Rocky Forest Floor",
+        "role": "rocky",
+        "count": 0
+      },
+      {
+        "name": "Uncut Grass",
+        "role": "grass",
+        "count": 0
+      }
+    ],
+    "tree": [
+      {
+        "name": "European Beech",
+        "group": "broadleaf",
+        "count": 4
+      },
+      {
+        "name": "Norway Spruce",
+        "group": "conifer",
+        "count": 4
+      },
+      {
+        "name": "Silver Birch",
+        "group": "birch",
+        "count": 4
+      }
+    ]
+  },
+  "biomes": {
+    "nordic_forest": "dark spruce forest with birches, mossy rocks, ferns, fallen wood",
+    "birch_grove": "light birch woods over a grassy floor",
+    "beech_woods": "tall broadleaf woods, open underneath, ferns and leaf litter",
+    "meadow": "open grassland with a few trees and rocks; wide skies",
+    "rocky_highland": "windswept rocky hills, scattered conifers, boulders"
+  },
+  "all_biomes": {
+    "nordic_forest": "dark spruce forest with birches, mossy rocks, ferns, fallen wood",
+    "birch_grove": "light birch woods over a grassy floor",
+    "beech_woods": "tall broadleaf woods, open underneath, ferns and leaf litter",
+    "meadow": "open grassland with a few trees and rocks; wide skies",
+    "rocky_highland": "windswept rocky hills, scattered conifers, boulders"
+  },
+  "terrains": [
+    "flat",
+    "meadow",
+    "hills",
+    "valley"
+  ]
+}

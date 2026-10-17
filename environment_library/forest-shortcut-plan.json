@@ -1,0 +1,412 @@
+{
+  "version": 1,
+  "title": "The Forest Shortcut",
+  "unsupported": [],
+  "shots": [
+    {
+      "version": 1,
+      "title": "Establishing Shot",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "full",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "A shortcut through the trees!",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            }
+          ]
+        },
+        {
+          "character": "rowan",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "type": "wind_gust",
+          "time": 0.6,
+          "duration": 2
+        }
+      ],
+      "notes": [],
+      "unsupported": [],
+      "environment_id": "RealisticRiver_20261015_093641",
+      "character": "lion",
+      "segments": [
+        {
+          "action": "idle",
+          "duration": 5.0,
+          "dialogue": "A shortcut through the trees!",
+          "look_yaw_deg": 0.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "neutral"
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "Rowan's Reaction",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "reaction",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "",
+              "look_yaw_deg": 10.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "curious"
+            }
+          ]
+        },
+        {
+          "character": "rowan",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "Wait. Listen to those branches.",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "unsupported": [],
+      "environment_id": "RealisticRiver_20261015_093641",
+      "character": "lion",
+      "segments": [
+        {
+          "action": "idle",
+          "duration": 5.0,
+          "dialogue": "",
+          "look_yaw_deg": 10.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "curious"
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "Falling Branch",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "medium",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "Stay there. I will check.",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 2.0,
+              "emotion": "alert"
+            }
+          ]
+        },
+        {
+          "character": "rowan",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "alert"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "type": "branch_fall",
+          "time": 1,
+          "duration": 1,
+          "position_cm": [
+            0,
+            200
+          ],
+          "length_cm": 90
+        }
+      ],
+      "notes": [],
+      "unsupported": [],
+      "environment_id": "RealisticRiver_20261015_093641",
+      "character": "lion",
+      "segments": [
+        {
+          "action": "idle",
+          "duration": 5.0,
+          "dialogue": "Stay there. I will check.",
+          "look_yaw_deg": 0.0,
+          "look_pitch_deg": 2.0,
+          "emotion": "alert"
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "Leo Checks Ahead",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "full",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "walk",
+              "duration": 2.0,
+              "distance_cm": 100.0,
+              "radius_cm": 100,
+              "gap_cm": 40,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            },
+            {
+              "action": "idle",
+              "duration": 3.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            }
+          ]
+        },
+        {
+          "character": "rowan",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "unsupported": [],
+      "environment_id": "RealisticRiver_20261015_093641",
+      "character": "lion",
+      "segments": [
+        {
+          "action": "walk",
+          "duration": 2.0,
+          "distance_cm": 100.0,
+          "radius_cm": 100,
+          "gap_cm": 40,
+          "dialogue": "",
+          "look_yaw_deg": 0.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "neutral"
+        },
+        {
+          "action": "idle",
+          "duration": 3.0,
+          "dialogue": "",
+          "look_yaw_deg": 0.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "neutral"
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "Leo's Fast Check",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "full",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "run",
+              "duration": 2.0,
+              "distance_cm": 200.0,
+              "radius_cm": 100,
+              "gap_cm": 40,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            },
+            {
+              "action": "idle",
+              "duration": 3.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            }
+          ]
+        },
+        {
+          "character": "rowan",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "unsupported": [],
+      "environment_id": "RealisticRiver_20261015_093641",
+      "character": "lion",
+      "segments": [
+        {
+          "action": "run",
+          "duration": 2.0,
+          "distance_cm": 200.0,
+          "radius_cm": 100,
+          "gap_cm": 40,
+          "dialogue": "",
+          "look_yaw_deg": 0.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "neutral"
+        },
+        {
+          "action": "idle",
+          "duration": 3.0,
+          "dialogue": "",
+          "look_yaw_deg": 0.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "neutral"
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "title": "Final Direction",
+      "environment": "forest",
+      "mood": "morning_fog",
+      "camera": "close",
+      "actors": [
+        {
+          "character": "lion",
+          "position_cm": [
+            -120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "This way is clear. Come on!",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "neutral"
+            }
+          ]
+        },
+        {
+          "character": "rowan",
+          "position_cm": [
+            120,
+            0
+          ],
+          "segments": [
+            {
+              "action": "idle",
+              "duration": 5.0,
+              "dialogue": "",
+              "look_yaw_deg": 0.0,
+              "look_pitch_deg": 0.0,
+              "emotion": "reassuring"
+            }
+          ]
+        }
+      ],
+      "notes": [],
+      "unsupported": [],
+      "environment_id": "RealisticRiver_20261015_093641",
+      "character": "lion",
+      "segments": [
+        {
+          "action": "idle",
+          "duration": 5.0,
+          "dialogue": "This way is clear. Come on!",
+          "look_yaw_deg": 0.0,
+          "look_pitch_deg": 0.0,
+          "emotion": "neutral"
+        }
+      ]
+    }
+  ]
+}

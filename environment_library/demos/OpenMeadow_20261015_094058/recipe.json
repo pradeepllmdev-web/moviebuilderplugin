@@ -1,0 +1,27 @@
+{
+  "id": "OpenMeadow_20261015_094058",
+  "params": {
+    "biome": "meadow",
+    "terrain": "meadow",
+    "river": "none",
+    "mountains": true,
+    "mood": "golden_hour",
+    "density": 1.35,
+    "size": 30000,
+    "stage_radius": 350,
+    "seed": 92,
+    "label": "OpenMeadow_20261015_094058"
+  },
+  "camera": {
+    "location": [
+      -1800,
+      -2200,
+      450
+    ],
+    "target": [
+      500,
+      8000,
+      600
+    ]
+  }
+}

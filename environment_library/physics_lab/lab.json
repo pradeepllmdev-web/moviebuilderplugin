@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "level": "/Game/EnvironmentDemos/AnimalPhysics_20261015_103508",
+  "characters": [
+    {
+      "name": "lion",
+      "actor": "Physics_lion",
+      "height_cm": 185,
+      "mesh": "/Game/PhysicsLab/package_20261015_101957/lion/lion.lion",
+      "animation": "/Game/PhysicsLab/package_20261015_101957/lion/lion_Anim.lion_Anim",
+      "capsule_half_height": 92.5,
+      "mesh_offset": [
+        7.62939453125e-06,
+        -1.1444091796875e-05,
+        -90.9319116473198
+      ]
+    },
+    {
+      "name": "cat",
+      "actor": "Physics_cat",
+      "height_cm": 150,
+      "mesh": "/Game/PhysicsLab/package_20261015_101957/cat/cat.cat",
+      "animation": "/Game/PhysicsLab/package_20261015_101957/cat/cat_Anim.cat_Anim",
+      "capsule_half_height": 75.0,
+      "mesh_offset": [
+        -9.5367431640625e-06,
+        7.534027099609375e-05,
+        -72.86504328250885
+      ]
+    }
+  ],
+  "crate_mass_kg": 18,
+  "camera": {
+    "location": [
+      -1400,
+      -2100,
+      1000
+    ],
+    "target": [
+      0,
+      0,
+      220
+    ]
+  },
+  "status": "Character grounding and rigid-body test arena; foot IK and natural hit reactions are not implemented"
+}

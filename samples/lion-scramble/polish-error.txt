@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/run_scramble_polish_checked.py", line 11, in <module>
+    mesh=a.static_mesh_component.get_static_mesh();bounds=mesh.get_bounds();size=rng.uniform(.5,.85);x=rng.choice([-1,1])*rng.uniform(95,150);y=rng.uniform(-10,170)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StaticMeshComponent' object has no attribute 'get_static_mesh'

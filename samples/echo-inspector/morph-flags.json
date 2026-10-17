@@ -1,0 +1,38 @@
+[
+  {
+    "shot": 914,
+    "name": "Amber",
+    "flags": {
+      "JawClose": true,
+      "BlinkL": true,
+      "BlinkR": true
+    }
+  },
+  {
+    "shot": 914,
+    "name": "Leo",
+    "flags": {
+      "JawOpen": true,
+      "BlinkL": true,
+      "BlinkR": true
+    }
+  },
+  {
+    "shot": 915,
+    "name": "Amber",
+    "flags": {
+      "JawClose": true,
+      "BlinkL": true,
+      "BlinkR": true
+    }
+  },
+  {
+    "shot": 915,
+    "name": "Leo",
+    "flags": {
+      "JawOpen": true,
+      "BlinkL": true,
+      "BlinkR": true
+    }
+  }
+]

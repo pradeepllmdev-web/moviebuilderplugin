@@ -1,0 +1,160 @@
+{
+  "level": "/Game/EnvironmentDemos/ModernHouse_20261015_095225_LightingFixed",
+  "biome": "modern_house",
+  "warnings": [],
+  "architectural_pieces": 63,
+  "cameras": {
+    "interior": {
+      "location": [
+        -280,
+        -210,
+        165
+      ],
+      "target": [
+        90,
+        150,
+        125
+      ]
+    },
+    "exterior": {
+      "location": [
+        1200,
+        -1600,
+        500
+      ],
+      "target": [
+        0,
+        -50,
+        140
+      ]
+    }
+  },
+  "floorplan_cm": {
+    "width": 800,
+    "depth": 600,
+    "height": 320,
+    "entrance_x": [
+      250,
+      350
+    ]
+  },
+  "planting": {
+    "label": "HouseLandscape",
+    "instances": 10255,
+    "by_mesh": {
+      "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_A": 6,
+      "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_B": 5,
+      "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_C": 3,
+      "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_D": 4,
+      "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_A": 3,
+      "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_B": 2,
+      "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_C": 3,
+      "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_D": 2,
+      "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_A": 6,
+      "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_B": 4,
+      "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_C": 3,
+      "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_D": 4,
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarA": 1263,
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarB": 1248,
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarC": 1264,
+      "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarD": 1251,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarA": 1290,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarB": 1276,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarC": 1240,
+      "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarD": 1367,
+      "/Game/Fab/Megascans/3D/Mossy_Forest_Rock_vimrfjsaw/Medium/vimrfjsaw_tier_2/StaticMeshes/vimrfjsaw_tier_2": 8,
+      "/Game/Fab/Megascans/3D/Nordic_Beach_Rocks_ulznddxva/Medium/ulznddxva_tier_2/StaticMeshes/ulznddxva_tier_2": 3
+    },
+    "params": {
+      "layers": [
+        {
+          "meshes": [
+            "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_A",
+            "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_B",
+            "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_C",
+            "/Game/Megaplant_Library/Tree_European_Beech/Tree_European_Beech_01/Tree_European_Beech_01_D",
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_A",
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_B",
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_C",
+            "/Game/Megaplant_Library/Tree_Norway_Spruce/Tree_Norway_Spruce_01/Tree_Norway_Spruce_01_D",
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_A",
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_B",
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_C",
+            "/Game/Megaplant_Library/Tree_Silver_Birch/Tree_Silver_Birch_01/Tree_Silver_Birch_01_D"
+          ],
+          "density": 0.8,
+          "scale": [
+            0.65,
+            1
+          ],
+          "within": [
+            0,
+            0,
+            6500
+          ]
+        },
+        {
+          "meshes": [
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarA",
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarB",
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarC",
+            "/Game/Fab/Megascans/Plants/Ribbon_Grass_tbdpec3r/Raw/tbdpec3r_tier_0/StaticMeshes/SM_tbdpec3r_VarD",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarA",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarB",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarC",
+            "/Game/Fab/Megascans/Plants/Wild_Grass_vlkhcbxia/Raw/vlkhcbxia_tier_0/StaticMeshes/SM_vlkhcbxia_VarD"
+          ],
+          "density": 160,
+          "scale": [
+            0.8,
+            1.3
+          ],
+          "within": [
+            0,
+            0,
+            6500
+          ]
+        },
+        {
+          "meshes": [
+            "/Game/Fab/Megascans/3D/Mossy_Forest_Rock_vimrfjsaw/Medium/vimrfjsaw_tier_2/StaticMeshes/vimrfjsaw_tier_2",
+            "/Game/Fab/Megascans/3D/Nordic_Beach_Rocks_ulznddxva/Medium/ulznddxva_tier_2/StaticMeshes/ulznddxva_tier_2"
+          ],
+          "density": 0.15,
+          "scale": [
+            0.4,
+            0.8
+          ],
+          "within": [
+            0,
+            0,
+            6500
+          ]
+        }
+      ],
+      "size": [
+        14000.0,
+        14000.0
+      ],
+      "density": 1.0,
+      "seed": 111,
+      "clear": [
+        [
+          0.0,
+          0.0,
+          900.0
+        ]
+      ],
+      "center": [
+        0.0,
+        0.0
+      ],
+      "max_slope": 35.0,
+      "tree_line": null,
+      "clumping": 0.5,
+      "clearings": 0.2,
+      "avoid_water": true,
+      "scale": 1.0
+    }
+  }
+}

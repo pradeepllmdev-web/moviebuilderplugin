@@ -1,0 +1,30 @@
+{
+  "schema": "body-retarget/1",
+  "anatomy": "biped",
+  "alignment_bone": "DEF-Spine",
+  "source_alignment": "Spine",
+  "gesture_strength": 0.55,
+  "mapping": {
+    "Spine": "FK-Spine",
+    "Spine2": "FK-Chest",
+    "LeftArm": "FK-UpperArm.L",
+    "LeftForeArm": "FK-Forearm.L",
+    "LeftHand": "FK-Wrist.L",
+    "RightArm": "FK-UpperArm.R",
+    "RightForeArm": "FK-Forearm.R",
+    "RightHand": "FK-Wrist.R"
+  },
+  "properties": [
+    {
+      "bone": "Properties",
+      "name": "ik_left_upperarm",
+      "value": 0.0
+    },
+    {
+      "bone": "Properties",
+      "name": "ik_right_upperarm",
+      "value": 0.0
+    }
+  ],
+  "limits": "Stationary upper-body talk/listen. No locomotion, hand contacts, fingers, or quadrupeds."
+}

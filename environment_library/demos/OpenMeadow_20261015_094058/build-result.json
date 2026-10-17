@@ -1,0 +1,54 @@
+{
+  "label": "OpenMeadow_20261015_094058",
+  "biome": "meadow",
+  "terrain": "meadow",
+  "actors": [
+    "OpenMeadow_20261015_094058_Ground",
+    "OpenMeadow_20261015_094058_Mountains",
+    "OpenMeadow_20261015_094058_Forest"
+  ],
+  "used": {
+    "ground": "Uncut Grass",
+    "slopes": "Rocky Forest Floor",
+    "mountains": [
+      "dirt",
+      "grass",
+      "rock"
+    ],
+    "tree": [
+      "European Beech",
+      "Norway Spruce",
+      "Silver Birch"
+    ],
+    "rock": [
+      "Mossy Forest Rock",
+      "Nordic Beach Rocks"
+    ],
+    "grass": [
+      "Ribbon Grass",
+      "Wild Grass"
+    ],
+    "instances": 8186
+  },
+  "warnings": [],
+  "stage": [
+    0.0,
+    0.0,
+    350.0
+  ],
+  "level": "/Game/EnvironmentDemos/OpenMeadow_20261015_094058",
+  "camera": {
+    "location": [
+      -1800,
+      -2200,
+      450
+    ],
+    "target": [
+      500,
+      8000,
+      600
+    ]
+  },
+  "reference_image": null,
+  "finished_at": 1792075268.6332364
+}

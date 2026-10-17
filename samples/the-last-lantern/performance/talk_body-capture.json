@@ -1,0 +1,14 @@
+{
+  "reference": "talk_body",
+  "types": [
+    "talk_gestures"
+  ],
+  "frames": 204,
+  "duration": 13.533333333333333,
+  "tracking_coverage": 0.8921568627450981,
+  "source_fps": 30.0,
+  "source": "https://www.pexels.com/video/a-man-talking-and-doing-hand-gestures-8550366/",
+  "author": "Kindel Media",
+  "status": "captured; retarget/visual review still required",
+  "maximum_interpolated_gap_seconds": 0.8000000000000007
+}

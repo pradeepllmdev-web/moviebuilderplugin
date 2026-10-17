@@ -1,0 +1,19 @@
+{
+  "snow": {
+    "jaw_control_difference_degrees": 0.03956468205889273,
+    "hand_motion_metres": 0.21552665535036267,
+    "hand_change_from_previous_metres": 0.20520956866455836,
+    "foot_probes": 2,
+    "foot_position_difference_metres": 0.0,
+    "root_position_difference_metres": 0.0
+  },
+  "jacob": {
+    "jaw_control_difference_degrees": 0.0,
+    "hand_motion_metres": 0.3346957984260011,
+    "hand_change_from_previous_metres": 0.6040770672192705,
+    "foot_probes": 4,
+    "foot_position_difference_metres": 0.0,
+    "root_position_difference_metres": 0.0
+  },
+  "passed": true
+}

@@ -1,0 +1,15 @@
+{
+  "id": "woodland",
+  "title": "The Tiny Giant",
+  "action": "crouch",
+  "frames": 87,
+  "fps": 12,
+  "duration": 7.25,
+  "full_decode_passed": true,
+  "method": "Blender character performance composited over a still Unreal set view; previs, not in-engine interaction",
+  "limitations": [
+    "Still Unreal background plate; Blender foreground composite",
+    "No in-engine contact, occlusion or physically matched shadows",
+    "12 fps previs; facial rig approximations remain"
+  ]
+}

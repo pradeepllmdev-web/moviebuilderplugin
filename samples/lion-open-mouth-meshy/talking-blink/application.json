@@ -1,0 +1,19 @@
+{
+  "frames": 192,
+  "fps": 24,
+  "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\blendplugin-next\\verification\\lion-whisper\\audio\\voice_01.wav",
+  "audio_start": 0.55,
+  "jaw_max": 0.7859000519888886,
+  "jaw_end": 0,
+  "source_sha256": "b6c478a07c1f681732896003f562793951625665f055bc54e4ecaafd1b3495f6",
+  "limitations": [
+    "mouth corners still require refinement",
+    "fitted eyelid overlays; no independent gaze",
+    "jaw-based speech approximation, not full visemes"
+  ],
+  "blink_frames": [
+    28,
+    79,
+    145
+  ]
+}

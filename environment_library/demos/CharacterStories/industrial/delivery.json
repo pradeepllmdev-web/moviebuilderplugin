@@ -1,0 +1,15 @@
+{
+  "id": "industrial",
+  "title": "The Rhythm Factory",
+  "action": "dance",
+  "frames": 79,
+  "fps": 12,
+  "duration": 6.583333333333333,
+  "full_decode_passed": true,
+  "method": "Blender character performance composited over a still Unreal set view; previs, not in-engine interaction",
+  "limitations": [
+    "Still Unreal background plate; Blender foreground composite",
+    "No in-engine contact, occlusion or physically matched shadows",
+    "12 fps previs; facial rig approximations remain"
+  ]
+}

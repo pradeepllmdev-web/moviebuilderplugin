@@ -1,0 +1,180 @@
+{
+  "schema": "character-controls/1",
+  "name": "snow",
+  "rig": "RIG-Snow",
+  "capability_notes": "Basic jaw/lip speech, lids, gaze, brow and head; no independent tongue or full-body retargeting.",
+  "targets": [
+    {
+      "channel": "jaw",
+      "bone": "Jaw",
+      "transform": "rotation",
+      "axis": 0,
+      "scale": 0.24434609527920614,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "blink",
+      "bone": "MSTR-Eyelid_Upper.L",
+      "transform": "location",
+      "axis": 1,
+      "scale": -0.028,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "blink",
+      "bone": "MSTR-Eyelid_Lower.L",
+      "transform": "location",
+      "axis": 1,
+      "scale": 0.008,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "gaze",
+      "bone": "Eye.L",
+      "transform": "rotation",
+      "axis": 2,
+      "scale": 0.035,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "brow",
+      "bone": "MSTR-Eyebrow.L",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.004,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "spread",
+      "bone": "Lip_Top_Corner.L",
+      "transform": "location",
+      "axis": 0,
+      "scale": 0.005,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "smile",
+      "bone": "Lip_Top_Corner.L",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.002,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "spread",
+      "bone": "Lip_Bot_Corner.L",
+      "transform": "location",
+      "axis": 0,
+      "scale": 0.005,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "smile",
+      "bone": "Lip_Bot_Corner.L",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.002,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "blink",
+      "bone": "MSTR-Eyelid_Upper.R",
+      "transform": "location",
+      "axis": 1,
+      "scale": -0.028,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "blink",
+      "bone": "MSTR-Eyelid_Lower.R",
+      "transform": "location",
+      "axis": 1,
+      "scale": 0.008,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "gaze",
+      "bone": "Eye.R",
+      "transform": "rotation",
+      "axis": 2,
+      "scale": 0.035,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "brow",
+      "bone": "MSTR-Eyebrow.R",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.004,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "spread",
+      "bone": "Lip_Top_Corner.R",
+      "transform": "location",
+      "axis": 0,
+      "scale": -0.005,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "smile",
+      "bone": "Lip_Top_Corner.R",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.002,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "spread",
+      "bone": "Lip_Bot_Corner.R",
+      "transform": "location",
+      "axis": 0,
+      "scale": -0.005,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "smile",
+      "bone": "Lip_Bot_Corner.R",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.002,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "head_yaw",
+      "bone": "FK-Head",
+      "transform": "rotation",
+      "axis": 1,
+      "scale": 0.4886921905584123,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "head_nod",
+      "bone": "FK-Head",
+      "transform": "rotation",
+      "axis": 0,
+      "scale": 0.10471975511965978,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "head_roll",
+      "bone": "FK-Head",
+      "transform": "rotation",
+      "axis": 2,
+      "scale": 0.08726646259971647,
+      "space": "LOCAL"
+    }
+  ],
+  "properties": [
+    {
+      "bone": "Properties",
+      "name": "ik_left_upperarm",
+      "value": 0.0
+    },
+    {
+      "bone": "Properties",
+      "name": "ik_right_upperarm",
+      "value": 0.0
+    }
+  ]
+}

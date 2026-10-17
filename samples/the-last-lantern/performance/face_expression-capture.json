@@ -1,0 +1,19 @@
+{
+  "reference": "face_expression",
+  "types": [
+    "blink_brow_expression"
+  ],
+  "frames": 450,
+  "duration": 17.96,
+  "tracking_coverage": 1.0,
+  "source_fps": 25.0,
+  "source": "https://www.pexels.com/video/close-up-view-of-a-man-talking-4994154/",
+  "author": "Tima Miroshnichenko",
+  "status": "captured; retarget/visual review still required",
+  "head_angle_range_degrees": [
+    19.05173146301246,
+    5.78138526324543,
+    6.044183850976852
+  ],
+  "maximum_interpolated_gap_seconds": 0
+}

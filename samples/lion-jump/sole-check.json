@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "frames": 288,
+  "method": "evaluated skinned mesh minimum Z; no model vertices emitted",
+  "landing_sole_height_cm": 25,
+  "target_rock_height_cm": 25,
+  "root_correction_range_cm": [
+    1.6005367832258344,
+    1.9167019613087177
+  ]
+}

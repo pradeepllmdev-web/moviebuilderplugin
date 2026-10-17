@@ -1,0 +1,4 @@
+{
+  "convert": "x.convert_to_spawnable(object_binding) -> Array[MovieSceneBindingProxy]\r\nConvert to spawnable. If there are multiple objects assigned to the possessable, multiple spawnables will be created.\nFor level sequences, the bindings created will be custom bindings of type UMovieSceneSpawnableActorBinding.\r\n\r\nArgs:\r\n    object_binding (MovieSceneBindingProxy): \r\n\r\nReturns:\r\n    Array[MovieSceneBindingProxy]:",
+  "subsection": "x.set_sequence(sequence) -> None\r\nSets the sequence played by this section.\r\nsee: GetSequence\r\n\r\nArgs:\r\n    sequence (MovieSceneSequence): The sequence to play."
+}

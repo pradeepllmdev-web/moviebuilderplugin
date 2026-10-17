@@ -1,0 +1,23 @@
+{
+  "state": "done",
+  "fingerprint": "f0dd3d00dc68d8090b3a830b289e9aed06fa53fe9b8412dc6fd3fcfb5105b5c0",
+  "request_id": "d3158502983a4bc7af48e75a952f9b54",
+  "sequence": "/Game/StudioProduction/d3158502983a4bc7af48e75a952f9b54/Performance",
+  "level": "/Game/StudioProduction/d3158502983a4bc7af48e75a952f9b54/Level",
+  "characters": [
+    {
+      "name": "Leo",
+      "mesh": "/Game/StudioProduction/d3158502983a4bc7af48e75a952f9b54/Character_0/Leo.Leo",
+      "animation": "/Game/StudioProduction/d3158502983a4bc7af48e75a952f9b54/Character_0/Leo_Anim.Leo_Anim",
+      "body_tracks": 24,
+      "facial": {
+        "curves": 17,
+        "samples_per_curve": 240,
+        "max_sample_error": 3.178914393942023e-07,
+        "missing_animated_targets": []
+      }
+    }
+  ],
+  "warnings": [],
+  "package_hash": "52a43d776eebb458da2f77a1a6956271091a09e5a60b1de58765a97e1c987d08"
+}

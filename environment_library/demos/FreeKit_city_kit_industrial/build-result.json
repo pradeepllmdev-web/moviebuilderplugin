@@ -1,0 +1,48 @@
+{
+  "level": "/Game/EnvironmentDemos/FreeKit_city_kit_industrial_v3",
+  "pack": "city-kit-industrial",
+  "biome": "city-kit-industrial",
+  "placed": [
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_a.building_a",
+      "scale": 4.761904761904762,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_b.building_b",
+      "scale": 4.761904761904761,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_c.building_c",
+      "scale": 5.599999999999991,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_d.building_d",
+      "scale": 4.948562679381243,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_e.building_e",
+      "scale": 4.242424242424243,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_f.building_f",
+      "scale": 3.636363636363636,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_g.building_g",
+      "scale": 5.468749324357667,
+      "height_cm": 700
+    },
+    {
+      "mesh": "/Game/EnvironmentAssets/Kenney/city_kit_industrial/building_h.building_h",
+      "scale": 9.542751809760636,
+      "height_cm": 700
+    }
+  ],
+  "finished_at": 1792074739.4931915
+}

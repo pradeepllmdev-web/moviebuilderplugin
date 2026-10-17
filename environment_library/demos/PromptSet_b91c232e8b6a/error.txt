@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/build_prompt_unreal.py", line 54, in <module>
+    report=dict(level=level,biome='prompt_modular_set',warnings=['Blockout architecture; no traffic or automatic navigation.']+list(recipe.get('unsupported',[])),cameras=cameras,part_count=len(recipe['buildings'])+len(recipe['roads']),connection_count=len(compiled['links']),open_end_count=len(compiled['open_ports']),box_count=len(compiled['boxes']))
+                                                                                                                                                                                                                                                                ~~~~~~~~^^^^^^^^^
+KeyError: 'links'

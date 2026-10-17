@@ -1,0 +1,78 @@
+[
+  {
+    "name": "furniture-kit",
+    "creator": "Kenney",
+    "source": "https://kenney.nl/assets/furniture-kit",
+    "download_url": "https://kenney.nl/media/pages/assets/furniture-kit/440e0608a4-1677580847/kenney_furniture-kit.zip",
+    "license": "CC0-1.0",
+    "license_files": [
+      "source\\furniture-kit\\License.txt"
+    ],
+    "bytes": 5130729,
+    "sha256": "e67652d0932cee41683f74711c03d3e192a2af9979ef8e6b237711f5482d46b0",
+    "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\furniture-kit",
+    "file_extensions": {
+      ".url": 3,
+      ".txt": 1,
+      ".png": 702,
+      ".dae": 140,
+      ".fbx": 140,
+      ".glb": 140,
+      ".mtl": 140,
+      ".obj": 140,
+      ".stl": 140
+    },
+    "downloaded_at": "2026-10-15T14:28:35.043394+00:00",
+    "unreal_imported": false
+  },
+  {
+    "name": "city-kit-industrial",
+    "creator": "Kenney",
+    "source": "https://kenney.nl/assets/city-kit-industrial",
+    "download_url": "https://kenney.nl/media/pages/assets/city-kit-industrial/0ec35b139d-1788171848/kenney_city-kit-industrial_2.0.zip",
+    "license": "CC0-1.0",
+    "license_files": [
+      "source\\city-kit-industrial\\License.txt"
+    ],
+    "bytes": 5045077,
+    "sha256": "5b381164e5760f3830a2dbee43b972deee38b2a695d091b56e238ab2910c96d2",
+    "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\city-kit-industrial",
+    "file_extensions": {
+      ".txt": 1,
+      ".html": 1,
+      ".png": 48,
+      ".url": 3,
+      ".fbx": 37,
+      ".glb": 37,
+      ".mtl": 37,
+      ".obj": 37
+    },
+    "downloaded_at": "2026-10-15T14:28:36.655421+00:00",
+    "unreal_imported": false
+  },
+  {
+    "name": "city-kit-suburban",
+    "creator": "Kenney",
+    "source": "https://kenney.nl/assets/city-kit-suburban",
+    "download_url": "https://kenney.nl/media/pages/assets/city-kit-suburban/2c871b7af2-1745479373/kenney_city-kit-suburban_20.zip",
+    "license": "CC0-1.0",
+    "license_files": [
+      "source\\city-kit-suburban\\License.txt"
+    ],
+    "bytes": 3038740,
+    "sha256": "5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39",
+    "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\assets\\source\\city-kit-suburban",
+    "file_extensions": {
+      ".txt": 1,
+      ".html": 1,
+      ".png": 51,
+      ".url": 3,
+      ".fbx": 40,
+      ".glb": 40,
+      ".mtl": 40,
+      ".obj": 40
+    },
+    "downloaded_at": "2026-10-15T14:28:38.161153+00:00",
+    "unreal_imported": false
+  }
+]

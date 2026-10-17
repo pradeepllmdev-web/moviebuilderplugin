@@ -1,0 +1,12 @@
+{
+  "clip": "Procedural anticipation / tuck / landing",
+  "clip_duration": 2.0,
+  "takeoff_frame": 40,
+  "landing_frame": 55,
+  "flight_seconds": 0.625,
+  "max_foot_arc_cm": 38,
+  "root_travel_cm": 110,
+  "gap_between_rocks_cm": 40,
+  "warnings": [],
+  "clearance_model": "lowest ankle plus 10 cm sole offset; visual landing check required"
+}

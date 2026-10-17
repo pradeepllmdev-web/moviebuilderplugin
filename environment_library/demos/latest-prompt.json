@@ -1,0 +1,30 @@
+{
+  "id": "PromptSet_f9144e11985c",
+  "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\demos\\PromptSet_f9144e11985c",
+  "cameras": {
+    "overview": {
+      "location": [
+        4100,
+        -4900,
+        4200
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    "street": {
+      "location": [
+        1600,
+        -6500,
+        2400
+      ],
+      "target": [
+        0,
+        1800,
+        1600
+      ]
+    }
+  }
+}

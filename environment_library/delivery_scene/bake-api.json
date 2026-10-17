@@ -1,0 +1,10 @@
+{
+  "controller": {
+    "set_number_of_frames": true,
+    "set_frame_rate": true,
+    "set_bone_track_keys": true,
+    "add_bone_curve": true
+  },
+  "get_bone_pose_for_time": true,
+  "pose_read_ok": true
+}

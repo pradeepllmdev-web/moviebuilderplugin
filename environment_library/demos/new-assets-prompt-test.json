@@ -1,0 +1,136 @@
+{
+  "prompt": "Create a daylight roadside rest stop using installed new assets, mood blockbuster. IMPORTANT: return buildings as an EMPTY array [] because the building is an asset placement, not a generated modular building. Never put any entry in buildings. One straight road at cell [0,0], yaw0. Use asset building.b768d56930 (building type a) at [5000,3000], scale1. Use asset furniture.37c976889d (bench) at [1200,-1200], scale1. Use asset furniture.5b17df60eb (table) at [1600,-1200], scale1. Use asset tree.75683037fc at [-3500,2500] and [-3500,-2500], scale0.5. Place furniture on the flat ground, separated from the building and road. No mountains. Use every named ID exactly, not substitutes.",
+  "plan": {
+    "mood": "blockbuster",
+    "buildings": [],
+    "roads": [
+      {
+        "id": "main",
+        "kind": "straight",
+        "cell": [
+          0,
+          0
+        ],
+        "yaw": 0
+      }
+    ],
+    "assets": [
+      {
+        "asset_id": "building.b768d56930",
+        "position_cm": [
+          5000,
+          3000
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "furniture.37c976889d",
+        "position_cm": [
+          1200,
+          -1200
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "furniture.5b17df60eb",
+        "position_cm": [
+          1600,
+          -1200
+        ],
+        "scale": 1
+      },
+      {
+        "asset_id": "tree.75683037fc",
+        "position_cm": [
+          -3500,
+          2500
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "tree.75683037fc",
+        "position_cm": [
+          -3500,
+          -2500
+        ],
+        "scale": 0.5
+      }
+    ],
+    "notes": [],
+    "unsupported": [],
+    "contract_version": 1
+  },
+  "result": {
+    "id": "e0ca981127684d75a94efde5f20622cf",
+    "status": "complete",
+    "stage": "Environment saved",
+    "preview": "/demos/PromptSet_963e753662ed/preview.png",
+    "report": {
+      "placed_assets": [
+        {
+          "id": "building.b768d56930",
+          "scale": 8.277937589035739,
+          "label": "Catalogue_0_building"
+        },
+        {
+          "id": "furniture.37c976889d",
+          "scale": 0.19148936170212766,
+          "label": "Catalogue_1_furniture"
+        },
+        {
+          "id": "furniture.5b17df60eb",
+          "scale": 0.19148936170212766,
+          "label": "Catalogue_2_furniture"
+        },
+        {
+          "id": "tree.75683037fc",
+          "scale": 0.5,
+          "label": "Catalogue_3_tree"
+        },
+        {
+          "id": "tree.75683037fc",
+          "scale": 0.5,
+          "label": "Catalogue_4_tree"
+        }
+      ],
+      "mountains": null,
+      "reference_analysis": null,
+      "contract_version": 1,
+      "level": "/Game/EnvironmentDemos/PromptSet_963e753662ed",
+      "biome": "prompt_modular_set",
+      "warnings": [
+        "Blockout architecture; no traffic or automatic navigation."
+      ],
+      "cameras": {
+        "overview": {
+          "location": [
+            4100,
+            -4900,
+            4200
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ]
+        },
+        "street": {
+          "location": [
+            1600,
+            -6500,
+            2400
+          ],
+          "target": [
+            0,
+            1800,
+            1600
+          ]
+        }
+      },
+      "part_count": 1,
+      "connection_count": 0,
+      "open_end_count": 2,
+      "box_count": 11
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "character-generation/1",
+  "image_sha256": "b58ee60bab4d2d86420c7276072170361d31e0a037fb293127eca15432c2c273",
+  "anatomy": "biped",
+  "facial_status": "not-evaluated",
+  "tasks": {
+    "image-to-3d": {
+      "id": "01a13ccd-7ba4-72f3-8b18-b3880cb0f32f",
+      "status": "SUCCEEDED",
+      "progress": 100,
+      "files": {
+        "model.glb": {
+          "bytes": 13153152
+        },
+        "model-preview.png": {
+          "bytes": 116630
+        }
+      },
+      "consumed_credits": 30
+    },
+    "rigging": {
+      "id": "01a13ccf-ff51-7722-993c-19c24dee053f",
+      "status": "SUCCEEDED",
+      "progress": 100,
+      "files": {
+        "rigged.glb": {
+          "bytes": 15110980
+        }
+      },
+      "consumed_credits": 5
+    }
+  }
+}

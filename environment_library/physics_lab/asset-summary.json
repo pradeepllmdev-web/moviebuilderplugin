@@ -1,0 +1,26 @@
+[
+  {
+    "path": "/Game/PhysicsLab/package_20261015_101957/cat/cat.cat",
+    "class": "SkeletalMesh"
+  },
+  {
+    "path": "/Game/PhysicsLab/package_20261015_101957/cat/cat_Anim.cat_Anim",
+    "class": "AnimSequence"
+  },
+  {
+    "path": "/Game/PhysicsLab/package_20261015_101957/cat/cat_Skeleton.cat_Skeleton",
+    "class": "Skeleton"
+  },
+  {
+    "path": "/Game/PhysicsLab/package_20261015_101957/lion/lion.lion",
+    "class": "SkeletalMesh"
+  },
+  {
+    "path": "/Game/PhysicsLab/package_20261015_101957/lion/lion_Anim.lion_Anim",
+    "class": "AnimSequence"
+  },
+  {
+    "path": "/Game/PhysicsLab/package_20261015_101957/lion/lion_Skeleton.lion_Skeleton",
+    "class": "Skeleton"
+  }
+]

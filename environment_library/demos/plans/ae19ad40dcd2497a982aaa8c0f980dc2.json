@@ -1,0 +1,88 @@
+{
+  "prompt": "A sunny roadside settlement, mood blockbuster. Three modular buildings: southwest corners [-2400,-1000], [1400,-1000], [1400,1000], each width_tiles3 depth_tiles3. Straight north south road exactly three tiles: cells[0,-1],[0,0],[0,1], all yaw0. Three broadleaf beech trees spaced at [-5000,-3500], [-5000,3500], [5000,3500], scale0.5. Two Nordic rocks at [-3500,0] and [4500,-3000], scale0.5. No mountains. Do not add vehicles or unsupported props.",
+  "plan": {
+    "mood": "blockbuster",
+    "buildings": [
+      {
+        "position_cm": [
+          -2400,
+          -1000
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      },
+      {
+        "position_cm": [
+          1400,
+          -1000
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      },
+      {
+        "position_cm": [
+          1400,
+          1000
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 3
+      }
+    ],
+    "roads": [
+      {
+        "id": "main",
+        "kind": "straight",
+        "cell": [
+          0,
+          0
+        ],
+        "yaw": 0
+      }
+    ],
+    "assets": [
+      {
+        "asset_id": "tree.3d2bfe1493",
+        "position_cm": [
+          -5000,
+          -3500
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "tree.3d2bfe1493",
+        "position_cm": [
+          -5000,
+          3500
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "tree.3d2bfe1493",
+        "position_cm": [
+          5000,
+          3500
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "rock.0fcdf9d09c",
+        "position_cm": [
+          -3500,
+          0
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "rock.0fcdf9d09c",
+        "position_cm": [
+          4500,
+          -3000
+        ],
+        "scale": 0.5
+      }
+    ],
+    "notes": [],
+    "unsupported": [],
+    "contract_version": 1
+  }
+}

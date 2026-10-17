@@ -1,0 +1,93 @@
+{
+  "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\delivery_scene\\actions_20261015_110818",
+  "states": [
+    {
+      "state": "cat_walk",
+      "character": "cat",
+      "clip": "Walking",
+      "carry_ik": true,
+      "native_speed_cm_s": 49.5,
+      "frames": 27,
+      "fps": 24,
+      "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\delivery_scene\\actions_20261015_110818\\cat_walk",
+      "foot_lock_report": {
+        "Left": {
+          "spans": 1,
+          "before_cm": 15.3,
+          "after_cm": 7.0
+        },
+        "Right": {
+          "spans": 2,
+          "before_cm": 13.4,
+          "after_cm": 4.5
+        }
+      }
+    },
+    {
+      "state": "cat_idle",
+      "character": "cat",
+      "clip": "Idle_3",
+      "carry_ik": true,
+      "native_speed_cm_s": 0,
+      "frames": 240,
+      "fps": 24,
+      "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\delivery_scene\\actions_20261015_110818\\cat_idle",
+      "foot_lock_report": {}
+    },
+    {
+      "state": "cat_recoil",
+      "character": "cat",
+      "clip": "Hit_Reaction",
+      "carry_ik": false,
+      "native_speed_cm_s": 0,
+      "frames": 40,
+      "fps": 24,
+      "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\delivery_scene\\actions_20261015_110818\\cat_recoil",
+      "foot_lock_report": {}
+    },
+    {
+      "state": "lion_idle",
+      "character": "lion",
+      "clip": "Idle_3",
+      "carry_ik": false,
+      "native_speed_cm_s": 0,
+      "frames": 240,
+      "fps": 24,
+      "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\delivery_scene\\actions_20261015_110818\\lion_idle",
+      "foot_lock_report": {}
+    },
+    {
+      "state": "lion_walk",
+      "character": "lion",
+      "clip": "Walking",
+      "carry_ik": false,
+      "native_speed_cm_s": 53.6,
+      "frames": 27,
+      "fps": 24,
+      "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\delivery_scene\\actions_20261015_110818\\lion_walk",
+      "foot_lock_report": {
+        "Left": {
+          "spans": 1,
+          "before_cm": 16.8,
+          "after_cm": 7.9
+        },
+        "Right": {
+          "spans": 2,
+          "before_cm": 13.7,
+          "after_cm": 3.8
+        }
+      }
+    },
+    {
+      "state": "lion_help",
+      "character": "lion",
+      "clip": "Step_Push",
+      "carry_ik": false,
+      "native_speed_cm_s": 0,
+      "frames": 114,
+      "fps": 24,
+      "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\delivery_scene\\actions_20261015_110818\\lion_help",
+      "foot_lock_report": {}
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+[
+  {
+    "name": "Rowan-Body",
+    "parent": "Rowan-Rig",
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": [
+      [
+        "ARMATURE",
+        "Rowan-Rig"
+      ],
+      [
+        "MASK",
+        null
+      ],
+      [
+        "MASK",
+        null
+      ],
+      [
+        "MASK",
+        null
+      ]
+    ]
+  },
+  {
+    "name": "Rowan-Body.high-poly",
+    "parent": "Rowan-Rig",
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": [
+      [
+        "ARMATURE",
+        "Rowan-Rig"
+      ]
+    ]
+  },
+  {
+    "name": "Rowan-Body.eyebrow001",
+    "parent": "Rowan-Rig",
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": [
+      [
+        "ARMATURE",
+        "Rowan-Rig"
+      ]
+    ]
+  },
+  {
+    "name": "Rowan-Body.eyelashes01",
+    "parent": "Rowan-Rig",
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": [
+      [
+        "ARMATURE",
+        "Rowan-Rig"
+      ]
+    ]
+  },
+  {
+    "name": "Rowan-Body.teeth_base",
+    "parent": "Rowan-Rig",
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": [
+      [
+        "ARMATURE",
+        "Rowan-Rig"
+      ]
+    ]
+  },
+  {
+    "name": "Rowan-Body.tongue01",
+    "parent": "Rowan-Rig",
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": [
+      [
+        "ARMATURE",
+        "Rowan-Rig"
+      ]
+    ]
+  },
+  {
+    "name": "Rowan-Body.short02",
+    "parent": "Rowan-Rig",
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": [
+      [
+        "ARMATURE",
+        "Rowan-Rig"
+      ]
+    ]
+  },
+  {
+    "name": "Rowan-Body.male_casualsuit01",
+    "parent": "Rowan-Rig",
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": [
+      [
+        "ARMATURE",
+        "Rowan-Rig"
+      ]
+    ]
+  },
+  {
+    "name": "Rowan-Body.shoes01",
+    "parent": "Rowan-Rig",
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": [
+      [
+        "ARMATURE",
+        "Rowan-Rig"
+      ]
+    ]
+  },
+  {
+    "name": "Plane",
+    "parent": null,
+    "parent_type": "OBJECT",
+    "parent_bone": "",
+    "modifiers": []
+  }
+]

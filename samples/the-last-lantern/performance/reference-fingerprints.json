@@ -1,0 +1,26 @@
+{
+  "talk_body": {
+    "sha256": "a540517adc206af353afede198f2ba0e2ae8c6cf8b0a36b8a611511f0e683aab",
+    "source": "https://www.pexels.com/video/a-man-talking-and-doing-hand-gestures-8550366/",
+    "author": "Kindel Media",
+    "types": [
+      "talk_gestures"
+    ]
+  },
+  "head_attention": {
+    "sha256": "588a3a86a5e70a844e9055eab45d3a5734f26470dc8fcf1b5313b17b70986210",
+    "source": "https://www.pexels.com/video/man-hands-gesturing-while-in-virtual-meeting-6290465/",
+    "author": "Gustavo Fring",
+    "types": [
+      "head_attention"
+    ]
+  },
+  "face_expression": {
+    "sha256": "22f62c8603a618f57ea96ace47e688044400b20ea141ec91d626bc67842d24ad",
+    "source": "https://www.pexels.com/video/close-up-view-of-a-man-talking-4994154/",
+    "author": "Tima Miroshnichenko",
+    "types": [
+      "blink_brow_expression"
+    ]
+  }
+}

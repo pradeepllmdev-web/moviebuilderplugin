@@ -1,0 +1,18 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 512
+PlayResY: 512
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Title,Arial,22,&H00FFFFFF,&H000000FF,&H00101010,&H80000000,1,0,0,0,100,100,0,0,1,2,0,8,15,15,16,1
+Style: Speech,Arial,17,&H00FFFFFF,&H000000FF,&H00101010,&H80000000,0,0,0,0,100,100,0,0,1,2,0,2,20,20,20,1
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:07.00,Title,,0,0,0,,1. Standing and speaking
+Dialogue: 0,0:00:00.35,0:00:06.80,Speech,,0,0,0,,Hello! I am Leo. Watch my eyes, my face, and my hands while I speak.
+Dialogue: 0,0:00:07.00,0:00:14.00,Title,,0,0,0,,2. Walking and speaking
+Dialogue: 0,0:00:07.35,0:00:13.80,Speech,,0,0,0,,Now I am walking and talking. My steps should feel steady and relaxed.
+Dialogue: 0,0:00:14.00,0:00:21.00,Title,,0,0,0,,3. Running and speaking
+Dialogue: 0,0:00:14.35,0:00:20.80,Speech,,0,0,0,,Time to run! I am picking up speed, but I can still talk to you.
+Dialogue: 0,0:00:21.00,0:00:29.54,Title,,0,0,0,,4. Circular race run and speaking
+Dialogue: 0,0:00:21.35,0:00:29.34,Speech,,0,0,0,,Around the track I go! Watch my turns, my stride, and my balance as I race.

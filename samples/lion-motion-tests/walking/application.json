@@ -1,0 +1,24 @@
+{
+  "name": "walking",
+  "clip": "Mixamo_Walking",
+  "frames": 168,
+  "fps": 24,
+  "speed_mps": 0.616,
+  "circle_radius_m": 0,
+  "vertical_correction_m": 0.015566207468509674,
+  "audio": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\lion-motion-tests\\walking.wav",
+  "text": "Now I am walking and talking. My steps should feel steady and relaxed.",
+  "duration": 7.0,
+  "root_travel_m": 4.286333333333333,
+  "limitations": [
+    "prototype eyelid overlays",
+    "mouth corners need refinement",
+    "contact/stride diagnostics require visual review"
+  ],
+  "contact_correction": {
+    "plant_frames": 150,
+    "final_path_offset_m": 0.2011081932715713,
+    "method": "low ankle contact lock in world XY; flight unchanged",
+    "limitation": "toe roll and exact circular lap closure still require review"
+  }
+}

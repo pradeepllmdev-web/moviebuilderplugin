@@ -1,0 +1,5 @@
+# Amber open-mouth restart
+
+Fresh Meshy generation from the user-supplied October 14, 2026 6:40 PM open-mouth reference. No geometry or facial fitting from the previous Amber model is reused. Existing earlier models and experiments remain preserved separately. Generated anatomy must be inspected before facial rigging. Source image, Meshy task IDs and downloaded model/body rig remain in this folder. Facial setup is not complete until separately verified.
+
+Fresh generation completed: 30 model credits + 5 body-rig credits. Open mouth, teeth, tongue and gums were retained. JawClose and modest round/wide/smile keys are fitted directly to this new mesh; eyelids are newly built using this model's eye locations. Only existing dialogue audio and recorded performance data are reused, never old character geometry. Nose/upper-face jaw deformation is zero in the pose gate. fresh-talking.blend and fresh-amber-talking.mp4 are diagnostic previews. Full lip sealing, fur quality and eyelid fitting still require review; no production approval is implied.

@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "level": "/Game/EnvironmentDemos/DeliveryMishap_20261015_110921_Baked_v2",
+  "sequence": "/Game/DeliveryStudies/actions_20261015_110818/Baked_111505/Delivery.Delivery",
+  "frames": 504,
+  "fps": 24,
+  "shots": 4,
+  "method": "Measured live Character/rigid-body motion baked to Sequencer; full-rate sampled skeletal and facial curves"
+}

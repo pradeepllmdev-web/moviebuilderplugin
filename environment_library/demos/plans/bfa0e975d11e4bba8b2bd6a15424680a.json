@@ -1,0 +1,70 @@
+{
+  "prompt": "A quiet forest ranger outpost at morning fog. One small cabin at [1000,1000], width_tiles3 depth_tiles2. No road tiles. Four silver birch or beech trees spaced widely at [-5000,-3500], [-5000,3500], [5000,3500], [5000,-3500], scale0.6. Two mossy rocks at [-3000,0] and [4000,0], scale0.5. No mountains. Use only installed assets and supported construction.",
+  "plan": {
+    "mood": "morning_fog",
+    "buildings": [
+      {
+        "position_cm": [
+          1000,
+          1000
+        ],
+        "width_tiles": 3,
+        "depth_tiles": 2
+      }
+    ],
+    "roads": [],
+    "notes": [],
+    "unsupported": [],
+    "assets": [
+      {
+        "asset_id": "tree.35f06a0640",
+        "position_cm": [
+          -5000,
+          -3500
+        ],
+        "scale": 0.6
+      },
+      {
+        "asset_id": "tree.35f06a0640",
+        "position_cm": [
+          -5000,
+          3500
+        ],
+        "scale": 0.6
+      },
+      {
+        "asset_id": "tree.35f06a0640",
+        "position_cm": [
+          5000,
+          3500
+        ],
+        "scale": 0.6
+      },
+      {
+        "asset_id": "tree.35f06a0640",
+        "position_cm": [
+          5000,
+          -3500
+        ],
+        "scale": 0.6
+      },
+      {
+        "asset_id": "rock.27e7c46097",
+        "position_cm": [
+          -3000,
+          0
+        ],
+        "scale": 0.5
+      },
+      {
+        "asset_id": "rock.27e7c46097",
+        "position_cm": [
+          4000,
+          0
+        ],
+        "scale": 0.5
+      }
+    ],
+    "contract_version": 1
+  }
+}

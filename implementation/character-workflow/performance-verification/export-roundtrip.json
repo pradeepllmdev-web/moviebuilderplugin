@@ -1,0 +1,10 @@
+{
+  "standing": {
+    "facial_timing_max_error": 0.0,
+    "frames": 72
+  },
+  "scene": {
+    "facial_timing_max_error": 0.0,
+    "frames": 72
+  }
+}

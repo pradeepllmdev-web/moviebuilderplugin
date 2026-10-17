@@ -1,0 +1,42 @@
+{
+  "id": "RealisticRiver_20261015_093641",
+  "directory": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\demos\\RealisticRiver_20261015_093641",
+  "shots": {
+    "wide": [
+      [
+        -2200,
+        -2200,
+        850
+      ],
+      [
+        300,
+        1800,
+        180
+      ]
+    ],
+    "character_height": [
+      [
+        -480,
+        -480,
+        220
+      ],
+      [
+        1120,
+        2080,
+        140
+      ]
+    ],
+    "river_detail": [
+      [
+        100,
+        850,
+        180
+      ],
+      [
+        1400,
+        1950,
+        80
+      ]
+    ]
+  }
+}

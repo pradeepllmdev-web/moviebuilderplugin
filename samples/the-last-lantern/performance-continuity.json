@@ -1,0 +1,13 @@
+{
+  "snow": {
+    "maximum_hand_step_metres": 0.037071386612896225,
+    "frame": 14,
+    "maximum_hand_rotation_step_degrees": 15.149161303171148
+  },
+  "jacob": {
+    "maximum_hand_step_metres": 0.04589005372147977,
+    "frame": 383,
+    "maximum_hand_rotation_step_degrees": 13.577646479554287
+  },
+  "passed": true
+}

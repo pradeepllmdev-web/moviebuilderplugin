@@ -1,0 +1,23 @@
+{
+  "name": "mira-template",
+  "generator": "MPFB 2.0.18",
+  "body_bones": 52,
+  "face_units": 52,
+  "shape_keys_per_object": {
+    "Mira-Template-Body": 69,
+    "Mira-Template-Body.high-poly": 9,
+    "Mira-Template-Body.eyebrow001": 37,
+    "Mira-Template-Body.eyelashes01": 26,
+    "Mira-Template-Body.teeth_base": 5,
+    "Mira-Template-Body.tongue01": 6,
+    "Mira-Template-Body.short01": 29,
+    "Mira-Template-Body.male_casualsuit01": 1,
+    "Mira-Template-Body.shoes01": 1
+  },
+  "voice": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\the-last-lantern\\audio\\line_2.wav",
+  "body": "shared captured talking/listening adapter",
+  "face": "shared speech commands + captured expression bank",
+  "appearance_preset": "samples\\mpfb-mira\\appearance.json",
+  "production_approved": false,
+  "limitations": "Human template creation, approximate likeness. Upper-body audition; Unreal not yet tested."
+}

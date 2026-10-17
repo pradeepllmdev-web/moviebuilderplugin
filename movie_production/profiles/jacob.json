@@ -1,0 +1,112 @@
+{
+  "schema": "character-controls/1",
+  "name": "jacob",
+  "rig": "Armature",
+  "capability_notes": "Basic jaw/lip speech, lids, gaze, brow and head; no independent tongue or full-body retargeting.",
+  "targets": [
+    {
+      "channel": "jaw",
+      "bone": "CTRL-JAW",
+      "transform": "rotation",
+      "axis": 2,
+      "scale": -0.24434609527920614,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "blink",
+      "bone": "CTRL-EYE-BLINK.L",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.019,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "brow",
+      "bone": "CTRL-EYEBROWS.L",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.005,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "spread",
+      "bone": "CTRL-FACE-LIPSCORNER.L",
+      "transform": "location",
+      "axis": 0,
+      "scale": 0.005,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "smile",
+      "bone": "CTRL-FACE-LIPSCORNER.L",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.002,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "blink",
+      "bone": "CTRL-EYE-BLINK.R",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.019,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "brow",
+      "bone": "CTRL-EYEBROWS.R",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.005,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "spread",
+      "bone": "CTRL-FACE-LIPSCORNER.R",
+      "transform": "location",
+      "axis": 0,
+      "scale": -0.005,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "smile",
+      "bone": "CTRL-FACE-LIPSCORNER.R",
+      "transform": "location",
+      "axis": 2,
+      "scale": 0.002,
+      "space": "WORLD_DELTA"
+    },
+    {
+      "channel": "gaze",
+      "bone": "CTRL-EYE-TARGET",
+      "transform": "location",
+      "axis": 0,
+      "scale": 0.035,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "head_yaw",
+      "bone": "CTRL-HEAD",
+      "transform": "rotation",
+      "axis": 1,
+      "scale": 0.4886921905584123,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "head_nod",
+      "bone": "CTRL-HEAD",
+      "transform": "rotation",
+      "axis": 2,
+      "scale": -0.10471975511965978,
+      "space": "LOCAL"
+    },
+    {
+      "channel": "head_roll",
+      "bone": "CTRL-HEAD",
+      "transform": "rotation",
+      "axis": 0,
+      "scale": 0.08726646259971647,
+      "space": "LOCAL"
+    }
+  ]
+}

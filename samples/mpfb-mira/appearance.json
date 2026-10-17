@@ -1,0 +1,36 @@
+{
+  "schema": "image-mpfb-preset/1",
+  "character_id": "mira-template",
+  "reference_image": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\samples\\new-character-mira\\reference.png",
+  "reference_sha256": "d065943b651354e038e2d99bfb447962ceee03984cb5eb9bb89934903b68b83b",
+  "analysis": "MediaPipe image landmarks; heuristic proportion mapping; manually selected hair/clothing palette",
+  "ratios": {
+    "eye_width": 0.23659,
+    "nose_width": 0.2144,
+    "mouth_width": 0.35494,
+    "chin_width": 0.78082,
+    "face_aspect": 1.12952
+  },
+  "targets": {
+    "eyes/l-eye-scale-incr": 0.2196,
+    "eyes/r-eye-scale-incr": 0.2196,
+    "nose/nose-scale-horiz-decr": 0.1024,
+    "mouth/mouth-scale-horiz-decr": 0.0152,
+    "chin/chin-width-decr": 0.1384,
+    "head/head-scale-vert-decr": 0.0723
+  },
+  "macro": {
+    "gender": 0.0,
+    "age": 0.38,
+    "muscle": 0.35
+  },
+  "skin": "young_caucasian_female.mhmat",
+  "hair": "short01.mhclo",
+  "outfit": "male_casualsuit01.mhclo",
+  "shoes": "shoes01.mhclo",
+  "art_direction": {
+    "hair": "dark brown",
+    "outfit": "teal top, tan trousers",
+    "limitations": "Existing assets approximate the reference; hairstyle and jacket are not reconstructed."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "level": "/Game/EnvironmentDemos/ModularKit_20261015_114221",
+  "biome": "modular_architecture",
+  "warnings": [
+    "Architecture blockout: no glazing, automatic interior dressing or full collision/path validation yet."
+  ],
+  "cameras": {
+    "overview": {
+      "location": [
+        1500,
+        -1400,
+        1150
+      ],
+      "target": [
+        500,
+        250,
+        90
+      ]
+    },
+    "doorway": {
+      "location": [
+        420,
+        -650,
+        165
+      ],
+      "target": [
+        340,
+        200,
+        140
+      ]
+    }
+  },
+  "part_count": 32,
+  "box_count": 57
+}

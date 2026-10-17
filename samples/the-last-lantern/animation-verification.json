@@ -1,0 +1,16 @@
+{
+  "snow": {
+    "jaw_active_frames": 60,
+    "max_jaw_degrees": 11.89391620243635,
+    "max_blink_control": 0.02800000086426735,
+    "jaw_neutral_at_clip_boundaries": true
+  },
+  "jacob": {
+    "jaw_active_frames": 63,
+    "max_jaw_degrees": 14.000009867042547,
+    "max_blink_control": 0.01899999938905239,
+    "jaw_neutral_at_clip_boundaries": true
+  },
+  "camera_cuts": 4,
+  "passed": true
+}

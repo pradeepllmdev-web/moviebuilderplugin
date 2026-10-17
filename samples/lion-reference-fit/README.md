@@ -1,0 +1,1 @@
+Exploratory cleanup only. The diagnostic stills retain a stretched skin wall and show a small chin hole. This version is not approved. The cleanup change was reverted in the shared adapter. New work uses samples/lion-open-mouth-meshy with the user-provided open-mouth reference.
