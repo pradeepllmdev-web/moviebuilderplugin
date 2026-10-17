@@ -23,7 +23,7 @@ def setup():
  for window in bpy.context.window_manager.windows:
   for area in window.screen.areas:
    if area.type=='VIEW_3D':
-    space=area.spaces[0];space.overlay.show_relationship_lines=False;space.overlay.show_bones=False;space.shading.type='SOLID';space.shading.color_type='MATERIAL';space.clip_end=100;space.overlay.show_floor=True
+    space=area.spaces[0];space.overlay.show_relationship_lines=False;space.overlay.show_bones=False;space.shading.type='SOLID';space.shading.color_type='TEXTURE';space.clip_end=100;space.overlay.show_floor=True
     region=next(r for r in area.regions if r.type=='WINDOW')
     with bpy.context.temp_override(window=window,area=area,region=region,scene=s):
      bpy.ops.object.select_all(action='DESELECT')
