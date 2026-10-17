@@ -46,6 +46,8 @@ def summary(folder):
  if c:lines.append(f"seat       top={c['top_cm']}cm spread={c['spread_cm']}cm at lateral {c['lateral_cm']} forward {c['forward_cm']} lean_capped={sum(c.get('lean_capped_frames',{}).values())}")
  c=read('tail-check.json')
  if c:lines.append(f"tail       ok={c['ok']} lift_max={c.get('max_lift_deg')}deg verts={c.get('tail_vertices')}")
+ c=read('gesture-check.json')
+ if c:lines.append(f"gesture    ok={c['ok']} clips={c['clips']} hand travel L/R={c['travel_cm']['LeftHand']}/{c['travel_cm']['RightHand']}cm peak above head L/R={c['left_hand_peak_above_head_cm']}/{c['right_hand_peak_above_head_cm']}cm")
  c=read('drink-check.json')
  if c:lines.append(f"drink      ok={c['ok']} muzzle_to_rim={c['muzzle_to_rim_cm']}cm hand_to_target={c['hand_to_target_cm']}cm hand_to_cup={c['hand_to_cup_cm']}cm nod={c['nod_deg']}deg table_top={c['table_top_cm']}cm")
  c=read('seat-prop-check.json')
@@ -71,6 +73,12 @@ def run_activity(args):
  """Instant feasibility from cached body measurements, then a one-shot Blender build with its checks."""
  import activities,body_measures
  name=args.target;character=args.character;started=time.time()
+ if name=='gestures':
+  from concurrent.futures import ThreadPoolExecutor
+  names=list(activities.GESTURES);threads=max(1,(os.cpu_count() or 8)//6)
+  with ThreadPoolExecutor(6) as pool:results=list(pool.map(lambda n:build_shot(activity_plan(n,character),0,'side',None,False,threads),names))
+  for n,lines in zip(names,results):print(n+': '+' | '.join(l.strip() for l in lines if l.strip().startswith(('shot','gesture','safety','foot')) ))
+  print(f'{len(names)} gestures in {time.time()-started:.0f}s');return
  if name not in activities.ACTIVITIES:print('unknown activity; choose from '+', '.join(activities.ACTIVITIES));return
  measures=body_measures.load(character)
  if not measures:
@@ -79,6 +87,7 @@ def run_activity(args):
  print('feasibility '+json.dumps({k:v for k,v in verdict.items() if k not in ('limits',)})+f'  ({time.time()-started:.2f}s)')
  if args.feasibility_only or not verdict.get('ok'):return
  print(chr(10).join(build_shot(activity_plan(name,character),0,args.view,args.frames,not args.no_sheet)))
+
 
 def shot_inputs(plan,index):
  """Plan.json for one shot as the worker writes it, chaining box state/position/heading from earlier shots."""
@@ -144,12 +153,16 @@ def tile(paths,target,labels,width=480):
 
 def build_shot(plan,index,view='side',frames=None,sheet=True,threads=6):
  """Blender-only build of one shot; returns printable lines (summary + sheet path)."""
- folder=OUT/f'shot{index+1}_{time.strftime("%H%M%S")}_{os.getpid()}';folder.mkdir(parents=True)
+ folder=OUT/f'shot{index+1}_{plan["shots"][index].get("title","").replace(" ","_")[:12]}_{time.strftime("%H%M%S")}_{os.getpid()}';folder.mkdir(parents=True,exist_ok=True)
  (folder/'plan.json').write_text(json.dumps(shot_inputs(plan,index)))
  started=time.time();log=folder/'build.log'
  with open(log,'w') as handle:code=subprocess.call([BLENDER,'-b','-t',str(threads),'--python-exit-code','1','-P',str(H/'build_prompt_scene_blender.py'),'--',str(folder)],stdout=handle,stderr=subprocess.STDOUT)
  lines=[f'shot {index+1}: blender build {"ok" if code==0 else "FAILED"} in {time.time()-started:.0f}s']
  if code:lines.append('  '+next((l.strip() for l in reversed(log.read_text(errors='ignore').splitlines()) if 'Error' in l and 'script failed' not in l),'see '+str(log)))
+ title=plan['shots'][index].get('title');import activities
+ if code==0 and title in activities.GESTURES:
+  beats=activities.ACTIVITIES[title]['test_beats'];start=sum(d for a,d in beats[:[a for a,d in beats].index(title)])
+  subprocess.call([BLENDER,'-b',str(folder/'scene.blend'),'--python',str(H/'gesture_check.py'),'--',str(folder),str(start),str(start+dict(beats)[title])],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
  lines+=['  '+line for line in summary(folder)]
  if not sheet or not (folder/'scene.blend').exists():return lines
  eyes=folder/'eye-life-check.json'

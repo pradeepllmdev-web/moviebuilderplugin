@@ -11,7 +11,8 @@ def scene(segments):return dict(version=1,title='Tea',character='lion',environme
 class ActivityTests(unittest.TestCase):
  def test_registry_feeds_every_consumer(self):
   for name in activities.beats():
-   self.assertIn(name,SIT_ACTIONS);self.assertIn(name,CLIPS);self.assertIn(name,ACTIONS)
+   self.assertIn(name,ACTIONS)
+  for name in activities.beats('seat'):self.assertIn(name,SIT_ACTIONS);self.assertIn(name,CLIPS)
   self.assertIn('drink',SEATED);self.assertIn('Drinking:',SYSTEM)
  def test_drink_needs_a_seat_and_stays_seated(self):
   self.assertTrue(validate_sitting([beat('sit_down'),beat('drink',5)]))
@@ -35,3 +36,19 @@ class ActivityTests(unittest.TestCase):
  def test_nod_moves_the_muzzle_down_and_back(self):
   tip=drink_actions.nodded_tip(LION,25);self.assertLess(tip[2],LION['snout_tip'][2]);self.assertGreater(tip[1],LION['snout_tip'][1])
 if __name__=='__main__':unittest.main()
+class GestureTests(unittest.TestCase):
+ def test_every_gesture_has_a_library_clip_preference(self):
+  clips_file=Path(__file__).resolve().parents[2]/'blendplugin-next'/'scene_pipeline'/'realistic_clips.py'
+  if not clips_file.exists():self.skipTest('shared clip library not checked out next to this repo')
+  text=clips_file.read_text()
+  for name in activities.GESTURES:self.assertIn("'"+name+"':",text)
+ def test_gesture_requests_are_recognised_and_enforced(self):
+  plan=scene([beat('idle',4)])
+  with self.assertRaises(ValueError):require_requested_controls(plan,'The lion waves hello')
+  require_requested_controls(scene([beat('wave',4)]),'The lion waves hello')
+ def test_gestures_validate_in_place_and_not_with_sitting(self):
+  validate_scene(scene([beat('idle',2),beat('wave',4,'Hello!'),beat('bow',3)]))
+  with self.assertRaises(ValueError):validate_scene(scene([beat('wave',1),beat('idle')]))
+  with self.assertRaises(ValueError):validate_scene(scene([beat('sit_down'),beat('wave',3),beat('stand_up')]))
+ def test_planner_lists_the_gestures(self):
+  for name in activities.GESTURES:self.assertIn(name+' (',SYSTEM)

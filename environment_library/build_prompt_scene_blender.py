@@ -204,7 +204,9 @@ if sitting:
  # Body measurements for activity feasibility (cached per character) and the drink pose.
  import body_measures
  if seated:
-  calm=next((g for g in timeline if g['action'] in ('drink','sit')),None);reference=round((calm['start']+.5)*fps)+1 if calm else seated[len(seated)//2];measures=body_measures.measure(s,rig,body,reference);body_measures.save(p['character'],measures);(D/'body-measures.json').write_text(json.dumps(measures))
+  calm=next((g for g in timeline if g['action'] in ('drink','sit')),None);reference=round((calm['start']+.5)*fps)+1 if calm else seated[len(seated)//2];measures=body_measures.measure(s,rig,body,reference)
+  if calm:body_measures.save(p['character'],measures)  # only a calm seated pose is representative; never cache a transition frame
+  (D/'body-measures.json').write_text(json.dumps(measures))
   if any(g['action']=='drink' for g in timeline):
    import drink_actions
    solved=drink_actions.feasibility(measures)

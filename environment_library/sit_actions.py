@@ -5,10 +5,10 @@ sit ~24 cm lower and ~10 cm further back than standing. The seat is placed from 
 (lowest pelvis/thigh vertex under the hips), so its height always matches the clip on this body."""
 import math
 import activities
-SIT_ACTIONS={'sit_down','sit','sit_talk','stand_up'}|set(activities.extra_actions())
+SIT_ACTIONS={'sit_down','sit','sit_talk','stand_up'}|set(activities.extra_actions('seat'))
 CLIPS={'sit_down':dict(action='sit_down',clip='Stand_To_Sit',clip_start=2.),'sit':dict(action='sit',clip='Sit_Idle'),
  'sit_talk':dict(action='sit',clip='Mixamo_Sitting_Talking'),'stand_up':dict(action='stand_up',clip='Sit_To_Stand_M')}
-CLIPS.update(activities.beats())
+CLIPS.update(activities.beats('seat'))
 SEATED=activities.seated_beats()
 # Retargeted onto short legs the hips drop almost straight down, so the root eases back onto the seat while
 # the feet stay planted: during the descent of sit_down (clip 2.5-3.5 s, i.e. 0.5-1.5 s into the beat) and

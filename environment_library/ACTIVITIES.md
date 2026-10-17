@@ -23,3 +23,9 @@ Use Unreal (`quick_review.py movie`) only once, at the end.
 ## Drink (lion)
 
 The snout is ~52 cm ahead of the head pivot and the arm reaches ~47 cm, so a hand cannot lift a cup to the mouth. The cup stays on a low table, a hand rests beside it and the lion nods (Neck/Head, 25 degrees) until the muzzle meets the rim. Cup and table are fixed in space, so during a drink beat the body eases to its pose at the measurement frame (the seated idle clip sways ~15 cm). Checks: muzzle to rim under 6 cm, body not inside the table, hand reaches its target.
+
+## Standing gestures (clip family)
+
+wave, nod, shrug, think, bow, celebrate, laugh and hands_on_hips are one-line registry entries (`GESTURES` in `activities.py`) that play a clip straight from the shared library (`blendplugin-next/scene_pipeline/realistic_clips.py`, retargeted to the lion). No body solve, so adding one is: add the name to `GESTURES` with a request regex and a planner phrase, confirm the clip key exists in `CLIP_PREFERENCES`, run the batch check.
+
+`python quick_review.py activity gestures` builds all of them in parallel (~25 s) and prints, per gesture, the clips actually played and how far the hands travel (`gesture_check.py`); a gesture that only plays idle fails. `sad` and `listen` are not offered because the lion has no clip for them (they fall back to Idle_3); laugh uses the shared agree-gesture clip.
