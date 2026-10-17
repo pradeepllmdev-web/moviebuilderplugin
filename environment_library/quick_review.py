@@ -103,6 +103,8 @@ def run_activity(args):
  print('feasibility '+json.dumps({k:v for k,v in verdict.items() if k not in ('limits',)})+f'  ({time.time()-started:.2f}s)')
  if args.feasibility_only or not verdict.get('ok'):return
  print(chr(10).join(build_shot(activity_plan(name,character),0,args.view,args.frames,not args.no_sheet)))
+ if args.open:
+  folder=max(OUT.glob(f'shot1_{name.replace(" ","_")[:12]}_*'),key=lambda p:p.stat().st_mtime);subprocess.Popen([BLENDER,str(folder/'scene.blend')]);print('opened in Blender: '+str(folder/'scene.blend')+' (press Space to play; rig animation, bench/table are proxies only in sheets)')
 
 
 def shot_inputs(plan,index):
@@ -247,7 +249,7 @@ def report(movie_id,frames):
 if __name__=='__main__':
  parser=argparse.ArgumentParser(description=__doc__,formatter_class=argparse.RawDescriptionHelpFormatter)
  parser.add_argument('mode',choices=['shot','movie','frames','activity']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
- parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true');parser.add_argument('--character',default='lion');parser.add_argument('--feasibility-only',action='store_true')
+ parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true');parser.add_argument('--character',default='lion');parser.add_argument('--feasibility-only',action='store_true');parser.add_argument('--open',action='store_true')
  args=parser.parse_args();sys.path.insert(0,str(H))
  if args.mode=='shot':run_shot(args)
  elif args.mode=='activity':run_activity(args)
