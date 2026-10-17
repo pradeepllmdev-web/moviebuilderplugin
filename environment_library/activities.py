@@ -19,7 +19,7 @@ ACTIVITIES={
   test_beats=[('idle',2),('sit_down',3),('drink',6),('stand_up',3)]),
 }
 # Standing, in-place gestures played straight from the shared clip library (name = clip preference key in
-# realistic_clips.CLIP_PREFERENCES). One entry each: (request regex, planner description). sad and listen are left out:
+# realistic_clips.CLIP_PREFERENCES). One entry each: (request regex, planner description). sad, listen, point and cry are left out:
 # the lion has no clip for them (they fall back to Idle_3), so idle with look_at covers listening.
 GESTURES={
  'wave':(r'\bwav(?:es|ing|e)\b','waves hello with one hand'),
@@ -31,6 +31,25 @@ GESTURES={
  'laugh':(r'\blaugh\w*','laughs'),
  'hands_on_hips':(r'\bhands on (?:his |its |their )?hips\b','stands with hands on hips'),
  'look_around':(r'\blooks? around\b|\bscans? the\b','looks around'),
+ 'phone':(r'\bphone\b|\bcalls?\b','talks on a phone'),
+ 'pick_up':(r'\bpicks? up\b|\bbends? down\b','bends down to pick something up'),
+ 'open_door':(r'\bopens? the door\b','opens a door'),
+ 'push':(r'\bpush(?:es|ing)?\b','pushes forward'),
+ 'kick':(r'\bkicks?\b','kicks'),
+ 'punch':(r'\bpunch(?:es)?\b|\bjabs?\b','throws a punch'),
+ 'dodge':(r'\bdodg\w+','dodges'),
+ 'startle':(r'\bstartl\w+|\bflinch\w*|\bjumps? back\b','is startled'),
+ 'block':(r'\bblocks?\b','blocks with its arms'),
+ 'hit_react':(r'\bgets? hit\b|\bis hit\b','reacts to being hit'),
+ 'fall_back':(r'\bfalls? back\b|\bfalls? over\b','falls backward'),
+ 'get_up':(r'\bgets? up\b|\bgetting up\b','gets up from the ground'),
+ 'kneel':(r'\bkneel\w*','kneels'),
+ 'crawl':(r'\bcrawl\w*','crawls'),
+ 'lie_down':(r'\blies? down\b','lies down'),
+ 'sleep':(r'\bsleeps?\b|\basleep\b','sleeps'),
+ 'headache':(r'\bheadache\b','holds its head in pain'),
+ 'stunned':(r'\bstunned\b|\bdumbfounded\b','stands stunned'),
+ 'argue':(r'\barg(?:ues?|uing)\b','argues angrily'),
 }
 for _name,(_regex,_what) in GESTURES.items():
  ACTIVITIES[_name]=dict(beats={_name:dict(action=_name)},seated=[],module=None,characters=['lion'],family='clip',planner=None,

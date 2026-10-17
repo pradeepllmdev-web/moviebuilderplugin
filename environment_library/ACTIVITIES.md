@@ -29,3 +29,9 @@ The snout is ~52 cm ahead of the head pivot and the arm reaches ~47 cm, so a han
 wave, nod, shrug, think, bow, celebrate, laugh and hands_on_hips are one-line registry entries (`GESTURES` in `activities.py`) that play a clip straight from the shared library (`blendplugin-next/scene_pipeline/realistic_clips.py`, retargeted to the lion). No body solve, so adding one is: add the name to `GESTURES` with a request regex and a planner phrase, confirm the clip key exists in `CLIP_PREFERENCES`, run the batch check.
 
 `python quick_review.py activity gestures` builds all of them in parallel (~25 s) and prints, per gesture, the clips actually played and how far the hands travel (`gesture_check.py`); a gesture that only plays idle fails. `sad` and `listen` are not offered because the lion has no clip for them (they fall back to Idle_3); laugh uses the shared agree-gesture clip.
+
+## Test every activity at once (Blender only)
+
+`python quick_review.py activity all` builds sit, drink and every gesture in parallel Blender processes (~75 s for 30) and prints one `PASS`/`FAIL` line each: build, motion safety, foot drift, plus the activity's own check (gesture clip played and hands/head moved; drink muzzle-to-rim, hand reach and body-in-table). `activity gestures` runs only the clip-driven ones; `activity <name> --frames 40,80,120` adds a side sheet for one.
+
+Clip activities: wave, nod, shrug, think, bow, celebrate, laugh, hands_on_hips, look_around, phone, pick_up, open_door, push, kick, punch, dodge, startle, block, hit_react, fall_back, get_up, kneel, crawl, lie_down, sleep, headache, stunned, argue. They play the library clip only: pick_up, open_door and phone have no prop yet (a hand-contact prop pass is the next layer), and lie_down/sleep/fall_back/get_up/crawl move the body to the floor, so judge them in Unreal. Not offered, no lion clip: sad, listen, point, cry.

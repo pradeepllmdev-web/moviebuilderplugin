@@ -69,17 +69,33 @@ def activity_plan(name,character='lion'):
  def shot(title,beats):return dict(version=1,title=title,character=character,environment='forest',environment_id='RealisticRiver_20261015_093641',mood='morning_fog',lookdev='soft_portrait',camera='full',eye_life=True,segments=[beat(a,d) for a,d in beats],unsupported=[],notes=[])
  return dict(version=1,title=name+' check',unsupported=[],shots=[shot(name,activities.ACTIVITIES[name]['test_beats']),shot('Rest',[('idle',2),('talk',2)])])
 
+def run_all(names,character='lion'):
+  """Every named activity in parallel Blender processes; one PASS/FAIL line each from its own checks."""
+  import activities,body_measures
+  from concurrent.futures import ThreadPoolExecutor
+  if not body_measures.load(character):build_shot(activity_plan('sit',character),0,'side',None,False)
+  measures=body_measures.load(character);threads=max(1,(os.cpu_count() or 8)//8);results={}
+  def one(n):
+   verdict=activities.feasibility(n,measures)
+   if not verdict.get('ok'):return n,False,'infeasible: '+str(verdict.get('reason'))
+   lines=build_shot(activity_plan(n,character),0,'side',None,False,threads);text=chr(10).join(lines)
+   if 'FAILED' in lines[0]:return n,False,lines[1].strip()[:110] if len(lines)>1 else 'build failed'
+   bad=[l.strip().split()[0] for l in lines if 'ok=False' in l]
+   if bad:return n,False,'failed checks: '+', '.join(bad)
+   import ast;g=next((l for l in lines if l.strip().startswith('gesture')),None)
+   if g:
+    clips=ast.literal_eval(g[g.index('['):g.index(']')+1]);played=next((c.split('|')[1].split(' ')[0] for c in clips if 'Idle' not in c and 'Guard' not in c),'?');return n,True,'clip '+played+' '+g[g.index('hand travel'):].strip()
+   return n,True,' '.join(l.strip()[:90] for l in lines if l.strip().startswith('drink'))
+  with ThreadPoolExecutor(8) as pool:
+   return [f"{'PASS' if ok else 'FAIL'} {n}: {detail}" for n,ok,detail in pool.map(one,names)]
+
 def run_activity(args):
  """Instant feasibility from cached body measurements, then a one-shot Blender build with its checks."""
  import activities,body_measures
  name=args.target;character=args.character;started=time.time()
- if name=='gestures':
-  from concurrent.futures import ThreadPoolExecutor
-  names=list(activities.GESTURES);threads=max(1,(os.cpu_count() or 8)//6)
-  with ThreadPoolExecutor(6) as pool:results=list(pool.map(lambda n:build_shot(activity_plan(n,character),0,'side',None,False,threads),names))
-  for n,lines in zip(names,results):print(n+': '+' | '.join(l.strip() for l in lines if l.strip().startswith(('shot','gesture','safety','foot')) ))
-  print(f'{len(names)} gestures in {time.time()-started:.0f}s');return
- if name not in activities.ACTIVITIES:print('unknown activity; choose from '+', '.join(activities.ACTIVITIES));return
+ if name in ('all','gestures'):
+  names=[n for n in activities.ACTIVITIES if name=='all' or n in activities.GESTURES];print(chr(10).join(run_all(names,character)))
+  print(f'{len(names)} activities in {time.time()-started:.0f}s');return
  measures=body_measures.load(character)
  if not measures:
   print(f'no cached body measurements for {character}; measuring with a sit shot');build_shot(activity_plan('sit',character),0,'side',None,False);measures=body_measures.load(character)
