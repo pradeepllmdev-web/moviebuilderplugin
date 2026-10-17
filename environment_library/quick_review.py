@@ -104,7 +104,7 @@ def run_activity(args):
  if args.feasibility_only or not verdict.get('ok'):return
  print(chr(10).join(build_shot(activity_plan(name,character),0,args.view,args.frames,not args.no_sheet)))
  if args.open:
-  folder=max(OUT.glob(f'shot1_{name.replace(" ","_")[:12]}_*'),key=lambda p:p.stat().st_mtime);subprocess.Popen([BLENDER,str(folder/'scene.blend')]);print('opened in Blender: '+str(folder/'scene.blend')+' (press Space to play; rig animation, bench/table are proxies only in sheets)')
+  folder=max(OUT.glob(f'shot1_{name.replace(" ","_")[:12]}_*'),key=lambda p:p.stat().st_mtime);subprocess.Popen([BLENDER,str(folder/'scene.blend'),'--python',str(H/'view_setup.py'),'--',str(folder)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);print('opened in Blender: '+str(folder/'scene.blend')+' (framed on the lion, playing; Space pauses, numpad 1/3 front/side)')
 
 
 def shot_inputs(plan,index):
