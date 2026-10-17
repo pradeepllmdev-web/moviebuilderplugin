@@ -52,3 +52,16 @@ class GestureTests(unittest.TestCase):
   with self.assertRaises(ValueError):validate_scene(scene([beat('sit_down'),beat('wave',3),beat('stand_up')]))
  def test_planner_lists_the_gestures(self):
   for name in activities.GESTURES:self.assertIn(name+' (',SYSTEM)
+class KnowledgeTests(unittest.TestCase):
+ def test_unsupported_motions_must_be_reported(self):
+  plan=scene([beat('idle',4)])
+  with self.assertRaises(ValueError):require_requested_controls(plan,'The lion points ahead and then walks')
+  ok=dict(plan,unsupported=['point: no pointing clip'])
+  require_requested_controls(ok,'The lion points ahead and then walks')
+  self.assertEqual(activities.unsupported_requests('from this point of view'),[])
+ def test_planner_states_the_gaps(self):
+  self.assertIn('has no clip for',SYSTEM);self.assertIn('unsupported',SYSTEM)
+ def test_catalog_lists_every_activity_for_clients(self):
+  catalog=activities.summary()
+  self.assertEqual(set(catalog['activities']),set(activities.ACTIVITIES));self.assertIn('cry',catalog['unsupported'])
+  self.assertTrue(catalog['activities']['drink']['seated']);self.assertIn('lift a cup',catalog['activities']['drink']['caveat'])

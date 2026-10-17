@@ -142,6 +142,8 @@ def require_requested_controls(plan,prompt):
  import re
  shots=plan.get('shots',[plan])
  # Explicit named presets are deterministic controls, not optional AI suggestions.
+ for name in activities.unsupported_requests(prompt):
+  if not plan.get('unsupported') and not any(s.get('unsupported') for s in shots):raise ValueError('Requested '+name+' has no clip for the lion; describe it in unsupported and keep a plain idle or talk beat.')
  if re.search(r'\bsoft_portrait\b|\bsoft portrait lighting\b',prompt,re.I):
   for shot in shots:shot['lookdev']='soft_portrait'
  if re.search(r'look(?:s|ing)?\s+(?:at|toward|towards)\s+each other|face\s+each other|\beye contact\b',prompt,re.I):
