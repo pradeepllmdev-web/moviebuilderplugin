@@ -108,3 +108,36 @@ class ContactTests(unittest.TestCase):
    (a/'contact-track.json').write_text(json.dumps(dict(action='handshake',track=[row([0,0,90])])));(b/'contact-track.json').write_text(json.dumps(dict(action='handshake',track=[row([3,0,90])])))
    self.assertTrue(ca.pair_check(a,b)['ok'])
    (b/'contact-track.json').write_text(json.dumps(dict(action='handshake',track=[row([30,0,90])])));self.assertFalse(ca.pair_check(a,b)['ok'])
+class StoryToolsTests(unittest.TestCase):
+ def _plan(self,shots):
+  import previs
+  return previs.lenient_validate(dict(version=1,title='t',unsupported=[],shots=shots))
+ def _shot(self,title,actors):
+  return dict(version=1,title=title,environment='forest',mood='morning_fog',camera='full',unsupported=[],notes=[],actors=actors)
+ def _actor(self,ch,x,y,segments,**extra):return dict(character=ch,position_cm=[x,y],segments=segments,**extra)
+ def test_layout_flags_actor_walking_into_stairs(self):
+  import story_layout
+  shots=[self._shot('a',[self._actor('lion',0,-100,[beat('climb_stairs',6)])]),self._shot('b',[self._actor('lion',0,-100,[dict(action='walk',duration=4,dialogue='',distance_cm=200)])])]
+  findings=story_layout.layout(self._plan(shots),{})['findings']
+  self.assertTrue(any(f['rule']=='blocking.scenery' and f['shot']==2 for f in findings))
+ def test_layout_flags_walker_facing_sideways(self):
+  import story_layout
+  shots=[self._shot('a',[self._actor('lion',0,0,[dict(action='walk',duration=4,dialogue='',distance_cm=200)],facing_yaw_deg=90)])]
+  self.assertTrue(any(f['rule']=='facing.walker' for f in story_layout.layout(self._plan(shots),{})['findings']))
+ def test_lint_catches_place_change_without_travel(self):
+  import story_lint
+  shots=[self._shot('a',[self._actor('lion',0,0,[beat('wave',4)])]),self._shot('b',[self._actor('lion',0,0,[beat('wave',4)])])]
+  direction=dict(sets=[dict(kind='forest',origin_cm=[0,0]),dict(kind='river',origin_cm=[6000,0])],shots={'a':dict(origin_cm=[0,0]),'b':dict(origin_cm=[6000,0])})
+  self.assertTrue(any(f['rule']=='continuity.place_change' for f in story_lint.lint(self._plan(shots),direction)))
+ def test_lint_requires_object_named_in_dialogue(self):
+  import story_lint
+  shots=[self._shot('a',[self._actor('lion',0,0,[beat('wave',4,'I found the little one!')])])]
+  self.assertTrue(any(f['rule']=='dialogue.needs_object' for f in story_lint.lint(self._plan(shots),{})))
+ def test_camera_solver_stays_out_of_walls_and_rooms(self):
+  import story_camera,story_layout
+  boxes=[story_layout.box(-280,-8,-51,8,'DoorWallL'),story_layout.box(51,-8,280,8,'DoorWallR'),story_layout.box(-280,430,280,450,'HutBack'),story_layout.box(-290,0,-270,440,'HutSideA'),story_layout.box(270,0,290,440,'HutSideB'),story_layout.box(-280,0,280,440,'Room','room')]
+  shot=self._plan([self._shot('in',[self._actor('lion',0,200,[beat('wave',4)])])])['shots'][0]
+  cam=story_camera.solve_shot(shot,(0,0),boxes)
+  self.assertTrue(-235<cam['pos_cm'][0]<235 and 45<cam['pos_cm'][1]<395,cam)   # inside the room with the actor
+  outside=self._plan([self._shot('out',[self._actor('lion',0,-200,[beat('wave',4)])])])['shots'][0]
+  c2=story_camera.solve_shot(outside,(0,0),boxes);self.assertFalse(-290<c2['pos_cm'][0]<290 and -10<c2['pos_cm'][1]<450,c2)   # outside the building

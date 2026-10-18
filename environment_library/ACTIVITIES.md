@@ -64,3 +64,15 @@ Known limits: props and stairs exist in Blender only (no Unreal prop yet); stair
 `python quick_review.py previs --plan previs_story:STORY --direction previs_story:DIRECTION` builds the sample story "Leo and the Missing Cup" (12 shots, ~78 s) as one `previs.blend` and opens it in the camera view. No mp4 is rendered unless you add `--render`. Actors walk their routes, each shot has its own camera (some with dolly moves), dialogue shows as subtitles and plays as audio strips, and low-poly sets (forest, river with bridge, village, mountain steps, mountain backdrop; `previs_sets.py`) sit 60 m apart. Bench, table, cup and stairs are added automatically from each actor's build. The plan limits (positions within 6 m, 40 s per shot) still apply per shot, but the movie-level 6-shot limit does not. Copy `previs_story.py` to write another story; `DIRECTION` holds the previs-only extras (sets, each shot's place and camera).
 
 More stories (same format as previs_story.py): `previs_story2` (Storm at the Mountain Hut), `previs_story3` (The Lion Cafe: new `cafe` set with awning, counter, tables and chairs), `previs_story4` (The Lost Cub: paw-print trail and a cub prop via `DIRECTION['props']`, optionally visible only in named shots with `only_in`). Run: `python quick_review.py previs --plan previs_story3:STORY --direction previs_story3:DIRECTION`. Available low-poly sets: forest, river (with bridge), village (houses, well, fence), mountains, cafe, plus a mountain backdrop; props: bench/table/cup/stairs/crate/door/cub/paw prints/spheres/boxes/cylinders.
+
+## Building a story: the automatic pipeline
+
+Order a director works in, each step automatic (`quick_review.py previs --plan m:STORY --direction m:DIRECTION [--strict] [--keep-open]`):
+
+1. **Environment and props** (`story_layout.scenery`, `previs_sets.py`): sets per place; door huts, benches, tables, stairs and story props are permanent scenery for every shot at their place.
+2. **Paths** (`story_layout.segment_paths`): where each actor stands and walks, shot by shot (walks go +Y; `offset_cm` moves a shot inside its place).
+3. **Blocking** (`story_layout`, `story_lint`): actors inside walls, water, stairs or each other, cuts between places without travel, actors that vanish, dialogue about things that are not there. Errors stop a `--strict` run.
+4. **Facing** (`story_layout`): walkers face their travel, talkers face their partner, contact beats are side by side, nobody faces the camera by accident.
+5. **Build**, then **camera and collision QA with real geometry** (`previs_qa.py`, Blender ray casts): candidate cameras around the actors are scored (actors in frame and well sized, nothing between lens and faces, not against a wall, same room as the actors, faces visible) and the winner is saved into `previs.blend`; body points inside walls are reported. Set `auto_camera=True` in DIRECTION to use `story_camera.py` for the first guess.
+
+Output lists `story check`, per-shot `PASS`, and `camera and collision QA` with what is left for a human.

@@ -60,15 +60,26 @@ def camera_for(shot,actors_xy):
 def shot_length(shot):
  actors=shot.get('actors') or [dict(segments=shot['segments'])]
  return round(sum(g['duration'] for g in actors[0]['segments'])*24)
+def qa(folder,spec):
+ """Real-geometry check of the merged scene in Blender: pick cameras that see the actors (saved into previs.blend), report what is left."""
+ qr=_qr();log=folder/'qa.log'
+ with open(log,'w') as handle:code=subprocess.call([qr.BLENDER,'-b',str(folder/'previs.blend'),'--python-exit-code','1','-P',str(H/'previs_qa.py'),'--',str(folder/'spec.json')],stdout=handle,stderr=subprocess.STDOUT)
+ if code:return ['  camera QA FAILED: '+next((l.strip() for l in reversed(log.read_text(errors='ignore').splitlines()) if 'Error' in l),'see '+str(log))]
+ report=json.loads((folder/'qa.json').read_text());lines=['camera and collision QA (real geometry):']
+ for r in report:
+  problems=list(r.get('issues',[]))+list(r.get('collisions',[]))
+  lines.append(f"  shot {r['shot']:2d} {r['label'][:24]:24s} "+('ok' if not problems else '; '.join(problems[:3]))+(f"   (camera offset {r['offset_m']}, lens {r['lens']})" if 'offset_m' in r else ''))
+ return lines
 def merge(spec,name,render=False,open_gui=False):
  """Write the spec, run the merge in background Blender, optionally render and open."""
  qr=_qr();folder=qr.OUT/f'previs_{time.strftime("%H%M%S")}_{name}';folder.mkdir(parents=True,exist_ok=True);spec['out']=str(folder/'previs');spec['render']=render
  (folder/'spec.json').write_text(json.dumps(spec));log=folder/'merge.log'
  with open(log,'w') as handle:code=subprocess.call([qr.BLENDER,'-b','--python-exit-code','1','-P',str(H/'previs_merge.py'),'--',str(folder/'spec.json')],stdout=handle,stderr=subprocess.STDOUT)
  if code:return folder,'merge FAILED: '+next((l.strip() for l in reversed(log.read_text(errors='ignore').splitlines()) if 'Error' in l),'see '+str(log))
+ qa_lines=qa(folder,spec) if spec['mode']=='movie' and spec.get('qa',True) else []
  if open_gui:
   open_viewer(folder/'previs.blend',folder,spec['mode'])
- return folder,'ok'
+ return folder,'ok'+(chr(10)+chr(10).join(qa_lines) if qa_lines else '')
 def run_gallery(names,character='lion',open_gui=True,sequence=False,render=False):
  """Every named activity (pairs included) built in parallel, then all merged into one scene."""
  import activities
@@ -210,7 +221,7 @@ def run_previs(plan,name='movie',render=False,open_gui=True,direction=None,stric
    for q in props_for(f,s,d_shot.get('door_style')):
     q['center_cm']=[q['center_cm'][0]+ox,q['center_cm'][1]+oy,q['center_cm'][2]];q['place']=place   # scenery belongs to its place: it is there in every shot at that place
     extra.append(q)
-  shots.append(dict(start=start,length=length,label=title,place=list(place),camera=cam,lines=lines,actors=[dict(folder=str(f),position_cm=[s['actor_position_cm'][0]+ox,s['actor_position_cm'][1]+oy],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
+  walking=any(g['action'] in ('walk','run','carry_walk','climb_stairs') for f_,ok_,d_,s_ in actors for g in s_['segments']);shots.append(dict(start=start,length=length,label=title,place=list(place),camera=cam,camera_kind=d_shot.get('framing') or ('full' if walking else 'medium'),lines=lines,actors=[dict(folder=str(f),position_cm=[s['actor_position_cm'][0]+ox,s['actor_position_cm'][1]+oy],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
  for q in extra:   # permanent scenery: visible from the first to the last shot at its place
   place=q.pop('place');window=[s for s in shots if tuple(s['place'])==tuple(place)]
   if window:q['frames']=[window[0]['start'],window[-1]['start']+window[-1]['length']-1]
