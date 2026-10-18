@@ -103,4 +103,6 @@ Output lists `story check`, per-shot `PASS`, and `camera and collision QA` with 
 
     blender -b --disable-autoexec --python horse_herd.py -- <Horse.blend> <out.blend> [horses=64] [seconds=12]
 
-Result: `scenes/horse_herd.blend` (70 horses, 12 s). For any other un-rigged animal: Blender's Rigify quadruped metarig (manual fit) or an AI auto-rigger (Meshy, Tripo, Anything World) then retarget; Mixamo only rigs bipeds.
+Also in the script: a meandering low-poly river with banks, rocks and pines, low-poly mountain ranges with snow caps ahead of the herd and beyond the river, five camera cuts bound to timeline markers (1 drone wide, 2 low alongside, 3 ahead looking back, 4 overhead, 5 river bank with mountains behind), and a soundtrack synthesised in the script with numpy (no downloads): hoof beats (70 horses x 4 hooves per stride, louder in the close shots), wind and river noise (river louder at the river bank), and a short Dm-Bb-F-C piece with arpeggios and a melody; three WAVs in `scenes/audio/` added as separate sound strips so each can be muted or rebalanced.
+
+Result: `scenes/horse_herd.blend` (70 horses, 16 s, 384 frames). For any other un-rigged animal: Blender's Rigify quadruped metarig (manual fit) or an AI auto-rigger (Meshy, Tripo, Anything World) then retarget; Mixamo only rigs bipeds.
