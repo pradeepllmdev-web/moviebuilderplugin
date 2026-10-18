@@ -180,6 +180,13 @@ def run_previs(plan,name='movie',render=False,open_gui=True,direction=None):
     if q.get('name') in ('DrinkTable','TableLeg','Cup') and times:q['frames']=[start+round(times[0]*24),start+round(times[1]*24)]   # the table is only there while the lion sits: standing, the lion is 25 cm nearer to it
     extra.append(q)
   shots.append(dict(start=start,length=length,label=title,camera=cam,lines=lines,actors=[dict(folder=str(f),position_cm=[s['actor_position_cm'][0]+ox,s['actor_position_cm'][1]+oy],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
- folder,note=merge(dict(mode='movie',fps=24,shots=shots,width=640,height=360,trees=True,use_routes=True,sets=(direction or {}).get('sets'),props=extra),name,render,open_gui)
+ story_props=[]
+ for q in (direction or {}).get('props',[]):   # story props: world cm, optionally only visible in the named shots (only_in)
+  q=dict(q)
+  if q.get('only_in'):
+   window=[s for s in shots if s['label'] in q['only_in']]
+   if window:q['frames']=[window[0]['start'],window[-1]['start']+window[-1]['length']-1]
+  story_props.append(q)
+ folder,note=merge(dict(mode='movie',fps=24,shots=shots,width=640,height=360,trees=True,use_routes=True,sets=(direction or {}).get('sets'),props=extra+story_props),name,render,open_gui)
  report.append(f'movie {note}: {folder}'+(f'/previs.mp4' if render else '/previs.blend')+f'  ({start-1} frames, {time.time()-started:.0f}s)')
  return report

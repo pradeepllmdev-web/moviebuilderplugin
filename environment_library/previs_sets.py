@@ -43,6 +43,21 @@ def village(ox,oy,rnd):
  for i in range(14):
   x=-12+i*1.85;box((ox+x,oy-9,.35),(.08,.08,.7),(.5,.38,.2),'FencePost');box((ox+x,oy-9,.5),(1.85,.05,.08),(.5,.38,.2),'FenceRail')
  forest(ox,oy,rnd,10,14,24)
+def sphere(center_m,radius_m,color,name='Ball',scale=(1,1,1)):
+ bpy.ops.mesh.primitive_uv_sphere_add(segments=10,ring_count=6,radius=radius_m,location=center_m);o=bpy.context.object;o.name=name;o.scale=scale;o.data.materials.append(mat(name+str(color),color));return o
+def cafe(ox,oy,rnd):
+ """A small street cafe: striped awning, counter, round tables with chairs, sign, flower pots, houses and trees around."""
+ box((ox,oy-5.5,1.5),(8,5,3),(.92,.86,.7),'CafeWalls');box((ox,oy-5.5,3.2),(8.6,5.6,.3),(.55,.18,.14),'CafeRoof')
+ for k in range(8):box((ox-3.5+k,oy-2.7,2.45),(1,1.5,.1),(.85,.15,.15) if k%2==0 else (.95,.92,.88),'Awning')
+ box((ox,oy-3.05,3.0),(3.2,.12,.7),(.25,.15,.08),'Sign')
+ box((ox,oy-3.4,.5),(4.2,.6,1.0),(.45,.3,.18),'Counter');box((ox-2.4,oy-3.4,1.15),(.5,.4,.3),(.8,.8,.8),'Machine')
+ for sx in (-2.8,2.8):cylinder((ox+sx,oy-3.1,.25),.22,.5,(.7,.35,.2),'Pot',8);cone((ox+sx,oy-3.1,.75),.3,.5,(.2,.55,.2),'Plant',6)
+ for tx,ty in ((-3,.2),(3,.2),(0,3)):
+  cylinder((ox+tx,oy+ty,.7),.55,.05,(.8,.7,.55),'TableTop',10);cylinder((ox+tx,oy+ty,.35),.06,.7,(.4,.3,.2),'TableLeg',6)
+  for cx,cy in ((.8,0),(-.8,0),(0,.8)):box((ox+tx+cx,oy+ty+cy,.25),(.4,.4,.5),(.55,.35,.2),'Chair')
+ for x,y,yaw in ((-8,-4,90),(8,-4,-90),(-9,3,90)):
+  box((ox+x,oy+y,1.3),(3.6,3.8,2.6),(.8,.74,.6),'House',yaw);cone((ox+x,oy+y,3.2),3,1.6,(.6,.2,.15),'Roof',4,45)
+ forest(ox,oy,rnd,10,14,24)
 def mountains(ox,oy,rnd):
  forest(ox,oy,rnd,14,10,24)
  box((ox+0,oy+1.2,.05),(2.4,2.4,.1),(.6,.6,.58),'SummitPad')
@@ -55,11 +70,12 @@ def build(scene,sets,props,use_backdrop=True):
  rnd=random.Random(11)
  bpy.ops.mesh.primitive_plane_add(size=1,location=(0,0,-.02));g=bpy.context.object;g.name='Ground';g.scale=(900,260,1);g.location=(0,0,-.02);g.data.materials.append(mat('Ground',(.22,.38,.16)))
  for s in sets:
-  ox,oy=s['origin_cm'][0]/100,s['origin_cm'][1]/100;{'forest':forest,'river':river,'village':village,'mountains':mountains}[s['kind']](ox,oy,rnd)
+  ox,oy=s['origin_cm'][0]/100,s['origin_cm'][1]/100;{'forest':forest,'river':river,'village':village,'mountains':mountains,'cafe':cafe}[s['kind']](ox,oy,rnd)
  if use_backdrop:backdrop(rnd)
  for p in props:
   c=[v/100 for v in p['center_cm']];color=p.get('color',(.5,.35,.2))
-  o=box(c,[v/100 for v in p['size_cm']],color,p.get('name','Prop'),p.get('yaw',0)) if p['shape']=='box' else cylinder(c,p['size_cm'][0]/100,p['size_cm'][1]/100,color,p.get('name','Prop'))
+  if p['shape']=='sphere':o=sphere(c,p['size_cm'][0]/100,color,p.get('name','Prop'),p.get('scale',(1,1,1)))
+  else:o=box(c,[v/100 for v in p['size_cm']],color,p.get('name','Prop'),p.get('yaw',0)) if p['shape']=='box' else cylinder(c,p['size_cm'][0]/100,p['size_cm'][1]/100,color,p.get('name','Prop'))
   if p.get('frames'):   # visible only between these frames
    for prop_name in ('hide_viewport','hide_render'):
     for frame,value in ((max(0,p['frames'][0]-1),True),(p['frames'][0],False),(p['frames'][1]+1,True)):
