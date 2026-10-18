@@ -114,23 +114,57 @@ def _pair_check(a,b):
  import contact_actions
  try:return contact_actions.pair_check(a,b)
  except Exception as error:return dict(ok=False,reason=str(error)[:100])
-def run_previs(plan,name='movie',render=False,open_gui=True):
- """A validated movie plan -> one Blender scene, a camera per shot, shots laid end to end."""
- from movie_prompt import validate
- qr=_qr();started=time.time();p=validate(plan);jobs=[];shots=[];start=1
+def props_for(folder,single):
+ """World-space proxies an actor's build needs: bench, table and cup (seat/drink), stairs. Cup, crate and door already live in the actor's scene."""
+ import contact_actions as ca
+ folder=Path(folder);props=[];pos=single['actor_position_cm']
+ route=json.loads((folder/'route.json').read_text()) if (folder/'route.json').exists() else None
+ def world(x,y,z,frame=0):
+  r=route[frame];return ca.to_world((x,y,z),(pos[0]+r['location_cm'][0],pos[1]+r['location_cm'][1]),r['yaw'])
+ if (folder/'seat.json').exists() and route:
+  s=json.loads((folder/'seat.json').read_text());c=world(s['lateral_cm'],-(s['forward_cm']-3),s['top_cm']/2,s['frame']);props.append(dict(shape='box',center_cm=list(c),size_cm=[70,32,s['top_cm']],color=[.35,.22,.1],yaw=route[s['frame']]['yaw']+180,name='Bench'))
+  if (folder/'drink.json').exists():
+   d=json.loads((folder/'drink.json').read_text());tb=d['table'];tc=world(tb['center'][0],tb['center'][1],tb['top_cm']-tb['thickness_cm']/2,s['frame'])
+   props.append(dict(shape='box',center_cm=list(tc),size_cm=[tb['size_cm'][0],tb['size_cm'][1],tb['thickness_cm']],color=[.5,.3,.15],yaw=route[s['frame']]['yaw']+180,name='DrinkTable'))
+   for sx in (-1,1):
+    for sy in (-1,1):
+     lc=world(tb['center'][0]+sx*(tb['size_cm'][0]/2-4),tb['center'][1]+sy*(tb['size_cm'][1]/2-4),tb['top_cm']/2,s['frame']);props.append(dict(shape='box',center_cm=list(lc),size_cm=[5,5,tb['top_cm']],color=[.4,.25,.12],name='TableLeg'))
+   cc=world(d['cup_cm'][0],d['cup_cm'][1],d['cup_cm'][2],s['frame']);props.append(dict(shape='cylinder',center_cm=list(cc),size_cm=[d['cup']['radius_cm'],d['cup']['height_cm']],color=[.85,.25,.2],name='Cup'))
+ if (folder/'stairs.json').exists():
+  j=json.loads((folder/'stairs.json').read_text());st=j['step']
+  for k in range(st['count']):
+   h=st['rise_cm']*(k+1);props.append(dict(shape='box',center_cm=[pos[0],pos[1]+j['start_y_cm']+st['first_cm']+(k+.5)*st['tread_cm']+6,h/2],size_cm=[200,st['tread_cm'],h],color=[.6,.58,.55],name='Step'))
+ return props
+def lines_for(folder,speaker):
+ p=Path(folder)/'scene.json'
+ if not p.exists():return []
+ return [dict(speaker=l.get('speaker',speaker),text=l['text'],start_s=l['start'],end_s=min(l['end']+.4,l['end']+1),audio=l.get('audio')) for l in json.loads(p.read_text()).get('lines',[])]
+def lenient_validate(plan):
+ """Validate every shot like the planner does, without the movie-level 2..6 shot / 90 s limits (a previs story can be longer)."""
+ import copy,scene_prompt
+ return dict(plan,shots=[scene_prompt.validate(copy.deepcopy(s)) for s in plan['shots']])
+def run_previs(plan,name='movie',render=False,open_gui=True,direction=None):
+ """A movie plan -> one Blender scene, a camera per shot, shots laid end to end, actors walking their routes. direction = {sets:[...], shots:{title:{origin_cm, camera}}}."""
+ qr=_qr();started=time.time();p=lenient_validate(plan);jobs=[];shots=[];start=1
  for k,shot in enumerate(p['shots']):
-  singles=qr.shot_inputs(plan,k) if not shot.get('actors') else None
-  inputs=[singles] if singles else actor_inputs(shot)
+  inputs=actor_inputs(shot)
   jobs+=[(k,i,single) for i,single in enumerate(inputs)]
  with ThreadPoolExecutor(8) as pool:results=list(pool.map(lambda j:(j,build_actor(j[2],f's{j[0]}a{j[1]}',1)),jobs))
- report=[];built={}
+ report=[];built={};extra=[]
  for (k,i,single),(folder,ok,detail) in results:
   built.setdefault(k,[]).append((folder,ok,detail,single));report.append(f"{'PASS' if ok else 'FAIL'} shot {k+1} actor {i+1} ({single['character']}): {detail}")
  for k,shot in enumerate(p['shots']):
   actors=built[k]
   if not all((a[0]/'scene.blend').exists() for a in actors):continue
   length=shot_length(shot);xy=[s['actor_position_cm'] for f,ok,d,s in actors]
-  shots.append(dict(start=start,length=length,label=shot.get('title','shot %d'%(k+1)),camera=camera_for(shot,xy),actors=[dict(folder=str(f),position_cm=s['actor_position_cm'],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
- folder,note=merge(dict(mode='movie',fps=24,shots=shots,width=640,height=360,trees=True),name,render,open_gui)
+  xy=[[x+(direction or {}).get('shots',{}).get(shot.get('title',''),{}).get('origin_cm',[0,0])[0]*0,y] for x,y in xy]
+  title=shot.get('title','shot %d'%(k+1));d_shot=(direction or {}).get('shots',{}).get(title,{});ox,oy=d_shot.get('origin_cm',[0,0]);cam=camera_for(shot,xy);cam.update(d_shot.get('camera',{}))
+  for key in ('pos_cm','target_cm','to_pos_cm','to_target_cm'):
+   if key in cam:cam[key]=[cam[key][0]+ox,cam[key][1]+oy,cam[key][2]]
+  lines=[l for f,ok,d,s in actors for l in lines_for(f,s['character'])]
+  for f,ok,d,s in actors:
+   for q in props_for(f,s):q['center_cm']=[q['center_cm'][0]+ox,q['center_cm'][1]+oy,q['center_cm'][2]];extra.append(q)
+  shots.append(dict(start=start,length=length,label=title,camera=cam,lines=lines,actors=[dict(folder=str(f),position_cm=[s['actor_position_cm'][0]+ox,s['actor_position_cm'][1]+oy],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
+ folder,note=merge(dict(mode='movie',fps=24,shots=shots,width=640,height=360,trees=True,use_routes=True,sets=(direction or {}).get('sets'),props=extra),name,render,open_gui)
  report.append(f'movie {note}: {folder}'+(f'/previs.mp4' if render else '/previs.blend')+f'  ({start-1} frames, {time.time()-started:.0f}s)')
  return report

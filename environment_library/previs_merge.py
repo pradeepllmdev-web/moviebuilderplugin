@@ -10,7 +10,8 @@ Every actor's scene.blend is appended (rig, body, props), parented to a slot emp
 actor (yaw 0 faces +Y, so the rig, which faces -Y, turns by yaw+180), its animation shifted to the shot's start frame
 and hidden outside the shot. A flat ground, simple trees, a camera per shot (movie, with cuts as bound markers) and a
 workbench mp4 render make a quick previs; textures come from the source scenes."""
-import bpy,json,math,random,sys
+import bpy,json,math,random,sys,os
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 spec=json.load(open(sys.argv[sys.argv.index('--')+1]))
 bpy.ops.wm.read_factory_settings(use_empty=True)
 scene=bpy.context.scene;fps=spec.get('fps',24);scene.render.fps=fps
@@ -43,6 +44,15 @@ def add_actor(actor,start,length,index,slot_offset=(0,0),src_start=1):
   if o.type in ('CAMERA','LIGHT') or o.name.startswith(('Ball hold','Drink hand')) or o.hide_render or (o.type=='MESH' and o.hide_viewport):bpy.data.objects.remove(o);new.remove(o)
  root=bpy.data.objects.new('Slot_%d'%index,None);link(root)
  px,py=actor['position_cm'];root.location=((px+slot_offset[0])/100,(py+slot_offset[1])/100,0);root.rotation_euler=(0,0,math.radians(actor['yaw']+180))
+ if spec.get('use_routes'):   # root motion: the build keeps the rig at the origin and writes where it goes per frame
+  rows=json.load(open(actor['folder']+'/route.json'));shift_f=start-src_start
+  for row in rows[::2]+[rows[-1]]:
+   fr=row['frame']+1+shift_f
+   if fr<start-1 or fr>start+length:continue
+   root.location=((px+slot_offset[0]+row['location_cm'][0])/100,(py+slot_offset[1]+row['location_cm'][1])/100,row['location_cm'][2]/100);root.rotation_euler=(0,0,math.radians(row['yaw']+180))
+   root.keyframe_insert('location',frame=fr);root.keyframe_insert('rotation_euler',frame=fr)
+  for fc in curves(root.animation_data.action):
+   for kp in fc.keyframe_points:kp.interpolation='LINEAR'
  done=set()
  for o in new:
   link(o)
@@ -92,19 +102,34 @@ else:
    data=bpy.data.cameras.new('Cam%d'%k);data.lens=c['lens'];cam=bpy.data.objects.new('Cam%d'%k,data);link(cam);cam.location=[v/100 for v in c['pos_cm']]
    aim=bpy.data.objects.new('Aim%d'%k,None);link(aim);aim.location=[v/100 for v in c['target_cm']];aim.hide_viewport=True
    con=cam.constraints.new('TRACK_TO');con.target=aim;con.track_axis='TRACK_NEGATIVE_Z';con.up_axis='UP_Y'
+   if c.get('to_pos_cm'):   # camera move: linear dolly over the shot
+    end=shot['start']+shot['length']-1;cam.keyframe_insert('location',frame=shot['start']);cam.location=[v/100 for v in c['to_pos_cm']];cam.keyframe_insert('location',frame=end)
+    aim.keyframe_insert('location',frame=shot['start']);aim.location=[v/100 for v in c.get('to_target_cm',c['target_cm'])];aim.keyframe_insert('location',frame=end)
+    for obj in (cam,aim):
+     for fc in curves(obj.animation_data.action):
+      for kp in fc.keyframe_points:kp.interpolation='LINEAR'
    marker=scene.timeline_markers.new(shot.get('label','shot%d'%k),frame=shot['start']);marker.camera=cam;cams.append(cam)
+   for line in shot.get('lines',[]):   # dialogue: subtitle under the camera + audio strip
+    f1=shot['start']+round(line['start_s']*fps);f2=shot['start']+round(line['end_s']*fps)
+    bpy.ops.object.text_add(location=(0,-.36,-1.5),rotation=(0,0,0));sub_=bpy.context.object;sub_.data.body=line['speaker']+': '+line['text'];sub_.data.size=.075;sub_.data.align_x='CENTER';sub_.parent=cam
+    sub_.data.materials.append(bpy.data.materials.new('Sub'));sub_.data.materials[0].diffuse_color=(1,1,.85,1);hide_outside(sub_,f1,f2)
+    if line.get('audio'):
+     se=scene.sequence_editor_create();strips=se.strips if hasattr(se,'strips') else se.sequences
+     strips.new_sound('line%d_%d'%(k,f1),line['audio'],1+(index%3),f1)
  if cams:scene.camera=cams[0]
  if spec.get('camera'):
   c=spec['camera'];data=bpy.data.cameras.new('ReelCam');data.lens=c['lens'];cam=bpy.data.objects.new('ReelCam',data);link(cam);cam.location=[v/100 for v in c['pos_cm']]
   aim=bpy.data.objects.new('ReelAim',None);link(aim);aim.location=[v/100 for v in c['target_cm']];aim.hide_viewport=True
   con=cam.constraints.new('TRACK_TO');con.target=aim;con.track_axis='TRACK_NEGATIVE_Z';con.up_axis='UP_Y';scene.camera=cam
- low_poly_world(24,spec.get('trees',True))
+ if spec.get('sets'):
+  import previs_sets;previs_sets.build(scene,spec['sets'],spec.get('props',[]))
+ else:low_poly_world(24,spec.get('trees',True))
 scene.frame_start=1;scene.frame_end=frame_end;scene.frame_set(1)
 bpy.ops.object.select_all(action='DESELECT')
 bpy.ops.wm.save_as_mainfile(filepath=spec['out']+'.blend')
 if spec.get('render') and spec['mode']=='movie':
  r=scene.render;r.engine='BLENDER_WORKBENCH';r.resolution_x=spec.get('width',640);r.resolution_y=spec.get('height',360);r.resolution_percentage=100
- r.image_settings.media_type='VIDEO' if hasattr(r.image_settings,'media_type') else None;r.image_settings.file_format='FFMPEG';r.ffmpeg.format='MPEG4';r.ffmpeg.codec='H264';r.ffmpeg.constant_rate_factor='MEDIUM';r.filepath=spec['out']+'.mp4'
+ r.image_settings.media_type='VIDEO' if hasattr(r.image_settings,'media_type') else None;r.image_settings.file_format='FFMPEG';r.ffmpeg.format='MPEG4';r.ffmpeg.codec='H264';r.ffmpeg.constant_rate_factor='MEDIUM';r.filepath=spec['out']+'.mp4';r.ffmpeg.audio_codec='AAC';r.ffmpeg.audio_bitrate=128
  scene.display.shading.color_type='TEXTURE';scene.display.shading.show_object_outline=False
  bpy.ops.render.render(animation=True)
 print('PREVIS_DONE',frame_end,spec['out'])
