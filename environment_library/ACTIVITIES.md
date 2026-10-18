@@ -56,3 +56,5 @@ Files: `previs.py` (driver: builds every actor in parallel, merges), `previs_mer
 New activities in this batch: pick_up (cup from a side table, arm IK), open_door (hinged door fitted to the hand), carry_walk (cup held at the hip while walking), climb_stairs (root follows three steps, root lifted so no foot sinks), handshake and hug (two actors, auto-facing, hands meet at a shared point; `pair_check` compares both actors). Contact beats are written once in `contact_actions.py`; all geometry comes from the evaluated body of each actor.
 
 Known limits: props and stairs exist in Blender only (no Unreal prop yet); stairs do not plant feet with IK; the hug puts hands on the partner's sides, not a full wrap; handshake spacing 25..72 cm and hug 25..46 cm for the lion's reach.
+
+`python quick_review.py reel [all|a,b,c] [--render]` plays the activities one after another as a movie: each is a shot with its own camera and an on-screen caption (cuts are timeline markers); `--render` writes `previs.mp4`.

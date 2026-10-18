@@ -261,13 +261,17 @@ def report(movie_id,frames):
 
 if __name__=='__main__':
  parser=argparse.ArgumentParser(description=__doc__,formatter_class=argparse.RawDescriptionHelpFormatter)
- parser.add_argument('mode',choices=['shot','movie','frames','activity','gallery','previs']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
+ parser.add_argument('mode',choices=['shot','movie','frames','activity','gallery','previs','reel']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
  parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true');parser.add_argument('--character',default='lion');parser.add_argument('--feasibility-only',action='store_true');parser.add_argument('--open',action='store_true');parser.add_argument('--render',action='store_true');parser.add_argument('--no-open',action='store_true')
  args=parser.parse_args();sys.path.insert(0,str(H))
  if args.mode=='gallery':
   import activities,previs
   names=list(activities.ACTIVITIES) if args.target in (None,'all') else args.target.split(',')
   print(chr(10).join(previs.run_gallery(names,args.character,not args.no_open)))
+ elif args.mode=='reel':
+  import activities,previs
+  names=list(activities.ACTIVITIES) if args.target in (None,'all') else args.target.split(',')
+  print(chr(10).join(previs.run_gallery(names,args.character,not args.no_open,True,args.render)))
  elif args.mode=='previs':
   import previs
   print(chr(10).join(previs.run_previs(load_plan(args.plan),'movie',args.render,not args.no_open)))

@@ -58,7 +58,7 @@ def merge(spec,name,render=False,open_gui=False):
  if open_gui:
   subprocess.Popen([qr.BLENDER,str(folder/'previs.blend'),'--python',str(H/'view_setup.py'),'--',str(folder),spec['mode']],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
  return folder,'ok'
-def run_gallery(names,character='lion',open_gui=True):
+def run_gallery(names,character='lion',open_gui=True,sequence=False,render=False):
  """Every named activity (pairs included) built in parallel, then all merged into one scene."""
  import activities
  from movie_prompt import validate
@@ -85,6 +85,13 @@ def run_gallery(names,character='lion',open_gui=True):
   if all(a[1] or True for a in actors) and all((a[0]/'scene.blend').exists() for a in actors):
    length=sum(d for a,d in activities.ACTIVITIES[name]['test_beats'])*24
    shots.append(dict(start=1,length=length,label=name,actors=[dict(folder=str(f),position_cm=s['actor_position_cm'],yaw=s['facing_yaw_deg']) for f,ok_,d,s in actors]))
+ if sequence:
+  start=1
+  for s in shots:
+   xy=[a['position_cm'] for a in s['actors']];s['start']=start;s['camera']=camera_for(dict(camera='full'),xy);start+=s['length']
+  folder,note=merge(dict(mode='movie',fps=24,shots=shots,width=640,height=360,trees=True,captions=True),'reel',render,open_gui)
+  report.append(f'reel: {note} -> {folder}/'+('previs.mp4' if render else 'previs.blend')+f'  ({start-1} frames, {time.time()-started:.0f}s)')
+  return report
  folder,note=merge(dict(mode='gallery',fps=24,shots=shots,columns=8,gap_cm=300),'gallery',False,open_gui)
  report.append(f'gallery: {note} -> {folder}/previs.blend  ({time.time()-started:.0f}s)')
  return report

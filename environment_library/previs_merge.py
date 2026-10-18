@@ -84,6 +84,8 @@ else:
   for actor in shot['actors']:
    add_actor(actor,shot['start'],shot['length'],index);index+=1
   frame_end=max(frame_end,shot['start']+shot['length']-1)
+  if spec.get('captions'):
+   px,py=shot['actors'][0]['position_cm'];bpy.ops.object.text_add(location=(px/100,py/100,2.3),rotation=(math.radians(90),0,math.radians(180)+math.atan2(-220,420)*-1));cap=bpy.context.object;cap.data.body=shot.get('label','');cap.data.size=.22;cap.data.align_x='CENTER';mm=bpy.data.materials.new('Cap');mm.diffuse_color=(1,1,.2,1);cap.data.materials.append(mm);hide_outside(cap,shot['start'],shot['start']+shot['length']-1)
   c=shot.get('camera')
   if c:
    data=bpy.data.cameras.new('Cam%d'%k);data.lens=c['lens'];cam=bpy.data.objects.new('Cam%d'%k,data);link(cam);cam.location=[v/100 for v in c['pos_cm']]
