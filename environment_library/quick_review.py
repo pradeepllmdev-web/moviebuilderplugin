@@ -117,7 +117,7 @@ def run_activity(args):
  if args.feasibility_only or not verdict.get('ok'):return
  print(chr(10).join(build_shot(activity_plan(name,character),0,args.view,args.frames,not args.no_sheet)))
  if args.open:
-  folder=max(OUT.glob(f'shot1_{name.replace(" ","_")[:12]}_*'),key=lambda p:p.stat().st_mtime);subprocess.Popen([BLENDER,str(folder/'scene.blend'),'--python',str(H/'view_setup.py'),'--',str(folder)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);print('opened in Blender: '+str(folder/'scene.blend')+' (framed on the lion, playing; Space pauses, numpad 1/3 front/side)')
+  folder=max(OUT.glob(f'shot1_{name.replace(" ","_")[:12]}_*'),key=lambda p:p.stat().st_mtime);__import__('previs').open_viewer(folder/'scene.blend',folder,'single');print('opened in Blender: '+str(folder/'scene.blend')+' (framed on the lion, playing; Space pauses, numpad 1/3 front/side)')
 
 
 def shot_inputs(plan,index):
@@ -262,8 +262,10 @@ def report(movie_id,frames):
 if __name__=='__main__':
  parser=argparse.ArgumentParser(description=__doc__,formatter_class=argparse.RawDescriptionHelpFormatter)
  parser.add_argument('mode',choices=['shot','movie','frames','activity','gallery','previs','reel']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
- parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true');parser.add_argument('--character',default='lion');parser.add_argument('--feasibility-only',action='store_true');parser.add_argument('--open',action='store_true');parser.add_argument('--render',action='store_true');parser.add_argument('--direction');parser.add_argument('--no-open',action='store_true')
+ parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true');parser.add_argument('--character',default='lion');parser.add_argument('--feasibility-only',action='store_true');parser.add_argument('--open',action='store_true');parser.add_argument('--render',action='store_true');parser.add_argument('--direction');parser.add_argument('--no-open',action='store_true');parser.add_argument('--keep-open',action='store_true')
  args=parser.parse_args();sys.path.insert(0,str(H))
+ if args.keep_open:
+  import previs as _p;_p.KEEP_OPEN=True
  if args.mode=='gallery':
   import activities,previs
   names=list(activities.ACTIVITIES) if args.target in (None,'all') else args.target.split(',')

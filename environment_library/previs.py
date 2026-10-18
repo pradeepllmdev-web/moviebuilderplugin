@@ -11,6 +11,17 @@ from concurrent.futures import ThreadPoolExecutor
 H=Path(__file__).resolve().parent
 def _qr():
  import quick_review;return quick_review
+def close_viewers():
+ """Close Blender windows opened earlier by these tools (their command line carries view_setup.py); other Blender sessions are left alone."""
+ command="Get-CimInstance Win32_Process -Filter \"Name='blender.exe'\" | Where-Object { $_.CommandLine -like '*view_setup.py*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }"
+ try:subprocess.run(['powershell','-NoProfile','-Command',command],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=30)
+ except Exception:pass
+KEEP_OPEN=False   # set by quick_review --keep-open: leave earlier viewer windows alone
+def open_viewer(blend,folder,mode):
+ """Open a built scene in a Blender window framed for viewing, after closing the previous viewer windows."""
+ qr=_qr()
+ if not KEEP_OPEN:close_viewers();time.sleep(1)
+ subprocess.Popen([qr.BLENDER,str(blend),'--python',str(H/'view_setup.py'),'--',str(folder),mode],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 def build_actor(single,label,threads=2,activity=None):
  """Blender build of one per-actor plan; returns (folder, ok, one-line summary)."""
  qr=_qr();folder=qr.OUT/f'actor_{label}_{time.strftime("%H%M%S")}_{os.getpid()}_{abs(hash(label))%1000}';folder.mkdir(parents=True,exist_ok=True)
@@ -56,7 +67,7 @@ def merge(spec,name,render=False,open_gui=False):
  with open(log,'w') as handle:code=subprocess.call([qr.BLENDER,'-b','--python-exit-code','1','-P',str(H/'previs_merge.py'),'--',str(folder/'spec.json')],stdout=handle,stderr=subprocess.STDOUT)
  if code:return folder,'merge FAILED: '+next((l.strip() for l in reversed(log.read_text(errors='ignore').splitlines()) if 'Error' in l),'see '+str(log))
  if open_gui:
-  subprocess.Popen([qr.BLENDER,str(folder/'previs.blend'),'--python',str(H/'view_setup.py'),'--',str(folder),spec['mode']],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+  open_viewer(folder/'previs.blend',folder,spec['mode'])
  return folder,'ok'
 def run_gallery(names,character='lion',open_gui=True,sequence=False,render=False):
  """Every named activity (pairs included) built in parallel, then all merged into one scene."""
