@@ -204,6 +204,7 @@ def apply_open_door(c):
   a=0. if f<r else angles[min(f-r,len(angles)-1)];pivot.rotation_euler=(0,0,a);pivot.keyframe_insert('rotation_euler',frame=f)
  depth=0.
  swing=math.degrees(max(abs(a) for a in angles))
+ (c.folder/'door.json').write_text(json.dumps(dict(hinge_cm=[float(hinge[0]),float(hinge[1])],dir=-sign,width_cm=float(width),plane_y_cm=float(handle[1]))))
  return c.write('door-check.json',dict(ok=gap<=8 and swing>=15,hand=side,hinge_distance_cm=L,handle_to_hand_cm=round(float(gap),1),swing_deg=round(swing,1),scope='Door hinge fitted to the hand path; handle follows the hand within the reported gap'))
 def apply_carry_walk(c):
  g=c.beat('carry_walk');frames=c.frames(g);side='Right';hips=next(b for b in c.rig.pose.bones if b.name.endswith('Hips'))

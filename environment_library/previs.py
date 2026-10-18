@@ -127,7 +127,7 @@ def _pair_check(a,b):
  import contact_actions
  try:return contact_actions.pair_check(a,b)
  except Exception as error:return dict(ok=False,reason=str(error)[:100])
-def props_for(folder,single):
+def props_for(folder,single,style=None):
  """World-space proxies an actor's build needs: bench, table and cup (seat/drink), stairs. Cup, crate and door already live in the actor's scene."""
  import contact_actions as ca
  folder=Path(folder);props=[];pos=single['actor_position_cm']
@@ -143,6 +143,20 @@ def props_for(folder,single):
     for sy in (-1,1):
      lc=world(tb['center'][0]+sx*(tb['size_cm'][0]/2-4),tb['center'][1]+sy*(tb['size_cm'][1]/2-4),tb['top_cm']/2,s['frame']);props.append(dict(shape='box',center_cm=list(lc),size_cm=[5,5,tb['top_cm']],color=[.4,.25,.12],name='TableLeg'))
    cc=world(d['cup_cm'][0],d['cup_cm'][1],d['cup_cm'][2],s['frame']);props.append(dict(shape='cylinder',center_cm=list(cc),size_cm=[d['cup']['radius_cm'],d['cup']['height_cm']],color=[.85,.25,.2],name='Cup'))
+ if (folder/'door.json').exists() and route:   # a door needs a wall, a room behind it and a lit window
+  d=json.loads((folder/'door.json').read_text());hx,py,dr,w=d['hinge_cm'][0],d['plane_y_cm'],d['dir'],d['width_cm'];x1=hx+dr*w;mid=(hx+x1)/2;depth=440;R=280;out=R-w/2;yaw=route[0]['yaw']+180
+  def part(name,cx,cy,cz,sx,sy,sz,color):props.append(dict(shape='box',center_cm=list(world(cx,cy,cz)),size_cm=[sx,sy,sz],color=color,yaw=yaw,name=name))
+  cream=[.9,.84,.7];part('DoorWallL',hx-dr*out/2,py,130,out,15,260,cream);part('DoorWallR',x1+dr*out/2,py,130,out,15,260,cream);part('DoorWallTop',mid,py,230,w,15,60,cream)
+  span=2*R;part('HutBack',mid,py-depth,130,span,15,260,cream);part('HutSideA',mid-span/2,py-depth/2,130,15,depth,260,cream);part('HutSideB',mid+span/2,py-depth/2,130,15,depth,260,cream)
+  part('HutRoof',mid,py-depth/2,268,span+20,depth+30,16,[.55,.2,.15]);part('HutFloor',mid,py-depth/2,.5,span,depth,1,[.5,.36,.22]);part('WindowLit',x1+dr*out/2,py+9,150,70,3,60,[1,.93,.55])
+  props.append(dict(shape='sphere',center_cm=list(world(mid,py-90,200)),size_cm=[9],color=[1,.9,.45],name='Lamp'))
+  if style=='cafe':   # striped awning, sign and patio tables outside the door
+   stripe=(w+80)/8
+   for i in range(8):part('Awning',mid+dr*(-(w+80)/2+stripe*(i+.5))*-1,py+55,222,stripe,100,8,[.85,.15,.15] if i%2==0 else [.95,.92,.88])
+   part('CafeSign',mid,py+10,246,w+60,6,34,[.3,.18,.08])
+   for sx in (-1,1):
+    cx=mid+sx*190;part('PatioTable',cx,py+150,72,70,70,5,[.8,.7,.55]);part('PatioLeg',cx,py+150,36,8,8,72,[.4,.3,.2])
+    for dx,dy in ((50,0),(-50,0),(0,50)):part('PatioChair',cx+dx,py+150+dy,25,36,36,50,[.55,.35,.2])
  if (folder/'stairs.json').exists():
   j=json.loads((folder/'stairs.json').read_text());st=j['step']
   for k in range(st['count']):
@@ -165,9 +179,14 @@ def lenient_validate(plan):
  """Validate every shot like the planner does, without the movie-level 2..6 shot / 90 s limits (a previs story can be longer)."""
  import copy,scene_prompt
  return dict(plan,shots=[scene_prompt.validate(copy.deepcopy(s)) for s in plan['shots']])
-def run_previs(plan,name='movie',render=False,open_gui=True,direction=None):
+def run_previs(plan,name='movie',render=False,open_gui=True,direction=None,strict=False):
  """A movie plan -> one Blender scene, a camera per shot, shots laid end to end, actors walking their routes. direction = {sets:[...], shots:{title:{origin_cm, camera}}}."""
  qr=_qr();started=time.time();p=lenient_validate(plan);jobs=[];shots=[];start=1
+ import story_lint,story_layout
+ scenery_boxes=story_layout.scenery(p,direction)
+ findings=story_lint.lint(p,direction);lint_lines=['story check:']+story_lint.report(findings)
+ print(chr(10).join(lint_lines),flush=True)
+ if strict and any(f['severity']=='error' for f in findings):return lint_lines+['stopped: fix the errors above (or run without --strict)']
  for k,shot in enumerate(p['shots']):
   inputs=actor_inputs(shot)
   jobs+=[(k,i,single) for i,single in enumerate(inputs)]
@@ -180,21 +199,28 @@ def run_previs(plan,name='movie',render=False,open_gui=True,direction=None):
   if not all((a[0]/'scene.blend').exists() for a in actors):continue
   length=shot_length(shot);xy=[s['actor_position_cm'] for f,ok,d,s in actors]
   xy=[[x+(direction or {}).get('shots',{}).get(shot.get('title',''),{}).get('origin_cm',[0,0])[0]*0,y] for x,y in xy]
-  title=shot.get('title','shot %d'%(k+1));d_shot=(direction or {}).get('shots',{}).get(title,{});ox,oy=d_shot.get('origin_cm',[0,0]);cam=camera_for(shot,xy);cam.update(d_shot.get('camera',{}))
+  title=shot.get('title','shot %d'%(k+1));d_shot=(direction or {}).get('shots',{}).get(title,{});place=tuple(d_shot.get('origin_cm',[0,0]));ox,oy=place[0]+d_shot.get('offset_cm',[0,0])[0],place[1]+d_shot.get('offset_cm',[0,0])[1];cam=camera_for(shot,xy);cam.update(d_shot.get('camera',{}))   # offset_cm moves a shot within its place (e.g. the seat away from the standing area)
   for key in ('pos_cm','target_cm','to_pos_cm','to_target_cm'):
    if key in cam:cam[key]=[cam[key][0]+ox,cam[key][1]+oy,cam[key][2]]
+  if (direction or {}).get('auto_camera') and not d_shot.get('camera_lock'):   # cameras chosen from the planned scenery, never in or behind a wall
+   import story_camera;cam=story_camera.solve_shot(shot,(ox,oy),scenery_boxes.get(place,[]))
   lines=[l for f,ok,d,s in actors for l in lines_for(f,s['character'])]
   for f,ok,d,s in actors:
    times=seated_times(s['segments'])
-   for q in props_for(f,s):
-    q['center_cm']=[q['center_cm'][0]+ox,q['center_cm'][1]+oy,q['center_cm'][2]];q['frames']=[start,start+length-1]   # props exist only during their shot
-    if q.get('name') in ('DrinkTable','TableLeg','Cup') and times:q['frames']=[start+round(times[0]*24),start+round(times[1]*24)]   # the table is only there while the lion sits: standing, the lion is 25 cm nearer to it
+   for q in props_for(f,s,d_shot.get('door_style')):
+    q['center_cm']=[q['center_cm'][0]+ox,q['center_cm'][1]+oy,q['center_cm'][2]];q['place']=place   # scenery belongs to its place: it is there in every shot at that place
     extra.append(q)
-  shots.append(dict(start=start,length=length,label=title,camera=cam,lines=lines,actors=[dict(folder=str(f),position_cm=[s['actor_position_cm'][0]+ox,s['actor_position_cm'][1]+oy],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
+  shots.append(dict(start=start,length=length,label=title,place=list(place),camera=cam,lines=lines,actors=[dict(folder=str(f),position_cm=[s['actor_position_cm'][0]+ox,s['actor_position_cm'][1]+oy],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
+ for q in extra:   # permanent scenery: visible from the first to the last shot at its place
+  place=q.pop('place');window=[s for s in shots if tuple(s['place'])==tuple(place)]
+  if window:q['frames']=[window[0]['start'],window[-1]['start']+window[-1]['length']-1]
  story_props=[]
  for q in (direction or {}).get('props',[]):   # story props: world cm, optionally only visible in the named shots (only_in)
   q=dict(q)
-  if q.get('only_in'):
+  if q.get('place'):   # permanent story prop of a place
+   window=[s for s in shots if tuple(s['place'])==tuple(q['place'])]
+   if window:q['frames']=[window[0]['start'],window[-1]['start']+window[-1]['length']-1]
+  elif q.get('only_in'):
    window=[s for s in shots if s['label'] in q['only_in']]
    if window:q['frames']=[window[0]['start'],window[-1]['start']+window[-1]['length']-1]
   story_props.append(q)
