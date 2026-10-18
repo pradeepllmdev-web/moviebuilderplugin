@@ -96,3 +96,11 @@ Output lists `story check`, per-shot `PASS`, and `camera and collision QA` with 
 * **Seated direction**: `face='toward:<anchor>'` on an actor (a seated actor faces the middle of the room, the bench and table follow).
 * **Handshake**: both actors turn 35 degrees toward each other (anchors do this), spacing from the wide end of the window (about 75 cm, head clearance 7 cm measured); both hands meet in front of the pair's mean facing. Hugs stay side by side.
 * QA: the camera may follow actors through a doorway; a camera is only "against scenery" within 50 cm of a wall.
+
+## Horse herd (aerial scene)
+
+`horse_herd.py` builds an aerial herd of galloping horses over a green meadow in Blender from the CC0 Quaternius horse (`assets/quaternius_farm_animals_download/`, from "Farm Animals Animated by Quaternius", https://quaternius.itch.io/lowpoly-animated-animals, CC0, downloaded 2026-10-18; the zip and its extracted Blends/FBX/OBJ are not committed). The horse is already rigged (28 bones) with Idle, Walk, WalkSlow, Run, Jump and Death actions, so nothing is auto-rigged: each horse is a copy of the armature and mesh playing `Run` from an NLA strip (random phase, retimed to the ground speed), travelling along the herd heading with a sideways wander, with coats (white, grey, bay, black, chestnut, palomino) and foals as in the reference photo, plus a drone camera.
+
+    blender -b --disable-autoexec --python horse_herd.py -- <Horse.blend> <out.blend> [horses=64] [seconds=12]
+
+Result: `scenes/horse_herd.blend` (70 horses, 12 s). For any other un-rigged animal: Blender's Rigify quadruped metarig (manual fit) or an AI auto-rigger (Meshy, Tripo, Anything World) then retarget; Mixamo only rigs bipeds.
