@@ -82,10 +82,12 @@ for x,h,n in MASTS:
  for s in (-1,1):line((x,0,DZ+h),(x-.5,s*HB*.85,DZ+.9),.025,(.15,.1,.07),'Shroud');line((x,0,DZ+h),(x+(2.5 if n!='Mizzen' else -1.5),0,DZ+.9),.025,(.15,.1,.07),'Stay')
 def sail(name,x,yv,w,h,flap):
  bpy.ops.mesh.primitive_grid_add(x_subdivisions=14,y_subdivisions=10,size=1,location=(x+(-.45 if x==MAST_X else .45),0,yv-h/2),rotation=(0,math.pi/2,0));o=bpy.context.object;o.scale=(h,w,1)
- put(o,(.85,.8,.68),name);m=o.modifiers.new('Flap','WAVE');m.height=flap;m.width=1.5;m.speed=.25;m.narrowness=3.;m.use_normal=True;return o
-mainsail=sail('MainSail',MAST_X,DZ+12*.62,HB*1.9,6.5,.28);sail('ForeSail',4.4,DZ+9.5*.62,HB*1.7,5.2,.2);sail('MizzenSail',-5.3,DZ+8*.62,HB*1.4,4.2,.15)
+ put(o,(.85,.8,.68),name)
+ if flap:m=o.modifiers.new('Flap','WAVE');m.height=flap;m.width=1.5;m.speed=.25;m.narrowness=3.;m.use_normal=True
+ return o
+mainsail=sail('MainSail',MAST_X,DZ+12*.62,HB*1.9,6.5,0);sail('ForeSail',4.4,DZ+9.5*.62,HB*1.7,5.2,.2);sail('MizzenSail',-5.3,DZ+8*.62,HB*1.4,4.2,.15)
 TORN=prim('cube','TornSail',(MAST_X-.45,.8,DZ+12*.62-1.6),(.85,.8,.68),scale=(.02,HB*.65,1.8))   # the strip that stays on the yard after the cut
-for k in range(14):prim('cube','Rung',(.1,0,DZ+.5+k*.55),(.4,.25,.1),scale=(.04,.7,.03));
+for k in range(14):prim('cube','Rung',(.18,0,DZ+.5+k*.55),(.4,.25,.1),scale=(.04,.7,.03));
 # ---------------------------------------------------------------------------------------------------------- the sea
 bpy.ops.mesh.primitive_grid_add(x_subdivisions=170,y_subdivisions=170,size=320,location=(0,0,0));sea=bpy.context.object;sea.name='Sea';sea.data.materials.append(mat('Sea',(.06,.2,.3)))
 for k,(h,w,sp,x0) in enumerate(((1.3,16,.55,0),(.5,6,.9,3))):
@@ -134,12 +136,12 @@ def leo_state(t):
  """ship-local position, body pitch (rad) and heading (rad from +x) of Leo."""
  s=lambda a,b,u:Vector(a).lerp(Vector(b),smooth(u))
  if t<9:return Vector((6.4,.6,DZ)),0,0.
- if t<11.6:return s((6.4,.6,DZ),(.3,0,DZ),(t-9)/2.6),0,math.pi*smooth((t-9)/.5)
- if t<19:u=(t-11.6)/7.4;return Vector((.3,0,DZ+(CLIMB_Z-DZ)*u)),-1.35*smooth((t-11.6)/.6),math.pi
- if t<22.2:return Vector((.3,0,CLIMB_Z)),-1.35,math.pi
- if t<23.1:u=(t-22.2)/.9;return Vector((.3-.15*u,0,CLIMB_Z-(CLIMB_Z-DZ)*u*u)),-1.35*(1-smooth(u)),math.pi
- if t<28.2:return Vector((.15,0,DZ)),0,math.pi*(1-smooth((t-27.8)/.8))
- if t<31.4:return s((.15,0,DZ),(LX,0,DZ),(t-28.2)/3.2),0,0.
+ if t<11.6:return s((6.4,.6,DZ),(.45,0,DZ),(t-9)/2.6),0,math.pi*smooth((t-9)/.5)
+ if t<19:u=(t-11.6)/7.4;return Vector((.45,0,DZ+(CLIMB_Z-DZ)*u)),.2*smooth((t-11.6)/.6),math.pi
+ if t<22.2:return Vector((.45,0,CLIMB_Z)),.2,math.pi
+ if t<23.1:u=(t-22.2)/.9;return Vector((.45+.95*u,0,CLIMB_Z-(CLIMB_Z-DZ)*u*u)),.2*(1-smooth(u)),math.pi
+ if t<28.2:return Vector((1.4,0,DZ)),0,math.pi*(1-smooth((t-27.8)/.8))
+ if t<31.4:return s((1.4,0,DZ),(LX,0,DZ),(t-28.2)/3.2),0,0.
  if t<44.3:return Vector((LX+(.55 if t>37.6 else 0),0,DZ)),0,0.
  if t<47.3:return Vector((LX+.55-1.2*smooth((t-44.3)/.6),0,DZ)),0,0.
  if t<49:return Vector((LX-.65,0,DZ)),0,math.pi*smooth((t-47.8)/1.2)
@@ -147,9 +149,49 @@ def leo_state(t):
  return Vector((-4.6,0,DZ)),0,math.pi
 for f in range(1,frames+1,2):
  p,pitch,h=leo_state((f-1)/fps);leo.location=p;leo.rotation_euler=(pitch,0,h+math.pi/2);leo.keyframe_insert('location',frame=f);leo.keyframe_insert('rotation_euler',frame=f)
+# the lying Leo must not sink into the deck: measure the lowest mesh point in ship-local space and lift the root
+BODY=max((o for o in new if o.type=='MESH'),key=lambda o:len(o.data.vertices))
+def lowest(f):
+ """lowest vertex of the lion's skin (ship-local)."""
+ scene.frame_set(f);bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get();inv=ship.matrix_world.inverted();e=BODY.evaluated_get(dg);mw=inv@e.matrix_world
+ return min((mw@v.co).z for v in list(e.data.vertices)[::4])
+LIFT={f:max(0.,min(1.,DZ+.01-lowest(f))) for f in range(F(22.9),F(28.6)+1,2)}
+fs=sorted(LIFT);sm={f:sum(LIFT[g] for g in fs[max(0,i-1):i+2])/len(fs[max(0,i-1):i+2]) for i,f in enumerate(fs)}
+for f in fs:
+ p,pitch,h=leo_state((f-1)/fps);leo.location=p+Vector((0,0,sm[f]));leo.keyframe_insert('location',frame=f)
+# a knife in Leo's right hand for the cut
+scene.frame_set(F(19.9));bpy.context.view_layer.update();pbn=rig.pose.bones['mixamorig:RightHand'];M=rig.matrix_world@pbn.matrix
+kn=prim('cube','Knife',(0,0,0),(.85,.87,.9),parent=False);kn.data.transform(Matrix.Diagonal((.018,.15,.005,1)));kn.scale=(1,1,1)
+hd=prim('cube','KnifeGrip',(0,0,0),(.25,.15,.08),parent=False);hd.data.transform(Matrix.Diagonal((.022,.05,.012,1)));hd.scale=(1,1,1)
+for part,off in ((kn,.17),(hd,.0)):
+ part.matrix_world=Matrix.Translation(M.translation)@M.to_quaternion().to_matrix().to_4x4()@Matrix.Translation((0,off,0))
+ c=part.constraints.new('CHILD_OF');c.target=rig;c.subtarget='mixamorig:RightHand';c.inverse_matrix=M.inverted();hide_keys(part,[(18.8,22.6)])
 # ---------------------------------------------------------------------------------------------------------- the serpent: its body follows its head's path
 HEAD=[(-8,(-6,14,-14)),(22,(-5,14,-12)),(26,(-4,12,-6)),(29,(-4,9,1)),(31,(-3,8,8)),(32.2,(-.5,5,10)),(32.9,(3.4,.6,2.1)),(34.6,(3.8,.9,2.4)),(36,(4,5,8.5)),(37.4,(5.4,.8,3.4)),
  (39.4,(5.8,.1,3.1)),(40.6,(6,5,6)),(41.5,(9,5.5,3)),(42.4,(11,0,2.6)),(43.2,(9,-5,3)),(43.9,(1,-6,3.4)),(44.3,(2,0,15)),(45.5,(3,3,11)),(47,(3,7,5)),(49,(2,9,-3)),(51,(2,12,-11)),(56,(2,14,-22)),(70,(2,14,-30))]
+def hullhalf(x):u=x/L;return HB*max(.02,(1-u**4))**.65*(1 if x<0 else 1-.25*u*u)
+def project(p,r):
+ """Contact with the ship: push a body point out of the hull, cabin and masts (simple collision response)."""
+ p=Vector(p)
+ for _ in range(2):
+  if abs(p.x)<L+r*.5 and p.z<DZ+r:
+   hb=hullhalf(max(-L,min(L,p.x)))+r*.8
+   if abs(p.y)<hb:
+    if DZ+r-p.z<=hb-abs(p.y):p.z=DZ+r
+    else:p.y=math.copysign(hb,p.y if p.y else 1.)
+  if -8.5-r<p.x<-5.5+r and abs(p.y)<HB*.75+r and p.z<DZ+1.25+r:
+   opts=[(DZ+1.25+r-p.z,'z'),(p.x+8.5+r,'x-'),(-5.5+r-p.x if False else (-5.5+r)-p.x+0,'x+'),(HB*.75+r-abs(p.y),'y')]
+   d,k=min(opts)
+   if k=='z':p.z=DZ+1.25+r
+   elif k=='y':p.y=math.copysign(HB*.75+r,p.y if p.y else 1.)
+   elif k=='x-':p.x=-8.5-r
+   else:p.x=-5.5+r
+  for mx,mh,_ in MASTS:
+   dx,dy=p.x-mx,p.y;d=math.hypot(dx,dy);R=.22+r*.9
+   if d<R and DZ<p.z<DZ+mh:
+    if d<1e-4:dx,d=R,R
+    p.x=mx+dx/d*R;p.y=dy/d*R
+ return p
 N=44;LAG=.075;serp=[]
 def hp(t):return keyp(HEAD,t)
 for i in range(N+1):
@@ -162,16 +204,23 @@ hn=None
 for f in range(1,frames+1,2):
  t=(f-1)/fps
  for i,o in enumerate(serp):
-  o.location=hp(t-i*LAG*(1 if i else 0.9));o.keyframe_insert('location',frame=f)
+  o.location=project(hp(t-i*LAG*(1 if i else 0.9)),o.scale.x);o.keyframe_insert('location',frame=f)
  d=hp(t+.15)-hp(t-.05);head.rotation_euler=d.to_track_quat('Y','Z').to_euler();head.keyframe_insert('rotation_euler',frame=f)
  jaw.rotation_euler=(math.radians(18+22*math.sin(t*5.) if 29<t<40.8 or 44<t<47 else 4),0,0);jaw.keyframe_insert('rotation_euler',frame=f)
 # the sail cut loose: the main sail flies off in the wind and the torn strip stays
-mainsail.hide_viewport=False
-hide_keys(mainsail,[(0,20.6)]);hide_keys(TORN,[(20.6,seconds)])
-flap=prim('cube','CutSail',(0,0,0),(.85,.8,.68),scale=(.02,HB*.9,3.2));flap.data.materials.clear();flap.data.materials.append(mat('Sail',(.85,.8,.68)))
-for tt,p,rot in ((20.6,(MAST_X-.5,0,DZ+12*.62-3.2),(0,0,0)),(21.6,(MAST_X+6,-3,DZ+11),(.6,.3,1)),(23.2,(MAST_X+14,-9,DZ+9),(1.4,.9,2.4)),(25,(MAST_X+24,-18,1),(2.3,1.4,4)),(26,(MAST_X+26,-19,-4),(2.6,1.5,4.5))):
- flap.location=p;flap.rotation_euler=rot;flap.keyframe_insert('location',frame=F(tt));flap.keyframe_insert('rotation_euler',frame=F(tt))
-hide_keys(flap,[(20.6,26)])
+# the main sail is real cloth: pinned to the yard, wind from the bow, and the pins are released when Leo cuts it
+for v in mainsail.data.vertices:v.co.x*=6.5;v.co.y*=HB*1.9
+mainsail.scale=(1,1,1);bpy.context.view_layer.update()
+pin=mainsail.vertex_groups.new(name='Pin')
+for v in mainsail.data.vertices:
+ if v.co.x<-3.2 or (v.co.x>3.2 and abs(v.co.y)>HB*.9):pin.add([v.index],1.,'REPLACE')
+cm=mainsail.modifiers.new('Cloth','CLOTH');cs=cm.settings;cs.quality=6;cs.mass=.15;cs.air_damping=1.4;cs.vertex_group_mass='Pin';cs.pin_stiffness=1.;cs.tension_stiffness=18;cs.bending_stiffness=1.
+cm.collision_settings.use_collision=True;cm.collision_settings.distance_min=.06;cm.collision_settings.use_self_collision=False;cm.point_cache.frame_start=1;cm.point_cache.frame_end=frames
+for t,v in ((20.4,1.),(20.7,0.)):cs.pin_stiffness=v;mainsail.keyframe_insert('modifiers["Cloth"].settings.pin_stiffness',frame=F(t))
+for nm in ('Hull','Deck','Cabin','CabinRoof','MainMast'):bpy.data.objects[nm].modifiers.new('Col','COLLISION')
+bpy.ops.object.effector_add(type='WIND',location=(6,0,10),rotation=(0,-1.22,0));wf=bpy.context.object;wf.name='Wind';wf.field.noise=1.2;wf.field.flow=0
+for t,v in ((0,5.),(9,50.),(20.5,50.),(20.8,520.),(25,520.),(25.6,50.),(51,50.),(54,0.)):wf.field.strength=v;wf.keyframe_insert('field.strength',frame=F(t))
+hide_keys(mainsail,[(0,27.5)]);hide_keys(TORN,[(20.6,seconds)])
 # ---------------------------------------------------------------------------------------------------------- sky, rain, lightning
 scene.world=bpy.data.worlds.new('Sky')
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.rotation_euler=(math.radians(55),0,math.radians(30))
@@ -217,7 +266,7 @@ for k,(name,a,b,kind) in enumerate(CUTS):
   elif k==2:p=Vector((3.5,-5.5,3.0));q=lp;cam.data.lens=34
   elif k==3:p=Vector((3.2,-4.2,2.4+(lp.z-DZ)*.35));q=lp+Vector((-.3,0,0));cam.data.lens=30
   elif k==4:p=Vector((4.5,-5.5,CLIMB_Z+.8));q=Vector((MAST_X,0,CLIMB_Z+1.5));cam.data.lens=32
-  elif k==5:p=Vector((-3.8,4.2,3.4));q=lp
+  elif k==5:p=Vector((3.4,3.4,3.2));q=lp
   elif k==6:p=Vector((6.5,-9,3.2));q=Vector((-3.4,9,6.5));cam.data.lens=26
   elif k==7:p=Vector((-1.4,-4.6,3.6));q=(lp+hd)/2+Vector((0,0,.3))
   elif k==8:p=Vector((8.6,-4.4,3.8));q=Vector((5.2,0,3.0));cam.data.lens=36
@@ -268,5 +317,8 @@ se=scene.sequence_editor_create();strips=se.strips if hasattr(se,'strips') else 
 for ch,(p,n) in enumerate(zip(paths,('wind and rain and waves','thunder','serpent','timber','music')),start=1):strips.new_sound(n,p,ch,1)
 scene.display.shading.light='STUDIO';scene.display.shading.color_type='MATERIAL';scene.render.resolution_x=1280;scene.render.resolution_y=720
 scene.frame_set(1);bpy.context.view_layer.update()
+try:bpy.ops.ptcache.bake_all(bake=True);print('cloth baked')
+except Exception as ex:print('bake skipped',ex)
+scene.frame_set(1)
 bpy.ops.wm.save_as_mainfile(filepath=out)
 print('SHIP_DONE',frames,'frames')
