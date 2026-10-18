@@ -106,3 +106,11 @@ Output lists `story check`, per-shot `PASS`, and `camera and collision QA` with 
 Also in the script: a meandering low-poly river with banks, rocks and pines, low-poly mountain ranges with snow caps ahead of the herd and beyond the river, five camera cuts bound to timeline markers (1 drone wide, 2 low alongside, 3 ahead looking back, 4 overhead, 5 river bank with mountains behind), and a soundtrack synthesised in the script with numpy (no downloads): hoof beats (70 horses x 4 hooves per stride, louder in the close shots), wind and river noise (river louder at the river bank), and a short Dm-Bb-F-C piece with arpeggios and a melody; three WAVs in `scenes/audio/` added as separate sound strips so each can be muted or rebalanced.
 
 Result: `scenes/horse_herd.blend` (70 horses, 16 s, 384 frames). For any other un-rigged animal: Blender's Rigify quadruped metarig (manual fit) or an AI auto-rigger (Meshy, Tripo, Anything World) then retarget; Mixamo only rigs bipeds.
+
+## Rider on a galloping horse
+
+`rider_scene.py` (22 s, 7 camera cuts): Rowan stands beside the CC0 Quaternius horse, leaps into the saddle (an arc keyed from the horse's saddle position), then a Child Of constraint keeps him on the horse's torso bone while the horse goes idle, walk, gallop, jumps a fence and gallops on beside a river toward the mountains. Legs and arms are IK to stirrup and rein empties that follow the horse's bones (reins are rods stretched from his hands to the horse's mouth), he leans into the gallop, dust puffs appear at every hoof landing (found by sampling the hoof bones, 170 of them), and the soundtrack uses the real contact times for hoof beats, wind rising with speed and a music piece with a kick drum once the gallop starts.
+
+    blender -b --disable-autoexec --python rider_scene.py -- <Horse.blend> <rowan.blend> <out.blend> [seconds=22]
+
+Cameras on markers: wide, walking out, chase from behind and above, low alongside, ahead looking back at the jump, drone toward the mountains, rider point of view (attached to Rowan's spine, looking over the horse's neck). Known limits: the legs are IK only (knees and feet can pass through the horse's flank), the mount is a leap with legs blending in, hands do not wrap the reins, dust puffs are low-poly spheres.
