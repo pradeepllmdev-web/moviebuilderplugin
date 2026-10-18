@@ -36,7 +36,7 @@ class SceneKit(unittest.TestCase):
   self.assertEqual(set_pieces.match('a herd of horses gallops past a river')[0],'horse_herd')
   self.assertEqual(set_pieces.match('Rowan rides a horse across the meadow')[0],'rider')
   self.assertEqual(set_pieces.match('a lion free climbs a cliff and rappels down with a lost cub')[0],'cliff_rescue')
- self.assertEqual(set_pieces.match('lion drinks tea in a cafe'),[])
+  self.assertEqual(set_pieces.match('lion drinks tea in a cafe'),[])
  def test_docs_cover_every_lesson_and_piece(self):
   text=set_pieces.docs()
   for l in kit.LESSONS:self.assertIn('| '+l['id']+' |',text)
