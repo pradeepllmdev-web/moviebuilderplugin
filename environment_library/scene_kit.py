@@ -36,6 +36,10 @@ LESSONS=[
  dict(id='release_jump',symptom='Letting go of a rope looks like teleporting onto the ledge.',cause='No flight between release and landing.',rule='Release the rope 0.5 s before the end of the swing, play the lion Jump clip fitted around the landing, move the root on a ballistic arc (about 0.45 m high) and plant the feet 0.2 s after the landing.'),
  dict(id='climb_realism',symptom='Climbing looks mechanical.',cause='Rigid upright body.',rule='Lean 0.07 rad into the wall and sway the root +-3.5 cm in step with the limb cycle; keep alternating right hand, left foot, left hand, right foot.'),
 
+ dict(id='contact_solver',symptom='Punches and kicks stop short of the target or go through it.',cause='Spacing between fighters guessed by hand.',rule='Measure the striking limb at full extension in the evaluated clip, shift the attacker root in x/y by the residual to the target bone over 0.3 s before impact, start the reaction at impact, then re-measure and audit (limit 20 cm; z error remains if the target bone is at another height, so pick the matching bone: chest for a jab, foot for a sweep).'),
+ dict(id='body_grip',symptom='Grappling hands float beside the opponent.',cause='Fixed IK targets on a moving body.',rule='Make each hand IK target an empty with Copy Location to the opponent shoulder bone and ramp influence 0.5 s in and out; both fighters face each other at 0.62 m and circle about a midpoint.'),
+ dict(id='short_loop_strips',symptom='NLA strips refuse to be added or overlap.',cause='A loop strip shorter than its clip kept the full clip length.',rule='scene_kit.add_strip trims action_frame_end when the window is shorter than the clip; strips under 0.25 s do not fit the 5 frame blend overlap, merge them.'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)
@@ -90,6 +94,7 @@ def add_strip(track,action,start,end,mode='loop',slot=True,name=None):
  length=action.frame_range[1]-action.frame_range[0]+1;st=track.strips.new(name or action.name,int(start),action)
  if slot and len(action.slots):st.action_slot=action.slots[0]
  if mode=='fit':st.scale=(end-start)/length;st.repeat=1
+ elif end-start<length:st.action_frame_end=st.action_frame_start+max(2,end-start)-1   # window shorter than the clip: play its first part
  else:st.repeat=max(1.,(end-start)/length)
  return st
 def audit(scene,bodies=(),floor_z=0.,space=None,skip=(),subjects=(),step=12,fps=24):

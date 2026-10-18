@@ -26,6 +26,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: rappel feet slide instead of hopping, hands do not wrap the rope, wall is low poly, rocks do not hit the climber
 * prompt keywords: `cliff|rock face|rock climb|free.?climb|rappel|abseil|rope swing|stranded cub|lost cub`
 
+## The Arena (`arena_duel`)
+
+* script: `arena_scene.py`
+* story: Leo fights a bigger rival lion in a ruined arena: charge and block, counter jab, grapple, sweep, throw over the shoulder, roar, bow (52 s, 14 cameras, sound)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs block, bow, kick, jump, punch, fall, getup, hit, dodge, run, cele)
+* known limits: grapple is a bear-hug (arms on shoulders), feet skate in the grapple, impact points are bone-to-bone only (no soft-body)
+* prompt keywords: `arena|gladiator|duel|fights? (?:a |the )?(?:rival|lion)|wrestl|grapple|fight scene|boss fight`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`
@@ -73,3 +81,6 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 | carry_small_character | A small character appears on a big one without a believable pick-up. | Constraint snap from the slab to the back. | Bake the carried character per frame from the carrier bones: lifted in the right hand (pick clip), held at the chest, then settled on the back over about a second; no constraint, so nothing pops (cliff_scene.cub_pose). |
 | release_jump | Letting go of a rope looks like teleporting onto the ledge. | No flight between release and landing. | Release the rope 0.5 s before the end of the swing, play the lion Jump clip fitted around the landing, move the root on a ballistic arc (about 0.45 m high) and plant the feet 0.2 s after the landing. |
 | climb_realism | Climbing looks mechanical. | Rigid upright body. | Lean 0.07 rad into the wall and sway the root +-3.5 cm in step with the limb cycle; keep alternating right hand, left foot, left hand, right foot. |
+| contact_solver | Punches and kicks stop short of the target or go through it. | Spacing between fighters guessed by hand. | Measure the striking limb at full extension in the evaluated clip, shift the attacker root in x/y by the residual to the target bone over 0.3 s before impact, start the reaction at impact, then re-measure and audit (limit 20 cm; z error remains if the target bone is at another height, so pick the matching bone: chest for a jab, foot for a sweep). |
+| body_grip | Grappling hands float beside the opponent. | Fixed IK targets on a moving body. | Make each hand IK target an empty with Copy Location to the opponent shoulder bone and ramp influence 0.5 s in and out; both fighters face each other at 0.62 m and circle about a midpoint. |
+| short_loop_strips | NLA strips refuse to be added or overlap. | A loop strip shorter than its clip kept the full clip length. | scene_kit.add_strip trims action_frame_end when the window is shorter than the clip; strips under 0.25 s do not fit the 5 frame blend overlap, merge them. |
