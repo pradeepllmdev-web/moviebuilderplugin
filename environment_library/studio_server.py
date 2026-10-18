@@ -108,6 +108,9 @@ class Handler(SimpleHTTPRequestHandler):
   if self.path=='/api/scene-capabilities':
    from scene_prompt import ACTIONS,environment_options
    self.send_json({'characters':['lion','cat','rowan'],'actions':ACTIONS,'activity_catalog':__import__('activities').summary(),'environments':environment_options(),'cameras':['full','medium','close','reaction'],'attention':{'yaw_deg':[-35,35],'pitch_deg':[-8,8]},'gaze_targets':['manual','forward','point (stationary shared target)','partner (stationary pairs only)'],'sound_events':['twig_snap','wind_gust'],'blink_enabled':{'rowan':True,'lion':True,'cat':False},'summary':'Lion, cat and Rowan; native human eyelids and eye gaze; dialogue, walking, running, circles, dance and isolated jumps. Lion: living eyes (blinks and gaze darts), box lift/back-step/turn/carry/set-down between stands, and sitting on a fitted bench (sit_down, sit, sit_talk, stand_up). One or two characters; saved environments; editable camera shots. Smooth head attention, stationary partner-facing gaze and timed twig sounds. Contact checks are conservative, not full physical simulation.'});return
+  if self.path=='/api/set-pieces':
+   from set_pieces import SET_PIECES,missing
+   self.send_json([dict(id=k,title=v['title'],story=v['beats'],limits=v['limits'],missing=missing(k)) for k,v in SET_PIECES.items()]);return
   if self.path=='/api/movies':
    items=[]
    for p in sorted((H/'movie_jobs').glob('*/ready.json'),key=lambda file:file.stat().st_mtime,reverse=True):
@@ -152,6 +155,14 @@ class Handler(SimpleHTTPRequestHandler):
      from movie_prompt import worker as movie_worker,validate as validate_movie
      kwargs={'prompt':body.get('prompt','')} if self.path=='/api/movie-plan' else {'plan':validate_movie(body['plan'])}
     JOBS[job['id']]=job;launch(movie_worker,job,BUILD_LOCK,**kwargs);self.send_json(job,202);return
+   if self.path in ('/api/set-piece-plan','/api/set-piece-build'):
+    from set_pieces import worker as piece_worker
+    if self.path=='/api/set-piece-plan':
+     prompt=body.get('prompt','')
+     if not isinstance(prompt,str) or not 5<=len(prompt.strip())<=4000:raise ValueError('Prompt must contain 5..4000 characters')
+     kwargs={'prompt':prompt.strip()}
+    else:kwargs={'piece':body.get('piece'),'seconds':body.get('seconds')}
+    JOBS[job['id']]=job;launch(piece_worker,job,BUILD_LOCK,**kwargs);self.send_json(job,202);return
    if self.path in ('/api/scene-plan','/api/scene-build'):
     from scene_prompt_worker import worker as scene_worker
     from scene_prompt import validate
