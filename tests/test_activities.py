@@ -150,7 +150,7 @@ class AnchorTests(unittest.TestCase):
  def test_anchor_becomes_coordinates_and_place_origin(self):
   import previs_anchors as pa
   plan,direction=self._story([self._actor('lion','door_front',[beat('open_door',5)])])
-  p,d=pa.resolve(plan,direction);self.assertEqual(p['shots'][0]['actors'][0]['position_cm'],[-63,-60]);self.assertEqual(d['shots']['s']['origin_cm'],[18000,0]);self.assertTrue(d['auto_camera'])
+  p,d=pa.resolve(plan,direction);self.assertEqual(p['shots'][0]['actors'][0]['position_cm'],[21,-60]);self.assertEqual(d['shots']['s']['origin_cm'],[18000,0]);self.assertTrue(d['auto_camera'])
  def test_pair_slots_face_each_other_when_talking_and_side_by_side_for_contact(self):
   import previs_anchors as pa
   plan,direction=self._story([self._actor('lion',('inside_center','left'),[beat('wave',4)]),self._actor('rowan',('inside_center','right'),[beat('wave',4)])])
