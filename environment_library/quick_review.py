@@ -261,12 +261,16 @@ def report(movie_id,frames):
 
 if __name__=='__main__':
  parser=argparse.ArgumentParser(description=__doc__,formatter_class=argparse.RawDescriptionHelpFormatter)
- parser.add_argument('mode',choices=['shot','movie','frames','activity','gallery','previs','reel']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
+ parser.add_argument('mode',choices=['shot','movie','frames','activity','gallery','previs','reel','qa']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
  parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true');parser.add_argument('--character',default='lion');parser.add_argument('--feasibility-only',action='store_true');parser.add_argument('--open',action='store_true');parser.add_argument('--render',action='store_true');parser.add_argument('--direction');parser.add_argument('--no-open',action='store_true');parser.add_argument('--keep-open',action='store_true');parser.add_argument('--strict',action='store_true')
  args=parser.parse_args();sys.path.insert(0,str(H))
  if args.keep_open:
   import previs as _p;_p.KEEP_OPEN=True
- if args.mode=='gallery':
+ if args.mode=='qa':   # re-run the camera and collision QA on an existing previs folder
+  import previs,json as _j
+  folder=Path(args.target);spec=_j.loads((folder/'spec.json').read_text());print(chr(10).join(previs.qa(folder,spec)))
+  if not args.no_open:previs.open_viewer(folder/'previs.blend',folder,'movie')
+ elif args.mode=='gallery':
   import activities,previs
   names=list(activities.ACTIVITIES) if args.target in (None,'all') else args.target.split(',')
   print(chr(10).join(previs.run_gallery(names,args.character,not args.no_open)))

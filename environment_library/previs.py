@@ -230,7 +230,7 @@ def run_previs(plan,name='movie',render=False,open_gui=True,direction=None,stric
    for q in props_for(f,s,d_shot.get('door_style')):
     q['center_cm']=[q['center_cm'][0]+ox,q['center_cm'][1]+oy,q['center_cm'][2]];q['place']=place   # scenery belongs to its place: it is there in every shot at that place
     extra.append(q)
-  walking=any(g['action'] in ('walk','run','carry_walk','climb_stairs') for f_,ok_,d_,s_ in actors for g in s_['segments']);shots.append(dict(start=start,length=length,label=title,place=list(place),camera=cam,camera_kind=d_shot.get('framing') or ('full' if walking else 'medium'),lines=lines,actors=[dict(folder=str(f),position_cm=[s['actor_position_cm'][0]+ox,s['actor_position_cm'][1]+oy],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
+  walking=any(g['action'] in ('walk','run','carry_walk','climb_stairs') for f_,ok_,d_,s_ in actors for g in s_['segments']);shots.append(dict(start=start,length=length,label=title,place=list(place),camera=cam,camera_kind=d_shot.get('framing') or ('door' if any(g['action']=='open_door' for f_,ok_,d_,s_ in actors for g in s_['segments']) else 'full' if walking else 'medium'),lines=lines,actors=[dict(folder=str(f),position_cm=[s['actor_position_cm'][0]+ox,s['actor_position_cm'][1]+oy],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
  for q in extra:   # permanent scenery: visible from the first to the last shot at its place
   place=q.pop('place');window=[s for s in shots if tuple(s['place'])==tuple(place)]
   if window:q['frames']=[window[0]['start'],window[-1]['start']+window[-1]['length']-1]

@@ -21,7 +21,8 @@ bpy.context.view_layer.update()   # objects created by the merge script have sta
 IGNORE=('Ground','Bench','DrinkTable','TableLeg','Cup','Paw','Cub','Step','Crate','SideTable','Phone','Door','Lamp','Window','Awning','CafeSign')   # small or see-through: never judged as occluders
 SOLID_NAMES=('DoorWall','Hut','Patio','Pole','Mountain','Snow','Pine','Trunk','House','Roof','Rock','Fence','Well','Counter')
 TYPES={'full':dict(lens=28,radii=(300,380,460,560,680),heights=(130,170,220),fraction=(.30,.62)),
- 'medium':dict(lens=34,radii=(190,240,300,360),heights=(120,150,185),fraction=(.28,.60)),
+ 'medium':dict(lens=32,radii=(250,320,400,480),heights=(130,160,200),fraction=(.22,.55)),
+ 'door':dict(lens=32,radii=(300,380,460),heights=(120,150,180),fraction=(.15,.55),profile=True),   # opening a door: seen side on from outside (from inside, the door swings into the lens and blocks it)
  'close':dict(lens=45,radii=(130,170,210),heights=(110,135,160),fraction=(.40,.80)),
  'reaction':dict(lens=45,radii=(130,170,210),heights=(110,135,160),fraction=(.40,.80))}
 def actor_objects(slot):
@@ -106,7 +107,8 @@ def evaluate(cam,shot_k,shot,offset,lens,frames,kind,state):
      if other.length>1e-3:
       along=abs(d.dot(other.normalized()))
       if along>.55:cost+=6*(along-.55)
-    cost+=0 if face>.15 else 40*(.15-face)
+    cost+=0 if face>.15 or spec_t.get('profile') else 40*(.15-face)
+    if spec_t.get('profile'):cost+=8*abs(face)   # side on: the camera direction is perpendendicular to the facing
     if face<-.2:issues.add('seen from behind')
   if off:cost+=100*off;issues.add('actor out of frame')
   lo,hi=spec_t['fraction'];frac=max(sizes)
@@ -143,7 +145,7 @@ for k,shot in enumerate(spec['shots']):
  rooms_along=set()
  for f in frames:
   rooms_along.add(tuple(room_of(keypoints(s,f)[0]['hips']) for s in shot_slots[k]))
- state=dict(crosses=len(rooms_along)>1)   # the actors move between inside and outside during the shot
+ state=dict(crosses=len(rooms_along)>1 or t.get('through',False))   # the actors move between inside and outside during the shot
  if verify:
   cost,issues=0,set()
   report.append(dict(shot=k+1,label=shot['label'],kind=kind,issues=sorted(issues),collisions=collisions(k,frames)));continue
