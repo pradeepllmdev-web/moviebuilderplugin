@@ -46,11 +46,11 @@ for name,(length,prefix) in SIZES.items():
  rig=next(o for o in dst.objects if o.type=='ARMATURE');body=next(o for o in dst.objects if o.type=='MESH');rig.name='T_'+name;body.name='T_'+name+'_mesh';acts={a.name[len(prefix):] if a.name.startswith(prefix) else a.name:a for a in dst.actions}
  if name=='Apatosaurus':acts={k.replace('Apatosaurus_',''):v for k,v in acts.items()}
  for o in (rig,body):link(o)
- body.parent=rig;rig.animation_data_clear();bpy.context.view_layer.update()
+ pinv=body.matrix_parent_inverse.copy();body.parent=rig;body.matrix_parent_inverse=pinv;rig.animation_data_clear();bpy.context.view_layer.update()
  co=np.array([(body.matrix_world@v.co) for v in body.data.vertices]);span=float(co[:,1].max()-co[:,1].min());factor=length/span
  templates[name]=dict(rig=rig,body=body,acts=acts,factor=factor,orig_scale=rig.scale.copy());rig.hide_viewport=True;body.hide_viewport=True;rig.hide_render=True;body.hide_render=True
 def make_dino(kind,label):
- t=templates[kind];rig=t['rig'].copy();rig.data=t['rig'].data.copy();rig.name=label;rig.animation_data_clear();link(rig);body=t['body'].copy();body.data=t['body'].data.copy();body.name=label+'_mesh';link(body);body.parent=rig
+ t=templates[kind];rig=t['rig'].copy();rig.data=t['rig'].data.copy();rig.name=label;rig.animation_data_clear();link(rig);body=t['body'].copy();body.data=t['body'].data.copy();body.name=label+'_mesh';link(body);body.parent=rig;body.matrix_parent_inverse=t['body'].matrix_parent_inverse.copy()
  for mod in body.modifiers:
   if mod.type=='ARMATURE':mod.object=rig
  rig.hide_viewport=False;body.hide_viewport=False;rig.hide_render=False;body.hide_render=False;rig.scale=t['orig_scale']*t['factor'];return rig
@@ -58,7 +58,7 @@ def nla(rig,kind,segments):
  """segments: [(action name, start s, end s, play speed, loops?)] on alternating tracks with 6-frame overlaps."""
  acts=templates[kind]['acts'];rig.animation_data_create();tracks=[rig.animation_data.nla_tracks.new(),rig.animation_data.nla_tracks.new()]
  for k,(name,a,b,play) in enumerate(segments):
-  act=acts[name];start=F(a)-(6 if k else 0);strip=tracks[k%2].strips.new(name+str(k),start,act);strip.scale=1/play;strip.extrapolation='HOLD' if k==0 else 'NOTHING'
+  act=acts[name];start=F(a)-(6 if k else 0);strip=tracks[k%2].strips.new(name+str(k),start,act);strip.action_slot=act.slots[0] if len(act.slots) else None;strip.scale=1/play;strip.extrapolation='HOLD' if k==0 else 'NOTHING'
   length=act.frame_range[1]-act.frame_range[0]+1;strip.repeat=max(1.,(F(b)-start)/(length/play));strip.blend_in=6 if k else 0;strip.blend_out=6
 for o in templates.values():pass
 # ---------------------------------------------------------------------------------------------------------- Leo groups (rig + meshes under a root empty)
@@ -151,7 +151,7 @@ nla(trex,'Trex',[('Idle',0,T['roar'],1.),('Attack',T['roar'],T['roar']+1.2,1.),(
 apato=make_dino('Apatosaurus','Apatosaurus');apato.location=APATO;apato.rotation_euler=(0,0,math.pi/2+math.radians(175))
 nla(apato,'Apatosaurus',[('Idle',0,44.,1.),('Attack',44.,45.9,1.),('Idle',45.9,seconds,1.)])
 tri=make_dino('Triceratops','Triceratops')
-nla(tri,'Triceratops',[('Idle',0,T['charge'],1.),('Run',T['charge'],39.,1.35),('Walk',39.,42.5,1.4),('Idle',42.5,seconds,1.)])
+nla(tri,'Triceratops',[('Idle',0,T['charge'],1.),('Run',T['charge'],39.,.9),('Walk',39.,42.5,1.0),('Idle',42.5,seconds,1.)])
 for f in range(1,frames+1,2):
  p,h=tri_pos(f);tri.location=(p.x,p.y,0);tri.rotation_euler=(0,0,h+math.pi/2);tri.keyframe_insert('location',frame=f);tri.keyframe_insert('rotation_euler',frame=f)
 RAPTORS=[]
@@ -166,7 +166,7 @@ def raptor_pos(k,t):
  x_flee=sx+9.*(T['roar']+.6-13)
  cur=min(x,TRI_S[min(F(T['roar']+.6)-1,frames)]+TRI0.x-4-k*3.5);return Vector((cur-9.*(t-T['roar']-.6)*1.0,sy+k*.8+1.5*(t-T['roar']),0)),math.pi,9.
 for k,(r,sx,sy) in enumerate(RAPTORS):
- nla(r,'Velociraptor',[('Idle',0,13,1.),('Run',13,seconds,1.9)])
+ nla(r,'Velociraptor',[('Idle',0,13,1.),('Run',13,seconds,1.0)])
  for f in range(1,frames+1,2):
   t=(f-1)/fps;p,h,sp=raptor_pos(k,t);r.location=(p.x,p.y,0);r.rotation_euler=(0,0,h+math.pi/2*1.0+math.pi/2*0+0.0 if False else h+math.pi/2);r.keyframe_insert('location',frame=f);r.keyframe_insert('rotation_euler',frame=f)
 # Leo
