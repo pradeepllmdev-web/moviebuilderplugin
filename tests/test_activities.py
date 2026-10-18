@@ -141,3 +141,28 @@ class StoryToolsTests(unittest.TestCase):
   self.assertTrue(-235<cam['pos_cm'][0]<235 and 45<cam['pos_cm'][1]<395,cam)   # inside the room with the actor
   outside=self._plan([self._shot('out',[self._actor('lion',0,-200,[beat('wave',4)])])])['shots'][0]
   c2=story_camera.solve_shot(outside,(0,0),boxes);self.assertFalse(-290<c2['pos_cm'][0]<290 and -10<c2['pos_cm'][1]<450,c2)   # outside the building
+class AnchorTests(unittest.TestCase):
+ def _story(self,actors,place='hut'):
+  shot=dict(version=1,title='s',environment='forest',mood='morning_fog',camera='full',unsupported=[],notes=[],actors=actors)
+  direction=dict(sets=[dict(name='hut',kind='village',origin_cm=[18000,0])],shots={'s':dict(place=place)})
+  return dict(version=1,title='t',unsupported=[],shots=[shot]),direction
+ def _actor(self,ch,at,segments):return dict(character=ch,at=at,position_cm=[0,0],segments=segments)
+ def test_anchor_becomes_coordinates_and_place_origin(self):
+  import previs_anchors as pa
+  plan,direction=self._story([self._actor('lion','door_front',[beat('open_door',5)])])
+  p,d=pa.resolve(plan,direction);self.assertEqual(p['shots'][0]['actors'][0]['position_cm'],[-63,-60]);self.assertEqual(d['shots']['s']['origin_cm'],[18000,0]);self.assertTrue(d['auto_camera'])
+ def test_pair_slots_face_each_other_when_talking_and_side_by_side_for_contact(self):
+  import previs_anchors as pa
+  plan,direction=self._story([self._actor('lion',('inside_center','left'),[beat('wave',4)]),self._actor('rowan',('inside_center','right'),[beat('wave',4)])])
+  a=pa.resolve(plan,direction)[0]['shots'][0]['actors'];self.assertEqual((a[0]['facing_yaw_deg'],a[1]['facing_yaw_deg']),(-90.0,90.0));self.assertAlmostEqual(a[1]['position_cm'][0]-a[0]['position_cm'][0],pa.TALK_SPACING_CM)
+  plan,direction=self._story([self._actor('lion',('inside_near','left'),[beat('hug',5)]),self._actor('rowan',('inside_near','right'),[beat('hug',5)])])
+  a=pa.resolve(plan,direction)[0]['shots'][0]['actors'];self.assertEqual((a[0]['facing_yaw_deg'],a[1]['facing_yaw_deg']),(0,0))
+  low,high=__import__('contact_actions').window('hug','lion','rowan');gap=a[1]['position_cm'][0]-a[0]['position_cm'][0];self.assertTrue(low<=gap<=high)
+ def test_unknown_anchor_is_a_clear_error(self):
+  import previs_anchors as pa
+  plan,direction=self._story([self._actor('lion','nowhere',[beat('wave',4)])])
+  with self.assertRaises(ValueError) as e:pa.resolve(plan,direction)
+  self.assertIn('door_front',str(e.exception))
+ def test_plans_without_anchors_are_untouched(self):
+  import previs_anchors as pa
+  plan,direction=self._story([dict(character='lion',position_cm=[1,2],segments=[beat('wave',4)])]);p,d=pa.resolve(plan,direction);self.assertIs(p,plan)

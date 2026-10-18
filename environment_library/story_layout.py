@@ -60,6 +60,7 @@ def layout(plan,direction=None):
  for k,shot in enumerate(shots):
   title=shot.get('title','');place,origin=_origin(direction,title);segs=segment_paths(shot)
   boxes=sc.get(place,[]);solids=[b for b in boxes if b['kind']=='solid'];openings=[b for b in boxes if b['kind']=='opening']
+  used={a['character']:{n for n,acts in USES.items() if any(g['action'] in acts for g in a['segments'])} for a in _actors(shot)}
   for s in segs:
    a0=(s['start'][0]+origin[0],s['start'][1]+origin[1]);a1=(s['end'][0]+origin[0],s['end'][1]+origin[1]);paths.append(dict(shot=k+1,actor=s['actor'],action=s['action'],start=a0,end=a1))
    steps=max(2,int(math.dist(a0,a1)/10)+1);hit=None
@@ -67,7 +68,7 @@ def layout(plan,direction=None):
     px=a0[0]+(a1[0]-a0[0])*i/(steps-1);py=a0[1]+(a1[1]-a0[1])*i/(steps-1)
     for b in solids:
      x0,y0,x1,y1=b['box']
-     if b['name']=='Patio' or s['action'] in USES.get(b['name'],()):continue
+     if b['name']=='Patio' or b['name'] in used.get(s['actor'],()):continue   # an actor may be at the pieces his own beats in this shot use
      if b['name'].startswith('DoorWall') and any(o['box'][0]+20<=px<=o['box'][2]-20 for o in openings):continue
      if x0-ACTOR_RADIUS_CM<px<x1+ACTOR_RADIUS_CM and y0-ACTOR_RADIUS_CM<py<y1+ACTOR_RADIUS_CM:hit=(b['name'],px,py);break
     if hit:break

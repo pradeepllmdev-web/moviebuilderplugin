@@ -192,6 +192,8 @@ def lenient_validate(plan):
  return dict(plan,shots=[scene_prompt.validate(copy.deepcopy(s)) for s in plan['shots']])
 def run_previs(plan,name='movie',render=False,open_gui=True,direction=None,strict=False):
  """A movie plan -> one Blender scene, a camera per shot, shots laid end to end, actors walking their routes. direction = {sets:[...], shots:{title:{origin_cm, camera}}}."""
+ import previs_anchors
+ plan,direction=previs_anchors.resolve(plan,direction)   # named anchors -> coordinates, facings and spacings (no-op for plans with coordinates)
  qr=_qr();started=time.time();p=lenient_validate(plan);jobs=[];shots=[];start=1
  import story_lint,story_layout
  scenery_boxes=story_layout.scenery(p,direction)
