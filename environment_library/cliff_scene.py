@@ -76,10 +76,10 @@ def S(t):
  return kit.catmull([(a,(b,0,0)) for a,b in C_KEYS],t)[0]
 def hop(t,ph):return .08*math.sin(2*math.pi*t/.9+ph)
 SEG={
- 'RH':[(0,5,None),(5,20.0,lambda t:climb_target('RH',S(t),COL_A)),(20.0,25.2,lambda t:rope_end(t)+Vector((.05,0,0))),(25.2,26.2,None),(26.2,33.0,lambda t:climb_target('RH',S(t),COL_B)),(33.0,45.5,None),(45.5,55.,lambda t:Vector((COL_C+.08,-.2,S(t)+1.15))),(55,999,None)],
- 'LH':[(0,5,None),(5,20.8,lambda t:climb_target('LH',S(t),COL_A)),(20.8,25.2,lambda t:rope_end(t)+Vector((-.05,0,0))),(25.2,26.2,None),(26.2,33.0,lambda t:climb_target('LH',S(t),COL_B)),(33.0,45.5,None),(45.5,55.,lambda t:Vector((COL_C-.08,-.2,S(t)+1.15))),(55,999,None)],
- 'LF':[(0,5,None),(5,21.6,lambda t:climb_target('LF',S(t),COL_A)),(21.6,T_LAND,None),(T_LAND,26.2,lambda t:Vector((XE-.14,-.28,LEDGE2_Z+.12))),(26.2,33.0,lambda t:climb_target('LF',S(t),COL_B)),(33.0,33.8,lambda t:Vector((3.3-.12,-.28,SLAB_Z+.12))),(33.8,45.9,None),(45.9,55.,lambda t:Vector((COL_C-.14,-.04,S(t)+.30+hop(t,0)))),(55,999,None)],
- 'RF':[(0,5,None),(5,21.6,lambda t:climb_target('RF',S(t),COL_A)),(21.6,T_LAND,None),(T_LAND,26.2,lambda t:Vector((XE+.14,-.28,LEDGE2_Z+.12))),(26.2,33.0,lambda t:climb_target('RF',S(t),COL_B)),(33.0,33.8,lambda t:Vector((3.3+.12,-.28,SLAB_Z+.12))),(33.8,45.9,None),(45.9,55.,lambda t:Vector((COL_C+.14,-.04,S(t)+.30+hop(t,math.pi)))),(55,999,None)]}
+ 'RH':[(0,5,None),(5,20.0,lambda t:climb_target('RH',S(t),COL_A)),(20.0,T_LAND-.5,lambda t:rope_end(t)+Vector((.05,0,0))),(T_LAND-.5,26.2,None),(26.2,33.0,lambda t:climb_target('RH',S(t),COL_B)),(33.0,45.5,None),(45.5,55.,lambda t:Vector((COL_C+.08,-.2,S(t)+1.15))),(55,999,None)],
+ 'LH':[(0,5,None),(5,20.8,lambda t:climb_target('LH',S(t),COL_A)),(20.8,T_LAND-.5,lambda t:rope_end(t)+Vector((-.05,0,0))),(T_LAND-.5,26.2,None),(26.2,33.0,lambda t:climb_target('LH',S(t),COL_B)),(33.0,45.5,None),(45.5,55.,lambda t:Vector((COL_C-.08,-.2,S(t)+1.15))),(55,999,None)],
+ 'LF':[(0,5,None),(5,21.6,lambda t:climb_target('LF',S(t),COL_A)),(21.6,T_LAND+.2,None),(T_LAND+.2,26.2,lambda t:Vector((XE-.14,-.28,LEDGE2_Z+.12))),(26.2,33.0,lambda t:climb_target('LF',S(t),COL_B)),(33.0,33.8,lambda t:Vector((3.3-.12,-.28,SLAB_Z+.12))),(33.8,45.9,None),(45.9,55.,lambda t:Vector((COL_C-.14,-.04,S(t)+.30+hop(t,0)))),(55,999,None)],
+ 'RF':[(0,5,None),(5,21.6,lambda t:climb_target('RF',S(t),COL_A)),(21.6,T_LAND+.2,None),(T_LAND+.2,26.2,lambda t:Vector((XE+.14,-.28,LEDGE2_Z+.12))),(26.2,33.0,lambda t:climb_target('RF',S(t),COL_B)),(33.0,33.8,lambda t:Vector((3.3+.12,-.28,SLAB_Z+.12))),(33.8,45.9,None),(45.9,55.,lambda t:Vector((COL_C+.14,-.04,S(t)+.30+hop(t,math.pi)))),(55,999,None)]}
 def limb_eval(limb,t,tr=.5):
  segs=SEG[limb];i=max(k for k,sg in enumerate(segs) if sg[0]<=t);t0,t1,fn=segs[i];prev=segs[i-1] if i else None
  if fn is None:
@@ -142,7 +142,7 @@ def load_char(tag):
  rig=next(o for o in new if o.type=='ARMATURE');rig.animation_data_clear();rig.animation_data_create()
  return root,rig,new
 CLIPS={}
-for c in ('look','idle','climb','pick','cele'):
+for c in ('look','idle','climb','pick','cele','jump'):
  with bpy.data.libraries.load(os.path.join(ASSETS,'leo_%s.blend'%c),link=False) as (src,dst):dst.actions=[n for n in src.actions if n=='leo_%s'%c]
  CLIPS[c]=dst.actions[0]
 leo,rig,leo_objs=load_char('Leo');cub,crig,cub_objs=load_char('Cub')
@@ -150,7 +150,7 @@ def nla(rig,sched):
  tracks=[rig.animation_data.nla_tracks.new() for _ in range(2)]
  for k,(c,a,b,mode) in enumerate(sched):
   st=kit.add_strip(tracks[k%2],CLIPS[c],F(a)-(5 if k else 0),F(b),mode);st.extrapolation='HOLD' if k==0 else 'NOTHING';st.blend_in=5 if k else 0;st.blend_out=5
-nla(rig,[('look',0,5,'loop'),('idle',5,34.8,'loop'),('climb',34.8,37.8,'loop'),('pick',37.8,42.8,'fit'),('climb',42.8,44.3,'loop'),('idle',44.3,55.2,'loop'),('cele',55.2,seconds,'fit')])
+nla(rig,[('look',0,5,'loop'),('idle',5,T_LAND-.9,'loop'),('jump',T_LAND-.9,T_LAND+.9,'fit'),('idle',T_LAND+.9,34.8,'loop'),('climb',34.8,37.8,'loop'),('pick',37.8,42.8,'fit'),('climb',42.8,44.3,'loop'),('idle',44.3,55.2,'loop'),('cele',55.2,seconds,'fit')])
 nla(crig,[('look',0,41,'loop'),('idle',41,seconds,'loop')])
 # Leo root path
 def heading_at(t):   # from +x: pi/2 faces the wall (+y), 0 faces +x
@@ -162,7 +162,9 @@ def heading_at(t):   # from +x: pi/2 faces the wall (+y), 0 faces +x
 def leo_root(t):
  if t<19.6:x,z=COL_A,S(t)
  elif t<T_SW0:x=COL_A+(XS-COL_A)*smooth((t-19.6)/.8);z=7.0;
- elif t<T_LAND:P=rope_end(t);x,z=P.x,P.z-1.3
+ elif t<T_LAND-.5:P=rope_end(t);x,z=P.x,P.z-1.3
+ elif t<T_LAND+.2:
+  P=rope_end(T_LAND-.5);u=(t-(T_LAND-.5))/.7;x=(P.x)+(XE-P.x)*u;z=(P.z-1.3)+(7.0-(P.z-1.3))*u+.45*math.sin(math.pi*u)
  elif t<26.2:x,z=XE,7.0
  elif t<33.0:x,z=COL_B,S(t)
  elif t<33.8:x,z=COL_B+.5*smooth((t-33)/.8),SLAB_Z
@@ -173,6 +175,7 @@ def leo_root(t):
  elif t<45.3:x,z=8.5,SLAB_Z
  elif t<46.3:x,z=8.5+1.1*smooth(t-45.3),SLAB_Z
  else:x,z=COL_C,S(t)
+ if (7<t<20 or 26.7<t<33) and t not in(): x+=.035*math.sin(math.pi*S(t)/STEP)
  if t>55:z=0.
  return Vector((x,ROOT_Y,z)),heading_at(t)
 for f in range(1,frames+1,2):
@@ -192,13 +195,21 @@ for f in range(1,frames+1,2):
   IK[limb].influence=infl;IK[limb].keyframe_insert('influence',frame=f)
 # the cub waits on the slab, then rides on Leo's back
 CUB_SLAB=Vector((8.1,-.55,SLAB_Z));cub.scale=(.45,.45,.45)
-cub.location=CUB_SLAB;cub.rotation_euler=(0,0,math.pi);cub.keyframe_insert('location',frame=1);cub.keyframe_insert('rotation_euler',frame=1)
-scene.frame_set(F(42.9));bpy.context.view_layer.update();sp=rig.pose.bones['mixamorig:Spine1'];back=rig.matrix_world@sp.head+Vector((-.30,0,.05))
-cub.location=back;cub.rotation_euler=(0,0,math.pi/2);cub.keyframe_insert('location',frame=F(42.0));cub.keyframe_insert('rotation_euler',frame=F(42.0))
-cub.location=CUB_SLAB;cub.rotation_euler=(0,0,math.pi);cub.keyframe_insert('location',frame=F(41.9)-1);cub.keyframe_insert('rotation_euler',frame=F(41.9)-1)
-cub.location=back;cub.rotation_euler=(0,0,math.pi/2);cub.keyframe_insert('location',frame=F(42.0));cub.keyframe_insert('rotation_euler',frame=F(42.0));cub.keyframe_insert('location',frame=frames);cub.keyframe_insert('rotation_euler',frame=frames)
-cc=cub.constraints.new('CHILD_OF');cc.target=rig;cc.subtarget='mixamorig:Spine1';cc.inverse_matrix=(rig.matrix_world@sp.matrix).inverted()
-for t,v in ((41.9,0.),(42.7,1.)):cc.influence=v;cc.keyframe_insert('influence',frame=F(t))
+def cub_pose(f):
+ """The cub waits on the slab, is lifted in Leo's right hand (40.2 to 41.2), held, then settled on his back (41.8 to 42.7) and rides there, always following the bones."""
+ t=(f-1)/fps
+ if t<40.2:return CUB_SLAB,math.pi
+ scene.frame_set(f);bpy.context.view_layer.update();h=leo_root(t)[1];ang=h+math.pi/2
+ hand=rig.matrix_world@rig.pose.bones['mixamorig:RightHand'].head+Vector((0,0,-.10));sp=rig.matrix_world@rig.pose.bones['mixamorig:Spine1'].head
+ back=sp+Vector((-.30*math.cos(h),-.30*math.sin(h),.06))
+ if t<41.2:return CUB_SLAB.lerp(hand,smooth((t-40.2)/1.0)),math.pi+(ang-math.pi)*smooth((t-40.2)/1.0)
+ if t<41.8:return hand,ang
+ if t<42.7:return hand.lerp(back,smooth((t-41.8)/.9)),ang
+ return back,ang
+for f in range(1,F(40.0),30):
+ cub.location=CUB_SLAB;cub.rotation_euler=(0,0,math.pi);cub.keyframe_insert('location',frame=f);cub.keyframe_insert('rotation_euler',frame=f)
+for f in range(F(40.0),frames+1,2):
+ pos,ang=cub_pose(f);cub.location=pos;cub.rotation_euler=(0,0,ang);cub.keyframe_insert('location',frame=f);cub.keyframe_insert('rotation_euler',frame=f)
 # ropes
 ropeA=rope_obj('RopeSwing');ropeC=rope_obj('RopeRappel');fray=[prim('cube','Fray',(0,0,0),(.62,.5,.3),scale=(.012,.012,.2)) for _ in range(5)]
 for f in range(1,frames+1,2):

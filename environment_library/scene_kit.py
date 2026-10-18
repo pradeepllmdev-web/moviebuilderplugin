@@ -32,6 +32,10 @@ LESSONS=[
  dict(id='rigid_bodies',symptom='Rocks never fall, or all fall at once.',cause='They rest on a collision shelf; kinematic flag not keyed.',rule='Active rocks start kinematic and get the flag keyed off at their release time; no collider under them; bake with ptcache.bake_all and read the baked positions for impact sounds.'),
  dict(id='pendulum',symptom='Rope swing looks arbitrary.',cause='Hand-keyed arc.',rule='Use the exact pendulum: half period pi*sqrt(L/g), amplitude from the start and end x; choose anchor so both ends are reachable and the landing lines up with the next climb column.'),
 
+ dict(id='carry_small_character',symptom='A small character appears on a big one without a believable pick-up.',cause='Constraint snap from the slab to the back.',rule='Bake the carried character per frame from the carrier bones: lifted in the right hand (pick clip), held at the chest, then settled on the back over about a second; no constraint, so nothing pops (cliff_scene.cub_pose).'),
+ dict(id='release_jump',symptom='Letting go of a rope looks like teleporting onto the ledge.',cause='No flight between release and landing.',rule='Release the rope 0.5 s before the end of the swing, play the lion Jump clip fitted around the landing, move the root on a ballistic arc (about 0.45 m high) and plant the feet 0.2 s after the landing.'),
+ dict(id='climb_realism',symptom='Climbing looks mechanical.',cause='Rigid upright body.',rule='Lean 0.07 rad into the wall and sway the root +-3.5 cm in step with the limb cycle; keep alternating right hand, left foot, left hand, right foot.'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)
