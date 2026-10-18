@@ -34,6 +34,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: grapple is a bear-hug (arms on shoulders), feet skate in the grapple, impact points are bone-to-bone only (no soft-body)
 * prompt keywords: `arena|gladiator|duel|fights? (?:a |the )?(?:rival|lion)|wrestl|grapple|fight scene|boss fight`
 
+## The Great Escape (`great_escape`)
+
+* script: `train_scene.py`
+* story: Leo wakes on a speeding prison train, runs the roofs with two guards behind him, jumps the gaps, ducks a gantry, kicks a guard off, turns a brake wheel to release the coupling so the rear cars fall behind, and leaps from a bridge into a river (54 s, 14 cameras, sound)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs idle, run, jump, kick, getup, fall, look, cele)
+* known limits: ducking is a lean on the run clip, the hands do not grip the rim exactly (they follow rim points), guards use one clip set, interior of the wagons is not modelled
+* prompt keywords: `train|railway|escape|prison|train roof|jump(?:s|ing)? (?:between|across) (?:wagons|cars)|chased on|roof of a`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`
@@ -91,3 +99,9 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 | palm_lock | Wrestling or hugging lions merge into one body; hands sink into the shoulders. | Grips aimed at the shoulder bones of a body 0.6 m away. | Palm-to-palm lockup at 1.45 m root spacing: the senior rival wrists go to the midpoint of both root paths (1.2 m high, 0.2 m left and right) and the other lion wrists copy his HAND bones (one-way, no cycle); both lean 0.22 rad. Verify numerically: wrist to target 0 cm, shoulder to wrist 0.37..0.43 m (arm length 0.5). |
 | planted_feet | Feet skate during a grapple. | The body moves, the feet follow the root. | plan_feet in arena_scene: IK feet stay where they are and step (0.3 s, 0.1 m lift) only when the body is 0.3 m away, one foot at a time; influence ramps 0.3 s in and out. |
 | landing_room | A thrown or fallen character gets up inside the other one. | Landing spot too close. | Land 1.6 m behind the thrower and move the winner 2.5 m away before the loser gets up; the audit checks body-bone distance (limit 10 cm). |
+| moving_world | Things on a fast train drift or the scenery moves wrongly. | Mixing train-local and world motion. | Keep the scenery static and key the train (V0 20 m/s after a 4 s ease-in), then compute every character in WORLD space as train x + local x; two groups (front and rear cars) let a coupling release: the rear group decelerates (exponential, k 0.25) so the gap grows by V0*(s-(1-exp(-k s))/k). |
+| gap_jumps | Gap jumps are all the same hop or miss the roof. | Take-off and landing chosen by hand. | kit.run_path puts every flight 0.25 m before the gap and 0.35 m after it at constant speed; flight time = distance / speed; arc from flight_apex; strips for jump windows start 0.3 s earlier for the crouch. |
+| obstacle_timing | A duck happens where there is no obstacle. | Obstacle placed independently of the fighter. | Place the low gantry at the world x where Leo is at the chosen time (X_BR = train x + local x) and duck when the fighter world x is within 0.5 to 1.6 m of it (pitch 0.6, drop 0.3 m). |
+| projectile | A kicked guard slides off sideways like a card. | Keyed position. | kit.ballistic_to(p0,p1,T,t) with T = flight_time_to_ground(z, vz): x,y linear (including the train speed), z a parabola; spin during flight; lie on the ground afterwards with the fall clip and a short exponential slide. |
+| kick_apex | The kick solver never reaches the target. | Maximum forward reach of a leg is a low foot. | Measure a kick at the highest foot, a punch at the farthest hand; then the horizontal snap gives 2 cm. |
+| roof_floor | Landing from a jump sinks the feet into the roof. | Clip crouch plus the landing dip. | Ground lift (lowest skin vertex against the roof) for every non-airborne frame of all three characters. |

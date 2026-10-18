@@ -32,6 +32,12 @@ class SceneKit(unittest.TestCase):
   self.assertAlmostEqual(kit.ballistic(.5,.6),.6);self.assertEqual(kit.ballistic(0,.6),0);self.assertEqual(kit.ballistic(1,.6),0)
   p=kit.jump_profile(5.35,5.0,5.7);self.assertEqual(p['tuck'],1.0)
   self.assertLess(kit.jump_profile(4.85,5.0,5.7)['dz'],0);self.assertLess(kit.jump_profile(5.85,5.0,5.7)['dz'],0);self.assertEqual(kit.jump_profile(9,5.0,5.7)['tuck'],0)
+ def test_paths_and_projectiles(self):
+  segs=kit.run_path(0,0,30,[(10,11.4),(20,21.4)],4.)
+  self.assertEqual([x[0] for x in segs],['run','jump','run','jump','run']);self.assertAlmostEqual(kit.path_x(segs,segs[-1][2]),30);self.assertAlmostEqual(kit.path_x(segs,segs[1][1]),9.75)
+  p=kit.ballistic_to((0,0,3.2),(20,6,0),1.2,.6);self.assertAlmostEqual(p[0],10);self.assertAlmostEqual(p[1],3)
+  self.assertAlmostEqual(kit.ballistic_to((0,0,3.2),(20,6,0),1.2,1.2)[2],0,places=6)
+  self.assertAlmostEqual(kit.flight_time_to_ground(0,5),2*5/9.81)
  def test_lessons_unique_and_complete(self):
   ids=[l['id'] for l in kit.LESSONS];self.assertEqual(len(ids),len(set(ids)))
   for l in kit.LESSONS:self.assertTrue(all(l[k] for k in('symptom','cause','rule')))
@@ -42,6 +48,7 @@ class SceneKit(unittest.TestCase):
   self.assertEqual(set_pieces.match('Rowan rides a horse across the meadow')[0],'rider')
   self.assertEqual(set_pieces.match('a lion free climbs a cliff and rappels down with a lost cub')[0],'cliff_rescue')
   self.assertEqual(set_pieces.match('two lions fight in a gladiator arena')[0],'arena_duel')
+  self.assertEqual(set_pieces.match('a prisoner escapes along the roof of a speeding train')[0],'great_escape')
   self.assertEqual(set_pieces.match('lion drinks tea in a cafe'),[])
  def test_docs_cover_every_lesson_and_piece(self):
   text=set_pieces.docs()

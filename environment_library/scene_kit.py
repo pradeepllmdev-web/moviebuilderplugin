@@ -49,6 +49,13 @@ LESSONS=[
  dict(id='planted_feet',symptom='Feet skate during a grapple.',cause='The body moves, the feet follow the root.',rule='plan_feet in arena_scene: IK feet stay where they are and step (0.3 s, 0.1 m lift) only when the body is 0.3 m away, one foot at a time; influence ramps 0.3 s in and out.'),
  dict(id='landing_room',symptom='A thrown or fallen character gets up inside the other one.',cause='Landing spot too close.',rule='Land 1.6 m behind the thrower and move the winner 2.5 m away before the loser gets up; the audit checks body-bone distance (limit 10 cm).'),
 
+ dict(id='moving_world',symptom='Things on a fast train drift or the scenery moves wrongly.',cause='Mixing train-local and world motion.',rule='Keep the scenery static and key the train (V0 20 m/s after a 4 s ease-in), then compute every character in WORLD space as train x + local x; two groups (front and rear cars) let a coupling release: the rear group decelerates (exponential, k 0.25) so the gap grows by V0*(s-(1-exp(-k s))/k).'),
+ dict(id='gap_jumps',symptom='Gap jumps are all the same hop or miss the roof.',cause='Take-off and landing chosen by hand.',rule='kit.run_path puts every flight 0.25 m before the gap and 0.35 m after it at constant speed; flight time = distance / speed; arc from flight_apex; strips for jump windows start 0.3 s earlier for the crouch.'),
+ dict(id='obstacle_timing',symptom='A duck happens where there is no obstacle.',cause='Obstacle placed independently of the fighter.',rule='Place the low gantry at the world x where Leo is at the chosen time (X_BR = train x + local x) and duck when the fighter world x is within 0.5 to 1.6 m of it (pitch 0.6, drop 0.3 m).'),
+ dict(id='projectile',symptom='A kicked guard slides off sideways like a card.',cause='Keyed position.',rule='kit.ballistic_to(p0,p1,T,t) with T = flight_time_to_ground(z, vz): x,y linear (including the train speed), z a parabola; spin during flight; lie on the ground afterwards with the fall clip and a short exponential slide.'),
+ dict(id='kick_apex',symptom='The kick solver never reaches the target.',cause='Maximum forward reach of a leg is a low foot.',rule='Measure a kick at the highest foot, a punch at the farthest hand; then the horizontal snap gives 2 cm.'),
+ dict(id='roof_floor',symptom='Landing from a jump sinks the feet into the roof.',cause='Clip crouch plus the landing dip.',rule='Ground lift (lowest skin vertex against the roof) for every non-airborne frame of all three characters.'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)
@@ -112,6 +119,29 @@ def jump_profile(t,launch,land):
  elif land<t<=land+.30:
   u=(t-land)/.30;dz=-.12*math.sin(math.pi*u);pitch=.12*(1-u)
  return dict(dz=dz,tuck=tuck,pitch=pitch)
+def ballistic_to(p0,p1,T,t,g=9.81):
+ """Position at time t (0..T) of a projectile that leaves p0 and reaches p1 after T seconds under gravity: x,y linear, z a parabola (vz derived from the end height)."""
+ u=max(0.,min(1.,t/T));vz=(p1[2]-p0[2]+.5*g*T*T)/T
+ return (p0[0]+(p1[0]-p0[0])*u,p0[1]+(p1[1]-p0[1])*u,p0[2]+vz*t-.5*g*t*t)
+def flight_time_to_ground(z0,vz,g=9.81):
+ """Time to fall from height z0 (above the ground, m) when leaving upward at vz m/s."""
+ return (vz+math.sqrt(vz*vz+2*g*z0))/g
+def run_path(t0,x0,x1,gaps,speed,take=.25,land=.35):
+ """Constant-speed run along +x that jumps every gap (gap_start,gap_end): returns [(kind,t_start,t_end,x_start,x_end)] with kind run/jump; flights take off take m before the gap and land land m after it."""
+ segs=[];t=t0;x=x0
+ for gs,ge in gaps:
+  if not x0<gs<x1:continue
+  xt=gs-take
+  if xt>x:segs.append(('run',t,t+(xt-x)/speed,x,xt));t+=(xt-x)/speed;x=xt
+  xl=ge+land;T=(xl-x)/speed;segs.append(('jump',t,t+T,x,xl));t+=T;x=xl
+ if x1>x:segs.append(('run',t,t+(x1-x)/speed,x,x1));t+=(x1-x)/speed
+ return segs
+def path_x(segs,t):
+ if not segs:return 0.
+ if t<=segs[0][1]:return segs[0][3]
+ for k,a,b,x0,x1 in segs:
+  if a<=t<b:return x0+(x1-x0)*(t-a)/(b-a)
+ return segs[-1][4]
 def surface_target(target_obj,from_pt,to_pt,depsgraph):
  """Where the hand should stop: the point where the ray from the target's centre (to_pt) towards the attacker (from_pt) leaves the target's skin (world space), plus how deep from_pt is inside (m, positive = inside).
  The BVH is built in the object's own space, so points are transformed in and the hit is transformed out."""
