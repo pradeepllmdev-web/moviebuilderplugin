@@ -93,9 +93,11 @@ class ContactTests(unittest.TestCase):
   import contact_actions as ca
   def actor(ch,x,action='handshake'):return dict(character=ch,position_cm=[x,0],segments=[dict(action=action,duration=4)])
   heights={'lion':185,'rowan':180}
-  fields=ca.pair_inputs([actor('lion',-30),actor('rowan',30)],0,heights);self.assertIn('partner_contact',fields);self.assertAlmostEqual(fields['facing_yaw_deg'],-90)
+  low,high=ca.window('handshake','lion','rowan');gap=(low+high)/2
+  fields=ca.pair_inputs([actor('lion',-gap/2),actor('rowan',gap/2)],0,heights);self.assertIn('partner_contact',fields);self.assertAlmostEqual(fields['facing_yaw_deg'],0)
   with self.assertRaises(ValueError):ca.pair_inputs([actor('lion',-100),actor('rowan',100)],0,heights)
-  with self.assertRaises(ValueError):ca.pair_inputs([actor('lion',-30),actor('rowan',30,'hug')],0,heights)
+  with self.assertRaises(ValueError):ca.pair_inputs([actor('lion',-5),actor('rowan',5)],0,heights)
+  with self.assertRaises(ValueError):ca.pair_inputs([actor('lion',-gap/2),actor('rowan',gap/2,'hug')],0,heights)
  def test_handshake_and_hug_need_two_actors(self):
   with self.assertRaises(ValueError):validate_scene(scene([beat('idle',2),beat('handshake',4)]))
  def test_pair_check_compares_wrists(self):

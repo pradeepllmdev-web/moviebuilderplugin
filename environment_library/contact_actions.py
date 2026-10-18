@@ -14,7 +14,10 @@ import json,math
 CUP=dict(radius_cm=4.,height_cm=9.)
 STEP=dict(rise_cm=10.,tread_cm=30.,first_cm=40.,count=3)
 CONTACT=('handshake','hug')
-REACH_LIMIT_CM={'handshake':72,'hug':46}   # largest actor spacing the lion's arms can close; shorter-armed bodies need less
+HEAD_TURN_DEG={'handshake':0,'hug':0}   # degrees, to the actor's own right
+BUDDY_BACK_FRACTION=.35   # how far past the partner's near side the hand reaches, as a fraction of their half width
+BUDDY_FORWARD_CM=0.
+HANDSHAKE_FORWARD_CM=22.   # the hands meet this far in front of the actors
 def stairs_height(travelled_cm):
  """Smooth three-step profile (cm) over distance walked from the foot of the stairs."""
  h=0.
@@ -25,14 +28,37 @@ def feasibility(measures):return {'ok':True,'note':'solved from the evaluated bo
 def facing(a,b):
  """Yaw (deg) that turns an actor at a to face b (same convention as scene_gaze)."""
  return math.degrees(math.atan2(-(b[0]-a[0]),b[1]-a[1]))
+DEFAULT_DIMS=dict(front_cm=25.,half_width_cm=25.,arm_reach=45.)
+def dims(character):
+ """Standing torso depth, half width and arm reach (cm), measured from the character's own body (body_measures)."""
+ import body_measures
+ return dict(DEFAULT_DIMS,**(body_measures.load_standing(character) or {}))
+def window(action,a,b):
+ """Allowed spacing (cm) between two actors for a contact action, from their measured bodies: the torsos must not overlap
+ and each actor's hands must reach (handshake: the midpoint; hug: the partner's near flank)."""
+ da,db=dims(a),dims(b);low=da['front_cm']+db['front_cm']+4
+  # Handshake and hug are both side by side (a lion's head sits ~30 cm ahead of its chest and its mane is ~60 cm wide, so face to face
+  # the two actors cannot get their hands together without the heads meeting): the gap is lateral and set by the two body widths.
+ if True:
+  widths=da['half_width_cm']+db['half_width_cm'];low=(1.05 if action=='handshake' else 1.0)*widths;high=(1.2 if action=='handshake' else 1.15)*widths
+ return round(low,1),round(high,1)
+def default_spacing(action,a,b):
+ low,high=window(action,a,b);return round((low+high)/2,1)
 def pair_inputs(actors,index,heights):
  """Extra plan fields for a two-actor contact beat: partner info and the automatic facing."""
  if len(actors)!=2 or not any(g['action'] in CONTACT for g in actors[index]['segments']):return {}
  me,other=actors[index],actors[1-index];a=me.get('position_cm',[0,0]);b=other.get('position_cm',[0,0])
  action=next(g['action'] for g in me['segments'] if g['action'] in CONTACT);spacing=math.dist(a,b)
- if spacing>REACH_LIMIT_CM[action] or spacing<25:raise ValueError(f'{action} needs the actors {25}..{REACH_LIMIT_CM[action]} cm apart (now {spacing:.0f})')
+ if action in CONTACT:   # side by side, same facing: the lateral gap counts
+  if abs(me.get('facing_yaw_deg',0)-other.get('facing_yaw_deg',0))>1:raise ValueError(f'{action} is side by side: give both actors the same facing_yaw_deg (or none)')
+  yaw=math.radians(me.get('facing_yaw_deg',0));spacing=abs((b[0]-a[0])*math.cos(yaw)+(b[1]-a[1])*math.sin(yaw))
+ elif 'facing_yaw_deg' in me and 'facing_yaw_deg' in other:   # facing opposite ways: only the gap along the facing line counts
+  yaw=math.radians(me['facing_yaw_deg']);spacing=abs((b[0]-a[0])*-math.sin(yaw)+(b[1]-a[1])*math.cos(yaw))
+ low,high=window(action,me['character'],other['character'])
+ if high<low:raise ValueError(f"{me['character']} and {other['character']} cannot {action}: their arms do not reach across their bodies")
+ if not low<=spacing<=high:raise ValueError(f'{action} needs these actors {low:.0f}..{high:.0f} cm apart (now {spacing:.0f})')
  if [g['action'] for g in me['segments']]!=[g['action'] for g in other['segments']]:raise ValueError(f'Both actors need the same {action} beat at the same time')
- return {'partner_contact':dict(position_cm=b,height_cm=heights[other['character']],own_height_cm=heights[me['character']]),'facing_yaw_deg':me.get('facing_yaw_deg',facing(a,b))}
+ return {'partner_contact':dict(position_cm=b,height_cm=heights[other['character']],own_height_cm=heights[me['character']],partner=dims(other['character']),own=dims(me['character'])),'facing_yaw_deg':me.get('facing_yaw_deg',0)}
 def to_rig(point_world,root,yaw):
  """World cm (x,y,z) -> rig-space metres for an actor at root facing yaw."""
  f=(-math.sin(math.radians(yaw)),math.cos(math.radians(yaw)));r=(math.cos(math.radians(yaw)),math.sin(math.radians(yaw)))
@@ -52,8 +78,10 @@ class Context:
   import bpy,numpy as np
   self.bpy,self.np,self.scene,self.rig,self.body,self.timeline,self.fps,self.folder,self.plan,self.route=bpy,np,scene,rig,body,timeline,fps,folder,plan,route
   self.hands={side:next(b for b in rig.pose.bones if b.name.endswith(side+'Hand')) for side in ('Left','Right')}
+  self.meshes=[o for o in scene.objects if o.type=='MESH' and any(m.type=='ARMATURE' and m.object==rig for m in o.modifiers) and not o.name.startswith(('Cup','Crate','SideTable','Door','Phone','Proxy'))]
   names={g.index:g.name.split(':')[-1] for g in body.vertex_groups}
   self.skip=np.array([bool(v.groups) and any(k in names[max(v.groups,key=lambda x:x.weight).group] for k in ('Hand','ForeArm','Thumb','Index','Middle','Ring','Pinky')) for v in body.data.vertices])
+  self.skip_arms=np.array([bool(v.groups) and any(k in names[max(v.groups,key=lambda x:x.weight).group] for k in ('Hand','Arm','Thumb','Index','Middle','Ring','Pinky')) for v in body.data.vertices])   # arms meet in a handshake/hug; the bodies must not
  def beat(self,action):return next((g for g in self.timeline if g['action']==action),None)
  def frames(self,g,step=1):return list(range(round(g['start']*self.fps)+1,round(g['end']*self.fps)+1,step))
  def at(self,frame):
@@ -62,9 +90,20 @@ class Context:
   """Palm centre (cm, rig space)."""
   if frame:self.at(frame)
   b=self.hands[side];return self.np.array(self.rig.matrix_world@(b.head+(b.tail-b.head)*.5))*100
- def body_points(self):
-  e=self.body.evaluated_get(self.bpy.context.evaluated_depsgraph_get());co=self.np.empty(len(e.data.vertices)*3);e.data.vertices.foreach_get('co',co);W=self.np.array(e.matrix_world)
-  return ((co.reshape(-1,3)@W[:3,:3].T+W[:3,3])*100)[~self.skip]
+ def body_points(self,arms=True):
+  """Posed vertices of every skinned mesh (cm, rig space). arms=True: all but hands/forearms. arms=False: only trunk, head, shoulders and
+  legs, chosen by each vertex's dominant bone group on the evaluated mesh (clothing can be separate meshes and modifiers change counts)."""
+  np=self.np;deps=self.bpy.context.evaluated_depsgraph_get();out=[];trunk=('Hips','Spine','Neck','Head','head','UpLeg','Leg','Foot','Toe','Shoulder')
+  for obj in self.meshes:
+   e=obj.evaluated_get(deps);mesh=e.data;n=len(mesh.vertices)
+   if not n:continue
+   co=np.empty(n*3);mesh.vertices.foreach_get('co',co);W=np.array(e.matrix_world);P=(co.reshape(-1,3)@W[:3,:3].T+W[:3,3])*100
+   names={g.index:g.name for g in obj.vertex_groups}
+   dominant=[names.get(max(v.groups,key=lambda x:x.weight).group,'') if v.groups else '' for v in mesh.vertices]
+   if arms:keep=[not any(k in d for k in ('Hand','ForeArm','Thumb','Index','Middle','Ring','Pinky')) for d in dominant]
+   else:keep=[any(k in d for k in trunk) and 'Arm' not in d and 'Hand' not in d for d in dominant]
+   out.append(P[keep])
+  return np.concatenate(out) if out else np.zeros((0,3))
  def box(self,name,size_cm,color,location_cm=(0,0,0)):
   self.bpy.ops.mesh.primitive_cube_add(size=1);o=self.bpy.context.object;o.name=name;o.scale=[v/100 for v in size_cm];o.location=[v/100 for v in location_cm]
   m=self.bpy.data.materials.new(name);m.diffuse_color=color;o.data.materials.append(m);return o
@@ -195,24 +234,64 @@ def apply_pair(c):
  def root(f):
   r=c.route[f-1];return (own[0]+r['location_cm'][0],own[1]+r['location_cm'][1]),r['yaw']
  weight=lambda f:envelope((f-frames[0])/c.fps,g['end']-g['start'],.8);track=[];errors=[]
- if action=='handshake':
-  sides={'Right':lambda f:(mid[0],mid[1],height)}
-  pole={'Right':(-.9,.1,1.0)}
+ yaw=math.radians(plan.get('facing_yaw_deg',0));fwd=(-math.sin(yaw),math.cos(yaw));right=(math.cos(yaw),math.sin(yaw))
+ if action=='handshake':   # both hands meet in front, midway between the two actors
+  on_right=(partner['position_cm'][0]-own[0])*right[0]+(partner['position_cm'][1]-own[1])*right[1]>0;hand='Right' if on_right else 'Left'
+  sides={hand:lambda f:(mid[0]+fwd[0]*HANDSHAKE_FORWARD_CM,mid[1]+fwd[1]*HANDSHAKE_FORWARD_CM,height)}
+  pole={hand:(-.9 if hand=='Right' else .9,.1,1.0)}
  else:
-  u=(partner['position_cm'][0]-own[0],partner['position_cm'][1]-own[1]);n=math.hypot(*u);u=(u[0]/n,u[1]/n);r=(u[1],-u[0])   # right-hand side of the actor facing the partner
-  sides={'Right':lambda f:(partner['position_cm'][0]+r[0]*26,partner['position_cm'][1]+r[1]*26,height),'Left':lambda f:(partner['position_cm'][0]-r[0]*26,partner['position_cm'][1]-r[1]*26,height)}
-  pole={'Right':(-.9,.1,1.0),'Left':(.9,.1,1.0)}
+  # Side-by-side (buddy) hug: both face the same way, the arm nearest the partner goes around the partner's back, so heads and chests
+  # never meet (a lion's head is ~30 cm ahead of its chest and its mane ~60 cm wide).
+  u=(partner['position_cm'][0]-own[0],partner[ 'position_cm'][1]-own[1]);n=math.hypot(*u);u=(u[0]/n,u[1]/n)
+  yaw=math.radians(plan.get('facing_yaw_deg',0));right=(math.cos(yaw),math.sin(yaw));on_right=u[0]*right[0]+u[1]*right[1]>0
+  hand='Right' if on_right else 'Left';pd=partner['partner'];back_off=pd['half_width_cm']*BUDDY_BACK_FRACTION
+  px,py=partner['position_cm'];fwd=(-math.sin(yaw),math.cos(yaw))
+  sides={hand:lambda f:(px-u[0]*back_off+fwd[0]*BUDDY_FORWARD_CM,py-u[1]*back_off+fwd[1]*BUDDY_FORWARD_CM,height)}
+  pole={hand:(-.9 if hand=='Right' else .9,.1,1.0)}
  arms=[]
  for side,world_target in sides.items():
   def rig_target(f,wt=world_target):
    rt,yaw=root(f);return to_rig(wt(f),rt,yaw)
   arms.append((side,rig_target,pole[side]))
  errors.append(c.reach(arms,frames,weight,freeze=True))
+ # Heads turn to their own right so each passes beside the other's head (the lion's head is ~30 cm ahead of its chest).
+ turn=HEAD_TURN_DEG[action];from mathutils import Quaternion
+ bones={n:next(b for b in c.rig.pose.bones if b.name.endswith(n)) for n in ('Neck','Head')}
+ def yaw_bone(bone,degrees):
+  m=c.rig.matrix_world.inverted()@Quaternion((0,0,1),math.radians(degrees)).to_matrix().to_4x4()@c.rig.matrix_world@bone.matrix;m.translation=bone.head;bone.matrix=m
+ for f in frames:
+  c.at(f);w=weight(f)
+  yaw_bone(bones['Neck'],-turn*.4*w);c.bpy.context.view_layer.update();yaw_bone(bones['Head'],-turn*.6*w)
+  for b in bones.values():b.keyframe_insert('rotation_quaternion',frame=f)
  for f in frames:
   rt,yaw=root(f);track.append(dict(frame=f,weight=weight(f),**{s.lower()+'_palm_world':list(to_world(tuple(c.palm(s,f)),rt,yaw)) for s in sides},**{s.lower()+'_wrist_world':list(to_world(tuple(c.np.array(c.rig.matrix_world@c.hands[s].head)*100),rt,yaw)) for s in sides},**{s.lower()+'_target_world':list(sides[s](f)) for s in sides}))
+ # Body points (hands and forearms excluded) at held frames, in world cm, so pair_check can measure how close the two bodies get.
+ held=[f for f in frames[::6] if weight(f)>.99];cloud=[]
+ rng=c.np.random.default_rng(3)
+ for f in held:
+  c.at(f);pts=c.body_points(arms=False);pts=pts[rng.choice(len(pts),min(1500,len(pts)),replace=False)] if len(pts)>1500 else pts;rt,yaw=root(f)
+  fwd,rgt=-pts[:,1],-pts[:,0];sy,cy_=math.sin(math.radians(yaw)),math.cos(math.radians(yaw))
+  cloud.append(c.np.stack([rt[0]+fwd*(-sy)+rgt*cy_,rt[1]+fwd*cy_+rgt*sy,pts[:,2]],axis=1))
+ if cloud:
+  c.np.save(str(c.folder/'pair-points.npy'),c.np.stack([x[:min(len(y) for y in cloud)] for x in cloud]))
+  c.np.save(str(c.folder/'pair-targets.npy'),c.np.array([[list(sides[s](f)) for s in sides] for f in held]))   # contact points: arms legitimately overlap bodies there
  (c.folder/'contact-track.json').write_text(json.dumps(dict(action=action,own_position_cm=own,partner_position_cm=partner['position_cm'],track=track),default=lambda o:o.item() if hasattr(o,'item') else str(o)))
  worst=max((e for e in errors if e is not None),default=None)
  return c.write(action+'-check.json',dict(ok=worst is not None and worst<5,hand_to_target_cm=None if worst is None else round(worst,1),spacing_cm=round(math.dist(own,partner['position_cm']),1),scope='Each actor reaches the shared contact point; pair_check compares both actors'))
+def body_gap(folder_a,folder_b):
+ """Smallest distance (cm) between the two actors' bodies over the held frames (hands excluded), from pair-points.npy; None if missing."""
+ import numpy as np
+ try:a,b=np.load(str(folder_a)+'/pair-points.npy'),np.load(str(folder_b)+'/pair-points.npy')
+ except OSError:return None
+ best=1e9
+ try:ta,tb=np.load(str(folder_a)+'/pair-targets.npy'),np.load(str(folder_b)+'/pair-targets.npy')
+ except OSError:ta=tb=None
+ for k,(pa,pb) in enumerate(zip(a,b)):
+  if ta is not None:   # ignore body parts within 30 cm of a contact point (the hands and sleeves meet there)
+   targets=np.concatenate([ta[k],tb[k]]);pa=pa[(np.sqrt(((pa[:,None,:]-targets[None])**2).sum(-1)).min(1)>30)];pb=pb[(np.sqrt(((pb[:,None,:]-targets[None])**2).sum(-1)).min(1)>30)]
+  if not len(pa) or not len(pb):continue
+  d=np.sqrt(((pa[:,None,:]-pb[None,:,:])**2).sum(-1)).min();best=min(best,float(d))
+ return round(best,1) if best<1e8 else None
 def pair_check(folder_a,folder_b):
  """Compare two actors' contact tracks: handshake palms together, hug palms on the partner's sides."""
  a,b=[json.loads((f/'contact-track.json').read_text()) for f in (folder_a,folder_b)]
@@ -220,18 +299,19 @@ def pair_check(folder_a,folder_b):
  gaps=[]
  for ra,rb in zip(a['track'],b['track']):
   if min(ra['weight'],rb['weight'])<.99:continue
-  if a['action']=='handshake':gaps.append(math.dist(ra['right_wrist_world'],rb['right_wrist_world']))   # wrists meet; palms then overlap
+  if a['action']=='handshake':
+   ka=next(k for k in ra if k.endswith('_wrist_world'));kb=next(k for k in rb if k.endswith('_wrist_world'));gaps.append(math.dist(ra[ka],rb[kb]))   # wrists meet; palms then overlap
   else:
    gaps+=[math.dist(ra['right_palm_world'],rb['left_palm_world']) if False else 0.]
  if a['action']=='hug':
   best=[]
   for ra,rb in zip(a['track'],b['track']):
    if min(ra['weight'],rb['weight'])<.99:continue
-   best.append(max(math.dist(ra[s+'_palm_world'][:2],ra[s+'_target_world'][:2]) for s in ('right','left')))
+   best.append(max(math.dist(ra[s+'_palm_world'][:2],ra[s+'_target_world'][:2]) for s in ('right','left') if s+'_palm_world' in ra))
   gaps=best
  if not gaps:return dict(ok=False,reason='no held frames')
- limit=6 if a['action']=='handshake' else 8
- return dict(ok=max(gaps)<=limit,action=a['action'],worst_gap_cm=round(max(gaps),1),limit_cm=limit,held_samples=len(gaps))
+ limit=6 if a['action']=='handshake' else 8;clearance=body_gap(folder_a,folder_b)
+ return dict(ok=max(gaps)<=limit and (clearance is None or clearance>=1.5),action=a['action'],worst_gap_cm=round(max(gaps),1),limit_cm=limit,body_clearance_cm=clearance,held_samples=len(gaps))
 def apply_all(scene,rig,body,timeline,fps,folder,plan,route):
  """Run whichever contact activities this shot contains."""
  c=Context(scene,rig,body,timeline,fps,folder,plan,route);out={}

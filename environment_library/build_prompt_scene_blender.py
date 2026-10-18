@@ -222,6 +222,8 @@ if sitting:
 if tail_walk:
  from tail_rig import rig_tail
  tail_report=rig_tail(s,rig,tail_body,list(range(1,frames+1)),lambda frame:(lambda P,level=ground_levels[frame]:np.full(len(P),level)),fps=fps);(D/'tail-check.json').write_text(json.dumps(tail_report))
+import body_measures
+if not sitting:body_measures.ensure_standing_in_build(p['character'],s,rig,meshes)
 import contact_actions
 contact_actions.apply_all(s,rig,max(meshes,key=lambda o:len(o.data.vertices)),timeline,fps,D,p,route)
 if any(g['action']=='phone' for g in timeline):

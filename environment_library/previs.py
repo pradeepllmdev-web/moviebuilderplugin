@@ -102,11 +102,13 @@ def run_gallery(names,character='lion',open_gui=True,sequence=False,render=False
  folder,note=merge(dict(mode='gallery',fps=24,shots=shots,columns=8,gap_cm=300),'gallery',False,open_gui)
  report.append(f'gallery: {note} -> {folder}/previs.blend  ({time.time()-started:.0f}s)')
  return report
-def pair_plan(name,left='lion',right='rowan'):
+def pair_plan(name,left='lion',right='rowan',spacing=None,lateral=0.):
  """Two-actor test shot for a contact activity: both do the beat, spacing inside the reach limit."""
  import activities,contact_actions
- beats=activities.ACTIVITIES[name]['test_beats'];spacing=contact_actions.REACH_LIMIT_CM[name]-8
- def actor(ch,x):return dict(character=ch,position_cm=[x,0],segments=[dict(action=a,duration=d,dialogue='') for a,d in beats])
+ beats=activities.ACTIVITIES[name]['test_beats'];spacing=spacing or contact_actions.default_spacing(name,left,right)
+ def actor(ch,x):
+  extra=dict(position_cm=[x,0],facing_yaw_deg=0)   # handshake and hug are side by side, both facing the same way
+  return dict(character=ch,segments=[dict(action=a,duration=d,dialogue='') for a,d in beats],**extra)
  shot=dict(version=1,title=name,environment='forest',environment_id='RealisticRiver_20261015_093641',mood='morning_fog',lookdev='soft_portrait',camera='full',unsupported=[],notes=[],actors=[actor(left,-spacing/2),actor(right,spacing/2)])
  import scene_prompt
  return dict(version=1,title=name+' check',unsupported=[],shots=[scene_prompt.validate(shot)])
@@ -135,6 +137,15 @@ def props_for(folder,single):
   for k in range(st['count']):
    h=st['rise_cm']*(k+1);props.append(dict(shape='box',center_cm=[pos[0],pos[1]+j['start_y_cm']+st['first_cm']+(k+.5)*st['tread_cm']+6,h/2],size_cm=[200,st['tread_cm'],h],color=[.6,.58,.55],name='Step'))
  return props
+def seated_times(segments):
+ """(seconds the hips are on the seat, seconds the rise starts) from the beats of one actor, or None."""
+ t=0.;first=last=None
+ for g in segments:
+  if g['action']=='sit_down' and first is None:first=t+1.8
+  if g['action']=='stand_up':last=t+.4
+  t+=g['duration']
+ if first is None and any(g['action'] in ('sit','sit_talk','drink') for g in segments):first=0.
+ return (first,last if last is not None else t) if first is not None else None
 def lines_for(folder,speaker):
  p=Path(folder)/'scene.json'
  if not p.exists():return []
@@ -163,7 +174,11 @@ def run_previs(plan,name='movie',render=False,open_gui=True,direction=None):
    if key in cam:cam[key]=[cam[key][0]+ox,cam[key][1]+oy,cam[key][2]]
   lines=[l for f,ok,d,s in actors for l in lines_for(f,s['character'])]
   for f,ok,d,s in actors:
-   for q in props_for(f,s):q['center_cm']=[q['center_cm'][0]+ox,q['center_cm'][1]+oy,q['center_cm'][2]];extra.append(q)
+   times=seated_times(s['segments'])
+   for q in props_for(f,s):
+    q['center_cm']=[q['center_cm'][0]+ox,q['center_cm'][1]+oy,q['center_cm'][2]];q['frames']=[start,start+length-1]   # props exist only during their shot
+    if q.get('name') in ('DrinkTable','TableLeg','Cup') and times:q['frames']=[start+round(times[0]*24),start+round(times[1]*24)]   # the table is only there while the lion sits: standing, the lion is 25 cm nearer to it
+    extra.append(q)
   shots.append(dict(start=start,length=length,label=title,camera=cam,lines=lines,actors=[dict(folder=str(f),position_cm=[s['actor_position_cm'][0]+ox,s['actor_position_cm'][1]+oy],yaw=s['facing_yaw_deg']) for f,ok,d,s in actors]));start+=length
  folder,note=merge(dict(mode='movie',fps=24,shots=shots,width=640,height=360,trees=True,use_routes=True,sets=(direction or {}).get('sets'),props=extra),name,render,open_gui)
  report.append(f'movie {note}: {folder}'+(f'/previs.mp4' if render else '/previs.blend')+f'  ({start-1} frames, {time.time()-started:.0f}s)')

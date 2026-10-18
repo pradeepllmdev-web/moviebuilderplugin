@@ -72,8 +72,8 @@ ACTIVITIES['phone']=dict(beats={'phone':dict(action='phone')},seated=[],module='
 for _name,_rx,_what,_lo,_hi,_pair in (
  ('carry_walk',r'\bcarr(?:ies|ying) (?:a |the |his |its )?(?:cup|mug|bag|basket)\b|\bwalks? (?:while )?carrying\b','walks while carrying a cup in one hand (give distance_cm like walk)',3,12,False),
  ('climb_stairs',r'\bstairs?\b|\bsteps? up\b|\bclimbs? (?:up )?(?:the )?steps?\b','climbs three steps while walking forward (give distance_cm of at least 160)',4,12,False),
- ('handshake',r'\bshak(?:es|ing) hands?\b|\bhandshake\b','shakes hands with the other actor (two actors, 25..72 cm apart, same beat for both)',3,8,True),
- ('hug',r'\bhugs?\b|\bhugging\b|\bembrac(?:es|ing)\b','hugs the other actor (two actors, 25..46 cm apart, same beat for both)',3,8,True),
+ ('handshake',r'\bshak(?:es|ing) hands?\b|\bhandshake\b','shakes hands with the other actor (two actors standing close (about 50..72 cm apart for lion and Rowan; the validator reports the exact range), same beat for both)',3,8,True),
+ ('hug',r'\bhugs?\b|\bhugging\b|\bembrac(?:es|ing)\b','hugs the other actor (two actors standing close (about 51..57 cm apart for lion and Rowan; the validator reports the exact range), same beat for both)',3,8,True),
 ):
  ACTIVITIES[_name]=dict(beats={_name:dict(action=_name)},seated=[],module='contact_actions',characters=['lion','cat','rowan'],family='clip',planner=None,
   request=_rx,requires=_name,min_duration=_lo,max_duration=_hi,test_beats=[('idle',2),(_name,5 if not _pair else 5),('idle',2)],what=_what,check_request=False,pair=_pair)

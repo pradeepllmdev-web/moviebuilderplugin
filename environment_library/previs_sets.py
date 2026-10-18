@@ -59,7 +59,10 @@ def build(scene,sets,props,use_backdrop=True):
  if use_backdrop:backdrop(rnd)
  for p in props:
   c=[v/100 for v in p['center_cm']];color=p.get('color',(.5,.35,.2))
-  if p['shape']=='box':box(c,[v/100 for v in p['size_cm']],color,p.get('name','Prop'),p.get('yaw',0))
-  else:cylinder(c,p['size_cm'][0]/100,p['size_cm'][1]/100,color,p.get('name','Prop'))
+  o=box(c,[v/100 for v in p['size_cm']],color,p.get('name','Prop'),p.get('yaw',0)) if p['shape']=='box' else cylinder(c,p['size_cm'][0]/100,p['size_cm'][1]/100,color,p.get('name','Prop'))
+  if p.get('frames'):   # visible only between these frames
+   for prop_name in ('hide_viewport','hide_render'):
+    for frame,value in ((max(0,p['frames'][0]-1),True),(p['frames'][0],False),(p['frames'][1]+1,True)):
+     setattr(o,prop_name,value);o.keyframe_insert(prop_name,frame=frame)
  scene.world=bpy.data.worlds.new('Sky');scene.world.color=(.55,.72,.9)
  scene.display.shading.light='STUDIO';scene.display.shading.color_type='MATERIAL'

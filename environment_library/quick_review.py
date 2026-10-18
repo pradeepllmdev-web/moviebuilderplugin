@@ -109,8 +109,8 @@ def run_activity(args):
   import previs
   names=[n for n in activities.ACTIVITIES if name=='all' or n in activities.GESTURES] if ',' not in name else name.split(',')
   print(chr(10).join(previs.run_gallery(names,character,False)));print(f'{len(names)} activities in {time.time()-started:.0f}s');return
- measures=body_measures.load(character)
- if not measures:
+ measures=body_measures.load(character) or ({} if name not in ('sit','drink') else None)
+ if measures is None:
   print(f'no cached body measurements for {character}; measuring with a sit shot');build_shot(activity_plan('sit',character),0,'side',None,False);measures=body_measures.load(character)
  verdict=activities.feasibility(name,measures)
  print('feasibility '+json.dumps({k:v for k,v in verdict.items() if k not in ('limits',)})+f'  ({time.time()-started:.2f}s)')

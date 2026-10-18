@@ -26,3 +26,29 @@ def measure(scene,rig,body,frame):
   snout_tip=[round(float(v),1) for v in tip],arm_reach=round(float(np.linalg.norm(fore-up)+np.linalg.norm(hand-fore)),1),
   torso=region(np.isin(dominant,['Hips','Spine','Spine1','Spine2'])),thighs=region(np.char.endswith(dominant,'UpLeg')),
   lower_legs=region(np.char.endswith(dominant,'Leg')&~np.char.endswith(dominant,'UpLeg')),feet=region(np.char.endswith(dominant,'Foot')|np.char.endswith(dominant,'ToeBase')))
+def measure_standing(scene,rig,meshes,frame=1):
+ """Standing-body dimensions (cm, rig space, forward is -Y) used to space two actors: torso front/back/half width and arm reach.
+ Uses the skinned mesh with the most torso-weighted vertices (clothing can be a separate mesh) in its rest shape."""
+ import bpy,numpy as np
+ scene.frame_set(frame);bpy.context.view_layer.update();torso=['Hips','Spine','Spine1','Spine2','Neck']
+ best=None
+ for body in (meshes if isinstance(meshes,(list,tuple)) else [meshes]):
+  names={g.index:g.name.split(':')[-1] for g in body.vertex_groups}
+  dominant=np.array([names[max(v.groups,key=lambda g:g.weight).group] if v.groups else '' for v in body.data.vertices])
+  mask=np.isin(dominant,torso)|np.char.endswith(dominant,'Shoulder')
+  if best is None or mask.sum()>best[0].sum():best=(mask,body)
+ mask,body=best;co=np.empty(len(body.data.vertices)*3);body.data.vertices.foreach_get('co',co);Wb=np.array(body.matrix_world);P=(co.reshape(-1,3)@Wb[:3,:3].T+Wb[:3,3])*100;q=P[mask]
+ def bone(n):
+  b=next(x for x in rig.pose.bones if x.name.endswith(n));return np.array(rig.matrix_world@b.head)*100
+ up,fore,hand=bone('RightArm'),bone('RightForeArm'),bone('RightHand')
+ whole=[]
+ for obj in (meshes if isinstance(meshes,(list,tuple)) else [meshes]):   # everything ahead of the chest incl. head and mane, arms excluded
+  nm={g.index:g.name for g in obj.vertex_groups};cc=np.empty(len(obj.data.vertices)*3);obj.data.vertices.foreach_get('co',cc);Wo=np.array(obj.matrix_world);PP=(cc.reshape(-1,3)@Wo[:3,:3].T+Wo[:3,3])*100
+  keep=[bool(v.groups) and any(k in nm.get(max(v.groups,key=lambda g:g.weight).group,'') for k in ('Hips','Spine','Neck','Head','head')) and 'Arm' not in nm.get(max(v.groups,key=lambda g:g.weight).group,'') for v in obj.data.vertices]
+  if any(keep):whole.append(float(-PP[keep][:,1].min()))
+ return dict(whole_front_cm=round(max(whole),1) if whole else round(float(-q[:,1].min()),1),front_cm=round(float(-q[:,1].min()),1),back_cm=round(float(q[:,1].max()),1),half_width_cm=round(float(np.abs(q[:,0]).max()),1),
+  arm_reach=round(float(np.linalg.norm(fore-up)+np.linalg.norm(hand-fore)),1),shoulder_z=round(float(up[2]),1),height_cm=round(float(P[:,2].max()),1))
+def load_standing(character):
+ return load(character+'-standing')
+def ensure_standing_in_build(character,scene,rig,body):
+ if not (CACHE/(character+'-standing.json')).exists():save(character+'-standing',measure_standing(scene,rig,body))

@@ -119,7 +119,7 @@ def validate(raw):
    if g['action'] in ['sit_down','stand_up'] and g['duration']<2.5:raise ValueError(g['action']+' needs at least 2.5 seconds')
    if g['action'] in ['sit_down','stand_up']:p['camera']='full'
  import contact_actions
- if any(g['action'] in contact_actions.CONTACT for g in segs) and not p.pop('_member',False):raise ValueError('Handshake and hug need two actors with the same beat at the same time, 25..72 cm apart')
+ if any(g['action'] in contact_actions.CONTACT for g in segs) and not p.pop('_member',False):raise ValueError('Handshake and hug need two actors with the same beat at the same time, close together (the validator reports the range)')
  p.pop('_member',None)
  jumps=[i for i,g in enumerate(segs) if g['action']=='jump']
  if any(g.get('look_at')=='point' for g in segs) and any(g['action'] not in ['idle','talk','hold_ball'] for g in segs):raise ValueError('Point gaze currently supports stationary beats only; use manual glances while moving')
