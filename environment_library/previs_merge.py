@@ -125,6 +125,7 @@ else:
   import previs_sets;previs_sets.build(scene,spec['sets'],spec.get('props',[]))
  else:low_poly_world(24,spec.get('trees',True))
 scene.frame_start=1;scene.frame_end=frame_end;scene.frame_set(1)
+bpy.context.view_layer.update()
 bpy.ops.object.select_all(action='DESELECT')
 bpy.ops.wm.save_as_mainfile(filepath=spec['out']+'.blend')
 if spec.get('render') and spec['mode']=='movie':

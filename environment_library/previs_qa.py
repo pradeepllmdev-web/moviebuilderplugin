@@ -17,6 +17,7 @@ from mathutils import Vector
 from bpy_extras.object_utils import world_to_camera_view
 args=sys.argv[sys.argv.index('--')+1:];spec=json.load(open(args[0]));verify='--verify' in args
 scene=bpy.context.scene;fps=spec.get('fps',24)
+bpy.context.view_layer.update()   # objects created by the merge script have stale world matrices until the depsgraph runs
 IGNORE=('Ground','Bench','DrinkTable','TableLeg','Cup','Paw','Cub','Step','Crate','SideTable','Phone','Door','Lamp','Window','Awning','CafeSign')   # small or see-through: never judged as occluders
 SOLID_NAMES=('DoorWall','Hut','Patio','Pole','Mountain','Snow','Pine','Trunk','House','Roof','Rock','Fence','Well','Counter')
 TYPES={'full':dict(lens=28,radii=(300,380,460,560,680),heights=(130,170,220),fraction=(.30,.62)),
@@ -34,10 +35,17 @@ for shot in spec['shots']:
  shot_slots.append(slots[index:index+len(shot['actors'])]);index+=len(shot['actors'])
 actor_names=set().union(*[actor_objects(s) for s in slots]) if slots else set()
 solids=[o for o in scene.objects if o.type=='MESH' and o.name not in actor_names and o.name.startswith(SOLID_NAMES) and not o.hide_viewport]
+def aabb(o):
+ """World box (x0,y0,z0,x1,y1,z1) of an unparented prop from its location, scale and yaw. Props are hidden outside their shots, and hidden
+ objects keep stale matrices, so the transform is read directly."""
+ import math as m
+ sx,sy,sz=o.scale.x/2,o.scale.y/2,o.scale.z/2
+ if abs(round(m.degrees(o.rotation_euler.z))%180-90)<1:sx,sy=sy,sx
+ c=o.location;return (c.x-sx,c.y-sy,c.z-sz,c.x+sx,c.y+sy,c.z+sz)
 rooms=[]
 for o in scene.objects:
  if o.name.startswith('HutFloor'):
-  box=[o.matrix_world@Vector(c) for c in o.bound_box];rooms.append((min(c.x for c in box),min(c.y for c in box),max(c.x for c in box),max(c.y for c in box)))
+  b=aabb(o);rooms.append((b[0],b[1],b[3],b[4]))
 def room_of(p,margin=0.):
  """Index of the room (HutFloor footprint) containing a point, or None when outside every room."""
  for i,(x0,y0,x1,y1) in enumerate(rooms):
@@ -122,7 +130,7 @@ def collisions(shot_k,frames):
    pts,facing=keypoints(slot,f)
    for key,p in pts.items():
     for o in solids:
-     box=[o.matrix_world@Vector(c) for c in o.bound_box];lo=Vector((min(c.x for c in box),min(c.y for c in box),min(c.z for c in box)));hi=Vector((max(c.x for c in box),max(c.y for c in box),max(c.z for c in box)))
+     b=aabb(o);lo=Vector(b[:3]);hi=Vector(b[3:])
      if lo.x+.05<p.x<hi.x-.05 and lo.y+.05<p.y<hi.y-.05 and lo.z<p.z<hi.z:found.add(f'{slot.name} {key} inside {o.name}')
  return sorted(found)
 report=[]
