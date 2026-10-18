@@ -78,7 +78,7 @@ def lint(plan,direction=None):
  # staging.contact_context
  for k,s in enumerate(shots):
   contact=actions[k]&{'handshake','hug'}
-  if contact and k>0 and not (actions[k-1]&{'walk','wave','handshake','hug','celebrate','laugh'}):out.append(finding(k+1,'staging.contact_context','warning',f"{'/'.join(sorted(contact))} starts with no shot of the actors approaching each other; it cuts in out of context"))
+  if contact and k>0 and not (actions[k-1]&{'walk','wave','handshake','hug','celebrate','laugh','talk'}):out.append(finding(k+1,'staging.contact_context','warning',f"{'/'.join(sorted(contact))} starts with no shot of the actors approaching each other; it cuts in out of context"))
  # staging.service
  for k,s in enumerate(shots):
   if 'drink' in actions[k] and len(characters[k])==1 and any(len(c)==2 for c in characters):out.append(finding(k+1,'staging.service','info','a drink with only the drinker in frame: if someone served it, show them (and the table) in the same place before and after'))
@@ -100,6 +100,12 @@ def lint(plan,direction=None):
      if need=='lit_window' and 'open_door' not in actions[k] and not any(n.startswith(('Window','Lamp','Lantern','Fire')) for n in names):out.append(finding(k+1,'set.light_needs_window','error',f"'{text}' {message}"))
      if need=='building' and kind not in ('cafe','village'):out.append(finding(k+1,'dialogue.needs_building','warning',f"'{text}' {message}"))
      if need=='door' and 'open_door' not in actions[k] and not any(n.startswith(('Wall','Hut','DoorWall')) for n in names) and 'hut' in text.lower():out.append(finding(k+1,'dialogue.needs_building','warning',f"'{text}' {message}"))
+ # purpose.gesture: a gesture with neither a line nor a stated purpose is a hand or leg movement for nothing
+ GESTURE_NEEDS_PURPOSE={'wave','nod','shrug','think','hands_on_hips','look_around','laugh','celebrate','bow','headache','argue'}
+ for k,s in enumerate(shots):
+  for actor in _actors(s):
+   for g in actor['segments']:
+    if g['action'] in GESTURE_NEEDS_PURPOSE and not g.get('dialogue') and not g.get('purpose'):out.append(finding(k+1,'purpose.gesture','warning',f"{actor['character']} {g['action']}s with no line and no stated purpose; give the beat dialogue, or purpose='...' if it answers something on screen, or use idle (held still)"))
  import story_layout
  out+=story_layout.layout(plan,direction)['findings']   # blocking and facing, from the planned layout
  unique=[];seen=set()

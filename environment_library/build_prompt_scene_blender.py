@@ -226,6 +226,8 @@ import body_measures
 if not sitting:body_measures.ensure_standing_in_build(p['character'],s,rig,meshes)
 import contact_actions
 contact_actions.apply_all(s,rig,max(meshes,key=lambda o:len(o.data.vertices)),timeline,fps,D,p,route)
+import stillness
+stillness.hold_idle(s,rig,timeline,fps)   # no limb movement without a purpose: idle beats hold the pose
 if any(g['action']=='phone' for g in timeline):
  import phone_actions
  phone_actions.apply(s,rig,max(meshes,key=lambda o:len(o.data.vertices)),timeline,fps,D)

@@ -13,7 +13,7 @@ the drink layout; stairs from contact_actions.STEP); other characters use the sa
 (x0, y0, x1, y1) in world cm with the place origin and the shot offset already added."""
 import math
 import contact_actions as ca
-DOOR_RIGHT_CM=63.;DOOR_AHEAD_CM=56.;DOOR_WIDTH_CM=102.;ROOM_HALF_WIDTH_CM=280.;ROOM_DEPTH_CM=440.;WALL_CM=15.
+DOOR_RIGHT_CM=63.;DOOR_AHEAD_CM=56.;DOOR_WIDTH_CM=102.;ROOM_HALF_WIDTH_CM=380.;ROOM_DEPTH_CM=640.;WALL_CM=15.
 SEAT_BACK_CM=25.;TABLE_NEAR_CM=22.;TABLE_FAR_CM=92.;TABLE_HALF_WIDTH_CM=40.;BENCH_HALF_DEPTH_CM=20.
 RIVER_Y=(190.,450.);BRIDGE_HALF_WIDTH_CM=110.
 ACTOR_RADIUS_CM=35.;ACTOR_GAP_CM=70.
@@ -43,8 +43,11 @@ def scenery(plan,direction):
     boxes+=[box(cx-r,py-WALL_CM/2,cx-half,py+WALL_CM/2,'DoorWallL'),box(cx+half,py-WALL_CM/2,cx+r,py+WALL_CM/2,'DoorWallR'),
      box(cx-r,py+ROOM_DEPTH_CM-WALL_CM/2,cx+r,py+ROOM_DEPTH_CM+WALL_CM/2,'HutBack'),box(cx-r-WALL_CM/2,py,cx-r+WALL_CM/2,py+ROOM_DEPTH_CM,'HutSideA'),
      box(cx+r-WALL_CM/2,py,cx+r+WALL_CM/2,py+ROOM_DEPTH_CM,'HutSideB'),box(cx-half,py-WALL_CM/2,cx+half,py+WALL_CM/2,'Doorway','opening'),box(cx-r,py,cx+r,py+ROOM_DEPTH_CM,'Room','room')]
-    if (direction or {}).get('shots',{}).get(title,{}).get('door_style')=='cafe':
+    style=(direction or {}).get('shots',{}).get(title,{}).get('door_style')
+    if style in ('cafe','bakery'):
      for sx in (-1,1):boxes.append(box(cx+sx*190-55,py+150-55,cx+sx*190+55,py+150+55,'Patio'))
+    import set_dressing as sd
+    for x0,y0,x1,y1,name in sd.solids({'cafe':'cafe','bakery':'bakery'}.get(style,'home'),cx,py):boxes.append(box(x0,y0,x1,y1,name))
    if 'sit_down' in acts or 'drink' in acts:   # bench under the seat, table in front
     sy=y-SEAT_BACK_CM;boxes+=[box(x-35,sy-BENCH_HALF_DEPTH_CM+12,x+35,sy+BENCH_HALF_DEPTH_CM+12,'Bench'),box(x-TABLE_HALF_WIDTH_CM,y+TABLE_NEAR_CM-SEAT_BACK_CM,x+TABLE_HALF_WIDTH_CM,y+TABLE_FAR_CM-SEAT_BACK_CM,'DrinkTable')]
    if 'climb_stairs' in acts:

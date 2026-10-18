@@ -154,16 +154,23 @@ def props_for(folder,single,style=None):
     for sy in (-1,1):
      lc=world(tb['center'][0]+sx*(tb['size_cm'][0]/2-4),tb['center'][1]+sy*(tb['size_cm'][1]/2-4),tb['top_cm']/2,s['frame']);props.append(dict(shape='box',center_cm=list(lc),size_cm=[5,5,tb['top_cm']],color=[.4,.25,.12],name='TableLeg'))
    cc=world(d['cup_cm'][0],d['cup_cm'][1],d['cup_cm'][2],s['frame']);props.append(dict(shape='cylinder',center_cm=list(cc),size_cm=[d['cup']['radius_cm'],d['cup']['height_cm']],color=[.85,.25,.2],name='Cup'))
- if (folder/'door.json').exists() and route:   # a door needs a wall, a room behind it and a lit window
-  d=json.loads((folder/'door.json').read_text());hx,py,dr,w=d['hinge_cm'][0],d['plane_y_cm'],d['dir'],d['width_cm'];x1=hx+dr*w;mid=(hx+x1)/2;depth=440;R=280;out=R-w/2;yaw=route[0]['yaw']+180
+ if (folder/'door.json').exists() and route:   # a door needs a wall, a room behind it, a lit window and themed dressing
+  import set_dressing as sd
+  d=json.loads((folder/'door.json').read_text());hx,py,dr,w=d['hinge_cm'][0],d['plane_y_cm'],d['dir'],d['width_cm'];x1=hx+dr*w;mid=(hx+x1)/2;R=sd.ROOM_HALF_WIDTH_CM;depth=sd.ROOM_DEPTH_CM;H=sd.WALL_HEIGHT_CM;out=R-w/2;yaw=route[0]['yaw']+180
+  theme={'cafe':'cafe','bakery':'bakery'}.get(style,'home')
   def part(name,cx,cy,cz,sx,sy,sz,color):props.append(dict(shape='box',center_cm=list(world(cx,cy,cz)),size_cm=[sx,sy,sz],color=color,yaw=yaw,name=name))
-  cream=[.9,.84,.7];part('DoorWallL',hx-dr*out/2,py,130,out,15,260,cream);part('DoorWallR',x1+dr*out/2,py,130,out,15,260,cream);part('DoorWallTop',mid,py,230,w,15,60,cream)
-  span=2*R;part('HutBack',mid,py-depth,130,span,15,260,cream);part('HutSideA',mid-span/2,py-depth/2,130,15,depth,260,cream);part('HutSideB',mid+span/2,py-depth/2,130,15,depth,260,cream)
-  part('HutRoof',mid,py-depth/2,268,span+20,depth+30,16,[.55,.2,.15]);part('HutFloor',mid,py-depth/2,.5,span,depth,1,[.5,.36,.22]);part('WindowLit',x1+dr*out/2,py+9,150,70,3,60,[1,.93,.55])
+  cream=[.9,.84,.7];part('DoorWallL',hx-dr*out/2,py,H/2,out,15,H,cream);part('DoorWallR',x1+dr*out/2,py,H/2,out,15,H,cream);part('DoorWallTop',mid,py,200+(H-200)/2,w,15,H-200,cream)
+  span=2*R;part('HutBack',mid,py-depth,H/2,span,15,H,cream);part('HutSideA',mid-span/2,py-depth/2,H/2,15,depth,H,cream);part('HutSideB',mid+span/2,py-depth/2,H/2,15,depth,H,cream)
+  part('HutRoof',mid,py-depth/2,H+8,span+20,depth+30,16,[.55,.2,.15]);part('HutFloor',mid,py-depth/2,.5,span,depth,1,[.5,.36,.22]);part('WindowLit',x1+dr*out/2,py+9,150,70,3,60,[1,.93,.55])
   props.append(dict(shape='sphere',center_cm=list(world(mid,py-90,200)),size_cm=[9],color=[1,.9,.45],name='Lamp'))
-  if style=='cafe':   # striped awning, sign and patio tables outside the door
-   stripe=(w+80)/8
-   for i in range(8):part('Awning',mid+dr*(-(w+80)/2+stripe*(i+.5))*-1,py+55,222,stripe,100,8,[.85,.15,.15] if i%2==0 else [.95,.92,.88])
+  for it in sd.interior(theme)+sd.exterior(theme):   # themed furniture and street dressing
+   cx,cy=mid+it['lat'],py-it['depth']
+   if it['shape']=='box':part(it['name'],cx,cy,it['z'],it['size'][0],it['size'][1],it['size'][2],it['color'])
+   elif it['shape']=='cyl':props.append(dict(shape='cylinder',center_cm=list(world(cx,cy,it['z'])),size_cm=[it['size'][0],it['size'][1]],color=it['color'],name=it['name']))
+   else:props.append(dict(shape='sphere',center_cm=list(world(cx,cy,it['z'])),size_cm=[it['size'][0]],color=it['color'],name=it['name']))
+  if style in ('cafe','bakery'):   # striped awning and sign outside the door
+   stripe=(w+80)/8;a,b=([.85,.15,.15],[.95,.92,.88]) if style=='cafe' else ([.2,.5,.3],[.95,.92,.8])
+   for i in range(8):part('Awning',mid+dr*(-(w+80)/2+stripe*(i+.5))*-1,py+55,222,stripe,100,8,a if i%2==0 else b)
    part('CafeSign',mid,py+10,246,w+60,6,34,[.3,.18,.08])
    for sx in (-1,1):
     cx=mid+sx*190;part('PatioTable',cx,py+150,72,70,70,5,[.8,.7,.55]);part('PatioLeg',cx,py+150,36,8,8,72,[.4,.3,.2])

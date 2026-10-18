@@ -24,8 +24,24 @@ def forest(ox,oy,rnd,count=26,inner=7.,outer=22.):
   a=rnd.uniform(0,6.283);r=rnd.uniform(inner,outer);tree(ox+math.cos(a)*r,oy+math.sin(a)*r,rnd.uniform(3,6.5),rnd)
  for i in range(6):
   a=rnd.uniform(0,6.283);r=rnd.uniform(4,10);bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1,radius=rnd.uniform(.3,.6),location=(ox+math.cos(a)*r,oy+math.sin(a)*r,.2));rock=bpy.context.object;rock.data.materials.append(mat('Rock',(.45,.45,.42)));rock.scale=(1,1,.6)
+def flowers(ox,oy,rnd,count,spread):
+ for i in range(count):
+  a=rnd.uniform(0,6.283);r=rnd.uniform(1,spread);c=[(.9,.35,.5),(.95,.85,.3),(.7,.5,.9),(.95,.95,.95)][rnd.randrange(4)]
+  cylinder((ox+math.cos(a)*r,oy+math.sin(a)*r,.08),.04,.16,(.2,.5,.2),'Stem',4);sphere((ox+math.cos(a)*r,oy+math.sin(a)*r,.18),.07,c,'Flower')
+def log(x,y,yaw,length=2.2):
+ bpy.ops.mesh.primitive_cylinder_add(vertices=8,radius=.22,depth=length,location=(x,y,.22),rotation=(0,math.radians(90),math.radians(yaw)));o=bpy.context.object;o.name='Log';o.data.materials.append(mat('Log',(.42,.28,.15)))
+def campfire(x,y):
+ for k in range(8):
+  a=k*math.pi/4;sphere((x+math.cos(a)*.5,y+math.sin(a)*.5,.12),.14,(.45,.45,.43),'FireStone')
+ cone((x,y,.3),.25,.6,(1,.5,.12),'Flame',6);sphere((x,y,.5),.12,(1,.85,.4),'Ember')
+def tent(x,y,yaw=0):
+ cone((x,y,.8),1.4,1.6,(.75,.35,.25),'Tent',4,45+yaw);box((x,y-.9,.5),(.6,.05,1.0),(.2,.12,.08),'TentDoor',yaw)
+def signpost(x,y,text_color=(.5,.35,.18)):
+ cylinder((x,y,.8),.05,1.6,(.35,.22,.1),'SignPole',6);box((x+.3,y,1.4),(.8,.05,.25),text_color,'SignBoard');box((x-.3,y,1.1),(.8,.05,.25),text_color,'SignBoard')
 def river(ox,oy,rnd):
- forest(ox,oy,rnd,16,8,20)
+ forest(ox,oy,rnd,16,8,20);flowers(ox,oy,rnd,14,9);box((ox-4.5,oy+3.2,.12),(3.2,.9,.06),(.5,.35,.2),'Dock');box((ox-5.2,oy+3.2,.2),(1.8,.8,.3),(.55,.3,.2),'Boat')   # dock and a rowing boat on the river
+ for k in range(10):cylinder((ox+rnd.uniform(-9,9),oy+rnd.choice((1.7,4.7)),.4),.03,.8,(.35,.5,.25),'Reed',4)
+ signpost(ox+2.5,oy-1.5)
  box((ox,oy+3.2,.0),(22,2.6,.02),(.15,.4,.75),'River')                       # river across the walking direction, y 1.9..4.5 m
  box((ox,oy+3.2,.04),(2.2,3.6,.05),(.55,.38,.2),'Bridge')                     # bridge deck, x +-1.1 m
  for sx in (-1,1):box((ox+sx*1.1,oy+3.2,.35),(.08,3.6,.06),(.4,.26,.12),'Rail');
@@ -42,7 +58,7 @@ def village(ox,oy,rnd):
  cylinder((ox+4,oy-1,.4),.6,.8,(.5,.5,.5),'Well',8);cone((ox+4,oy-1,1.9),1.0,.9,(.6,.18,.12),'WellRoof',6)
  for i in range(14):
   x=-12+i*1.85;box((ox+x,oy-9,.35),(.08,.08,.7),(.5,.38,.2),'FencePost');box((ox+x,oy-9,.5),(1.85,.05,.08),(.5,.38,.2),'FenceRail')
- forest(ox,oy,rnd,10,14,24)
+ forest(ox,oy,rnd,10,14,24);flowers(ox,oy,rnd,16,12);box((ox-10,oy+12,.9),(3,1.6,1.8),(.6,.4,.25),'Stall');box((ox-10,oy+11,2.0),(3.4,1.9,.1),(.85,.2,.2),'StallAwning');box((ox+9,oy-7,.45),(1.4,1.4,.9),(.8,.7,.3),'HayBale');box((ox+10.6,oy-7.4,.45),(1.4,1.4,.9),(.8,.7,.3),'HayBale')
 def sphere(center_m,radius_m,color,name='Ball',scale=(1,1,1)):
  bpy.ops.mesh.primitive_uv_sphere_add(segments=10,ring_count=6,radius=radius_m,location=center_m);o=bpy.context.object;o.name=name;o.scale=scale;o.data.materials.append(mat(name+str(color),color));return o
 def cafe(ox,oy,rnd):
@@ -59,7 +75,7 @@ def cafe(ox,oy,rnd):
   box((ox+x,oy+y,1.3),(3.6,3.8,2.6),(.8,.74,.6),'House',yaw);cone((ox+x,oy+y,3.2),3,1.6,(.6,.2,.15),'Roof',4,45)
  forest(ox,oy,rnd,10,14,24)
 def mountains(ox,oy,rnd):
- forest(ox,oy,rnd,14,10,24)
+ forest(ox,oy,rnd,14,10,24);campfire(ox+4.5,oy-2.2);tent(ox+6.5,oy-1.5,20);log(ox+4.5,oy-1.0,40);log(ox+3.6,oy-3.4,-20);signpost(ox-3,oy-3.5);flowers(ox,oy,rnd,8,6)
  box((ox+0,oy+1.2,.05),(2.4,2.4,.1),(.6,.6,.58),'SummitPad')
 def backdrop(rnd):
  """Distant mountains behind the action, on the -Y side (cameras sit on +Y looking back)."""
@@ -71,6 +87,7 @@ def build(scene,sets,props,use_backdrop=True):
  bpy.ops.mesh.primitive_plane_add(size=1,location=(0,0,-.02));g=bpy.context.object;g.name='Ground';g.scale=(900,260,1);g.location=(0,0,-.02);g.data.materials.append(mat('Ground',(.22,.38,.16)))
  for s in sets:
   ox,oy=s['origin_cm'][0]/100,s['origin_cm'][1]/100;{'forest':forest,'river':river,'village':village,'mountains':mountains,'cafe':cafe}[s['kind']](ox,oy,rnd)
+  if s['kind']=='forest':flowers(ox,oy,rnd,22,8);log(ox+3,oy+3,30);log(ox-4,oy-2,-60)   # a clearing: wild flowers and fallen logs
  if use_backdrop:backdrop(rnd)
  for p in props:
   c=[v/100 for v in p['center_cm']];color=p.get('color',(.5,.35,.2))

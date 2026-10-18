@@ -166,3 +166,29 @@ class AnchorTests(unittest.TestCase):
  def test_plans_without_anchors_are_untouched(self):
   import previs_anchors as pa
   plan,direction=self._story([dict(character='lion',position_cm=[1,2],segments=[beat('wave',4)])]);p,d=pa.resolve(plan,direction);self.assertIs(p,plan)
+class StillnessAndDressingTests(unittest.TestCase):
+ def _plan(self,segments):
+  import previs
+  shot=dict(version=1,title='s',environment='forest',mood='morning_fog',camera='full',unsupported=[],notes=[],actors=[dict(character='lion',position_cm=[0,0],segments=segments)])
+  return previs.lenient_validate(dict(version=1,title='t',unsupported=[],shots=[shot]))
+ def test_gesture_without_line_or_purpose_is_flagged(self):
+  import story_lint
+  rules=[f['rule'] for f in story_lint.lint(self._plan([beat('wave',4)]),{})];self.assertIn('purpose.gesture',rules)
+  rules=[f['rule'] for f in story_lint.lint(self._plan([beat('wave',4,'Hello!')]),{})];self.assertNotIn('purpose.gesture',rules)
+  p=self._plan([dict(beat('nod',4),purpose='agrees')]);self.assertNotIn('purpose.gesture',[f['rule'] for f in story_lint.lint(p,{})])
+  self.assertNotIn('purpose.gesture',[f['rule'] for f in story_lint.lint(self._plan([beat('idle',4)]),{})])
+ def test_limb_bones_are_held_but_head_and_spine_are_not(self):
+  import stillness
+  for name in ('LeftArm','RightForeArm','LeftHand','LeftHandIndex1','RightUpLeg','LeftFoot','RightToeBase','Hips'):
+   self.assertTrue(any(k in name for k in stillness.HELD),name)
+  for name in ('Head','Neck','Spine1','Spine2'):
+   self.assertFalse(any(k in name for k in stillness.HELD),name)   # head, neck and spine keep moving
+ def test_dressing_keeps_the_acting_zone_clear(self):
+  import set_dressing as sd
+  for theme in ('cafe','bakery','home'):
+   for x0,y0,x1,y1,name in sd.solids(theme,0,0):
+    inside=y1>0 and y0<sd.ROOM_DEPTH_CM
+    if inside:self.assertFalse(x0<190 and x1>-190 and y0<520 and y1>120,(theme,name,x0,y0,x1,y1))   # |lat|<=190, depth 120..520 is where actors stand
+ def test_every_theme_has_furniture_and_street_dressing(self):
+  import set_dressing as sd
+  for theme in ('cafe','bakery','home'):self.assertGreater(len(sd.interior(theme)),8);self.assertGreater(len(sd.exterior(theme)),8)
