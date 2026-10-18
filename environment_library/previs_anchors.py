@@ -17,7 +17,7 @@ import contact_actions as ca
 ANCHORS={
  'forest':{'clearing':((0,0),0),'trail_start':((0,-150),0),'trail_end':((0,250),0),'camp':((0,60),0)},
  'river':{'south_bank':((0,-150),0),'bridge_start':((0,100),0),'bridge_middle':((0,300),0),'bridge_end':((0,430),0),'north_bank':((0,520),0)},
- 'village':{'street':((0,-290),0),'street_near':((0,-150),0),'door_front':((-63,-60),0),'entrance':((0,-60),0),'inside_center':((0,300),0),'inside_back':((0,470),0),
+ 'village':{'street':((0,-290),0),'street_near':((0,-150),0),'door_front':((21,-60),0),'entrance':((0,-60),0),'doorway':((0,-80),0),'room_entry':((0,150),0),'inside_center':((0,300),0),'inside_back':((0,470),0),
   'inside_near':((0,170),0),'seat_inside':((-150,300),0),'patio':((190,-10),0)},   # inside anchors sit in the clear acting zone of the 760 x 640 cm room
  'mountains':{'path_start':((0,-250),0),'stairs_bottom':((0,-100),0),'stairs_top':((0,140),0),'summit':((0,60),0)},
 }
@@ -53,13 +53,17 @@ def resolve(plan,direction):
    name,slot=(at if isinstance(at,(tuple,list)) else (at,None));(x,y),yaw=_anchor(kind,name)
    if pair and slot is not None:
     if contact:
-     low,high=ca.window(next(g['action'] for g in a['segments'] if g['action'] in ca.CONTACT),actors[0]['character'],actors[1]['character']);gap=(low+high)/2
+     action=next(g['action'] for g in a['segments'] if g['action'] in ca.CONTACT);low,high=ca.window(action,actors[0]['character'],actors[1]['character']);gap=high-4 if action=='handshake' else (low+high)/2   # angled handshakes need the wide end of the window (clearance between the heads)
     else:gap=TALK_SPACING_CM
     x+=(-gap/2 if slot=='left' else gap/2)
    a['position_cm']=[x,y]
    walks=any(g['action'] in ('walk','run','carry_walk','climb_stairs') for g in a['segments']);face=a.pop('face',None)
    if face is None:face='travel' if walks else ('side' if contact else 'partner' if pair else 'travel')
-   if face in ('travel','door','side'):a['facing_yaw_deg']=yaw
+   handshake=pair and any(g['action']=='handshake' for g in a['segments'])
+   if handshake and face=='side':a['facing_yaw_deg']=yaw+(-ca.HANDSHAKE_TURN_DEG if slot=='left' else ca.HANDSHAKE_TURN_DEG)   # greeting: turned toward each other
+   elif isinstance(face,str) and face.startswith('toward:'):
+    tx,ty=_anchor(kind,face.split(':',1)[1])[0];a['facing_yaw_deg']=round(ca.facing([x,y],[tx,ty]),1)   # e.g. a seated actor faces the middle of the room
+   elif face in ('travel','door','side'):a['facing_yaw_deg']=yaw
    elif face=='partner' and pair:
     other=actors[1-i];ox,oy=(other.get('position_cm') or [x,y])
     a['_face_partner']=True

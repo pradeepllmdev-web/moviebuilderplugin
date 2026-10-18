@@ -13,7 +13,7 @@ the drink layout; stairs from contact_actions.STEP); other characters use the sa
 (x0, y0, x1, y1) in world cm with the place origin and the shot offset already added."""
 import math
 import contact_actions as ca
-DOOR_RIGHT_CM=63.;DOOR_AHEAD_CM=56.;DOOR_WIDTH_CM=102.;ROOM_HALF_WIDTH_CM=380.;ROOM_DEPTH_CM=640.;WALL_CM=15.
+DOOR_RIGHT_CM=-20.8;DOOR_AHEAD_CM=47.5;DOOR_WIDTH_CM=112.;ROOM_HALF_WIDTH_CM=380.;ROOM_DEPTH_CM=640.;WALL_CM=15.
 SEAT_BACK_CM=25.;TABLE_NEAR_CM=22.;TABLE_FAR_CM=92.;TABLE_HALF_WIDTH_CM=40.;BENCH_HALF_DEPTH_CM=20.
 RIVER_Y=(190.,450.);BRIDGE_HALF_WIDTH_CM=110.
 ACTOR_RADIUS_CM=35.;ACTOR_GAP_CM=70.
@@ -57,7 +57,7 @@ def scenery(plan,direction):
 USES={'Bench':{'sit_down','sit','sit_talk','stand_up','drink'},'DrinkTable':{'sit_down','sit','sit_talk','stand_up','drink'},'Stairs':{'climb_stairs'},'SideTable':{'pick_up'}}
 def layout(plan,direction=None):
  """Run the four stages; returns scenery, paths and findings."""
- shots=plan['shots'];sc=scenery(plan,direction);findings=[];paths=[]
+ shots=plan['shots'];sc=scenery(plan,direction);findings=[];paths=[];last_end={}
  def add(k,rule,severity,message):findings.append(dict(shot=k+1,rule=rule,severity=severity,message=message))
  kinds={tuple(s['origin_cm']):s['kind'] for s in (direction or {}).get('sets',[])}
  for k,shot in enumerate(shots):
@@ -83,6 +83,15 @@ def layout(plan,direction=None):
    if s['action'] in WALKS:   # 4. a walker faces the direction of travel (the builder walks +Y)
     actor=next(a for a in _actors(shot) if a['character']==s['actor']);yaw=actor.get('facing_yaw_deg',0)
     if abs(yaw)>20:add(k,'facing.walker','warning',f"{s['actor']} walks +Y but faces {yaw:.0f} degrees; walkers face their direction of travel (facing_yaw_deg 0)")
+  rooms=[b['box'] for b in boxes if b['kind']=='room']
+  def in_room(p):return any(b[0]<p[0]<b[2] and b[1]<p[1]<b[3] for b in rooms)
+  for a in _actors(shot):   # continuity: nobody jumps through a wall or across the set between two shots at one place
+   mine=[s for s in segs if s['actor']==a['character']];start=(mine[0]['start'][0]+origin[0],mine[0]['start'][1]+origin[1]);end=(mine[-1]['end'][0]+origin[0],mine[-1]['end'][1]+origin[1]);key=(a['character'],place)
+   if key in last_end:
+    prev_end,prev_walked=last_end[key]
+    if rooms and in_room(prev_end)!=in_room(start):add(k,'continuity.teleport','error',f"{a['character']} ends the previous shot {'inside' if in_room(prev_end) else 'outside'} the room and starts this one {'inside' if in_room(start) else 'outside'} it: add a shot of them walking through the doorway")
+    elif math.dist(prev_end,start)>220 and not any(g['action'] in WALKS for g in a['segments'][:1]):add(k,'continuity.teleport','warning',f"{a['character']} appears {math.dist(prev_end,start):.0f} cm from where the previous shot left them; walk them there or keep the position")
+   last_end[key]=(end,any(g['action'] in WALKS for g in a['segments']))
   actors=_actors(shot)
   if len(actors)==2:
    contact=any(g['action'] in ca.CONTACT for a in actors for g in a['segments']);p0,p1=actors[0].get('position_cm',[0,0]),actors[1].get('position_cm',[0,0])
@@ -93,7 +102,8 @@ def layout(plan,direction=None):
    for i,actor in enumerate(actors):
     other=actors[1-i];x,y=actor.get('position_cm',[0,0]);ox,oy=other.get('position_cm',[0,0]);yaw=actor.get('facing_yaw_deg',0)
     if contact:
-     if abs(yaw-other.get('facing_yaw_deg',0))>1:add(k,'facing.contact','warning','contact beats are side by side: both actors should face the same way')
+     opposite=abs(yaw+other.get('facing_yaw_deg',0))<=1 and any(g['action']=='handshake' for g in actor['segments'])   # a handshake may turn both inward by the same angle
+     if abs(yaw-other.get('facing_yaw_deg',0))>1 and not opposite:add(k,'facing.contact','warning','contact beats are side by side: both actors should face the same way (a handshake may turn both inward equally)')
     elif not any(g['action'] in WALKS for g in actor['segments']):
      want=ca.facing([x,y],[ox,oy]);err=abs((yaw-want+180)%360-180)
      if err>75 and any(g.get('dialogue') or g['action'] in ('wave','laugh','celebrate','nod') for g in actor['segments']):add(k,'facing.partner','warning',f"{actor['character']} faces {yaw:.0f} degrees but the partner is at {want:.0f}; turn toward them (facing_yaw_deg {want:.0f})")

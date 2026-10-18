@@ -76,7 +76,7 @@ def inside_geometry(position):
  """Distance (m) to the nearest solid within 0.9 m around the camera, or None."""
  nearest=None
  for k in range(8):
-  a=k*math.pi/4;hit,loc,normal,i,obj,m=scene.ray_cast(bpy.context.evaluated_depsgraph_get(),position,Vector((math.cos(a),math.sin(a),0)),distance=.9)
+  a=k*math.pi/4;hit,loc,normal,i,obj,m=scene.ray_cast(bpy.context.evaluated_depsgraph_get(),position,Vector((math.cos(a),math.sin(a),0)),distance=.5)
   if hit and obj and not obj.name.startswith(IGNORE) and obj.name not in actor_names:
    d=(loc-position).length;nearest=d if nearest is None else min(nearest,d)
  return nearest
@@ -87,7 +87,7 @@ def evaluate(cam,shot_k,shot,offset,lens,frames,kind,state):
   actors=[keypoints(s,f) for s in shot_slots[shot_k]];hips=[a[0]['hips'] for a in actors];focus=sum(hips,Vector())/len(hips);focus.z=1.0 if len(actors)==1 else 1.1
   position=focus+Vector(offset);position.z=offset[2]
   if position.z<.5:return 1e9,{'below ground'}
-  if room_of(position,.35)!=room_of(focus):return 1e9,{'camera in the other room'}   # camera and actors share the same space: all inside a room or all outside
+  if not state['crosses'] and room_of(position,.35)!=room_of(focus):return 1e9,{'camera in the other room'}   # camera and actors share the same space: all inside a room or all outside (unless the actors walk through the doorway)
   place_camera(cam,position,focus,lens);off=0;occl=0;sizes=[]
   for pts,facing in actors:
    for key in ('head','hips','lf','rf') if kind=='full' else ('head','chest'):
@@ -119,7 +119,7 @@ def evaluate(cam,shot_k,shot,offset,lens,frames,kind,state):
     if p is not None and raycast(position,p):occl+=1
   if occl:cost+=80*occl;issues.add('view blocked by scenery')
   near=inside_geometry(position)
-  if near is not None:cost+=150*(.9-near)/.9+60;issues.add('camera against scenery')
+  if near is not None:cost+=150*(.5-near)/.5+60;issues.add('camera against scenery')
   if shot.get('camera_dist'):pass
  return cost/len(frames),issues
 def collisions(shot_k,frames):
@@ -140,6 +140,10 @@ for k,shot in enumerate(spec['shots']):
  start,length=shot['start'],shot['length'];frames=[start+round((length-1)*u) for u in (.1,.5,.9)];kind=shot.get('kind') or ('close' if shot.get('label','').lower().startswith('close') else 'full')
  kind=shot.get('camera_kind',kind);t=TYPES.get(kind,TYPES['full'])
  best=None
+ rooms_along=set()
+ for f in frames:
+  rooms_along.add(tuple(room_of(keypoints(s,f)[0]['hips']) for s in shot_slots[k]))
+ state=dict(crosses=len(rooms_along)>1)   # the actors move between inside and outside during the shot
  if verify:
   cost,issues=0,set()
   report.append(dict(shot=k+1,label=shot['label'],kind=kind,issues=sorted(issues),collisions=collisions(k,frames)));continue
@@ -147,7 +151,7 @@ for k,shot in enumerate(spec['shots']):
   for radius in t['radii']:
    for height in t['heights']:
     offset=(math.cos(math.radians(angle))*radius/100,math.sin(math.radians(angle))*radius/100,height/100)
-    cost,issues=evaluate(cam,k,shot,offset,t['lens'],frames,kind,None)
+    cost,issues=evaluate(cam,k,shot,offset,t['lens'],frames,kind,state)
     if best is None or cost<best[0]:best=(cost,offset,issues)
     if cost<2:break
  cost,offset,issues=best

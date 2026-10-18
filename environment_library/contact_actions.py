@@ -14,6 +14,7 @@ import json,math
 CUP=dict(radius_cm=4.,height_cm=9.)
 STEP=dict(rise_cm=10.,tread_cm=30.,first_cm=40.,count=3)
 CONTACT=('handshake','hug')
+HANDSHAKE_TURN_DEG=35   # handshakers turn this far toward each other (left actor -, right actor +), so the greeting reads as two people greeting
 HEAD_TURN_DEG={'handshake':0,'hug':0}   # degrees, to the actor's own right
 BUDDY_BACK_FRACTION=.35   # how far past the partner's near side the hand reaches, as a fraction of their half width
 BUDDY_FORWARD_CM=0.
@@ -41,6 +42,8 @@ def window(action,a,b):
   # the two actors cannot get their hands together without the heads meeting): the gap is lateral and set by the two body widths.
  if True:
   widths=da['half_width_cm']+db['half_width_cm'];low=(1.05 if action=='handshake' else 1.0)*widths;high=(1.2 if action=='handshake' else 1.15)*widths
+  if action=='handshake':   # the hands meet at the midpoint, HANDSHAKE_FORWARD_CM in front: each arm reaches half the gap sideways and that far forward
+   r=.97*min(da['arm_reach'],db['arm_reach']);high=max(high,2*math.sqrt(max(0.,r*r-HANDSHAKE_FORWARD_CM**2)))
  return round(low,1),round(high,1)
 def default_spacing(action,a,b):
  low,high=window(action,a,b);return round((low+high)/2,1)
@@ -50,15 +53,17 @@ def pair_inputs(actors,index,heights):
  me,other=actors[index],actors[1-index];a=me.get('position_cm',[0,0]);b=other.get('position_cm',[0,0])
  action=next(g['action'] for g in me['segments'] if g['action'] in CONTACT);spacing=math.dist(a,b)
  if action in CONTACT:   # side by side, same facing: the lateral gap counts
-  if abs(me.get('facing_yaw_deg',0)-other.get('facing_yaw_deg',0))>1:raise ValueError(f'{action} is side by side: give both actors the same facing_yaw_deg (or none)')
-  yaw=math.radians(me.get('facing_yaw_deg',0));spacing=abs((b[0]-a[0])*math.cos(yaw)+(b[1]-a[1])*math.sin(yaw))
+  ya,yb=me.get('facing_yaw_deg',0),other.get('facing_yaw_deg',0)
+  if action=='hug' and abs(ya-yb)>1:raise ValueError('hug is side by side: give both actors the same facing_yaw_deg (or none)')
+  if action=='handshake' and abs(ya+yb)>1 and abs(ya-yb)>1:raise ValueError('handshake: both face the same way, or turn toward each other by the same angle')
+  yaw=math.radians((ya+yb)/2);spacing=abs((b[0]-a[0])*math.cos(yaw)+(b[1]-a[1])*math.sin(yaw))   # lateral gap along the mean facing
  elif 'facing_yaw_deg' in me and 'facing_yaw_deg' in other:   # facing opposite ways: only the gap along the facing line counts
   yaw=math.radians(me['facing_yaw_deg']);spacing=abs((b[0]-a[0])*-math.sin(yaw)+(b[1]-a[1])*math.cos(yaw))
  low,high=window(action,me['character'],other['character'])
  if high<low:raise ValueError(f"{me['character']} and {other['character']} cannot {action}: their arms do not reach across their bodies")
  if not low<=spacing<=high:raise ValueError(f'{action} needs these actors {low:.0f}..{high:.0f} cm apart (now {spacing:.0f})')
  if [g['action'] for g in me['segments']]!=[g['action'] for g in other['segments']]:raise ValueError(f'Both actors need the same {action} beat at the same time')
- return {'partner_contact':dict(position_cm=b,height_cm=heights[other['character']],own_height_cm=heights[me['character']],partner=dims(other['character']),own=dims(me['character'])),'facing_yaw_deg':me.get('facing_yaw_deg',0)}
+ return {'partner_contact':dict(position_cm=b,partner_facing_yaw_deg=other.get('facing_yaw_deg',0),height_cm=heights[other['character']],own_height_cm=heights[me['character']],partner=dims(other['character']),own=dims(me['character'])),'facing_yaw_deg':me.get('facing_yaw_deg',0)}
 def to_rig(point_world,root,yaw):
  """World cm (x,y,z) -> rig-space metres for an actor at root facing yaw."""
  f=(-math.sin(math.radians(yaw)),math.cos(math.radians(yaw)));r=(math.cos(math.radians(yaw)),math.sin(math.radians(yaw)))
@@ -184,28 +189,44 @@ def apply_pick_up(c):
  depth=c.slab_depth((cup_rest[0],cup_rest[1]),(16,16),0,top,frames[::3])
  return c.write('pick-up-check.json',dict(ok=error is not None and error<4 and lifted>=10 and depth<=2 and grasp_gap<=6,hand=side,table_top_cm=round(top,1),hand_to_target_cm=None if error is None else round(error,1),palm_to_cup_at_grasp_cm=round(grasp_gap,1),lifted_cm=round(float(lifted),1),body_in_table_cm=depth,scope='Cup on a side table; arm IK reaches, grasps, lifts to the chest and holds'))
 def apply_open_door(c):
+ """Push a hinged door open: the hand finds the handle (position from the clip's reach), then the arm follows the handle as the door swings
+ 85 degrees away from the actor (arm IK, hold the rest of the pose), and lets go when the arm is stretched."""
  import numpy as np
- g=c.beat('open_door');frames=c.frames(g)
- reach={s:min((c.palm(s,f)[1],f) for f in frames) for s in c.hands};side=min(reach,key=lambda s:reach[s][0]);r=reach[side][1]
- handle=c.palm(side,r);path=[c.palm(side,f) for f in frames if f>=r]
- best=None
- for sign in (1,-1):
-  for L in range(30,141,10):
-   hinge=np.array([handle[0]+sign*L,handle[1]]);v0=np.array(handle[:2])-hinge;gaps=[];angles=[]
-   for p in path:
-    v=np.array(p[:2])-hinge;a=math.atan2(v[1],v[0])-math.atan2(v0[1],v0[0]);a=(a+math.pi)%(2*math.pi)-math.pi;angles.append(a)
-    gaps.append(abs(np.linalg.norm(v)-L))
-   if best is None or max(gaps)<best[0]:best=(max(gaps),sign,L,angles)
- gap,sign,L,angles=best;hinge=(handle[0]+sign*L,handle[1],0.)
- pivot=c.bpy.data.objects.new('DoorHinge',None);c.scene.collection.objects.link(pivot);pivot.location=[v/100 for v in hinge]
- width=L+12;centre_dir=-sign   # the panel extends from the hinge past the handle
+ g=c.beat('open_door');frames=c.frames(g);side='Right'
+ reach={s:min((c.palm(s,f)[1],f) for f in frames) for s in c.hands};best_side=min(reach,key=lambda s:reach[s][0]);r=reach[best_side][1]
+ handle=c.palm(best_side,r);side=best_side
+ c.at(r);shoulder=np.array(c.rig.matrix_world@next(b for b in c.rig.pose.bones if b.name.endswith(best_side+'Arm')).head)*100
+ handle=shoulder+(handle-shoulder)*.75   # the handle sits well inside the arm's reach, so the hand can push the door
+ L=100.;sign=1 if handle[0]<=0 else -1   # a 100 cm door, hinged on the far side of the handle from the body centre line
+ hinge=(handle[0]+sign*L,handle[1])
+ v0=np.array([handle[0]-hinge[0],handle[1]-hinge[1]])
+ def rotated(a):
+  return np.array([hinge[0]+v0[0]*math.cos(a)-v0[1]*math.sin(a),hinge[1]+v0[0]*math.sin(a)+v0[1]*math.cos(a)])
+ direction=1 if rotated(math.radians(30))[1]<rotated(math.radians(-30))[1] else -1   # swing so the handle moves away from the actor (deeper, rig -Y)
+ push=round(.8*c.fps);swing=round(1.2*c.fps);open_frames=min(push+swing,frames[-1]-r);end_angle=math.radians(85)*direction;push_angle=math.radians(10)*direction
+ def angle(f):   # phase 1: the hand pushes the door 10 degrees; phase 2: it swings on to 85 degrees by itself, slowing down
+  k=f-r
+  if k<=0:return 0.
+  if k<=push:u=k/push;return push_angle*u*u*(3-2*u)
+  u=min(1.,(k-push)/max(1,swing));return push_angle+(end_angle-push_angle)*(1-(1-u)**2)
+ def handle_at(f):
+  p=rotated(angle(f));return (p[0],p[1],handle[2])
+ first=max(frames[0],r-8)
+ weight=lambda f:min(1.,max(0.,(f-first)/8.))*(1. if f<=r+push else max(0.,1.-(f-r-push)/10.))   # the arm lets go as the door swings on
+ target=lambda f:tuple(v/100 for v in handle_at(f))
+ error=c.reach([(side,target,(-.9 if side=='Right' else .9,.1,1.0))],list(range(first,frames[-1]+1)),weight,freeze=True)
+ pivot=c.bpy.data.objects.new('DoorHinge',None);c.scene.collection.objects.link(pivot);pivot.location=[hinge[0]/100,hinge[1]/100,0]
+ width=L+12;centre_dir=-sign
  door=c.box('Door',(width,4,200),(.35,.2,.1,1),(centre_dir*width/2,0,100));door.parent=pivot;door.location=[centre_dir*width/200,0,1.0];door.matrix_parent_inverse=pivot.matrix_world.inverted()
+ knob=c.box('DoorHandle',(10,8,8),(.9,.75,.2,1),(centre_dir*(L)*.0+(-sign*0)+(handle[0]-hinge[0]),0,float(handle[2])));knob.parent=pivot;knob.location=[(handle[0]-hinge[0])/100,0,handle[2]/100];knob.matrix_parent_inverse=pivot.matrix_world.inverted()
  for f in range(1,c.scene.frame_end+1):
-  a=0. if f<r else angles[min(f-r,len(angles)-1)];pivot.rotation_euler=(0,0,a);pivot.keyframe_insert('rotation_euler',frame=f)
- depth=0.
- swing=math.degrees(max(abs(a) for a in angles))
+  pivot.rotation_euler=(0,0,angle(f) if f>=r else 0.);pivot.keyframe_insert('rotation_euler',frame=f)
+ gaps=[]
+ for f in range(r,min(r+push,frames[-1])+1,2):   # while pushing, the palm stays on the handle
+  c.at(f);p=c.palm(side,f);h=np.array(handle_at(f));gaps.append(float(np.linalg.norm(p[:2]-h[:2])))
+ swing_deg=math.degrees(abs(end_angle));held=sum(1 for gp in gaps if gp<=14)/max(1,len(gaps))
  (c.folder/'door.json').write_text(json.dumps(dict(hinge_cm=[float(hinge[0]),float(hinge[1])],dir=-sign,width_cm=float(width),plane_y_cm=float(handle[1]))))
- return c.write('door-check.json',dict(ok=gap<=8 and swing>=15,hand=side,hinge_distance_cm=L,handle_to_hand_cm=round(float(gap),1),swing_deg=round(swing,1),scope='Door hinge fitted to the hand path; handle follows the hand within the reported gap'))
+ return c.write('door-check.json',dict(ok=swing_deg>=70 and held>=.8,hand=side,hinge_distance_cm=round(L,1),swing_deg=round(swing_deg,1),hand_on_handle_fraction=round(held,2),worst_hand_to_handle_cm=round(max(gaps),1) if gaps else None,scope='The hand pushes the door 10 degrees, then it swings on to 85 by itself while the arm lets go'))
 def apply_carry_walk(c):
  g=c.beat('carry_walk');frames=c.frames(g);side='Right';hips=next(b for b in c.rig.pose.bones if b.name.endswith('Hips'))
  def target(f):
@@ -235,7 +256,8 @@ def apply_pair(c):
  def root(f):
   r=c.route[f-1];return (own[0]+r['location_cm'][0],own[1]+r['location_cm'][1]),r['yaw']
  weight=lambda f:envelope((f-frames[0])/c.fps,g['end']-g['start'],.8);track=[];errors=[]
- yaw=math.radians(plan.get('facing_yaw_deg',0));fwd=(-math.sin(yaw),math.cos(yaw));right=(math.cos(yaw),math.sin(yaw))
+ yaw=math.radians(plan.get('facing_yaw_deg',0));right=(math.cos(yaw),math.sin(yaw))
+ mean=math.radians((plan.get('facing_yaw_deg',0)+partner.get('partner_facing_yaw_deg',plan.get('facing_yaw_deg',0)))/2);fwd=(-math.sin(mean),math.cos(mean))   # both hands meet in front of the pair's mean facing
  if action=='handshake':   # both hands meet in front, midway between the two actors
   on_right=(partner['position_cm'][0]-own[0])*right[0]+(partner['position_cm'][1]-own[1])*right[1]>0;hand='Right' if on_right else 'Left'
   sides={hand:lambda f:(mid[0]+fwd[0]*HANDSHAKE_FORWARD_CM,mid[1]+fwd[1]*HANDSHAKE_FORWARD_CM,height)}

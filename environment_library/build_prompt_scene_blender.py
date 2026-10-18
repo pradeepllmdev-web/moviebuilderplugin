@@ -222,6 +222,11 @@ if sitting:
 if tail_walk:
  from tail_rig import rig_tail
  tail_report=rig_tail(s,rig,tail_body,list(range(1,frames+1)),lambda frame:(lambda P,level=ground_levels[frame]:np.full(len(P),level)),fps=fps);(D/'tail-check.json').write_text(json.dumps(tail_report))
+# The body bobs a few cm as feet lift and land; the ground under it must not. Smooth the root height of plain walking/standing shots.
+if len(route)>6 and not sitting and not any(g['action'] in ('jump','climb_stairs') for g in timeline):
+ raw=[row['location_cm'][2] for row in route];window=max(3,fps);half=window//2
+ for i,row in enumerate(route):
+  lo,hi=max(0,i-half),min(len(raw),i+half+1);row['location_cm'][2]=sum(raw[lo:hi])/(hi-lo)
 import body_measures
 if not sitting:body_measures.ensure_standing_in_build(p['character'],s,rig,meshes)
 import contact_actions

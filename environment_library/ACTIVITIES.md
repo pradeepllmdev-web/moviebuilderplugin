@@ -87,3 +87,12 @@ Output lists `story check`, per-shot `PASS`, and `camera and collision QA` with 
 * **Rooms** are 760 x 640 cm with 300 cm walls (`set_dressing.py`, anchors updated): inside_near / inside_center / inside_back / seat_inside sit in the clear acting zone.
 * **Themed dressing** from `door_style` (`'cafe'`, `'bakery'`, anything else = home): furniture inside (counter, shelves with cups or bread, oven with fire, display case, bed, fireplace, bookshelf, tables with chairs, rug, hanging lamp) and outside (lamp posts with glow, flower boxes, barrels, crates, cart, sacks, woodpile, awning, sign, patio tables). Solid furniture becomes blocking footprints for the layout check and the camera solver. Outdoors: forest clearing (flowers, logs), river (dock, boat, reeds, signpost), mountains (campfire, tent, logs, signpost), village (market stall, hay bales).
 * `previs_story7.py` (The Morning Bakery) is written with all of this.
+
+### Fixes after story 7 (used by story 8, "A Friend's Visit")
+
+* **Door**: the hand finds the handle (placed well inside the arm's reach), pushes the door 10 degrees with the arm following it (palm on the handle for the whole push, 5 cm worst), then the door swings on to 85 degrees by itself while the arm lets go. A brass handle is on the door. Hut, anchors and layout use the new door geometry (door centre 20.8 cm to the left of the opener, plane 47.5 cm ahead; `door_front` anchor is (21,-60) so the door is centred on x=0).
+* **Floor**: the root height bobbed up to 5 cm with every step, which read as the floor changing; the root height of walking and standing shots is now smoothed over one second.
+* **Teleporting**: `continuity.teleport` (error) when an actor ends a shot outside the room and starts the next inside it or the reverse; warning when they appear 2.2 m from where the previous shot left them. Add a shot of them walking through the doorway (anchors `doorway` and `room_entry`).
+* **Seated direction**: `face='toward:<anchor>'` on an actor (a seated actor faces the middle of the room, the bench and table follow).
+* **Handshake**: both actors turn 35 degrees toward each other (anchors do this), spacing from the wide end of the window (about 75 cm, head clearance 7 cm measured); both hands meet in front of the pair's mean facing. Hugs stay side by side.
+* QA: the camera may follow actors through a doorway; a camera is only "against scenery" within 50 cm of a wall.
