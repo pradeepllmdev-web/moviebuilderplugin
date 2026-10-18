@@ -18,7 +18,11 @@ from bpy_extras.object_utils import world_to_camera_view
 args=sys.argv[sys.argv.index('--')+1:];spec=json.load(open(args[0]));verify='--verify' in args
 scene=bpy.context.scene;fps=spec.get('fps',24)
 bpy.context.view_layer.update()   # objects created by the merge script have stale world matrices until the depsgraph runs
-IGNORE=('Ground','Bench','DrinkTable','TableLeg','Cup','Paw','Cub','Step','Crate','SideTable','Phone','Door','Lamp','Window','Awning','CafeSign')   # small or see-through: never judged as occluders
+IGNORE=('Ground','Bench','DrinkTable','TableLeg','Cup','Paw','Cub','Step','Crate','SideTable','Phone','Lamp','Window','Awning','CafeSign','Dress','Flower','Stem','Reed','Log','FireStone','Flame','Ember','Stall','Hay')   # small or see-through: never judged as occluders
+IGNORE_EXACT=('Door','DoorHandle','DoorHinge')   # the swinging door itself (DoorWall* are real walls)
+def ignored(obj):
+ return obj.name.split('.')[0] in IGNORE_EXACT or obj.name.startswith(IGNORE)
+WALLS=('DoorWall','HutBack','HutSide','HutRoof')
 SOLID_NAMES=('DoorWall','Hut','Patio','Pole','Mountain','Snow','Pine','Trunk','House','Roof','Rock','Fence','Well','Counter')
 TYPES={'full':dict(lens=28,radii=(300,380,460,560,680),heights=(130,170,220),fraction=(.30,.62)),
  'medium':dict(lens=32,radii=(250,320,400,480),heights=(130,160,200),fraction=(.22,.55)),
@@ -72,13 +76,13 @@ def raycast(origin,point):
  direction=point-origin;distance=direction.length
  if distance<.05:return None
  hit,location,normal,index,obj,matrix=scene.ray_cast(bpy.context.evaluated_depsgraph_get(),origin,direction.normalized(),distance=distance-.08)
- return obj if hit and obj and obj.name not in actor_names and not obj.name.startswith(IGNORE) else None
+ return obj if hit and obj and obj.name not in actor_names and not ignored(obj) else None
 def inside_geometry(position):
  """Distance (m) to the nearest solid within 0.9 m around the camera, or None."""
  nearest=None
  for k in range(8):
   a=k*math.pi/4;hit,loc,normal,i,obj,m=scene.ray_cast(bpy.context.evaluated_depsgraph_get(),position,Vector((math.cos(a),math.sin(a),0)),distance=.5)
-  if hit and obj and not obj.name.startswith(IGNORE) and obj.name not in actor_names:
+  if hit and obj and not ignored(obj) and obj.name not in actor_names:
    d=(loc-position).length;nearest=d if nearest is None else min(nearest,d)
  return nearest
 def evaluate(cam,shot_k,shot,offset,lens,frames,kind,state):
@@ -135,7 +139,9 @@ def collisions(shot_k,frames):
      b=aabb(o);lo=Vector(b[:3]);hi=Vector(b[3:])
      if lo.x+.05<p.x<hi.x-.05 and lo.y+.05<p.y<hi.y-.05 and lo.z<p.z<hi.z:found.add(f'{slot.name} {key} inside {o.name}')
  return sorted(found)
-report=[]
+def curves_of(action):
+ return list(action.fcurves) if hasattr(action,'fcurves') else [fc for layer in action.layers for strip in layer.strips for bag in strip.channelbags for fc in bag.fcurves]
+report=[];print('QA shots',len(spec['shots']),'cams',[o.name for o in scene.objects if o.name.startswith('Cam')][:3],'verify',verify)
 for k,shot in enumerate(spec['shots']):
  cam=scene.objects.get('Cam%d'%k);aim=scene.objects.get('Aim%d'%k)
  if cam is None:continue
@@ -171,7 +177,29 @@ for k,shot in enumerate(spec['shots']):
    curves=list(action.fcurves) if hasattr(action,'fcurves') else [fc for layer in action.layers for strip in layer.strips for bag in strip.channelbags for fc in bag.fcurves]
    for fc in curves:
     for kp in fc.keyframe_points:kp.interpolation='LINEAR'
- report.append(dict(shot=k+1,label=shot['label'],kind=kind,cost=round(cost,1),offset_m=[round(v,2) for v in offset],lens=t['lens'],issues=sorted(issues),collisions=collisions(k,frames)))
+
+ # cutaway: walls and roofs that still stand between the lens and the actors are hidden for this shot only
+ hidden=set()
+ for f in frames:
+  scene.frame_set(f);actors=[keypoints(s,f) for s in shot_slots[k]];hips=[x[0]['hips'] for x in actors];focus=sum(hips,Vector())/len(hips)
+  position=Vector((focus.x+offset[0],focus.y+offset[1],offset[2]))
+  for pts,facing in actors:
+   for key in ('head','chest','hips'):
+    p=pts.get(key)
+    if p is None:continue
+    direction=p-position
+    hit,loc,normal,i,obj,m=scene.ray_cast(bpy.context.evaluated_depsgraph_get(),position,direction.normalized(),distance=direction.length-.08)
+    if hit and obj and obj.name.startswith(WALLS) and obj.name not in actor_names:hidden.add(obj.name)
+ for name in hidden:
+  obj=scene.objects[name];scene.frame_set(start-1);before=obj.hide_viewport;scene.frame_set(start+length);after=obj.hide_viewport
+  for prop in ('hide_viewport','hide_render'):
+   for frame,value in ((start-1,before),(start,True),(start+length-1,True),(start+length,after)):
+    setattr(obj,prop,value);obj.keyframe_insert(prop,frame=frame)
+  if obj.animation_data and obj.animation_data.action:
+   for fc in curves_of(obj.animation_data.action):
+    if fc.data_path in ('hide_viewport','hide_render'):
+     for kp in fc.keyframe_points:kp.interpolation='CONSTANT'
+  report.append(dict(shot=k+1,label=shot['label'],kind=kind,cost=round(cost,1),offset_m=[round(v,2) for v in offset],lens=t['lens'],issues=sorted(issues),collisions=collisions(k,frames)))
 scene.frame_set(1)
 if not verify:bpy.ops.wm.save_as_mainfile(filepath=bpy.data.filepath)
 json.dump(report,open(args[0].replace('spec.json','qa.json'),'w'),indent=1)
