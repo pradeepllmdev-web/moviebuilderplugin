@@ -71,3 +71,38 @@ class CharacterTests(unittest.TestCase):
    self.assertTrue(a['characters']);self.assertIn('lion',a['characters'])
    if a.get('family')=='clip':self.assertEqual(set(a['characters']),{'lion','cat','rowan'})
   self.assertEqual(activities.ACTIVITIES['drink']['characters'],['lion'])
+class ContactTests(unittest.TestCase):
+ def test_world_and_rig_transforms_are_inverse(self):
+  import contact_actions as ca
+  for yaw in (0,35,-90,170):
+   rig=to=ca.to_rig((120,-40,95),(100,-60),yaw);back=ca.to_world((rig[0]*100,rig[1]*100,rig[2]*100),(100,-60),yaw)
+   self.assertAlmostEqual(back[0],120,4);self.assertAlmostEqual(back[1],-40,4);self.assertAlmostEqual(back[2],95,4)
+ def test_actor_forward_is_rig_minus_y(self):
+  import contact_actions as ca
+  # An actor facing +Y (yaw 0) sees a point 50 cm ahead at rig -Y, and a point on its right at rig -X.
+  ahead=ca.to_rig((0,50,0),(0,0),0);right=ca.to_rig((50,0,0),(0,0),0)
+  self.assertAlmostEqual(ahead[1],-.5);self.assertAlmostEqual(right[0],-.5)
+ def test_facing_points_at_the_partner(self):
+  import contact_actions as ca
+  self.assertAlmostEqual(ca.facing([0,0],[0,100]),0);self.assertAlmostEqual(ca.facing([0,0],[-100,0]),90)
+ def test_stairs_rise_in_steps_and_never_fall(self):
+  import contact_actions as ca
+  h=[ca.stairs_height(d) for d in range(0,220,5)];self.assertEqual(h[0],0);self.assertTrue(all(b>=a for a,b in zip(h,h[1:])))
+  self.assertAlmostEqual(h[-1],ca.STEP['rise_cm']*ca.STEP['count'],1)
+ def test_pair_actions_check_spacing_and_matching_beats(self):
+  import contact_actions as ca
+  def actor(ch,x,action='handshake'):return dict(character=ch,position_cm=[x,0],segments=[dict(action=action,duration=4)])
+  heights={'lion':185,'rowan':180}
+  fields=ca.pair_inputs([actor('lion',-30),actor('rowan',30)],0,heights);self.assertIn('partner_contact',fields);self.assertAlmostEqual(fields['facing_yaw_deg'],-90)
+  with self.assertRaises(ValueError):ca.pair_inputs([actor('lion',-100),actor('rowan',100)],0,heights)
+  with self.assertRaises(ValueError):ca.pair_inputs([actor('lion',-30),actor('rowan',30,'hug')],0,heights)
+ def test_handshake_and_hug_need_two_actors(self):
+  with self.assertRaises(ValueError):validate_scene(scene([beat('idle',2),beat('handshake',4)]))
+ def test_pair_check_compares_wrists(self):
+  import contact_actions as ca,tempfile,json
+  row=lambda w:dict(frame=1,weight=1.,right_wrist_world=w,right_palm_world=w)
+  with tempfile.TemporaryDirectory() as d:
+   a,b=Path(d)/'a',Path(d)/'b';a.mkdir();b.mkdir()
+   (a/'contact-track.json').write_text(json.dumps(dict(action='handshake',track=[row([0,0,90])])));(b/'contact-track.json').write_text(json.dumps(dict(action='handshake',track=[row([3,0,90])])))
+   self.assertTrue(ca.pair_check(a,b)['ok'])
+   (b/'contact-track.json').write_text(json.dumps(dict(action='handshake',track=[row([30,0,90])])));self.assertFalse(ca.pair_check(a,b)['ok'])

@@ -1,6 +1,8 @@
 """Fast iteration loop: one command builds, prints every check on a few lines, and saves one picture.
 
   python quick_review.py activity drink    feasibility from cached body numbers (instant), then a one-shot Blender build of just that activity
+  python quick_review.py gallery [all|a,b,c] every activity in ONE Blender scene, side by side and playing (opens Blender)
+  python quick_review.py previs --plan m:VAR a whole movie plan as one low-poly Blender scene, camera per shot (--render for an mp4)
   python quick_review.py shot 1            Blender-only build of shot 1 (~10 s) + check summary + side-view sheet
   python quick_review.py shot all          every shot in parallel Blender processes (~one shot's time); --no-sheet skips pictures
   python quick_review.py movie             full Unreal preview via the studio server (~1.5 min) + checks + frame sheet
@@ -46,6 +48,12 @@ def summary(folder):
  if c:lines.append(f"seat       top={c['top_cm']}cm spread={c['spread_cm']}cm at lateral {c['lateral_cm']} forward {c['forward_cm']} lean_capped={sum(c.get('lean_capped_frames',{}).values())}")
  c=read('tail-check.json')
  if c:lines.append(f"tail       ok={c['ok']} lift_max={c.get('max_lift_deg')}deg verts={c.get('tail_vertices')}")
+ for label,fname in (('pickup','pick-up-check.json'),('door','door-check.json'),('carry','carry-walk-check.json'),('stairs','stairs-check.json'),('handshake','handshake-check.json'),('hug','hug-check.json')):
+  c=read(fname)
+  if c:lines.append(f"{label:10s} "+' '.join(f'{k}={v}' for k,v in c.items() if k!='scope'))
+ for label,fname in (('pickup','pick-up-check.json'),('door','door-check.json'),('carry','carry-walk-check.json'),('stairs','stairs-check.json'),('handshake','handshake-check.json'),('hug','hug-check.json')):
+  c=read(fname)
+  if c:lines.append(f"{label:10s} "+' '.join(f'{k}={v}' for k,v in c.items() if k!='scope'))
  c=read('phone-check.json')
  if c:lines.append(f"phone      ok={c['ok']} hand={c['hand']} phone_to_head={c['closest_to_head_cm']}cm hand_to_head={c['hand_to_head_closest_cm']}cm")
  c=read('gesture-check.json')
@@ -84,12 +92,12 @@ def run_all(names,character='lion'):
    if not verdict.get('ok'):return n,False,'infeasible: '+str(verdict.get('reason'))
    lines=build_shot(activity_plan(n,character),0,'side',None,False,threads);text=chr(10).join(lines)
    if 'FAILED' in lines[0]:return n,False,lines[1].strip()[:110] if len(lines)>1 else 'build failed'
-   bad=[l.strip().split()[0] for l in lines if 'ok=False' in l]
-   if bad:return n,False,'failed checks: '+', '.join(bad)
+   bad=[l.strip()[:170] for l in lines if 'ok=False' in l]
+   if bad:return n,False,' | '.join(bad)
    import ast;g=next((l for l in lines if l.strip().startswith('gesture')),None)
    if g:
-    clips=ast.literal_eval(g[g.index('['):g.index(']')+1]);played=next((c.split('|')[1].split(' ')[0] for c in clips if 'Idle' not in c and 'Guard' not in c),'?');return n,True,'clip '+played+' '+g[g.index('hand travel'):].strip()
-   return n,True,' '.join(l.strip()[:90] for l in lines if l.strip().startswith('drink'))
+    clips=ast.literal_eval(g[g.index('['):g.index(']')+1]);played=next((c.split('|')[1].split(' ')[0] for c in clips if 'Idle' not in c and 'Guard' not in c),'?');extra=' | '.join(l.strip()[:150] for l in lines if l.strip().startswith(('pickup','door','carry','stairs','handshake','hug','phone')));return n,True,'clip '+played+' '+g[g.index('hand travel'):g.index('peak')].strip()+((' | '+extra) if extra else '')
+   return n,True,' | '.join(l.strip()[:150] for l in lines if l.strip().startswith(('drink','pickup','door','carry','stairs','phone')))
   with ThreadPoolExecutor(8) as pool:
    return [f"{'SKIP' if ok is None else 'PASS' if ok else 'FAIL'} {n}: {detail}" for n,ok,detail in pool.map(one,names)]
 
@@ -97,9 +105,10 @@ def run_activity(args):
  """Instant feasibility from cached body measurements, then a one-shot Blender build with its checks."""
  import activities,body_measures
  name=args.target;character=args.character;started=time.time()
- if name in ('all','gestures'):
-  names=[n for n in activities.ACTIVITIES if name=='all' or n in activities.GESTURES];print(chr(10).join(run_all(names,character)))
-  print(f'{len(names)} activities in {time.time()-started:.0f}s');return
+ if name in ('all','gestures') or ',' in name:
+  import previs
+  names=[n for n in activities.ACTIVITIES if name=='all' or n in activities.GESTURES] if ',' not in name else name.split(',')
+  print(chr(10).join(previs.run_gallery(names,character,False)));print(f'{len(names)} activities in {time.time()-started:.0f}s');return
  measures=body_measures.load(character)
  if not measures:
   print(f'no cached body measurements for {character}; measuring with a sit shot');build_shot(activity_plan('sit',character),0,'side',None,False);measures=body_measures.load(character)
@@ -252,10 +261,17 @@ def report(movie_id,frames):
 
 if __name__=='__main__':
  parser=argparse.ArgumentParser(description=__doc__,formatter_class=argparse.RawDescriptionHelpFormatter)
- parser.add_argument('mode',choices=['shot','movie','frames','activity']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
- parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true');parser.add_argument('--character',default='lion');parser.add_argument('--feasibility-only',action='store_true');parser.add_argument('--open',action='store_true')
+ parser.add_argument('mode',choices=['shot','movie','frames','activity','gallery','previs']);parser.add_argument('target',nargs='?');parser.add_argument('frame_list',nargs='?')
+ parser.add_argument('--plan',default='test_box_movie:PLAN');parser.add_argument('--frames');parser.add_argument('--view',choices=['side','face'],default='side');parser.add_argument('--no-sheet',action='store_true');parser.add_argument('--character',default='lion');parser.add_argument('--feasibility-only',action='store_true');parser.add_argument('--open',action='store_true');parser.add_argument('--render',action='store_true');parser.add_argument('--no-open',action='store_true')
  args=parser.parse_args();sys.path.insert(0,str(H))
- if args.mode=='shot':run_shot(args)
+ if args.mode=='gallery':
+  import activities,previs
+  names=list(activities.ACTIVITIES) if args.target in (None,'all') else args.target.split(',')
+  print(chr(10).join(previs.run_gallery(names,args.character,not args.no_open)))
+ elif args.mode=='previs':
+  import previs
+  print(chr(10).join(previs.run_previs(load_plan(args.plan),'movie',args.render,not args.no_open)))
+ elif args.mode=='shot':run_shot(args)
  elif args.mode=='activity':run_activity(args)
  elif args.mode=='movie':run_movie(args)
  else:report(args.target,[int(f) for f in (args.frame_list or args.frames).split(',')])

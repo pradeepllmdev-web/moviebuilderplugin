@@ -37,7 +37,7 @@ def validate(raw):
   for i,a in enumerate(p['actors']):
    if a.get('character') in seen:raise ValueError('Use each character at most once')
    seen.add(a.get('character'))
-   single={k:v for k,v in p.items() if k!='actors'};single.update(character=a.get('character'),segments=a.get('segments'),position_cm=a.get('position_cm',[-120 if i==0 else 120,0]))
+   single={k:v for k,v in p.items() if k!='actors'};single.update(character=a.get('character'),segments=a.get('segments'),position_cm=a.get('position_cm',[-120 if i==0 else 120,0]),_member=True)
    checked=validate(single);a['segments']=checked['segments'];durations.append(sum(g['duration'] for g in a['segments']))
    pos=a.setdefault('position_cm',[-120 if i==0 else 120,0])
    if not isinstance(pos,list) or len(pos)!=2 or any(isinstance(v,bool) or not isinstance(v,(int,float)) or not math.isfinite(v) or abs(v)>600 for v in pos):raise ValueError('Actor placement must be within 6 metres; complete route is checked against the cleared area')
@@ -46,6 +46,9 @@ def validate(raw):
   if max(durations)-min(durations)>.001:raise ValueError('Actor timelines must have equal duration; add idle/listen beats')
   from scene_gaze import conversation_context
   for a in p['actors']:conversation_context(p,a)
+  import contact_actions
+  heights={k:v['height_cm'] for k,v in PROFILES.items()}
+  for i in range(len(p['actors'])):contact_actions.pair_inputs(p['actors'],i,heights)
   p['character']=p['actors'][0]['character'];p['segments']=p['actors'][0]['segments']
   if any(g['action'] in ['walk','run','circle','jump','turn','box_pickup','box_carry','box_setdown','box_bump'] for a in p['actors'] for g in a['segments']):p['camera']='full'
   return p
@@ -78,9 +81,9 @@ def validate(raw):
    if not isinstance(target,list) or len(target)!=3:raise ValueError('Point gaze needs look_target_cm [x,y,z]')
    for coordinate in target:number(coordinate,-50000,50000)
 
-  if g['action'] in ['walk','run','box_carry']:
-   g['distance_cm']=number(g.get('distance_cm',g['duration']*(60 if g['action'] in ['walk','box_carry'] else 160)),0,1200)
-   speed=g['distance_cm']/g['duration'];lo,hi=(20,120) if g['action'] in ['walk','box_carry'] else (80,350)
+  if g['action'] in ['walk','run','box_carry','carry_walk','climb_stairs']:
+   g['distance_cm']=number(g.get('distance_cm',g['duration']*(60 if g['action'] in ['walk','box_carry','carry_walk','climb_stairs'] else 160)),0,1200)
+   speed=g['distance_cm']/g['duration'];lo,hi=(20,120) if g['action'] in ['walk','box_carry','carry_walk','climb_stairs'] else (80,350)
    if not lo<=speed<=hi:raise ValueError('Locomotion speed outside supported range')
    distance+=g['distance_cm']
   if g['action']=='box_back':
@@ -97,7 +100,7 @@ def validate(raw):
    distance+=abs(math.radians(angle))*radius
   if g['action']=='jump':
    g['gap_cm']=number(g.get('gap_cm',40),20,60);g['duration']=3;distance+=70+g['gap_cm']
-  if g['action'] in ['walk','run','circle','jump','turn','box_pickup','box_carry','box_back','box_setdown','box_bump']:p['camera']='full'
+  if g['action'] in ['walk','run','circle','jump','turn','box_pickup','box_carry','box_back','box_setdown','box_bump','carry_walk','climb_stairs']:p['camera']='full'
  boxed=any(g['action'].startswith('box_') for g in segs)
  if any(g['action']=='turn' for g in segs) and not boxed and any(g['action'] not in ['walk','run','idle','talk','turn'] for g in segs):raise ValueError('Keep walking turns separate from circle/jump/dance/prop auditions')
  if boxed:
@@ -115,6 +118,9 @@ def validate(raw):
    activities.validate_beat(g)
    if g['action'] in ['sit_down','stand_up'] and g['duration']<2.5:raise ValueError(g['action']+' needs at least 2.5 seconds')
    if g['action'] in ['sit_down','stand_up']:p['camera']='full'
+ import contact_actions
+ if any(g['action'] in contact_actions.CONTACT for g in segs) and not p.pop('_member',False):raise ValueError('Handshake and hug need two actors with the same beat at the same time, 25..72 cm apart')
+ p.pop('_member',None)
  jumps=[i for i,g in enumerate(segs) if g['action']=='jump']
  if any(g.get('look_at')=='point' for g in segs) and any(g['action'] not in ['idle','talk','hold_ball'] for g in segs):raise ValueError('Point gaze currently supports stationary beats only; use manual glances while moving')
  if any(g['action']=='hold_ball' for g in segs) and (p['character']!='lion' or any(g['action']!='hold_ball' for g in segs)):raise ValueError('hold_ball is an isolated stationary lion test; dialogue is allowed, other actions and characters need separate calibration')

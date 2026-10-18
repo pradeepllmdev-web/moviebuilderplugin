@@ -63,12 +63,20 @@ UNSUPPORTED={
 # Things that pass the Blender checks but have not been judged on screen; shown in capabilities, never enforced.
 CAVEATS={
  'laugh':'uses the shared agree-gesture clip, so it reads like nodding',
- 'phone':'phone is a plain box in the hand; no Unreal prop yet','pick_up':'no object to pick up yet','open_door':'no door yet',
+ 'phone':'phone is a plain box in the hand; no Unreal prop yet','pick_up':'cup on a crate; props are Blender-only so far','open_door':'door is a Blender proxy; no Unreal prop yet','carry_walk':'cup is a Blender proxy; no Unreal prop yet','climb_stairs':'root rises with the steps but feet are not IK-planted; no Unreal stairs yet','handshake':'two actors; Blender only, hands meet at the midpoint','hug':'two actors; hands on the partner sides, not a full wrap; Blender only',
  'fall_back':'ends low on the ground; review in Unreal','get_up':'starts low on the ground; review in Unreal','lie_down':'ends on the ground; review in Unreal',
  'sleep':'lying pose; review in Unreal','crawl':'low body; review in Unreal','kneel':'low body; review in Unreal',
  'drink':'cup stays on a low table, hand rests beside it (the lion cannot lift a cup to its muzzle)',
 }
 ACTIVITIES['phone']=dict(beats={'phone':dict(action='phone')},seated=[],module='phone_actions',characters=['lion','cat','rowan'],family='clip',planner=None,request=r'\bphone\b|\bphon(?:es|ing)\b|\bmakes? a call\b',requires='phone',min_duration=3,max_duration=8,test_beats=[('idle',2),('phone',5),('idle',2)],what='talks on a phone held to its ear',check_request=False)
+for _name,_rx,_what,_lo,_hi,_pair in (
+ ('carry_walk',r'\bcarr(?:ies|ying) (?:a |the |his |its )?(?:cup|mug|bag|basket)\b|\bwalks? (?:while )?carrying\b','walks while carrying a cup in one hand (give distance_cm like walk)',3,12,False),
+ ('climb_stairs',r'\bstairs?\b|\bsteps? up\b|\bclimbs? (?:up )?(?:the )?steps?\b','climbs three steps while walking forward (give distance_cm of at least 160)',4,12,False),
+ ('handshake',r'\bshak(?:es|ing) hands?\b|\bhandshake\b','shakes hands with the other actor (two actors, 25..72 cm apart, same beat for both)',3,8,True),
+ ('hug',r'\bhugs?\b|\bhugging\b|\bembrac(?:es|ing)\b','hugs the other actor (two actors, 25..46 cm apart, same beat for both)',3,8,True),
+):
+ ACTIVITIES[_name]=dict(beats={_name:dict(action=_name)},seated=[],module='contact_actions',characters=['lion','cat','rowan'],family='clip',planner=None,
+  request=_rx,requires=_name,min_duration=_lo,max_duration=_hi,test_beats=[('idle',2),(_name,5 if not _pair else 5),('idle',2)],what=_what,check_request=False,pair=_pair)
 BASE_SIT=('sit_down','sit','sit_talk','stand_up')
 def summary():
  """Machine-readable list for the studio capabilities endpoint, so every client (3dobjectnew, the editor) sees the same set."""

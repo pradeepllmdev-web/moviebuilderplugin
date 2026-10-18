@@ -41,3 +41,18 @@ Clip activities: wave, nod, shrug, think, bow, celebrate, laugh, hands_on_hips, 
 Test on one character, then run the same check on the others: `python quick_review.py activity gestures --character rowan` (or `cat`). Clip activities need nothing character-specific (clips come from the shared library and are retargeted per rig), so all 27 gesture/clip activities pass on lion, cat and rowan. Each registry entry lists `characters`; others show `SKIP ... not calibrated`. Seat activities (sit, drink) are lion-only for now: they need that character's seated measurements (`activity sit --character X`, which also needs the sit clips retargeted to that rig) and the planner still enforces lion for the seat workflow. To add a character to an activity: run it, and if it passes add the name to that entry's `characters`.
 
 Prompts: 3dobjectnew only proxies to the studio server (port 8521), so planner text, validation, the unsupported-motion rule and `/api/scene-capabilities` (`activity_catalog`) are all defined here and apply to every client after a server restart.
+
+## Many at once, and a movie, in Blender only
+
+| Command | What you get |
+|---|---|
+| `python quick_review.py activity all` | build + check all 34 activities in parallel (~3 min), one PASS/FAIL line each; also writes the gallery scene |
+| `python quick_review.py gallery all` | same, then opens ONE Blender window with every activity side by side, labelled and playing (use `gallery wave,kick,hug` for a subset; `--no-open` to skip the window) |
+| `python quick_review.py previs --plan previs_samples:STORY` | a whole movie plan as ONE low-poly Blender scene: actors per shot, a camera per shot (cuts are bound timeline markers), flat ground and trees; opens Blender |
+| `python quick_review.py previs --plan previs_samples:STORY --render --no-open` | also renders `previs.mp4` (workbench, 640x360; ~1 min for 30 s) next to `previs.blend` |
+
+Files: `previs.py` (driver: builds every actor in parallel, merges), `previs_merge.py` (Blender script: appends each actor's scene, parents it to a slot placed like Unreal places it, shifts its animation to the shot's start frame, hides it outside the shot, adds ground/trees/cameras), `previs_samples.py` (example plans: copy it to write your own). Any movie plan that `movie_prompt.validate` accepts works, including two-actor shots; the textures of the character blend files carry over.
+
+New activities in this batch: pick_up (cup from a side table, arm IK), open_door (hinged door fitted to the hand), carry_walk (cup held at the hip while walking), climb_stairs (root follows three steps, root lifted so no foot sinks), handshake and hug (two actors, auto-facing, hands meet at a shared point; `pair_check` compares both actors). Contact beats are written once in `contact_actions.py`; all geometry comes from the evaluated body of each actor.
+
+Known limits: props and stairs exist in Blender only (no Unreal prop yet); stairs do not plant feet with IK; the hug puts hands on the partner's sides, not a full wrap; handshake spacing 25..72 cm and hug 25..46 cm for the lion's reach.

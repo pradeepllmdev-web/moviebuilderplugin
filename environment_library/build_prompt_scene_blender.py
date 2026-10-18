@@ -39,15 +39,15 @@ seat_profile=dict(DEFAULT_SEAT,**profile_data.get('seat',{}))
 segments=[];lines=[];timeline=[];t=0;y=0;rocks=[]
 for i,g in enumerate(p['segments']):
  duration=g['duration'];action=g['action'];start=t;end=t+duration;start_y=y
- if action in ['walk','run','box_carry']:y+=g['distance_cm']
+ if action in ['walk','run','box_carry','carry_walk','climb_stairs']:y+=g['distance_cm']
  if action=='box_back':y-=g['distance_cm']
  if action=='sit_down':y-=seat_profile['back_cm']
  if action=='stand_up':y+=seat_profile['back_cm']
  if action=='jump':
   y+=70+g['gap_cm'];rocks.extend([{'y':start_y,'height':25},{'y':y,'height':25}])
  # box_back gets its own placeholder strip (consecutive walks share one strip); it becomes a reversed walk below.
- base='walk' if action in ['turn','box_carry'] else 'idle' if action.startswith('box_') else 'run' if action=='circle' else 'idle' if action in ['jump','hold_ball'] else action
- travel=abs(math.radians(g['angle_deg']))*g['radius_cm']/100 if action=='turn' else g.get('distance_cm',0)/100 if action in ['walk','run','box_carry','box_back'] else 2*math.pi*g['radius_cm']/100 if action=='circle' else 0
+ base='walk' if action in ['turn','box_carry','carry_walk','climb_stairs'] else 'idle' if action.startswith('box_') else 'run' if action=='circle' else 'idle' if action in ['jump','hold_ball'] else action
+ travel=abs(math.radians(g['angle_deg']))*g['radius_cm']/100 if action=='turn' else g.get('distance_cm',0)/100 if action in ['walk','run','box_carry','box_back','carry_walk','climb_stairs'] else 2*math.pi*g['radius_cm']/100 if action=='circle' else 0
  segment=dict(action=base,start=start,end=end,**{'from':[0,0,0],'to':[0,travel,0]},yaw_start=0,yaw_end=0,intensity=.3)
  if action in SIT_ACTIONS:segment.update(sit_segment(action))
  segments.append(segment)
@@ -92,7 +92,7 @@ for beat_index,g in enumerate(timeline):
   start=round(g['start']*fps)+1
   # Let the incoming stance settle before selecting its planted-foot anchors.
   # Otherwise a stop may pin a lifted foot from the walk/idle crossfade.
-  if beat_index and timeline[beat_index-1]['action'] in ['walk','run','circle','turn','box_carry','box_back']:start+=round(.65*fps)
+  if beat_index and timeline[beat_index-1]['action'] in ['walk','run','circle','turn','box_carry','box_back','carry_walk','climb_stairs']:start+=round(.65*fps)
   foot_reports.append(lock_feet(rig,start,round(g['end']*fps),fps))
 box_path=None
 if any(g['action'].startswith('box_') for g in timeline) or p.get('box_state'):
@@ -144,7 +144,7 @@ meshes=[o for o in s.objects if o.type=='MESH' and any(m.type=='ARMATURE' and m.
 feet_bones=[b for b in rig.pose.bones if b.name.endswith(('LeftFoot','RightFoot'))];feet_rest=min((rig.matrix_world@b.bone.head_local).z for b in feet_bones)
 route=[];previous_yaw=0
 # Lion walking shots get the Tail bone too (see tail_rig.py); the old tail dragged below the feet and lifted the whole body.
-tail_walk=p['character']=='lion' and not sitting and all(g['action'] in ('idle','talk','walk','run','circle') for g in timeline)
+tail_walk=p['character']=='lion' and not sitting and all(g['action'] in ('idle','talk','walk','run','circle','carry_walk','climb_stairs') for g in timeline)
 if tail_walk:
  import numpy as np
  from tail_rig import _tail_vertices
@@ -156,7 +156,7 @@ if any(g['action']=='turn' for g in timeline) or p.get('motion_heading'):
  turn_path=make_turn_route(p['segments'],fps,p.get('facing_yaw_deg',0))
 for f in range(frames):
  time=f/fps;g=next((g for g in timeline if g['start']<=time<g['end']),timeline[-1]);u=max(0,min(1,(time-g['start'])/(g['end']-g['start'])));x=0;y=g['start_y'];yaw=0;arc=0;ground=0
- if g['action'] in ['walk','run','box_carry']:y+=(g['end_y']-y)*eased(segments,timeline.index(g),u)
+ if g['action'] in ['walk','run','box_carry','carry_walk','climb_stairs']:y+=(g['end_y']-y)*eased(segments,timeline.index(g),u)
  if g['action'] in ['sit_down','stand_up']:y+=(g['end_y']-y)*(1-back_fraction(g['action'],time-g['start']) if g['action']=='stand_up' else back_fraction(g['action'],time-g['start']))
  if g['action']=='circle':
   a=2*math.pi*u;x=g['radius_cm']*(1-math.cos(a));y+=g['radius_cm']*math.sin(a);yaw=-math.degrees(a)
@@ -164,6 +164,8 @@ for f in range(frames):
   v=max(0,min(1,((time-g['start'])*fps-15)/15));y+=(g['end_y']-y)*v;arc=38*4*v*(1-v);ground=25
  if rocks and g['action']!='jump':
   ground=25 if any(abs(y-r['y'])<=35 for r in rocks) else 0
+ if g['action']=='climb_stairs':
+  import contact_actions;ground=contact_actions.stairs_height(y-g['start_y'])
  if p.get('partner_gaze'):yaw=p['partner_gaze']['body_yaw_deg']
  else:yaw+=p.get('facing_yaw_deg',0)
  if turn_path:
@@ -181,7 +183,11 @@ for f in range(frames):
   e=tail_body.evaluated_get(deps);co=np.empty(len(e.data.vertices)*3);e.data.vertices.foreach_get('co',co);Wm=np.array(e.matrix_world)
   minimum=min([float((co.reshape(-1,3)[keep]@Wm[2,:3]+Wm[2,3]).min())]+[min((o.evaluated_get(deps).matrix_world@Vector(v)).z for v in o.evaluated_get(deps).bound_box) for o in meshes if o is not tail_body]);ground_levels[f+1]=minimum
  else:minimum=min(min((o.evaluated_get(deps).matrix_world@Vector(v)).z for v in o.evaluated_get(deps).bound_box) for o in meshes)
- route.append({'frame':f,'location_cm':[x,y,ground+arc-minimum*100],'yaw':yaw})
+ zr=ground+arc-minimum*100
+ if g['action']=='climb_stairs':
+  # Lift the root just enough that neither foot sinks into the step under it (feet are not IK-planted).
+  zr=max(contact_actions.stairs_height(y+(-(rig.matrix_world@b.head).y*100)-g['start_y'])+5-(rig.matrix_world@b.head).z*100 for b in feet_bones)
+ route.append({'frame':f,'location_cm':[x,y,zr],'yaw':yaw})
 bpy.ops.object.select_all(action='DESELECT');rig.select_set(True);bpy.context.view_layer.objects.active=rig
 bpy.ops.nla.bake(frame_start=1,frame_end=frames,step=1,only_selected=False,visual_keying=True,clear_constraints=True,use_current_action=False,bake_types={'POSE'})
 for tr in rig.animation_data.nla_tracks:tr.mute=True
@@ -216,6 +222,8 @@ if sitting:
 if tail_walk:
  from tail_rig import rig_tail
  tail_report=rig_tail(s,rig,tail_body,list(range(1,frames+1)),lambda frame:(lambda P,level=ground_levels[frame]:np.full(len(P),level)),fps=fps);(D/'tail-check.json').write_text(json.dumps(tail_report))
+import contact_actions
+contact_actions.apply_all(s,rig,max(meshes,key=lambda o:len(o.data.vertices)),timeline,fps,D,p,route)
 if any(g['action']=='phone' for g in timeline):
  import phone_actions
  phone_actions.apply(s,rig,max(meshes,key=lambda o:len(o.data.vertices)),timeline,fps,D)

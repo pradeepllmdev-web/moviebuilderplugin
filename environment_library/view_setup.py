@@ -1,7 +1,7 @@
 """Blender GUI startup for quick_review --open: frame the lion, hide helper clutter, add bench/table proxies, play.
 blender scene.blend --python view_setup.py -- <folder>"""
 import bpy,json,os,sys
-D=sys.argv[sys.argv.index('--')+1]
+args=sys.argv[sys.argv.index('--')+1:];D=args[0];MODE=args[1] if len(args)>1 else 'single'
 def proxies():
  s=bpy.context.scene
  def box(name,size,location,color):
@@ -18,18 +18,23 @@ def setup():
  s=bpy.context.scene;rig=next(o for o in s.objects if o.type=='ARMATURE')
  for o in s.objects:
   if o.type=='EMPTY' or o.type=='CAMERA' or o.type=='LIGHT':o.hide_set(True)
-  if o.type=='MESH' and o.parent is None and not any(m.type=='ARMATURE' for m in o.modifiers) and not o.name.startswith('Proxy'):o.hide_set(True)
+  if MODE=='single' and o.type=='MESH' and o.parent is None and not any(m.type=='ARMATURE' for m in o.modifiers) and not o.name.startswith('Proxy'):o.hide_set(True)
  proxies();s.frame_set(1)
  for window in bpy.context.window_manager.windows:
   for area in window.screen.areas:
    if area.type=='VIEW_3D':
-    space=area.spaces[0];space.overlay.show_relationship_lines=False;space.overlay.show_bones=False;space.shading.type='SOLID';space.shading.color_type='TEXTURE';space.clip_end=100;space.overlay.show_floor=True
+    space=area.spaces[0];space.overlay.show_relationship_lines=False;space.overlay.show_bones=False;space.shading.type='SOLID';space.shading.color_type='TEXTURE';space.clip_end=300;space.overlay.show_floor=True
     region=next(r for r in area.regions if r.type=='WINDOW')
     with bpy.context.temp_override(window=window,area=area,region=region,scene=s):
      bpy.ops.object.select_all(action='DESELECT')
      for o in s.objects:
-      if o.type=='MESH' and not o.hide_get():o.select_set(True)
-     bpy.ops.view3d.view_axis(type='RIGHT');bpy.ops.view3d.view_selected(use_all_regions=False)
+      if o.type=='MESH' and not o.hide_get() and o.name!='Ground' and MODE=='single':o.select_set(True)
+     if MODE=='movie':bpy.ops.view3d.view_camera()
+     else:
+      bpy.ops.view3d.view_axis(type='BACK' if MODE=='gallery' else 'RIGHT')
+      if MODE=='gallery':
+       for o in s.objects:o.select_set(o.type=='ARMATURE')
+      bpy.ops.view3d.view_selected(use_all_regions=False)
      bpy.ops.object.select_all(action='DESELECT')
   bpy.ops.screen.animation_play()
  return None
