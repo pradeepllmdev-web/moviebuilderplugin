@@ -27,6 +27,11 @@ LESSONS=[
  dict(id='dust_scale',symptom='Dust puffs look like balloons.',cause='Puff size not tied to the animal.',rule='Size puffs by creature (raptor .18, triceratops .55) and by speed; splashes in water use a blue material.'),
  dict(id='visibility_windows',symptom='Characters or props pop in and out or two copies overlap.',cause='Hide keys set on both groups at the same frames.',rule='Use one rig with sequential NLA strips (ship scene) or exact non-overlapping visibility windows (dino scene).'),
 
+ dict(id='grip_ik',symptom='Climbing looks like a walk cycle; hands float near holds.',cause='No contact: limbs were never tied to anything.',rule='Place holds procedurally (right hand, left foot, left hand, right foot, step 0.33 m, hand wrist 1.12..1.45 m and ankle 0.26..0.49 m above the root) and IK the forearm and shin bones (chain 2, poles for elbows and knees) to the hold they are planted on; cliff_scene.limb_eval handles hold-to-hold, hold-to-rope and free transitions. The audit measures wrist and ankle bone against the target (limit 7 cm).'),
+ dict(id='grip_transitions',symptom='Hands or feet miss targets right after a mode change (landing, mounting, turning).',cause='The root keeps moving while a planted foot target is fixed, or the body turns away from a planted target.',rule='Start rising only after a mount crossfade finishes (0.5 s); end plants before the body turns; keep planted targets within 0.4 m of the hip.'),
+ dict(id='rigid_bodies',symptom='Rocks never fall, or all fall at once.',cause='They rest on a collision shelf; kinematic flag not keyed.',rule='Active rocks start kinematic and get the flag keyed off at their release time; no collider under them; bake with ptcache.bake_all and read the baked positions for impact sounds.'),
+ dict(id='pendulum',symptom='Rope swing looks arbitrary.',cause='Hand-keyed arc.',rule='Use the exact pendulum: half period pi*sqrt(L/g), amplitude from the start and end x; choose anchor so both ends are reachable and the landing lines up with the next climb column.'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)

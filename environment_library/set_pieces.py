@@ -21,6 +21,10 @@ SET_PIECES={
   needs=['scenes/ship_assets (python build_ship_assets.py)'],
   beats='lion on a rocking ship climbs the mast, cuts a cloth sail, falls, fights a sea serpent, lightning ends it, calm (60 s, 13 cameras, sound)',
   limits='climbing is a walk cycle on a ladder, hands do not grip, serpent is chunky spheres, rain is thin'),
+ 'cliff_rescue':dict(title='The Cliff Rescue',script='cliff_scene.py',keywords=r'cliff|rock face|rock climb|free.?climb|rappel|abseil|rope swing|stranded cub|lost cub',
+  needs=['scenes/ship_assets (python build_ship_assets.py; needs the pick clip)'],
+  beats='lion free-climbs a cliff on real hand and foot holds, swings across a gap on a rope, climbs on while rocks fall, lifts a cub onto his back and rappels down as the rope frays (62 s, 12 cameras, sound)',
+  limits='rappel feet slide instead of hopping, hands do not wrap the rope, wall is low poly, rocks do not hit the climber'),
  'horse_herd':dict(title='Horse herd',script='horse_herd.py',keywords=r'herd of horses|horse herd|galloping horses|wild horses|stampede',
   needs=['assets/quaternius_farm_animals_download (CC0 "Farm Animals Animated" by Quaternius; ask before downloading)'],
   beats='aerial herd of 70 galloping horses along a river toward mountains (16 s, 5 cameras, sound)',limits='no riders, foals are scaled copies'),
@@ -40,7 +44,7 @@ def missing(piece):
  if piece=='last_egg':
   if not DINO_DIR.is_dir():gone.append('dinosaur pack: '+SET_PIECES[piece]['needs'][0])
   if not (H/'scenes/dino_assets/leo_run.blend').exists():gone.append('lion clips: python build_leo_assets.py')
- elif piece=='storm_ship':
+ elif piece in('storm_ship','cliff_rescue'):
   if not (H/'scenes/ship_assets/leo_idle.blend').exists():gone.append('lion clips: python build_ship_assets.py')
  elif piece in('horse_herd','rider'):
   if not horse_blend().exists():gone.append('horse pack: '+SET_PIECES['horse_herd']['needs'][0])
@@ -51,7 +55,7 @@ def command(piece,out,seconds=None):
  b=[quick_review.BLENDER,'-b','--disable-autoexec','--python',str(H/SET_PIECES[piece]['script']),'--']
  tail=[str(seconds)] if seconds else []
  if piece=='last_egg':return b+[str(DINO_DIR),str(H/'scenes/dino_assets'),str(out)]+tail
- if piece=='storm_ship':return b+[str(H/'scenes/ship_assets'),str(out)]+tail
+ if piece in('storm_ship','cliff_rescue'):return b+[str(H/'scenes/ship_assets'),str(out)]+tail
  if piece=='horse_herd':return b+[str(horse_blend()),str(out),'64']+tail
  return b+[str(horse_blend()),str(H/'scenes/lion_source.blend'),str(out),str(seconds or 22),'lion']
 def build(piece,out=None,seconds=None):

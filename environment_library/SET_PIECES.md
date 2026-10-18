@@ -18,6 +18,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: climbing is a walk cycle on a ladder, hands do not grip, serpent is chunky spheres, rain is thin
 * prompt keywords: `\bship\b|\bsailing\b|\bpirate|sea serpent|kraken|storm at sea|\bmast\b`
 
+## The Cliff Rescue (`cliff_rescue`)
+
+* script: `cliff_scene.py`
+* story: lion free-climbs a cliff on real hand and foot holds, swings across a gap on a rope, climbs on while rocks fall, lifts a cub onto his back and rappels down as the rope frays (62 s, 12 cameras, sound)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs the pick clip)
+* known limits: rappel feet slide instead of hopping, hands do not wrap the rope, wall is low poly, rocks do not hit the climber
+* prompt keywords: `cliff|rock face|rock climb|free.?climb|rappel|abseil|rope swing|stranded cub|lost cub`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`
@@ -58,3 +66,7 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 | rider_seat | Rider POV looks at his own face; stirrups and knees inside the horse. | Camera yaw must be heading minus pi/2; stirrup empties placed at the body surface. | Move stirrups outward, tune knee/rein/lean per rider kind (KINDS in rider_scene.py), use IK seat for animals instead of bench Sit clips. |
 | dust_scale | Dust puffs look like balloons. | Puff size not tied to the animal. | Size puffs by creature (raptor .18, triceratops .55) and by speed; splashes in water use a blue material. |
 | visibility_windows | Characters or props pop in and out or two copies overlap. | Hide keys set on both groups at the same frames. | Use one rig with sequential NLA strips (ship scene) or exact non-overlapping visibility windows (dino scene). |
+| grip_ik | Climbing looks like a walk cycle; hands float near holds. | No contact: limbs were never tied to anything. | Place holds procedurally (right hand, left foot, left hand, right foot, step 0.33 m, hand wrist 1.12..1.45 m and ankle 0.26..0.49 m above the root) and IK the forearm and shin bones (chain 2, poles for elbows and knees) to the hold they are planted on; cliff_scene.limb_eval handles hold-to-hold, hold-to-rope and free transitions. The audit measures wrist and ankle bone against the target (limit 7 cm). |
+| grip_transitions | Hands or feet miss targets right after a mode change (landing, mounting, turning). | The root keeps moving while a planted foot target is fixed, or the body turns away from a planted target. | Start rising only after a mount crossfade finishes (0.5 s); end plants before the body turns; keep planted targets within 0.4 m of the hip. |
+| rigid_bodies | Rocks never fall, or all fall at once. | They rest on a collision shelf; kinematic flag not keyed. | Active rocks start kinematic and get the flag keyed off at their release time; no collider under them; bake with ptcache.bake_all and read the baked positions for impact sounds. |
+| pendulum | Rope swing looks arbitrary. | Hand-keyed arc. | Use the exact pendulum: half period pi*sqrt(L/g), amplitude from the start and end x; choose anchor so both ends are reachable and the landing lines up with the next climb column. |
