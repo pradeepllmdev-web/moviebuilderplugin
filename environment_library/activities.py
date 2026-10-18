@@ -31,7 +31,6 @@ GESTURES={
  'laugh':(r'\blaugh\w*','laughs'),
  'hands_on_hips':(r'\bhands on (?:his |its |their )?hips\b','stands with hands on hips'),
  'look_around':(r'\blooks? around\b|\bscans? the\b','looks around'),
- 'phone':(r'\bphone\b|\bcalls?\b','talks on a phone'),
  'pick_up':(r'\bpicks? up\b|\bbends? down\b','bends down to pick something up'),
  'open_door':(r'\bopens? the door\b','opens a door'),
  'push':(r'\bpush(?:es|ing)?\b','pushes forward'),
@@ -52,7 +51,7 @@ GESTURES={
  'argue':(r'\barg(?:ues?|uing)\b','argues angrily'),
 }
 for _name,(_regex,_what) in GESTURES.items():
- ACTIVITIES[_name]=dict(beats={_name:dict(action=_name)},seated=[],module=None,characters=['lion'],family='clip',planner=None,
+ ACTIVITIES[_name]=dict(beats={_name:dict(action=_name)},seated=[],module=None,characters=['lion','cat','rowan'],family='clip',planner=None,
   request=_regex,requires=_name,min_duration=2,max_duration=8,test_beats=[('idle',2),(_name,4),('idle',2)],what=_what,check_request=False)
 # Observed gaps: motions people ask for that the lion has no clip for. The planner reports them in `unsupported`
 # instead of substituting something else, and require_requested_controls enforces it.
@@ -64,11 +63,12 @@ UNSUPPORTED={
 # Things that pass the Blender checks but have not been judged on screen; shown in capabilities, never enforced.
 CAVEATS={
  'laugh':'uses the shared agree-gesture clip, so it reads like nodding',
- 'phone':'no phone prop yet unless built with the prop pass','pick_up':'no object to pick up yet','open_door':'no door yet',
+ 'phone':'phone is a plain box in the hand; no Unreal prop yet','pick_up':'no object to pick up yet','open_door':'no door yet',
  'fall_back':'ends low on the ground; review in Unreal','get_up':'starts low on the ground; review in Unreal','lie_down':'ends on the ground; review in Unreal',
  'sleep':'lying pose; review in Unreal','crawl':'low body; review in Unreal','kneel':'low body; review in Unreal',
  'drink':'cup stays on a low table, hand rests beside it (the lion cannot lift a cup to its muzzle)',
 }
+ACTIVITIES['phone']=dict(beats={'phone':dict(action='phone')},seated=[],module='phone_actions',characters=['lion','cat','rowan'],family='clip',planner=None,request=r'\bphone\b|\bphon(?:es|ing)\b|\bmakes? a call\b',requires='phone',min_duration=3,max_duration=8,test_beats=[('idle',2),('phone',5),('idle',2)],what='talks on a phone held to its ear',check_request=False)
 BASE_SIT=('sit_down','sit','sit_talk','stand_up')
 def summary():
  """Machine-readable list for the studio capabilities endpoint, so every client (3dobjectnew, the editor) sees the same set."""
@@ -85,7 +85,7 @@ def beats(family=None):
 def seated_beats():return {n for a in ACTIVITIES.values() for n in a['seated']}
 def extra_actions(family=None):return [n for key,a in ACTIVITIES.items() if family in (None,_family(key)) for n in a['beats'] if n not in BASE_SIT]
 def planner_text():
- gestures='; '.join(f'{n} ({w})' for n,(r,w) in GESTURES.items())
+ gestures='; '.join(f"{k} ({a['what']})" for k,a in ACTIVITIES.items() if a.get('family')=='clip')
  missing='; '.join(f'{k} ({why.split(";")[0]})' for k,(rx,why) in UNSUPPORTED.items())
  return ' '.join(a['planner'] for a in ACTIVITIES.values() if a.get('planner'))+' The lion has no clip for: '+missing+'. Never substitute another motion for these: describe the request in unsupported and keep a plain idle/talk beat. A character who only listens uses idle with look_at partner. Standing gestures (2..8 s, in place, lion, full or medium camera, dialogue allowed): '+gestures+'. Use them instead of idle when the user asks for the gesture; do not combine with locomotion inside the beat.'
 def request_checks():return [(a['request'],a['requires']) for a in ACTIVITIES.values()]

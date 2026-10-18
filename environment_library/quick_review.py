@@ -46,6 +46,8 @@ def summary(folder):
  if c:lines.append(f"seat       top={c['top_cm']}cm spread={c['spread_cm']}cm at lateral {c['lateral_cm']} forward {c['forward_cm']} lean_capped={sum(c.get('lean_capped_frames',{}).values())}")
  c=read('tail-check.json')
  if c:lines.append(f"tail       ok={c['ok']} lift_max={c.get('max_lift_deg')}deg verts={c.get('tail_vertices')}")
+ c=read('phone-check.json')
+ if c:lines.append(f"phone      ok={c['ok']} hand={c['hand']} phone_to_head={c['closest_to_head_cm']}cm hand_to_head={c['hand_to_head_closest_cm']}cm")
  c=read('gesture-check.json')
  if c:lines.append(f"gesture    ok={c['ok']} clips={c['clips']} hand travel L/R={c['travel_cm']['LeftHand']}/{c['travel_cm']['RightHand']}cm peak above head L/R={c['left_hand_peak_above_head_cm']}/{c['right_hand_peak_above_head_cm']}cm")
  c=read('drink-check.json')
@@ -73,9 +75,11 @@ def run_all(names,character='lion'):
   """Every named activity in parallel Blender processes; one PASS/FAIL line each from its own checks."""
   import activities,body_measures
   from concurrent.futures import ThreadPoolExecutor
-  if not body_measures.load(character):build_shot(activity_plan('sit',character),0,'side',None,False)
-  measures=body_measures.load(character);threads=max(1,(os.cpu_count() or 8)//8);results={}
+  seat_needed=any(n in ('sit','drink') and character in activities.ACTIVITIES[n]['characters'] for n in names)
+  if seat_needed and not body_measures.load(character):build_shot(activity_plan('sit',character),0,'side',None,False)
+  measures=body_measures.load(character) or {};threads=max(1,(os.cpu_count() or 8)//8);results={}
   def one(n):
+   if character not in activities.ACTIVITIES[n]['characters']:return n,None,'not calibrated for '+character
    verdict=activities.feasibility(n,measures)
    if not verdict.get('ok'):return n,False,'infeasible: '+str(verdict.get('reason'))
    lines=build_shot(activity_plan(n,character),0,'side',None,False,threads);text=chr(10).join(lines)
@@ -87,7 +91,7 @@ def run_all(names,character='lion'):
     clips=ast.literal_eval(g[g.index('['):g.index(']')+1]);played=next((c.split('|')[1].split(' ')[0] for c in clips if 'Idle' not in c and 'Guard' not in c),'?');return n,True,'clip '+played+' '+g[g.index('hand travel'):].strip()
    return n,True,' '.join(l.strip()[:90] for l in lines if l.strip().startswith('drink'))
   with ThreadPoolExecutor(8) as pool:
-   return [f"{'PASS' if ok else 'FAIL'} {n}: {detail}" for n,ok,detail in pool.map(one,names)]
+   return [f"{'SKIP' if ok is None else 'PASS' if ok else 'FAIL'} {n}: {detail}" for n,ok,detail in pool.map(one,names)]
 
 def run_activity(args):
  """Instant feasibility from cached body measurements, then a one-shot Blender build with its checks."""

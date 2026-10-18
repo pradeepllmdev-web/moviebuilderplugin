@@ -65,3 +65,9 @@ class KnowledgeTests(unittest.TestCase):
   catalog=activities.summary()
   self.assertEqual(set(catalog['activities']),set(activities.ACTIVITIES));self.assertIn('cry',catalog['unsupported'])
   self.assertTrue(catalog['activities']['drink']['seated']);self.assertIn('lift a cup',catalog['activities']['drink']['caveat'])
+class CharacterTests(unittest.TestCase):
+ def test_clip_activities_declare_their_characters(self):
+  for name,a in activities.ACTIVITIES.items():
+   self.assertTrue(a['characters']);self.assertIn('lion',a['characters'])
+   if a.get('family')=='clip':self.assertEqual(set(a['characters']),{'lion','cat','rowan'})
+  self.assertEqual(activities.ACTIVITIES['drink']['characters'],['lion'])

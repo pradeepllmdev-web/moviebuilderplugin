@@ -216,6 +216,9 @@ if sitting:
 if tail_walk:
  from tail_rig import rig_tail
  tail_report=rig_tail(s,rig,tail_body,list(range(1,frames+1)),lambda frame:(lambda P,level=ground_levels[frame]:np.full(len(P),level)),fps=fps);(D/'tail-check.json').write_text(json.dumps(tail_report))
+if any(g['action']=='phone' for g in timeline):
+ import phone_actions
+ phone_actions.apply(s,rig,max(meshes,key=lambda o:len(o.data.vertices)),timeline,fps,D)
 from pose_continuity import blend_previous_pose,save_pose
 blend_previous_pose(s,rig,p.get('carry_pose'),fps)
 if any(g['action']=='hold_ball' for g in timeline):
