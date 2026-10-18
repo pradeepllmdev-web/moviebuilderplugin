@@ -21,6 +21,12 @@ LESSONS=[
  dict(id='contact_audio',symptom='Footsteps and dust do not match the animals.',cause='Constant-rate sound.',rule='Sample foot bone heights per frame, take contacts, and use those times for dust, splashes and sound.'),
  dict(id='no_mp4',symptom='Previews take minutes.',cause='Rendering video.',rule='Never render mp4 for previews; open the .blend with previs.open_viewer (closes earlier viewers) and check stills.'),
  dict(id='downloads',symptom='Assets missing on another machine.',cause='Downloaded CC0 packs are not committed.',rule='Ask before downloading, extract into their own new folder, never run code from them, list the pack and licence in the docs (set_pieces.py reports what is missing).'),
+ dict(id='user_preferences',symptom='Wasted time on renders, stale windows, aimless motion.',cause='Standing preferences of the author.',rule='No mp4 renders (open the .blend); close earlier Blender viewers when opening a new one; no hand or leg motion without a purpose or dialogue; larger rooms and themed props; fix issues by automatic checks, not by hand each time; keep sessions fast and cheap with numeric checks and few images.'),
+ dict(id='shared_action',symptom='Every horse in a herd runs in lockstep or stands still.',cause='Rig copies share one action.',rule='Call animation_data_clear() on each copy and give each its own NLA strip with a random phase.'),
+ dict(id='rider_seat',symptom='Rider POV looks at his own face; stirrups and knees inside the horse.',cause='Camera yaw must be heading minus pi/2; stirrup empties placed at the body surface.',rule='Move stirrups outward, tune knee/rein/lean per rider kind (KINDS in rider_scene.py), use IK seat for animals instead of bench Sit clips.'),
+ dict(id='dust_scale',symptom='Dust puffs look like balloons.',cause='Puff size not tied to the animal.',rule='Size puffs by creature (raptor .18, triceratops .55) and by speed; splashes in water use a blue material.'),
+ dict(id='visibility_windows',symptom='Characters or props pop in and out or two copies overlap.',cause='Hide keys set on both groups at the same frames.',rule='Use one rig with sequential NLA strips (ship scene) or exact non-overlapping visibility windows (dino scene).'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)
