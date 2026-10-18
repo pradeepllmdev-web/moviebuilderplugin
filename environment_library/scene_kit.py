@@ -45,6 +45,10 @@ LESSONS=[
  dict(id='jump_physics',symptom='Jumps look floaty or like a hop.',cause='The pipeline Jump clip keeps the feet on the ground (the arc comes from the route), no crouch or tuck.',rule='Apex from flight time (flight_apex = g T^2 / 8), parabola from ballistic(), and jump_profile() for crouch 0.3 s before take-off, stretch, foot tuck by IK (+0.30 m at the top), reach, and a landing dip; flight time 0.7 s gives a 0.60 m apex.'),
  dict(id='crowds',symptom='Crowds are either cones or too heavy.',cause='Full characters per spectator are expensive.',rule='Tiers: far rows are simple cones grouped in sections that bob together (12 sections, keyed per frame); the front rows are real animated lions made with clone_character (shared mesh data, own armature, random clip phase via negative strip start, tint per clone): 24 clones evaluate a frame in 0.01 s. For thousands use Unreal Mass or Niagara with a vertex-animation texture, with Blender only authoring the clips.'),
 
+ dict(id='palm_lock',symptom='Wrestling or hugging lions merge into one body; hands sink into the shoulders.',cause='Grips aimed at the shoulder bones of a body 0.6 m away.',rule='Palm-to-palm lockup at 1.45 m root spacing: the senior rival wrists go to the midpoint of both root paths (1.2 m high, 0.2 m left and right) and the other lion wrists copy his HAND bones (one-way, no cycle); both lean 0.22 rad. Verify numerically: wrist to target 0 cm, shoulder to wrist 0.37..0.43 m (arm length 0.5).'),
+ dict(id='planted_feet',symptom='Feet skate during a grapple.',cause='The body moves, the feet follow the root.',rule='plan_feet in arena_scene: IK feet stay where they are and step (0.3 s, 0.1 m lift) only when the body is 0.3 m away, one foot at a time; influence ramps 0.3 s in and out.'),
+ dict(id='landing_room',symptom='A thrown or fallen character gets up inside the other one.',cause='Landing spot too close.',rule='Land 1.6 m behind the thrower and move the winner 2.5 m away before the loser gets up; the audit checks body-bone distance (limit 10 cm).'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)

@@ -77,8 +77,8 @@ nla(Rrig,[('idle',0,2,'loop'),('climb',2,6,'loop'),('idle',6,9,'loop'),('run',9,
  ('fall',23.6,26.6,'fit','hold'),('getup',28.2,31.2,'fit'),('idle',31.2,32.6,'loop'),('run',32.6,34.9,'loop'),('jump',34.9,36.4,'fit'),('idle',36.4,42.0,'loop'),('getup',42.0,45.0,'fit'),('idle',45.0,46.4,'loop'),('bow',46.4,49.4,'fit'),('idle',49.4,seconds,'loop')])
 # ---------------------------------------------------------------------------------------------------------- choreography: waypoint paths plus grapple and throw overrides
 PI=math.pi
-WP={'leo':[(0,-13,0,0),(2,-13,0,0),(6,-2.4,0,0),(10.5,-2.4,0,0),(10.9,-2.9,0,0),(15.0,-2.9,0,0),(16.6,-1.51,0,0),(22.2,-2.51,0,0),(23.0,-2.6,1.0,0),(24.8,-2.6,1.0,0),(25.4,-3.0,1.3,PI),(28.4,-6.5,.2,PI),(29.8,-6.5,.2,0),(36.5,-6.5,.2,0),(38.4,-4.6,.2,0),(seconds,-4.6,.2,0)],
- 'riv':[(0,13,0,PI),(2,13,0,PI),(6,2.4,0,PI),(9.0,2.4,0,PI),(10.1,-1.9,0,PI),(12.0,-1.9,0,PI),(13.0,-1.9,0,PI),(13.7,-1.2,0,PI),(15.0,-1.2,0,PI),(16.6,-.89,0,PI),(22.2,-1.89,0,PI),(23.4,-1.89,0,PI),(24.6,-2.3,0,PI),(32.6,-2.3,0,PI),(34.6,-5.88,0,PI),(seconds,-5.88,0,PI)]}
+WP={'leo':[(0,-13,0,0),(2,-13,0,0),(6,-2.4,0,0),(10.5,-2.4,0,0),(10.9,-2.9,0,0),(15.0,-2.9,0,0),(16.6,-1.925,0,0),(22.2,-2.925,0,0),(23.0,-2.925,1.0,0),(24.8,-2.925,1.0,0),(25.4,-3.0,1.3,PI),(28.4,-6.5,.2,PI),(29.8,-6.5,.2,0),(36.5,-6.5,.2,0),(38.4,-3.9,.2,0),(seconds,-3.9,.2,0)],
+ 'riv':[(0,13,0,PI),(2,13,0,PI),(6,2.4,0,PI),(9.0,2.4,0,PI),(10.1,-1.9,0,PI),(12.0,-1.9,0,PI),(13.0,-1.9,0,PI),(13.7,-1.2,0,PI),(15.0,-1.2,0,PI),(16.6,-.475,0,PI),(22.2,-1.475,0,PI),(23.4,-1.475,0,PI),(24.6,-2.3,0,PI),(32.6,-2.3,0,PI),(34.6,-5.05,0,PI),(seconds,-5.05,0,PI)]}
 def wp_state(key,t):
  w=WP[key]
  if t<=w[0][0]:return Vector((w[0][1],w[0][2],0)),w[0][3]
@@ -91,11 +91,11 @@ def grap(t):
  """Both lions face each other at 0.62 m, circle, then the rival drives Leo back."""
  phi=.5*math.sin((t-16.8)*1.1) if t>=16.8 else 0.
  push=smooth((t-20.2)/1.6);M=GM0+Vector((-1.0*push,0,0));ax=Vector((math.cos(phi),math.sin(phi),0))
- return M-ax*.31,phi,M+ax*.31,phi+PI,push
+ return M-ax*.725,phi,M+ax*.725,phi+PI,push
 THROW=(34.9,36.4)
 def throw_state(t):
  """Rival over Leo's shoulder: arc, 270 degree forward flip, lands on his back behind Leo."""
- lp,lh=wp_state('leo',t);u=smooth((t-THROW[0])/(THROW[1]-THROW[0]));start=Vector((lp.x+.62,lp.y,0));end=Vector((lp.x-1.15,lp.y,.0))
+ lp,lh=wp_state('leo',t);u=smooth((t-THROW[0])/(THROW[1]-THROW[0]));start=Vector((lp.x+1.45,lp.y,0));end=Vector((lp.x-1.6,lp.y,.0))
  pos=start.lerp(end,u);pos.z=2.3*math.sin(PI*u)+.30*u
  return pos
 def fighter_state(key,t):
@@ -103,12 +103,12 @@ def fighter_state(key,t):
  pos,h=wp_state(key,t);pitch=0.;rot=None
  if 16.0<=t<22.2:
   a=smooth((t-16.0)/.8)*(1-smooth((t-22.0)/.2));lp,lh,rp,rh,push=grap(t);gp,gh=(lp,lh) if key=='leo' else (rp,rh)
-  pos=pos.lerp(gp,a);dh=(gh-h+PI)%(2*PI)-PI;h=h+dh*a;pitch=(.18+.12*push*(1 if key=='riv' else -1))*a
+  pos=pos.lerp(gp,a);dh=(gh-h+PI)%(2*PI)-PI;h=h+dh*a;pitch=(.22+.10*push*(1 if key=='riv' else -1))*a
  if key=='leo' and THROW[0]-.6<=t<=THROW[1]+.6:pitch=.35*smooth((t-34.6)/.6)*(1-smooth((t-35.6)/.6))
  if key=='riv' and THROW[0]<=t<=THROW[1]:
   pos=throw_state(t);u=smooth((t-THROW[0])/(THROW[1]-THROW[0]));rot=(Matrix.Rotation(-1.5*PI*u,3,'Y')@Matrix.Rotation(PI+PI/2,3,'Z')).to_euler()
  if key=='riv' and t>THROW[1] and t<42.0:
-  lp,lh=wp_state('leo',THROW[1]);pos=Vector((lp.x-1.15,lp.y,0));rot=(Matrix.Rotation(-1.5*PI,3,'Y')@Matrix.Rotation(PI+PI/2,3,'Z')).to_euler()
+  lp,lh=wp_state('leo',THROW[1]);pos=Vector((lp.x-1.6,lp.y,0));rot=(Matrix.Rotation(-1.5*PI,3,'Y')@Matrix.Rotation(PI+PI/2,3,'Z')).to_euler()
  if rot is None:rot=Euler((pitch,0,h+PI/2))
  return pos,rot
 OFF={'leo':[],'riv':[]};ZL={'leo':{},'riv':{}}
@@ -130,30 +130,60 @@ def apply_all():
    if prev[key] is not None and isinstance(r,Euler):r=r.copy();r.make_compatible(prev[key])
    prev[key]=r;root=FIG[key]['root'];root.location=p;root.rotation_euler=r;root.keyframe_insert('location',frame=f);root.keyframe_insert('rotation_euler',frame=f)
 apply_all()
-# ---------------------------------------------------------------------------------------------------------- IK grips on the opponent's shoulders
-def make_ik(key,other):
- rig=FIG[key]['rig'];orig=FIG[other]['rig'];root=FIG[key]['root'];IK={}
- mapping={'LH':('LeftForeArm','RightShoulder' if key=='leo' else 'LeftShoulder'),'RH':('RightForeArm','LeftArm' if key=='leo' else 'RightArm')}
- # leo faces +x: his left hand meets the rival's right shoulder; the rival's left hand meets Leo's right shoulder
- if key=='riv':mapping={'LH':('LeftForeArm','RightShoulder'),'RH':('RightForeArm','LeftShoulder')}
- else:mapping={'LH':('LeftForeArm','RightShoulder'),'RH':('RightForeArm','LeftShoulder')}
- for limb,(bone,target_bone) in mapping.items():
-  tg=bpy.data.objects.new('Grip_%s_%s'%(key,limb),None);tg.empty_display_size=.06;link(tg)
-  cl=tg.constraints.new('COPY_LOCATION');cl.target=orig;cl.subtarget='mixamorig:'+target_bone;cl.head_tail=1.0   # the shoulder bone is not part of any IK chain, so the two rigs do not depend on each other in a cycle
-  pole=bpy.data.objects.new('Pole_%s_%s'%(key,limb),None);link(pole);pole.parent=root;sgn=1 if limb=='LH' else -1;pole.location=(.55*sgn,.55,1.0)
-  c=rig.pose.bones['mixamorig:'+bone].constraints.new('IK');c.target=tg;c.pole_target=pole;c.pole_angle=math.radians(-90 if limb=='LH' else 90);c.chain_count=2;c.use_stretch=False;IK[limb]=c
- return IK
-IKS={'leo':make_ik('leo','riv'),'riv':make_ik('riv','leo')}
-GRIPS=[(16.3,16.8,22.2,22.5),(34.4,34.9,35.6,35.9)]
-def grip_influence(t):
- v=0.
- for a,b,c,d in GRIPS:
-  v=max(v,smooth((t-a)/(b-a))*(1-smooth((t-c)/(d-c))) if t>=a else 0.)
- return v
+# ---------------------------------------------------------------------------------------------------------- IK: palm-to-palm lock (grapple, throw) and planted feet
+# The lions meet hands in the middle at 1.0 m apart instead of hugging: the rival's wrists go to the midpoint (a function of both root paths) and Leo's wrists copy the rival's HAND bones, so the
+# palms touch and nothing overlaps. Leo depends on the rival, never the other way round, so there is no dependency cycle.
+def make_ik(key):
+ rig=FIG[key]['rig'];root=FIG[key]['root'];IK={};TG={}
+ for limb,bone in (('LH','LeftForeArm'),('RH','RightForeArm'),('LF','LeftLeg'),('RF','RightLeg')):
+  tg=bpy.data.objects.new('Grip_%s_%s'%(key,limb),None);tg.empty_display_size=.06;link(tg);TG[limb]=tg
+  if key=='leo' and limb in ('LH','RH'):
+   cl=tg.constraints.new('COPY_LOCATION');cl.target=FIG['riv']['rig'];cl.subtarget='mixamorig:'+('RightHand' if limb=='LH' else 'LeftHand')
+  pole=bpy.data.objects.new('Pole_%s_%s'%(key,limb),None);link(pole);pole.parent=root;sgn=1 if limb[0]=='L' else -1
+  pole.location=((.55*sgn,.55,1.0) if limb[1]=='H' else (.45*sgn,-.9,.55))
+  c=rig.pose.bones['mixamorig:'+bone].constraints.new('IK');c.target=tg;c.pole_target=pole;c.pole_angle=math.radians(-90 if limb[0]=='L' else 90);c.chain_count=2;c.use_stretch=False;IK[limb]=c
+ return IK,TG
+IKS={};TGS={}
+for k_ in FIG:IKS[k_],TGS[k_]=make_ik(k_)
+GRIPS=[(16.3,16.8,22.2,22.5),(34.4,34.9,35.3,35.6)]
+PLANT={'leo':[(16.0,22.6),(34.2,36.2)],'riv':[(16.0,22.6)]}
+def smooth_win(t,a,b,c,d):return smooth((t-a)/(b-a))*(1-smooth((t-c)/(d-c))) if t>=a else 0.
+def grip_influence(t):return max([smooth_win(t,*g) for g in GRIPS]+[0.])
+def hand_midpoint(t):
+ L,_=state('leo',t);R,_=state('riv',t);M=(L+R)/2;ax=(R-L);ax.z=0;ax.normalize();return M+Vector((0,0,1.2)),Vector((-ax.y,ax.x,0))
+def plan_feet(key,windows):
+ """Planted feet: each foot stays where it is and steps (0.3 s, 0.1 m lift) only when the body has moved 0.3 m away; one foot at a time."""
+ sc=FIG[key]['scale'];plan={}
+ for t0,t1 in windows:
+  P={'L':None,'R':None};mv={'L':None,'R':None};f=F(t0)
+  while f<=F(t1):
+   t=(f-1)/fps;pos,rot=state(key,t);h=(rot.z-PI/2) if isinstance(rot,Euler) else 0.;fw=Vector((math.cos(h),math.sin(h),0));lf=Vector((-math.sin(h),math.cos(h),0))
+   for side,sg in (('L',1),('R',-1)):
+    want=pos+lf*sg*.14*sc+fw*.04;want.z=.12*sc
+    if P[side] is None:P[side]=want.copy()
+    other='R' if side=='L' else 'L'
+    if mv[side] is None and (P[side]-want).length>.30 and mv[other] is None:mv[side]=(t,P[side].copy(),want+fw*.10)
+    cur=P[side].copy()
+    if mv[side]:
+     u=(t-mv[side][0])/.3
+     if u>=1:P[side]=mv[side][2].copy();mv[side]=None;cur=P[side].copy()
+     else:cur=mv[side][1].lerp(mv[side][2],smooth(u));cur.z=.12*sc+.10*math.sin(math.pi*u)
+    plan[(side,f)]=cur
+   f+=2
+ return plan
+FEET={k_:plan_feet(k_,PLANT[k_]) for k_ in PLANT}
 for f in range(1,frames+1,2):
- t=(f-1)/fps;v=grip_influence(t)
- for key in IKS:
-  for c in IKS[key].values():c.influence=v;c.keyframe_insert('influence',frame=f)
+ t=(f-1)/fps;v=grip_influence(t);M,lat=hand_midpoint(t)
+ TGS['riv']['RH'].location=M+lat*.2;TGS['riv']['LH'].location=M-lat*.2
+ for k_ in ('riv',):
+  for limb in ('RH','LH'):TGS[k_][limb].keyframe_insert('location',frame=f)
+ for k_ in FIG:
+  for limb in ('LH','RH'):IKS[k_][limb].influence=v;IKS[k_][limb].keyframe_insert('influence',frame=f)
+  fv=max([smooth_win(t,a-.3,a,b,b+.3) for a,b in PLANT.get(k_,[])]+[0.])
+  for side in ('L','R'):
+   c=IKS[k_][side+'F']
+   if (side,f) in FEET.get(k_,{}):TGS[k_][side+'F'].location=FEET[k_][(side,f)];TGS[k_][side+'F'].keyframe_insert('location',frame=f)
+   c.influence=fv;c.keyframe_insert('influence',frame=f)
 # ---------------------------------------------------------------------------------------------------------- the contact solver
 def bone_w(rig,name,tail=False):
  pb=rig.pose.bones['mixamorig:'+name];return rig.matrix_world@(pb.tail if tail else pb.head)
@@ -202,11 +232,11 @@ def burst(f,x,y,size):
  o=bpy.data.objects.new('Puff',puff);link(o);o.data.materials.clear();o.data.materials.append(mat('Dust',(.6,.5,.36)))
  for fr,sc,dr in ((f-1,.001,0),(f+3,size,.25),(f+14,size*2.2,1.0),(f+30,.001,1.7)):
   o.location=(x,y,.15+dr*.3);o.scale=(sc,sc*.9,sc*.7);o.keyframe_insert('location',frame=fr);o.keyframe_insert('scale',frame=fr)
-for f,x,y,k in contacts:burst(f,x,y,.22 if k=='leo' else .3)
+for f,x,y,k in contacts:burst(f,x,y,.07 if k=='leo' else .1)
 for ti in IMPACTS:
- lp,_=state('riv',ti);burst(F(ti),lp.x,lp.y,.45)
-lt=wp_state('leo',THROW[1]);burst(F(THROW[1]),lt[0].x-1.15,lt[0].y,.8)
-burst(F(25.0),-2.1,0.6,.6);burst(F(33.0),-3.5,0,.4)
+ lp,_=state('riv',ti);burst(F(ti),lp.x,lp.y,.18)
+lt=wp_state('leo',THROW[1]);burst(F(THROW[1]),lt[0].x-1.6,lt[0].y,.35)
+burst(F(25.0),-2.1,0.6,.25);burst(F(33.0),-3.5,0,.2)
 # ---------------------------------------------------------------------------------------------------------- arena: sand, ruined stone ring, crowd, torches, sky
 bpy.ops.mesh.primitive_circle_add(vertices=48,radius=14,fill_type='NGON',location=(0,0,0));sand=bpy.context.object;sand.name='Sand';sand.data.materials.append(mat('Sand',(.72,.6,.38)))
 bpy.ops.mesh.primitive_plane_add(size=300,location=(0,0,-.1));ou=bpy.context.object;ou.name='Ground';ou.data.materials.append(mat('Ground',(.3,.28,.22)))
