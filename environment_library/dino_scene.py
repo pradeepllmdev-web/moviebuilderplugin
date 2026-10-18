@@ -12,6 +12,8 @@ lava and a smoke plume, embers; hoof and foot dust, mud splashes, nine camera cu
 contact times, a roar, lava rumble, music)."""
 import bpy,math,random,sys,os,wave
 import numpy as np
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+import scene_kit as kit
 from mathutils import Vector,Matrix,Euler
 args=sys.argv[sys.argv.index('--')+1:];DINO_DIR,LEO_DIR,out=args[0],args[1],args[2];seconds=float(args[3]) if len(args)>3 else 50.
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -154,6 +156,13 @@ tri=make_dino('Triceratops','Triceratops')
 nla(tri,'Triceratops',[('Idle',0,T['charge'],1.),('Run',T['charge'],39.,.9),('Walk',39.,42.5,1.0),('Idle',42.5,seconds,1.)])
 for f in range(1,frames+1,2):
  p,h=tri_pos(f);tri.location=(p.x,p.y,0);tri.rotation_euler=(0,0,h+math.pi/2);tri.keyframe_insert('location',frame=f);tri.keyframe_insert('rotation_euler',frame=f)
+trimesh=bpy.data.objects['Triceratops_mesh']
+def tri_low(f):
+ scene.frame_set(f);bpy.context.view_layer.update();e=trimesh.evaluated_get(bpy.context.evaluated_depsgraph_get());mw=e.matrix_world
+ return min((mw@v.co).z for v in list(e.data.vertices)[::4])
+lift=kit.ground_lift({f:tri_low(f) for f in range(1,frames+1,2)},0.,0.,.5,1)   # keep its feet on the ground
+for f,z in lift.items():
+ p,h=tri_pos(f);tri.location=(p.x,p.y,z);tri.keyframe_insert('location',frame=f)
 RAPTORS=[]
 for k,(sx,sy) in enumerate(((-22,5),(-26,-1),(-18,-6))):
  r=make_dino('Velociraptor','Raptor%d'%k);RAPTORS.append((r,sx,sy))
@@ -284,7 +293,7 @@ for k,(name,a,b) in enumerate(CUTS):
   elif k==4:p=tp+Vector((6,-9,2.2));q=tp+Vector((-3,0,2.2));cam.data.lens=30
   elif k==5:p=tp+Vector((-14,-5,6.5));q=tp+Vector((6,0,2.2));cam.data.lens=32
   elif k==6:
-   p=Vector((TREX.x-12,TREX.y-14,RIDGE_TOP+1.2)) if u<.6 else tp+Vector((18,-6,2));q=Vector((TREX.x,TREX.y,RIDGE_TOP+5.5)) if u<.6 else tp+Vector((-6,0,1.2));cam.data.lens=28 if u<.6 else 35
+   p=Vector((TREX.x-12,TREX.y-14,RIDGE_TOP+1.2)) if u<.6 else tp+Vector((18,-6,2));q=Vector((TREX.x,TREX.y,RIDGE_TOP+3.2)) if u<.6 else tp+Vector((-6,0,1.2));cam.data.lens=28 if u<.6 else 35
   elif k==7:p=tp+Vector((-4,-16,5));q=Vector((APATO.x-6,APATO.y,5));cam.data.lens=30
   else:
    if u<.7:p=GIVE_TO+Vector((-5+2*u,-6,2.0));q=GIVE_TO+Vector((1.5,0,2.4));cam.data.lens=34
@@ -334,6 +343,9 @@ for ch,(p,n) in enumerate(zip(paths,('footsteps','roar','lava rumble and jungle'
 scene.display.shading.light='STUDIO';scene.display.shading.color_type='MATERIAL';scene.render.resolution_x=1280;scene.render.resolution_y=720
 scene.frame_set(1);bpy.context.view_layer.update()
 bpy.ops.wm.save_as_mainfile(filepath=out)
+issues=kit.audit(scene,bodies=[(tri,bpy.data.objects['Triceratops_mesh'])]+[(r,bpy.data.objects[r.name+'_mesh']) for r,_,_ in RAPTORS],floor_z=0.,skip=[],subjects=[tri,trex,apato]+[r for r,_,_ in RAPTORS]+[walk['root'],pick['root']],step=12)
+for i in issues:print(i)
+print('AUDIT',len(issues),'issues')
 print('DINO_DONE',frames,'frames',len(contacts),'contacts')
 for f in (F(30),F(36)):
  scene.frame_set(f);bpy.context.view_layer.update();print('CHK',f,'tri',tuple(round(v,1) for v in tri.matrix_world.translation),'sitroot',tuple(round(v,1) for v in sit['root'].matrix_world.translation),'torso',tuple(round(v,1) for v in (tri.matrix_world@tri.pose.bones['Torso'].head)))

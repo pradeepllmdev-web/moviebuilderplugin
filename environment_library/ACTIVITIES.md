@@ -116,3 +116,7 @@ Result: `scenes/horse_herd.blend` (70 horses, 16 s, 384 frames). For any other u
 With `lion` the rider is Leo (use the `scene.blend` of any built lion shot as rider.blend, e.g. a `quick_review/shot1_wave_*` folder; result `scenes/rider_lion.blend`, white horse): the same IK seat with stirrups, knee poles, reins and lean tuned for his short legs and arms (`KINDS` in the script). The seat is solved by IK, not by the shared Sit clips: those are made for a bench and the lion's legs would hang straight down.
 
 Cameras on markers: wide, walking out, chase from behind and above, low alongside, ahead looking back at the jump, drone toward the mountains, rider point of view (attached to Rowan's spine, looking over the horse's neck). Known limits: the legs are IK only (knees and feet can pass through the horse's flank), the mount is a leap with legs blending in, hands do not wrap the reins, dust puffs are low-poly spheres.
+
+## Set pieces and lessons
+
+Creature, herd, rider and ship scenes are whole-scene scripts, listed in `set_pieces.py` with their assets, limits and prompt keywords (the planner is told to report them as `set_piece:<id>`). Reusable helpers and the lessons learned (what went wrong, why, the rule) are in `scene_kit.py`; everything is in `SET_PIECES.md` (generated: `python set_pieces.py --write-docs`). The dinosaur and ship scripts finish with an automatic `AUDIT` (skin/skeleton size, action slots, floor contact, subjects in frame).

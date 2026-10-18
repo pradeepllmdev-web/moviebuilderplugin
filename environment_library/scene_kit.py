@@ -1,0 +1,116 @@
+"""Reusable pieces and lessons learned from the creature and ship set pieces (dino_scene.py, ship_scene.py, horse_herd.py, rider_scene.py).
+
+Pure functions (no Blender needed, unit tested): smooth, catmull, push_out, ground_lift, stride_play_speed.
+Blender helpers (import bpy lazily): keep_parent_inverse, add_strip, audit.
+LESSONS is the single source of truth for what went wrong and the rule that prevents it; SET_PIECES.md is generated from it (python set_pieces.py --write-docs)."""
+import math
+
+LESSONS=[
+ dict(id='parent_inverse',symptom='Animals look thin and deformed ("sticks") once they run; fine in the source file.',cause='Re-assigning mesh.parent in Python resets matrix_parent_inverse. The Quaternius files keep a x3.5 scale in that inverse, so the skin came out 3.5x smaller than its skeleton.',rule='Save matrix_parent_inverse before setting parent and restore it (scene_kit.keep_parent_inverse); copies must copy it too. audit() flags mesh/skeleton size ratios outside 0.55..2.2.'),
+ dict(id='gait_speed',symptom='Running legs blur into a strobing scribble.',cause='Run clips were played at 1.35..1.9x; they are already fast (a 13 frame raptor cycle is 0.54 s).',rule='Play clips at 0.8..1.2x (stride_play_speed) and derive ground speed from stride length instead of speeding the clip up.'),
+ dict(id='action_slots',symptom='An action assigned in Python does nothing (static rest pose).',cause='Blender 5 layered actions need a slot: assigning action alone leaves slot None.',rule='Set animation_data.action_slot / strip.action_slot = action.slots[0]. audit() flags strips without a slot.'),
+ dict(id='absolute_paths',symptom='libraries.load fails with C:\\assets\\... not found.',cause='Blender -b resolves relative paths against its own folder.',rule='Pass absolute paths to Blender scripts (use pwd -W / Path.resolve()).'),
+ dict(id='hidden_templates',symptom='Giant dark shapes fill the frame; wrong object is animated.',cause='Template objects hidden with hide_viewport still render; a copy named like its template collides (Triceratops vs Triceratops.001).',rule='Hide templates in viewport AND render and give them a T_ prefix.'),
+ dict(id='asset_scene_clutter',symptom='A flat plane or grid slices through the scene and hides characters.',cause='Lion asset scenes built by the pipeline contain Floor/Grid/Wall planes that travel with the character group.',rule='Drop meshes named Floor*, Grid*, Wall*, Ceiling*, Rug* and camera/light/empty helpers when loading character assets.'),
+ dict(id='climb_pose',symptom='Lion climbing looks upside down or lies flat on the mast.',cause='Pitching the body 77 degrees turns the whole body horizontal, not the climbing direction.',rule='Keep the body upright, lean ~0.2 rad into the mast, add rungs; the pipeline has no real climb clip yet (climb_stairs is a walk cycle).'),
+ dict(id='floor_contact',symptom='A lying or falling character sinks into the floor.',cause='Baked clips drop the hips below the root; foot-lock only handles standing.',rule='Measure the lowest vertex of the largest skin mesh (face parts are static outliers) per frame and lift the root (scene_kit.ground_lift); audit() reports penetration.'),
+ dict(id='moving_platform',symptom='Characters slide on a rocking ship.',cause='World-space paths on a moving floor.',rule='Parent actors and ship cameras to the platform and key everything in its local space; world cameras aim at an empty parented to the platform.'),
+ dict(id='no_clipping',symptom='A body that follows its head (serpent) passes through hull, cabin and masts.',cause='Positions come only from a path; nothing pushes them out of scenery.',rule='Run every body point through push_out(p, r, solids) with boxes, cylinders and the hull; this is cheap collision response, use Blender Cloth/Rigid Body only where simulation is the point.'),
+ dict(id='cloth',symptom='A sail cut loose looks like a rigid card flying.',cause='Keyed rigid plane.',rule='Real Cloth modifier, pin vertex group on the yard, keyframed pin_stiffness 1 to 0 at the cut, wind field with keyed strength, collision on solids, bake the cache before saving.'),
+ dict(id='cameras',symptom='Camera sits inside a sail or sees only sea.',cause='Camera offsets chosen without looking at moving geometry.',rule='audit() checks at least one subject is in frame mid-cut; render a contact sheet of stills (workbench, 480 px) before reporting.'),
+ dict(id='contact_audio',symptom='Footsteps and dust do not match the animals.',cause='Constant-rate sound.',rule='Sample foot bone heights per frame, take contacts, and use those times for dust, splashes and sound.'),
+ dict(id='no_mp4',symptom='Previews take minutes.',cause='Rendering video.',rule='Never render mp4 for previews; open the .blend with previs.open_viewer (closes earlier viewers) and check stills.'),
+ dict(id='downloads',symptom='Assets missing on another machine.',cause='Downloaded CC0 packs are not committed.',rule='Ask before downloading, extract into their own new folder, never run code from them, list the pack and licence in the docs (set_pieces.py reports what is missing).'),
+]
+def smooth(u):
+ u=max(0.,min(1.,u));return u*u*(3-2*u)
+def catmull(points,t):
+ """Smooth path through [(time,(x,y,z))] keys (Catmull-Rom, clamped ends)."""
+ ts=[p[0] for p in points]
+ if t<=ts[0]:return tuple(points[0][1])
+ if t>=ts[-1]:return tuple(points[-1][1])
+ i=max(k for k in range(len(ts)) if ts[k]<=t);u=(t-ts[i])/(ts[i+1]-ts[i]);g=lambda j:points[max(0,min(len(points)-1,j))][1]
+ p0,p1,p2,p3=g(i-1),g(i),g(i+1),g(i+2)
+ return tuple(.5*((2*p1[k])+(-p0[k]+p2[k])*u+(2*p0[k]-5*p1[k]+4*p2[k]-p3[k])*u*u+(-p0[k]+3*p1[k]-3*p2[k]+p3[k])*u**3) for k in range(3))
+def push_out(p,r,solids):
+ """Collision response for a sphere of radius r at p=(x,y,z). solids: ('box',(x0,x1,y0,y1,z0,z1)) / ('cyl',(cx,cy,z0,z1,R)) / ('hull',(L,half_beam(x),deck_z)). Returns the corrected point."""
+ x,y,z=p
+ for _ in range(2):
+  for kind,d in solids:
+   if kind=='hull':
+    L,hb,dz=d
+    if abs(x)<L+r*.5 and z<dz+r:
+     b=hb(max(-L,min(L,x)))+r*.8
+     if abs(y)<b:
+      if dz+r-z<=b-abs(y):z=dz+r
+      else:y=math.copysign(b,y if y else 1.)
+   elif kind=='box':
+    x0,x1,y0,y1,z0,z1=d
+    if x0-r<x<x1+r and y0-r<y<y1+r and z0-r<z<z1+r:
+     opts=[(x-(x0-r),'x0'),((x1+r)-x,'x1'),(y-(y0-r),'y0'),((y1+r)-y,'y1'),((z1+r)-z,'z1')]
+     _,k=min(opts)
+     if k=='x0':x=x0-r
+     elif k=='x1':x=x1+r
+     elif k=='y0':y=y0-r
+     elif k=='y1':y=y1+r
+     else:z=z1+r
+   elif kind=='cyl':
+    cx,cy,z0,z1,R=d;dx,dy=x-cx,y-cy;dd=math.hypot(dx,dy);rr=R+r*.9
+    if dd<rr and z0<z<z1:
+     if dd<1e-4:dx,dd=rr,rr
+     x=cx+dx/dd*rr;y=cy+dy/dd*rr
+ return (x,y,z)
+def ground_lift(lowest,floor,margin=.01,limit=1.,window=1):
+ """{frame: lowest skin z} -> {frame: lift}: raise the root so the lowest point rests on the floor, clamped, smoothed over +-window samples."""
+ fr=sorted(lowest);raw={f:max(0.,min(limit,floor+margin-lowest[f])) for f in fr}
+ return {f:sum(raw[g] for g in fr[max(0,i-window):i+window+1])/len(fr[max(0,i-window):i+window+1]) for i,f in enumerate(fr)}
+def stride_play_speed(ground_speed,stride_m,cycle_frames,fps=24.,lo=.8,hi=1.2):
+ """Clip play speed that matches a ground speed (stride_m per cycle), clamped to natural speeds; returns (play, residual_slide_ratio)."""
+ natural=stride_m/(cycle_frames/fps);want=ground_speed/natural;play=max(lo,min(hi,want));return play,(ground_speed/(natural*play))
+# ---------------------------------------------------------------------------------------------------------- Blender helpers
+def keep_parent_inverse(child,parent):
+ inv=child.matrix_parent_inverse.copy();child.parent=parent;child.matrix_parent_inverse=inv
+def add_strip(track,action,start,end,mode='loop',slot=True,name=None):
+ """NLA strip filling [start,end] frames: mode 'loop' repeats the clip, 'fit' stretches it once. Binds the action's first slot."""
+ length=action.frame_range[1]-action.frame_range[0]+1;st=track.strips.new(name or action.name,int(start),action)
+ if slot and len(action.slots):st.action_slot=action.slots[0]
+ if mode=='fit':st.scale=(end-start)/length;st.repeat=1
+ else:st.repeat=max(1.,(end-start)/length)
+ return st
+def audit(scene,bodies=(),floor_z=0.,space=None,skip=(),subjects=(),step=12,fps=24):
+ """Automatic checks on a built scene; returns a list of 'AUDIT ...' strings (empty = clean). bodies: [(armature, skin mesh)], skip: [(t0,t1)] airborne windows,
+ subjects: objects at least one of which must be in frame mid-cut, space: object whose local z is the floor height frame (e.g. a ship)."""
+ import bpy
+ from mathutils import Vector
+ from bpy_extras.object_utils import world_to_camera_view
+ out=[]
+ for ob in scene.objects:
+  ad=ob.animation_data
+  if ad:
+   for tr in ad.nla_tracks:
+    for st in tr.strips:
+     if st.action and len(st.action.slots) and st.action_slot is None:out.append('AUDIT action_slots: %s strip %s has no slot'%(ob.name,st.name))
+ def verts(mesh,dg):
+  e=mesh.evaluated_get(dg);return [e.matrix_world@v.co for v in e.data.vertices]
+ for rig,mesh in bodies:
+  scene.frame_set(scene.frame_start+2);bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get()
+  pts=verts(mesh,dg);bones=[rig.matrix_world@pb.head for pb in rig.pose.bones]
+  ext=lambda P:Vector((max(p[i] for p in P)-min(p[i] for p in P) for i in range(3))).length
+  ratio=ext(pts)/max(1e-6,ext(bones))
+  if not .55<=ratio<=2.2:out.append('AUDIT parent_inverse: %s skin/skeleton size ratio %.2f (expected .55..2.2)'%(rig.name,ratio))
+  worst=(0.,None)
+  for f in range(scene.frame_start,scene.frame_end+1,step):
+   t=(f-1)/fps
+   if any(a<=t<=b for a,b in skip):continue
+   scene.frame_set(f);bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get();inv=space.matrix_world.inverted() if space else None
+   low=min(((inv@p).z if inv else p.z) for p in verts(mesh,dg)[::4]);pen=floor_z-low
+   if pen>worst[0]:worst=(pen,f)
+  if worst[0]>.05:out.append('AUDIT floor_contact: %s sinks %.2f m below the floor at frame %d'%(rig.name,worst[0],worst[1]))
+ marks=sorted(scene.timeline_markers,key=lambda m:m.frame)
+ for i,m in enumerate(marks):
+  if not m.camera or not subjects:continue
+  f=(m.frame+(marks[i+1].frame if i+1<len(marks) else scene.frame_end))//2;scene.frame_set(f);bpy.context.view_layer.update();scene.camera=m.camera
+  seen=any((lambda c:0<=c.x<=1 and 0<=c.y<=1 and c.z>0)(world_to_camera_view(scene,m.camera,s.matrix_world.translation)) for s in subjects)
+  if not seen:out.append('AUDIT cameras: cut "%s" shows none of the subjects at frame %d'%(m.name,f))
+ scene.frame_set(scene.frame_start)
+ return out

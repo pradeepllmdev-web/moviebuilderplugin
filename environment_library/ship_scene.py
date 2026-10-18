@@ -7,12 +7,14 @@ come from the normal pipeline (build_ship_assets.py). Leo and all cameras are pa
 uses the walk clip with the body pitched along the mast (no real climb clip in the pipeline yet)."""
 import bpy,math,random,sys,os,wave
 import numpy as np
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+import scene_kit as kit
 from mathutils import Vector,Matrix,Euler
 args=sys.argv[sys.argv.index('--')+1:];ASSETS,out=args[0],args[1];seconds=float(args[2]) if len(args)>2 else 60.
 bpy.ops.wm.read_factory_settings(use_empty=True)
 scene=bpy.context.scene;fps=24;scene.render.fps=fps;frames=int(seconds*fps);scene.frame_start=1;scene.frame_end=frames;rnd=random.Random(5)
 def F(t):return 1+int(round(t*fps))
-def smooth(u):u=max(0.,min(1.,u));return u*u*(3-2*u)
+smooth=kit.smooth
 def link(o):
  if o.name not in scene.collection.objects:scene.collection.objects.link(o)
 _m={}
@@ -125,12 +127,7 @@ for k,(c,a,b,mode) in enumerate(SCHEDULE):
  if mode=='fit':st.scale=(end-start)/length;st.repeat=1
  else:st.repeat=max(1.,(end-start)/length)
  st.extrapolation='HOLD' if k==0 else 'NOTHING';st.blend_in=5 if k else 0;st.blend_out=5
-def keyp(pts,t):   # smooth path through (time, vector) keys, Catmull-Rom with clamped ends
- ts=[p[0] for p in pts]
- if t<=ts[0]:return Vector(pts[0][1])
- if t>=ts[-1]:return Vector(pts[-1][1])
- i=max(k for k in range(len(ts)) if ts[k]<=t);u=(t-ts[i])/(ts[i+1]-ts[i]);p=lambda j:Vector(pts[max(0,min(len(pts)-1,j))][1])
- p0,p1,p2,p3=p(i-1),p(i),p(i+1),p(i+2);return .5*((2*p1)+(-p0+p2)*u+(2*p0-5*p1+4*p2-p3)*u*u+(-p0+3*p1-3*p2+p3)*u**3)
+def keyp(pts,t):return Vector(kit.catmull(pts,t))
 LX=3.0
 def leo_state(t):
  """ship-local position, body pitch (rad) and heading (rad from +x) of Leo."""
@@ -155,8 +152,8 @@ def lowest(f):
  """lowest vertex of the lion's skin (ship-local)."""
  scene.frame_set(f);bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get();inv=ship.matrix_world.inverted();e=BODY.evaluated_get(dg);mw=inv@e.matrix_world
  return min((mw@v.co).z for v in list(e.data.vertices)[::4])
-LIFT={f:max(0.,min(1.,DZ+.01-lowest(f))) for f in range(F(22.9),F(28.6)+1,2)}
-fs=sorted(LIFT);sm={f:sum(LIFT[g] for g in fs[max(0,i-1):i+2])/len(fs[max(0,i-1):i+2]) for i,f in enumerate(fs)}
+LOW={f:lowest(f) for f in range(1,frames+1,2) if not 11.0<=(f-1)/fps<=22.9}   # the climb and the slide down the mast are airborne by design
+sm=kit.ground_lift(LOW,DZ,.01,1.,1);fs=sorted(sm)
 for f in fs:
  p,pitch,h=leo_state((f-1)/fps);leo.location=p+Vector((0,0,sm[f]));leo.keyframe_insert('location',frame=f)
 # a knife in Leo's right hand for the cut
@@ -170,28 +167,8 @@ for part,off in ((kn,.17),(hd,.0)):
 HEAD=[(-8,(-6,14,-14)),(22,(-5,14,-12)),(26,(-4,12,-6)),(29,(-4,9,1)),(31,(-3,8,8)),(32.2,(-.5,5,10)),(32.9,(3.4,.6,2.1)),(34.6,(3.8,.9,2.4)),(36,(4,5,8.5)),(37.4,(5.4,.8,3.4)),
  (39.4,(5.8,.1,3.1)),(40.6,(6,5,6)),(41.5,(9,5.5,3)),(42.4,(11,0,2.6)),(43.2,(9,-5,3)),(43.9,(1,-6,3.4)),(44.3,(2,0,15)),(45.5,(3,3,11)),(47,(3,7,5)),(49,(2,9,-3)),(51,(2,12,-11)),(56,(2,14,-22)),(70,(2,14,-30))]
 def hullhalf(x):u=x/L;return HB*max(.02,(1-u**4))**.65*(1 if x<0 else 1-.25*u*u)
-def project(p,r):
- """Contact with the ship: push a body point out of the hull, cabin and masts (simple collision response)."""
- p=Vector(p)
- for _ in range(2):
-  if abs(p.x)<L+r*.5 and p.z<DZ+r:
-   hb=hullhalf(max(-L,min(L,p.x)))+r*.8
-   if abs(p.y)<hb:
-    if DZ+r-p.z<=hb-abs(p.y):p.z=DZ+r
-    else:p.y=math.copysign(hb,p.y if p.y else 1.)
-  if -8.5-r<p.x<-5.5+r and abs(p.y)<HB*.75+r and p.z<DZ+1.25+r:
-   opts=[(DZ+1.25+r-p.z,'z'),(p.x+8.5+r,'x-'),(-5.5+r-p.x if False else (-5.5+r)-p.x+0,'x+'),(HB*.75+r-abs(p.y),'y')]
-   d,k=min(opts)
-   if k=='z':p.z=DZ+1.25+r
-   elif k=='y':p.y=math.copysign(HB*.75+r,p.y if p.y else 1.)
-   elif k=='x-':p.x=-8.5-r
-   else:p.x=-5.5+r
-  for mx,mh,_ in MASTS:
-   dx,dy=p.x-mx,p.y;d=math.hypot(dx,dy);R=.22+r*.9
-   if d<R and DZ<p.z<DZ+mh:
-    if d<1e-4:dx,d=R,R
-    p.x=mx+dx/d*R;p.y=dy/d*R
- return p
+SOLIDS=[('hull',(L,hullhalf,DZ)),('box',(-8.5,-5.5,-HB*.75,HB*.75,-5,DZ+1.25))]+[('cyl',(mx,0,DZ,DZ+mh,.22)) for mx,mh,_ in MASTS]
+def project(p,r):return Vector(kit.push_out(tuple(p),r,SOLIDS))
 N=44;LAG=.075;serp=[]
 def hp(t):return keyp(HEAD,t)
 for i in range(N+1):
@@ -250,7 +227,7 @@ for t,vis in ((0,True),(4,True),(51.5,False)):
 hide_keys(rain_e,[(0,51.5)])
 # ---------------------------------------------------------------------------------------------------------- cameras
 LEO_HEAD=lambda t:leo_state(t)[0]+Vector((0,0,.7 if abs(leo_state(t)[1])<.5 else .2))
-WHEEL=wheel_pos+Vector((0,0,1.3))
+WHEEL=wheel_pos+Vector((0,0,.8))
 CUTS=[('1 Storm ship, orbit',0,5,'world'),('2 Leo on lookout',5,9,'ship'),('3 Leo runs to the mast',9,11.6,'ship'),('4 Climbing',11.6,19,'ship'),('5 Cutting the sail',19,22.2,'ship'),('6 The fall',22.2,28.2,'ship'),
  ('7 The serpent rises',28.2,31.4,'ship'),('8 The strike',31.4,35,'ship'),('9 Fist to snout',35,41,'ship'),('10 The coil',41,44.2,'world'),('11 Lightning',44.2,48,'ship'),('12 It sinks',48,53,'ship'),('13 Calm, at the wheel',53,seconds,'ship')]
 cams=[]
@@ -321,4 +298,7 @@ try:bpy.ops.ptcache.bake_all(bake=True);print('cloth baked')
 except Exception as ex:print('bake skipped',ex)
 scene.frame_set(1)
 bpy.ops.wm.save_as_mainfile(filepath=out)
+issues=kit.audit(scene,bodies=[(rig,BODY)],floor_z=DZ,space=ship,skip=[(11.0,23.2)],subjects=[leo,head,ship],step=12)
+for i in issues:print(i)
+print('AUDIT',len(issues),'issues')
 print('SHIP_DONE',frames,'frames')
