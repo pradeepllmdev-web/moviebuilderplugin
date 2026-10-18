@@ -1,6 +1,7 @@
 """Blender script: Rowan mounts a horse and gallops across a meadow beside a river toward the mountains, jumps a fence, with dust, chase cameras and sound.
 
-blender -b --disable-autoexec --python rider_scene.py -- <Horse.blend> <rowan.blend> <out.blend> [seconds=22]
+blender -b --disable-autoexec --python rider_scene.py -- <Horse.blend> <rider.blend> <out.blend> [seconds=22] [rowan|lion]
+(rider.blend: samples/mpfb-character/rowan.blend, or the scene.blend of any built lion shot for kind 'lion'; the lion rides with the same IK seat, tuned for his short legs and arms)
 
 Pieces (all procedural, nothing downloaded beyond the CC0 horse):
   * horse: Quaternius Horse (rigged, actions Idle, Walk, Run, Jump) scaled 0.27, one NLA track pair with overlapping strips (idle -> walk -> gallop -> jump -> gallop)
@@ -13,7 +14,10 @@ Pieces (all procedural, nothing downloaded beyond the CC0 horse):
 import bpy,math,random,sys,os,wave
 import numpy as np
 from mathutils import Vector,Matrix,Euler
-args=sys.argv[sys.argv.index('--')+1:];horse_file,rowan_file,out=args[0],args[1],args[2];seconds=float(args[3]) if len(args)>3 else 22.
+args=sys.argv[sys.argv.index('--')+1:];horse_file,rowan_file,out=args[0],args[1],args[2];seconds=float(args[3]) if len(args)>3 else 22.;KIND=args[4] if len(args)>4 else 'rowan'
+KINDS={'rowan':dict(coat=(.50,.25,.10),stirrup=(.46,.12,.50),knee=(.95,-.10,.95),rein=(.13,-.42,1.20),elbow=(.65,.15,1.30),lean=-.10,pov=.30),
+ 'lion':dict(coat=(.86,.86,.82),stirrup=(.44,.10,.80),knee=(.95,-.05,1.05),rein=(.15,-.16,1.30),elbow=(.65,.15,1.40),lean=-.12,pov=.55)}
+K=KINDS[KIND]
 bpy.ops.wm.read_factory_settings(use_empty=True)
 scene=bpy.context.scene;fps=24;scene.render.fps=fps;frames=int(seconds*fps);scene.frame_start=1;scene.frame_end=frames
 rnd=random.Random(9);H_SCALE=.27
@@ -23,14 +27,18 @@ with bpy.data.libraries.load(horse_file,link=False) as (src,dst):dst.objects=[n 
 horse_rig=next(o for o in dst.objects if o.type=='ARMATURE');horse_mesh=next(o for o in dst.objects if o.type=='MESH');actions={a.name:a for a in dst.actions}
 for o in (horse_rig,horse_mesh):scene.collection.objects.link(o)
 horse_mesh.parent=horse_rig;horse_rig.scale=(H_SCALE,)*3;horse_rig.animation_data_clear()
-coat=bpy.data.materials.new('Coat');coat.diffuse_color=(.50,.25,.10,1);coat.use_nodes=True;coat.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value=(.50,.25,.10,1)
+coat=bpy.data.materials.new('Coat');coat.diffuse_color=(*K['coat'],1);coat.use_nodes=True;coat.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value=(*K['coat'],1)
 slot=max(range(len(horse_mesh.data.materials)),key=lambda i:sum(1 for p in horse_mesh.data.polygons if p.material_index==i));horse_mesh.data.materials[slot]=coat
 with bpy.data.libraries.load(rowan_file,link=False) as (src,dst):dst.objects=[n for n in src.objects]
 rowan_objs=[]
 for o in dst.objects:
- if o.type in ('CAMERA','LIGHT') or o.name=='Plane' or o.hide_render or (o.type=='MESH' and o.hide_viewport):bpy.data.objects.remove(o);continue
+ if o.type in ('CAMERA','LIGHT','EMPTY') or o.name=='Plane' or o.hide_render or (o.type=='MESH' and o.hide_viewport):bpy.data.objects.remove(o);continue
  scene.collection.objects.link(o);rowan_objs.append(o)
 rowan=next(o for o in rowan_objs if o.type=='ARMATURE');rowan.animation_data_clear()
+for pb_ in rowan.pose.bones:
+ pb_.rotation_mode='QUATERNION';pb_.rotation_quaternion=(1,0,0,0);pb_.location=(0,0,0);pb_.scale=(1,1,1)
+bpy.context.view_layer.update()
+HIPS_LOCAL=(rowan.matrix_world@next(b for b in rowan.pose.bones if b.name.endswith('Hips')).head)-rowan.matrix_world.translation   # the hips bone in the rider's own space, whatever the rig's scale
 for o in rowan_objs:
  if o.animation_data:o.animation_data_clear()
 # ----------------------------------------------------------------------------------------------------- path and gait
@@ -67,10 +75,10 @@ def attach(obj,bone,frame=1):
 def empty(name,m,bone):
  e=bpy.data.objects.new(name,None);e.empty_display_size=.08;scene.collection.objects.link(e);e.location=local_world(m);bpy.context.view_layer.update();attach(e,bone);return e
 SADDLE=(0.,.10,1.13)
-stirrup={'L':empty('StirrupL',(.46,.12,.50),'Torso'),'R':empty('StirrupR',(-.46,.12,.50),'Torso')}   # outside the horse's flanks (the body is ~0.7 m wide)
-knee={'L':empty('KneePoleL',(.95,-.10,.95),'Torso'),'R':empty('KneePoleR',(-.95,-.10,.95),'Torso')}
-rein={'L':empty('ReinL',(.13,-.42,1.20),'Shoulders'),'R':empty('ReinR',(-.13,-.42,1.20),'Shoulders')}
-elbow={'L':empty('ElbowPoleL',(.65,.15,1.30),'Torso'),'R':empty('ElbowPoleR',(-.65,.15,1.30),'Torso')}
+sx,sy,sz=K['stirrup'];stirrup={'L':empty('StirrupL',(sx,sy,sz),'Torso'),'R':empty('StirrupR',(-sx,sy,sz),'Torso')}   # outside the horse's flanks (the body is ~0.7 m wide)
+kx,ky,kz=K['knee'];knee={'L':empty('KneePoleL',(kx,ky,kz),'Torso'),'R':empty('KneePoleR',(-kx,ky,kz),'Torso')}
+rx,ry,rz=K['rein'];rein={'L':empty('ReinL',(rx,ry,rz),'Shoulders'),'R':empty('ReinR',(-rx,ry,rz),'Shoulders')}
+ex,ey,ez=K['elbow'];elbow={'L':empty('ElbowPoleL',(ex,ey,ez),'Torso'),'R':empty('ElbowPoleR',(-ex,ey,ez),'Torso')}
 mouth=empty('Mouth',(0,-1.12,1.33),'Head')
 # saddle, blanket, stirrups, reins (visual)
 def box(name,size,color,loc,bone=None):
@@ -84,7 +92,6 @@ for side_ in 'LR':
  for v in r.data.vertices:v.co=(v.co.x,v.co.z+.5,v.co.y)   # a rod along +Y from the origin, so Stretch To can aim and stretch it from the hand to the mouth
  cp=r.constraints.new('COPY_LOCATION');cp.target=rein[side_];sc=r.constraints.new('STRETCH_TO');sc.target=mouth;sc.rest_length=1.
 # ----------------------------------------------------------------------------------------------------- rider
-HIPS_LOCAL=Vector((0,-.011,.876))   # Rowan's hips bone in his own space (standing)
 seat_world=local_world(SADDLE)
 MOUNT=(2.3,3.7)
 standing=local_world((0.95,0.10,0.0));standing.z=0.
@@ -115,7 +122,7 @@ for c in ik:
  c.influence=0;c.keyframe_insert('influence',frame=m0);c.influence=1;c.keyframe_insert('influence',frame=m1)
 for n in ('Spine','Spine1','Spine2'):   # lean into the gallop after the mount, upright again as the horse slows
  pbn=bone_of(n);pbn.rotation_mode='XYZ';pbn.rotation_euler=(0,0,0);pbn.keyframe_insert('rotation_euler',frame=m1)
- pbn.rotation_euler=(-.10,0,0);pbn.keyframe_insert('rotation_euler',frame=F(8.5));pbn.keyframe_insert('rotation_euler',frame=F(seconds-1.5));pbn.rotation_euler=(-.02,0,0);pbn.keyframe_insert('rotation_euler',frame=frames)
+ pbn.rotation_euler=(K['lean'],0,0);pbn.keyframe_insert('rotation_euler',frame=F(8.5));pbn.keyframe_insert('rotation_euler',frame=F(seconds-1.5));pbn.rotation_euler=(-.02,0,0);pbn.keyframe_insert('rotation_euler',frame=frames)
 # ----------------------------------------------------------------------------------------------------- environment
 def material(name,color):
  m=bpy.data.materials.get(name)
@@ -177,7 +184,7 @@ for k,(name,a,b) in enumerate(SHOTS):
  aim=bpy.data.objects.new('Aim%d'%k,None);scene.collection.objects.link(aim);aim.hide_viewport=True
  if k==len(SHOTS)-1 and name.startswith('7'):   # rider point of view: attached to Rowan's head bone, looking ahead
   cam.data.lens=24;scene.frame_set(F(a));bpy.context.view_layer.update();hb=rowan.pose.bones['mixamorig:Head'];hw=rowan.matrix_world@hb.head
-  hh=horse_state(F(a))[1];cam.location=hw+Vector((math.cos(hh)*.30,math.sin(hh)*.30,.04));   # just in front of the face, so the camera is not inside the head
+  hh=horse_state(F(a))[1];cam.location=hw+Vector((math.cos(hh)*K['pov'],math.sin(hh)*K['pov'],.04));   # just in front of the face, so the camera is not inside the head
   cam.rotation_euler=Euler((math.radians(90),0,horse_state(F(a))[1]-math.pi/2),'XYZ')   # looks along the horse's heading
   bpy.context.view_layer.update();wcam=cam.matrix_world.copy();c=cam.constraints.new('CHILD_OF');c.target=rowan;c.subtarget='mixamorig:Spine2';c.inverse_matrix=(rowan.matrix_world@rowan.pose.bones['mixamorig:Spine2'].matrix).inverted();cam.matrix_basis=wcam
   scene.timeline_markers.new(name,frame=F(a)).camera=cam;continue

@@ -111,6 +111,8 @@ Result: `scenes/horse_herd.blend` (70 horses, 16 s, 384 frames). For any other u
 
 `rider_scene.py` (22 s, 7 camera cuts): Rowan stands beside the CC0 Quaternius horse, leaps into the saddle (an arc keyed from the horse's saddle position), then a Child Of constraint keeps him on the horse's torso bone while the horse goes idle, walk, gallop, jumps a fence and gallops on beside a river toward the mountains. Legs and arms are IK to stirrup and rein empties that follow the horse's bones (reins are rods stretched from his hands to the horse's mouth), he leans into the gallop, dust puffs appear at every hoof landing (found by sampling the hoof bones, 170 of them), and the soundtrack uses the real contact times for hoof beats, wind rising with speed and a music piece with a kick drum once the gallop starts.
 
-    blender -b --disable-autoexec --python rider_scene.py -- <Horse.blend> <rowan.blend> <out.blend> [seconds=22]
+    blender -b --disable-autoexec --python rider_scene.py -- <Horse.blend> <rider.blend> <out.blend> [seconds=22] [rowan|lion]
+
+With `lion` the rider is Leo (use the `scene.blend` of any built lion shot as rider.blend, e.g. a `quick_review/shot1_wave_*` folder; result `scenes/rider_lion.blend`, white horse): the same IK seat with stirrups, knee poles, reins and lean tuned for his short legs and arms (`KINDS` in the script). The seat is solved by IK, not by the shared Sit clips: those are made for a bench and the lion's legs would hang straight down.
 
 Cameras on markers: wide, walking out, chase from behind and above, low alongside, ahead looking back at the jump, drone toward the mountains, rider point of view (attached to Rowan's spine, looking over the horse's neck). Known limits: the legs are IK only (knees and feet can pass through the horse's flank), the mount is a leap with legs blending in, hands do not wrap the reins, dust puffs are low-poly spheres.
