@@ -40,6 +40,11 @@ LESSONS=[
  dict(id='body_grip',symptom='Grappling hands float beside the opponent.',cause='Fixed IK targets on a moving body.',rule='Make each hand IK target an empty with Copy Location to the opponent shoulder bone and ramp influence 0.5 s in and out; both fighters face each other at 0.62 m and circle about a midpoint.'),
  dict(id='short_loop_strips',symptom='NLA strips refuse to be added or overlap.',cause='A loop strip shorter than its clip kept the full clip length.',rule='scene_kit.add_strip trims action_frame_end when the window is shorter than the clip; strips under 0.25 s do not fit the 5 frame blend overlap, merge them.'),
 
+ dict(id='surface_contact',symptom='A fist or foot goes inside the other lion.',cause='Targets were bone centres, not the skin.',rule='Aim at the skin: BVH ray from the target bone centre towards the attacker (scene_kit.surface_target, in object space) plus 2 cm; the audit reports penetration (limit 6 cm) and miss (limit 20 cm). The arena strikes now end 9, 3 and 4 cm from the skin.'),
+ dict(id='dependency_cycle',symptom='Console floods with Dependency cycle warnings; grips jitter.',cause='Two rigs whose IK targets copy the IK-chain bones of each other (arm to arm).',rule='Copy the shoulder bone of the opponent (clavicle) bone TAIL instead; it is not in any IK chain, so there is no cycle. Always grep the log for Dependency cycle.'),
+ dict(id='jump_physics',symptom='Jumps look floaty or like a hop.',cause='The pipeline Jump clip keeps the feet on the ground (the arc comes from the route), no crouch or tuck.',rule='Apex from flight time (flight_apex = g T^2 / 8), parabola from ballistic(), and jump_profile() for crouch 0.3 s before take-off, stretch, foot tuck by IK (+0.30 m at the top), reach, and a landing dip; flight time 0.7 s gives a 0.60 m apex.'),
+ dict(id='crowds',symptom='Crowds are either cones or too heavy.',cause='Full characters per spectator are expensive.',rule='Tiers: far rows are simple cones grouped in sections that bob together (12 sections, keyed per frame); the front rows are real animated lions made with clone_character (shared mesh data, own armature, random clip phase via negative strip start, tint per clone): 24 clones evaluate a frame in 0.01 s. For thousands use Unreal Mass or Niagara with a vertex-animation texture, with Blender only authoring the clips.'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)
@@ -86,6 +91,49 @@ def ground_lift(lowest,floor,margin=.01,limit=1.,window=1):
 def stride_play_speed(ground_speed,stride_m,cycle_frames,fps=24.,lo=.8,hi=1.2):
  """Clip play speed that matches a ground speed (stride_m per cycle), clamped to natural speeds; returns (play, residual_slide_ratio)."""
  natural=stride_m/(cycle_frames/fps);want=ground_speed/natural;play=max(lo,min(hi,want));return play,(ground_speed/(natural*play))
+def flight_apex(T,g=9.81):
+ """Apex height of a ballistic jump that stays in the air T seconds (g*T^2/8)."""
+ return g*T*T/8.
+def ballistic(u,apex):
+ """Height above the take-off/landing line at flight fraction u in 0..1 (parabola)."""
+ return 4.*apex*u*(1.-u)
+def jump_profile(t,launch,land):
+ """Pose layers of a believable jump: crouch before take-off, stretch at take-off, tuck at the top, reach for the ground, absorb the landing.
+ Returns dict(dz root height offset, tuck 0..1 foot lift, pitch). The arc itself comes from ballistic(); flight time is land-launch."""
+ dz=0.;tuck=0.;pitch=0.
+ if launch-.30<=t<launch:
+  u=(t-(launch-.30))/.30;dz=-.14*math.sin(math.pi*u*.5);pitch=.10*u
+ elif launch<=t<=land:
+  u=(t-launch)/(land-launch);tuck=smooth(u/.25)*(1-smooth((u-.75)/.2));pitch=.10*(1-u)-.05*u
+ elif land<t<=land+.30:
+  u=(t-land)/.30;dz=-.12*math.sin(math.pi*u);pitch=.12*(1-u)
+ return dict(dz=dz,tuck=tuck,pitch=pitch)
+def surface_target(target_obj,from_pt,to_pt,depsgraph):
+ """Where the hand should stop: the point where the ray from the target's centre (to_pt) towards the attacker (from_pt) leaves the target's skin (world space), plus how deep from_pt is inside (m, positive = inside).
+ The BVH is built in the object's own space, so points are transformed in and the hit is transformed out."""
+ from mathutils.bvhtree import BVHTree
+ from mathutils import Vector
+ bvh=BVHTree.FromObject(target_obj,depsgraph);mw=target_obj.matrix_world;inv=mw.inverted()
+ c=Vector(to_pt);h=Vector(from_pt);dist=(h-c).length
+ if dist<1e-6:return h,0.
+ hit=bvh.ray_cast(inv@c,(inv.to_3x3()@(h-c)).normalized())
+ if hit[0] is None:return h,0.
+ w=mw@hit[0];n=(mw.to_3x3()@hit[1]).normalized();return w+n*.02,(w-c).length-dist
+def clone_character(rig,body,name,location,heading=0.,scale=1.,tint=None):
+ """Cheap crowd member: a new armature copy plus a body object that SHARES the original mesh data (one copy of the vertices in memory); materials can be tinted per clone."""
+ import bpy
+ r=rig.copy();r.data=rig.data.copy();r.name=name;r.animation_data_clear();r.animation_data_create()
+ b=body.copy();b.name=name+'_body';b.parent=r;b.matrix_parent_inverse=body.matrix_parent_inverse.copy()
+ for m in b.modifiers:
+  if m.type=='ARMATURE':m.object=r
+ root=bpy.data.objects.new(name+'Root',None);root.location=location;root.rotation_euler=(0,0,heading+math.pi/2);root.scale=(scale,)*3;r.parent=root
+ for o in (r,b,root):
+  if o.name not in bpy.context.scene.collection.objects:bpy.context.scene.collection.objects.link(o)
+ if tint:
+  for slot in b.material_slots:
+   if slot.material:
+    m=slot.material.copy();c=slot.material.diffuse_color;m.diffuse_color=(c[0]*tint[0],c[1]*tint[1],c[2]*tint[2],1);slot.link='OBJECT';slot.material=m
+ return root,r,b
 # ---------------------------------------------------------------------------------------------------------- Blender helpers
 def keep_parent_inverse(child,parent):
  inv=child.matrix_parent_inverse.copy();child.parent=parent;child.matrix_parent_inverse=inv

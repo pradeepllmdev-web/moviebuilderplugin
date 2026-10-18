@@ -74,7 +74,7 @@ def nla(rig,sched):
 nla(Lrig,[('idle',0,2,'loop'),('climb',2,6,'loop'),('idle',6,9.8,'loop'),('block',9.8,11.8,'fit'),('idle',11.8,12.2,'loop'),('punch',12.2,13.8,'fit'),('idle',13.8,15.0,'loop'),('climb',15.0,16.6,'loop'),('idle',16.6,22.2,'loop'),
  ('dodge',22.2,23.3,'fit'),('kick',23.3,24.8,'fit'),('climb',24.8,28.6,'loop'),('idle',28.6,38.6,'loop'),('cele',38.6,43.6,'fit'),('idle',43.6,44.2,'loop'),('bow',44.2,47.2,'fit'),('idle',47.2,seconds,'loop')])
 nla(Rrig,[('idle',0,2,'loop'),('climb',2,6,'loop'),('idle',6,9,'loop'),('run',9,10.1,'loop'),('punch',10.1,11.7,'fit'),('idle',11.7,12.7,'loop'),('hit',12.7,15.0,'fit'),('idle',15.0,15.4,'loop'),('climb',15.4,16.6,'loop'),('idle',16.6,23.6,'loop'),
- ('fall',23.6,26.6,'fit','hold'),('getup',28.2,31.2,'fit'),('idle',31.2,32.6,'loop'),('run',32.6,34.9,'loop'),('jump',34.9,36.0,'fit'),('idle',36.0,42.0,'loop'),('getup',42.0,45.0,'fit'),('idle',45.0,46.4,'loop'),('bow',46.4,49.4,'fit'),('idle',49.4,seconds,'loop')])
+ ('fall',23.6,26.6,'fit','hold'),('getup',28.2,31.2,'fit'),('idle',31.2,32.6,'loop'),('run',32.6,34.9,'loop'),('jump',34.9,36.4,'fit'),('idle',36.4,42.0,'loop'),('getup',42.0,45.0,'fit'),('idle',45.0,46.4,'loop'),('bow',46.4,49.4,'fit'),('idle',49.4,seconds,'loop')])
 # ---------------------------------------------------------------------------------------------------------- choreography: waypoint paths plus grapple and throw overrides
 PI=math.pi
 WP={'leo':[(0,-13,0,0),(2,-13,0,0),(6,-2.4,0,0),(10.5,-2.4,0,0),(10.9,-2.9,0,0),(15.0,-2.9,0,0),(16.6,-1.51,0,0),(22.2,-2.51,0,0),(23.0,-2.6,1.0,0),(24.8,-2.6,1.0,0),(25.4,-3.0,1.3,PI),(28.4,-6.5,.2,PI),(29.8,-6.5,.2,0),(36.5,-6.5,.2,0),(38.4,-4.6,.2,0),(seconds,-4.6,.2,0)],
@@ -92,7 +92,7 @@ def grap(t):
  phi=.5*math.sin((t-16.8)*1.1) if t>=16.8 else 0.
  push=smooth((t-20.2)/1.6);M=GM0+Vector((-1.0*push,0,0));ax=Vector((math.cos(phi),math.sin(phi),0))
  return M-ax*.31,phi,M+ax*.31,phi+PI,push
-THROW=(34.9,36.1)
+THROW=(34.9,36.4)
 def throw_state(t):
  """Rival over Leo's shoulder: arc, 270 degree forward flip, lands on his back behind Leo."""
  lp,lh=wp_state('leo',t);u=smooth((t-THROW[0])/(THROW[1]-THROW[0]));start=Vector((lp.x+.62,lp.y,0));end=Vector((lp.x-1.15,lp.y,.0))
@@ -133,13 +133,13 @@ apply_all()
 # ---------------------------------------------------------------------------------------------------------- IK grips on the opponent's shoulders
 def make_ik(key,other):
  rig=FIG[key]['rig'];orig=FIG[other]['rig'];root=FIG[key]['root'];IK={}
- mapping={'LH':('LeftForeArm','RightArm' if key=='leo' else 'LeftArm'),'RH':('RightForeArm','LeftArm' if key=='leo' else 'RightArm')}
+ mapping={'LH':('LeftForeArm','RightShoulder' if key=='leo' else 'LeftShoulder'),'RH':('RightForeArm','LeftArm' if key=='leo' else 'RightArm')}
  # leo faces +x: his left hand meets the rival's right shoulder; the rival's left hand meets Leo's right shoulder
- if key=='riv':mapping={'LH':('LeftForeArm','RightArm'),'RH':('RightForeArm','LeftArm')}
- else:mapping={'LH':('LeftForeArm','RightArm'),'RH':('RightForeArm','LeftArm')}
+ if key=='riv':mapping={'LH':('LeftForeArm','RightShoulder'),'RH':('RightForeArm','LeftShoulder')}
+ else:mapping={'LH':('LeftForeArm','RightShoulder'),'RH':('RightForeArm','LeftShoulder')}
  for limb,(bone,target_bone) in mapping.items():
   tg=bpy.data.objects.new('Grip_%s_%s'%(key,limb),None);tg.empty_display_size=.06;link(tg)
-  cl=tg.constraints.new('COPY_LOCATION');cl.target=orig;cl.subtarget='mixamorig:'+target_bone
+  cl=tg.constraints.new('COPY_LOCATION');cl.target=orig;cl.subtarget='mixamorig:'+target_bone;cl.head_tail=1.0   # the shoulder bone is not part of any IK chain, so the two rigs do not depend on each other in a cycle
   pole=bpy.data.objects.new('Pole_%s_%s'%(key,limb),None);link(pole);pole.parent=root;sgn=1 if limb=='LH' else -1;pole.location=(.55*sgn,.55,1.0)
   c=rig.pose.bones['mixamorig:'+bone].constraints.new('IK');c.target=tg;c.pole_target=pole;c.pole_angle=math.radians(-90 if limb=='LH' else 90);c.chain_count=2;c.use_stretch=False;IK[limb]=c
  return IK
@@ -159,7 +159,7 @@ def bone_w(rig,name,tail=False):
  pb=rig.pose.bones['mixamorig:'+name];return rig.matrix_world@(pb.tail if tail else pb.head)
 def settle(f):
  scene.frame_set(f);bpy.context.view_layer.update()
-STRIKES=[dict(att='riv',bone='LeftHand',tgt='leo',tbone='LeftHand',win=(10.1,11.7),react=None,name='rival punch hits Leo\'s guard'),
+STRIKES=[dict(att='riv',bone='LeftHand',tgt='leo',tbone='Spine2',lag=0,win=(10.1,11.7),react=None,name='rival punch hits Leo\'s guard'),
  dict(att='leo',bone='LeftHand',tgt='riv',tbone='Spine2',win=(12.2,13.8),react=12.7,name='Leo\'s jab hits the rival chest'),
  dict(att='leo',bone='RightFoot',tgt='riv',tbone='RightFoot',win=(23.3,24.8),react=23.6,name='Leo\'s sweep hits the rival\'s legs')]
 IMPACTS=[]
@@ -170,7 +170,7 @@ def measure(st):
   settle(f);t=(f-1)/fps;p,r=state(st['att'],t);fwd=Vector((0,-1,0));fwd.rotate(att['root'].rotation_euler);hp=bone_w(att['rig'],st['bone']);rel=hp-att['root'].matrix_world.translation
   ext=rel.dot(Vector((fwd.x,fwd.y,0)))
   if best is None or ext>best[0]:best=(ext,f,hp.copy())
- ext,f,hp=best;t=(f-1)/fps;settle(f-3);tp=bone_w(FIG[st['tgt']]['rig'],st['tbone'])
+ ext,f,hp=best;t=(f-1)/fps;settle(f-st.get('lag',3));center=bone_w(FIG[st['tgt']]['rig'],st['tbone']);tp,depth=kit.surface_target(FIG[st['tgt']]['body'],hp,center,bpy.context.evaluated_depsgraph_get());st['depth']=depth
  return t,hp,tp
 for st in STRIKES:
  t_imp,hp,tp=measure(st);res=Vector((tp.x-hp.x,tp.y-hp.y,0));st['t']=t_imp;print('PASS1',st['att'],round(t_imp,2),tuple(round(x,2) for x in hp),tuple(round(x,2) for x in tp))
@@ -178,7 +178,7 @@ for st in STRIKES:
  IMPACTS.append(t_imp)
 apply_all()
 for st in STRIKES:
- t_imp,hp,tp=measure(st);print('PASS2',st['att'],round(t_imp,2),tuple(round(x,2) for x in hp),tuple(round(x,2) for x in tp));st['err']=(Vector((tp.x-hp.x,tp.y-hp.y,tp.z-hp.z))).length;st['t']=t_imp;print('STRIKE',st['name'],'t=%.2f'%t_imp,'miss %.0f cm'%(st['err']*100))
+ t_imp,hp,tp=measure(st);print('PASS2',st['att'],round(t_imp,2),tuple(round(x,2) for x in hp),tuple(round(x,2) for x in tp));st['err']=(Vector((tp.x-hp.x,tp.y-hp.y,tp.z-hp.z))).length;print('PENETRATION',st['name'],'%.0f cm'%(st['depth']*100));st['t']=t_imp;print('STRIKE',st['name'],'t=%.2f'%t_imp,'miss %.0f cm'%(st['err']*100))
 # the lying rival must rest on the ground
 def lowest(f,key='riv'):
  settle(f);dg=bpy.context.evaluated_depsgraph_get();e=FIG[key]['body'].evaluated_get(dg);mw=e.matrix_world;return min((mw@v.co).z for v in list(e.data.vertices)[::4])
@@ -229,6 +229,17 @@ for a in np.linspace(0,2*PI,12,endpoint=False):
 for a in (0,PI):prim('cube','GateL',(math.cos(a)*14.5,0,3),(.5,.46,.4),scale=(1,.4,3),rot=(0,0,0));
 scene.world=bpy.data.worlds.new('Dusk');scene.world.color=(.75,.5,.38)
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.data.energy=3.2;sun.data.color=(1,.72,.5);sun.rotation_euler=(math.radians(58),0,math.radians(40))
+# a few spectators are real cloned lions (shared mesh data, own armature, random clip phase) to show that crowds of animated characters work
+import time
+t_a=time.perf_counter()
+for i in range(24):
+ a=(i+.5)*2*PI/24;
+ if abs(math.sin(a))<.12 and abs(math.cos(a))>.9:continue
+ r0=15.9;root,crig,cbody=kit.clone_character(Lrig,Lbody,'CrowdLion%d'%i,(math.cos(a)*r0,math.sin(a)*r0,1.2),a+PI,.8+.15*rnd.random(),(rnd.uniform(.7,1.1),rnd.uniform(.6,1.0),rnd.uniform(.5,.9)))
+ tr=[crig.animation_data.nla_tracks.new(),crig.animation_data.nla_tracks.new()]
+ s1=kit.add_strip(tr[0],CLIPS['idle'],1-rnd.randint(0,90),F(10.0),'loop');s2=kit.add_strip(tr[1],CLIPS['cele'],F(10.0)-5-rnd.randint(0,100)*0,frames,'loop');s2.blend_in=5;s1.blend_out=5;s1.extrapolation='HOLD'
+ for f in range(1,frames+1,6):pass
+scene.frame_set(1);t_b=time.perf_counter();scene.frame_set(60);print('CROWD clones',sum(1 for o in bpy.data.objects if o.name.startswith('CrowdLion') and o.type=='ARMATURE'),'frame eval %.2fs'%(time.perf_counter()-t_b))
 # crowd reaction to every impact and the final victory
 CHEER=[(t,1.) for t in IMPACTS]+[(THROW[1],1.5),(40.0,1.8),(48.0,1.2)]
 def cheer(t):return .12+sum(a*math.exp(-(t-t0)/1.4) for t0,a in CHEER if t>=t0)
@@ -269,6 +280,7 @@ scene.camera=cams[0]
 issues=[]
 for st in STRIKES:
  if st['err']>.20:issues.append('AUDIT contact: %s misses by %.0f cm'%(st['name'],st['err']*100))
+ if st['depth']>.06:issues.append('AUDIT penetration: %s goes %.0f cm inside the other lion'%(st['name'],st['depth']*100))
 worst=(9,0)
 for f in range(1,frames+1,6):
  t=(f-1)/fps

@@ -27,6 +27,11 @@ class SceneKit(unittest.TestCase):
  def test_stride_play_speed_stays_natural(self):
   play,slide=kit.stride_play_speed(9.,4.9,13);self.assertTrue(.8<=play<=1.2)
   play,slide=kit.stride_play_speed(20.,4.9,13);self.assertEqual(play,1.2);self.assertGreater(slide,1.2)   # too fast for the clip: report residual sliding instead of strobing
+ def test_jump_physics(self):
+  self.assertAlmostEqual(kit.flight_apex(.7),9.81*.49/8)
+  self.assertAlmostEqual(kit.ballistic(.5,.6),.6);self.assertEqual(kit.ballistic(0,.6),0);self.assertEqual(kit.ballistic(1,.6),0)
+  p=kit.jump_profile(5.35,5.0,5.7);self.assertEqual(p['tuck'],1.0)
+  self.assertLess(kit.jump_profile(4.85,5.0,5.7)['dz'],0);self.assertLess(kit.jump_profile(5.85,5.0,5.7)['dz'],0);self.assertEqual(kit.jump_profile(9,5.0,5.7)['tuck'],0)
  def test_lessons_unique_and_complete(self):
   ids=[l['id'] for l in kit.LESSONS];self.assertEqual(len(ids),len(set(ids)))
   for l in kit.LESSONS:self.assertTrue(all(l[k] for k in('symptom','cause','rule')))

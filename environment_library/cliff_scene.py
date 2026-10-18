@@ -78,8 +78,8 @@ def hop(t,ph):return .08*math.sin(2*math.pi*t/.9+ph)
 SEG={
  'RH':[(0,5,None),(5,20.0,lambda t:climb_target('RH',S(t),COL_A)),(20.0,T_LAND-.5,lambda t:rope_end(t)+Vector((.05,0,0))),(T_LAND-.5,26.2,None),(26.2,33.0,lambda t:climb_target('RH',S(t),COL_B)),(33.0,45.5,None),(45.5,55.,lambda t:Vector((COL_C+.08,-.2,S(t)+1.15))),(55,999,None)],
  'LH':[(0,5,None),(5,20.8,lambda t:climb_target('LH',S(t),COL_A)),(20.8,T_LAND-.5,lambda t:rope_end(t)+Vector((-.05,0,0))),(T_LAND-.5,26.2,None),(26.2,33.0,lambda t:climb_target('LH',S(t),COL_B)),(33.0,45.5,None),(45.5,55.,lambda t:Vector((COL_C-.08,-.2,S(t)+1.15))),(55,999,None)],
- 'LF':[(0,5,None),(5,21.6,lambda t:climb_target('LF',S(t),COL_A)),(21.6,T_LAND+.2,None),(T_LAND+.2,26.2,lambda t:Vector((XE-.14,-.28,LEDGE2_Z+.12))),(26.2,33.0,lambda t:climb_target('LF',S(t),COL_B)),(33.0,33.8,lambda t:Vector((3.3-.12,-.28,SLAB_Z+.12))),(33.8,45.9,None),(45.9,55.,lambda t:Vector((COL_C-.14,-.04,S(t)+.30+hop(t,0)))),(55,999,None)],
- 'RF':[(0,5,None),(5,21.6,lambda t:climb_target('RF',S(t),COL_A)),(21.6,T_LAND+.2,None),(T_LAND+.2,26.2,lambda t:Vector((XE+.14,-.28,LEDGE2_Z+.12))),(26.2,33.0,lambda t:climb_target('RF',S(t),COL_B)),(33.0,33.8,lambda t:Vector((3.3+.12,-.28,SLAB_Z+.12))),(33.8,45.9,None),(45.9,55.,lambda t:Vector((COL_C+.14,-.04,S(t)+.30+hop(t,math.pi)))),(55,999,None)]}
+ 'LF':[(0,5,None),(5,21.6,lambda t:climb_target('LF',S(t),COL_A)),(21.6,T_LAND-.5,None),(T_LAND-.5,T_LAND+.2,lambda t:leo_root(t)[0]+Vector((-.14,.05,.12+.30*kit.jump_profile(t,T_LAND-.5,T_LAND+.2)['tuck']))),(T_LAND+.2,26.2,lambda t:Vector((XE-.14,-.28,LEDGE2_Z+.12))),(26.2,33.0,lambda t:climb_target('LF',S(t),COL_B)),(33.0,33.8,lambda t:Vector((3.3-.12,-.28,SLAB_Z+.12))),(33.8,45.9,None),(45.9,55.,lambda t:Vector((COL_C-.14,-.04,S(t)+.30+hop(t,0)))),(55,999,None)],
+ 'RF':[(0,5,None),(5,21.6,lambda t:climb_target('RF',S(t),COL_A)),(21.6,T_LAND-.5,None),(T_LAND-.5,T_LAND+.2,lambda t:leo_root(t)[0]+Vector((.14,.05,.12+.30*kit.jump_profile(t,T_LAND-.5,T_LAND+.2)['tuck']))),(T_LAND+.2,26.2,lambda t:Vector((XE+.14,-.28,LEDGE2_Z+.12))),(26.2,33.0,lambda t:climb_target('RF',S(t),COL_B)),(33.0,33.8,lambda t:Vector((3.3+.12,-.28,SLAB_Z+.12))),(33.8,45.9,None),(45.9,55.,lambda t:Vector((COL_C+.14,-.04,S(t)+.30+hop(t,math.pi)))),(55,999,None)]}
 def limb_eval(limb,t,tr=.5):
  segs=SEG[limb];i=max(k for k,sg in enumerate(segs) if sg[0]<=t);t0,t1,fn=segs[i];prev=segs[i-1] if i else None
  if fn is None:
@@ -164,7 +164,7 @@ def leo_root(t):
  elif t<T_SW0:x=COL_A+(XS-COL_A)*smooth((t-19.6)/.8);z=7.0;
  elif t<T_LAND-.5:P=rope_end(t);x,z=P.x,P.z-1.3
  elif t<T_LAND+.2:
-  P=rope_end(T_LAND-.5);u=(t-(T_LAND-.5))/.7;x=(P.x)+(XE-P.x)*u;z=(P.z-1.3)+(7.0-(P.z-1.3))*u+.45*math.sin(math.pi*u)
+  P=rope_end(T_LAND-.5);u=(t-(T_LAND-.5))/.7;x=(P.x)+(XE-P.x)*u;z=(P.z-1.3)+(7.0-(P.z-1.3))*u+kit.ballistic(u,kit.flight_apex(.7))
  elif t<26.2:x,z=XE,7.0
  elif t<33.0:x,z=COL_B,S(t)
  elif t<33.8:x,z=COL_B+.5*smooth((t-33)/.8),SLAB_Z
@@ -176,6 +176,8 @@ def leo_root(t):
  elif t<46.3:x,z=8.5+1.1*smooth(t-45.3),SLAB_Z
  else:x,z=COL_C,S(t)
  if (7<t<20 or 26.7<t<33) and t not in(): x+=.035*math.sin(math.pi*S(t)/STEP)
+ jp=kit.jump_profile(t,T_LAND-.5,T_LAND+.2)
+ if t>T_LAND+.2 or t<T_LAND-.5:z+=jp['dz']*(t>T_LAND+.2)
  if t>55:z=0.
  return Vector((x,ROOT_Y,z)),heading_at(t)
 for f in range(1,frames+1,2):
