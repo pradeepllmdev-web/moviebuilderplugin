@@ -34,7 +34,7 @@ def hide_outside(obj,start,end):
   for fc in curves(obj.animation_data.action):
    if fc.data_path in ('hide_viewport','hide_render'):
     for kp in fc.keyframe_points:kp.interpolation='CONSTANT'
-def add_actor(actor,start,length,index,slot_offset=(0,0)):
+def add_actor(actor,start,length,index,slot_offset=(0,0),src_start=1):
  before=set(bpy.data.objects)
  with bpy.data.libraries.load(actor['folder']+'/scene.blend',link=False) as (src,dst):dst.objects=list(src.objects)
  new=[o for o in bpy.data.objects if o not in before]
@@ -48,8 +48,8 @@ def add_actor(actor,start,length,index,slot_offset=(0,0)):
   link(o)
   if o.parent is None:o.parent=root
   if o.type=='EMPTY' and not o.children:o.hide_viewport=True
-  shift(o.animation_data.action if o.animation_data else None,start-1,done)
-  if o.type=='MESH' and o.data.shape_keys and o.data.shape_keys.animation_data:shift(o.data.shape_keys.animation_data.action,start-1,done)
+  shift(o.animation_data.action if o.animation_data else None,start-src_start,done)
+  if o.type=='MESH' and o.data.shape_keys and o.data.shape_keys.animation_data:shift(o.data.shape_keys.animation_data.action,start-src_start,done)
   if o.animation_data:
    for track in o.animation_data.nla_tracks:o.animation_data.nla_tracks.remove(track)
   hide_outside(o,start,start+length-1)
@@ -82,17 +82,22 @@ else:
  cams=[];index=0
  for k,shot in enumerate(spec['shots']):
   for actor in shot['actors']:
-   add_actor(actor,shot['start'],shot['length'],index);index+=1
+   add_actor(actor,shot['start'],shot['length'],index,(0,0),shot.get('src_start',1));index+=1
   frame_end=max(frame_end,shot['start']+shot['length']-1)
   if spec.get('captions'):
    px,py=shot['actors'][0]['position_cm'];bpy.ops.object.text_add(location=(px/100,py/100,2.3),rotation=(math.radians(90),0,math.radians(180)+math.atan2(-220,420)*-1));cap=bpy.context.object;cap.data.body=shot.get('label','');cap.data.size=.22;cap.data.align_x='CENTER';mm=bpy.data.materials.new('Cap');mm.diffuse_color=(1,1,.2,1);cap.data.materials.append(mm);hide_outside(cap,shot['start'],shot['start']+shot['length']-1)
-  c=shot.get('camera')
+  c=shot.get('camera') if not spec.get('camera') else None
+  if spec.get('camera'):marker=scene.timeline_markers.new(shot.get('label','shot%d'%k),frame=shot['start'])
   if c:
    data=bpy.data.cameras.new('Cam%d'%k);data.lens=c['lens'];cam=bpy.data.objects.new('Cam%d'%k,data);link(cam);cam.location=[v/100 for v in c['pos_cm']]
    aim=bpy.data.objects.new('Aim%d'%k,None);link(aim);aim.location=[v/100 for v in c['target_cm']];aim.hide_viewport=True
    con=cam.constraints.new('TRACK_TO');con.target=aim;con.track_axis='TRACK_NEGATIVE_Z';con.up_axis='UP_Y'
    marker=scene.timeline_markers.new(shot.get('label','shot%d'%k),frame=shot['start']);marker.camera=cam;cams.append(cam)
  if cams:scene.camera=cams[0]
+ if spec.get('camera'):
+  c=spec['camera'];data=bpy.data.cameras.new('ReelCam');data.lens=c['lens'];cam=bpy.data.objects.new('ReelCam',data);link(cam);cam.location=[v/100 for v in c['pos_cm']]
+  aim=bpy.data.objects.new('ReelAim',None);link(aim);aim.location=[v/100 for v in c['target_cm']];aim.hide_viewport=True
+  con=cam.constraints.new('TRACK_TO');con.target=aim;con.track_axis='TRACK_NEGATIVE_Z';con.up_axis='UP_Y';scene.camera=cam
  low_poly_world(24,spec.get('trees',True))
 scene.frame_start=1;scene.frame_end=frame_end;scene.frame_set(1)
 bpy.ops.object.select_all(action='DESELECT')

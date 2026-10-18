@@ -57,4 +57,4 @@ New activities in this batch: pick_up (cup from a side table, arm IK), open_door
 
 Known limits: props and stairs exist in Blender only (no Unreal prop yet); stairs do not plant feet with IK; the hug puts hands on the partner's sides, not a full wrap; handshake spacing 25..72 cm and hug 25..46 cm for the lion's reach.
 
-`python quick_review.py reel [all|a,b,c] [--render]` plays the activities one after another as a movie: each is a shot with its own camera and an on-screen caption (cuts are timeline markers); `--render` writes `previs.mp4`.
+`python quick_review.py reel [all|a,b,c] [--render]` plays ONE activity at a time on one timeline, 5 seconds (120 frames) each, one fixed camera, a caption and a timeline marker per slot (Marker menu: jump to next/previous). `library.json` next to the .blend lists every activity with its slot frames and the built actor folders, so a movie can pick clips from it later; `--render` writes `previs.mp4`.

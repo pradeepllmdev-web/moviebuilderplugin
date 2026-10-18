@@ -86,10 +86,17 @@ def run_gallery(names,character='lion',open_gui=True,sequence=False,render=False
    length=sum(d for a,d in activities.ACTIVITIES[name]['test_beats'])*24
    shots.append(dict(start=1,length=length,label=name,actors=[dict(folder=str(f),position_cm=s['actor_position_cm'],yaw=s['facing_yaw_deg']) for f,ok_,d,s in actors]))
  if sequence:
-  start=1
+  # One animation at a time, 5 seconds each, one fixed camera: the slot shows the activity's own beat (leading idle skipped).
+  start=1;slot=120
   for s in shots:
-   xy=[a['position_cm'] for a in s['actors']];s['start']=start;s['camera']=camera_for(dict(camera='full'),xy);start+=s['length']
-  folder,note=merge(dict(mode='movie',fps=24,shots=shots,width=640,height=360,trees=True,captions=True),'reel',render,open_gui)
+   beats=activities.ACTIVITIES[s['label']]['test_beats'];lead=0
+   for a,d in beats:
+    if a=='idle':lead+=d
+    else:break
+   total=sum(d for a,d in beats);s['src_start']=lead*24+1;s['src_length']=min(slot,(total-lead)*24);s['start']=start;s['length']=slot;start+=slot
+  library={s['label']:dict(slot_start_frame=s['start'],slot_end_frame=s['start']+slot-1,seconds=5,source_actor_folders=[a['folder'] for a in s['actors']]) for s in shots}
+  folder,note=merge(dict(mode='movie',fps=24,shots=shots,width=640,height=360,trees=True,captions=True,camera=dict(pos_cm=[170,250,140],target_cm=[0,0,95],lens=35)),'reel',render,open_gui)
+  (folder/'library.json').write_text(json.dumps(library,indent=1))
   report.append(f'reel: {note} -> {folder}/'+('previs.mp4' if render else 'previs.blend')+f'  ({start-1} frames, {time.time()-started:.0f}s)')
   return report
  folder,note=merge(dict(mode='gallery',fps=24,shots=shots,columns=8,gap_cm=300),'gallery',False,open_gui)
