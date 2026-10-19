@@ -463,6 +463,41 @@ def _museum_hall(ctx,state):
  for x in (-12,-4,4,12):
   lt=bpy.data.objects.new('SkyGlow',bpy.data.lights.new('SkyGlow','POINT'));lt.data.energy=700;lt.data.color=(.45,.55,1);lt.location=(x,0,6.5);link(lt)
 
+WORKSHOP=dict(x0=-4.5,x1=4.5,y0=-3.2,y1=3.8,h=3.6,bench=dict(x0=-1.7,x1=1.7,y0=0.,y1=.9,z=1.02))
+def _workshop(ctx,state):
+ import bpy
+ from mathutils import Vector
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];W=WORKSHOP;B=W['bench'];rnd=random.Random(55)
+ prim('cube','Floor',(0,.3,-.1),(.3,.2,.13),scale=(4.8,3.6,.1))
+ for ix in range(-4,5):
+  for iy in range(-3,4):
+   if (ix+iy)%2==0:prim('cube','FloorBoard',(ix*1.1,iy*1.0+.4,.004),(.34,.24,.16),scale=(.55,.5,.004))
+ prim('cube','Wall',(0,W['y1']+.25,W['h']/2),(.4,.33,.26),scale=(4.8,.25,W['h']/2))
+ prim('cube','WallW',(W['x0']-.25,.3,W['h']/2),(.38,.31,.25),scale=(.25,3.6,W['h']/2));prim('cube','WallE',(W['x1']+.25,.3,W['h']/2),(.38,.31,.25),scale=(.25,3.6,W['h']/2))
+ prim('cube','Ceiling',(0,.3,W['h']+.2),(.25,.2,.16),scale=(4.8,3.6,.2))
+ for sx in (-3.2,3.2):prim('cube','Beam',(sx,.3,W['h']-.15),(.2,.15,.1),scale=(.15,3.6,.15))
+ bx=(B['x0']+B['x1'])/2;bw=(B['x1']-B['x0'])/2;by=(B['y0']+B['y1'])/2;bd=(B['y1']-B['y0'])/2
+ prim('cube','BenchTop',(bx,by,B['z']-.04),(.45,.3,.16),scale=(bw,bd,.04))
+ for sx in (-1,1):
+  for sy in (-1,1):prim('cube','BenchLeg',(bx+sx*(bw-.1),by+sy*(bd-.08),(B['z']-.08)/2),(.3,.2,.12),scale=(.06,.06,(B['z']-.08)/2))
+ prim('cube','BenchShelf',(bx,by,.3),(.35,.25,.13),scale=(bw-.1,bd-.1,.025))
+ prim('cube','BenchMat',(bx,by,B['z']+.002),(.2,.27,.24),scale=(bw-.15,bd-.1,.003))
+ # wall shelves with jars, tool board and decorative gears
+ for k,z in enumerate((1.5,2.2,2.9)):
+  prim('cube','Shelf',(-2.2,W['y1']-.2,z),(.38,.28,.17),scale=(1.5,.2,.04))
+  for j in range(7):prim('cyl','Jar',(-3.4+j*.38+rnd.uniform(-.03,.03),W['y1']-.2,z+.12),(rnd.uniform(.3,.8),rnd.uniform(.3,.6),rnd.uniform(.2,.5)),scale=(.11,.11,.09+rnd.random()*.04),vertices=10,radius=1,depth=2)
+ prim('cube','ToolBoard',(2.6,W['y1']-.02,1.9),(.3,.22,.15),scale=(1.4,.04,.9))
+ for j in range(9):
+  x=1.5+j*.25;h=.25+rnd.random()*.2;prim('cube','ToolHandle',(x,W['y1']-.08,1.95),(.4,.25,.12),scale=(.03,.03,h/2));prim('cube','ToolHead',(x,W['y1']-.08,1.95+h/2),(.6,.6,.62),scale=(.05,.025,.05))
+ for k,(gx,gz,gr,n) in enumerate(((1.5,3.05,.38,16),(2.2,3.25,.26,12),(3.2,3.0,.44,18))):
+  prim('cyl','WallGear',(gx,W['y1']-.05,gz),(.55,.4,.2),scale=(gr,gr,.04),rot=(math.pi/2,0,0),vertices=n*2,radius=1,depth=2)
+ prim('cyl','ClockFace',(-3.4,W['y1']-.05,3.1),(.9,.85,.7),scale=(.42,.42,.03),rot=(math.pi/2,0,0),vertices=24,radius=1,depth=2)
+ for sx in (-1,1):prim('cube','BarrelCrate',(sx*3.7,-.6,.45),(.35,.26,.14),scale=(.5,.5,.45))
+ prim('cube','Window',(W['x1']-.02,1.6,2.0),(.45,.6,.95),scale=(.03,.7,.8),emit=1.5)
+ la=bpy.data.objects.new('BenchLamp',bpy.data.lights.new('BenchLamp','POINT'));la.data.energy=1500;la.data.color=(1,.78,.5);la.location=(0,.45,2.5);link(la)
+ prim('cone','LampShade',(0,.45,2.65),(.8,.55,.2),scale=(.28,.28,.15),vertices=16,radius1=1,depth=2)
+ fl=bpy.data.objects.new('FillLight',bpy.data.lights.new('FillLight','POINT'));fl.data.energy=900;fl.data.color=(.75,.82,1);fl.location=(0,-2.2,2.8);link(fl)
+
 REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried'),build=_village,piece_default='avalanche'),'citadel':dict(consts=lambda:CITADEL,states=('intact','breached'),build=_citadel,piece_default='siege'),
  'arena_ruins':dict(states=('intact',),build=_arena_ruins,piece_default='arena_duel'),
  'railway_plains':dict(states=('intact',),build=_railway,piece_default='great_escape',params=True),
@@ -481,6 +516,7 @@ REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried
  'scroll':dict(states=('intact',),build=_prop_scroll,piece_default=None),
  'gavel':dict(states=('intact',),build=_prop_gavel,piece_default=None),
  'museum_hall':dict(consts=lambda:MUSEUM,states=('intact',),build=_museum_hall,piece_default='heist'),
+ 'workshop':dict(consts=lambda:WORKSHOP,states=('intact',),build=_workshop,piece_default='workshop'),
  'train_consist':dict(states=('intact',),build=_train_consist,piece_default='great_escape',params=True)}
 def bank_path(id_,state='intact',params=None):
  import inspect

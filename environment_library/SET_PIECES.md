@@ -74,6 +74,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: sentries only sweep (no chase), vision is cone plus ray cast, hands use IK targets with no finger poses
 * prompt keywords: `heist|burglar|steal(?:s|ing)? (?:the|a) (?:jewel|diamond|gem)|museum|laser|sneak(?:s|ing)? past|stealth|thief|robb(?:ery|er)`
 
+## The Workshop (`workshop`)
+
+* script: `workshop_scene.py`
+* story: Leo assembles a clockwork music box at his bench: picks three gears, seats them on their pins with IK hands, turns the crank (the gears mesh with real teeth) and a bird pops out and a bell rings (about 30 s)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs idle)
+* known limits: one standing pose at the bench, hands are IK targets with no finger poses, gears are fixed to three pins
+* prompt keywords: `workshop|tinker|clockwork|music box|gears?|invent(?:s|or|ion)|assembl(?:es|ing)|watchmaker|crank`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`
