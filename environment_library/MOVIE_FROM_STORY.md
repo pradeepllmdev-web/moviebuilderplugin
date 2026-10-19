@@ -15,3 +15,11 @@
 
 Limits: scenes that match no set piece are listed as `shots` and are not in the master (build them with the shot-by-shot planner `movie_prompt.py`); only the lion rig is available as
 hero (tint changes its colour); a 10 minute film is about 10 scenes and builds in roughly 15 to 25 minutes in sequence, much less when most scenes are reused.
+
+## Shared things, built once
+
+* **Locations** (`locations.py`): the mountain village and the citadel are built once into `bank/<id>_<state>_<hash>.blend` and appended by every scene that uses them (`locations.load`);
+  the hash of the module invalidates the cache when a location changes, `set_pieces.build` creates missing bank files first. A scene state (`intact`, `buried`, `breached`) is the
+  parameter `location_state`; `story_plan` carries damage from scene to scene (an avalanche buries the village for the scenes after it) and warns when a set piece cannot show it.
+* **Characters and clips** (`scenes/ship_assets`, from `build_ship_assets.py`): built once, loaded by every scene.
+* Next candidates for the bank: props that travel between scenes (cub, egg, knife, banner) and the remaining environments (river canyon, plains, arena).

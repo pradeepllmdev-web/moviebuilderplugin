@@ -10,8 +10,9 @@ TIME_OF_DAY={
  'night':dict(sun_color=(.45,.55,.9),sun_energy=.8,sun_rot=(40,0,60),world=(.04,.05,.1)),
  'overcast':dict(sun_color=(.85,.88,.95),sun_energy=1.6,sun_rot=(55,0,0),world=(.5,.54,.6)),
 }
-KEYS=('time_of_day','hero_tint','title')
-def defaults():return dict(time_of_day=None,hero_tint=None,title=None)
+KEYS=('time_of_day','hero_tint','title','location_state')
+LOCATION_STATES=('intact','buried','breached')
+def defaults():return dict(time_of_day=None,hero_tint=None,title=None,location_state=None)
 def get(env=None):
  """Parameters from SCENE_PARAMS (or the given string/dict), validated; bad values fall back to the scene defaults."""
  raw=env if env is not None else os.environ.get('SCENE_PARAMS','')
@@ -25,6 +26,7 @@ def get(env=None):
  h=raw.get('hero_tint')
  if isinstance(h,(list,tuple)) and len(h)==3 and all(isinstance(x,(int,float)) and 0<=x<=2 for x in h):d['hero_tint']=tuple(float(x) for x in h)
  if isinstance(raw.get('title'),str):d['title']=raw['title'][:80]
+ if raw.get('location_state') in LOCATION_STATES:d['location_state']=raw['location_state']
  return d
 def preset(name):
  p=TIME_OF_DAY[name];return dict(p,sun_rot=tuple(math.radians(v) for v in p['sun_rot']))

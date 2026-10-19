@@ -78,3 +78,5 @@ environment_library/quick_review/
 *.part
 *.zip
 *.log
+
+environment_library/bank/

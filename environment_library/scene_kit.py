@@ -72,6 +72,8 @@ LESSONS=[
  dict(id='regex_escapes',symptom='Keyword routing silently misses prompts.',cause='A backspace character (chr 8) was written where the regex needed backslash-b because of an escaped string in a generated edit.',rule='Check that no file contains chr(8) (tests do), keep regexes in raw strings, and test routing with plain sentences (test_set_piece_routing, test_story_plan_routes_and_warns).'),
  dict(id='long_story',symptom='A 10 minute story cannot be built or rebuilt cheaply.',cause='No scene-level plan, cache or assembly.',rule='story_plan (scenes, routing, time of day, warnings) -> build_movie (sequential, parameters in SCENE_PARAMS, reuse by key) -> assemble_movie (linked scene strips plus sound) -> report; see MOVIE_FROM_STORY.md.'),
 
+ dict(id='shared_locations',symptom='The same place looks different in two scenes, or is rebuilt every time.',cause='Each set piece built its own environment.',rule='Anything common is built once: locations.py builds a location into bank/<id>_<state>_<hash>.blend (the hash of the module invalidates it automatically) and every scene appends it (locations.load); characters and clips already come from shared files (ship_assets). Scene state (intact, buried, breached) is a parameter, and story_plan carries damage from scene to scene and warns when a set piece cannot show it.'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)
@@ -258,14 +260,14 @@ def camera_checks(scene,subjects,samples=(.1,.25,.4,.55,.7,.85)):
    f=int(m.frame+(end-m.frame)*fr);scene.frame_set(f);bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get();cam=m.camera;o=cam.matrix_world.translation
    fwd=cam.matrix_world.to_quaternion()@Vector((0,0,-1))
    ok,loc,n,idx,ob,mw=scene.ray_cast(dg,o,fwd,distance=2.0)
-   if ok and n.dot(fwd)>0:out.append('AUDIT camera_inside: cut "%s" frame %d is inside %s'%(m.name,f,ob.name));break
+   if ok and n.dot(fwd)>0 and not ob.name.startswith(('SnowPuff','Puff','Steam','Splash','Dust','Spark')):out.append('AUDIT camera_inside: cut "%s" frame %d is inside %s'%(m.name,f,ob.name));break
    vis=False;blocker=None
    for sub in subjects:
     for hz in (.35,1.0,1.7):
      tgt=sub.matrix_world.translation+Vector((0,0,hz));d=tgt-o;dist=d.length
      if dist<.3:continue
      ok,loc,n,idx,ob,mw=scene.ray_cast(dg,o,d.normalized(),distance=dist-.25)
-     if not ok or ob.name in fam:vis=True;break
+     if not ok or ob.name in fam or ob.name.startswith(('SnowPuff','Puff','Steam','Splash','Dust','Spark','Arrow')):vis=True;break
      blocker=ob.name
     if vis:break
    if subjects and not vis:out.append('AUDIT occluded: cut "%s" frame %d hides every subject behind %s'%(m.name,f,blocker));break

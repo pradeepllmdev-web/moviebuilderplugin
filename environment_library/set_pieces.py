@@ -80,6 +80,10 @@ def build(piece,out=None,seconds=None,params=None):
  gone=missing(piece)
  if gone:return dict(ok=False,missing=gone,audit=[],out=None)
  out=Path(out or H/'scenes'/(piece+'.blend'));out.parent.mkdir(parents=True,exist_ok=True)
+ try:
+  import locations;locations.ensure_for(piece,params)   # shared locations are built once into bank/ and appended by the scene
+ except Exception as ex:
+  print('locations bank skipped:',ex)
  import os
  env=dict(os.environ);env['SCENE_PARAMS']=json.dumps(params or {})
  proc=subprocess.run(command(piece,out,seconds),capture_output=True,text=True,errors='ignore',timeout=1800,env=env)

@@ -65,7 +65,7 @@ class SceneKit(unittest.TestCase):
 class MoviePipeline(unittest.TestCase):
  def test_scene_params_validation(self):
   import scene_params as sp
-  self.assertEqual(sp.get('{"time_of_day":"night","hero_tint":[1,0.5,0.5],"title":"x"}'),dict(time_of_day='night',hero_tint=(1.,.5,.5),title='x'))
+  self.assertEqual(sp.get('{"time_of_day":"night","hero_tint":[1,0.5,0.5],"title":"x"}'),dict(time_of_day='night',hero_tint=(1.,.5,.5),title='x',location_state=None))
   d=sp.get('{"time_of_day":"moon","hero_tint":[9,0,0]}');self.assertIsNone(d['time_of_day']);self.assertIsNone(d['hero_tint'])
   self.assertEqual(sp.get('not json'),sp.defaults());self.assertEqual(sp.get(''),sp.defaults())
  def test_story_plan_routes_and_warns(self):
@@ -87,4 +87,22 @@ class MoviePipeline(unittest.TestCase):
    build_movie.run(story,d,build=fake);self.assertEqual(calls,['great_escape','avalanche'])
    build_movie.run(story,d,build=fake);self.assertEqual(calls,['great_escape','avalanche'])          # unchanged scenes are reused
    build_movie.run(story.replace('night','dusk'),d,build=fake);self.assertEqual(calls,['great_escape','avalanche','avalanche'])   # only the changed scene is rebuilt
+class SharedLocations(unittest.TestCase):
+ def test_registry_and_hash_paths(self):
+  import locations
+  self.assertEqual(set(locations.REGISTRY),{'mountain_village','citadel'})
+  a=locations.bank_path('citadel','intact');b=locations.bank_path('citadel','breached');self.assertNotEqual(a,b);self.assertTrue(a.name.startswith('citadel_intact_'))
+  with self.assertRaises(ValueError):locations.ensure('castle_of_oz')
+  with self.assertRaises(ValueError):locations.ensure('citadel','flooded')
+ def test_pure_terrain(self):
+  import locations
+  self.assertAlmostEqual(locations.village_terrain(100,0),-3.76);self.assertGreater(locations.village_terrain(-50,0),20);self.assertAlmostEqual(locations.village_terrain(50,0),-2.,delta=.5)
+ def test_story_carries_damage_between_scenes(self):
+  import story_plan
+  p=story_plan.plan(chr(10).join(['']*0)+(chr(10)*2).join(['An avalanche hits the village at night.','Later, another avalanche hits the village.','An army besieges the castle.','At dusk the army attacks the castle again.']))
+  self.assertEqual(p['scenes'][1]['params'].get('location_state'),'buried');self.assertNotIn('location_state',p['scenes'][0]['params'])
+  self.assertTrue(any('revisits citadel after it was breached' in w for w in p['warnings']))
+ def test_scene_params_location_state(self):
+  import scene_params as sp
+  self.assertEqual(sp.get('{"location_state":"buried"}')['location_state'],'buried');self.assertIsNone(sp.get('{"location_state":"flooded"}')['location_state'])
 if __name__=='__main__':unittest.main()

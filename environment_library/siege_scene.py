@@ -34,37 +34,11 @@ def prim(kind,name,loc,color,scale=(1,1,1),rot=(0,0,0),parent=None,**kw):
 def kf(o,f,**kw):
  for k,v in kw.items():setattr(o,k,v);o.keyframe_insert(k,frame=f)
 # ---------------------------------------------------------------------------------------------------------- the citadel (y = 30 is the wall line, the field is at y < 29)
-WY0,WY1,WH=29.3,30.7,9.;BLK=(2.,1.,1.4)
-bpy.ops.mesh.primitive_plane_add(size=1,location=(0,-30,-.05));g=bpy.context.object;g.scale=(400,260,1);g.name='Field';g.data.materials.append(mat('Field',(.36,.44,.22)))
-passive=[]
-def solid(name,center,half,color):
- o=prim('cube',name,center,color,scale=half);passive.append(o);return o
-STONE=(.58,.54,.47)
-solid('WallW',(-26,30,WH/2),(8,.7,WH/2),STONE);solid('WallE',(18.5,30,WH/2),(15.5,.7,WH/2),STONE);solid('WallMidW',(-4.5,30,WH/2),(1.5,.7,WH/2),STONE)
-for sx in (-5.5,5.5):
- for sy in (28.8,32.2):solid('GatePillar',(sx,sy,7.5),(.35,.35,7.5),(.5,.46,.4))
-solid('GateRoof',(0,30.5,14.2),(6.2,2.6,.8),(.45,.3,.22));solid('GateLintel',(0,30,6.6),(3,.7,.6),STONE)
-for x in (-34,34):
- prim('cyl','Tower',(x,30,7),(.52,.48,.42),scale=(5,5,7),vertices=12,radius=1,depth=2);prim('cone','TowerRoof',(x,30,15.5),(.5,.16,.14),scale=(5.6,5.6,2.8),vertices=12,radius1=1,depth=2)
-solid('KeepWall',(0,60,8),(14,.8,8),STONE);solid('KeepTower',(0,57,10),(4,4,10),(.5,.46,.4));prim('cone','KeepRoof',(0,57,22),(.5,.16,.14),scale=(4.6,4.6,3),vertices=8,radius1=1,depth=2)
-for s_ in (-1,1):solid('CourtWall',(s_*34,45,5),(.7,15,5),STONE)
-for i in range(14):x=rnd.uniform(-28,28);y=rnd.uniform(36,52);prim('cube','House',(x,y,1.5),(.55,.4,.25),scale=(2,2,1.5));prim('cone','HouseRoof',(x,y,3.6),(.5,.2,.15),scale=(3,3,1.2),vertices=4,radius1=1,depth=2,rot=(0,0,PI/4))
-# the breach section: 6 columns x 9 rows of blocks, x from -18 to -6
-BLOCKS=[]
-for c in range(6):
- for r in range(9):
-  x=-17+c*2.;z=.5+r*1.;o=prim('cube','Block',(x,30,z),tuple(v*(.5+.02*((c+r)%2)) for v in (.58,.54,.47)) if False else ((.6,.56,.5) if (c+r)%2 else (.55,.5,.44)),scale=(BLK[0]/2-.02,BLK[2]/2-.02,BLK[1]/2-.02));BLOCKS.append((o,c,r))
-# gate: portcullis (bars) in the opening, on a rail
-port=prim('cube','PortcullisTop',(0,30,6.1),(.2,.2,.2),scale=(3,.15,.12))
-portbars=[port]
-for i,x in enumerate(np.linspace(-2.7,2.7,10)):portbars.append(prim('cube','PortBar',(x,30,3.0),(.22,.22,.22),scale=(.08,.12,3.0)))
-for z in (1.5,3.0,4.5):portbars.append(prim('cube','PortCross',(0,30,z),(.22,.22,.22),scale=(3,.1,.07)))
-for o in portbars:
- if o is not port:o.parent=port
- # parent keeps local offsets; the bars are positioned relative to the world origin so convert
-port.location=(0,30,0);port.name='Portcullis'
-for o in portbars[1:]:o.location=(o.location.x,o.location.y-30,o.location.z)
-port.scale=(1,1,1)
+import locations,scene_params
+_prm=scene_params.get();_loc=locations.load('citadel',dict(link=link,mat=mat,prim=prim),'intact')
+WY0,WY1,WH=locations.CITADEL['wall'];BLK=locations.CITADEL['block']
+g=bpy.data.objects['Field'];passive=[o for o in bpy.data.objects if 'rb' in o.keys()]
+BLOCKS=sorted([(o,o['blk'][0],o['blk'][1]) for o in bpy.data.objects if 'blk' in o.keys()],key=lambda t:(t[1],t[2]));port=bpy.data.objects['Portcullis'];portbars=[port]+list(port.children)
 # ---------------------------------------------------------------------------------------------------------- ground rigid-body setup and bake
 bpy.ops.rigidbody.world_add();rw=scene.rigidbody_world;rw.point_cache.frame_start=1;rw.point_cache.frame_end=frames
 for o in passive+[g]:

@@ -31,38 +31,10 @@ def prim(kind,name,loc,color,scale=(1,1,1),rot=(0,0,0),**kw):
  else:bpy.ops.mesh.primitive_cube_add(location=loc,rotation=rot,**kw)
  o=bpy.context.object;o.scale=scale;o.name=name;o.data.materials.append(mat(name.split('.')[0]+str(color),color));return o
 # ---------------------------------------------------------------------------------------------------------- terrain: slope above the village, gentle valley, flat floor of the shelter
-def terrain(x,y):
- n=.18*(math.sin(x*.9+y*.5)+math.sin(y*1.3-x*.4))
- if x<0:return .52*(-x)+n*(1+(-x)/20.)
- if x<94:return -.04*x+n*.5
- return -3.76
-HALL_X0,HALL_X1,HALL_HW=96.,116.,12.;GATE_HW=3.;DOOR_Z=-3.8
-bm=bmesh.new();xs=np.arange(-72,128,2.5);ys=np.arange(-46,47,2.5);gv=[[bm.verts.new((x,y,terrain(x,y))) for y in ys] for x in xs]
-for i in range(len(xs)-1):
- for j in range(len(ys)-1):bm.faces.new((gv[i][j],gv[i+1][j],gv[i+1][j+1],gv[i][j+1]))
-me=bpy.data.meshes.new('TerrainMesh');bm.to_mesh(me);bm.free();terr=bpy.data.objects.new('Terrain',me);link(terr);me.materials.append(mat('Snowfield',(.88,.9,.94)))
-for p in me.polygons:p.use_smooth=False
-passive=[(terr,'MESH')]
-def solid(name,center,half,color):
- o=prim('cube',name,center,color,scale=half);passive.append((o,'BOX'));return o
-# shelter hall (walls, roof) with a 6 m gate opening in the west wall
-z0=DOOR_Z;H=8.
-solid('HallWallFrontL',(HALL_X0,-(GATE_HW+(HALL_HW-GATE_HW)/2),z0+H/2),(.5,(HALL_HW-GATE_HW)/2,H/2),(.5,.46,.4))
-solid('HallWallFrontR',(HALL_X0,(GATE_HW+(HALL_HW-GATE_HW)/2),z0+H/2),(.5,(HALL_HW-GATE_HW)/2,H/2),(.5,.46,.4))
-solid('HallWallBack',(HALL_X1,0,z0+H/2),(.5,HALL_HW,H/2),(.5,.46,.4))
-for s_ in (-1,1):solid('HallWallSide',((HALL_X0+HALL_X1)/2,s_*HALL_HW,z0+H/2),((HALL_X1-HALL_X0)/2,.5,H/2),(.5,.46,.4))
-solid('HallRoof',((HALL_X0+HALL_X1)/2,0,z0+H+.4),((HALL_X1-HALL_X0)/2+1,HALL_HW+1,.4),(.4,.3,.25))
-solid('GateFrame',(HALL_X0,0,z0+H-.8),(.6,GATE_HW,.8),(.4,.35,.3))
-door=solid('SlidingDoor',(HALL_X0+.7,GATE_HW+GATE_HW,z0+2.6),(.15,GATE_HW,2.6),(.35,.22,.12));door.rigid_body if False else None
-huts=[]
-for i,x in enumerate(np.arange(26,72,6.)):
- for s_ in (-1,1):
-  y=s_*rnd.uniform(11,18);zt=terrain(x,y);b=prim('cube','Hut',(x,y,zt+1.4),(.55,.38,.22),scale=(2.0,2.0,1.4));r=prim('cone','HutRoof',(x,y,zt+3.4),(.5,.2,.15),scale=(2.9,2.9,1.2),vertices=4,radius1=1,depth=2,rot=(0,0,PI/4));passive.append((b,'BOX'));huts.append((x,y))
-STALLS=[(34.,3.),(44.,-4.),(54.,2.),(64.,-3.)]
-for x,y in STALLS:o=prim('cube','Stall',(x,y,terrain(x,y)+.7),(.6,.4,.2),scale=(1.1,1.1,.7));passive.append((o,'BOX'));prim('cube','StallAwning',(x,y,terrain(x,y)+1.7),(.8,.2,.2),scale=(1.3,1.3,.06))
-for i in range(160):
- x=rnd.uniform(-40,92);y=rnd.choice((-1,1))*rnd.uniform(24,44);zt=terrain(x,y);prim('cone','Pine',(x,y,zt+2.6),(.07,.26,.14),scale=(1.3,1.3,2.8),vertices=7,radius1=1,depth=2);prim('cyl','Trunk',(x,y,zt+.5),(.3,.2,.1),scale=(.15,.15,.5),vertices=5,radius=1,depth=2)
-for i in range(30):prim('cone','Peak',(rnd.uniform(-130,-70),rnd.uniform(-90,90),rnd.uniform(15,40)),(.82,.84,.9),scale=(rnd.uniform(14,30),rnd.uniform(14,30),rnd.uniform(25,50)),vertices=7,radius1=1,depth=2)
+import locations,scene_params
+_prm=scene_params.get();_loc=locations.load('mountain_village',dict(link=link,mat=mat,prim=prim),_prm['location_state'] or 'intact')
+terrain=locations.village_terrain;HALL_X0,HALL_X1,HALL_HW,GATE_HW,DOOR_Z=locations.VILLAGE['hall'];STALLS=locations.VILLAGE['stalls']
+passive=[(o,o['rb']) for o in bpy.data.objects if 'rb' in o.keys()];door=bpy.data.objects['SlidingDoor'];terr=bpy.data.objects['Terrain']
 # ---------------------------------------------------------------------------------------------------------- the avalanche: baked rigid bodies
 bpy.ops.rigidbody.world_add();rw=scene.rigidbody_world;rw.point_cache.frame_start=1;rw.point_cache.frame_end=frames
 for o,sh in passive:
@@ -72,7 +44,7 @@ BOULDERS=[]
 def boulder(i,pre):
  r=rnd.uniform(.5,1.4) if not pre else rnd.uniform(.4,.8);x=rnd.uniform(-64,-46);y=rnd.uniform(-26,26) if not pre else rnd.uniform(-8,8);o=prim('sphere','Boulder' if rnd.random()<.55 else 'SnowBoulder',(x,y,terrain(x,y)+r+.15),(.5,.47,.43) if rnd.random()<.6 else (.93,.95,1),scale=(r,r*rnd.uniform(.8,1),r),subdivisions=1)
  bpy.context.view_layer.objects.active=o;o.select_set(True);bpy.ops.rigidbody.object_add(type='ACTIVE');rb=o.rigid_body;rb.collision_shape='SPHERE';rb.mass=r**3*400;rb.friction=.5;rb.restitution=.25;rb.linear_damping=.02;rb.angular_damping=.05
- rb.kinematic=True;rb.keyframe_insert('kinematic',frame=1);t=(rnd.uniform(3.5,8.0) if pre else rnd.uniform(29.0,37.0)+(-x-46)*.1);rb.kinematic=False;rb.keyframe_insert('kinematic',frame=F(t));o.select_set(False);BOULDERS.append((o,t,pre))
+ rb.kinematic=True;rb.keyframe_insert('kinematic',frame=1);t=(rnd.uniform(3.5,8.0) if pre else rnd.uniform(30.5,38.5)+(-x-46)*.1);rb.kinematic=False;rb.keyframe_insert('kinematic',frame=F(t));o.select_set(False);BOULDERS.append((o,t,pre))
 for i in range(12):boulder(i,True)
 for i in range(270):boulder(i,False)
 scene.frame_set(1)
@@ -256,7 +228,7 @@ for k,(name,a,b) in enumerate(CUTS):
  for f in range(F(a),F(min(b,seconds))+1,2):
   t=(f-1)/fps;u=(t-a)/max(.1,b-a);L=leo_world(t);lh=L+Vector((0,0,1.0));cc=crowd_center(t);cam.data.lens=30
   if k==0:p=Vector((8+10*u,-60,25));q=Vector((-20,0,22));cam.data.lens=24
-  elif k==1:p=L+Vector((4,-5.5,1.6));q=lh;cam.data.lens=36
+  elif k==1:p=L+Vector((4,-5.5,3.2));q=lh;cam.data.lens=36
   elif k==2:p=L+Vector((-6,-7,2.2));q=lh+Vector((5,0,0));cam.data.lens=30
   elif k==3:p=Vector((CUBP.x-3.2,CUBP.y-3.4,CUBP.z+1.4));q=(L+CUBP)/2+Vector((0,0,.8));cam.data.lens=34
   elif k==4:p=L+Vector((3.5,-4.5,1.4));q=lh;cam.data.lens=34
