@@ -345,7 +345,7 @@ for i in range(16):
 def Wl(x,y,z,t,rearg=False):return Vector(((Xrear(t) if rearg else Xfun(t))+x,y,z))
 CUTS=[('1 The prison train',0,3.0),('2 Leo wakes on the roof',3.0,6.4),('3 Run',6.4,8.0),('4 The first gap',8.0,9.3),('5 Chase from behind',9.3,11.4),('6 The low gantry',11.4,13.6),('7 Another gap',13.6,T_ARR+.4),('8 The kick',T_ARR+.4,T_THROW+1.6),
  ('9 The brake wheel',T_THROW+1.6,T_D-.5),('10 The coupling lets go',T_D-.5,T_D+3.5),('11 Along the roofs',T_D+3.5,T_END2),('12 The locomotive',T_END2,T_LEAP-.7),('13 The leap',T_LEAP-.7,T_LEAP+2.0),('14 The river',T_LEAP+2.0,seconds)]
-cams=[]
+cams=[];CAMKEYS=[]
 for k,(name,a,b) in enumerate(CUTS):
  if a>=seconds:break
  cam=bpy.data.objects.new('Cam%d'%k,bpy.data.cameras.new('Cam%d'%k));cam.data.clip_end=3000;link(cam);cams.append(cam);aim=bpy.data.objects.new('Aim%d'%k,None);link(aim);aim.hide_viewport=True
@@ -365,10 +365,28 @@ for k,(name,a,b) in enumerate(CUTS):
   elif k==10:p=Wl(leo_local(t)+7,-3.5,ROOF+1.8,t);q=lh;cam.data.lens=30
   elif k==11:p=Wl(10.5,-3.6,ROOF+1.7,t);q=Wl(5.0,0,ROOF+1.4,t);cam.data.lens=30
   elif k==12:p=Vector((Xfun(T_LEAP)+4,-13,-2.0));q=Vector((L.x,L.y,max(L.z,-3)+1));cam.data.lens=28
-  else:ang=math.radians(-120+40*u);p=Vector((pl.x+math.cos(ang)*11,pl.y+math.sin(ang)*11,-4.2));q=Vector((pl.x,pl.y,-6.6));cam.data.lens=30
-  cam.location=p;cam.keyframe_insert('location',frame=f);aim.location=q;aim.keyframe_insert('location',frame=f);cam.data.keyframe_insert('lens',frame=f)
+  else:ang=math.radians(15+50*u);p=Vector((pl.x+math.cos(ang)*11,pl.y+math.sin(ang)*11,-5.2));q=Vector((pl.x,pl.y,-6.6));cam.data.lens=30
+  cam.location=p;cam.keyframe_insert('location',frame=f);aim.location=q;aim.keyframe_insert('location',frame=f);cam.data.keyframe_insert('lens',frame=f);CAMKEYS.append((k,cam,aim,f))
  scene.timeline_markers.new(name,frame=F(a)).camera=cam
 scene.camera=cams[0]
+# automatic view clearing: when a wagon, the locomotive or the bridge stands between a camera and what it looks at, raise or move the camera (smoothed per cut)
+FAMILY=set()
+for k_ in FIG:FAMILY|=kit._family(FIG[k_]['root'])
+CAND=[(0,0,1.5),(0,0,3.),(0,0,5.),(0,0,8.),(0,-5,3.),(0,-8,6.),(0,5,3.),(0,0,12.),(0,-14,10.)]
+offs={}
+for k,cam,aim,f in CAMKEYS:
+ settle(f);dg=bpy.context.evaluated_depsgraph_get();p=Vector(cam.location);q=Vector(aim.location)
+ np_,idx=kit.clear_view(scene,dg,p,q,FAMILY,CAND);offs[(k,f)]=np_-p
+for k in set(a for a,b in offs):
+ fs=sorted(f for a,f in offs if a==k)
+ for i,f in enumerate(fs):
+  win=[offs[(k,g)] for g in fs[max(0,i-3):i+4]];o=Vector((sum(v.x for v in win)/len(win),sum(v.y for v in win)/len(win),max(v.z for v in win)))
+  offs[(k,f)]=o
+for k,cam,aim,f in CAMKEYS:
+ o=offs[(k,f)]
+ if o.length>1e-6:
+  settle(f);cam.location=Vector(cam.location)+o;cam.keyframe_insert('location',frame=f)
+print('CAMERAS adjusted',sum(1 for v in offs.values() if v.length>1e-6),'of',len(offs))
 # ---------------------------------------------------------------------------------------------------------- audit
 issues=[]
 if KICK_ERR>.20:issues.append('AUDIT contact: the kick misses the guard by %.0f cm'%(KICK_ERR*100))
@@ -382,6 +400,7 @@ def complement(wins,t0,t1):
  if cur<t1:out_.append((cur,t1))
  return out_
 issues+=kit.audit(scene,bodies=[(FIG['leo']['rig'],FIG['leo']['body'])],floor_z=ROOF,skip=complement(runwins,0,seconds),subjects=[FIG['leo']['root'],FIG['ga']['root'],FIG['gb']['root']],step=12)
+issues+=kit.camera_checks(scene,[FIG['leo']['root'],FIG['ga']['root'],FIG['gb']['root']])
 # the three characters must not occupy the same place on the roof (outside the kick)
 worst=(9,0)
 for f in range(F(6.6),F(T_D+1.0),6):

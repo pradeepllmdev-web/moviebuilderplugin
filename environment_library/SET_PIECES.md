@@ -42,6 +42,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: ducking is a lean on the run clip, the hands do not grip the rim exactly (they follow rim points), guards use one clip set, interior of the wagons is not modelled
 * prompt keywords: `train|railway|escape|prison|train roof|jump(?:s|ing)? (?:between|across) (?:wagons|cars)|chased on|roof of a`
 
+## The Avalanche (`avalanche`)
+
+* script: `avalanche_scene.py`
+* story: an avalanche of 270 baked boulders hits a mountain village: Leo warns the 36 cloned lions, saves a lost cub, closes the sliding door of the shelter in time (48 s, 12 cameras, sound)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs idle, look, run, climb, pick, cele)
+* known limits: the avalanche is boulders and puffs (no snow simulation), the door push is a walk clip with hands on the edge, characters do not react to near boulders
+* prompt keywords: `avalanche|landslide|rockslide|village flees|crowd (?:flees|runs)|evacuat|stampede of people|panic`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`
@@ -105,3 +113,8 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 | projectile | A kicked guard slides off sideways like a card. | Keyed position. | kit.ballistic_to(p0,p1,T,t) with T = flight_time_to_ground(z, vz): x,y linear (including the train speed), z a parabola; spin during flight; lie on the ground afterwards with the fall clip and a short exponential slide. |
 | kick_apex | The kick solver never reaches the target. | Maximum forward reach of a leg is a low foot. | Measure a kick at the highest foot, a punch at the farthest hand; then the horizontal snap gives 2 cm. |
 | roof_floor | Landing from a jump sinks the feet into the roof. | Clip crouch plus the landing dip. | Ground lift (lowest skin vertex against the roof) for every non-airborne frame of all three characters. |
+| camera_occlusion | Wagon walls cover the hero in some shots and others show nothing but scenery. | Camera offsets chosen by formula while the train moves. | Run camera_checks (camera inside a solid, subject hidden: 3 heights, 6 samples per cut) and clear_view (automatic: ray from camera to aim, try raise/move candidates, smooth over +-3 keys). In the train scene 245 of 659 camera keys needed fixing. |
+| persistence | Props or wall pieces pop in and out of view. | Visibility keyed for convenience (hide_keys on knife, rope, torn sail, sail swaps). | Anything that is ever visible must be visible for the whole film: place it where it belongs from frame 1 (knife in the hand, rope hanging, torn strip behind the sail), animate it instead of hiding it; only short-lived effects (bolts, puffs, splashes, steam, dust) may be hidden. persistence_audit lists violations. |
+| crowd_steering | Crowd members overlap, jam at doors or arrive too late. | Pure seek-and-separate steering. | Reynolds steering (alarm delay by distance, seek, separation 1.6 m, avoid stalls, funnel to the opening) plus hard personal space by position correction (0.6 m); arrival when inside and within 1.8 m of the goal; the audit checks spacing >= 0.45 m, that nearly everybody is inside before the slam, and that the last arrival is 1 s before it. |
+| measure_then_schedule | A hero race against a simulation is out of sync. | Hero timeline written before the simulation exists. | Bake the simulation first, MEASURE the event time (front reaches the hall: 8th boulder past x), then derive the hero schedule backwards from it (door closes 1 s before, push 4 s, walk in, run, pick-up, run); the audit warns when the derived start is before 1.5 s. |
+| zero_length_strips | NLA add_strip fails with no space. | Two schedule entries with the same start and end (a zero-length idle between two back-to-back clips). | Never schedule a strip shorter than 0.25 s; derive schedules from boundaries and drop empty gaps. |

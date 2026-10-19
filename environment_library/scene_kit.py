@@ -56,6 +56,14 @@ LESSONS=[
  dict(id='kick_apex',symptom='The kick solver never reaches the target.',cause='Maximum forward reach of a leg is a low foot.',rule='Measure a kick at the highest foot, a punch at the farthest hand; then the horizontal snap gives 2 cm.'),
  dict(id='roof_floor',symptom='Landing from a jump sinks the feet into the roof.',cause='Clip crouch plus the landing dip.',rule='Ground lift (lowest skin vertex against the roof) for every non-airborne frame of all three characters.'),
 
+ dict(id='camera_occlusion',symptom='Wagon walls cover the hero in some shots and others show nothing but scenery.',cause='Camera offsets chosen by formula while the train moves.',rule='Run camera_checks (camera inside a solid, subject hidden: 3 heights, 6 samples per cut) and clear_view (automatic: ray from camera to aim, try raise/move candidates, smooth over +-3 keys). In the train scene 245 of 659 camera keys needed fixing.'),
+
+ dict(id='persistence',symptom='Props or wall pieces pop in and out of view.',cause='Visibility keyed for convenience (hide_keys on knife, rope, torn sail, sail swaps).',rule='Anything that is ever visible must be visible for the whole film: place it where it belongs from frame 1 (knife in the hand, rope hanging, torn strip behind the sail), animate it instead of hiding it; only short-lived effects (bolts, puffs, splashes, steam, dust) may be hidden. persistence_audit lists violations.'),
+
+ dict(id='crowd_steering',symptom='Crowd members overlap, jam at doors or arrive too late.',cause='Pure seek-and-separate steering.',rule='Reynolds steering (alarm delay by distance, seek, separation 1.6 m, avoid stalls, funnel to the opening) plus hard personal space by position correction (0.6 m); arrival when inside and within 1.8 m of the goal; the audit checks spacing >= 0.45 m, that nearly everybody is inside before the slam, and that the last arrival is 1 s before it.'),
+ dict(id='measure_then_schedule',symptom='A hero race against a simulation is out of sync.',cause='Hero timeline written before the simulation exists.',rule='Bake the simulation first, MEASURE the event time (front reaches the hall: 8th boulder past x), then derive the hero schedule backwards from it (door closes 1 s before, push 4 s, walk in, run, pick-up, run); the audit warns when the derived start is before 1.5 s.'),
+ dict(id='zero_length_strips',symptom='NLA add_strip fails with no space.',cause='Two schedule entries with the same start and end (a zero-length idle between two back-to-back clips).',rule='Never schedule a strip shorter than 0.25 s; derive schedules from boundaries and drop empty gaps.'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)
@@ -179,6 +187,64 @@ def add_strip(track,action,start,end,mode='loop',slot=True,name=None):
  elif end-start<length:st.action_frame_end=st.action_frame_start+max(2,end-start)-1   # window shorter than the clip: play its first part
  else:st.repeat=max(1.,(end-start)/length)
  return st
+def _family(o):
+ out=set()
+ stack=[o]
+ while stack:
+  c=stack.pop();out.add(c.name);stack.extend(c.children)
+ return out
+def clear_view(scene,depsgraph,p,q,ignore,candidates):
+ """Automatic camera fix: if scenery stands between camera p and what it looks at (q), try the candidate offsets in order and return the first position with a clear line of sight (or p if none works).
+ ignore: object names that may be in the way (the characters themselves). Returns (position, index) with index 0 = unchanged, -1 = nothing worked."""
+ from mathutils import Vector
+ def blocked(pp):
+  d=q-pp;dist=d.length
+  if dist<.4:return False
+  ok,loc,n,idx,ob,mw=scene.ray_cast(depsgraph,pp,d.normalized(),distance=dist-.3)
+  return bool(ok and ob.name not in ignore)
+ if not blocked(p):return p,0
+ for k,off in enumerate(candidates,1):
+  pp=p+Vector(off)
+  if not blocked(pp):return pp,k
+ return p,-1
+def persistence_audit(scene,effects=('Bolt','Puff','Splash','Steam','Fray','Dust','Snow','Spark','Streak','Rain','Ember')):
+ """Props and scenery must not pop in and out: report every object whose hide_viewport/hide_render is animated unless it is a short-lived effect (name starts with one of effects)."""
+ out=[]
+ for ob in scene.objects:
+  ad=ob.animation_data
+  if not ad or not ad.action:continue
+  act=ad.action;fcs=[]
+  try:fcs=list(act.fcurves)
+  except Exception:
+   try:fcs=[fc for l in act.layers for st in l.strips for bag in st.channelbags for fc in bag.fcurves]
+   except Exception:fcs=[]
+  if any(fc.data_path in ('hide_viewport','hide_render') for fc in fcs) and not ob.name.startswith(effects):out.append('AUDIT persistence: %s appears and disappears; props and scenery must be visible for the whole film'%ob.name)
+ return out
+def camera_checks(scene,subjects,samples=(.1,.25,.4,.55,.7,.85)):
+ """For every camera cut: is the camera inside a solid, and is a subject hidden behind scenery? Returns AUDIT strings (needs subjects with .matrix_world; heights are +1 m)."""
+ import bpy
+ from mathutils import Vector
+ out=[];marks=sorted(scene.timeline_markers,key=lambda m:m.frame);dg=bpy.context.evaluated_depsgraph_get();fam=set()
+ for s in subjects:fam|=_family(s)
+ for i,m in enumerate(marks):
+  if not m.camera:continue
+  end=marks[i+1].frame if i+1<len(marks) else scene.frame_end
+  for fr in samples:
+   f=int(m.frame+(end-m.frame)*fr);scene.frame_set(f);bpy.context.view_layer.update();dg=bpy.context.evaluated_depsgraph_get();cam=m.camera;o=cam.matrix_world.translation
+   fwd=cam.matrix_world.to_quaternion()@Vector((0,0,-1))
+   ok,loc,n,idx,ob,mw=scene.ray_cast(dg,o,fwd,distance=2.0)
+   if ok and n.dot(fwd)>0:out.append('AUDIT camera_inside: cut "%s" frame %d is inside %s'%(m.name,f,ob.name));break
+   vis=False;blocker=None
+   for sub in subjects:
+    for hz in (.35,1.0,1.7):
+     tgt=sub.matrix_world.translation+Vector((0,0,hz));d=tgt-o;dist=d.length
+     if dist<.3:continue
+     ok,loc,n,idx,ob,mw=scene.ray_cast(dg,o,d.normalized(),distance=dist-.25)
+     if not ok or ob.name in fam:vis=True;break
+     blocker=ob.name
+    if vis:break
+   if subjects and not vis:out.append('AUDIT occluded: cut "%s" frame %d hides every subject behind %s'%(m.name,f,blocker));break
+ return out
 def audit(scene,bodies=(),floor_z=0.,space=None,skip=(),subjects=(),step=12,fps=24):
  """Automatic checks on a built scene; returns a list of 'AUDIT ...' strings (empty = clean). bodies: [(armature, skin mesh)], skip: [(t0,t1)] airborne windows,
  subjects: objects at least one of which must be in frame mid-cut, space: object whose local z is the floor height frame (e.g. a ship)."""
