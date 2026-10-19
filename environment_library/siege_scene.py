@@ -298,12 +298,9 @@ def burst(f,x,y,z,size):
  o=bpy.data.objects.new('Puff',puff);link(o);o.data.materials.append(mat('Dust',(.62,.55,.45)))
  for fr,sc,dr in ((f-1,.001,0),(f+4,size,.4),(f+20,size*2.2,2.0),(f+48,.001,3.2)):
   o.location=(x,y,z+dr*.6);o.scale=(sc,sc,sc*.8);o.keyframe_insert('location',frame=fr);o.keyframe_insert('scale',frame=fr)
-CATBASE=[]
+CATBASE=[];_pc=dict(link=link,mat=mat,prim=prim)
 for ci,(cx,cy) in enumerate(CATS):
- base=prim('cube','CatBase',(cx,cy,.6),(.4,.28,.15),scale=(1.6,1.0,.6));arm=bpy.data.objects.new('CatArm%d'%ci,None);link(arm);arm.location=(cx,cy,1.8)
- beam=prim('cube','CatBeam',(0,0,0),(.45,.3,.15),scale=(.12,3.0,.12),parent=arm);beam.location=(0,-1.2,.0)
- for s_ in (-1,1):prim('cube','CatFrame',(cx+s_*1.3,cy,1.4),(.4,.28,.15),scale=(.12,.12,1.4));prim('cyl','CatWheel',(cx+s_*1.5,cy,.45),(.2,.15,.1),scale=(.45,.45,.1),rot=(0,PI/2,0),vertices=8,radius=1,depth=2)
- CATBASE.append((cx,cy,arm))
+ proot,parts=locations.load_prop('catapult',_pc,(cx,cy,0));arm=parts['arm'];CATBASE.append((cx,cy,arm))
  arm.rotation_euler=(math.radians(55),0,0);arm.keyframe_insert('rotation_euler',frame=1)
 stones=[]
 for v,(tf,ci,ix,iz) in enumerate(VOLLEYS):
@@ -327,14 +324,13 @@ for vi,tv in enumerate(ARROW_T):
   for f in range(F(t0)+1,F(t0+T)+1,2):
    q=Vector(kit.ballistic_to(p0,p1,T,(f-F(t0))/fps));d=q-prev;prev=q;a.location=q;a.rotation_euler=d.to_track_quat('Z','Y').to_euler() if d.length>1e-4 else a.rotation_euler;a.keyframe_insert('location',frame=f);a.keyframe_insert('rotation_euler',frame=f)
 # gate winch, portcullis and flag
-wheel=prim('cyl','WinchWheel',WHEEL,(.18,.16,.12),scale=(.33,.33,.03),vertices=14,radius=1,depth=2);prim('cyl','WinchPost',(WHEEL.x,WHEEL.y,9.5),(.18,.16,.12),scale=(.05,.05,.5),vertices=6,radius=1,depth=2)
-prim('cube','WinchHouse',(5.0,31.2,11.5),(.4,.3,.22),scale=(2.2,1.6,.2))
-pole=prim('cyl','FlagPole',FLAGPOLE,(.5,.5,.5),scale=(.07,.07,4),vertices=6,radius=1,depth=2)
-flag=prim('cube','Flag',(FLAGPOLE.x-1.0,FLAGPOLE.y,10.6),(.8,.12,.12),scale=(1.0,.03,.55));wv=flag.modifiers.new('Flap','WAVE');wv.height=.15;wv.width=1.6;wv.speed=.3;wv.use_normal=True
+_pc=dict(link=link,mat=mat,prim=prim);wroot,wparts=locations.load_prop('winch',_pc,(WHEEL.x,WHEEL.y,WHEEL.z));wheel=wparts['wheel']
+broot,bparts=locations.load_prop('banner',_pc,(FLAGPOLE.x,FLAGPOLE.y,FLAGPOLE.z));flag=bparts['flag']
+locations.load_prop('ladder',_pc,(LADX,LADY+.12,0),0.,dict(height=9.6))
 for f in range(1,frames+1,2):
  t=(f-1)/fps;wheel.rotation_euler=(0,0,wheel_theta(t) if T_WHEEL<=t<=T_UP else (wheel_theta(T_UP) if t>T_UP else 0));wheel.keyframe_insert('rotation_euler',frame=f)
  port.location=(0,30,6.2*smooth((t-GATE_OPEN_T)/2.6) if t>GATE_OPEN_T else 0);port.keyframe_insert('location',frame=f)
- flag.location=(FLAGPOLE.x-1.0,FLAGPOLE.y,flag_z(t));flag.keyframe_insert('location',frame=f)
+ flag.location=(-1.0,0,flag_z(t)-FLAGPOLE.z);flag.keyframe_insert('location',frame=f)
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.data.energy=3.4;sun.data.color=(1,.82,.62);sun.rotation_euler=(math.radians(48),0,math.radians(-30))
 scene.world=bpy.data.worlds.new('Dawn');scene.world.color=(.85,.66,.52)
 kit.apply_params(scene,sun,[o for o in bpy.data.objects if o.type=='MESH' and o.parent==LEO['root']])   # SCENE_PARAMS: time of day and hero tint

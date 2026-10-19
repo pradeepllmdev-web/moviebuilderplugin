@@ -11,6 +11,7 @@ import bpy,math,random,sys,os,wave,bmesh
 import numpy as np
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import scene_kit as kit
+import locations
 from mathutils import Vector,Matrix,Euler
 args=sys.argv[sys.argv.index('--')+1:];ASSETS,out=args[0],args[1];seconds=float(args[2]) if len(args)>2 else 54.
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -276,53 +277,10 @@ apply_all()
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.data.energy=3.6;sun.data.color=(1,.78,.55);sun.rotation_euler=(math.radians(50),0,math.radians(70))
 scene.world=bpy.data.worlds.new('Dawn');scene.world.color=(.8,.62,.5)
 kit.apply_params(scene,sun,[o for o in bpy.data.objects if o.type=='MESH' and o.parent==FIG['leo']['root']])   # SCENE_PARAMS: time of day and hero tint
-XMAX=Xfun(seconds)+120.
-bpy.ops.mesh.primitive_plane_add(size=1,location=(XMAX/2-60,0,-.1));g=bpy.context.object;g.name='Ground';g.scale=(XMAX+300,260,1);g.data.materials.append(mat('Ground',(.34,.42,.2)))
-XV0=Xfun(37.5)+9.;XV1=XV0+95.
-# valley under the bridge: the ground has a hole, floor and water below
-g.scale=(XV0+200,260,1);g.location=((XV0-200)/2,0,-.1)
-g2=prim('cube','GroundAfter',(XV1+(XMAX+300-XV1)/2,0,-.6),(.34,.42,.2),scale=((XMAX+300-XV1)/2,130,.5))
-prim('cube','ValleyFloor',((XV0+XV1)/2,0,-8.6),(.5,.42,.3),scale=((XV1-XV0)/2+2,130,.4));prim('cube','Water',((XV0+XV1)/2,0,-8.0),(.12,.3,.42),scale=((XV1-XV0)/2+2,20,.05))
-for s_ in (-1,1):prim('cube','ValleyWall',((XV0+XV1)/2,s_*130,-4),(.45,.38,.3),scale=((XV1-XV0)/2+2,.5,5))
-for xe in (XV0,XV1):prim('cube','Abutment',(xe,0,-4.2),(.45,.38,.3),scale=(.5,130,4.5))
-prim('cube','BridgeDeck',((XV0+XV1)/2,0,-.35),(.3,.3,.32),scale=((XV1-XV0)/2,2.8,.25))
-for x in np.arange(XV0+10,XV1,15.):prim('cube','Pier',(x,0,-4.4),(.4,.38,.34),scale=(.8,2.2,4.1))
-for s_ in (-1,1):
- prim('cube','BridgeRail',((XV0+XV1)/2,s_*2.7,.7),(.5,.5,.5),scale=((XV1-XV0)/2,.05,.05))
- for x in np.arange(XV0,XV1,6.):prim('cube','RailPost',(x,s_*2.7,.4),(.5,.5,.5),scale=(.05,.05,.4))
-for s_ in (-.72,.72):prim('cube','Rail',(XMAX/2-60,s_,.12),(.5,.5,.55),scale=((XMAX+300)/2,.04,.1))
-prim('cube','Ballast',(XMAX/2-60,0,.02),(.28,.25,.22),scale=((XMAX+300)/2,1.6,.06))
-for x in np.arange(-150.,XMAX,45.):
- for s_ in (-1,1):
-  if XV0-3<x<XV1+3:continue
-  prim('cyl','Pole',(x,s_*4.5,3.2),(.33,.24,.14),scale=(.08,.08,3.2),vertices=5,radius=1,depth=2);prim('cube','PoleArm',(x,s_*4.5,6.2),(.33,.24,.14),scale=(.04,.9,.05))
-for i in range(520):
- x=rnd.uniform(-150,XMAX);y=rnd.choice((-1,1))*rnd.uniform(9,90)
- if XV0-10<x<XV1+10:continue
- prim('cone','Tree',(x,y,2.5),(.1,.3,.12),scale=(1.4,1.4,2.6),vertices=7,radius1=1,depth=2);prim('cyl','Trunk',(x,y,.5),(.3,.2,.1),scale=(.15,.15,.5),vertices=5,radius=1,depth=2)
-for i in range(30):prim('cone','Hill',(rnd.uniform(-100,XMAX),rnd.choice((-1,1))*rnd.uniform(110,240),rnd.uniform(8,26)),(.38,.4,.3),scale=(rnd.uniform(30,70),rnd.uniform(30,60),rnd.uniform(16,50)),vertices=7,radius1=1,depth=2)
-# the gantry Leo and the guards must duck under
-for s_ in (-1,1):prim('cube','GantryPost',(X_BR,s_*2.6,(ROOF+1.4)/2),(.4,.36,.32),scale=(.35,.35,(ROOF+1.4)/2))
-prim('cube','GantryBeam',(X_BR,0,ROOF+1.25),(.38,.34,.3),scale=(.6,3.0,.25))
-# train: front group (locomotive + wagons 0..2) and rear group (wagons 3..5)
-front=bpy.data.objects.new('FrontCars',None);link(front);rear=bpy.data.objects.new('RearCars',None);link(rear)
-COL=[(.55,.18,.14),(.2,.32,.5),(.5,.42,.16),(.25,.45,.28),(.55,.3,.14),(.4,.2,.45)]
-wheels=[]
-def wagon(k,par):
- cx=-(6.5+12.4*k);c=COL[k];prim('cube','Wagon%d'%k,(cx,0,1.9),c,scale=(5.5,1.3,1.3),parent=par);prim('cube','Roof%d'%k,(cx,0,ROOF-.04),(.3,.28,.26),scale=(5.5,1.4,.05),parent=par)
- for dx in (-3.5,3.5):
-  for s_ in (-.72,.72):wheels.append(prim('cyl','Wheel',(cx+dx,s_,.45),(.12,.12,.12),scale=(.45,.45,.1),rot=(PI/2,0,0),vertices=10,radius=1,depth=2,parent=par))
- prim('cube','Coupler',(cx+6.2,0,.9),(.1,.1,.1),scale=(.7,.12,.12),parent=par)
- for dx in np.linspace(-4.5,4.5,6):prim('cube','Board',(cx+dx,1.31,1.9),tuple(v*.6 for v in c),scale=(.04,.01,1.25),parent=par)
-for k in range(3):wagon(k,front)
-for k in range(3,6):wagon(k,rear)
-prim('cube','LocoBody',(4.7,0,1.9),(.12,.12,.14),scale=(4.3,1.3,1.1),parent=front);prim('cube','LocoRoof',(4.7,0,ROOF-.04),(.2,.2,.2),scale=(4.3,1.4,.05),parent=front);prim('cube','Cab',(1.8,0,3.6),(.2,.18,.16),scale=(1.4,1.35,.55),parent=front)
-prim('cyl','Chimney',(8.6,0,3.9),(.1,.1,.1),scale=(.3,.3,.7),vertices=8,radius=1,depth=2,parent=front)
-for x in (1.5,4.0,6.5,8.0):
- for s_ in (-.72,.72):wheels.append(prim('cyl','Wheel',(x,s_,.55),(.14,.14,.14),scale=(.55,.55,.1),rot=(PI/2,0,0),vertices=10,radius=1,depth=2,parent=front))
-prim('cyl','BrakeWheel',WHEEL,(.15,.15,.15),scale=(.33,.33,.03),vertices=14,radius=1,depth=2);bw=bpy.context.object;prim('cyl','BrakePost',(WHEEL.x,0,ROOF+.35),(.15,.15,.15),scale=(.05,.05,.4),vertices=6,radius=1,depth=2)
-for k_,o in enumerate((bw,bpy.context.object)):pass
-bw.parent=front
+_P=locations.railway_params(seconds);XMAX,XV0,XV1=_P['xmax'],_P['xv0'],_P['xv1']
+assert abs(_P['x_br']-X_BR)<1e-6,'railway gantry position differs from the scene timing'
+_ctx=dict(link=link,mat=mat,prim=prim);locations.load('railway_plains',_ctx,'intact',_P);locations.load('train_consist',_ctx,'intact',dict(roof=ROOF,wheel=[WHEEL.x,WHEEL.y,WHEEL.z]))
+front=bpy.data.objects['FrontCars'];rear=bpy.data.objects['RearCars'];wheels=[o for o in bpy.data.objects if 'wheel' in o.keys()];bw=next(o for o in bpy.data.objects if 'brakewheel' in o.keys())
 for f in range(1,frames+1,2):
  t=(f-1)/fps;front.location=(Xfun(t),0,0);front.keyframe_insert('location',frame=f);rear.location=(Xrear(t),0,0);rear.keyframe_insert('location',frame=f)
  bw.rotation_euler=(0,0,wheel_theta(t) if WHEEL_WIN[0]<=t<=WHEEL_WIN[1] else (wheel_theta(WHEEL_WIN[1]) if t>WHEEL_WIN[1] else 0));bw.keyframe_insert('rotation_euler',frame=f)

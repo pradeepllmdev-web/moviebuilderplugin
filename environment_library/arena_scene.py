@@ -10,6 +10,7 @@ import bpy,math,random,sys,os,wave
 import numpy as np
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import scene_kit as kit
+import locations
 from mathutils import Vector,Matrix,Euler
 args=sys.argv[sys.argv.index('--')+1:];ASSETS,out=args[0],args[1];seconds=float(args[2]) if len(args)>2 else 52.
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -238,25 +239,8 @@ for ti in IMPACTS:
 lt=wp_state('leo',THROW[1]);burst(F(THROW[1]),lt[0].x-1.6,lt[0].y,.35)
 burst(F(25.0),-2.1,0.6,.25);burst(F(33.0),-3.5,0,.2)
 # ---------------------------------------------------------------------------------------------------------- arena: sand, ruined stone ring, crowd, torches, sky
-bpy.ops.mesh.primitive_circle_add(vertices=48,radius=14,fill_type='NGON',location=(0,0,0));sand=bpy.context.object;sand.name='Sand';sand.data.materials.append(mat('Sand',(.72,.6,.38)))
-bpy.ops.mesh.primitive_plane_add(size=300,location=(0,0,-.1));ou=bpy.context.object;ou.name='Ground';ou.data.materials.append(mat('Ground',(.3,.28,.22)))
-for ring,(r0,h,col) in enumerate(((14.5,1.2,(.55,.5,.42)),(17.5,2.4,(.5,.45,.38)),(20.5,3.6,(.46,.42,.35)))):
- for i in range(60):
-  a=i*2*PI/60
-  if ring==0 and abs(math.sin(a))<.12:continue
-  if rnd.random()<.08:continue
-  prim('cube','Tier',(math.cos(a)*(r0+1.2),math.sin(a)*(r0+1.2),h/2),col,scale=(1.4,1.7,h/2*rnd.uniform(.8,1.0)),rot=(0,0,a))
-sections=[bpy.data.objects.new('Sec%d'%i,None) for i in range(12)]
-for s in sections:link(s)
-for ring,(r0,h) in enumerate(((16.0,1.2),(19.0,2.4),(22.0,3.6))):
- for i in range(48):
-  a=i*2*PI/48+rnd.uniform(-.02,.02);sec=sections[int(a/(2*PI)*12)%12]
-  if abs(math.sin(a))<.1 and abs(math.cos(a))>.9 and ring==0:continue
-  col=(rnd.uniform(.3,.9),rnd.uniform(.2,.7),rnd.uniform(.2,.6));x,y=math.cos(a)*(r0+rnd.uniform(-.3,.3)),math.sin(a)*(r0+rnd.uniform(-.3,.3))
-  b=prim('cone','Fan',(x,y,h+.55),col,scale=(.28,.28,.55),vertices=6,radius1=1,depth=2);hd=prim('sphere','FanHead',(x,y,h+1.2),(.85,.7,.55),scale=(.2,.2,.2),subdivisions=1);b.parent=sec;hd.parent=sec
-for a in np.linspace(0,2*PI,12,endpoint=False):
- x,y=math.cos(a)*14.4,math.sin(a)*14.4;h=rnd.uniform(6,9);prim('cyl','Pillar',(x,y,h/2),(.58,.54,.46),scale=(.6,.6,h/2),vertices=8,radius=1,depth=2);prim('cone','Torch',(x,y,h+.4),(1,.55,.15),scale=(.25,.25,.4),vertices=6,radius1=1,depth=2,emit=8.)
-for a in (0,PI):prim('cube','GateL',(math.cos(a)*14.5,0,3),(.5,.46,.4),scale=(1,.4,3),rot=(0,0,0));
+import locations;locations.load('arena_ruins',dict(link=link,mat=mat,prim=prim),'intact')
+sections=sorted([o for o in bpy.data.objects if o.name.startswith('Sec')],key=lambda o:int(o.name[3:].split('.')[0]))
 scene.world=bpy.data.worlds.new('Dusk');scene.world.color=(.75,.5,.38)
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.data.energy=3.2;sun.data.color=(1,.72,.5);sun.rotation_euler=(math.radians(58),0,math.radians(40))
 kit.apply_params(scene,sun,[o for o in bpy.data.objects if o.type=='MESH' and o.parent==FIG['leo']['root']])   # SCENE_PARAMS: time of day and hero tint

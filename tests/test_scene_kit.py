@@ -90,10 +90,24 @@ class MoviePipeline(unittest.TestCase):
 class SharedLocations(unittest.TestCase):
  def test_registry_and_hash_paths(self):
   import locations
-  self.assertEqual(set(locations.REGISTRY),{'mountain_village','citadel'})
+  self.assertEqual(set(locations.REGISTRY),{'mountain_village','citadel','arena_ruins','railway_plains','train_consist','catapult','winch','banner','ladder','egg_nest'})
   a=locations.bank_path('citadel','intact');b=locations.bank_path('citadel','breached');self.assertNotEqual(a,b);self.assertTrue(a.name.startswith('citadel_intact_'))
   with self.assertRaises(ValueError):locations.ensure('castle_of_oz')
   with self.assertRaises(ValueError):locations.ensure('citadel','flooded')
+ def test_hash_is_per_builder_and_params(self):
+  import locations
+  self.assertNotEqual(locations.bank_path('catapult').name.split('_')[-1],locations.bank_path('banner').name.split('_')[-1])
+  self.assertNotEqual(locations.bank_path('ladder','intact',dict(height=5)),locations.bank_path('ladder','intact',dict(height=9)))
+  self.assertEqual(locations.bank_path('ladder','intact',dict(height=5)),locations.bank_path('ladder','intact',dict(height=5)))
+ def test_railway_params_pure(self):
+  import locations
+  p=locations.railway_params(54.);self.assertGreater(p['xv0'],600);self.assertAlmostEqual(p['xv1']-p['xv0'],95.);self.assertGreater(p['xmax'],p['xv1']);self.assertLess(p['x_br'],p['xv0'])
+  self.assertEqual(p,locations.railway_params(54.))
+ def test_every_piece_with_shared_assets_is_known(self):
+  import locations,set_pieces
+  for piece,props in locations.PROPS_OF.items():
+   self.assertIn(piece,set_pieces.SET_PIECES)
+   for pid,_ in props:self.assertIn(pid,locations.REGISTRY)
  def test_pure_terrain(self):
   import locations
   self.assertAlmostEqual(locations.village_terrain(100,0),-3.76);self.assertGreater(locations.village_terrain(-50,0),20);self.assertAlmostEqual(locations.village_terrain(50,0),-2.,delta=.5)

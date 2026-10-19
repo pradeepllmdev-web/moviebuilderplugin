@@ -18,8 +18,16 @@ hero (tint changes its colour); a 10 minute film is about 10 scenes and builds i
 
 ## Shared things, built once
 
-* **Locations** (`locations.py`): the mountain village and the citadel are built once into `bank/<id>_<state>_<hash>.blend` and appended by every scene that uses them (`locations.load`);
-  the hash of the module invalidates the cache when a location changes, `set_pieces.build` creates missing bank files first. A scene state (`intact`, `buried`, `breached`) is the
-  parameter `location_state`; `story_plan` carries damage from scene to scene (an avalanche buries the village for the scenes after it) and warns when a set piece cannot show it.
-* **Characters and clips** (`scenes/ship_assets`, from `build_ship_assets.py`): built once, loaded by every scene.
-* Next candidates for the bank: props that travel between scenes (cub, egg, knife, banner) and the remaining environments (river canyon, plains, arena).
+`locations.py` is the bank. Every entry is built once into `bank/<id>_<state>_<params>_<hash>.blend` and appended by each scene that uses it; the hash covers only that entry's builder, so editing one
+location or prop rebuilds only that file. `set_pieces.build` creates missing bank files before the scene starts, so you never wait for them inside a scene.
+
+| kind | entries | used by |
+|---|---|---|
+| locations | mountain_village (intact, buried), citadel (intact, breached), arena_ruins, railway_plains (parameters: end of line, bridge span, gantry), train_consist | avalanche, siege, arena, great escape |
+| props (placed with `load_prop`) | catapult, winch, banner, ladder (height parameter), egg_nest | siege, dinosaur scene |
+| characters and clips | `scenes/ship_assets` (from `build_ship_assets.py`) | every scene |
+
+Measured: with the bank the train scene builds in 29 s instead of 97 s, the arena in 15 s instead of 30 s; the siege and avalanche are dominated by their physics bake, so they gain only a few seconds.
+The first build of a bank entry costs once (the railway is 44 s, the others a few seconds). A scene state (`intact`, `buried`, `breached`) is the parameter `location_state`; `story_plan` carries damage
+from scene to scene (an avalanche buries the village for the scenes after it) and warns when a set piece cannot show it. Still to move into the bank: the ship and its ocean, the cliff wall,
+the dinosaur valley, and the remaining props (cub, knife, rope).

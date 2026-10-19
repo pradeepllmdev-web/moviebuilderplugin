@@ -231,11 +231,8 @@ con=leo_root.constraints.new('CHILD_OF');con.target=tri_rig;con.subtarget='Torso
 for t_,v in ((T['leap'][1]-.05,0.),(T['leap'][1],1.)):con.influence=v;con.keyframe_insert('influence',frame=F(t_))
 bpy.context.view_layer.update()
 # ---------------------------------------------------------------------------------------------------------- the egg (it is at the nest from the first frame)
-egg=prim('sphere','Egg',NEST_EGG,(.92,.9,.72),scale=(.13,.13,.19),subdivisions=2)
-prim('sphere','NestRock',(NEST_EGG.x,NEST_EGG.y,NEST_EGG.z/2-.02),(.45,.42,.38),scale=(.45,.45,max(.1,NEST_EGG.z/2-.03)))
-for k in range(10):
- a=k*2*math.pi/10;prim('sphere','NestStick',(NEST_EGG.x+math.cos(a)*.26,NEST_EGG.y+math.sin(a)*.26,NEST_EGG.z-.06),(.4,.28,.12),scale=(.1,.1,.06))
-for k in range(2):prim('sphere','OtherEgg',(NEST_EGG.x+(-.18 if k else .2),NEST_EGG.y+(.12 if k else -.14),NEST_EGG.z-.07),(.8,.78,.62),scale=(.1,.1,.14))
+import locations
+nroot,nparts=locations.load_prop('egg_nest',dict(link=link,mat=mat,prim=prim),(NEST_EGG.x,NEST_EGG.y,NEST_EGG.z-.58));egg=nparts['egg']
 GIVE=T['hatch']-1.5;GIVE_TO=APATO+Vector((-8.5,-3.4,.28));T_LIFT=9.5+1.3
 scene.frame_set(F(GIVE));bpy.context.view_layer.update();give_from=LEOG['rig'].matrix_world@LEOG['rig'].pose.bones['mixamorig:RightHand'].head+Vector((0,0,-.05))
 for f in range(1,frames+1,2):
@@ -246,7 +243,7 @@ for f in range(1,frames+1,2):
   if t<T_LIFT+.9:p=NEST_EGG.lerp(hand,smooth((t-T_LIFT)/.9))
   elif t<GIVE:p=hand
   else:u=smooth((t-GIVE)/1.2);p=give_from.lerp(GIVE_TO,u)+Vector((0,0,1.0*math.sin(math.pi*u)))
- egg.location=p;egg.keyframe_insert('location',frame=f)
+ egg.location=p-nroot.location;egg.keyframe_insert('location',frame=f)
 glow=prim('sphere','EggGlow',GIVE_TO,(1,.95,.5),scale=(.01,.01,.01),emit=10.,subdivisions=2)
 for tt,sc in ((T['hatch'],.01),(T['hatch']+.8,.9),(T['hatch']+2.6,2.2),(seconds,2.6)):glow.scale=(sc,sc,sc);glow.keyframe_insert('scale',frame=F(tt))
 glow_light=bpy.data.objects.new('EggLight',bpy.data.lights.new('EggLight','POINT'));glow_light.location=GIVE_TO+Vector((0,0,1));link(glow_light);glow_light.data.color=(1,.9,.5)
