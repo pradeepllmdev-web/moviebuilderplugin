@@ -90,6 +90,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: straight canyon, waves are modifier waves (no foam simulation), one stance on the raft, hands are IK targets with no finger poses
 * prompt keywords: `rapids|raft|white ?water|river canyon|paddl(?:es|ing)|rafting|steers? (?:the|a) (?:raft|boat)|boulders?`
 
+## The Flood (`flood`)
+
+* script: `flood_scene.py`
+* story: a wall of water sweeps down a valley: forty villagers flee to the hill (a planner speeds up anyone who would be caught), debris floats and drifts, Leo outruns the front, lifts a stranded child off a cart with IK hands and sets it on a rock on the hilltop (about 30 s)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs idle, run)
+* known limits: the flood is one water body with a constant-speed front (no splashes or spray simulation), villagers are simple figures, hands are IK targets with no finger poses
+* prompt keywords: `flood(?:s|ed|ing)?|tidal wave|tsunami|dam (?:breaks|bursts)|wall of water|torrent|deluge`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

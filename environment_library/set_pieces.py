@@ -57,6 +57,10 @@ SET_PIECES={
   needs=['scenes/ship_assets (python build_ship_assets.py; needs idle)'],
   beats='Leo steers a log raft down a canyon river with a sweep oar: seven boulders, the raft rides the real animated water surface (height, pitch, roll from ray casts), a planner picks the pass side and times the oar strokes (about 36 s)',
   limits='straight canyon, waves are modifier waves (no foam simulation), one stance on the raft, hands are IK targets with no finger poses'),
+ 'flood':dict(title='The Flood',script='flood_scene.py',keywords=r'flood(?:s|ed|ing)?|tidal wave|tsunami|dam (?:breaks|bursts)|wall of water|torrent|deluge',
+  needs=['scenes/ship_assets (python build_ship_assets.py; needs idle, run)'],
+  beats='a wall of water sweeps down a valley: forty villagers flee to the hill (a planner speeds up anyone who would be caught), debris floats and drifts, Leo outruns the front, lifts a stranded child off a cart with IK hands and sets it on a rock on the hilltop (about 30 s)',
+  limits='the flood is one water body with a constant-speed front (no splashes or spray simulation), villagers are simple figures, hands are IK targets with no finger poses'),
  'horse_herd':dict(title='Horse herd',script='horse_herd.py',keywords=r'herd of horses|horse herd|galloping horses|wild horses|stampede',
   needs=['assets/quaternius_farm_animals_download (CC0 "Farm Animals Animated" by Quaternius; ask before downloading)'],
   beats='aerial herd of 70 galloping horses along a river toward mountains (16 s, 5 cameras, sound)',limits='no riders, foals are scaled copies'),
@@ -76,7 +80,7 @@ def missing(piece):
  if piece=='last_egg':
   if not DINO_DIR.is_dir():gone.append('dinosaur pack: '+SET_PIECES[piece]['needs'][0])
   if not (H/'scenes/ship_assets/leo_sit.blend').exists():gone.append('lion clips: python build_ship_assets.py')
- elif piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids'):
+ elif piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood'):
   if not (H/'scenes/ship_assets/leo_idle.blend').exists():gone.append('lion clips: python build_ship_assets.py')
  elif piece in('horse_herd','rider'):
   if not horse_blend().exists():gone.append('horse pack: '+SET_PIECES['horse_herd']['needs'][0])
@@ -87,7 +91,7 @@ def command(piece,out,seconds=None):
  b=[quick_review.BLENDER,'-b','--disable-autoexec','--python',str(H/SET_PIECES[piece]['script']),'--']
  tail=[str(seconds)] if seconds else []
  if piece=='last_egg':return b+[str(DINO_DIR),str(H/'scenes/ship_assets'),str(out)]+tail
- if piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids'):return b+[str(H/'scenes/ship_assets'),str(out)]+tail
+ if piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood'):return b+[str(H/'scenes/ship_assets'),str(out)]+tail
  if piece=='horse_herd':return b+[str(horse_blend()),str(out),'64']+tail
  return b+[str(horse_blend()),str(H/'scenes/lion_source.blend'),str(out),str(seconds or 22),'lion']
 PARAM_PIECES=('last_egg','arena_duel','great_escape','avalanche','siege')   # scenes that read SCENE_PARAMS (time_of_day, hero_tint); the storm scenes keep their own sky

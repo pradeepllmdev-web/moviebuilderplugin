@@ -520,6 +520,24 @@ def _rapids(ctx,state):
   prim('cyl','FoamRing',(x,y,.03),(.92,.95,1),scale=(r+.7,r+.7,.012),vertices=24,radius=1,depth=2)
  sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=3.5;sn.rotation_euler=(math.radians(50),0,math.radians(30));link(sn)
 
+FLOOD=dict(x0=-70.,x1=110.,hw=30.,lev=2.4,hill_x=40.,hill_len=30.,hill_h=6.,
+ houses=[(6,9,3.2),(14,-10,3.4),(20,10.5,3.0),(28,-9,3.3),(34,9,3.1),(-8,-9,3.2),(-12,10,3.4),(40,-11,3.0),(10,-4.5,2.2),(31,7.4,2.2)],
+ trees=[(52,-14),(58,-17),(64,-13),(70,16),(76,-18),(80,14),(56,17),(66,-19),(-30,15),(-35,-16),(-20,-17),(-14,18)])
+def flood_ground(x,y,F=None):
+ F=F or FLOOD;u=min(1.,max(0.,(x-F['hill_x'])/F['hill_len']));s=u*u*(3-2*u);return F['hill_h']*s+max(0.,abs(y)-16.)*.5
+def _flood_valley(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];F=FLOOD;rnd=random.Random(21)
+ nx=int((F['x1']-F['x0'])/2);ny=int(2*F['hw']/2);verts=[(F['x0']+i*2.,-F['hw']+j*2.,flood_ground(F['x0']+i*2.,-F['hw']+j*2.)) for i in range(nx+1) for j in range(ny+1)]
+ faces=[(i*(ny+1)+j,(i+1)*(ny+1)+j,(i+1)*(ny+1)+j+1,i*(ny+1)+j+1) for i in range(nx) for j in range(ny)]
+ me=bpy.data.meshes.new('Ground');me.from_pydata(verts,[],faces);me.update();me.materials.append(mat('Ground',(.32,.38,.2)));g=bpy.data.objects.new('Ground',me);link(g)
+ for (x,y,s) in F['houses']:
+  h=2.2+rnd.random()*.6;prim('cube','House',(x,y,h/2),(.55+rnd.random()*.15,.42,.3),scale=(s/2,s/2*.85,h/2))
+  prim('cone','Roof',(x,y,h+.7),(.5,.2,.15),scale=(s*.72,s*.65,.7),vertices=4,radius1=1,depth=2,rot=(0,0,math.pi/4))
+ for (x,y) in F['trees']:
+  h=3.+rnd.random()*2.;z=flood_ground(x,y);prim('cyl','Trunk',(x,y,z+h*.2),(.3,.2,.1),scale=(.18,.18,h*.2),vertices=6,radius=1,depth=2);prim('cone','Crown',(x,y,z+h*.7),(.12,.34,.14),scale=(1.1,1.1,h*.4),vertices=8,radius1=1,depth=2)
+ sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=2.2;sn.data.color=(.85,.88,1);sn.rotation_euler=(math.radians(55),0,math.radians(-35));link(sn)
+
 REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried'),build=_village,piece_default='avalanche'),'citadel':dict(consts=lambda:CITADEL,states=('intact','breached'),build=_citadel,piece_default='siege'),
  'arena_ruins':dict(states=('intact',),build=_arena_ruins,piece_default='arena_duel'),
  'railway_plains':dict(states=('intact',),build=_railway,piece_default='great_escape',params=True),
@@ -540,6 +558,7 @@ REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried
  'museum_hall':dict(consts=lambda:MUSEUM,states=('intact',),build=_museum_hall,piece_default='heist'),
  'workshop':dict(consts=lambda:WORKSHOP,states=('intact',),build=_workshop,piece_default='workshop'),
  'rapids':dict(consts=lambda:RAPIDS,states=('intact',),build=_rapids,piece_default='rapids'),
+ 'flood_valley':dict(consts=lambda:FLOOD,states=('intact',),build=_flood_valley,piece_default='flood'),
  'train_consist':dict(states=('intact',),build=_train_consist,piece_default='great_escape',params=True)}
 def bank_path(id_,state='intact',params=None):
  import inspect
