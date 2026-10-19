@@ -98,6 +98,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: the flood is one water body with a constant-speed front (no splashes or spray simulation), villagers are simple figures, hands are IK targets with no finger poses
 * prompt keywords: `flood(?:s|ed|ing)?|tidal wave|tsunami|dam (?:breaks|bursts)|wall of water|torrent|deluge`
 
+## The Flight (`flight`)
+
+* script: `flight_scene.py`
+* story: Leo rides a procedural dragon through a sky canyon: a slalom between ten rock spires and a dive under a stone arch; the body trails along the path, the wings beat in bursts before each spire (FK chain with lag, membrane by shape keys) and glide in between (about 36 s)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs sit)
+* known limits: the dragon has no legs, the rider is seated (no gestures), wings are a three-finger fan, hands are IK targets on a handlebar
+* prompt keywords: `dragon|fl(?:y|ies|ying) (?:on|over|through)|wings?|soar(?:s|ing)?|wyvern|flight|ride[sr]? a dragon`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

@@ -538,6 +538,24 @@ def _flood_valley(ctx,state):
   h=3.+rnd.random()*2.;z=flood_ground(x,y);prim('cyl','Trunk',(x,y,z+h*.2),(.3,.2,.1),scale=(.18,.18,h*.2),vertices=6,radius=1,depth=2);prim('cone','Crown',(x,y,z+h*.7),(.12,.34,.14),scale=(1.1,1.1,h*.4),vertices=8,radius1=1,depth=2)
  sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=2.2;sn.data.color=(.85,.88,1);sn.rotation_euler=(math.radians(55),0,math.radians(-35));link(sn)
 
+SKY=dict(x0=-60.,x1=520.,hw=34.,spires=[(45.,5.,2.8,60.),(80.,-6.,3.2,70.),(115.,4.,2.5,55.),(150.,-5.,3.0,65.),(185.,6.,3.4,72.),(220.,-4.,2.6,58.),(340.,5.,3.1,66.),(372.,-6.,2.9,62.),(404.,3.,3.3,70.),(436.,-5.,2.7,60.)],arch=(270.,11.,15.,19.))
+def _sky_canyon(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];S=SKY;rnd=random.Random(64);cx=(S['x0']+S['x1'])/2;L=(S['x1']-S['x0'])/2
+ prim('cube','Floor',(cx,0,-.5),(.36,.3,.22),scale=(L,S['hw'],.5))
+ prim('cube','River',(cx,0,.02),(.12,.3,.4),scale=(L,6,.02))
+ for sy in (-1,1):
+  for k in range(int(2*L/12)):
+   x=S['x0']+k*12+rnd.uniform(-2,2);h=70+rnd.uniform(0,40);prim('cube','Cliff',(x,sy*(S['hw']+4+rnd.uniform(0,3)),h/2),(.42+rnd.random()*.1,.34,.26),scale=(6+rnd.random()*2,4+rnd.random()*3,h/2),rot=(0,0,rnd.uniform(-.15,.15)))
+ for (x,y,r,h) in S['spires']:
+  prim('cone','Spire',(x,y,h/2),(.46,.38,.3),scale=(r,r,h/2),vertices=10,radius1=1,depth=2);prim('cyl','SpireTop',(x,y,h+.6),(.5,.42,.33),scale=(r*.35,r*.35,1.2),vertices=8,radius=1,depth=2)
+ ax,ay,z0,z1=S['arch']
+ for sy in (-1,1):prim('cube','ArchPillar',(ax,sy*ay,z1/2),(.44,.36,.28),scale=(2.2,2.0,z1/2))
+ prim('cube','ArchBeam',(ax,0,(z0+z1)/2+1),(.46,.38,.3),scale=(2.4,ay+2.0,(z1-z0)/2+1))
+ for k in range(26):
+  x=S['x0']+rnd.uniform(0,2*L);y=rnd.uniform(-30,30);z=rnd.uniform(48,90);s=rnd.uniform(8,16);prim('sphere','Cloud',(x,y,z),(.95,.95,.98),scale=(s,s*.6,s*.28),subdivisions=2)
+ sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=4.;sn.data.color=(1,.93,.8);sn.rotation_euler=(math.radians(50),0,math.radians(70));link(sn)
+
 REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried'),build=_village,piece_default='avalanche'),'citadel':dict(consts=lambda:CITADEL,states=('intact','breached'),build=_citadel,piece_default='siege'),
  'arena_ruins':dict(states=('intact',),build=_arena_ruins,piece_default='arena_duel'),
  'railway_plains':dict(states=('intact',),build=_railway,piece_default='great_escape',params=True),
@@ -559,6 +577,7 @@ REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried
  'workshop':dict(consts=lambda:WORKSHOP,states=('intact',),build=_workshop,piece_default='workshop'),
  'rapids':dict(consts=lambda:RAPIDS,states=('intact',),build=_rapids,piece_default='rapids'),
  'flood_valley':dict(consts=lambda:FLOOD,states=('intact',),build=_flood_valley,piece_default='flood'),
+ 'sky_canyon':dict(consts=lambda:SKY,states=('intact',),build=_sky_canyon,piece_default='flight'),
  'train_consist':dict(states=('intact',),build=_train_consist,piece_default='great_escape',params=True)}
 def bank_path(id_,state='intact',params=None):
  import inspect
