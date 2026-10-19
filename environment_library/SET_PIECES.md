@@ -106,6 +106,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: the dragon has no legs, the rider is seated (no gestures), wings are a three-finger fan, hands are IK targets on a handlebar
 * prompt keywords: `dragon|fl(?:y|ies|ying) (?:on|over|through)|wings?|soar(?:s|ing)?|wyvern|flight|ride[sr]? a dragon`
 
+## The Ice Cave (`ice`)
+
+* script: `ice_scene.py`
+* story: Leo crosses a frozen cavern by leaping between nine drifting ice floes while stalactites crash down around him: a planner finds each hop window from the sine paths of the floes, stalactites land as near misses (about 40 s)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs idle, run, jump)
+* known limits: floes are rigid discs on sine paths, shattering is shards on ballistic arcs, hands are not used
+* prompt keywords: `ice cave|frozen cave|glacier|ice floes?|stalactites?|frozen lake|crosses? the ice`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

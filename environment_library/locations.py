@@ -652,6 +652,13 @@ def _make_ctx():
   if parent:o.parent=parent
   return o
  return dict(link=link,mat=mat,prim=prim)
+import sys as _sys,os as _os
+_sys.path.insert(0,_os.path.dirname(_os.path.abspath(__file__)))
+try:
+ import world2_locations as _w2
+ REGISTRY.update(_w2.REGISTRY)
+except ImportError:
+ pass
 if __name__=='__main__' and 'bpy' in sys.modules or (len(sys.argv)>2 and '--' in sys.argv and sys.argv[sys.argv.index('--')+1:][:1]==['build']):
  import bpy
  a=sys.argv[sys.argv.index('--')+1:]
