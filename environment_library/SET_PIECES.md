@@ -122,6 +122,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: one corridor, the boulder rolls straight (no steering), statues topple forward only, hands are not used
 * prompt keywords: `boulder trap|rolling boulder|giant boulder|temple trap|desert ruins|desert temple|booby.?trap|treasure temple`
 
+## The Vine Swings (`jungle`)
+
+* script: `jungle_scene.py`
+* story: Leo crosses a jungle ravine on five real pendulum vines: each vine is at its back extreme when he is ready, he hops on, hangs by IK hands, and the release time is solved so the ballistic flight lands him at the next grab point (about 36 s)
+* needs: scenes/ship_assets (needs idle, run, cele)
+* known limits: platforms are level, one vine per gap, hands are IK targets with no finger poses
+* prompt keywords: `jungle|vines?|swings? (?:from|across|between)|temple ravine|stone platforms|idol`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

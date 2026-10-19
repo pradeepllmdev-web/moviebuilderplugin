@@ -48,3 +48,30 @@ def _desert_ruins(ctx,state):
  prim('cube','DoorFrame',(D['door_x'],0,D['wall_h']-1.2),(.62,.5,.3),scale=(1.6,D['hw']+.6,1.2));prim('cube','DoorPostL',(D['door_x'],-D['hw']-.4,4.5),(.62,.5,.3),scale=(1.6,.8,4.5));prim('cube','DoorPostR',(D['door_x'],D['hw']+.4,4.5),(.62,.5,.3),scale=(1.6,.8,4.5))
  sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=3.;sn.data.color=(1,.85,.65);sn.rotation_euler=(math.radians(55),0,math.radians(-60));link(sn)
 reg('desert_ruins',_desert_ruins,DESERT,'ruins')
+# ------------------------------------------------------------------------------------------------ 3 jungle temple (vine swings)
+def _jungle_consts():
+ px=[0.,14.,28.,42.,56.,70.];pz=[0.,0.,0.,0.,0.,0.];LB=12.;TH=math.radians(24.6);DROP=.8
+ anchors=[((px[k]+px[k+1])/2,pz[k]+.7+DROP+LB*math.cos(TH)) for k in range(len(px)-1)]
+ return dict(px=px,pz=pz,pr=3.0,LB=LB,TH=TH,DROP=DROP,anchors=anchors,temple_x=84.,hw=22.)
+JUNGLE=_jungle_consts()
+def _jungle_temple(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];J=JUNGLE;rnd=random.Random(33)
+ for k,(x,z) in enumerate(zip(J['px'],J['pz'])):
+  prim('cyl','Platform',(x,0,z/2-3),(.5,.5,.42),scale=(J['pr'],J['pr'],z/2+3.),vertices=14,radius=1,depth=2);prim('cyl','PlatformMoss',(x,0,z+.02),(.2,.45,.2),scale=(J['pr']*.8,J['pr']*.8,.03),vertices=14,radius=1,depth=2)
+ for k,(ax,az) in enumerate(J['anchors']):
+  prim('cyl','Branch',(ax,1.6,az+.5),(.3,.2,.12),scale=(.55,.55,1.8),rot=(math.pi/2,0,0),vertices=8,radius=1,depth=2);prim('cyl','BranchTrunk',(ax,3.3,(az+.5)/2),(.3,.2,.12),scale=(1.1,1.1,(az+.5)/2),vertices=8,radius=1,depth=2)
+ prim('cube','RavineFloor',(40,0,-9),(.12,.2,.14),scale=(70,J['hw']+10,.5));prim('cube','Mist',(40,0,-4),(.7,.8,.8),scale=(70,J['hw']+10,.05),emit=.15)
+ for sy in (-1,1):
+  for k in range(34):
+   x=rnd.uniform(-16,100);y=sy*rnd.uniform(J['hw'],J['hw']+12);h=rnd.uniform(14,26);prim('cyl','Tree',(x,y,h/2-6),(.28,.2,.12),scale=(rnd.uniform(.7,1.4),)*2+(h/2,),vertices=7,radius=1,depth=2)
+   prim('sphere','Canopy',(x,y,h-6),(.1,.35,.14),scale=(rnd.uniform(4,7),rnd.uniform(4,7),rnd.uniform(2.5,4)),subdivisions=2)
+   for v in range(2):prim('cyl','Vine',(x+rnd.uniform(-2,2),y-sy*rnd.uniform(1,3),h-6-4),(.15,.4,.15),scale=(.06,.06,rnd.uniform(3,5)),vertices=5,radius=1,depth=2)
+ tx=J['temple_x']
+ for i in range(5):prim('cube','TempleStep',(tx+i*1.1,0,.2+i*.5),(.48,.46,.4),scale=(3.4-i*.3,6.5-i*.6,.25))
+ prim('cube','TempleBack',(tx+8.5,0,5),(.46,.44,.38),scale=(.8,8,5));prim('cube','TempleRoof',(tx+6,0,10.5),(.42,.4,.34),scale=(3.8,8.5,.5))
+ for sy in (-1,1):prim('cyl','TempleColumn',(tx+4.5,sy*6,5),(.5,.48,.42),scale=(.9,.9,5),vertices=10,radius=1,depth=2)
+ prim('cyl','IdolBase',(tx+7,0,3.0),(.55,.5,.4),scale=(1.4,1.4,1.0),vertices=12,radius=1,depth=2);prim('sphere','IdolBody',(tx+7,0,4.8),(.6,.55,.42),scale=(1.3,1.1,1.6),subdivisions=2)
+ sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=3.;sn.data.color=(1,.95,.75);sn.rotation_euler=(math.radians(50),0,math.radians(120));link(sn)
+ fl=bpy.data.objects.new('GreenFill',bpy.data.lights.new('GreenFill','POINT'));fl.data.energy=8000;fl.data.color=(.6,1,.7);fl.location=(40,0,14);link(fl)
+reg('jungle_temple',_jungle_temple,JUNGLE,'jungle')
