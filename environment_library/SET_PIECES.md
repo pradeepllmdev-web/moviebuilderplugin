@@ -162,6 +162,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: one street, bystanders are simple figures, the thief is a second lion, hands are IK targets with no finger poses
 * prompt keywords: `night market|bazaar|market chase|chases? (?:the |a )?thief|lantern market|stolen sack|crowded market`
 
+## The Swamp (`swamp`)
+
+* script: `swamp_scene.py`
+* story: Leo poles a punt through a night swamp: the pole is planted on the bed and its tip stays fixed while the boat advances by exactly the change in its lean, four crocodiles lunge as he passes (heads arc off the hull, bodies trail the head), and two are fended off by the pole (about 50 s)
+* needs: scenes/ship_assets (needs idle)
+* known limits: one channel, crocodiles lunge and miss (no bite or damage), hands are IK targets with no finger poses
+* prompt keywords: `swamp|bayou|mangrove|crocodiles?|alligators?|punt|poles? (?:a|the) (?:boat|punt)`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

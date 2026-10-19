@@ -177,3 +177,25 @@ def _night_market(ctx,state):
  gx=M['gate_x'];prim('cube','DeadEndWall',(gx+1,0,5),(.3,.26,.22),scale=(.6,M['hw'],5));prim('cube','Gate',(gx,0,2.4),(.35,.22,.12),scale=(.3,2.4,2.4));prim('sphere','GateLamp',(gx-.7,2.8,3.2),(1,.8,.4),scale=(.2,.2,.2),emit=6.,subdivisions=1)
  mn=bpy.data.objects.new('Moon',bpy.data.lights.new('Moon','SUN'));mn.data.energy=.5;mn.data.color=(.6,.7,1);mn.rotation_euler=(math.radians(50),0,math.radians(20));link(mn)
 reg('night_market',_night_market,MARKET,'market')
+# ------------------------------------------------------------------------------------------------ 8 swamp (boat, crocodiles)
+SWAMP=dict(x0=-12.,x1=80.,hw=22.,path=[(0.,0.),(10.,2.),(20.,-1.5),(30.,2.5),(40.,-1.),(50.,1.5),(58.,0.),(62.,0.)],lairs=[(15.,5.6,-1),(26.,-5.2,1),(36.,5.4,-1),(47.,-5.0,1)],bed=-.8,dock=(66.,0.))
+def _swamp(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];S_=SWAMP;rnd=random.Random(40);cx=(S_['x0']+S_['x1'])/2;L=(S_['x1']-S_['x0'])/2
+ prim('cube','SwampWater',(cx,0,-.02),(.07,.16,.1),scale=(L,S_['hw'],.02));prim('cube','Mud',(cx,0,-1.0),(.12,.1,.07),scale=(L,S_['hw'],.1))
+ for sy in (-1,1):prim('cube','Bank',(cx,sy*(S_['hw']-4),.3),(.14,.13,.08),scale=(L,6,.5))
+ for k in range(120):
+  x=rnd.uniform(S_['x0'],S_['x1']);sy=rnd.choice((-1,1));y=sy*rnd.uniform(8,S_['hw']);h=rnd.uniform(5,11)
+  prim('cyl','MangroveTrunk',(x,y,h/2),(.16,.12,.08),scale=(rnd.uniform(.25,.55),)*2+(h/2,),vertices=7,radius=1,depth=2)
+  for r in range(4):
+   a=rnd.uniform(0,6.28);prim('cone','MangroveRoot',(x+math.cos(a)*.9,y+math.sin(a)*.9,.8),(.16,.12,.08),scale=(.12,.12,1.0),rot=(math.sin(a)*.6,-math.cos(a)*.6,0),vertices=5,radius1=1,depth=2)
+  prim('sphere','MangroveCrown',(x,y,h),(.08,.22,.1),scale=(rnd.uniform(2.5,4.5),rnd.uniform(2.5,4.5),rnd.uniform(1.5,2.5)),subdivisions=2)
+  for m in range(3):prim('cyl','Moss',(x+rnd.uniform(-2,2),y+rnd.uniform(-2,2),h-1.5),(.4,.5,.35),scale=(.05,.05,rnd.uniform(.8,1.8)),vertices=5,radius=1,depth=2)
+ for k in range(70):prim('cyl','LilyPad',(rnd.uniform(S_['x0'],S_['x1']),rnd.uniform(-8,8),.015),(.12,.4,.15),scale=(rnd.uniform(.3,.7),)*2+(.01,),vertices=10,radius=1,depth=2)
+ for k in range(60):
+  x=rnd.uniform(S_['x0'],S_['x1']);y=rnd.choice((-1,1))*rnd.uniform(5.2,8);prim('cone','Reed',(x,y,.8),(.3,.45,.2),scale=(.06,.06,.9),vertices=5,radius1=1,depth=2)
+ dx,dy=S_['dock'];prim('cube','Dock',(dx,dy,.2),(.28,.2,.12),scale=(3,3.2,.12));prim('cube','Cabin',(dx+5,dy,2.0),(.3,.22,.14),scale=(2.6,2.4,1.8));prim('cone','CabinRoof',(dx+5,dy,4.6),(.24,.2,.16),scale=(3.6,3.4,1.0),vertices=4,radius1=1,depth=2,rot=(0,0,math.pi/4))
+ prim('sphere','DockLamp',(dx+1.5,dy+1.5,2.2),(1,.8,.4),scale=(.22,.22,.22),emit=7.,subdivisions=1)
+ lt=bpy.data.objects.new('DockLight',bpy.data.lights.new('DockLight','POINT'));lt.data.energy=1800;lt.data.color=(1,.75,.4);lt.location=(dx+1.5,dy+1.5,2.4);link(lt)
+ mn=bpy.data.objects.new('Moon',bpy.data.lights.new('Moon','SUN'));mn.data.energy=.9;mn.data.color=(.6,.75,.7);mn.rotation_euler=(math.radians(55),0,math.radians(35));link(mn)
+reg('swamp',_swamp,SWAMP,'swamp')

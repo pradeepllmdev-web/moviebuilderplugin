@@ -87,6 +87,9 @@ SET_PIECES={
  'market':dict(title='The Night Market',script='market_scene.py',keywords='night market|bazaar|market chase|chases? (?:the |a )?thief|lantern market|stolen sack|crowded market',
   needs=['scenes/ship_assets (needs idle, run, startle)'],
   beats='Leo chases a thief through a crowded lantern market: a path-following pursuit whose gap closes from 10 m to 0.9 m, 60 steered bystanders part around the runners, the thief topples five crate stacks that Leo vaults, and the thief hands the sack back (about 45 s)',limits='one street, bystanders are simple figures, the thief is a second lion, hands are IK targets with no finger poses'),
+ 'swamp':dict(title='The Swamp',script='swamp_scene.py',keywords='swamp|bayou|mangrove|crocodiles?|alligators?|punt|poles? (?:a|the) (?:boat|punt)',
+  needs=['scenes/ship_assets (needs idle)'],
+  beats='Leo poles a punt through a night swamp: the pole is planted on the bed and its tip stays fixed while the boat advances by exactly the change in its lean, four crocodiles lunge as he passes (heads arc off the hull, bodies trail the head), and two are fended off by the pole (about 50 s)',limits='one channel, crocodiles lunge and miss (no bite or damage), hands are IK targets with no finger poses'),
  'horse_herd':dict(title='Horse herd',script='horse_herd.py',keywords=r'herd of horses|horse herd|galloping horses|wild horses|stampede',
   needs=['assets/quaternius_farm_animals_download (CC0 "Farm Animals Animated" by Quaternius; ask before downloading)'],
   beats='aerial herd of 70 galloping horses along a river toward mountains (16 s, 5 cameras, sound)',limits='no riders, foals are scaled copies'),
@@ -100,7 +103,7 @@ def match(prompt):
 def planner_text():
  names=', '.join('%s (%s)'%(k,v['beats'].split(' (')[0][:70]) for k,v in SET_PIECES.items())
  return ' Whole-scene set pieces exist outside this shot builder: '+names+'. If the request is one of these (creature chase, ship at sea, horse herd, riding a horse), do not fake it with walk or run beats: list "set_piece:<id>" in unsupported and keep a plain idle beat so the studio can route it.'
-ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle','reef','forge','sky','market')   # scenes that take (ship_assets, out)
+ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle','reef','forge','sky','market','swamp')   # scenes that take (ship_assets, out)
 def missing(piece):
  """Human-readable list of what is not there yet (nothing is downloaded automatically)."""
  gone=[]
