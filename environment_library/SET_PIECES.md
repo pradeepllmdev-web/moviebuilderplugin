@@ -186,6 +186,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: one bridge, the ropes sag in a plane (no lateral sway), planks fall ballistically with tumble, hands are not used
 * prompt keywords: `rope bridge|rickety bridge|collaps(?:es|ing) bridge|gorge|bridge (?:collapses|breaks|falls)|planks? (?:fall|drop)`
 
+## The Observatory (`observatory`)
+
+* script: `observatory_scene.py`
+* story: Leo turns four mirror wheels one after another until a moonbeam bounces through all of them onto a crystal that opens the dome: the beam is ray-traced every frame from the lamp (reflecting off the mirrors' live yaws), each mirror's required yaw is solved from the intended path, and his hands follow the wheel rim (about 45 s)
+* needs: scenes/ship_assets (needs idle, climb, cele)
+* known limits: a horizontal beam plane, flat mirrors, one lamp; hands are IK targets with no finger poses
+* prompt keywords: `observatory|telescope|mirrors?|moonbeam|light beam|crystal|dome opens|star ?gaz`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

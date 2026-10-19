@@ -235,3 +235,23 @@ def _gorge_bridge(ctx,state):
  prim('cyl','Waterfall',(B['cliff_far']+1.5,-10,-22),(.7,.85,1.),scale=(1.2,.4,24),vertices=8,radius=1,depth=2,emit=.6)
  sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=4.;sn.data.color=(1,.92,.78);sn.rotation_euler=(math.radians(50),0,math.radians(30));link(sn)
 reg('gorge_bridge',_gorge_bridge,BRIDGE,'bridge')
+# ------------------------------------------------------------------------------------------------ 11 observatory (light beams and mirrors)
+OBS=dict(R=13.,wall_h=10.,zb=1.2,S=(-11.,-5.),mirrors=[(-4.,5.),(5.,6.),(7.,-2.),(0.,-7.)],T=(-8.,-9.),mr=.55)
+def _observatory(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];O=OBS;rnd=random.Random(81)
+ prim('cyl','ObsFloor',(0,0,-.2),(.28,.22,.18),scale=(O['R'],O['R'],.2),vertices=48,radius=1,depth=2)
+ for k,r in enumerate((2.5,6.0,9.5,12.0)):prim('cyl','FloorInlay',(0,0,.005+k*.002),(.75,.6,.25),scale=(r,r,.01),vertices=48,radius=1,depth=2,emit=.4)
+ for k in range(32):
+  a=k*2*math.pi/32;x,y=math.cos(a)*(O['R']+.3),math.sin(a)*(O['R']+.3);prim('cube','WallPanel',(x,y,O['wall_h']/2),(.35+rnd.random()*.05,.3,.25),scale=(.55,2.7,O['wall_h']/2),rot=(0,0,a+math.pi/2*0+0),)
+ for k in range(32):
+  a=k*2*math.pi/32+math.pi/32;x,y=math.cos(a)*(O['R']-.2),math.sin(a)*(O['R']-.2);prim('cube','Bookshelf',(x,y,1.5),(.3,.2,.12),scale=(.4,1.6,1.5),rot=(0,0,a))
+ for k in range(16):
+  a=k*2*math.pi/16;prim('cube','RoofBeam',(math.cos(a)*O['R']*.5,math.sin(a)*O['R']*.5,O['wall_h']+.2),(.4,.3,.2),scale=(O['R']*.5,.3,.25),rot=(0,0,a))
+ prim('cyl','ScopePillar',(0,0,1.2),(.45,.4,.25),scale=(.9,.9,1.2),vertices=16,radius=1,depth=2);prim('cyl','ScopeTube',(0,0,3.8),(.55,.5,.35),scale=(.55,.55,3.0),rot=(math.radians(35),0,math.radians(30)),vertices=16,radius=1,depth=2);prim('cyl','ScopeRing',(0,0,2.6),(.7,.55,.2),scale=(1.3,1.3,.08),vertices=24,radius=1,depth=2)
+ sx,sy=O['S'];prim('cube','LampBase',(sx,sy,.6),(.4,.3,.2),scale=(.5,.5,.6));prim('cyl','LampHousing',(sx,sy,O['zb']),(.5,.45,.35),scale=(.35,.35,.45),rot=(0,math.pi/2,0),vertices=12,radius=1,depth=2)
+ tx,ty=O['T'];prim('cyl','CrystalPedestal',(tx,ty,.5),(.5,.45,.4),scale=(.45,.45,.5),vertices=10,radius=1,depth=2)
+ for (mx,my) in O['mirrors']:prim('cyl','MirrorPedestal',(mx,my,.55),(.55,.5,.4),scale=(.2,.2,.55),vertices=10,radius=1,depth=2)
+ for k in range(6):
+  a=k*math.pi/3+.3;lt=bpy.data.objects.new('ObsLamp',bpy.data.lights.new('ObsLamp','POINT'));lt.data.energy=700;lt.data.color=(1,.82,.55);lt.location=(math.cos(a)*9,math.sin(a)*9,6);link(lt)
+reg('observatory',_observatory,OBS,'observatory')
