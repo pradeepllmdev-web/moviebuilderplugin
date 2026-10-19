@@ -154,6 +154,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: platform paths are analytic, one traveller, wind turbines and an airship are scenery on fixed paths, hands are not used
 * prompt keywords: `sky city|floating (?:city|islands?|platforms?)|moving platforms?|cloud city|airship|above the clouds`
 
+## The Night Market (`market`)
+
+* script: `market_scene.py`
+* story: Leo chases a thief through a crowded lantern market: a path-following pursuit whose gap closes from 10 m to 0.9 m, 60 steered bystanders part around the runners, the thief topples five crate stacks that Leo vaults, and the thief hands the sack back (about 45 s)
+* needs: scenes/ship_assets (needs idle, run, startle)
+* known limits: one street, bystanders are simple figures, the thief is a second lion, hands are IK targets with no finger poses
+* prompt keywords: `night market|bazaar|market chase|chases? (?:the |a )?thief|lantern market|stolen sack|crowded market`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

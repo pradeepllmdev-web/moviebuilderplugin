@@ -149,3 +149,31 @@ def _sky_city(ctx,state):
   x=rnd.uniform(-30,110);y=rnd.uniform(-70,70);z=rnd.uniform(-30,-8);s=rnd.uniform(6,14);prim('sphere','Cloud',(x,y,z),(1,1,1),scale=(s*1.4,s,s*.35),subdivisions=2)
  sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=4.;sn.data.color=(1,.95,.85);sn.rotation_euler=(math.radians(55),0,math.radians(40));link(sn)
 reg('sky_city',_sky_city,SKYCITY,'skycity')
+# ------------------------------------------------------------------------------------------------ 7 night market (crowd chase)
+def _market_consts():
+ mid=[(24.,1.6,6.,3.),(46.,-1.6,6.,3.),(68.,1.6,6.,3.),(90.,-1.6,6.,3.),(112.,1.6,6.,3.)]
+ edge=[(x,sy*11.2,5.,2.2) for x in range(2,134,7) for sy in (-1,1)]
+ path=[(0.,0.),(12.,-.5),(24.,-3.4),(35.,0.),(46.,3.4),(57.,0.),(68.,-3.4),(79.,0.),(90.,3.4),(101.,0.),(112.,-3.4),(124.,-.5),(132.,0.)]
+ return dict(x0=-10.,x1=145.,hw=16.,mid=mid,edge=edge,path=path,gate_x=134.,crates=[16.,38.,60.,82.,104.])
+MARKET=_market_consts()
+def _night_market(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];M=MARKET;rnd=random.Random(12);cx=(M['x0']+M['x1'])/2;L=(M['x1']-M['x0'])/2
+ prim('cube','Cobbles',(cx,0,-.15),(.22,.2,.19),scale=(L,M['hw'],.15))
+ for k in range(80):prim('cube','CobbleTone',(rnd.uniform(M['x0'],M['x1']),rnd.uniform(-12,12),.005),(.3,.27,.23),scale=(rnd.uniform(.5,1.4),rnd.uniform(.5,1.4),.005))
+ for sy in (-1,1):
+  for k in range(int(2*L/9)):
+   x=M['x0']+k*9+4.5;h=rnd.uniform(10,15);prim('cube','Building',(x,sy*(M['hw']+3),h/2),(.28+rnd.random()*.1,.24,.22),scale=(4.5,3,h/2))
+   for w in range(3):prim('cube','LitWindow',(x+rnd.uniform(-3,3),sy*(M['hw']-.05),rnd.uniform(3,h-1)),(1,.8,.4),scale=(.5,.04,.7),emit=2.5)
+ cols=[(.8,.2,.25),(.2,.5,.8),(.9,.65,.2),(.3,.7,.4),(.7,.3,.7)]
+ for (x,y,w,d) in M['edge']+[(a,b,c,e) for a,b,c,e in M['mid']]:
+  c=rnd.choice(cols);prim('cube','StallTable',(x,y,.45),(.4,.28,.15),scale=(w/2,d/2,.45));prim('cube','StallAwning',(x,y,2.4),c,scale=(w/2+.3,d/2+.4,.08),rot=(0,0,0))
+  for px in (-1,1):prim('cyl','StallPost',(x+px*(w/2),y,1.2),(.4,.28,.15),scale=(.06,.06,1.2),vertices=6,radius=1,depth=2)
+  for g in range(4):prim('sphere','Goods',(x+rnd.uniform(-w/2+.5,w/2-.5),y+rnd.uniform(-.5,.5),1.05),rnd.choice(cols),scale=(.2,.2,.2),subdivisions=1)
+ for x in range(0,142,8):
+  for k in range(7):
+   y=-12+k*4;z=6.5-.8*math.sin(k/6*math.pi);prim('sphere','Lantern',(x+rnd.uniform(-.5,.5),y,z),rnd.choice([(1,.5,.2),(1,.3,.25),(1,.85,.3)]),scale=(.28,.28,.34),emit=5.,subdivisions=1)
+  lt=bpy.data.objects.new('MarketLight',bpy.data.lights.new('MarketLight','POINT'));lt.data.energy=2200;lt.data.color=(1,.7,.4);lt.location=(x,0,5.5);link(lt)
+ gx=M['gate_x'];prim('cube','DeadEndWall',(gx+1,0,5),(.3,.26,.22),scale=(.6,M['hw'],5));prim('cube','Gate',(gx,0,2.4),(.35,.22,.12),scale=(.3,2.4,2.4));prim('sphere','GateLamp',(gx-.7,2.8,3.2),(1,.8,.4),scale=(.2,.2,.2),emit=6.,subdivisions=1)
+ mn=bpy.data.objects.new('Moon',bpy.data.lights.new('Moon','SUN'));mn.data.energy=.5;mn.data.color=(.6,.7,1);mn.rotation_euler=(math.radians(50),0,math.radians(20));link(mn)
+reg('night_market',_night_market,MARKET,'market')
