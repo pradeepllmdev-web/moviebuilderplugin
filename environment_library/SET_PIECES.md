@@ -178,6 +178,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: two fighters on a platform, spells are glowing spheres with trails, casting is an IK arm thrust (no finger poses)
 * prompt keywords: `spell duel|wizard|mage|sorcer|magic duel|casts? (?:a )?spells?|spell`
 
+## The Rope Bridge (`bridge`)
+
+* script: `bridge_scene.py`
+* story: Leo sprints across a rotten rope bridge while the planks drop behind him: the failure spacing is bisected so the nearest failed plank is 1.4 m behind his rear foot, the ropes are a Verlet chain that sags by itself as planks release it, he vaults two gaps and makes the last leap to the cliff (about 20 s)
+* needs: scenes/ship_assets (needs idle, run, jump)
+* known limits: one bridge, the ropes sag in a plane (no lateral sway), planks fall ballistically with tumble, hands are not used
+* prompt keywords: `rope bridge|rickety bridge|collaps(?:es|ing) bridge|gorge|bridge (?:collapses|breaks|falls)|planks? (?:fall|drop)`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

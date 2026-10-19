@@ -217,3 +217,21 @@ def _mage_tower(ctx,state):
   a=k*2*math.pi/9;prim('cube','FloatingBook',(math.cos(a)*7.4,math.sin(a)*7.4,4.2+math.sin(k)*.8),(.5,.3,.2),scale=(.3,.22,.05),rot=(.3,.2,a))
  mn=bpy.data.objects.new('Moon','SUN' and bpy.data.lights.new('MoonLight','SUN'));mn.data.energy=1.2;mn.data.color=(.65,.72,1);mn.rotation_euler=(math.radians(55),0,math.radians(-40));link(mn)
 reg('mage_tower',_mage_tower,MAGE,'mage')
+# ------------------------------------------------------------------------------------------------ 10 gorge and rope bridge
+BRIDGE=dict(n=29,x0=1.0,dx=1.4,anchors=(-.4,41.6),hw=.75,missing=[8,9,17],cliff_far=44.,river_z=-46.)
+def _gorge_bridge(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];B=BRIDGE;rnd=random.Random(70)
+ prim('cube','NearCliff',(-20,0,-30),(.38,.33,.27),scale=(20,16,30));prim('cube','FarCliff',(B['cliff_far']+20,0,-30),(.38,.33,.27),scale=(20,16,30))
+ for sy in (-1,1):prim('cube','GorgeWall',(22,sy*(16+10),-5),(.34,.3,.25),scale=(60,10,45))
+ prim('cube','River',(22,0,B['river_z']),(.1,.3,.45),scale=(60,16,.3));prim('cube','Mist',(22,0,-20),(.8,.85,.9),scale=(60,16,.06),emit=.35)
+ for x in (B['anchors'][0]-.3,B['anchors'][1]+.3):
+  for sy in (-1,1):prim('cyl','AnchorPost',(x,sy*B['hw'],.9),(.4,.3,.2),scale=(.14,.14,.9),vertices=8,radius=1,depth=2)
+ for k in range(40):
+  x=rnd.choice((rnd.uniform(-38,-3),rnd.uniform(46,80)));y=rnd.choice((-1,1))*rnd.uniform(7,14);h=rnd.uniform(4,8)
+  prim('cyl','Trunk',(x,y,h/2),(.3,.2,.12),scale=(.3,.3,h/2),vertices=6,radius=1,depth=2);prim('sphere','Crown',(x,y,h+1.2),(.12,.35,.14),scale=(2.2,2.2,1.6),subdivisions=2)
+ for k in range(24):
+  y=rnd.choice((-1,1))*rnd.uniform(14,26);z=rnd.uniform(-35,-5);prim('cone','CliffSpire',(rnd.uniform(-10,50),y,z),(.4,.34,.28),scale=(2.5,2.5,6),vertices=6,radius1=1,depth=2)
+ prim('cyl','Waterfall',(B['cliff_far']+1.5,-10,-22),(.7,.85,1.),scale=(1.2,.4,24),vertices=8,radius=1,depth=2,emit=.6)
+ sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=4.;sn.data.color=(1,.92,.78);sn.rotation_euler=(math.radians(50),0,math.radians(30));link(sn)
+reg('gorge_bridge',_gorge_bridge,BRIDGE,'bridge')
