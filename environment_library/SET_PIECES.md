@@ -138,6 +138,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: swimming reuses the run clip as the kick, one school, the shark is a segment chain with no jaw animation, hands are IK targets with no finger poses
 * prompt keywords: `reef|underwater|coral|dives? (?:into|down)|shark|giant clam|pearl|school of fish`
 
+## The Volcano Forge (`forge`)
+
+* script: `forge_scene.py`
+* story: Leo forges a sword in a cavern by a lava river: heats the billet in the furnace, hammers it in three rounds of blows (the head arcs to the strike point, sparks fly, the blade lengthens), a heat model that decays between stations, quenches it in the trough and raises the finished blade (about 45 s)
+* needs: scenes/ship_assets (needs idle, climb)
+* known limits: one smith, one blade; the swing is a planar arc, hands are IK targets with no finger poses
+* prompt keywords: `forge|blacksmith|anvil|hammer(?:s|ing)? (?:a |the )?(?:sword|blade|iron)|molten|lava river|forges? a sword`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

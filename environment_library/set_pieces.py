@@ -78,6 +78,9 @@ SET_PIECES={
  'reef':dict(title='The Reef',script='reef_scene.py',keywords='reef|underwater|coral|dives? (?:into|down)|shark|giant clam|pearl|school of fish',
   needs=['scenes/ship_assets (needs idle, run)'],
   beats='Leo dives through a coral reef (flutter-kick swim, pitched from the path), opens a giant clam and takes the pearl with both hands, and escapes a shark into a crevice: 100 boid fish part around him and burst away from the shark, whose head follows his path a shrinking 14 to 3.4 m behind (about 55 s)',limits='swimming reuses the run clip as the kick, one school, the shark is a segment chain with no jaw animation, hands are IK targets with no finger poses'),
+ 'forge':dict(title='The Volcano Forge',script='forge_scene.py',keywords='forge|blacksmith|anvil|hammer(?:s|ing)? (?:a |the )?(?:sword|blade|iron)|molten|lava river|forges? a sword',
+  needs=['scenes/ship_assets (needs idle, climb)'],
+  beats='Leo forges a sword in a cavern by a lava river: heats the billet in the furnace, hammers it in three rounds of blows (the head arcs to the strike point, sparks fly, the blade lengthens), a heat model that decays between stations, quenches it in the trough and raises the finished blade (about 45 s)',limits='one smith, one blade; the swing is a planar arc, hands are IK targets with no finger poses'),
  'horse_herd':dict(title='Horse herd',script='horse_herd.py',keywords=r'herd of horses|horse herd|galloping horses|wild horses|stampede',
   needs=['assets/quaternius_farm_animals_download (CC0 "Farm Animals Animated" by Quaternius; ask before downloading)'],
   beats='aerial herd of 70 galloping horses along a river toward mountains (16 s, 5 cameras, sound)',limits='no riders, foals are scaled copies'),
@@ -91,7 +94,7 @@ def match(prompt):
 def planner_text():
  names=', '.join('%s (%s)'%(k,v['beats'].split(' (')[0][:70]) for k,v in SET_PIECES.items())
  return ' Whole-scene set pieces exist outside this shot builder: '+names+'. If the request is one of these (creature chase, ship at sea, horse herd, riding a horse), do not fake it with walk or run beats: list "set_piece:<id>" in unsupported and keep a plain idle beat so the studio can route it.'
-ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle','reef')   # scenes that take (ship_assets, out)
+ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle','reef','forge')   # scenes that take (ship_assets, out)
 def missing(piece):
  """Human-readable list of what is not there yet (nothing is downloaded automatically)."""
  gone=[]

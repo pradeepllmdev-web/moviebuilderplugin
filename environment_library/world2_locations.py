@@ -99,3 +99,25 @@ def _reef(ctx,state):
  for x in range(0,170,30):
   lt=bpy.data.objects.new('ReefLight',bpy.data.lights.new('ReefLight','POINT'));lt.data.energy=5000;lt.data.color=(.5,.8,1);lt.location=(x,0,-3);link(lt)
 reg('reef',_reef,REEF,'reef')
+# ------------------------------------------------------------------------------------------------ 5 volcano forge
+FORGE=dict(stations=dict(F=-1.7,A=0.,T=1.7),stand_y=-.62,top_z=.98,hw=9.,x0=-9.,x1=9.,y1=8.)
+def _forge(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];F=FORGE;rnd=random.Random(50);st=F['stations']
+ prim('cube','Floor',(0,2.5,-.3),(.22,.2,.19),scale=(F['hw'],6.2,.3))
+ prim('cube','Lava',(0,12,-.9),(1,.32,.05),scale=(F['hw']+8,5.5,.1),emit=4.5)
+ for k in range(14):prim('sphere','LavaCrust',(rnd.uniform(-12,12),rnd.uniform(9,14),-.75),(.12,.1,.1),scale=(rnd.uniform(.8,2),rnd.uniform(.6,1.4),.12),subdivisions=1)
+ prim('cube','BackWall',(0,F['y1']+7,6),(.16,.13,.12),scale=(F['hw']+10,.5,8));prim('cube','SideWallL',(-F['hw']-1,3,5),(.18,.14,.12),scale=(.5,8,5.5));prim('cube','SideWallR',(F['hw']+1,3,5),(.18,.14,.12),scale=(.5,8,5.5));prim('cube','Roof',(0,3,11),(.14,.11,.1),scale=(F['hw']+2,9,1))
+ for k in range(16):
+  x=rnd.uniform(-F['hw'],F['hw']);h=rnd.uniform(1.5,4);prim('cone','Stalagmite',(x,rnd.uniform(5.5,8),h/2),(.2,.16,.14),scale=(rnd.uniform(.4,.9),)*2+(h/2,),vertices=7,radius1=1,depth=2)
+  prim('cone','Stalactite',(rnd.uniform(-F['hw'],F['hw']),rnd.uniform(-2,8),10-h/2),(.2,.16,.14),scale=(rnd.uniform(.4,.9),)*2+(h/2,),rot=(math.pi,0,0),vertices=7,radius1=1,depth=2)
+ ax=st['A'];prim('cube','AnvilBase',(ax,.15,.35),(.3,.28,.26),scale=(.22,.3,.35));prim('cube','AnvilTop',(ax,.15,F['top_z']-.06),(.42,.42,.46),scale=(.28,.46,.06));prim('cone','AnvilHorn',(ax,.78,F['top_z']-.06),(.42,.42,.46),scale=(.1,.1,.34),rot=(-math.pi/2,0,0),vertices=8,radius1=1,depth=2)
+ fx=st['F'];prim('cube','FurnaceBack',(fx,.62,.75),(.28,.2,.16),scale=(.62,.08,.75));prim('cube','FurnaceSideL',(fx-.6,.2,.75),(.28,.2,.16),scale=(.08,.5,.75));prim('cube','FurnaceSideR',(fx+.6,.2,.75),(.28,.2,.16),scale=(.08,.5,.75));prim('cube','FurnaceRoof',(fx,.2,1.55),(.28,.2,.16),scale=(.7,.58,.1));prim('cube','FurnaceBase',(fx,.2,.3),(.28,.2,.16),scale=(.6,.5,.3))
+ prim('cube','FurnaceCoals',(fx,.2,.64),(1,.35,.05),scale=(.5,.4,.05),emit=5.);prim('cube','Chimney',(fx,.5,3.2),(.28,.2,.16),scale=(.3,.2,1.7))
+ fl=bpy.data.objects.new('FurnaceLight',bpy.data.lights.new('FurnaceLight','POINT'));fl.data.energy=900;fl.data.color=(1,.45,.1);fl.location=(fx,.0,1.0);link(fl)
+ tx=st['T'];prim('cube','TroughBody',(tx,.4,.45),(.3,.22,.15),scale=(.55,.55,.45));prim('cube','TroughWater',(tx,.4,.86),(.1,.3,.5),scale=(.5,.5,.02))
+ for sx in (-3.5,3.5):prim('cube','ToolRack',(sx,2.4,1.0),(.3,.2,.12),scale=(.9,.08,.8))
+ for lx in (-4,0,4):
+  lt=bpy.data.objects.new('LavaLight',bpy.data.lights.new('LavaLight','POINT'));lt.data.energy=18000;lt.data.color=(1,.35,.08);lt.location=(lx,9,3);link(lt)
+ wl=bpy.data.objects.new('ForgeFill',bpy.data.lights.new('ForgeFill','POINT'));wl.data.energy=1500;wl.data.color=(1,.85,.65);wl.location=(0,-2.5,3);link(wl)
+reg('forge',_forge,FORGE,'forge')
