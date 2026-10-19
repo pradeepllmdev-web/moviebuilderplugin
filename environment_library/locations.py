@@ -423,6 +423,46 @@ def _prop_gavel(ctx,state):
  prim('cyl','GavelHandle',(0,-.12,.05),(.4,.25,.12),scale=(.015,.015,.14),rot=(math.pi/2,0,0),vertices=8,radius=1,depth=2).parent=h
  head=prim('cyl','GavelHead',(0,-.26,.05),(.4,.25,.12),scale=(.04,.04,.07),rot=(0,math.pi/2,0),vertices=10,radius=1,depth=2);head.parent=h
 
+MUSEUM=dict(x0=-18.,x1=18.,hw=8.,h=8.,pillars=[(-12.,3.),(-12.,-3.),(-6.,3.),(-6.,-3.),(0.,3.),(0.,-3.),(6.,3.),(6.,-3.),(12.,3.),(12.,-3.)],cases=[(-9.,-5.8),(-3.,5.8),(5.,-5.8),(11.,5.8)],crate=(-15.4,-1.6),pedestal=(10.,0.),window=(18.,0.,1.1),gate_x=3.5,
+ gate=[(.3,'low'),(.65,'high'),(1.0,'high')],corner_lasers=[((11.,-7.5,.5),(16.5,-2.5,.5)),((11.,7.5,.5),(16.5,2.5,.5)),((13.,-7.5,1.0),(13.,-3.5,1.0))])
+def _museum_hall(ctx,state):
+ import bpy
+ from mathutils import Vector
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];M=MUSEUM
+ prim('cube','Floor',(0,0,-.1),(.12,.12,.16),scale=(19,9,.1))
+ for ix in range(-8,9):
+  for iy in range(-3,3):
+   if (ix+iy)%2==0:prim('cube','FloorTile',(ix*2.2+1.1,iy*2.6+1.3,.003),(.2,.2,.22),scale=(1.1,1.3,.004))
+ for sy in (-1,1):prim('cube','Wall',(0,sy*(M['hw']+.5),M['h']/2),(.2,.19,.18),scale=(19,.5,M['h']/2))
+ prim('cube','WallW',(M['x0']-.5,0,M['h']/2),(.2,.19,.18),scale=(.5,9,M['h']/2))
+ prim('cube','WallEUp',(M['x1']+.5,0,5.5),(.2,.19,.18),scale=(.5,9,2.5));prim('cube','WallELow',(M['x1']+.5,0,.45),(.2,.19,.18),scale=(.5,9,.45))
+ for sy in (-1,1):prim('cube','WallEPost',(M['x1']+.5,sy*5.2,3.0),(.2,.19,.18),scale=(.5,3.8,.6))
+ prim('cube','Ceiling',(0,0,M['h']+.3),(.12,.12,.14),scale=(19,9,.3))
+ for k,x in enumerate((-12,-4,4,12)):prim('cube','Skylight',(x,0,M['h']-.02),(.5,.6,.9),scale=(1.5,3.0,.02),emit=3.)
+ for (x,y) in M['pillars']:
+  p=prim('cyl','Pillar',(x,y,M['h']/2),(.5,.46,.4),scale=(.5,.5,M['h']/2),vertices=10,radius=1,depth=2);p['cover']=1
+ for (x,y) in M['cases']:
+  c=prim('cube','Case',(x,y,.5),(.4,.34,.22),scale=(.8,.5,.5));c['cover']=1;prim('cube','CaseGlass',(x,y,1.15),(.7,.85,.9),scale=(.75,.45,.15));prim('sphere','Exhibit',(x,y,1.35),(.9,.7,.2),scale=(.18,.18,.18),subdivisions=1)
+ cx,cy=M['crate'];cr=prim('cube','Crate',(cx,cy,.6),(.4,.3,.15),scale=(.7,.7,.6));cr['cover']=1
+ px,py=M['pedestal']
+ ped=prim('cyl','Pedestal',(px,py,.5),(.45,.4,.35),scale=(.7,.7,.5),vertices=16,radius=1,depth=2);ped['cover']=1
+ prim('cyl','PedestalCap',(px,py,1.03),(.5,.45,.4),scale=(.78,.78,.03),vertices=16,radius=1,depth=2)
+ j=prim('sphere','Jewel',(px,py,1.2),(.3,.8,1),scale=(.11,.11,.15),emit=6.,subdivisions=2);j['role']='jewel'
+ lid=prim('cube','GlassLid',(px,py,1.22),(.6,.75,.85),scale=(.35,.35,.28));lid['role']='lid'
+ d=prim('cyl','Dial',(px-.72,py,.8),(.8,.7,.2),scale=(.1,.1,.03),rot=(0,math.pi/2,0),vertices=16,radius=1,depth=2);d['role']='dial'
+ prim('cube','DialPlate',(px-.7,py,.8),(.25,.22,.2),scale=(.02,.18,.18))
+ gx=M['gate_x']
+ for z,kind in M['gate']:
+  l=prim('cyl','Laser',(gx,0,z),(1,.05,.05),scale=(.012,.012,M['hw']),rot=(math.pi/2,0,0),vertices=6,radius=1,depth=2,emit=6.);l['group']='gate_'+kind;l['z']=z
+  for sy in (-1,1):prim('cube','LaserEmitter',(gx,sy*(M['hw']-.1),z),(.2,.2,.2),scale=(.08,.08,.08))
+ for k,(a,b) in enumerate(M['corner_lasers']):
+  a=Vector(a);b=Vector(b);dv=b-a;l=prim('cyl','Laser',(a+b)/2,(1,.05,.05),scale=(.012,.012,dv.length/2),vertices=6,radius=1,depth=2,emit=6.);l.rotation_euler=dv.to_track_quat('Z','Y').to_euler();l['group']='corner';l['z']=a.z
+ prim('cube','Balcony',(M['x1']+4.0,0,.9),(.3,.29,.28),scale=(4.0,4.0,.1));prim('cube','BalconyRail',(M['x1']+7.9,0,1.5),(.3,.29,.28),scale=(.08,4,.08))
+ for k in range(5):prim('cube','Crate',(M['x1']+2+k*1.4,-3.2+k*.4,1.35),(.45,.35,.2),scale=(.45,.45,.4))
+ mn=bpy.data.objects.new('MoonLight',bpy.data.lights.new('MoonLight','SUN'));mn.data.energy=.35;mn.data.color=(.55,.65,1);mn.rotation_euler=(math.radians(60),0,math.radians(120));link(mn)
+ for x in (-12,-4,4,12):
+  lt=bpy.data.objects.new('SkyGlow',bpy.data.lights.new('SkyGlow','POINT'));lt.data.energy=700;lt.data.color=(.45,.55,1);lt.location=(x,0,6.5);link(lt)
+
 REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried'),build=_village,piece_default='avalanche'),'citadel':dict(consts=lambda:CITADEL,states=('intact','breached'),build=_citadel,piece_default='siege'),
  'arena_ruins':dict(states=('intact',),build=_arena_ruins,piece_default='arena_duel'),
  'railway_plains':dict(states=('intact',),build=_railway,piece_default='great_escape',params=True),
@@ -440,6 +480,7 @@ REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried
  'goblet':dict(states=('intact',),build=_prop_goblet,piece_default=None),
  'scroll':dict(states=('intact',),build=_prop_scroll,piece_default=None),
  'gavel':dict(states=('intact',),build=_prop_gavel,piece_default=None),
+ 'museum_hall':dict(consts=lambda:MUSEUM,states=('intact',),build=_museum_hall,piece_default='heist'),
  'train_consist':dict(states=('intact',),build=_train_consist,piece_default='great_escape',params=True)}
 def bank_path(id_,state='intact',params=None):
  import inspect

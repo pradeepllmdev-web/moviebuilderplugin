@@ -66,6 +66,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: seated gestures are IK arm targets (no finger poses), voices are synthetic syllable tones, expressions come from the pipeline shape keys
 * prompt keywords: `council|debate|negotiat|meeting|argue around|round table|decide together|discuss(?:es|ion)?|conversation at the table`
 
+## The Night Heist (`heist`)
+
+* script: `heist_scene.py`
+* story: Leo sneaks through a moonlit museum past two sweeping flashlight sentries and a blinking laser gate, cracks the pedestal dial, lifts the glass lid, takes the jewel, the alarm sounds and he leaps out of the window (about 50 s; the route is found by a stealth planner and audited frame by frame)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs idle, look, run, climb, crawl, kneel, jump)
+* known limits: sentries only sweep (no chase), vision is cone plus ray cast, hands use IK targets with no finger poses
+* prompt keywords: `heist|burglar|steal(?:s|ing)? (?:the|a) (?:jewel|diamond|gem)|museum|laser|sneak(?:s|ing)? past|stealth|thief|robb(?:ery|er)`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`
