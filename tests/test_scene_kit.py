@@ -62,4 +62,29 @@ class SceneKit(unittest.TestCase):
   import scene_prompt;self.assertIn('set_piece:<id>',scene_prompt.SYSTEM)
  def test_missing_reports_without_downloading(self):
   self.assertIsInstance(set_pieces.missing('last_egg'),list)
+class MoviePipeline(unittest.TestCase):
+ def test_scene_params_validation(self):
+  import scene_params as sp
+  self.assertEqual(sp.get('{"time_of_day":"night","hero_tint":[1,0.5,0.5],"title":"x"}'),dict(time_of_day='night',hero_tint=(1.,.5,.5),title='x'))
+  d=sp.get('{"time_of_day":"moon","hero_tint":[9,0,0]}');self.assertIsNone(d['time_of_day']);self.assertIsNone(d['hero_tint'])
+  self.assertEqual(sp.get('not json'),sp.defaults());self.assertEqual(sp.get(''),sp.defaults())
+ def test_story_plan_routes_and_warns(self):
+  import story_plan
+  sep='\n\n'
+  p=story_plan.plan(sep.join(['At dawn a prison train races over the plains.','At night an avalanche hits the village.','They talk quietly by the fire.']),hero_tint=(1,.8,.7))
+  self.assertEqual([s['piece'] for s in p['scenes']],['great_escape','avalanche',None])
+  self.assertEqual(p['scenes'][0]['params'],dict(time_of_day='dawn',hero_tint=[1,.8,.7]));self.assertEqual(p['scenes'][1]['params']['time_of_day'],'night')
+  self.assertEqual(p['scenes'][2]['builder'],'shots');self.assertTrue(any('no set piece' in w for w in p['warnings']))
+  q=story_plan.plan(sep.join(['It is night and a siege begins.','In bright daylight the army attacks the castle again.']))
+  self.assertTrue(any('jump between night and day' in w for w in q['warnings']));self.assertTrue(any('same set piece' in w for w in q['warnings']))
+ def test_build_movie_sequence_and_reuse(self):
+  import build_movie,tempfile
+  calls=[]
+  def fake(piece,out=None,seconds=None,params=None):
+   calls.append(piece);open(out,'w').write('x');return dict(ok=True,missing=[],audit=[],out=str(out))
+  with tempfile.TemporaryDirectory() as d:
+   story='\n\n'.join(['A train escape on the roof.','An avalanche hits at night.'])
+   build_movie.run(story,d,build=fake);self.assertEqual(calls,['great_escape','avalanche'])
+   build_movie.run(story,d,build=fake);self.assertEqual(calls,['great_escape','avalanche'])          # unchanged scenes are reused
+   build_movie.run(story.replace('night','dusk'),d,build=fake);self.assertEqual(calls,['great_escape','avalanche','avalanche'])   # only the changed scene is rebuilt
 if __name__=='__main__':unittest.main()

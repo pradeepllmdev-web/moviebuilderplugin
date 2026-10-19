@@ -232,6 +232,7 @@ for f in range(F(T_PICK0+1.0),frames+1,2):
 # ---------------------------------------------------------------------------------------------------------- sky, light, snow cloud, dust
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.data.energy=2.6;sun.data.color=(1,.9,.8);sun.rotation_euler=(math.radians(52),0,math.radians(-60))
 scene.world=bpy.data.worlds.new('Cold');scene.world.color=(.62,.7,.82)
+kit.apply_params(scene,sun,[o for o in bpy.data.objects if o.type=='MESH' and o.parent==LEO['root']])   # SCENE_PARAMS: time of day and hero tint
 puff=bpy.data.meshes.new('SnowPuffMesh');bm=bmesh.new();bmesh.ops.create_icosphere(bm,subdivisions=1,radius=1.);bm.to_mesh(puff);bm.free()
 FRONT_X=lambda f:next((x for ff,x in FRONT if ff>=f),FRONT[-1][1])
 for fi in range(0,frames,12):

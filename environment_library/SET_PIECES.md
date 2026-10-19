@@ -24,7 +24,7 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * story: lion free-climbs a cliff on real hand and foot holds, swings across a gap on a rope, climbs on while rocks fall, lifts a cub onto his back and rappels down as the rope frays (62 s, 12 cameras, sound)
 * needs: scenes/ship_assets (python build_ship_assets.py; needs the pick clip)
 * known limits: rappel feet slide instead of hopping, hands do not wrap the rope, wall is low poly, rocks do not hit the climber
-* prompt keywords: `cliff|rock face|rock climb|free.?climb|rappel|abseil|rope swing|stranded cub|lost cub`
+* prompt keywords: `\bcliff\b|rock face|rock climb|free.?climb|rappel|abseil|rope swing|stranded cub|lost cub`
 
 ## The Arena (`arena_duel`)
 
@@ -32,7 +32,7 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * story: Leo fights a bigger rival lion in a ruined arena: charge and block, counter jab, grapple, sweep, throw over the shoulder, roar, bow (52 s, 14 cameras, sound)
 * needs: scenes/ship_assets (python build_ship_assets.py; needs block, bow, kick, jump, punch, fall, getup, hit, dodge, run, cele)
 * known limits: grapple is a bear-hug (arms on shoulders), feet skate in the grapple, impact points are bone-to-bone only (no soft-body)
-* prompt keywords: `arena|gladiator|duel|fights? (?:a |the )?(?:rival|lion)|wrestl|grapple|fight scene|boss fight`
+* prompt keywords: `\barena\b|gladiator|\bduel\b|fights? (?:a |the )?(?:rival|lion)|wrestl|\bgrapple|\bfight scene|boss fight`
 
 ## The Great Escape (`great_escape`)
 
@@ -40,7 +40,7 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * story: Leo wakes on a speeding prison train, runs the roofs with two guards behind him, jumps the gaps, ducks a gantry, kicks a guard off, turns a brake wheel to release the coupling so the rear cars fall behind, and leaps from a bridge into a river (54 s, 14 cameras, sound)
 * needs: scenes/ship_assets (python build_ship_assets.py; needs idle, run, jump, kick, getup, fall, look, cele)
 * known limits: ducking is a lean on the run clip, the hands do not grip the rim exactly (they follow rim points), guards use one clip set, interior of the wagons is not modelled
-* prompt keywords: `train|railway|escape|prison|train roof|jump(?:s|ing)? (?:between|across) (?:wagons|cars)|chased on|roof of a`
+* prompt keywords: `\btrain\b|railway|\bescape\b|prison|train roof|jump(?:s|ing)? (?:between|across) (?:wagons|cars)|chased on|roof of a`
 
 ## The Avalanche (`avalanche`)
 
@@ -130,3 +130,5 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 | hollow_structures | The hero walks inside solid stone (gatehouse, tower). | Solid boxes for buildings the hero must pass through. | Build passages as pillars and a roof slab, keep towers away from the hero path (the flag pole stands on the wall top at x 27, the tower starts at x 29); the camera audit finds the problem as a subject hidden behind the building. |
 | stuck_projectiles | Arrows and stones vanish after landing. | Hidden after the flight. | Projectiles exist from frame 1 (arrow at the archer, stone in the sling) and stay where they land (stone beside the wall, arrow in the ground); only dust puffs are effects. |
 | scale_budget | A large battle slows down or is impossible to bake. | Everything modelled as a full character. | 34 real cloned lions (shared mesh) + 240 cone soldiers keyed every 12 frames + 18 clone defenders; 54 baked blocks; 4 catapults x 3 volleys; 54 arrows per volley set; the scene builds in about 100 s and stays interactive. |
+| regex_escapes | Keyword routing silently misses prompts. | A backspace character (chr 8) was written where the regex needed backslash-b because of an escaped string in a generated edit. | Check that no file contains chr(8) (tests do), keep regexes in raw strings, and test routing with plain sentences (test_set_piece_routing, test_story_plan_routes_and_warns). |
+| long_story | A 10 minute story cannot be built or rebuilt cheaply. | No scene-level plan, cache or assembly. | story_plan (scenes, routing, time of day, warnings) -> build_movie (sequential, parameters in SCENE_PARAMS, reuse by key) -> assemble_movie (linked scene strips plus sound) -> report; see MOVIE_FROM_STORY.md. |

@@ -109,7 +109,8 @@ def tri_pos(f):
 # ---------------------------------------------------------------------------------------------------------- build the world
 def sky_and_light():
  scene.world=bpy.data.worlds.new('Dusk');scene.world.color=(.86,.52,.34)
- sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sun.data.energy=3.5;sun.data.color=(1,.72,.5);sun.rotation_euler=(math.radians(62),0,math.radians(120));link(sun)
+ global SUN
+ sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));SUN=sun;sun.data.energy=3.5;sun.data.color=(1,.72,.5);sun.rotation_euler=(math.radians(62),0,math.radians(120));link(sun)
 sky_and_light()
 ground=prim('cube','Ground',(70,0,-.05),(.26,.30,.12),scale=(260,160,.05))
 swamp=prim('cube','Swamp',(70,0,.02),(.12,.30,.28),scale=(28,24,.02))      # x 42..98
@@ -342,6 +343,7 @@ for ch,(p,n) in enumerate(zip(paths,('footsteps','roar','lava rumble and jungle'
 scene.display.shading.light='STUDIO';scene.display.shading.color_type='MATERIAL';scene.render.resolution_x=1280;scene.render.resolution_y=720
 scene.frame_set(1);bpy.context.view_layer.update()
 bpy.ops.wm.save_as_mainfile(filepath=out)
+kit.apply_params(scene,SUN,[o for o in bpy.data.objects if o.type=='MESH' and o.parent==LEOG['root']])   # SCENE_PARAMS: time of day and hero tint
 issues=kit.audit(scene,bodies=[(tri,bpy.data.objects['Triceratops_mesh'])]+[(r,bpy.data.objects[r.name+'_mesh']) for r,_,_ in RAPTORS],floor_z=0.,skip=[],subjects=[tri,trex,apato]+[r for r,_,_ in RAPTORS]+[LEOG['root']],step=12)
 for i in issues:print(i)
 print('AUDIT',len(issues),'issues')

@@ -69,6 +69,9 @@ LESSONS=[
  dict(id='stuck_projectiles',symptom='Arrows and stones vanish after landing.',cause='Hidden after the flight.',rule='Projectiles exist from frame 1 (arrow at the archer, stone in the sling) and stay where they land (stone beside the wall, arrow in the ground); only dust puffs are effects.'),
  dict(id='scale_budget',symptom='A large battle slows down or is impossible to bake.',cause='Everything modelled as a full character.',rule='34 real cloned lions (shared mesh) + 240 cone soldiers keyed every 12 frames + 18 clone defenders; 54 baked blocks; 4 catapults x 3 volleys; 54 arrows per volley set; the scene builds in about 100 s and stays interactive.'),
 
+ dict(id='regex_escapes',symptom='Keyword routing silently misses prompts.',cause='A backspace character (chr 8) was written where the regex needed backslash-b because of an escaped string in a generated edit.',rule='Check that no file contains chr(8) (tests do), keep regexes in raw strings, and test routing with plain sentences (test_set_piece_routing, test_story_plan_routes_and_warns).'),
+ dict(id='long_story',symptom='A 10 minute story cannot be built or rebuilt cheaply.',cause='No scene-level plan, cache or assembly.',rule='story_plan (scenes, routing, time of day, warnings) -> build_movie (sequential, parameters in SCENE_PARAMS, reuse by key) -> assemble_movie (linked scene strips plus sound) -> report; see MOVIE_FROM_STORY.md.'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)
@@ -155,6 +158,23 @@ def path_x(segs,t):
  for k,a,b,x0,x1 in segs:
   if a<=t<b:return x0+(x1-x0)*(t-a)/(b-a)
  return segs[-1][4]
+def apply_params(scene,sun,hero_objects=(),params=None):
+ """Apply scene_params (time of day, hero tint) to a built scene. sun: the sun object, hero_objects: objects whose materials are tinted. Returns the parameters that were applied."""
+ import bpy,scene_params
+ prm=params or scene_params.get();done={}
+ if prm['time_of_day']:
+  p=scene_params.preset(prm['time_of_day']);sun.data.color=p['sun_color'];sun.data.energy=p['sun_energy'];sun.rotation_euler=p['sun_rot']
+  if scene.world:scene.world.color=p['world']
+  done['time_of_day']=prm['time_of_day']
+ if prm['hero_tint']:
+  t=prm['hero_tint']
+  for o in hero_objects:
+   if o.type!='MESH':continue
+   for slot in o.material_slots:
+    if slot.material:
+     m=slot.material.copy();c=slot.material.diffuse_color;m.diffuse_color=(c[0]*t[0],c[1]*t[1],c[2]*t[2],1);slot.link='OBJECT';slot.material=m
+  done['hero_tint']=t
+ return done
 def surface_target(target_obj,from_pt,to_pt,depsgraph):
  """Where the hand should stop: the point where the ray from the target's centre (to_pt) towards the attacker (from_pt) leaves the target's skin (world space), plus how deep from_pt is inside (m, positive = inside).
  The BVH is built in the object's own space, so points are transformed in and the hit is transformed out."""

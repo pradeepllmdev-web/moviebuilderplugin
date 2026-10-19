@@ -363,6 +363,7 @@ for f in range(1,frames+1,2):
  flag.location=(FLAGPOLE.x-1.0,FLAGPOLE.y,flag_z(t));flag.keyframe_insert('location',frame=f)
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.data.energy=3.4;sun.data.color=(1,.82,.62);sun.rotation_euler=(math.radians(48),0,math.radians(-30))
 scene.world=bpy.data.worlds.new('Dawn');scene.world.color=(.85,.66,.52)
+kit.apply_params(scene,sun,[o for o in bpy.data.objects if o.type=='MESH' and o.parent==LEO['root']])   # SCENE_PARAMS: time of day and hero tint
 for i in range(120):prim('cone','Pine',(rnd.choice((-1,1))*rnd.uniform(40,120),rnd.uniform(-90,20),3.5),(.08,.26,.14),scale=(1.6,1.6,3.5),vertices=7,radius1=1,depth=2)
 for i in range(18):prim('cone','Hill',(rnd.uniform(-180,180),rnd.uniform(110,200),rnd.uniform(10,30)),(.4,.42,.34),scale=(rnd.uniform(30,60),rnd.uniform(30,60),rnd.uniform(20,50)),vertices=7,radius1=1,depth=2)
 # tents of the camp

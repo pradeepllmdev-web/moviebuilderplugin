@@ -259,6 +259,7 @@ for a in np.linspace(0,2*PI,12,endpoint=False):
 for a in (0,PI):prim('cube','GateL',(math.cos(a)*14.5,0,3),(.5,.46,.4),scale=(1,.4,3),rot=(0,0,0));
 scene.world=bpy.data.worlds.new('Dusk');scene.world.color=(.75,.5,.38)
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.data.energy=3.2;sun.data.color=(1,.72,.5);sun.rotation_euler=(math.radians(58),0,math.radians(40))
+kit.apply_params(scene,sun,[o for o in bpy.data.objects if o.type=='MESH' and o.parent==FIG['leo']['root']])   # SCENE_PARAMS: time of day and hero tint
 # a few spectators are real cloned lions (shared mesh data, own armature, random clip phase) to show that crowds of animated characters work
 import time
 t_a=time.perf_counter()

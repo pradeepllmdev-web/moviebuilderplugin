@@ -21,15 +21,15 @@ SET_PIECES={
   needs=['scenes/ship_assets (python build_ship_assets.py)'],
   beats='lion on a rocking ship climbs the mast, cuts a cloth sail, falls, fights a sea serpent, lightning ends it, calm (60 s, 13 cameras, sound)',
   limits='climbing is a walk cycle on a ladder, hands do not grip, serpent is chunky spheres, rain is thin'),
- 'cliff_rescue':dict(title='The Cliff Rescue',script='cliff_scene.py',keywords=r'cliff|rock face|rock climb|free.?climb|rappel|abseil|rope swing|stranded cub|lost cub',
+ 'cliff_rescue':dict(title='The Cliff Rescue',script='cliff_scene.py',keywords=r'\bcliff\b|rock face|rock climb|free.?climb|rappel|abseil|rope swing|stranded cub|lost cub',
   needs=['scenes/ship_assets (python build_ship_assets.py; needs the pick clip)'],
   beats='lion free-climbs a cliff on real hand and foot holds, swings across a gap on a rope, climbs on while rocks fall, lifts a cub onto his back and rappels down as the rope frays (62 s, 12 cameras, sound)',
   limits='rappel feet slide instead of hopping, hands do not wrap the rope, wall is low poly, rocks do not hit the climber'),
- 'arena_duel':dict(title='The Arena',script='arena_scene.py',keywords=r'arena|gladiator|duel|fights? (?:a |the )?(?:rival|lion)|wrestl|grapple|fight scene|boss fight',
+ 'arena_duel':dict(title='The Arena',script='arena_scene.py',keywords=r'\barena\b|gladiator|\bduel\b|fights? (?:a |the )?(?:rival|lion)|wrestl|\bgrapple|\bfight scene|boss fight',
   needs=['scenes/ship_assets (python build_ship_assets.py; needs block, bow, kick, jump, punch, fall, getup, hit, dodge, run, cele)'],
   beats='Leo fights a bigger rival lion in a ruined arena: charge and block, counter jab, grapple, sweep, throw over the shoulder, roar, bow (52 s, 14 cameras, sound)',
   limits='grapple is a bear-hug (arms on shoulders), feet skate in the grapple, impact points are bone-to-bone only (no soft-body)'),
- 'great_escape':dict(title='The Great Escape',script='train_scene.py',keywords=r'train|railway|escape|prison|train roof|jump(?:s|ing)? (?:between|across) (?:wagons|cars)|chased on|roof of a',
+ 'great_escape':dict(title='The Great Escape',script='train_scene.py',keywords=r'\btrain\b|railway|\bescape\b|prison|train roof|jump(?:s|ing)? (?:between|across) (?:wagons|cars)|chased on|roof of a',
   needs=['scenes/ship_assets (python build_ship_assets.py; needs idle, run, jump, kick, getup, fall, look, cele)'],
   beats='Leo wakes on a speeding prison train, runs the roofs with two guards behind him, jumps the gaps, ducks a gantry, kicks a guard off, turns a brake wheel to release the coupling so the rear cars fall behind, and leaps from a bridge into a river (54 s, 14 cameras, sound)',
   limits='ducking is a lean on the run clip, the hands do not grip the rim exactly (they follow rim points), guards use one clip set, interior of the wagons is not modelled'),
@@ -74,12 +74,15 @@ def command(piece,out,seconds=None):
  if piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege'):return b+[str(H/'scenes/ship_assets'),str(out)]+tail
  if piece=='horse_herd':return b+[str(horse_blend()),str(out),'64']+tail
  return b+[str(horse_blend()),str(H/'scenes/lion_source.blend'),str(out),str(seconds or 22),'lion']
-def build(piece,out=None,seconds=None):
+PARAM_PIECES=('last_egg','arena_duel','great_escape','avalanche','siege')   # scenes that read SCENE_PARAMS (time_of_day, hero_tint); the storm scenes keep their own sky
+def build(piece,out=None,seconds=None,params=None):
  """Build a set piece in Blender; returns {'ok','out','audit':[...],'missing':[...]} (audit lines come from scene_kit.audit)."""
  gone=missing(piece)
  if gone:return dict(ok=False,missing=gone,audit=[],out=None)
  out=Path(out or H/'scenes'/(piece+'.blend'));out.parent.mkdir(parents=True,exist_ok=True)
- proc=subprocess.run(command(piece,out,seconds),capture_output=True,text=True,errors='ignore',timeout=1800)
+ import os
+ env=dict(os.environ);env['SCENE_PARAMS']=json.dumps(params or {})
+ proc=subprocess.run(command(piece,out,seconds),capture_output=True,text=True,errors='ignore',timeout=1800,env=env)
  audit=[l.strip() for l in proc.stdout.splitlines() if l.startswith('AUDIT ') and 'issues' not in l]
  return dict(ok=proc.returncode==0 and out.exists(),out=str(out),audit=audit,missing=[],log=proc.stdout[-600:] if proc.returncode else '')
 def worker(job,lock,prompt=None,piece=None,seconds=None):

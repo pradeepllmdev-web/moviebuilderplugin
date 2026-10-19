@@ -275,6 +275,7 @@ apply_all()
 # ---------------------------------------------------------------------------------------------------------- the world
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.data.energy=3.6;sun.data.color=(1,.78,.55);sun.rotation_euler=(math.radians(50),0,math.radians(70))
 scene.world=bpy.data.worlds.new('Dawn');scene.world.color=(.8,.62,.5)
+kit.apply_params(scene,sun,[o for o in bpy.data.objects if o.type=='MESH' and o.parent==FIG['leo']['root']])   # SCENE_PARAMS: time of day and hero tint
 XMAX=Xfun(seconds)+120.
 bpy.ops.mesh.primitive_plane_add(size=1,location=(XMAX/2-60,0,-.1));g=bpy.context.object;g.name='Ground';g.scale=(XMAX+300,260,1);g.data.materials.append(mat('Ground',(.34,.42,.2)))
 XV0=Xfun(37.5)+9.;XV1=XV0+95.
