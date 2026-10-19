@@ -7,7 +7,8 @@ import previs,scene_prompt,quick_review
 from concurrent.futures import ThreadPoolExecutor
 def beat(action,duration,dialogue='',**extra):return dict(action=action,duration=duration,dialogue=dialogue,**extra)
 PLANS={'look':[beat('idle',2),beat('look_around',4)],'run':[beat('run',2,distance_cm=600)],'climb':[beat('climb_stairs',4)],'cut':[beat('punch',3)],'fall':[beat('fall_back',3)],
- 'hit':[beat('hit_react',3)],'getup':[beat('get_up',3)],'dodge':[beat('dodge',3)],'punch':[beat('punch',3)],'cele':[beat('celebrate',5)],'idle':[beat('idle',4)],'pick':[beat('pick_up',5,purpose='lifts the cub onto his back')],'jump':[beat('jump',3,gap_cm=40)],'block':[beat('block',3)],'bow':[beat('bow',3)],'kick':[beat('kick',3)],'sit':[beat('idle',2),beat('sit_down',3),beat('sit',4)]}
+ 'hit':[beat('hit_react',3)],'getup':[beat('get_up',3)],'dodge':[beat('dodge',3)],'punch':[beat('punch',3)],'cele':[beat('celebrate',5)],'idle':[beat('idle',4)],'pick':[beat('pick_up',5,purpose='lifts the cub onto his back')],'jump':[beat('jump',3,gap_cm=40)],'block':[beat('block',3)],'bow':[beat('bow',3)],'kick':[beat('kick',3)],'sit':[beat('idle',2),beat('sit_down',3),beat('sit',4)],
+ 'talk':[beat('talk',4,'We must decide before the sun sets over the valley')],'nod':[beat('nod',3)],'shrug':[beat('shrug',3)],'think':[beat('think',4)],'laugh':[beat('laugh',4)],'argue':[beat('argue',4,'No, that plan will never work')],'hips':[beat('hands_on_hips',3)],'crawl':[beat('crawl',4,distance_cm=200)],'kneel':[beat('kneel',4)],'push':[beat('push',3)],'startle':[beat('startle',3)],'wave':[beat('wave',3)],'lie':[beat('lie_down',4)]}
 RENAME="import bpy;r=next(o for o in bpy.data.objects if o.type=='ARMATURE' and o.animation_data and o.animation_data.action);r.animation_data.action.name='leo_%s';bpy.ops.wm.save_mainfile()"
 def one(item):
  name,segments=item

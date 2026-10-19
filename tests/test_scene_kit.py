@@ -51,6 +51,7 @@ class SceneKit(unittest.TestCase):
   self.assertEqual(set_pieces.match('a prisoner escapes along the roof of a speeding train')[0],'great_escape')
   self.assertEqual(set_pieces.match('an avalanche hits the village and the crowd runs to the shelter')[0],'avalanche')
   self.assertEqual(set_pieces.match('an army besieges a castle with catapults')[0],'siege')
+  self.assertEqual(set_pieces.match('six lions debate around a round table in the council hall')[0],'council')
   self.assertEqual(set_pieces.match('lion drinks tea in a cafe'),[])
  def test_docs_cover_every_lesson_and_piece(self):
   text=set_pieces.docs()
@@ -90,7 +91,7 @@ class MoviePipeline(unittest.TestCase):
 class SharedLocations(unittest.TestCase):
  def test_registry_and_hash_paths(self):
   import locations
-  self.assertEqual(set(locations.REGISTRY),{'mountain_village','citadel','arena_ruins','railway_plains','train_consist','catapult','winch','banner','ladder','egg_nest','dino_valley','cliff_face','galleon','open_sea','knife'})
+  self.assertEqual(set(locations.REGISTRY),{'mountain_village','citadel','arena_ruins','railway_plains','train_consist','catapult','winch','banner','ladder','egg_nest','council_hall','goblet','scroll','gavel','dino_valley','cliff_face','galleon','open_sea','knife'})
   a=locations.bank_path('citadel','intact');b=locations.bank_path('citadel','breached');self.assertNotEqual(a,b);self.assertTrue(a.name.startswith('citadel_intact_'))
   with self.assertRaises(ValueError):locations.ensure('castle_of_oz')
   with self.assertRaises(ValueError):locations.ensure('citadel','flooded')

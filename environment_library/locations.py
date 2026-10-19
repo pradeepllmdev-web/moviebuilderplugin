@@ -221,7 +221,7 @@ def _prop_knife(ctx,state):
  kn=prim('cube','Knife',(0,0,0),(.85,.87,.9));kn.data.transform(Matrix.Diagonal((.018,.15,.005,1)));kn.scale=(1,1,1);kn.location=(0,.17,0);kn['role']='blade'
  hd=prim('cube','KnifeGrip',(0,0,0),(.25,.15,.08));hd.data.transform(Matrix.Diagonal((.022,.05,.012,1)));hd.scale=(1,1,1);hd['role']='grip'
 
-PROPS_OF={'storm_ship':[('knife',None)],'siege':[('catapult',None),('winch',None),('banner',None),('ladder',dict(height=9.6))],'last_egg':[('egg_nest',None)]}
+PROPS_OF={'council':[('goblet',None),('scroll',None),('gavel',None)],'storm_ship':[('knife',None)],'siege':[('catapult',None),('winch',None),('banner',None),('ladder',dict(height=9.6))],'last_egg':[('egg_nest',None)]}
 def load_prop(id_,ctx,location=(0,0,0),rot_z=0.,params=None,scale=1.):
  """Place a shared prop: returns (root empty, {role: object}). The prop is appended from the bank (or built in place) at the origin and parented to a root at the location."""
  import bpy
@@ -375,7 +375,55 @@ def _open_sea(ctx,state):
   m=sea.modifiers.new('Wave%d'%k,'WAVE');m.height=h;m.width=w;m.speed=sp;m.narrowness=1.6;m.start_position_x=-80;m.start_position_y=30+k*20;m.use_normal=True
  for p in sea.data.polygons:p.use_smooth=False
 
-REGISTRY={'mountain_village':dict(states=('intact','buried'),build=_village,piece_default='avalanche'),'citadel':dict(states=('intact','breached'),build=_citadel,piece_default='siege'),
+COUNCIL=dict(table_r=2.4,table_z=.62,seat_r=2.75,seat_z=.32,n=6,hall_r=10.5)
+def _council_hall(ctx,state):
+ import bpy
+ from mathutils import Vector
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];rnd=random.Random(707);C=COUNCIL
+ prim('cyl','Floor',(0,0,-.1),(.22,.2,.19),scale=(11.5,11.5,.1),vertices=48,radius=1,depth=2)
+ for k,(r,col) in enumerate(((3.2,(.3,.25,.2)),(4.8,(.18,.16,.15)),(6.4,(.3,.25,.2)),(8.0,(.2,.18,.17)))):prim('cyl','Mosaic',(0,0,.005+k*.002),col,scale=(r,r,.01),vertices=48,radius=1,depth=2)
+ prim('cyl','TableTop',(0,0,C['table_z']-.06),(.32,.2,.1),scale=(C['table_r'],C['table_r'],.06),vertices=40,radius=1,depth=2)
+ prim('cyl','TableRim',(0,0,C['table_z']-.14),(.22,.14,.07),scale=(C['table_r']+.05,C['table_r']+.05,.04),vertices=40,radius=1,depth=2)
+ prim('cyl','TablePedestal',(0,0,C['table_z']/2-.1),(.25,.17,.1),scale=(.8,.8,C['table_z']/2),vertices=16,radius=1,depth=2)
+ for i in range(C['n']):
+  a=math.radians(-90+i*360/C['n']);ux,uy=math.cos(a),math.sin(a);r=C['seat_r']+.1
+  c=Vector((ux*(r-.12),uy*(r-.12),0));prim('cube','ChairSeat',(c.x,c.y,C['seat_z']-.03),(.35,.22,.12),scale=(.3,.28,.03),rot=(0,0,a))
+  prim('cube','ChairBack',(ux*(r+.28),uy*(r+.28),C['seat_z']+.5),(.3,.18,.1),scale=(.04,.3,.5),rot=(0,0,a))
+  for s_ in (-1,1):prim('cube','ChairLeg',(ux*(r-.12)-uy*s_*.22,uy*(r-.12)+ux*s_*.22,C['seat_z']/2),(.3,.18,.1),scale=(.035,.035,C['seat_z']/2))
+ R=C['hall_r']
+ for k in range(14):
+  a=k*2*math.pi/14;x,y=math.cos(a)*R,math.sin(a)*R
+  prim('cyl','Column',(x,y,3.5),(.55,.5,.44),scale=(.55,.55,3.5),vertices=10,radius=1,depth=2);prim('cyl','Capital',(x,y,7.1),(.6,.55,.48),scale=(.75,.75,.2),vertices=10,radius=1,depth=2)
+  prim('cone','Torch',(x*.93,y*.93,3.0),(1,.55,.15),scale=(.18,.18,.3),vertices=6,radius1=1,depth=2,emit=8.)
+  prim('cube','Banner',(x*.95,y*.95,5.0),tuple(c*.9 for c in ((.55,.12,.1),(.1,.25,.5),(.5,.4,.1))[k%3]),scale=(.05,.45,1.1),rot=(0,0,a+math.pi/2))
+  lt=bpy.data.objects.new('TorchLight',bpy.data.lights.new('TorchLight','POINT'));lt.data.energy=900;lt.data.color=(1,.62,.3);lt.location=(x*.9,y*.9,3.4);link(lt)
+  if k not in (3,10):
+   a2=a+math.pi/14;prim('cube','Wall',(math.cos(a2)*(R+.4),math.sin(a2)*(R+.4),3.0),(.4,.37,.32),scale=(1.5,.5,3.0),rot=(0,0,a2+math.pi/2))
+ prim('cone','Roof',(0,0,9.2),(.3,.2,.14),scale=(12.5,12.5,2.2),vertices=24,radius1=1,depth=2)
+ for k in range(8):
+  a=k*math.pi/8;prim('cube','Beam',(0,0,7.4),(.25,.17,.1),scale=(11,.18,.2),rot=(0,0,a))
+ prim('cyl','ChandelierRing',(0,0,5.6),(.4,.35,.25),scale=(1.6,1.6,.04),vertices=24,radius=1,depth=2)
+ for k in range(12):
+  a=k*math.pi/6;prim('sphere','Candle',(math.cos(a)*1.6,math.sin(a)*1.6,5.75),(1,.9,.5),scale=(.07,.07,.12),emit=10.,subdivisions=1)
+ ch=bpy.data.objects.new('ChandelierLight',bpy.data.lights.new('ChandelierLight','POINT'));ch.data.energy=1500;ch.data.color=(1,.8,.5);ch.location=(0,0,5.2);link(ch)
+def _prop_goblet(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim']
+ prim('cyl','GobletCup',(0,0,.14),(.8,.7,.2),scale=(.05,.05,.07),vertices=12,radius=1,depth=2);prim('cyl','GobletStem',(0,0,.05),(.8,.7,.2),scale=(.015,.015,.05),vertices=8,radius=1,depth=2);prim('cyl','GobletBase',(0,0,.005),(.8,.7,.2),scale=(.04,.04,.008),vertices=12,radius=1,depth=2)
+def _prop_scroll(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim']
+ s=prim('cyl','ScrollBody',(0,0,.04),(.9,.8,.6),scale=(.04,.04,.28),rot=(0,math.pi/2,0),vertices=12,radius=1,depth=2);s['role']='scroll'
+ for sx in (-.29,.29):prim('cyl','ScrollEnd',(sx,0,.04),(.45,.3,.15),scale=(.05,.05,.015),rot=(0,math.pi/2,0),vertices=10,radius=1,depth=2).parent=s
+def _prop_gavel(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim']
+ prim('cyl','GavelBlock',(0,0,.03),(.35,.2,.1),scale=(.12,.12,.03),vertices=10,radius=1,depth=2)
+ h=bpy.data.objects.new('GavelPivot',None);link(h);h.location=(0,0,.06);h['role']='pivot'
+ prim('cyl','GavelHandle',(0,-.12,.05),(.4,.25,.12),scale=(.015,.015,.14),rot=(math.pi/2,0,0),vertices=8,radius=1,depth=2).parent=h
+ head=prim('cyl','GavelHead',(0,-.26,.05),(.4,.25,.12),scale=(.04,.04,.07),rot=(0,math.pi/2,0),vertices=10,radius=1,depth=2);head.parent=h
+
+REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried'),build=_village,piece_default='avalanche'),'citadel':dict(consts=lambda:CITADEL,states=('intact','breached'),build=_citadel,piece_default='siege'),
  'arena_ruins':dict(states=('intact',),build=_arena_ruins,piece_default='arena_duel'),
  'railway_plains':dict(states=('intact',),build=_railway,piece_default='great_escape',params=True),
  'catapult':dict(states=('intact',),build=_prop_catapult,piece_default=None),
@@ -384,14 +432,18 @@ REGISTRY={'mountain_village':dict(states=('intact','buried'),build=_village,piec
  'banner':dict(states=('intact',),build=_prop_banner,piece_default=None),
  'ladder':dict(states=('intact',),build=_prop_ladder,piece_default=None,params=True),
  'egg_nest':dict(states=('intact',),build=_prop_egg_nest,piece_default=None),
- 'dino_valley':dict(states=('intact',),build=_dino_valley,piece_default='last_egg'),
- 'cliff_face':dict(states=('intact',),build=_cliff_face,piece_default='cliff_rescue'),
- 'galleon':dict(states=('intact',),build=_galleon,piece_default='storm_ship'),
+ 'dino_valley':dict(consts=lambda:DINO_VALLEY,states=('intact',),build=_dino_valley,piece_default='last_egg'),
+ 'cliff_face':dict(consts=lambda:(CLIFF,CLIFF_LIMBS,CLIFF_STEP),states=('intact',),build=_cliff_face,piece_default='cliff_rescue'),
+ 'galleon':dict(consts=lambda:SHIP,states=('intact',),build=_galleon,piece_default='storm_ship'),
  'open_sea':dict(states=('intact',),build=_open_sea,piece_default='storm_ship'),
+ 'council_hall':dict(consts=lambda:COUNCIL,states=('intact',),build=_council_hall,piece_default='council'),
+ 'goblet':dict(states=('intact',),build=_prop_goblet,piece_default=None),
+ 'scroll':dict(states=('intact',),build=_prop_scroll,piece_default=None),
+ 'gavel':dict(states=('intact',),build=_prop_gavel,piece_default=None),
  'train_consist':dict(states=('intact',),build=_train_consist,piece_default='great_escape',params=True)}
 def bank_path(id_,state='intact',params=None):
  import inspect
- h=hashlib.sha1((inspect.getsource(REGISTRY[id_]['build'])+inspect.getsource(_make_ctx)).encode()).hexdigest()[:8];ph=hashlib.sha1(json.dumps(params,sort_keys=True,default=list).encode()).hexdigest()[:6] if params else '-'
+ h=hashlib.sha1((inspect.getsource(REGISTRY[id_]['build'])+inspect.getsource(_make_ctx)+repr(REGISTRY[id_].get('consts',lambda:None)())).encode()).hexdigest()[:8];ph=hashlib.sha1(json.dumps(params,sort_keys=True,default=list).encode()).hexdigest()[:6] if params else '-'
  return BANK/('%s_%s_%s_%s.blend'%(id_,state,ph,h))
 def ensure(id_,state='intact',params=None):
  """Path of the bank file, building it in a separate Blender process the first time (outside Blender only)."""

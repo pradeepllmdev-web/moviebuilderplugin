@@ -58,6 +58,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: troopers are cones, the portcullis does not block the crowd physically, arrows are not aimed at actors, no cavalry
 * prompt keywords: `siege|castle|citadel|fortress|catapult|battering|storm(?:s|ing)? the (?:wall|gate)|army (?:attacks|storms|marches)|medieval battle`
 
+## The Council (`council`)
+
+* script: `council_scene.py`
+* story: six lions argue and decide around a round table: scripted lines with lip sync from syllables, eye lines to the speaker, arm gestures, a scroll passed across the table, a gavel (66 s, generated coverage, voices synthesised from the same syllable times)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs sit)
+* known limits: seated gestures are IK arm targets (no finger poses), voices are synthetic syllable tones, expressions come from the pipeline shape keys
+* prompt keywords: `council|debate|negotiat|meeting|argue around|round table|decide together|discuss(?:es|ion)?|conversation at the table`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`
