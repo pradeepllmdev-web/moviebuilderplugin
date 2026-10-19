@@ -146,6 +146,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: one smith, one blade; the swing is a planar arc, hands are IK targets with no finger poses
 * prompt keywords: `forge|blacksmith|anvil|hammer(?:s|ing)? (?:a |the )?(?:sword|blade|iron)|molten|lava river|forges? a sword`
 
+## The Sky City (`sky`)
+
+* script: `sky_scene.py`
+* story: Leo crosses a floating city by riding and leaping between moving platforms (a slider, lifts, a rotating disc he rides round on, an orbiting pad): the planner scans for each hop window in 3D, the landing point on the disc is placed on the side he arrives from, and platforms dip on landing (about 40 s)
+* needs: scenes/ship_assets (needs idle, jump, cele)
+* known limits: platform paths are analytic, one traveller, wind turbines and an airship are scenery on fixed paths, hands are not used
+* prompt keywords: `sky city|floating (?:city|islands?|platforms?)|moving platforms?|cloud city|airship|above the clouds`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

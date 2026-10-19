@@ -121,3 +121,31 @@ def _forge(ctx,state):
   lt=bpy.data.objects.new('LavaLight',bpy.data.lights.new('LavaLight','POINT'));lt.data.energy=18000;lt.data.color=(1,.35,.08);lt.location=(lx,9,3);link(lt)
  wl=bpy.data.objects.new('ForgeFill',bpy.data.lights.new('ForgeFill','POINT'));wl.data.energy=1500;wl.data.color=(1,.85,.65);wl.location=(0,-2.5,3);link(wl)
 reg('forge',_forge,FORGE,'forge')
+# ------------------------------------------------------------------------------------------------ 6 sky city (moving platforms)
+SKYCITY=dict(plats=[dict(kind='deck',x=0.,y=0.,z=0.,r=4.),dict(kind='slide',x=8.,A=3.,w=.8,ph=0.,z=0.,r=2.3),dict(kind='lift',x=15.5,y=0.,A=2.2,w=.85,ph=1.,z=1.5,r=2.3),dict(kind='disc',x=24.,y=0.,z=1.,w=.55,r=4.),
+ dict(kind='slidex',x=32.5,y=0.,A=1.5,w=.75,ph=2.,z=1.,r=2.3),dict(kind='orbit',x=41.,y=0.,A=1.7,w=.7,ph=0.,z=2.,dz=1.,r=2.3),dict(kind='lift',x=49.5,y=0.,A=2.,w=.9,ph=.5,z=3.,r=2.3),dict(kind='deck',x=58.,y=0.,z=3.,r=5.)])
+def sky_pos(k,t,P=None):
+ """world position (x,y,z of the platform top) of moving platform k at time t"""
+ P=(P or SKYCITY)['plats'][k];kd=P['kind'];x=P['x'];y=P.get('y',0.);z=P['z']
+ if kd=='slide':y+=P['A']*math.sin(P['w']*t+P['ph'])
+ elif kd=='slidex':x+=P['A']*math.sin(P['w']*t+P['ph'])
+ elif kd=='lift':z+=P['A']*math.sin(P['w']*t+P['ph'])
+ elif kd=='orbit':a=P['w']*t+P['ph'];x+=P['A']*math.cos(a);y+=P['A']*math.sin(a);z+=P['dz']*math.sin(a*1.3)
+ return (x,y,z)
+def _sky_city(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];rnd=random.Random(91);C=SKYCITY
+ for k in (0,len(C['plats'])-1):
+  P=C['plats'][k];prim('cyl','Deck',(P['x'],P['y'],P['z']-.4),(.62,.6,.55),scale=(P['r'],P['r'],.4),vertices=20,radius=1,depth=2);prim('cone','DeckRock',(P['x'],P['y'],P['z']-3.2),(.42,.4,.36),scale=(P['r']*.85,P['r']*.85,2.4),rot=(math.pi,0,0),vertices=10,radius1=1,depth=2)
+ ex=C['plats'][-1]['x'];ez=C['plats'][-1]['z']
+ for i in range(6):prim('cube','Stair',(ex+5.2+i*.9,0,ez+.3+i*.35),(.7,.68,.62),scale=(.5,2.0,.18))
+ prim('cube','Tower',(ex+14,0,ez+8),(.78,.76,.7),scale=(2.5,2.5,8));prim('cone','TowerRoof',(ex+14,0,ez+18),(.25,.5,.75),scale=(3.4,3.4,2.4),vertices=8,radius1=1,depth=2)
+ for z in (ez+5,ez+9,ez+13):prim('cube','TowerWindow',(ex+11.4,0,z),(1,.85,.4),scale=(.05,.8,.8),emit=3.)
+ for k in range(16):
+  x=rnd.uniform(-20,100);y=rnd.choice((-1,1))*rnd.uniform(18,50);z=rnd.uniform(-12,12);r=rnd.uniform(4,9)
+  prim('cone','FarIsland',(x,y,z-r*.6),(.4,.42,.36),scale=(r,r,r*.6),rot=(math.pi,0,0),vertices=9,radius1=1,depth=2);prim('cyl','FarIslandTop',(x,y,z),(.3,.55,.3),scale=(r,r,.3),vertices=12,radius=1,depth=2)
+  for b in range(3):prim('cube','FarHouse',(x+rnd.uniform(-r*.5,r*.5),y+rnd.uniform(-r*.5,r*.5),z+1.0),(.85,.8,.7),scale=(1,1,1.0))
+ for k in range(30):
+  x=rnd.uniform(-30,110);y=rnd.uniform(-70,70);z=rnd.uniform(-30,-8);s=rnd.uniform(6,14);prim('sphere','Cloud',(x,y,z),(1,1,1),scale=(s*1.4,s,s*.35),subdivisions=2)
+ sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=4.;sn.data.color=(1,.95,.85);sn.rotation_euler=(math.radians(55),0,math.radians(40));link(sn)
+reg('sky_city',_sky_city,SKYCITY,'skycity')
