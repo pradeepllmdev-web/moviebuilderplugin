@@ -99,7 +99,9 @@ def wing_pts(ph,e,side):
  return out_
 # ---------------------------------------------------------------------------------------------------------- the dragon
 GREEN=(.18,.42,.25);DARK=(.1,.2,.14);RAD=[.55,.45,.5,.65,.8,.85,.8,.7,.6,.5,.42,.34,.27,.2,.15,.1]
-SEG=[prim('sphere','DragonSeg%d'%i,(0,0,0),GREEN if i%2 else (.22,.5,.3),scale=(RAD[i]*1.3,RAD[i],RAD[i]),subdivisions=2) for i in range(NSEG)]
+SEG=[]
+for i in range(NSEG):
+ e=bpy.data.objects.new('DragonSeg%d'%i,None);link(e);SEG.append(e);prim('sphere','DragonBody%d'%i,(0,0,0),GREEN if i%2 else (.22,.5,.3),scale=(RAD[i]*1.3,RAD[i],RAD[i]),subdivisions=2,parent=e)
 head=SEG[0];prim('cone','Snout',(.75,0,-.12),(.2,.46,.28),scale=(.32,.3,.5),rot=(0,PI/2,0),vertices=8,radius1=1,depth=2,parent=head)
 for sy in (-1,1):
  prim('sphere','DragonEye',(.3,sy*.33,.22),(1,.8,.1),scale=(.09,.09,.09),emit=4.,subdivisions=1,parent=head);prim('cone','Horn',(-.35,sy*.3,.45),(.8,.75,.6),scale=(.09,.09,.45),rot=(-.5,sy*-.3,0),vertices=6,radius1=1,depth=2,parent=head)

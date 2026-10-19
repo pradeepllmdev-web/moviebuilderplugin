@@ -56,7 +56,7 @@ FLOES=[]
 for k,(x0,y0,r,A,w,ph) in enumerate(FL):
  o=S.prim('cyl','Floe',(x0,y0,-.3),(.78,.9,1.),scale=(r,r,.3),vertices=9,radius=1,depth=2);FLOES.append(o)
  for j in range(3):
-  a=rnd.uniform(0,6.28);S.prim('cone','FloeSpike',(math.cos(a)*r*.5,math.sin(a)*r*.5,.25),(.85,.95,1.),scale=(.28,.28,.3),vertices=5,radius1=1,depth=2,parent=o)
+  a=rnd.uniform(0,6.28);S.prim('cone','FloeSpike',(math.cos(a)*.5,math.sin(a)*.5,1.5),(.85,.95,1.),scale=(.28/r,.28/r,1.0),vertices=5,radius1=1,depth=2,parent=o)
 for f in S.keys():
  tt=(f-1)/S.fps
  for k,o in enumerate(FLOES):

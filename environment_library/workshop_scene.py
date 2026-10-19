@@ -59,7 +59,7 @@ for i in range(3):prim('cyl','GearRack',(RACK[i].x,RACK[i].y,BZ+.002),(.3,.18,.1
 KR=.05;lever=prim('cube','CrankLever',(KR/2,0,.034),(.75,.75,.78),scale=(KR/2+.006,.005,.003),parent=GEAR[2]);knob=prim('cyl','CrankKnob',(KR,0,.062),(.6,.15,.12),scale=(.009,.009,.03),vertices=10,radius=1,depth=2,parent=GEAR[2])
 HX,HY=.05,.40
 prim('cube','BirdBox',(HX,HY,BZ+.06),(.3,.2,.12),scale=(.14,.11,.06));rim=prim('cube','BirdRim',(HX,HY,BZ+.125),(.55,.4,.2),scale=(.15,.12,.008))
-BIRD=prim('sphere','Bird',(HX,HY,BZ+.02),(.2,.55,.85),scale=(.045,.03,.05),subdivisions=2);prim('cone','BirdBeak',(0,.035,.01),(1,.7,.2),scale=(.012,.016,.012),rot=(-PI/2,0,0),vertices=6,radius1=1,depth=2,parent=BIRD)
+BIRD=bpy.data.objects.new('Bird',None);link(BIRD);BIRD.location=(HX,HY,BZ+.02);prim('sphere','BirdBody',(0,0,0),(.2,.55,.85),scale=(.045,.03,.05),subdivisions=2,parent=BIRD);prim('cone','BirdBeak',(0,.035,.01),(1,.7,.2),scale=(.012,.016,.012),rot=(-PI/2,0,0),vertices=6,radius1=1,depth=2,parent=BIRD)
 LAMP=prim('sphere','Indicator',(HX+.1,HY-.09,BZ+.14),(.15,.9,.25),scale=(.012,.012,.012),emit=0.,subdivisions=1)
 # ---------------------------------------------------------------------------------------------------------- the story clock
 T_START=3.0;DUR=4.0;TS=[T_START+DUR*i for i in range(3)];T_CR0=T_START+DUR*3;T_TURN0=T_CR0+1.8;T_TURN1=T_TURN0+6.0;T_POP=T_TURN1+.5;T_END=T_POP+4.0;seconds=T_END+1.5;frames=int(seconds*fps)

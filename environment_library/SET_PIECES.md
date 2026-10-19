@@ -114,6 +114,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: floes are rigid discs on sine paths, shattering is shards on ballistic arcs, hands are not used
 * prompt keywords: `ice cave|frozen cave|glacier|ice floes?|stalactites?|frozen lake|crosses? the ice`
 
+## The Boulder Trap (`ruins`)
+
+* script: `ruins_scene.py`
+* story: a giant boulder is released in a desert temple corridor: its top speed is bisected so the closest approach to Leo is 2.2 m, it smashes ten statues, jams in a pit Leo jumps, and Leo slides under a closing door whose timing is solved for a 1.0 m gap (about 28 s)
+* needs: scenes/ship_assets (needs idle, startle, run, jump, crawl, cele)
+* known limits: one corridor, the boulder rolls straight (no steering), statues topple forward only, hands are not used
+* prompt keywords: `boulder trap|rolling boulder|giant boulder|temple trap|desert ruins|desert temple|booby.?trap|treasure temple`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

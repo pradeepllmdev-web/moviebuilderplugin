@@ -10,7 +10,7 @@ LOCATION_OF={m['piece_default']:k for k,m in locations.REGISTRY.items()}
 DAMAGES={'avalanche':'buried','siege':'breached'}          # what a scene does to its location for the scenes that follow
 SUPPORTS_STATE={'avalanche':True,'siege':False}            # whether the scene script can show a damaged location
 TOD_WORDS=[('night',r'\bnight|midnight|moonlit|stars\b'),('dusk',r'\bdusk|sunset|evening|twilight'),('dawn',r'\bdawn|sunrise|early morning|first light'),('overcast',r'\bstorm|overcast|rain|fog|gloomy'),('day',r'\bnoon|midday|afternoon|bright day|daylight|\bmorning\b')]
-DEFAULT_SECONDS={'last_egg':50,'storm_ship':60,'cliff_rescue':62,'arena_duel':52,'great_escape':54,'avalanche':48,'siege':72,'council':66,'heist':50,'workshop':30,'rapids':36,'flood':30,'flight':36,'ice':40,'horse_herd':16,'rider':22}
+DEFAULT_SECONDS={'ruins':28,'last_egg':50,'storm_ship':60,'cliff_rescue':62,'arena_duel':52,'great_escape':54,'avalanche':48,'siege':72,'council':66,'heist':50,'workshop':30,'rapids':36,'flood':30,'flight':36,'ice':40,'horse_herd':16,'rider':22}
 def split_scenes(text):
  parts=[p.strip() for p in re.split(r'\n\s*\n|^\s*scene\s*\d+\s*[:.\-]\s*',text.strip(),flags=re.I|re.M) if p and p.strip()]
  return parts or [text.strip()]

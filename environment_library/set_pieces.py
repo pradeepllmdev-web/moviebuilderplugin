@@ -69,6 +69,9 @@ SET_PIECES={
   needs=['scenes/ship_assets (python build_ship_assets.py; needs idle, run, jump)'],
   beats='Leo crosses a frozen cavern by leaping between nine drifting ice floes while stalactites crash down around him: a planner finds each hop window from the sine paths of the floes, stalactites land as near misses (about 40 s)',
   limits='floes are rigid discs on sine paths, shattering is shards on ballistic arcs, hands are not used'),
+ 'ruins':dict(title='The Boulder Trap',script='ruins_scene.py',keywords='boulder trap|rolling boulder|giant boulder|temple trap|desert ruins|desert temple|booby.?trap|treasure temple',
+  needs=['scenes/ship_assets (needs idle, startle, run, jump, crawl, cele)'],
+  beats='a giant boulder is released in a desert temple corridor: its top speed is bisected so the closest approach to Leo is 2.2 m, it smashes ten statues, jams in a pit Leo jumps, and Leo slides under a closing door whose timing is solved for a 1.0 m gap (about 28 s)',limits='one corridor, the boulder rolls straight (no steering), statues topple forward only, hands are not used'),
  'horse_herd':dict(title='Horse herd',script='horse_herd.py',keywords=r'herd of horses|horse herd|galloping horses|wild horses|stampede',
   needs=['assets/quaternius_farm_animals_download (CC0 "Farm Animals Animated" by Quaternius; ask before downloading)'],
   beats='aerial herd of 70 galloping horses along a river toward mountains (16 s, 5 cameras, sound)',limits='no riders, foals are scaled copies'),
@@ -82,7 +85,7 @@ def match(prompt):
 def planner_text():
  names=', '.join('%s (%s)'%(k,v['beats'].split(' (')[0][:70]) for k,v in SET_PIECES.items())
  return ' Whole-scene set pieces exist outside this shot builder: '+names+'. If the request is one of these (creature chase, ship at sea, horse herd, riding a horse), do not fake it with walk or run beats: list "set_piece:<id>" in unsupported and keep a plain idle beat so the studio can route it.'
-ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice')   # scenes that take (ship_assets, out)
+ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins')   # scenes that take (ship_assets, out)
 def missing(piece):
  """Human-readable list of what is not there yet (nothing is downloaded automatically)."""
  gone=[]
