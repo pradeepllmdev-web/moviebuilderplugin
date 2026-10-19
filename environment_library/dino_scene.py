@@ -112,38 +112,8 @@ def sky_and_light():
  global SUN
  sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));SUN=sun;sun.data.energy=3.5;sun.data.color=(1,.72,.5);sun.rotation_euler=(math.radians(62),0,math.radians(120));link(sun)
 sky_and_light()
-ground=prim('cube','Ground',(70,0,-.05),(.26,.30,.12),scale=(260,160,.05))
-swamp=prim('cube','Swamp',(70,0,.02),(.12,.30,.28),scale=(28,24,.02))      # x 42..98
-for i in range(60):prim('cone','Reed',(rnd.uniform(44,96),rnd.choice((-1,1))*rnd.uniform(9,22),.6),(.3,.45,.2),scale=(.06,.06,.6),vertices=4,radius1=1,depth=2)
-def fern(x,y,s=1.,color=(.12,.42,.14)):
- for k in range(8):
-  a=k*math.pi/4+rnd.uniform(-.2,.2);prim('cone','Frond',(x+math.cos(a)*.9*s,y+math.sin(a)*.9*s,.7*s),color,scale=(.18*s,1.6*s,.05*s),rot=(math.radians(55),0,a-math.pi/2),vertices=4,radius1=1,depth=2)
-def tree_fern(x,y,s=1.):
- prim('cyl','Trunk',(x,y,1.6*s),(.35,.25,.12),scale=(.18*s,.18*s,1.6*s),vertices=6,radius=1,depth=2)
- for k in range(9):
-  a=k*2*math.pi/9;prim('cone','Frond',(x+math.cos(a)*1.3*s,y+math.sin(a)*1.3*s,3.4*s),(.1,.38,.12),scale=(.22*s,2.2*s,.05*s),rot=(math.radians(40),0,a-math.pi/2),vertices=4,radius1=1,depth=2)
-def pine(x,y,h):
- prim('cyl','Trunk',(x,y,h*.3),(.3,.2,.1),scale=(.3,.3,h*.3),vertices=6,radius=1,depth=2);prim('cone','Pine',(x,y,h*.7),(.07,.26,.12),scale=(h*.16,h*.16,h*.3),vertices=7,radius1=1,depth=2)
-for i in range(160):
- x=rnd.uniform(-25,215);y=rnd.choice((-1,1))*rnd.uniform(7,70)
- if abs(y)<8 and 0<x<150:continue
- if 42<x<98 and abs(y)<24:continue
- r=rnd.random()
- if r<.55:fern(x,y,rnd.uniform(.8,1.9))
- elif r<.8:tree_fern(x,y,rnd.uniform(.9,1.8))
- else:pine(x,y,rnd.uniform(14,26))
-for i in range(40):prim('sphere','Boulder',(rnd.uniform(-20,210),rnd.choice((-1,1))*rnd.uniform(6,60),.4),(.45,.43,.4),scale=(rnd.uniform(.5,1.8),rnd.uniform(.5,1.5),rnd.uniform(.4,1.))) if True else None
-# the ridge the T-Rex stands on
-prim('cone','Ridge',(TREX.x,TREX.y,1.6),(.4,.36,.3),scale=(11,9,3.2),vertices=8,radius1=1,depth=1)
-RIDGE_TOP=3.2
-# the volcano, lava and smoke
-VOL=Vector((205.,120.,0));prim('cone','Volcano',(VOL.x,VOL.y,38),(.3,.26,.24),scale=(120,120,38),vertices=9,radius1=1,depth=2);prim('cone','Crater',(VOL.x,VOL.y,76),(1,.35,.08),scale=(20,20,2),vertices=9,radius1=1,depth=1,emit=6.)
-for k in range(4):
- a=rnd.uniform(3.6,5.2);pts=[(VOL.x+math.cos(a+.15*math.sin(i))*(i*14+16),VOL.y+math.sin(a+.15*math.sin(i))*(i*14+16),74-i*8.5) for i in range(8)]
- for p,q in zip(pts,pts[1:]):prim('cube','Lava',((p[0]+q[0])/2,(p[1]+q[1])/2,(p[2]+q[2])/2+.4),(1,.4,.08),scale=(math.dist(p[:2],q[:2])/2+1,2.2,.35),rot=(0,0,math.atan2(q[1]-p[1],q[0]-p[0])),emit=5.)
-lava_light=bpy.data.objects.new('LavaGlow',bpy.data.lights.new('LavaGlow','POINT'));lava_light.data.energy=400000;lava_light.data.color=(1,.45,.15);lava_light.location=(VOL.x-30,VOL.y-30,60);link(lava_light)
-for k in range(9):   # smoke plume
- o=prim('sphere','Smoke',(VOL.x,VOL.y,80+k*9),(.28,.26,.26),scale=(10+k*2,10+k*2,8+k));
+import locations;locations.load('dino_valley',dict(link=link,mat=mat,prim=prim),'intact')
+RIDGE_TOP=locations.DINO_VALLEY['ridge_top'];VOL=Vector(locations.DINO_VALLEY['volcano'])
 for k in range(40):
  o=prim('sphere','Ember',(VOL.x+rnd.uniform(-8,8),VOL.y+rnd.uniform(-8,8),78),(1,.55,.1),scale=(.5,.5,.5),emit=8.,subdivisions=1);t0=rnd.uniform(0,seconds*.6)
  for tt,z,sc in ((t0,78,.01),(t0+1.5,88+rnd.uniform(0,10),.6),(t0+5,115+rnd.uniform(0,25),.01)):

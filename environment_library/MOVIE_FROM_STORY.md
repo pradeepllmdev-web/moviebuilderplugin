@@ -23,11 +23,11 @@ location or prop rebuilds only that file. `set_pieces.build` creates missing ban
 
 | kind | entries | used by |
 |---|---|---|
-| locations | mountain_village (intact, buried), citadel (intact, breached), arena_ruins, railway_plains (parameters: end of line, bridge span, gantry), train_consist | avalanche, siege, arena, great escape |
-| props (placed with `load_prop`) | catapult, winch, banner, ladder (height parameter), egg_nest | siege, dinosaur scene |
+| locations | mountain_village (intact, buried), citadel (intact, breached), arena_ruins, railway_plains (parameters: end of line, bridge span, gantry), train_consist, dino_valley, cliff_face (holds included), galleon (ship with masts, sails, rails), open_sea | avalanche, siege, arena, great escape, last egg, cliff rescue, storm ship |
+| props (placed with `load_prop`) | catapult, winch, banner, ladder (height parameter), egg_nest, knife | siege, dinosaur scene, storm ship |
+| shared code | cliff hold functions (`cliff_ywall`, `cliff_hold_abs`): the scene and the bank use the same ones | cliff rescue |
 | characters and clips | `scenes/ship_assets` (from `build_ship_assets.py`) | every scene |
 
-Measured: with the bank the train scene builds in 29 s instead of 97 s, the arena in 15 s instead of 30 s; the siege and avalanche are dominated by their physics bake, so they gain only a few seconds.
+Measured: with the bank the train scene builds in 29 s instead of 97 s, the dinosaur scene in 17 s instead of 59 s, the arena in 15 s instead of 30 s, the cliff in 10 s instead of 16 s, the ship in 15 s; the siege and avalanche are dominated by their physics bake, so they gain only a few seconds.
 The first build of a bank entry costs once (the railway is 44 s, the others a few seconds). A scene state (`intact`, `buried`, `breached`) is the parameter `location_state`; `story_plan` carries damage
-from scene to scene (an avalanche buries the village for the scenes after it) and warns when a set piece cannot show it. Still to move into the bank: the ship and its ocean, the cliff wall,
-the dinosaur valley, and the remaining props (cub, knife, rope).
+from scene to scene (an avalanche buries the village for the scenes after it) and warns when a set piece cannot show it. `locations.prune()` deletes bank files whose builder has changed. Not in the bank on purpose: the cub (a clone of the lion), ropes (computed every frame) and effects (dust, rain, steam).

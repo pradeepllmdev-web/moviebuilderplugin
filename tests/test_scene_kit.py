@@ -90,7 +90,7 @@ class MoviePipeline(unittest.TestCase):
 class SharedLocations(unittest.TestCase):
  def test_registry_and_hash_paths(self):
   import locations
-  self.assertEqual(set(locations.REGISTRY),{'mountain_village','citadel','arena_ruins','railway_plains','train_consist','catapult','winch','banner','ladder','egg_nest'})
+  self.assertEqual(set(locations.REGISTRY),{'mountain_village','citadel','arena_ruins','railway_plains','train_consist','catapult','winch','banner','ladder','egg_nest','dino_valley','cliff_face','galleon','open_sea','knife'})
   a=locations.bank_path('citadel','intact');b=locations.bank_path('citadel','breached');self.assertNotEqual(a,b);self.assertTrue(a.name.startswith('citadel_intact_'))
   with self.assertRaises(ValueError):locations.ensure('castle_of_oz')
   with self.assertRaises(ValueError):locations.ensure('citadel','flooded')

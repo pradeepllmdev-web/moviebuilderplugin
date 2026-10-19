@@ -214,7 +214,14 @@ def _prop_egg_nest(ctx,state):
  for k in range(10):
   a=k*2*math.pi/10;prim('sphere','NestStick',(math.cos(a)*.26,math.sin(a)*.26,.52),(.4,.28,.12),scale=(.1,.1,.06))
  for k in range(2):prim('sphere','OtherEgg',((-.18 if k else .2),(.12 if k else -.14),.51),(.8,.78,.62),scale=(.1,.1,.14))
-PROPS_OF={'siege':[('catapult',None),('winch',None),('banner',None),('ladder',dict(height=9.6))],'last_egg':[('egg_nest',None)]}
+def _prop_knife(ctx,state):
+ import bpy
+ from mathutils import Matrix
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim']
+ kn=prim('cube','Knife',(0,0,0),(.85,.87,.9));kn.data.transform(Matrix.Diagonal((.018,.15,.005,1)));kn.scale=(1,1,1);kn.location=(0,.17,0);kn['role']='blade'
+ hd=prim('cube','KnifeGrip',(0,0,0),(.25,.15,.08));hd.data.transform(Matrix.Diagonal((.022,.05,.012,1)));hd.scale=(1,1,1);hd['role']='grip'
+
+PROPS_OF={'storm_ship':[('knife',None)],'siege':[('catapult',None),('winch',None),('banner',None),('ladder',dict(height=9.6))],'last_egg':[('egg_nest',None)]}
 def load_prop(id_,ctx,location=(0,0,0),rot_z=0.,params=None,scale=1.):
  """Place a shared prop: returns (root empty, {role: object}). The prop is appended from the bank (or built in place) at the origin and parented to a root at the location."""
  import bpy
@@ -225,14 +232,162 @@ def load_prop(id_,ctx,location=(0,0,0),rot_z=0.,params=None,scale=1.):
   if o.parent is None:o.parent=root
  return root,{o['role']:o for o in new if 'role' in o.keys()}
 
+def _dino_valley(ctx,state):
+ import bpy,bmesh
+ import numpy as np
+ from mathutils import Vector
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];rnd=random.Random(505);TREX=Vector((78.,30.,0))
+ ground=prim('cube','Ground',(70,0,-.05),(.26,.30,.12),scale=(260,160,.05))
+ swamp=prim('cube','Swamp',(70,0,.02),(.12,.30,.28),scale=(28,24,.02))      # x 42..98
+ for i in range(60):prim('cone','Reed',(rnd.uniform(44,96),rnd.choice((-1,1))*rnd.uniform(9,22),.6),(.3,.45,.2),scale=(.06,.06,.6),vertices=4,radius1=1,depth=2)
+ def fern(x,y,s=1.,color=(.12,.42,.14)):
+  for k in range(8):
+   a=k*math.pi/4+rnd.uniform(-.2,.2);prim('cone','Frond',(x+math.cos(a)*.9*s,y+math.sin(a)*.9*s,.7*s),color,scale=(.18*s,1.6*s,.05*s),rot=(math.radians(55),0,a-math.pi/2),vertices=4,radius1=1,depth=2)
+ def tree_fern(x,y,s=1.):
+  prim('cyl','Trunk',(x,y,1.6*s),(.35,.25,.12),scale=(.18*s,.18*s,1.6*s),vertices=6,radius=1,depth=2)
+  for k in range(9):
+   a=k*2*math.pi/9;prim('cone','Frond',(x+math.cos(a)*1.3*s,y+math.sin(a)*1.3*s,3.4*s),(.1,.38,.12),scale=(.22*s,2.2*s,.05*s),rot=(math.radians(40),0,a-math.pi/2),vertices=4,radius1=1,depth=2)
+ def pine(x,y,h):
+  prim('cyl','Trunk',(x,y,h*.3),(.3,.2,.1),scale=(.3,.3,h*.3),vertices=6,radius=1,depth=2);prim('cone','Pine',(x,y,h*.7),(.07,.26,.12),scale=(h*.16,h*.16,h*.3),vertices=7,radius1=1,depth=2)
+ for i in range(160):
+  x=rnd.uniform(-25,215);y=rnd.choice((-1,1))*rnd.uniform(7,70)
+  if abs(y)<8 and 0<x<150:continue
+  if 42<x<98 and abs(y)<24:continue
+  r=rnd.random()
+  if r<.55:fern(x,y,rnd.uniform(.8,1.9))
+  elif r<.8:tree_fern(x,y,rnd.uniform(.9,1.8))
+  else:pine(x,y,rnd.uniform(14,26))
+ for i in range(40):prim('sphere','Boulder',(rnd.uniform(-20,210),rnd.choice((-1,1))*rnd.uniform(6,60),.4),(.45,.43,.4),scale=(rnd.uniform(.5,1.8),rnd.uniform(.5,1.5),rnd.uniform(.4,1.))) if True else None
+ # the ridge the T-Rex stands on
+ prim('cone','Ridge',(TREX.x,TREX.y,1.6),(.4,.36,.3),scale=(11,9,3.2),vertices=8,radius1=1,depth=1)
+ # the volcano, lava and smoke
+ VOL=Vector((205.,120.,0))
+ for k in range(4):
+  a=rnd.uniform(3.6,5.2);pts=[(VOL.x+math.cos(a+.15*math.sin(i))*(i*14+16),VOL.y+math.sin(a+.15*math.sin(i))*(i*14+16),74-i*8.5) for i in range(8)]
+  for p,q in zip(pts,pts[1:]):prim('cube','Lava',((p[0]+q[0])/2,(p[1]+q[1])/2,(p[2]+q[2])/2+.4),(1,.4,.08),scale=(math.dist(p[:2],q[:2])/2+1,2.2,.35),rot=(0,0,math.atan2(q[1]-p[1],q[0]-p[0])),emit=5.)
+ lava_light=bpy.data.objects.new('LavaGlow',bpy.data.lights.new('LavaGlow','POINT'));lava_light.data.energy=400000;lava_light.data.color=(1,.45,.15);lava_light.location=(VOL.x-30,VOL.y-30,60);link(lava_light)
+ for k in range(9):   # smoke plume
+  o=prim('sphere','Smoke',(VOL.x,VOL.y,80+k*9),(.28,.26,.26),scale=(10+k*2,10+k*2,8+k));
+DINO_VALLEY=dict(trex=(78.,30.,0.),ridge_top=3.2,volcano=(205.,120.,0.))
+
+CLIFF=dict(col_a=-2.6,col_b=3.0,col_c=9.6,ledge2_z=7.0,slab_z=13.0,ledge2=(2.6,6.5),slab=(3.45,9.0),gap=(-2.0,2.4,6.4,15.2),xs=-2.35,xe=3.0)
+CLIFF_STEP=.33
+CLIFF_LIMBS={'RH':dict(off=0.,top=1.45,lat=.2),'LF':dict(off=.25,top=.49,lat=-.14),'LH':dict(off=.5,top=1.45,lat=-.2),'RF':dict(off=.75,top=.49,lat=.14)}   # right = +x when facing the wall
+def _smooth(u):
+ u=max(0.,min(1.,u));return u*u*(3-2*u)
+def cliff_ywall(x,z):
+ """Depth of the rock face (m) at x, z; the gap between the climbing columns is a recess 1.6 m deep."""
+ n=.07*(3+math.sin(x*1.3+z*.7)+math.sin(x*.5-z*1.1+1)+math.sin(x*2.1+z*1.9))
+ x0,x1,z0,z1=CLIFF['gap'];e=.5;inx=_smooth((x-x0)/e)*_smooth((x1-x)/e);inz=_smooth((z-z0)/e)*_smooth((z1-z)/e);return n+1.6*inx*inz
+def cliff_hold_abs(limb,k,col):
+ """World position (x, y, z) of hold k of a limb in a climbing column; deterministic jitter so the holds look natural."""
+ import zlib
+ L=CLIFF_LIMBS[limb];r=random.Random(zlib.crc32(('%s%d%.1f'%(limb,k,col)).encode()));z=L['off']*CLIFF_STEP+k*CLIFF_STEP+L['top']+r.uniform(-.03,.03)
+ return (col+L['lat']+r.uniform(-.04,.04),-.04,z)
+def _cliff_face(ctx,state):
+ import bpy,bmesh
+ from mathutils import Vector
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];rnd=random.Random(606)
+ COL_A,COL_B,COL_C=CLIFF['col_a'],CLIFF['col_b'],CLIFF['col_c'];LEDGE2_Z,SLAB_Z=CLIFF['ledge2_z'],CLIFF['slab_z'];LEDGE2=CLIFF['ledge2'];SLAB=CLIFF['slab'];XS,XE=CLIFF['xs'],CLIFF['xe'];AX=(XS+XE)/2;STEP=CLIFF_STEP;LIMBS=CLIFF_LIMBS
+ ywall=cliff_ywall
+ def hold_abs(limb,k,col):return Vector(cliff_hold_abs(limb,k,col))
+ bpy.ops.mesh.primitive_plane_add(size=1,location=(10,6,-.05));g=bpy.context.object;g.scale=(120,90,1);g.name='Ground';g.data.materials.append(mat('Ground',(.25,.33,.14)))
+ bm=bmesh.new();NX,NZ=57,53;grid=[[bm.verts.new((-14+i*.5,ywall(-14+i*.5,j*.5),j*.5)) for j in range(NZ)] for i in range(NX)]
+ for i in range(NX-1):
+  for j in range(NZ-1):bm.faces.new((grid[i][j],grid[i+1][j],grid[i+1][j+1],grid[i][j+1]))
+ me=bpy.data.meshes.new('CliffMesh');bm.to_mesh(me);bm.free();cliff=bpy.data.objects.new('Cliff',me);link(cliff);me.materials.append(mat('Cliff',(.42,.38,.33)))
+ for p in me.polygons:p.use_smooth=False
+ prim('cube','CliffBack',(0,5,13),(.34,.31,.27),scale=(15,4.8,13.5))
+ for i in range(30):prim('cone','CliffPeak',(rnd.uniform(-40,50),rnd.uniform(25,70),rnd.uniform(2,18)),(.36,.34,.32),scale=(rnd.uniform(8,16),rnd.uniform(8,16),rnd.uniform(14,34)),vertices=6,radius1=1,depth=2)
+ ledge2=prim('cube','Ledge2',((LEDGE2[0]+LEDGE2[1])/2,-.7,LEDGE2_Z-.2),(.4,.36,.31),scale=((LEDGE2[1]-LEDGE2[0])/2,.7,.2))
+ slab=prim('cube','CubLedge',((SLAB[0]+SLAB[1])/2,-.8,SLAB_Z-.2),(.4,.36,.31),scale=((SLAB[1]-SLAB[0])/2,.8,.2))
+ prim('cone','Spur',(AX,-.2,13.9),(.36,.32,.28),scale=(.35,.35,.5),vertices=6,radius1=1,depth=2)
+ prim('cube','Peg',(XS,-.05,8.3),(.3,.2,.1),scale=(.05,.05,.05));prim('cyl','EyeBolt',(COL_C,-.12,14.0),(.2,.2,.2),scale=(.05,.05,.05),vertices=6,radius=1,depth=1)
+ for i in range(22):prim('sphere','Boulder',(rnd.uniform(-12,22),rnd.uniform(-12,-6),.3),(.4,.38,.35),scale=(rnd.uniform(.4,1.2),rnd.uniform(.4,1),rnd.uniform(.3,.7)),subdivisions=1)
+ for i in range(70):
+  x=rnd.uniform(-12,26);y=rnd.uniform(-34,-15);prim('cone','Pine',(x,y,2.4),(.07,.26,.12),scale=(1.1,1.1,2.4),vertices=7,radius1=1,depth=2);prim('cyl','Trunk',(x,y,.5),(.3,.2,.1),scale=(.15,.15,.5),vertices=5,radius=1,depth=2)
+ allholds=[]
+ for col,lo,hi in ((COL_A,0,8),(COL_B,7,13.8),(COL_C,12.5,14.6)):
+  for limb in LIMBS:
+   for k in range(int((lo-LIMBS[limb]['off']*STEP)/STEP)-1,int((hi-LIMBS[limb]['off']*STEP)/STEP)+3):
+    p=hold_abs(limb,k,col);allholds.append(p);prim('sphere','Hold',p+Vector((0,.03,0)),(.85,.62,.3),scale=(.09,.06,.07),subdivisions=1)
+
+SHIP=dict(L=9.,HB=3.2,DZ=1.6,MAST_X=-.4,masts=[(-.4,12.,'Main'),(4.4,9.5,'Fore'),(-5.3,8.,'Mizzen')],wheel_pos=(-5.2,0,1.6))
+def _galleon(ctx,state):
+ import bpy,bmesh
+ import numpy as np
+ from mathutils import Vector
+ link,mat,prim0=ctx['link'],ctx['mat'],ctx['prim']
+ L,HB,DZ,MAST_X=SHIP['L'],SHIP['HB'],SHIP['DZ'],SHIP['MAST_X']
+ ship=bpy.data.objects.new('Ship',None);link(ship)
+ def put(o,color,name,emit=0.,parent=True):
+  o.name=name;o.data.materials.append(mat(name.split('.')[0]+str(color),color,emit))
+  if parent:o.parent=ship
+  return o
+ def prim(kind,name,loc,color,scale=(1,1,1),rot=(0,0,0),emit=0.,parent=True,**kw):
+  o=prim0(kind,name,loc,color,scale=scale,rot=rot,emit=emit,**kw)
+  if parent:o.parent=ship
+  return o
+ def line(a,b,r,color,name='Rope',emit=0.,parent=True):
+  a,b=Vector(a),Vector(b);d=b-a;o=prim('cyl',name,(a+b)/2,color,scale=(r,r,d.length/2),vertices=5,radius=1,depth=2,emit=emit,parent=parent);o.rotation_euler=d.to_track_quat('Z','Y').to_euler();return o
+ def hull():
+  import bmesh
+  bm=bmesh.new();stations=[-L+i*L*2/16 for i in range(17)];rows=[]
+  for x in stations:
+   u=x/L;b=HB*max(.02,(1-u**4))**.65*(1 if x<0 else 1-.25*u*u);zd=DZ+.9*max(0,u)**3+.5*max(0,-u)**2;keel=-1.5*(1-.5*max(0,u)**2)
+   rows.append([bm.verts.new(v) for v in ((x,-b,zd),(x,-b*.8,zd*.35+keel*.2),(x,0,keel),(x,b*.8,zd*.35+keel*.2),(x,b,zd))])
+  for r0,r1 in zip(rows,rows[1:]):
+   for k in range(4):
+    try:f=bm.faces.new((r0[k],r0[k+1],r1[k+1],r1[k]));f.material_index=0
+    except ValueError:pass
+  try:bm.faces.new(rows[0][::-1])
+  except ValueError:pass
+  me=bpy.data.meshes.new('HullMesh');bm.to_mesh(me);bm.free();o=bpy.data.objects.new('Hull',me);link(o);o.parent=ship;me.materials.append(mat('Hull',(.28,.15,.07)));return o
+ hull()
+ deck=prim('cube','Deck',(0,0,DZ-.04),(.58,.4,.2),scale=(L*.93,HB*.8,.05))
+ for i in range(-8,9):prim('cube','Plank',(i*1.0,0,DZ+.012),(.45,.3,.14),scale=(.02,HB*.78,.01))
+ for s in (-1,1):   # rails
+  line((-L*.9,s*HB*.9,DZ+.9),(L*.78,s*HB*.8,DZ+.9),.05,(.35,.2,.1),'Rail')
+  for x in np.linspace(-L*.9,L*.75,9):line((x,s*HB*.9*(1-max(0,x/L)**2*.1),DZ),(x,s*HB*.9*(1-max(0,x/L)**2*.1),DZ+.9),.04,(.35,.2,.1),'Post')
+ prim('cube','Cabin',(-7.0,0,DZ+.6),(.5,.3,.14),scale=(1.4,HB*.75,.6));prim('cube','CabinRoof',(-7.0,0,DZ+1.25),(.38,.22,.1),scale=(1.55,HB*.82,.07))
+ wheel_pos=Vector((-5.2,0,DZ));prim('cyl','WheelRing',(-5.4,0,DZ+1.15),(.4,.25,.1),scale=(.5,.5,.04),rot=(0,math.pi/2,0),vertices=14,radius=1,depth=2)
+ for k in range(4):a=k*math.pi/4;line((-5.4,math.cos(a)*.55,DZ+1.15+math.sin(a)*.55),(-5.4,-math.cos(a)*.55,DZ+1.15-math.sin(a)*.55),.03,(.4,.25,.1),'Spoke')
+ prim('cyl','WheelPost',(-5.4,0,DZ+.55),(.3,.18,.08),scale=(.1,.1,.55),vertices=6,radius=1,depth=2)
+ MASTS=[(MAST_X,12.,'Main'),(4.4,9.5,'Fore'),(-5.3,8.,'Mizzen')]
+ for x,h,n in MASTS:
+  prim('cyl',n+'Mast',(x,0,DZ+h/2),(.35,.22,.1),scale=(.22,.22,h/2),vertices=8,radius=1,depth=2)
+  yv=DZ+h*.62;prim('cyl',n+'Yard',(x,0,yv),(.35,.22,.1),scale=(.1,.1,HB*1.1),rot=(math.pi/2,0,0),vertices=6,radius=1,depth=2)
+  for s in (-1,1):line((x,0,DZ+h),(x-.5,s*HB*.85,DZ+.9),.025,(.15,.1,.07),'Shroud');line((x,0,DZ+h),(x+(2.5 if n!='Mizzen' else -1.5),0,DZ+.9),.025,(.15,.1,.07),'Stay')
+ def sail(name,x,yv,w,h,flap):
+  bpy.ops.mesh.primitive_grid_add(x_subdivisions=14,y_subdivisions=10,size=1,location=(x+(-.45 if x==MAST_X else .45),0,yv-h/2),rotation=(0,math.pi/2,0));o=bpy.context.object;o.scale=(h,w,1)
+  put(o,(.85,.8,.68),name)
+  if flap:m=o.modifiers.new('Flap','WAVE');m.height=flap;m.width=1.5;m.speed=.25;m.narrowness=3.;m.use_normal=True
+  return o
+ mainsail=sail('MainSail',MAST_X,DZ+12*.62,HB*1.9,6.5,0);sail('ForeSail',4.4,DZ+9.5*.62,HB*1.7,5.2,.2);sail('MizzenSail',-5.3,DZ+8*.62,HB*1.4,4.2,.15)
+ TORN=prim('cube','TornSail',(MAST_X-.55,.8,DZ+12*.62-1.6),(.85,.8,.68),scale=(.02,HB*.65,1.8))   # the strip that stays on the yard after the cut
+ for k in range(14):prim('cube','Rung',(.18,0,DZ+.5+k*.55),(.4,.25,.1),scale=(.04,.7,.03));
+ mainsail['role']='mainsail';TORN['role']='torn'
+def _open_sea(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim']
+ bpy.ops.mesh.primitive_grid_add(x_subdivisions=170,y_subdivisions=170,size=320,location=(0,0,0));sea=bpy.context.object;sea.name='Sea';sea.data.materials.append(mat('Sea',(.06,.2,.3)))
+ for k,(h,w,sp,x0) in enumerate(((1.3,16,.55,0),(.5,6,.9,3))):
+  m=sea.modifiers.new('Wave%d'%k,'WAVE');m.height=h;m.width=w;m.speed=sp;m.narrowness=1.6;m.start_position_x=-80;m.start_position_y=30+k*20;m.use_normal=True
+ for p in sea.data.polygons:p.use_smooth=False
+
 REGISTRY={'mountain_village':dict(states=('intact','buried'),build=_village,piece_default='avalanche'),'citadel':dict(states=('intact','breached'),build=_citadel,piece_default='siege'),
  'arena_ruins':dict(states=('intact',),build=_arena_ruins,piece_default='arena_duel'),
  'railway_plains':dict(states=('intact',),build=_railway,piece_default='great_escape',params=True),
  'catapult':dict(states=('intact',),build=_prop_catapult,piece_default=None),
  'winch':dict(states=('intact',),build=_prop_winch,piece_default=None),
+ 'knife':dict(states=('intact',),build=_prop_knife,piece_default=None),
  'banner':dict(states=('intact',),build=_prop_banner,piece_default=None),
  'ladder':dict(states=('intact',),build=_prop_ladder,piece_default=None,params=True),
  'egg_nest':dict(states=('intact',),build=_prop_egg_nest,piece_default=None),
+ 'dino_valley':dict(states=('intact',),build=_dino_valley,piece_default='last_egg'),
+ 'cliff_face':dict(states=('intact',),build=_cliff_face,piece_default='cliff_rescue'),
+ 'galleon':dict(states=('intact',),build=_galleon,piece_default='storm_ship'),
+ 'open_sea':dict(states=('intact',),build=_open_sea,piece_default='storm_ship'),
  'train_consist':dict(states=('intact',),build=_train_consist,piece_default='great_escape',params=True)}
 def bank_path(id_,state='intact',params=None):
  import inspect
@@ -264,6 +419,17 @@ def _loc_params(lid,params):
  if lid=='railway_plains':return railway_params(params.get('seconds',54.))
  if lid=='train_consist':return dict(roof=3.2,wheel=[-32.6,0,3.95])
  return None
+def prune():
+ """Delete bank files whose builder changed since they were built (their hash is no longer current). Returns the deleted names."""
+ gone=[]
+ if not BANK.exists():return gone
+ for f in BANK.glob('*.blend'):
+  parts=f.stem.rsplit('_',3)
+  if len(parts)<4:continue
+  id_,state,ph,h=parts
+  if id_ in REGISTRY and bank_path(id_,state,None).stem.rsplit('_',1)[-1]!=h:f.unlink();gone.append(f.name)
+ return gone
+
 def ensure_for(piece,params=None):
  """Bank files a set piece needs (called by set_pieces.build before the scene runs)."""
  params=params or {};out=[]

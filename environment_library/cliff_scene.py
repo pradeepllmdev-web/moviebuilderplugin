@@ -55,12 +55,9 @@ LIMBS={'RH':dict(off=0.,top=1.45,lat=.2),'LF':dict(off=.25,top=.49,lat=-.14),'LH
 def rope_end(t):
  th=-TH0*math.cos(OMEGA*(t-T_SW0))*math.exp(-.2*max(0,t-T_LAND)) if t>=T_SW0 else -TH0
  return ANCHOR+Vector((ROPE_L*math.sin(th),0,-ROPE_L*math.cos(th)))
-def ywall(x,z):
- n=.07*(3+math.sin(x*1.3+z*.7)+math.sin(x*.5-z*1.1+1)+math.sin(x*2.1+z*1.9))
- x0,x1,z0,z1=GAP;e=.5;inx=smooth((x-x0)/e)*smooth((x1-x)/e);inz=smooth((z-z0)/e)*smooth((z1-z)/e);return n+1.6*inx*inz
-def hold_abs(limb,k,col):
- L=LIMBS[limb];r=random.Random(zlib.crc32(('%s%d%.1f'%(limb,k,col)).encode()));z=L['off']*STEP+k*STEP+L['top']+r.uniform(-.03,.03)
- return Vector((col+L['lat']+r.uniform(-.04,.04),-.04,z))
+import locations
+ywall=locations.cliff_ywall
+def hold_abs(limb,k,col):return Vector(locations.cliff_hold_abs(limb,k,col))
 def climb_target(limb,s,col):
  L=LIMBS[limb];u=(s-L['off']*STEP)/STEP;k=math.floor(u);f=u-k;h0=hold_abs(limb,k,col)
  if f<.7:return h0
@@ -90,26 +87,8 @@ def limb_eval(limb,t,tr=.5):
  if t-t0<tr:pos=prev[2](t0).lerp(pos,smooth((t-t0)/tr))
  return pos,1.
 # ---------------------------------------------------------------------------------------------------------- the cliff
-bpy.ops.mesh.primitive_plane_add(size=1,location=(10,6,-.05));g=bpy.context.object;g.scale=(120,90,1);put(g,(.25,.33,.14),'Ground')
-bm=bmesh.new();NX,NZ=57,53;grid=[[bm.verts.new((-14+i*.5,ywall(-14+i*.5,j*.5),j*.5)) for j in range(NZ)] for i in range(NX)]
-for i in range(NX-1):
- for j in range(NZ-1):bm.faces.new((grid[i][j],grid[i+1][j],grid[i+1][j+1],grid[i][j+1]))
-me=bpy.data.meshes.new('CliffMesh');bm.to_mesh(me);bm.free();cliff=bpy.data.objects.new('Cliff',me);link(cliff);me.materials.append(mat('Cliff',(.42,.38,.33)))
-for p in me.polygons:p.use_smooth=False
-prim('cube','CliffBack',(0,5,13),(.34,.31,.27),scale=(15,4.8,13.5))
-for i in range(30):prim('cone','CliffPeak',(rnd.uniform(-40,50),rnd.uniform(25,70),rnd.uniform(2,18)),(.36,.34,.32),scale=(rnd.uniform(8,16),rnd.uniform(8,16),rnd.uniform(14,34)),vertices=6,radius1=1,depth=2)
-ledge2=prim('cube','Ledge2',((LEDGE2[0]+LEDGE2[1])/2,-.7,LEDGE2_Z-.2),(.4,.36,.31),scale=((LEDGE2[1]-LEDGE2[0])/2,.7,.2))
-slab=prim('cube','CubLedge',((SLAB[0]+SLAB[1])/2,-.8,SLAB_Z-.2),(.4,.36,.31),scale=((SLAB[1]-SLAB[0])/2,.8,.2))
-prim('cone','Spur',(AX,-.2,13.9),(.36,.32,.28),scale=(.35,.35,.5),vertices=6,radius1=1,depth=2)
-prim('cube','Peg',(XS,-.05,8.3),(.3,.2,.1),scale=(.05,.05,.05));prim('cyl','EyeBolt',(COL_C,-.12,14.0),(.2,.2,.2),scale=(.05,.05,.05),vertices=6,radius=1,depth=1)
-for i in range(22):prim('sphere','Boulder',(rnd.uniform(-12,22),rnd.uniform(-12,-6),.3),(.4,.38,.35),scale=(rnd.uniform(.4,1.2),rnd.uniform(.4,1),rnd.uniform(.3,.7)),subdivisions=1)
-for i in range(70):
- x=rnd.uniform(-12,26);y=rnd.uniform(-34,-15);prim('cone','Pine',(x,y,2.4),(.07,.26,.12),scale=(1.1,1.1,2.4),vertices=7,radius1=1,depth=2);prim('cyl','Trunk',(x,y,.5),(.3,.2,.1),scale=(.15,.15,.5),vertices=5,radius=1,depth=2)
-allholds=[]
-for col,lo,hi in ((COL_A,0,8),(COL_B,7,13.8),(COL_C,12.5,14.6)):
- for limb in LIMBS:
-  for k in range(int((lo-LIMBS[limb]['off']*STEP)/STEP)-1,int((hi-LIMBS[limb]['off']*STEP)/STEP)+3):
-   p=hold_abs(limb,k,col);allholds.append(p);prim('sphere','Hold',p+Vector((0,.03,0)),(.85,.62,.3),scale=(.09,.06,.07),subdivisions=1)
+locations.load('cliff_face',dict(link=link,mat=mat,prim=prim),'intact')
+cliff=bpy.data.objects['Cliff'];ledge2=bpy.data.objects['Ledge2'];slab=bpy.data.objects['CubLedge']
 # ---------------------------------------------------------------------------------------------------------- sky, rain, lightning
 scene.world=bpy.data.worlds.new('Sky');sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.rotation_euler=(math.radians(60),0,math.radians(-30))
 for t,c,en,wc in ((0,(.55,.6,.75),1.0,(.14,.16,.22)),(52,(.55,.6,.75),1.0,(.14,.16,.22)),(56,(1,.85,.6),4.,(.55,.75,.95)),(seconds,(1,.85,.6),4.,(.55,.75,.95))):

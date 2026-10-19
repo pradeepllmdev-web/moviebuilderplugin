@@ -28,7 +28,8 @@ def mat(name,color,emit=0.):
     if key in b.inputs:b.inputs[key].default_value=(*color,1);break
    if 'Emission Strength' in b.inputs:b.inputs['Emission Strength'].default_value=emit
  _m[name]=m;return m
-ship=bpy.data.objects.new('Ship',None);link(ship)
+import locations
+locations.load('galleon',dict(link=link),'intact');ship=bpy.data.objects['Ship']
 def put(o,color,name,emit=0.,parent=True):
  o.name=name;o.data.materials.append(mat(name.split('.')[0]+str(color),color,emit))
  if parent:o.parent=ship
@@ -54,48 +55,12 @@ def hide_keys(o,windows):
 L=9.;HB=3.2;DZ=1.6;MAST_X=-.4;CLIMB_Z=8.6
 def storm(t):   # 0..1 storm strength
  return .22+.78*smooth((t-2)/9.)*(1-smooth((t-50)/5.)*.8) if t<54 else .2
-def hull():
- import bmesh
- bm=bmesh.new();stations=[-L+i*L*2/16 for i in range(17)];rows=[]
- for x in stations:
-  u=x/L;b=HB*max(.02,(1-u**4))**.65*(1 if x<0 else 1-.25*u*u);zd=DZ+.9*max(0,u)**3+.5*max(0,-u)**2;keel=-1.5*(1-.5*max(0,u)**2)
-  rows.append([bm.verts.new(v) for v in ((x,-b,zd),(x,-b*.8,zd*.35+keel*.2),(x,0,keel),(x,b*.8,zd*.35+keel*.2),(x,b,zd))])
- for r0,r1 in zip(rows,rows[1:]):
-  for k in range(4):
-   try:f=bm.faces.new((r0[k],r0[k+1],r1[k+1],r1[k]));f.material_index=0
-   except ValueError:pass
- try:bm.faces.new(rows[0][::-1])
- except ValueError:pass
- me=bpy.data.meshes.new('HullMesh');bm.to_mesh(me);bm.free();o=bpy.data.objects.new('Hull',me);link(o);o.parent=ship;me.materials.append(mat('Hull',(.28,.15,.07)));return o
-hull()
-deck=prim('cube','Deck',(0,0,DZ-.04),(.58,.4,.2),scale=(L*.93,HB*.8,.05))
-for i in range(-8,9):prim('cube','Plank',(i*1.0,0,DZ+.012),(.45,.3,.14),scale=(.02,HB*.78,.01))
-for s in (-1,1):   # rails
- line((-L*.9,s*HB*.9,DZ+.9),(L*.78,s*HB*.8,DZ+.9),.05,(.35,.2,.1),'Rail')
- for x in np.linspace(-L*.9,L*.75,9):line((x,s*HB*.9*(1-max(0,x/L)**2*.1),DZ),(x,s*HB*.9*(1-max(0,x/L)**2*.1),DZ+.9),.04,(.35,.2,.1),'Post')
-prim('cube','Cabin',(-7.0,0,DZ+.6),(.5,.3,.14),scale=(1.4,HB*.75,.6));prim('cube','CabinRoof',(-7.0,0,DZ+1.25),(.38,.22,.1),scale=(1.55,HB*.82,.07))
-wheel_pos=Vector((-5.2,0,DZ));prim('cyl','WheelRing',(-5.4,0,DZ+1.15),(.4,.25,.1),scale=(.5,.5,.04),rot=(0,math.pi/2,0),vertices=14,radius=1,depth=2)
-for k in range(4):a=k*math.pi/4;line((-5.4,math.cos(a)*.55,DZ+1.15+math.sin(a)*.55),(-5.4,-math.cos(a)*.55,DZ+1.15-math.sin(a)*.55),.03,(.4,.25,.1),'Spoke')
-prim('cyl','WheelPost',(-5.4,0,DZ+.55),(.3,.18,.08),scale=(.1,.1,.55),vertices=6,radius=1,depth=2)
-MASTS=[(MAST_X,12.,'Main'),(4.4,9.5,'Fore'),(-5.3,8.,'Mizzen')]
-for x,h,n in MASTS:
- prim('cyl',n+'Mast',(x,0,DZ+h/2),(.35,.22,.1),scale=(.22,.22,h/2),vertices=8,radius=1,depth=2)
- yv=DZ+h*.62;prim('cyl',n+'Yard',(x,0,yv),(.35,.22,.1),scale=(.1,.1,HB*1.1),rot=(math.pi/2,0,0),vertices=6,radius=1,depth=2)
- for s in (-1,1):line((x,0,DZ+h),(x-.5,s*HB*.85,DZ+.9),.025,(.15,.1,.07),'Shroud');line((x,0,DZ+h),(x+(2.5 if n!='Mizzen' else -1.5),0,DZ+.9),.025,(.15,.1,.07),'Stay')
-def sail(name,x,yv,w,h,flap):
- bpy.ops.mesh.primitive_grid_add(x_subdivisions=14,y_subdivisions=10,size=1,location=(x+(-.45 if x==MAST_X else .45),0,yv-h/2),rotation=(0,math.pi/2,0));o=bpy.context.object;o.scale=(h,w,1)
- put(o,(.85,.8,.68),name)
- if flap:m=o.modifiers.new('Flap','WAVE');m.height=flap;m.width=1.5;m.speed=.25;m.narrowness=3.;m.use_normal=True
- return o
-mainsail=sail('MainSail',MAST_X,DZ+12*.62,HB*1.9,6.5,0);sail('ForeSail',4.4,DZ+9.5*.62,HB*1.7,5.2,.2);sail('MizzenSail',-5.3,DZ+8*.62,HB*1.4,4.2,.15)
-TORN=prim('cube','TornSail',(MAST_X-.55,.8,DZ+12*.62-1.6),(.85,.8,.68),scale=(.02,HB*.65,1.8))   # the strip that stays on the yard after the cut
-for k in range(14):prim('cube','Rung',(.18,0,DZ+.5+k*.55),(.4,.25,.1),scale=(.04,.7,.03));
+mainsail=bpy.data.objects['MainSail'];TORN=bpy.data.objects['TornSail'];MASTS=locations.SHIP['masts'];wheel_pos=Vector(locations.SHIP['wheel_pos'])
 # ---------------------------------------------------------------------------------------------------------- the sea
-bpy.ops.mesh.primitive_grid_add(x_subdivisions=170,y_subdivisions=170,size=320,location=(0,0,0));sea=bpy.context.object;sea.name='Sea';sea.data.materials.append(mat('Sea',(.06,.2,.3)))
+locations.load('open_sea',dict(link=link),'intact');sea=bpy.data.objects['Sea']
 for k,(h,w,sp,x0) in enumerate(((1.3,16,.55,0),(.5,6,.9,3))):
- m=sea.modifiers.new('Wave%d'%k,'WAVE');m.height=h;m.width=w;m.speed=sp;m.narrowness=1.6;m.start_position_x=-80;m.start_position_y=30+k*20;m.use_normal=True
+ m=sea.modifiers['Wave%d'%k]
  for t,sc in ((0,.25),(11,1.),(50,1.),(56,.2)):m.height=h*sc;m.keyframe_insert('height',frame=F(t))
-for p in sea.data.polygons:p.use_smooth=False
 # ---------------------------------------------------------------------------------------------------------- ship motion
 for f in range(1,frames+1,2):
  t=(f-1)/fps;e=storm(t)
@@ -158,11 +123,9 @@ for f in fs:
  p,pitch,h=leo_state((f-1)/fps);leo.location=p+Vector((0,0,sm[f]));leo.keyframe_insert('location',frame=f)
 # a knife in Leo's right hand for the cut
 scene.frame_set(F(19.9));bpy.context.view_layer.update();pbn=rig.pose.bones['mixamorig:RightHand'];M=rig.matrix_world@pbn.matrix
-kn=prim('cube','Knife',(0,0,0),(.85,.87,.9),parent=False);kn.data.transform(Matrix.Diagonal((.018,.15,.005,1)));kn.scale=(1,1,1)
-hd=prim('cube','KnifeGrip',(0,0,0),(.25,.15,.08),parent=False);hd.data.transform(Matrix.Diagonal((.022,.05,.012,1)));hd.scale=(1,1,1)
-for part,off in ((kn,.17),(hd,.0)):
- part.matrix_world=Matrix.Translation(M.translation)@M.to_quaternion().to_matrix().to_4x4()@Matrix.Translation((0,off,0))
- c=part.constraints.new('CHILD_OF');c.target=rig;c.subtarget='mixamorig:RightHand';c.inverse_matrix=M.inverted()   # the knife is in his hand for the whole film (persistence rule)
+kroot,kparts=locations.load_prop('knife',dict(link=link),(0,0,0))
+kroot.parent=None;kroot.matrix_world=Matrix.Translation(M.translation)@M.to_quaternion().to_matrix().to_4x4()
+c=kroot.constraints.new('CHILD_OF');c.target=rig;c.subtarget='mixamorig:RightHand';c.inverse_matrix=M.inverted()   # the knife is in his hand for the whole film (persistence rule); geometry comes from the shared bank
 # ---------------------------------------------------------------------------------------------------------- the serpent: its body follows its head's path
 HEAD=[(-8,(-6,14,-14)),(22,(-5,14,-12)),(26,(-4,12,-6)),(29,(-4,9,1)),(31,(-3,8,8)),(32.2,(-.5,5,10)),(32.9,(3.4,.6,2.1)),(34.6,(3.8,.9,2.4)),(36,(4,5,8.5)),(37.4,(5.4,.8,3.4)),
  (39.4,(5.8,.1,3.1)),(40.6,(6,5,6)),(41.5,(9,5.5,3)),(42.4,(11,0,2.6)),(43.2,(9,-5,3)),(43.9,(1,-6,3.4)),(44.3,(2,0,15)),(45.5,(3,3,11)),(47,(3,7,5)),(49,(2,9,-3)),(51,(2,12,-11)),(56,(2,14,-22)),(70,(2,14,-30))]
