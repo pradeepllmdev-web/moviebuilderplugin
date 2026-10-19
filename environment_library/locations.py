@@ -498,6 +498,28 @@ def _workshop(ctx,state):
  prim('cone','LampShade',(0,.45,2.65),(.8,.55,.2),scale=(.28,.28,.15),vertices=16,radius1=1,depth=2)
  fl=bpy.data.objects.new('FillLight',bpy.data.lights.new('FillLight','POINT'));fl.data.energy=900;fl.data.color=(.75,.82,1);fl.location=(0,-2.2,2.8);link(fl)
 
+RAPIDS=dict(x0=-12.,x1=170.,hw=9.,boulders=[(22.,1.8,1.5),(38.,-2.2,1.7),(55.,2.6,1.4),(70.,-1.5,1.8),(88.,2.0,1.5),(104.,-2.8,1.6),(122.,1.0,1.9)])
+def _rapids(ctx,state):
+ import bpy
+ from mathutils import Vector
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];R=RAPIDS;rnd=random.Random(88)
+ nx=int((R['x1']-R['x0'])/.6);ny=30;verts=[(R['x0']+i*(R['x1']-R['x0'])/nx,-R['hw']+j*2*R['hw']/ny,0.) for i in range(nx+1) for j in range(ny+1)]
+ faces=[(i*(ny+1)+j,(i+1)*(ny+1)+j,(i+1)*(ny+1)+j+1,i*(ny+1)+j+1) for i in range(nx) for j in range(ny)]
+ me=bpy.data.meshes.new('Water');me.from_pydata(verts,[],faces);me.update();me.materials.append(mat('Water',(.1,.32,.42)))
+ w=bpy.data.objects.new('Water',me);link(w)
+ for k,(h,wd,nr,sp,ph) in enumerate(((.16,3.2,1.5,.09,0.),(.07,1.3,1.2,.14,40.))):
+  m=w.modifiers.new('Wave%d'%k,'WAVE');m.use_x=True;m.use_y=False;m.height=h;m.width=wd;m.narrowness=nr;m.speed=sp;m.time_offset=ph;m.use_normal=False
+ for ix in range(int((R['x1']-R['x0'])/4)):
+  x=R['x0']+ix*4+rnd.uniform(-1,1)
+  for sy in (-1,1):
+   h=rnd.uniform(4,9);prim('cube','Cliff',(x,sy*(R['hw']+1.8+rnd.uniform(0,.8)),h/2-.8),(.36+rnd.random()*.08,.3+rnd.random()*.06,.25),scale=(2.2+rnd.random(),1.6+rnd.random(),h/2),rot=(0,rnd.uniform(-.05,.05),rnd.uniform(-.2,.2)))
+ prim('cube','Bed',(0,0,-.9),(.2,.17,.14),scale=((R['x1']-R['x0'])/2+20,R['hw']+6,.1)).location.x=(R['x0']+R['x1'])/2
+ for (x,y,r) in R['boulders']:
+  prim('sphere','Boulder',(x,y,r*.3),(.4,.38,.35),scale=(r,r*rnd.uniform(.85,1.1),r*.8),subdivisions=2)
+  for k in range(3):a=rnd.uniform(0,6.28);prim('sphere','BoulderChip',(x+math.cos(a)*r*.9,y+math.sin(a)*r*.9,r*.1),(.36,.34,.3),scale=(r*.3,r*.3,r*.25),subdivisions=1)
+  prim('cyl','FoamRing',(x,y,.03),(.92,.95,1),scale=(r+.7,r+.7,.012),vertices=24,radius=1,depth=2)
+ sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=3.5;sn.rotation_euler=(math.radians(50),0,math.radians(30));link(sn)
+
 REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried'),build=_village,piece_default='avalanche'),'citadel':dict(consts=lambda:CITADEL,states=('intact','breached'),build=_citadel,piece_default='siege'),
  'arena_ruins':dict(states=('intact',),build=_arena_ruins,piece_default='arena_duel'),
  'railway_plains':dict(states=('intact',),build=_railway,piece_default='great_escape',params=True),
@@ -517,6 +539,7 @@ REGISTRY={'mountain_village':dict(consts=lambda:VILLAGE,states=('intact','buried
  'gavel':dict(states=('intact',),build=_prop_gavel,piece_default=None),
  'museum_hall':dict(consts=lambda:MUSEUM,states=('intact',),build=_museum_hall,piece_default='heist'),
  'workshop':dict(consts=lambda:WORKSHOP,states=('intact',),build=_workshop,piece_default='workshop'),
+ 'rapids':dict(consts=lambda:RAPIDS,states=('intact',),build=_rapids,piece_default='rapids'),
  'train_consist':dict(states=('intact',),build=_train_consist,piece_default='great_escape',params=True)}
 def bank_path(id_,state='intact',params=None):
  import inspect

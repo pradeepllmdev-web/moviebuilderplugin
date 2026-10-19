@@ -82,6 +82,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: one standing pose at the bench, hands are IK targets with no finger poses, gears are fixed to three pins
 * prompt keywords: `workshop|tinker|clockwork|music box|gears?|invent(?:s|or|ion)|assembl(?:es|ing)|watchmaker|crank`
 
+## The Rapids (`rapids`)
+
+* script: `rapids_scene.py`
+* story: Leo steers a log raft down a canyon river with a sweep oar: seven boulders, the raft rides the real animated water surface (height, pitch, roll from ray casts), a planner picks the pass side and times the oar strokes (about 36 s)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs idle)
+* known limits: straight canyon, waves are modifier waves (no foam simulation), one stance on the raft, hands are IK targets with no finger poses
+* prompt keywords: `rapids|raft|white ?water|river canyon|paddl(?:es|ing)|rafting|steers? (?:the|a) (?:raft|boat)|boulders?`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`
