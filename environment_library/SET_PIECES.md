@@ -170,6 +170,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: one channel, crocodiles lunge and miss (no bite or damage), hands are IK targets with no finger poses
 * prompt keywords: `swamp|bayou|mangrove|crocodiles?|alligators?|punt|poles? (?:a|the) (?:boat|punt)`
 
+## The Spell Duel (`duel`)
+
+* script: `duel_scene.py`
+* story: on a moonlit mage tower Leo and a rival trade five homing spells: spells steer with a limited turn rate, the dodge planner picks the sidestep timing that gives the smallest miss of at least 0.75 m, one spell is blocked by a shield and Leo reflects the last back at the rival (about 38 s)
+* needs: scenes/ship_assets (needs idle, dodge, block, fall, lie, cele)
+* known limits: two fighters on a platform, spells are glowing spheres with trails, casting is an IK arm thrust (no finger poses)
+* prompt keywords: `spell duel|wizard|mage|sorcer|magic duel|casts? (?:a )?spells?|spell`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

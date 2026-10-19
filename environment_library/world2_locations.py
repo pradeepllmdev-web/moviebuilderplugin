@@ -199,3 +199,21 @@ def _swamp(ctx,state):
  lt=bpy.data.objects.new('DockLight',bpy.data.lights.new('DockLight','POINT'));lt.data.energy=1800;lt.data.color=(1,.75,.4);lt.location=(dx+1.5,dy+1.5,2.4);link(lt)
  mn=bpy.data.objects.new('Moon',bpy.data.lights.new('Moon','SUN'));mn.data.energy=.9;mn.data.color=(.6,.75,.7);mn.rotation_euler=(math.radians(55),0,math.radians(35));link(mn)
 reg('swamp',_swamp,SWAMP,'swamp')
+# ------------------------------------------------------------------------------------------------ 9 mage tower (spell duel)
+MAGE=dict(r=9.5,leo=(-5.,0.),rival=(5.,0.),pillars=8)
+def _mage_tower(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];M=MAGE;rnd=random.Random(61)
+ prim('cyl','TowerFloor',(0,0,-.3),(.22,.2,.28),scale=(M['r'],M['r'],.3),vertices=40,radius=1,depth=2);prim('cyl','TowerBody',(0,0,-18),(.18,.17,.22),scale=(M['r']+1.5,M['r']+1.5,17.5),vertices=40,radius=1,depth=2)
+ for k,r in enumerate((2.5,5.5,8.5)):prim('cyl','RuneRing',(0,0,.005+k*.002),(.5,.3,1.),scale=(r,r,.01),vertices=48,radius=1,depth=2,emit=1.2)
+ for k in range(8):a=k*math.pi/4;prim('cube','RuneLine',(math.cos(a)*4.5,math.sin(a)*4.5,.012),(.5,.3,1.),scale=(4.5,.07,.005),rot=(0,0,a),emit=1.6)
+ for k in range(M['pillars']):
+  a=k*2*math.pi/M['pillars'];x,y=math.cos(a)*(M['r']-.7),math.sin(a)*(M['r']-.7);prim('cyl','Pillar',(x,y,3.2),(.3,.28,.34),scale=(.5,.5,3.2),vertices=10,radius=1,depth=2);prim('sphere','PillarFlame',(x,y,6.8),(.4,.6,1.),scale=(.3,.3,.45),emit=8.,subdivisions=1)
+  lt=bpy.data.objects.new('FlameLight',bpy.data.lights.new('FlameLight','POINT'));lt.data.energy=900;lt.data.color=(.45,.6,1);lt.location=(x*.9,y*.9,6.6);link(lt)
+ for k in range(150):
+  a=rnd.uniform(0,6.28);b=rnd.uniform(.1,1.4);R=90;prim('sphere','Star',(math.cos(a)*math.cos(b)*R,math.sin(a)*math.cos(b)*R,math.sin(b)*R),(1,1,.9),scale=(.25,.25,.25),emit=6.,subdivisions=1)
+ prim('sphere','Moon',(-60,60,45),(1,.97,.85),scale=(7,7,7),emit=3.,subdivisions=3)
+ for k in range(9):
+  a=k*2*math.pi/9;prim('cube','FloatingBook',(math.cos(a)*7.4,math.sin(a)*7.4,4.2+math.sin(k)*.8),(.5,.3,.2),scale=(.3,.22,.05),rot=(.3,.2,a))
+ mn=bpy.data.objects.new('Moon','SUN' and bpy.data.lights.new('MoonLight','SUN'));mn.data.energy=1.2;mn.data.color=(.65,.72,1);mn.rotation_euler=(math.radians(55),0,math.radians(-40));link(mn)
+reg('mage_tower',_mage_tower,MAGE,'mage')
