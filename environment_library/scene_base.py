@@ -156,3 +156,16 @@ class Audio:
  def save(self):
   sc=self.S.scene;se=sc.sequence_editor_create();strips=se.strips if hasattr(se,'strips') else se.sequences
   for ch,(n,p) in enumerate(self.tracks,start=1):strips.new_sound(n,p,ch,1)
+class Path:
+ """Catmull-Rom path through 3D points with an arc-length table: at(s) position, tangent(s) unit direction, length, s_of(i) arc length of waypoint i."""
+ def __init__(self,points,per=40):
+  P=np.array([list(p) for p in points],float);pts=[];self.wp=[]
+  for i in range(len(P)-1):
+   p0=P[max(0,i-1)];p1=P[i];p2=P[i+1];p3=P[min(len(P)-1,i+2)]
+   for u in np.linspace(0,1,per,endpoint=False):pts.append(.5*((2*p1)+(-p0+p2)*u+(2*p0-5*p1+4*p2-p3)*u*u+(-p0+3*p1-3*p2+p3)*u**3))
+  pts.append(P[-1]);self.pts=np.array(pts);self.cum=np.concatenate([[0],np.cumsum(np.linalg.norm(np.diff(self.pts,axis=0),axis=1))]);self.length=float(self.cum[-1])
+  self.wp=[float(self.cum[min(i*per,len(self.cum)-1)]) for i in range(len(P))]
+ def at(self,s):
+  s=min(max(s,0.),self.length-1e-6);i=int(np.searchsorted(self.cum,s,side='right')-1);u=(s-self.cum[i])/max(1e-9,self.cum[i+1]-self.cum[i]);return Vector(self.pts[i]*(1-u)+self.pts[i+1]*u)
+ def tangent(self,s,h=.6):return (self.at(s+h)-self.at(s-h)).normalized()
+ def s_of(self,i):return self.wp[i]

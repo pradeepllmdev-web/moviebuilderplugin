@@ -104,7 +104,7 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * story: Leo rides a procedural dragon through a sky canyon: a slalom between ten rock spires and a dive under a stone arch; the body trails along the path, the wings beat in bursts before each spire (FK chain with lag, membrane by shape keys) and glide in between (about 36 s)
 * needs: scenes/ship_assets (python build_ship_assets.py; needs sit)
 * known limits: the dragon has no legs, the rider is seated (no gestures), wings are a three-finger fan, hands are IK targets on a handlebar
-* prompt keywords: `dragon|fl(?:y|ies|ying) (?:on|over|through)|wings?|soar(?:s|ing)?|wyvern|flight|ride[sr]? a dragon`
+* prompt keywords: `dragon|fl(?:y|ies|ying) (?:on|over|through)|\bwings?\b|soar(?:s|ing)?|wyvern|flight|ride[sr]? a dragon`
 
 ## The Ice Cave (`ice`)
 
@@ -129,6 +129,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * needs: scenes/ship_assets (needs idle, run, cele)
 * known limits: platforms are level, one vine per gap, hands are IK targets with no finger poses
 * prompt keywords: `jungle|vines?|swings? (?:from|across|between)|temple ravine|stone platforms|idol`
+
+## The Reef (`reef`)
+
+* script: `reef_scene.py`
+* story: Leo dives through a coral reef (flutter-kick swim, pitched from the path), opens a giant clam and takes the pearl with both hands, and escapes a shark into a crevice: 100 boid fish part around him and burst away from the shark, whose head follows his path a shrinking 14 to 3.4 m behind (about 55 s)
+* needs: scenes/ship_assets (needs idle, run)
+* known limits: swimming reuses the run clip as the kick, one school, the shark is a segment chain with no jaw animation, hands are IK targets with no finger poses
+* prompt keywords: `reef|underwater|coral|dives? (?:into|down)|shark|giant clam|pearl|school of fish`
 
 ## Horse herd (`horse_herd`)
 

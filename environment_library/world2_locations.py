@@ -75,3 +75,27 @@ def _jungle_temple(ctx,state):
  sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=3.;sn.data.color=(1,.95,.75);sn.rotation_euler=(math.radians(50),0,math.radians(120));link(sn)
  fl=bpy.data.objects.new('GreenFill',bpy.data.lights.new('GreenFill','POINT'));fl.data.energy=8000;fl.data.color=(.6,1,.7);fl.location=(40,0,14);link(fl)
 reg('jungle_temple',_jungle_temple,JUNGLE,'jungle')
+# ------------------------------------------------------------------------------------------------ 4 reef (underwater)
+def _reef_consts():
+ r=random.Random(77);rocks=[(r.uniform(12,150),r.choice((-1,1))*r.uniform(5,16),-12+r.uniform(0,2),r.uniform(2.2,4.2)) for _ in range(16)]
+ return dict(x0=-10.,x1=170.,hw=40.,floor=-12.,rocks=rocks,clam=(78.,0.,-12.),crevice=(152.,-3.,-12.),surface=0.)
+REEF=_reef_consts()
+def _reef(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];R=REEF;rnd=random.Random(78);cx=(R['x0']+R['x1'])/2;L=(R['x1']-R['x0'])/2
+ prim('cube','Seabed',(cx,0,R['floor']-.5),(.72,.68,.5),scale=(L+20,R['hw'],.5));prim('cube','DustSurfaceGlow',(cx,0,2),(.5,.8,1.),scale=(L+20,R['hw'],.05),emit=.5)
+ for (x,y,z,r) in R['rocks']:prim('sphere','Rock',(x,y,z),(.38,.4,.42),scale=(r,r*rnd.uniform(.8,1.1),r*rnd.uniform(.8,1.3)),subdivisions=2)
+ cols=[(.9,.3,.4),(.95,.55,.2),(.7,.25,.8),(.3,.8,.6),(.95,.85,.3)]
+ for k in range(260):
+  x=rnd.uniform(R['x0'],R['x1']);y=rnd.uniform(-R['hw']*.7,R['hw']*.7);c=rnd.choice(cols);h=rnd.uniform(.8,3.2)
+  if rnd.random()<.55:prim('cone','Coral',(x,y,R['floor']+h/2),c,scale=(rnd.uniform(.3,.9),)*2+(h/2,),vertices=7,radius1=1,depth=2)
+  else:prim('sphere','CoralBrain',(x,y,R['floor']+h*.3),c,scale=(h*.6,h*.6,h*.4),subdivisions=1)
+ for k in range(70):
+  x=rnd.uniform(R['x0'],R['x1']);y=rnd.uniform(-R['hw']*.7,R['hw']*.7);h=rnd.uniform(4,9);prim('cyl','Kelp',(x,y,R['floor']+h/2),(.12,.45,.2),scale=(.12,.12,h/2),vertices=5,radius=1,depth=2)
+ cx_,cy_,cz_=R['crevice']
+ for sy in (-1,1):prim('sphere','CreviceRock',(cx_+3,cy_+sy*2.3,cz_+1.8),(.3,.32,.36),scale=(4.5,1.8,3.8),subdivisions=2)
+ prim('sphere','CreviceRoof',(cx_+3,cy_,cz_+4.8),(.3,.32,.36),scale=(5,3,1.5),subdivisions=2)
+ sn=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));sn.data.energy=3.5;sn.data.color=(.55,.8,1);sn.rotation_euler=(math.radians(25),0,math.radians(70));link(sn)
+ for x in range(0,170,30):
+  lt=bpy.data.objects.new('ReefLight',bpy.data.lights.new('ReefLight','POINT'));lt.data.energy=5000;lt.data.color=(.5,.8,1);lt.location=(x,0,-3);link(lt)
+reg('reef',_reef,REEF,'reef')

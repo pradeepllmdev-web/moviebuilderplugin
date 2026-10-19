@@ -61,7 +61,7 @@ SET_PIECES={
   needs=['scenes/ship_assets (python build_ship_assets.py; needs idle, run)'],
   beats='a wall of water sweeps down a valley: forty villagers flee to the hill (a planner speeds up anyone who would be caught), debris floats and drifts, Leo outruns the front, lifts a stranded child off a cart with IK hands and sets it on a rock on the hilltop (about 30 s)',
   limits='the flood is one water body with a constant-speed front (no splashes or spray simulation), villagers are simple figures, hands are IK targets with no finger poses'),
- 'flight':dict(title='The Flight',script='flight_scene.py',keywords=r'dragon|fl(?:y|ies|ying) (?:on|over|through)|wings?|soar(?:s|ing)?|wyvern|flight|ride[sr]? a dragon',
+ 'flight':dict(title='The Flight',script='flight_scene.py',keywords=r'dragon|fl(?:y|ies|ying) (?:on|over|through)|\bwings?\b|soar(?:s|ing)?|wyvern|flight|ride[sr]? a dragon',
   needs=['scenes/ship_assets (python build_ship_assets.py; needs sit)'],
   beats='Leo rides a procedural dragon through a sky canyon: a slalom between ten rock spires and a dive under a stone arch; the body trails along the path, the wings beat in bursts before each spire (FK chain with lag, membrane by shape keys) and glide in between (about 36 s)',
   limits='the dragon has no legs, the rider is seated (no gestures), wings are a three-finger fan, hands are IK targets on a handlebar'),
@@ -75,6 +75,9 @@ SET_PIECES={
  'jungle':dict(title='The Vine Swings',script='jungle_scene.py',keywords='jungle|vines?|swings? (?:from|across|between)|temple ravine|stone platforms|idol',
   needs=['scenes/ship_assets (needs idle, run, cele)'],
   beats='Leo crosses a jungle ravine on five real pendulum vines: each vine is at its back extreme when he is ready, he hops on, hangs by IK hands, and the release time is solved so the ballistic flight lands him at the next grab point (about 36 s)',limits='platforms are level, one vine per gap, hands are IK targets with no finger poses'),
+ 'reef':dict(title='The Reef',script='reef_scene.py',keywords='reef|underwater|coral|dives? (?:into|down)|shark|giant clam|pearl|school of fish',
+  needs=['scenes/ship_assets (needs idle, run)'],
+  beats='Leo dives through a coral reef (flutter-kick swim, pitched from the path), opens a giant clam and takes the pearl with both hands, and escapes a shark into a crevice: 100 boid fish part around him and burst away from the shark, whose head follows his path a shrinking 14 to 3.4 m behind (about 55 s)',limits='swimming reuses the run clip as the kick, one school, the shark is a segment chain with no jaw animation, hands are IK targets with no finger poses'),
  'horse_herd':dict(title='Horse herd',script='horse_herd.py',keywords=r'herd of horses|horse herd|galloping horses|wild horses|stampede',
   needs=['assets/quaternius_farm_animals_download (CC0 "Farm Animals Animated" by Quaternius; ask before downloading)'],
   beats='aerial herd of 70 galloping horses along a river toward mountains (16 s, 5 cameras, sound)',limits='no riders, foals are scaled copies'),
@@ -88,7 +91,7 @@ def match(prompt):
 def planner_text():
  names=', '.join('%s (%s)'%(k,v['beats'].split(' (')[0][:70]) for k,v in SET_PIECES.items())
  return ' Whole-scene set pieces exist outside this shot builder: '+names+'. If the request is one of these (creature chase, ship at sea, horse herd, riding a horse), do not fake it with walk or run beats: list "set_piece:<id>" in unsupported and keep a plain idle beat so the studio can route it.'
-ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle')   # scenes that take (ship_assets, out)
+ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle','reef')   # scenes that take (ship_assets, out)
 def missing(piece):
  """Human-readable list of what is not there yet (nothing is downloaded automatically)."""
  gone=[]
