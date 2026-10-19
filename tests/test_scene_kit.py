@@ -50,6 +50,7 @@ class SceneKit(unittest.TestCase):
   self.assertEqual(set_pieces.match('two lions fight in a gladiator arena')[0],'arena_duel')
   self.assertEqual(set_pieces.match('a prisoner escapes along the roof of a speeding train')[0],'great_escape')
   self.assertEqual(set_pieces.match('an avalanche hits the village and the crowd runs to the shelter')[0],'avalanche')
+  self.assertEqual(set_pieces.match('an army besieges a castle with catapults')[0],'siege')
   self.assertEqual(set_pieces.match('lion drinks tea in a cafe'),[])
  def test_docs_cover_every_lesson_and_piece(self):
   text=set_pieces.docs()

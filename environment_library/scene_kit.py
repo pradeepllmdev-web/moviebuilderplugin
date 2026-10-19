@@ -64,6 +64,11 @@ LESSONS=[
  dict(id='measure_then_schedule',symptom='A hero race against a simulation is out of sync.',cause='Hero timeline written before the simulation exists.',rule='Bake the simulation first, MEASURE the event time (front reaches the hall: 8th boulder past x), then derive the hero schedule backwards from it (door closes 1 s before, push 4 s, walk in, run, pick-up, run); the audit warns when the derived start is before 1.5 s.'),
  dict(id='zero_length_strips',symptom='NLA add_strip fails with no space.',cause='Two schedule entries with the same start and end (a zero-length idle between two back-to-back clips).',rule='Never schedule a strip shorter than 0.25 s; derive schedules from boundaries and drop empty gaps.'),
 
+ dict(id='demolition',symptom='A wall hit by catapults only settles by a few centimetres.',cause='Released blocks that stand on the ground do not move; gravity alone does not break a stack.',rule='Release a block at impact time + 0.06 s per metre (radius 3.2 m), release every block above one that has been released 0.35 s later, and kick each block before release (keyframed offset 0.35 to 0.8 m away from the impact and a tilt of up to 0.35 rad while still kinematic) so it starts unsupported. Check by counting blocks moved more than 1 m: 45 of 54 at 22 s.'),
+ dict(id='hollow_structures',symptom='The hero walks inside solid stone (gatehouse, tower).',cause='Solid boxes for buildings the hero must pass through.',rule='Build passages as pillars and a roof slab, keep towers away from the hero path (the flag pole stands on the wall top at x 27, the tower starts at x 29); the camera audit finds the problem as a subject hidden behind the building.'),
+ dict(id='stuck_projectiles',symptom='Arrows and stones vanish after landing.',cause='Hidden after the flight.',rule='Projectiles exist from frame 1 (arrow at the archer, stone in the sling) and stay where they land (stone beside the wall, arrow in the ground); only dust puffs are effects.'),
+ dict(id='scale_budget',symptom='A large battle slows down or is impossible to bake.',cause='Everything modelled as a full character.',rule='34 real cloned lions (shared mesh) + 240 cone soldiers keyed every 12 frames + 18 clone defenders; 54 baked blocks; 4 catapults x 3 volleys; 54 arrows per volley set; the scene builds in about 100 s and stays interactive.'),
+
 ]
 def smooth(u):
  u=max(0.,min(1.,u));return u*u*(3-2*u)
@@ -207,7 +212,7 @@ def clear_view(scene,depsgraph,p,q,ignore,candidates):
   pp=p+Vector(off)
   if not blocked(pp):return pp,k
  return p,-1
-def persistence_audit(scene,effects=('Bolt','Puff','Splash','Steam','Fray','Dust','Snow','Spark','Streak','Rain','Ember')):
+def persistence_audit(scene,effects=('Bolt','Puff','Splash','Steam','Fray','Dust','Snow','Spark','Streak','Rain','Ember','Arrow')):
  """Props and scenery must not pop in and out: report every object whose hide_viewport/hide_render is animated unless it is a short-lived effect (name starts with one of effects)."""
  out=[]
  for ob in scene.objects:

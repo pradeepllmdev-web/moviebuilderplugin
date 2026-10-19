@@ -50,6 +50,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: the avalanche is boulders and puffs (no snow simulation), the door push is a walk clip with hands on the edge, characters do not react to near boulders
 * prompt keywords: `avalanche|landslide|rockslide|village flees|crowd (?:flees|runs)|evacuat|stampede of people|panic`
 
+## The Siege (`siege`)
+
+* script: `siege_scene.py`
+* story: an army of 34 cloned lions and 240 troopers besieges a citadel: four catapults breach the wall (54 baked blocks), Leo climbs a ladder, kicks a defender off the wall, turns the winch to raise the portcullis, the army floods in and he hoists the banner (72 s, 14 cameras, sound)
+* needs: scenes/ship_assets (python build_ship_assets.py; needs idle, look, run, climb, kick, fall, cele)
+* known limits: troopers are cones, the portcullis does not block the crowd physically, arrows are not aimed at actors, no cavalry
+* prompt keywords: `siege|castle|citadel|fortress|catapult|battering|storm(?:s|ing)? the (?:wall|gate)|army (?:attacks|storms|marches)|medieval battle`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`
@@ -118,3 +126,7 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 | crowd_steering | Crowd members overlap, jam at doors or arrive too late. | Pure seek-and-separate steering. | Reynolds steering (alarm delay by distance, seek, separation 1.6 m, avoid stalls, funnel to the opening) plus hard personal space by position correction (0.6 m); arrival when inside and within 1.8 m of the goal; the audit checks spacing >= 0.45 m, that nearly everybody is inside before the slam, and that the last arrival is 1 s before it. |
 | measure_then_schedule | A hero race against a simulation is out of sync. | Hero timeline written before the simulation exists. | Bake the simulation first, MEASURE the event time (front reaches the hall: 8th boulder past x), then derive the hero schedule backwards from it (door closes 1 s before, push 4 s, walk in, run, pick-up, run); the audit warns when the derived start is before 1.5 s. |
 | zero_length_strips | NLA add_strip fails with no space. | Two schedule entries with the same start and end (a zero-length idle between two back-to-back clips). | Never schedule a strip shorter than 0.25 s; derive schedules from boundaries and drop empty gaps. |
+| demolition | A wall hit by catapults only settles by a few centimetres. | Released blocks that stand on the ground do not move; gravity alone does not break a stack. | Release a block at impact time + 0.06 s per metre (radius 3.2 m), release every block above one that has been released 0.35 s later, and kick each block before release (keyframed offset 0.35 to 0.8 m away from the impact and a tilt of up to 0.35 rad while still kinematic) so it starts unsupported. Check by counting blocks moved more than 1 m: 45 of 54 at 22 s. |
+| hollow_structures | The hero walks inside solid stone (gatehouse, tower). | Solid boxes for buildings the hero must pass through. | Build passages as pillars and a roof slab, keep towers away from the hero path (the flag pole stands on the wall top at x 27, the tower starts at x 29); the camera audit finds the problem as a subject hidden behind the building. |
+| stuck_projectiles | Arrows and stones vanish after landing. | Hidden after the flight. | Projectiles exist from frame 1 (arrow at the archer, stone in the sling) and stay where they land (stone beside the wall, arrow in the ground); only dust puffs are effects. |
+| scale_budget | A large battle slows down or is impossible to bake. | Everything modelled as a full character. | 34 real cloned lions (shared mesh) + 240 cone soldiers keyed every 12 frames + 18 clone defenders; 54 baked blocks; 4 catapults x 3 volleys; 54 arrows per volley set; the scene builds in about 100 s and stays interactive. |

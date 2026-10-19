@@ -37,6 +37,10 @@ SET_PIECES={
   needs=['scenes/ship_assets (python build_ship_assets.py; needs idle, look, run, climb, pick, cele)'],
   beats='an avalanche of 270 baked boulders hits a mountain village: Leo warns the 36 cloned lions, saves a lost cub, closes the sliding door of the shelter in time (48 s, 12 cameras, sound)',
   limits='the avalanche is boulders and puffs (no snow simulation), the door push is a walk clip with hands on the edge, characters do not react to near boulders'),
+ 'siege':dict(title='The Siege',script='siege_scene.py',keywords=r'siege|castle|citadel|fortress|catapult|battering|storm(?:s|ing)? the (?:wall|gate)|army (?:attacks|storms|marches)|medieval battle',
+  needs=['scenes/ship_assets (python build_ship_assets.py; needs idle, look, run, climb, kick, fall, cele)'],
+  beats='an army of 34 cloned lions and 240 troopers besieges a citadel: four catapults breach the wall (54 baked blocks), Leo climbs a ladder, kicks a defender off the wall, turns the winch to raise the portcullis, the army floods in and he hoists the banner (72 s, 14 cameras, sound)',
+  limits='troopers are cones, the portcullis does not block the crowd physically, arrows are not aimed at actors, no cavalry'),
  'horse_herd':dict(title='Horse herd',script='horse_herd.py',keywords=r'herd of horses|horse herd|galloping horses|wild horses|stampede',
   needs=['assets/quaternius_farm_animals_download (CC0 "Farm Animals Animated" by Quaternius; ask before downloading)'],
   beats='aerial herd of 70 galloping horses along a river toward mountains (16 s, 5 cameras, sound)',limits='no riders, foals are scaled copies'),
@@ -56,7 +60,7 @@ def missing(piece):
  if piece=='last_egg':
   if not DINO_DIR.is_dir():gone.append('dinosaur pack: '+SET_PIECES[piece]['needs'][0])
   if not (H/'scenes/ship_assets/leo_sit.blend').exists():gone.append('lion clips: python build_ship_assets.py')
- elif piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche'):
+ elif piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege'):
   if not (H/'scenes/ship_assets/leo_idle.blend').exists():gone.append('lion clips: python build_ship_assets.py')
  elif piece in('horse_herd','rider'):
   if not horse_blend().exists():gone.append('horse pack: '+SET_PIECES['horse_herd']['needs'][0])
@@ -67,7 +71,7 @@ def command(piece,out,seconds=None):
  b=[quick_review.BLENDER,'-b','--disable-autoexec','--python',str(H/SET_PIECES[piece]['script']),'--']
  tail=[str(seconds)] if seconds else []
  if piece=='last_egg':return b+[str(DINO_DIR),str(H/'scenes/ship_assets'),str(out)]+tail
- if piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche'):return b+[str(H/'scenes/ship_assets'),str(out)]+tail
+ if piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege'):return b+[str(H/'scenes/ship_assets'),str(out)]+tail
  if piece=='horse_herd':return b+[str(horse_blend()),str(out),'64']+tail
  return b+[str(horse_blend()),str(H/'scenes/lion_source.blend'),str(out),str(seconds or 22),'lion']
 def build(piece,out=None,seconds=None):
