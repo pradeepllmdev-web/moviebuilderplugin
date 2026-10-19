@@ -88,7 +88,7 @@ def sail(name,x,yv,w,h,flap):
  if flap:m=o.modifiers.new('Flap','WAVE');m.height=flap;m.width=1.5;m.speed=.25;m.narrowness=3.;m.use_normal=True
  return o
 mainsail=sail('MainSail',MAST_X,DZ+12*.62,HB*1.9,6.5,0);sail('ForeSail',4.4,DZ+9.5*.62,HB*1.7,5.2,.2);sail('MizzenSail',-5.3,DZ+8*.62,HB*1.4,4.2,.15)
-TORN=prim('cube','TornSail',(MAST_X-.45,.8,DZ+12*.62-1.6),(.85,.8,.68),scale=(.02,HB*.65,1.8))   # the strip that stays on the yard after the cut
+TORN=prim('cube','TornSail',(MAST_X-.55,.8,DZ+12*.62-1.6),(.85,.8,.68),scale=(.02,HB*.65,1.8))   # the strip that stays on the yard after the cut
 for k in range(14):prim('cube','Rung',(.18,0,DZ+.5+k*.55),(.4,.25,.1),scale=(.04,.7,.03));
 # ---------------------------------------------------------------------------------------------------------- the sea
 bpy.ops.mesh.primitive_grid_add(x_subdivisions=170,y_subdivisions=170,size=320,location=(0,0,0));sea=bpy.context.object;sea.name='Sea';sea.data.materials.append(mat('Sea',(.06,.2,.3)))
@@ -162,7 +162,7 @@ kn=prim('cube','Knife',(0,0,0),(.85,.87,.9),parent=False);kn.data.transform(Matr
 hd=prim('cube','KnifeGrip',(0,0,0),(.25,.15,.08),parent=False);hd.data.transform(Matrix.Diagonal((.022,.05,.012,1)));hd.scale=(1,1,1)
 for part,off in ((kn,.17),(hd,.0)):
  part.matrix_world=Matrix.Translation(M.translation)@M.to_quaternion().to_matrix().to_4x4()@Matrix.Translation((0,off,0))
- c=part.constraints.new('CHILD_OF');c.target=rig;c.subtarget='mixamorig:RightHand';c.inverse_matrix=M.inverted();hide_keys(part,[(18.8,22.6)])
+ c=part.constraints.new('CHILD_OF');c.target=rig;c.subtarget='mixamorig:RightHand';c.inverse_matrix=M.inverted()   # the knife is in his hand for the whole film (persistence rule)
 # ---------------------------------------------------------------------------------------------------------- the serpent: its body follows its head's path
 HEAD=[(-8,(-6,14,-14)),(22,(-5,14,-12)),(26,(-4,12,-6)),(29,(-4,9,1)),(31,(-3,8,8)),(32.2,(-.5,5,10)),(32.9,(3.4,.6,2.1)),(34.6,(3.8,.9,2.4)),(36,(4,5,8.5)),(37.4,(5.4,.8,3.4)),
  (39.4,(5.8,.1,3.1)),(40.6,(6,5,6)),(41.5,(9,5.5,3)),(42.4,(11,0,2.6)),(43.2,(9,-5,3)),(43.9,(1,-6,3.4)),(44.3,(2,0,15)),(45.5,(3,3,11)),(47,(3,7,5)),(49,(2,9,-3)),(51,(2,12,-11)),(56,(2,14,-22)),(70,(2,14,-30))]
@@ -197,7 +197,7 @@ for t,v in ((20.4,1.),(20.7,0.)):cs.pin_stiffness=v;mainsail.keyframe_insert('mo
 for nm in ('Hull','Deck','Cabin','CabinRoof','MainMast'):bpy.data.objects[nm].modifiers.new('Col','COLLISION')
 bpy.ops.object.effector_add(type='WIND',location=(6,0,10),rotation=(0,-1.22,0));wf=bpy.context.object;wf.name='Wind';wf.field.noise=1.2;wf.field.flow=0
 for t,v in ((0,5.),(9,50.),(20.5,50.),(20.8,520.),(25,520.),(25.6,50.),(51,50.),(54,0.)):wf.field.strength=v;wf.keyframe_insert('field.strength',frame=F(t))
-hide_keys(mainsail,[(0,27.5)]);hide_keys(TORN,[(20.6,seconds)])
+# persistence rule: the sail is always there (cloth, it falls into the sea after the cut) and the torn strip always hangs on the yard behind it
 # ---------------------------------------------------------------------------------------------------------- sky, rain, lightning
 scene.world=bpy.data.worlds.new('Sky')
 sun=bpy.data.objects.new('Sun',bpy.data.lights.new('Sun','SUN'));link(sun);sun.rotation_euler=(math.radians(55),0,math.radians(30))
@@ -299,6 +299,7 @@ except Exception as ex:print('bake skipped',ex)
 scene.frame_set(1)
 bpy.ops.wm.save_as_mainfile(filepath=out)
 issues=kit.audit(scene,bodies=[(rig,BODY)],floor_z=DZ,space=ship,skip=[(11.0,23.2)],subjects=[leo,head,ship],step=12)
+issues+=kit.persistence_audit(scene)
 for i in issues:print(i)
 print('AUDIT',len(issues),'issues')
 print('SHIP_DONE',frames,'frames')

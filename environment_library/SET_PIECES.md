@@ -6,7 +6,7 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 
 * script: `dino_scene.py`
 * story: lion walks to a nest, picks up an egg, is chased by raptors, leaps onto a triceratops and rides through a swamp, a T-Rex roars, the egg is returned to the apatosaurus and glows (50 s, 9 cameras, sound)
-* needs: assets/quaternius_dinosaurs_download (CC0 "Dinosaur Animated Pack - Dec 2018" by Quaternius, itch.io; ask before downloading); scenes/dino_assets (python build_leo_assets.py)
+* needs: assets/quaternius_dinosaurs_download (CC0 "Dinosaur Animated Pack - Dec 2018" by Quaternius, itch.io; ask before downloading); scenes/ship_assets (python build_ship_assets.py; needs climb, idle, pick, run, jump, sit)
 * known limits: the leap is an arc, the rider sits via the Sit clip, no biting or fighting contact
 * prompt keywords: `dinosaur|dino\b|raptor|t-?rex|triceratops|apatosaurus|jurassic|prehistoric|volcano.*egg|egg.*volcano`
 

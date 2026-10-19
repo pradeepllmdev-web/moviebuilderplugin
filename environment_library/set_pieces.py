@@ -14,7 +14,7 @@ def horse_blend():
  found=sorted((H/'assets/quaternius_farm_animals_download').glob('**/Horse.blend'));return found[0] if found else H/'assets/quaternius_farm_animals_download/Horse.blend'
 SET_PIECES={
  'last_egg':dict(title='The Last Egg',script='dino_scene.py',keywords=r'dinosaur|dino\b|raptor|t-?rex|triceratops|apatosaurus|jurassic|prehistoric|volcano.*egg|egg.*volcano',
-  needs=['assets/quaternius_dinosaurs_download (CC0 "Dinosaur Animated Pack - Dec 2018" by Quaternius, itch.io; ask before downloading)','scenes/dino_assets (python build_leo_assets.py)'],
+  needs=['assets/quaternius_dinosaurs_download (CC0 "Dinosaur Animated Pack - Dec 2018" by Quaternius, itch.io; ask before downloading)','scenes/ship_assets (python build_ship_assets.py; needs climb, idle, pick, run, jump, sit)'],
   beats='lion walks to a nest, picks up an egg, is chased by raptors, leaps onto a triceratops and rides through a swamp, a T-Rex roars, the egg is returned to the apatosaurus and glows (50 s, 9 cameras, sound)',
   limits='the leap is an arc, the rider sits via the Sit clip, no biting or fighting contact'),
  'storm_ship':dict(title='The Storm Ship',script='ship_scene.py',keywords=r'\bship\b|\bsailing\b|\bpirate|sea serpent|kraken|storm at sea|\bmast\b',
@@ -55,7 +55,7 @@ def missing(piece):
  gone=[]
  if piece=='last_egg':
   if not DINO_DIR.is_dir():gone.append('dinosaur pack: '+SET_PIECES[piece]['needs'][0])
-  if not (H/'scenes/dino_assets/leo_run.blend').exists():gone.append('lion clips: python build_leo_assets.py')
+  if not (H/'scenes/ship_assets/leo_sit.blend').exists():gone.append('lion clips: python build_ship_assets.py')
  elif piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche'):
   if not (H/'scenes/ship_assets/leo_idle.blend').exists():gone.append('lion clips: python build_ship_assets.py')
  elif piece in('horse_herd','rider'):
@@ -66,7 +66,7 @@ def command(piece,out,seconds=None):
  import quick_review
  b=[quick_review.BLENDER,'-b','--disable-autoexec','--python',str(H/SET_PIECES[piece]['script']),'--']
  tail=[str(seconds)] if seconds else []
- if piece=='last_egg':return b+[str(DINO_DIR),str(H/'scenes/dino_assets'),str(out)]+tail
+ if piece=='last_egg':return b+[str(DINO_DIR),str(H/'scenes/ship_assets'),str(out)]+tail
  if piece in('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche'):return b+[str(H/'scenes/ship_assets'),str(out)]+tail
  if piece=='horse_herd':return b+[str(horse_blend()),str(out),'64']+tail
  return b+[str(horse_blend()),str(H/'scenes/lion_source.blend'),str(out),str(seconds or 22),'lion']

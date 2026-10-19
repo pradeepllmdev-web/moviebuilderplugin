@@ -400,6 +400,7 @@ def complement(wins,t0,t1):
  if cur<t1:out_.append((cur,t1))
  return out_
 issues+=kit.audit(scene,bodies=[(FIG['leo']['rig'],FIG['leo']['body'])],floor_z=ROOF,skip=complement(runwins,0,seconds),subjects=[FIG['leo']['root'],FIG['ga']['root'],FIG['gb']['root']],step=12)
+issues+=kit.persistence_audit(scene)
 issues+=kit.camera_checks(scene,[FIG['leo']['root'],FIG['ga']['root'],FIG['gb']['root']])
 # the three characters must not occupy the same place on the roof (outside the kick)
 worst=(9,0)

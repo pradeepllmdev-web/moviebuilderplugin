@@ -216,7 +216,7 @@ for f in range(F(40.0),frames+1,2):
 ropeA=rope_obj('RopeSwing');ropeC=rope_obj('RopeRappel');fray=[prim('cube','Fray',(0,0,0),(.62,.5,.3),scale=(.012,.012,.2)) for _ in range(5)]
 for f in range(1,frames+1,2):
  t=(f-1)/fps;set_rope(ropeA,ANCHOR,rope_end(t),f)
-set_rope(ropeC,Vector((COL_C,-.2,14.0)),Vector((COL_C,-.2,.2)),1);hide_keys(ropeC,[(44.0,seconds)])
+set_rope(ropeC,Vector((COL_C,-.2,14.0)),Vector((COL_C,-.2,.2)),1)   # the rappel rope hangs from the eye bolt from the first frame (persistence rule)
 FRAY_Z=S(49.6)+1.15
 for i,o in enumerate(fray):
  a=Vector((COL_C+(i-2)*.03,-.2,FRAY_Z+.25));b=Vector((COL_C+(i-2)*.12,-.2+rnd.uniform(-.06,.06),FRAY_Z-.35));d=b-a;o.location=(a+b)/2;o.rotation_euler=d.to_track_quat('Z','Y').to_euler();o.scale=(.012,.012,d.length/2);hide_keys(o,[(49.6,seconds)])
@@ -283,6 +283,7 @@ def grip_audit():
  return worst
 worst=grip_audit();print('GRIP',{k:(round(v[0]*100,1),round(v[1],1)) for k,v in worst.items()})
 issues+=kit.audit(scene,bodies=[(rig,max((o for o in leo_objs if o.type=='MESH'),key=lambda o:len(o.data.vertices)))],floor_z=0.,skip=[(5,54.5)],subjects=[leo,cub],step=12)
+issues+=kit.persistence_audit(scene)
 for i in issues:print(i)
 print('AUDIT',len(issues),'issues')
 # ---------------------------------------------------------------------------------------------------------- sound

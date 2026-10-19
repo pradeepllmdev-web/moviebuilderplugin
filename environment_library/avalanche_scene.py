@@ -134,7 +134,7 @@ for fi in range(frames+1):
   goal=Vector((a['goalX'],a['goalY'])) if a['inside'] else GOAL1
   if a['p'].x>97.0 and abs(a['p'].y)<GATE_HW+.5:a['inside']=True
   d=goal-a['p']
-  if d.length<1.8 and a['inside']:
+  if a['inside'] and (d.length<1.8 or (a['v'].length<.15 and a['p'].x>100.5)):
    a['v']*=.8
    if a['arr'] is None:a['arr']=t
    continue
@@ -159,6 +159,8 @@ for fi in range(frames+1):
    r=a['p']-b['p'];dist=r.length
    if 0<dist<.6:a['p']+=r/dist*(.6-dist)*.5;b['p']-=r/dist*(.6-dist)*.5
   if a['v'].length>.3:a['h']=math.atan2(a['v'].y,a['v'].x)
+for k_,a in enumerate(agents):
+ if not a['arr']:print('STUCK',k_,tuple(round(x,1) for x in a['p']),a['inside'],round(a['v'].length,2))
 ARR=[a['arr'] for a in agents if a['arr']];print('CROWD arrived',len(ARR),'of',N,'last at %.1f s'%(max(ARR) if ARR else -1))
 crowd=[]
 for k,a in enumerate(agents):

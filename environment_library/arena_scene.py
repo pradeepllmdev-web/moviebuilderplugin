@@ -322,6 +322,7 @@ for f in range(1,frames+1,6):
 if worst[0]<.10:issues.append('AUDIT overlap: the two lions come within %.0f cm (body bones) at t=%.1f s'%(worst[0]*100,worst[1]))
 print('MINDIST %.2f at %.1f'%worst)
 issues+=kit.audit(scene,bodies=[(Lrig,Lbody),(Rrig,Rbody)],floor_z=0.,skip=[(23.2,28.6),(34.3,42.1)],subjects=[LR,RR],step=12)
+issues+=kit.persistence_audit(scene)
 for i in issues:print(i)
 print('AUDIT',len(issues),'issues')
 # ---------------------------------------------------------------------------------------------------------- sound
