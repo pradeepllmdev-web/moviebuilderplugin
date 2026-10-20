@@ -29,7 +29,7 @@ class Compile(unittest.TestCase):
    self.assertAlmostEqual(a.clips[0][0],0.);self.assertAlmostEqual(a.clips[-1][1],P.seconds,1)
    for c,d in zip(a.clips,a.clips[1:]):self.assertAlmostEqual(c[1],d[0],3)
  def test_lines_never_overlap_and_listener_reacts(self):
-  P=self.run_([dict(do='say',who='mara',text='We should leave before the storm arrives.',mood='concern',to='bram'),dict(do='say',who='bram',text='No.',mood='serious',to='mara')])
+  P=self.run_([dict(do='say',who='mara',text='Should we leave before the storm arrives?',mood='concern',to='bram'),dict(do='say',who='bram',text='No.',mood='serious',to='mara')])
   self.assertEqual(len(P.lines),2);self.assertLess(P.lines[0]['t1'],P.lines[1]['t0']);self.assertTrue(any(c[2]=='think' for c in P.actors['bram'].clips))
  def test_two_lines_at_once_rejected(self):
   with self.assertRaises(pp.SpecError):self.run_([[dict(do='say',who='mara',text='a b c'),dict(do='say',who='bram',text='d e f')]])
@@ -85,7 +85,7 @@ class Props(unittest.TestCase):
   with self.assertRaises(pp.SpecError):self.base([dict(do='take',who='mara',prop='cup'),dict(do='take',who='mara',prop='crate')])
 class Queries(unittest.TestCase):
  def test_footsteps_alternate_feet_and_follow_the_gait(self):
-  P=pp.compile(spec([go('mara','well',stop=2.)]),REG);st=P.footsteps();self.assertGreater(len(st),8);self.assertEqual([s[2] for s in st[:4]],['L','R','L','R'])
+  P=pp.compile(spec([go('mara','well',stop=2.)]),REG);st=P.footsteps();self.assertGreater(len(st),8);self.assertTrue(all(st[i][2]!=st[i+1][2] for i in range(4)))
   (t0,t1,g,sc,sp)=P.actors['mara'].walks[0];self.assertAlmostEqual(st[1][0]-st[0][0],gaits.cycle_seconds(g,sc)/2,3)
  def test_gaze_goes_to_the_speaker_then_rests(self):
   P=pp.compile(spec([dict(do='say',who='mara',text='Look over there now.',to='bram')]),REG);L=P.lines[0];m=(L['t0']+L['t1'])/2
@@ -131,9 +131,19 @@ class Gestures(unittest.TestCase):
  def test_never_the_same_twice_in_a_row(self):
   for mood in pp.GESTURES:
    for last in ('talk','think','shrug','argue','laugh','nod','hips','wave'):self.assertNotEqual(pp.gesture_for('The road is long and the night is cold.',mood,last),last)
- def test_a_speaker_varies_in_the_plan(self):
-  P=pp.compile(spec([dict(do='say',who='mara',text='The road is long and the night is cold.',mood='serious',to='bram')]*1+[dict(do='say',who='bram',text='We rest.',to='mara'),dict(do='say',who='mara',text='The fire is warm and the bread is fresh.',mood='serious',to='bram')]),REG)
-  cl=[c[2] for c in P.actors['mara'].clips if c[2] in ('talk','think','hips')];self.assertGreaterEqual(len(set(cl)),2)
+ def test_hand_gestures_follow_the_words(self):
+  self.assertEqual(pp.gesture_kind('I am sorry about that','sad'),'chest');self.assertEqual(pp.gesture_kind('you should go now','serious'),'point');self.assertEqual(pp.gesture_kind('we will do it together','warm'),'open')
+  self.assertEqual(pp.gesture_kind('that is not true','serious'),'chop');self.assertEqual(pp.gesture_kind('where is it?','concern'),'palm');self.assertEqual(pp.gesture_kind('what a day!','joy'),'beat')
+ def test_speech_gestures_are_keyed_and_the_hands_return_to_rest(self):
+  g=pp.speech_gestures('You must listen to me, because we are late and I am tired.','angry',2.0,8.0,'jaunty',1);self.assertTrue(g)
+  for h,keys in g:
+   self.assertEqual(keys[0][1],0.);self.assertEqual(keys[-1][1],0.);self.assertEqual(keys[-1][2],pp.REST[h]);self.assertEqual(sorted(k[0] for k in keys),[k[0] for k in keys])
+ def test_a_speaker_gestures_with_free_hands_only(self):
+  P=pp.compile(spec([dict(do='say',who='mara',text='We should not be here after dark, because you know the road is long.',mood='angry',to='bram')]),REG);self.assertTrue(P.actors['mara'].hands['R'])
+  P2=pp.compile(spec([dict(do='take',who='mara',prop='cup'),dict(do='say',who='mara',text='We should not be here after dark, because you know the road is long.',mood='angry',to='bram')],props=[dict(id='cup',kind='cup',at=[-1,0],z=.9)],cast=[dict(id='mara',at=[-4,0],face=[1,0]),dict(id='bram',at=[4,0],face=[-1,0])],loc=dict(preset='meadow')),REG)
+  n=len([k for k in P2.actors['mara'].hands['L'] if k[0]>P2.events[0]['t1']]);self.assertEqual(n,0)   # holding a prop: no gesturing
+ def test_only_meaningful_lines_get_a_body_clip(self):
+  self.assertEqual(pp.semantic_clip('Hello there, friends.','warm'),'wave');self.assertEqual(pp.semantic_clip('Yes, agreed.','serious'),'nod');self.assertIsNone(pp.semantic_clip('The road is long and the night is cold.','serious'));self.assertEqual(pp.semantic_clip('Get out of my sight right now, all of you!','angry'),'argue')
 class Locations(unittest.TestCase):
  def test_every_preset_lays_out(self):
   for k in pl.PRESETS:

@@ -9,7 +9,7 @@ A film module defines FILM=dict(id, title, cast=[character records for cast_regi
 cast_story.json), (2) every scene is compiled by perf_plan and audited WITHOUT Blender (a spec error or plan audit stops the build of that scene and is reported), (3) each scene is built by perf_scene.py in its own Blender process, one after another,
 reused when its spec, cast and the engine sources are unchanged (key in <scene>.meta.json), (4) a labelled contact sheet of stills (Workbench, no video) per scene is written to <out>/sheets, (5) assemble_movie.py joins the good scenes into <out>/movie.blend,
 (6) report.md/report.json list per scene: length, audit lines, measured numbers (eye lines, foot slip, hand reach, framing), build time, plus the film total against its target length."""
-import hashlib,importlib.util,json,subprocess,sys,time,os
+import hashlib,importlib.util,json,math,subprocess,sys,time,os
 from pathlib import Path
 H=Path(__file__).resolve().parent
 BLENDER=os.environ.get('BLENDER','C:/Program Files/Blender Foundation/Blender 5.2/blender.exe')
@@ -82,8 +82,10 @@ def sheet(rec,out,n=12):
 def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=True,target_minutes=15.,echo=True,voices=True):
  film=load_film(film_path);out=Path(out).resolve();out.mkdir(parents=True,exist_ok=True);reg=registry_of(film)
  if voices:use_voices(film,reg,echo)
- for sp in film['scenes']:
+ n_=len(film['scenes'])
+ for i_,sp in enumerate(film['scenes']):
   if film.get('theme'):sp['theme']=film['theme']
+  x_=i_/max(1,n_-1);sp['arc']=round(.25+.75*math.sin(math.pi/2*min(1.,x_/.75)) if x_<=.75 else .6+.4*(1-(x_-.75)/.25)*.5,3)   # the film's energy: it builds to the climax at three quarters, then settles
  problems=reg.distinct_report();rows=plan_check(film,reg);cast_json=out/'cast.json';reg.save(str(cast_json));(out/'cast_story.json').write_text(json.dumps(reg.export_story_records(),indent=1),encoding='utf-8')
  lines=['# %s: build report'%film.get('title',film.get('id','film')),'','Cast: %d characters%s'%(len(film['cast']),''.join('\n* WARNING: %s and %s look alike (score %.2f)'%p for p in problems)),'','## Plan check (no Blender)','']
  for r in rows:lines.append('* scene %02d %s: %.1f s, %d characters, %d lines%s%s'%(r['index'],r['id'],r['seconds'],r['cast'],r['lines'],('\n  * SPEC ERROR: '+r['error']) if r['error'] else '',''.join('\n  * '+a for a in r['audit'])))

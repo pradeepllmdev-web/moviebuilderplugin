@@ -85,7 +85,7 @@ for i,ch in CH.items():
  for f in S.keys():
   t=(f-1)/FPS;tg=face_xyz(i,t)
   if (f-1)//2%5==0:SAC[i]=Vector((rnd_s[i].uniform(-.22,.22),rnd_s[i].uniform(-.22,.22),rnd_s[i].uniform(-.12,.12)))   # a small glance every ~0.4 s
-  tg=tg+SAC[i];cur=tg if cur is None else cur+(tg-cur)*.45
+  tg=tg+SAC[i];cur=tg if cur is None else cur+(tg-cur)*.28
   GZ[i].location=cur;GZ[i].keyframe_insert('location',frame=f)
 for e in PLAN.extras:
  ch=EXTRAS[e['id']];fx=(math.cos(e['h']),math.sin(e['h']),0);g=S.gaze(ch,fx);g.location=(e['focus'][0],e['focus'][1],1.3*e['look']['scale'][2])
@@ -158,6 +158,25 @@ for pid,p in PLAN.props.items():
   yaw=p.yaw
   if cur and cur[1]=='held':yaw=PLAN.actors[cur[2]].H[min(len(PLAN.actors[cur[2]].H)-1,f-1)]
   root.rotation_euler=(0,0,yaw);root.keyframe_insert('rotation_euler',frame=f)
+# ---------------------------------------------------------------------------------------------------------- body language: breathing, sway, speech nods, listening nods and the upper body leading every turn, as a COMBINE layer over the clips
+import perf_body as pbody
+from mathutils import Euler
+from bpy_extras import anim_utils
+def body_layer():
+ fr=pbody.key_frames(PLAN)
+ for i,ch in CH.items():
+  rig=ch['rig'];sig=pbody.signals(PLAN,i);ad=rig.animation_data
+  if ad.action is None:       # one real keyframe makes the action, its slot and its channelbag
+   pb0=rig.pose.bones['mixamorig:Hips'];pb0.keyframe_insert('rotation_quaternion',frame=1)
+  act=ad.action;cbag=anim_utils.action_ensure_channelbag_for_slot(act,ad.action_slot)
+  for b,arr in sig.items():
+   path='pose.bones["mixamorig:%s"].rotation_quaternion'%b;qs=np.array([tuple(Euler((x,y,z),'XYZ').to_quaternion()) for x,y,z in arr])
+   for c in range(4):
+    fc=next((f for f in cbag.fcurves if f.data_path==path and f.array_index==c),None) or cbag.fcurves.new(path,index=c)
+    fc.keyframe_points.clear() if hasattr(fc.keyframe_points,'clear') else None
+    n=len(fr);fc.keyframe_points.add(n);co=np.empty(n*2);co[0::2]=fr;co[1::2]=qs[:,c];fc.keyframe_points.foreach_set('co',co);fc.update()
+  ad.action_blend_type='COMBINE';ad.action_influence=1.
+body_layer()
 # ---------------------------------------------------------------------------------------------------------- grounding: the in-place clips of falling, getting up, kneeling, crawling and sitting sink into or float over the floor, so the root is lifted per frame until the lowest point of the body rests on it
 GROUNDED=('sit','fall','getup','kneel','lie','crawl','jump')
 def ground_pass():
@@ -248,20 +267,21 @@ print('PERF %s: %.0f s, %d characters, %d lines, %d cuts, %d footsteps, eye line
 # ---------------------------------------------------------------------------------------------------------- sound
 def snd(A):
  rng=A.rng
+ N=A.N;SR=A.SR;vsum=np.zeros(N)
  for name in CH:
   v=A.buf(1)
   for L,x,syl,real in VOICES:
    if L['speaker']==name:A.at(v,L['t0']+.2,x,1.)
-  if np.abs(v).max()>0:A.track('voice %s'%name,v,.9)
- N=A.N;SR=A.SR
- amb=pa.ambience(SPEC.get('ambience','wind'),N,SR,rng);A.track('ambience',amb,{'fire':.1,'sea':.09,'rain':.1,'crowd':.07,'market':.07}.get(SPEC.get('ambience'),.045))   # a bed under everything, never the loudest thing
+  if np.abs(v).max()>0:A.track('voice %s'%name,v,.9);vsum+=np.abs(v[:N])
+ duck=pa.duck_mask(vsum,SR,.7);duck_l=pa.duck_mask(vsum,SR,.45)    # music and ambience make room for every line
+ amb=pa.ambience(SPEC.get('ambience','wind'),N,SR,rng);A.track('ambience',amb*duck_l,{'fire':.1,'sea':.09,'rain':.1,'crowd':.07,'market':.07}.get(SPEC.get('ambience'),.045))   # a bed under everything, never the loudest thing
  mus=None
- if SPEC.get('theme'):mus=ps.render(PLAN,SPEC['theme'],SPEC.get('music','calm'),SPEC.get('location',{}).get('preset'),TIME,SPEC['id'],SPEC.get('music_cues'),sr=SR)
+ if SPEC.get('theme'):mus=ps.render(PLAN,SPEC['theme'],SPEC.get('music','calm'),SPEC.get('location',{}).get('preset'),TIME,SPEC['id'],SPEC.get('music_cues'),sr=SR,arc=SPEC.get('arc'))
  if mus is None:mus=pa.music(SPEC.get('music','calm'),N,SR,sum(map(ord,SPEC['id'])))
  elif len(mus)<N:mus=np.pad(mus,(0,N-len(mus)))
- if np.abs(mus).max()>0:A.track('music',mus,.3)
+ if np.abs(mus).max()>0:A.track('music',mus*duck,.3)
  ev=pa.footstep_events(PLAN.footsteps(),SR,rng,'stone' if LOC.get('floor')=='stone' else 'dirt')
- if ev:A.track('steps',pa.mix_events(N,SR,ev),.45)
+ if ev:A.track('steps',pa.mix_events(N,SR,ev)*duck_l,.1)   # footsteps sit far below the voices
  ev=[(t,pa.sfx(nm,SR,rng),g) for (t,nm,who,g) in PLAN.sfx]
  if ev:A.track('effects',pa.mix_events(N,SR,ev),.6)
 S.audio(snd)

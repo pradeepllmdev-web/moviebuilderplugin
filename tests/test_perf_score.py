@@ -34,6 +34,19 @@ class Compose(unittest.TestCase):
   P=plan(QUIET);notes=ps.compose(P,THEME,'calm')[0];last=max(n['t'] for n in notes if n['ch']==0);tone=[n['pitch']%12 for n in notes if n['ch']==0 and n['t']==last];self.assertIn(THEME['root']%12,tone)
  def test_night_is_lower_than_day(self):
   P=plan(QUIET);d=[n['pitch'] for n in ps.compose(P,THEME,'calm','meadow','day','x')[0] if n['ch']==0];n_=[n['pitch'] for n in ps.compose(P,THEME,'calm','meadow','night','x')[0] if n['ch']==0];self.assertLess(sum(n_)/len(n_),sum(d)/len(d))
+class Arc(unittest.TestCase):
+ def test_the_climax_is_busier_than_the_opening(self):
+  P=plan(QUIET+QUIET);lo=ps.compose(P,THEME,'calm','meadow','day','x',None,0.1)[0];hi=ps.compose(P,THEME,'calm','meadow','day','x',None,1.0)[0];self.assertGreater(len(hi),len(lo));self.assertTrue([n for n in hi if n['ch']==9])
+ def test_bright_scenes_get_a_rhythm_section_and_tense_ones_a_tick(self):
+  P=plan(QUIET+QUIET);self.assertTrue([n for n in ps.compose(P,THEME,'bright')[0] if n['ch']==9 and n['pitch']==70]);self.assertTrue([n for n in ps.compose(P,THEME,'tense')[0] if n['ch']==9 and n['pitch']==75])
+ def test_speech_bars_have_no_rhythm_section(self):
+  P=plan(SAY);notes=ps.compose(P,THEME,'bright')[0]
+  for n in notes:
+   if n['ch']==9:self.assertFalse(any(L['t0']<n['t']<L['t1'] for L in P.lines))
+class Duck(unittest.TestCase):
+ def test_music_dips_while_the_voices_speak(self):
+  import numpy as np,perf_audio as pa;SR=22050;v=np.zeros(SR*6);v[SR:2*SR]=.4*np.sin(np.arange(SR)*.3);m=pa.duck_mask(v,SR,.7)
+  self.assertAlmostEqual(m[int(.3*SR)],1.,2);self.assertLess(m[int(1.5*SR)],.35);self.assertAlmostEqual(m[int(5*SR)],1.,2)
 class Midi(unittest.TestCase):
  def test_file_is_a_valid_smf(self):
   import tempfile;p=os.path.join(tempfile.mkdtemp(),'a.mid');pmid.write(p,[dict(t=0,dur=1,pitch=60,vel=80,ch=0),dict(t=1,dur=.5,pitch=64,vel=70,ch=1)],{0:0,1:48},90);b=open(p,'rb').read();self.assertEqual(b[:4],b'MThd');self.assertIn(b'MTrk',b);self.assertTrue(b.endswith(bytes([0xFF,0x2F,0])))

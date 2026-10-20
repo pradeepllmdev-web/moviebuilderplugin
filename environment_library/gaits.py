@@ -31,6 +31,9 @@ def natural_speed(name):
 def play_scale(name,speed,size=1.):
  """NLA strip scale (>1 slower) that makes a character of height factor `size` cover `speed` m/s with a planted foot; the natural speed grows with the size"""
  return natural_speed(name)*size/max(1e-6,speed)
+STEPS_PER_CYCLE={'run':10,'crawl':4}   # measured on the clips: the run clip scampers (a step every 4.8 frames); built gaits plant each foot once per cycle (two steps)
+STEP_OFFSET={'run':.02}
+def steps_per_cycle(name):return STEPS_PER_CYCLE.get(name,2)
 def cycle_seconds(name,scale=1.):return GAITS[name]['cycle']/FPS*scale
 def for_personality(posture,mood=None):
  """gait name for a personality: posture word from the cast registry"""

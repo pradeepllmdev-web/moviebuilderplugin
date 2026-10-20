@@ -175,11 +175,14 @@ class Actor:
   n=max(0,int(round(dur*FPS)))
   for _ in range(n):s.X.append(s.X[-1]);s.Y.append(s.Y[-1]);s.H.append(s.H[-1])
  def pad_to(s,t):s.hold(t-s.t)
+ def walks_now(s,t):return any(w[0]<=t<=w[1] for w in s.walks)
  def turn_to(s,h1,dur=None):
   h0=s.H[-1];d=abs(wrap(h1-h0))
   if d<math.radians(4):return 0.
   dur=max(dur or 0.,d/math.radians(190.),.3);n=max(2,int(round(dur*FPS)));x,y=s.X[-1],s.Y[-1]
+  t0=s.t
   for i in range(1,n+1):s.X.append(x);s.Y.append(y);s.H.append(lerp_angle(h0,h1,ease(i/n)))
+  if d>math.radians(55) and s.state=='stand':s.play('walk',t0,s.t,1.5)   # a big turn is taken with small steps, not by spinning on the spot
   return n/FPS
  def face_point(s,p,dur=None):return s.turn_to(math.atan2(p[1]-s.Y[-1],p[0]-s.X[-1]),dur)
  def play(s,name,t0,t1,scale=1.,**opt):
@@ -321,9 +324,10 @@ class Plan:
   """listeners with no beat in the step: face the speaker if far off, then react at the end of the line"""
   for name,a in s.actors.items():
    if name in used or name==L['speaker'] or a.state!='stand':continue
-   if L['to']==name and L['mood'] in dg.LISTEN_CLIP and dg.LISTEN_CLIP[L['mood']]:
+   c=('think' if (L['text'].rstrip().endswith('?') and L['mood']=='concern') else ('nod' if re.search(r"\b(yes|agreed|deal|exactly|of course|right)\b",L['text'].lower()) else None))
+   if L['to']==name and c:
     ta=max(t0,L['t1']-.9);tb=min(end,L['t1']+.5)
-    if tb-ta>=.4:a.play(dg.LISTEN_CLIP[L['mood']],ta,tb,1.)
+    if tb-ta>=.4:a.play(c,ta,tb,QUICK.get(c,1.))
  # ------------------------------------------------------------------------------------------------------ beats
  def _stand_only(s,a,what):
   if a.state!='stand':raise SpecError('%s: %s cannot %s while %s'%(s.cur_t(),a.id,what,a.state))
@@ -383,10 +387,13 @@ class Plan:
   ts=a.t+.12
   a.hold(.12+dur+.22);k=len(s.lines);L=dict(k=k,speaker=a.id,mood=mood,text=b['text'],t0=ts,t1=ts+dur,syl=syl,dur=dur,to=to);s.lines.append(L)
   if a.state=='stand':
-   clip=b.get('gesture') or gesture_for(b['text'],mood,a.last_gesture,len(s.lines))
+   clip=b.get('gesture') or semantic_clip(b['text'],mood)
+   if clip and clip not in ACT_CLIPS:raise SpecError('say: unknown gesture %r'%clip)
+   if clip and clip!=a.last_gesture and (not a.clips or a.clips[-1][1]<=ts):a.play(clip,ts-.2,ts+dur+.2,QUICK.get(clip,1.))
    a.last_gesture=clip
-   if clip not in ACT_CLIPS:raise SpecError('say: unknown gesture %r'%clip)
-   if not a.clips or a.clips[-1][1]<=ts:a.play(clip,ts-.2,ts+dur+.2,1.)
+   if not a.holding and not clip and not a.walks_now(ts):
+    for h,keys in speech_gestures(b['text'],mood,ts,ts+dur,a.look['posture'],k*977+sum(map(ord,a.id))):
+     for kt,infl,pos in keys:a.hands[h].append((kt,infl,('local',pos)))
   s.events.append(dict(kind='say',who=a.id,t0=ts,t1=ts+dur,to=to,mood=mood,k=k))
   for name,o in s.actors.items():   # everybody idle and standing turns towards the speaker when far off
    if name!=a.id and o.state=='stand' and o.t<=ts-.1 and abs(wrap(math.atan2(a.Y[-1]-o.Y[-1],a.X[-1]-o.X[-1])-o.H[-1]))>math.radians(48):o.face_point((a.X[-1],a.Y[-1]),.55)
@@ -592,11 +599,15 @@ class Plan:
  def _walking(s,who,t):return any(w[0]<=t<=w[1] for w in s.actors[who].walks)
  def emote_at(s,who,t):return [(k,(t-t0)) for (t0,t1,k) in s.actors[who].emotes if t0<=t<=t1]
  def footsteps(s):
+  """(time, who, foot, size) of every footfall, from the gait clip's own cycle: the strip starts 0.2 s before the walk (it blends in), the foot plants every cycle/steps_per_cycle seconds"""
   out=[]
   for who,a in s.actors.items():
    for (t0,t1,g,sc,speed) in a.walks:
-    cyc=gaits.cycle_seconds(g,sc);half=cyc/2;k=0
-    while t0+half*k<t1-.05:out.append((t0+half*k,who,'L' if k%2==0 else 'R',a.size));k+=1
+    n=gaits.steps_per_cycle(g);dt=gaits.cycle_seconds(g,sc)/n;start=max(0.,t0-.2)+gaits.STEP_OFFSET.get(g,0.)*gaits.cycle_seconds(g,sc);k=0
+    while start+dt*k<t1+.05:
+     t=start+dt*k
+     if t>=t0-.1:out.append((t,who,'L' if k%2==0 else 'R',a.size))
+     k+=1
   return sorted(out)
  # ------------------------------------------------------------------------------------------------------ audit
  def audit(s):
@@ -646,6 +657,43 @@ class Plan:
 import re
 GESTURES={'serious':('talk','think','hips'),'warm':('talk','nod','wave'),'concern':('think','talk','shrug'),'sad':('shrug','think'),'angry':('argue','hips','argue'),'joy':('laugh','talk','wave')}
 GESTURE_WORDS=((r"\b(hello|hi|goodbye|farewell|welcome|friends)\b",'wave'),(r"\b(no|never|not|enough|stop|wrong|cannot)\b",'argue'),(r"\b(yes|right|agreed|deal|of course|exactly)\b",'nod'),(r"\b(perhaps|maybe|mostly|who knows|i do not know)\b",'shrug'),(r"\b(think|remember|wonder|idea|plan)\b",'think'))
+REST={'R':(-.36,-.1,.66),'L':(.36,-.1,.66)}
+# hand gestures in the character's local frame (x left, y back, z up, metres at scale 1): (hands, first pose, second pose); the left hand mirrors x
+GESTURES_HAND={'beat':('R',(-.36,-.4,.93),(-.36,-.32,.84)),'open':('RL',(-.5,-.42,.9),(-.55,-.46,.88)),'point':('R',(-.2,-.55,1.02),(-.2,-.6,1.02)),'chest':('R',(-.1,-.2,1.0),(-.1,-.22,1.02)),
+ 'chop':('R',(-.3,-.45,1.08),(-.3,-.48,.82)),'palm':('RL',(-.4,-.45,.88),(-.42,-.5,.93))}
+EXPRESSIVE={'tired':.45,'hunched':.45,'proud':.65,'neutral':.6,'tense':.55,'jaunty':.85,'hurried':.85,'angry':.85}
+PHRASE=re.compile(r"[^,.;:!?]+[,.;:!?]*")
+def gesture_kind(phrase,mood):
+  """the hand gesture a phrase calls for: I -> hand to chest, you -> point, we -> both hands open, no/not -> chop, a question -> palms up, otherwise a beat"""
+  low=phrase.lower()
+  if re.search(r"\b(no|not|never|cannot|stop|enough|nothing|wrong)\b",low):return 'chop'
+  if re.search(r"\b(i|me|my|mine|myself|i'm)\b",low):return 'chest'
+  if re.search(r"\b(you|your|yours)\b",low):return 'point'
+  if re.search(r"\b(we|us|our|everyone|together)\b",low):return 'open'
+  if phrase.strip().endswith('?'):return 'palm'
+  return 'beat' if mood in('angry','joy') or phrase.strip().endswith('!') else 'open'
+def speech_gestures(text,mood,t0,t1,posture,seed):
+  """[(hand, [(t, influence, local pos)...])] hand gestures for a spoken line: one per phrase of five syllables or more, chosen from the words, thinned by how expressive the character's posture is"""
+  import dialogue as dg
+  ph=[m.group(0) for m in PHRASE.finditer(text) if m.group(0).strip()];sy=[max(1,len(dg.syllables(x))) for x in ph];tot=float(sum(sy));out=[];t=t0+.15;span=max(.5,t1-t0-.35);rnd=random.Random(seed);last=None
+  for x,n in zip(ph,sy):
+   d=span*n/tot;pa,pb=t,t+d;t+=d
+   if n<4 or rnd.random()>EXPRESSIVE.get(posture,.6):continue
+   kind=gesture_kind(x,mood)
+   if kind==last and rnd.random()<.6:kind='beat' if kind!='beat' else 'open'
+   last=kind;hands,p1,p2=GESTURES_HAND[kind];pm=(pa+pb)/2
+   for h in hands:
+    sg=1. if h=='R' else -1.;q1=(p1[0]*sg,p1[1],p1[2]);q2=(p2[0]*sg,p2[1],p2[2]);rest=REST[h]
+    out.append((h,[(pa-.2,0.,rest),(pa+.18,.85,q1),(pm,.85,q2),(max(pm+.05,pb-.05),.85,q1),(pb+.3,0.,rest)]))
+  return out
+SEMANTIC=((r"\b(hello|hi|goodbye|farewell|welcome)\b",'wave'),(r"\b(yes|agreed|deal|of course|exactly)\b",'nod'),(r"\b(perhaps|maybe|mostly|who knows|do not know)\b",'shrug'),(r"\b(think|remember|wonder|idea)\b",'think'))
+def semantic_clip(text,mood):
+  """a whole-body clip for a line only when its meaning asks for one (greeting, agreement, doubt, thought, rage); the hands of every other line are acted by speech_gestures"""
+  low=text.lower()
+  for pat,c in SEMANTIC:
+   if re.search(pat,low):return c
+  if mood=='angry' and text.strip().endswith('!') and len(text)>24:return 'argue'
+  return None
 def gesture_for(text,mood,last=None,k=0):
   """a clip for the speaker of a line from its words and mood, never the same as the speaker's previous gesture"""
   low=text.lower()

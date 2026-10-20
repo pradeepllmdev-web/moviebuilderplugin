@@ -73,7 +73,7 @@ def sfx(name,SR,rng):
   return x
  if name=='door':tt=T(.9);return _noise(rng,len(tt),30)*np.exp(-tt*5)*.6+np.sin(2*PI*80*tt)*np.exp(-tt*8)*.5
  if name=='thud':tt=T(.35);return np.sin(2*PI*70*tt)*np.exp(-tt*14)+_noise(rng,len(tt),12)*np.exp(-tt*25)*.5
- if name=='step':tt=T(.12);return _noise(rng,len(tt),10)*np.exp(-tt*40)*.7+np.sin(2*PI*90*tt)*np.exp(-tt*50)*.5
+ if name=='step':tt=T(.14);return _noise(rng,len(tt),28)*np.exp(-tt*34)*.9+np.sin(2*PI*70*tt)*np.exp(-tt*45)*.3   # a soft thump, not a click
  if name=='clang':tt=T(1.2);return sum(np.sin(2*PI*f*tt)*a for f,a in ((520,1),(1310,.6),(2150,.4),(3300,.25)))*np.exp(-tt*5)*.5
  if name=='bell':tt=T(2.5);return sum(np.sin(2*PI*f*tt)*a*np.exp(-tt*d) for f,a,d in ((440,1,1.6),(880,.5,2.2),(1320,.3,3),(1850,.2,4)))*.5
  if name=='gong':tt=T(3.5);return sum(np.sin(2*PI*f*tt*(1+.002*np.sin(tt*3)))*a*np.exp(-tt*d) for f,a,d in ((110,1,.9),(165,.7,1.1),(230,.5,1.4),(330,.3,1.8)))*.6
@@ -96,7 +96,13 @@ def footstep_events(steps,SR,rng,ground='dirt'):
  """steps: (time, who, foot, size) -> events; heavier characters step louder and lower, the ground colours the sound"""
  out=[];base=step_wave=sfx('step',SR,rng)
  for t,who,foot,size in steps:
-  g=.3+.25*min(2,size);x=base*(1.0 if ground!='stone' else 1.4)
+  g=.35+.2*min(2,size);x=base*(1.0 if ground!='stone' else 1.25)
   if size>1.15:x=np.convolve(x,np.ones(3)/3,mode='same')*1.3
   out.append((t,np.roll(x,int(rng.integers(0,30))),g*(.8+.4*rng.random())))
  return out
+
+def duck_mask(voice,SR,depth=.7,hold=.3,smooth=.15):
+ """gain curve (1 = untouched) that dips by `depth` while the voices speak: the envelope of the summed voices, held for `hold` s and smoothed over `smooth` s, so music and ambience make room for every line"""
+ e=np.abs(np.asarray(voice,float));k=max(1,int(.03*SR));e=np.convolve(e,np.ones(k)/k,mode='same');m=np.clip(e/(.02*max(1e-6,np.percentile(e,99)+1e-9)*1.0+1e-9),0,1)
+ m=(np.convolve(m,np.ones(int(hold*SR))/int(hold*SR),mode='same')>.05).astype(float);k=max(1,int(smooth*SR));m=np.convolve(m,np.ones(k)/k,mode='same')
+ return 1.-depth*np.clip(m,0,1)

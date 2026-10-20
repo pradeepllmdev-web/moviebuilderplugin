@@ -29,7 +29,7 @@ def vary(motif,k):
  if k%4==2:return [(d+2,b) for d,b in motif]
  if k%4==3:return [(d,max(.25,b/2)) for d,b in motif]
  return list(motif)
-def compose(plan,theme,mood='calm',place=None,time='day',seed='',cues=None):
+def compose(plan,theme,mood='calm',place=None,time='day',seed='',cues=None,arc=None):
  m=MOODS.get(mood,MOODS['calm'])
  if mood=='none':return [],{},90.
  mode=m['mode'] or theme.get('mode','major');pal=dict(PALETTE,**theme.get('palette',{}));pal['lead']=PLACE_LEAD.get(place,pal['lead']) if theme.get('place_leads',True) else pal['lead']
@@ -41,14 +41,14 @@ def compose(plan,theme,mood='calm',place=None,time='day',seed='',cues=None):
  hits=[(t,nm) for (t,nm,who,g) in plan.sfx if nm in('crash','thunder','gong')]
  rnd=np.random.default_rng(int(hash_unit(str(seed)+mood)*1e6))
  prog=PROGRESSIONS[mode][int(hash_unit('p'+str(seed))*len(PROGRESSIONS[mode]))%len(PROGRESSIONS[mode])]
- cur=m['base'];I=[]
+ arc=.5 if arc is None else float(arc);base=m['base']+(arc-.5)*.4;cur=base;I=[]
  for b in range(nbar):
-  a,e=b*bar,(b+1)*bar;lv=m['base']
+  a,e=b*bar,(b+1)*bar;lv=base
   if any(s<e and t>a for s,t in hot) or any(a<=t<e for t,_ in hits):lv+=.28
   if any(s<e and t>a for s,t in sad):lv-=.12
   if cues:
    for t,mm in cues:
-    if t<=a and mm in MOODS:lv=MOODS[mm]['base']+(lv-m['base'])
+    if t<=a and mm in MOODS:lv=MOODS[mm]['base']+(lv-base)
   I.append(min(1.,max(.12,lv)))
  notes=[];motif=theme.get('motif',[(0,1),(2,.5),(4,.5),(2,1),(1,1)]);phrase=0
  for b in range(nbar):
@@ -64,11 +64,21 @@ def compose(plan,theme,mood='calm',place=None,time='day',seed='',cues=None):
    if (not sp) or int(round((t-a)/beat))%2==0 and rnd.random()<.6:
     if rnd.random()<(.55+.4*m['dens']):notes.append(dict(t=t,dur=step*1.6,pitch=tri[idx%3]+12,vel=int((36+36*lv)*(.55 if sp else 1.)),ch=2))
    idx+=1;t+=step
-  if not sp and b%2==0 and not last and m['dens']>0 and (b>0 or lv>.4):   # the film motif on the lead, varied per phrase
-   mt=vary(motif,phrase);phrase+=1;tt=a+beat*(.5 if b==0 else 0);base=d
-   for deg,bt in mt:
+  if not sp and b%2==0 and not last and m['dens']>0 and (b>0 or lv>.4) and rnd.random()<(.6+.35*m['dens']):   # the film motif on the lead: A A' B A over eight bars, some phrases left silent
+   mt=vary(motif,[0,1,0,2][(b//2)%4]);phrase+=1;tt=a+beat*(.5 if b==0 else 0);root_d=d;nm=len(mt)
+   for j,(deg,bt) in enumerate(mt):
     if tt>=e+bar-1e-6:break
-    notes.append(dict(t=tt,dur=bt*beat*.95,pitch=pitch_of(theme,mode,base+deg,1)+lowered,vel=int(52+40*lv),ch=3));tt+=bt*beat
+    notes.append(dict(t=tt,dur=bt*beat*.95,pitch=pitch_of(theme,mode,root_d+deg,1)+lowered,vel=int((52+40*lv)*(.85+.3*j/max(1,nm-1))),ch=3));tt+=bt*beat
+  if lv>.38 and not sp and not last and b%2==1:    # a cello line in long notes under the gaps
+   notes.append(dict(t=a,dur=bar*1.9,pitch=tri[1]-12,vel=int(34+28*lv),ch=11))
+  if not sp and not last and (mood in('bright','comic','epic','warm') or arc>.7):    # a light rhythm section
+   for k8 in range(8):
+    tk=a+k8*beat/2
+    if k8%2==1:notes.append(dict(t=tk,dur=.08,pitch=70,vel=int(24+22*lv),ch=9))
+    if k8%4==0 and lv>.5:notes.append(dict(t=tk,dur=.1,pitch=36,vel=int(36+20*lv),ch=9))
+    if k8%4==2 and mood=='comic':notes.append(dict(t=tk,dur=.08,pitch=37,vel=34,ch=9))
+  elif mood=='tense' and not sp and not last:
+   for k4 in range(4):notes.append(dict(t=a+k4*beat,dur=.06,pitch=75,vel=int(20+16*lv),ch=9))
  firsts={}
  for L in plan.lines:
   mot=plan.actors[L['speaker']].look.get('motif') or theme.get('motifs',{}).get(L['speaker'])
@@ -89,15 +99,15 @@ def compose(plan,theme,mood='calm',place=None,time='day',seed='',cues=None):
     for k,deg in enumerate((4,3,1,0)):notes.append(dict(t=t+.3+k*.22,dur=.4,pitch=pitch_of(theme,mode,deg,0)+lowered,vel=78,ch=7))
   elif e['kind'] in('take','give','put'):
    for k,deg in enumerate((4,6)):notes.append(dict(t=e.get('t_grasp',t)+k*.15,dur=.4,pitch=pitch_of(theme,mode,deg,2)+lowered,vel=60,ch=10))
- programs={0:pal['pad'],1:pal['bass'],2:pal['pluck'],3:pal['lead'],4:pal['hit'],5:57,6:pal['lead'],7:pal['stinger'],8:pal['sparkle'],10:pal['celesta']}
+ programs={0:pal['pad'] if arc<.75 else 49,1:pal['bass'],2:pal['pluck'],3:pal['lead'],4:pal['hit'],5:57,6:pal['lead'],7:pal['stinger'],8:pal['sparkle'],10:pal['celesta'],11:42}
  for n in notes:n['t']=round(n['t'],3);n['dur']=round(n['dur'],3)
  notes=[n for n in notes if n['t']<secs+2.];return notes,programs,bpm
 def notes_key(notes,programs,bpm):
  return hashlib.sha1(json.dumps([notes,sorted(programs.items()),round(bpm,2)],sort_keys=True).encode()).hexdigest()[:16]
-def render(plan,theme,mood='calm',place=None,time='day',seed='',cues=None,sr=22050):
+def render(plan,theme,mood='calm',place=None,time='day',seed='',cues=None,sr=22050,arc=None):
  """audio of the score (cached as a wav by the notes), or None when FluidSynth / the SoundFont are missing"""
  import perf_midi as pm
- notes,programs,bpm=compose(plan,theme,mood,place,time,seed,cues)
+ notes,programs,bpm=compose(plan,theme,mood,place,time,seed,cues,arc)
  if not notes:return np.zeros(int(plan.seconds*sr))
  if not pm.available():return None
  cache=pm.TOOLS/'cache';cache.mkdir(exist_ok=True);p=cache/(notes_key(notes,programs,bpm)+'.npy')

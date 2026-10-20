@@ -16,7 +16,9 @@ from pathlib import Path
 import numpy as np
 H=Path(__file__).resolve().parent
 VOICE_DIR=H/'voices';CACHE=VOICE_DIR/'cache';CATALOGUE=VOICE_DIR/'catalogue.json';SR=22050
-MOOD_RATE={'sad':1.12,'serious':1.0,'warm':1.0,'concern':1.04,'angry':.93,'joy':.94}
+MOOD_RATE={'sad':1.12,'serious':1.0,'warm':1.0,'concern':1.04,'angry':.95,'joy':.96}
+BASE_RATE=1.1       # a little slower than the model's default: clearer
+SHIFT=(.88,1.15)    # more pitch shifting than this distorts the voice; the nearest voice is used instead
 MOOD_GAIN={'sad':.8,'serious':.95,'warm':.95,'concern':.9,'angry':1.15,'joy':1.1}
 POSTURE_RATE={'tired':1.12,'hunched':1.1,'proud':1.02,'neutral':1.0,'jaunty':.94,'tense':1.0,'angry':.95,'hurried':.88}
 def models():return sorted(p.name[:-5] for p in VOICE_DIR.glob("*.onnx"))
@@ -34,7 +36,7 @@ def f0_estimate(x,sr=SR,lo=60,hi=420):
   if seg[k]/ac[0]>.4:out.append(sr/(lag0+k))
  return float(np.median(out)) if out else None
 def key(voice,text,mood='serious'):
- s='|'.join(str(v) for v in (voice['model'],voice['speaker'],round(voice.get('shift',1.),3),round(voice.get('rate',1.),3),mood,text))
+ s='|'.join(str(v) for v in ('v3',voice['model'],voice['speaker'],round(voice.get('shift',1.),3),round(voice.get('rate',1.),3),mood,text))
  return hashlib.sha1(s.encode('utf-8')).hexdigest()[:16]
 def wav_path(k):return CACHE/(k+'.wav')
 def read_wav(p):
@@ -63,9 +65,10 @@ def assign(registry,catalogue=None):
   for c in cat:
    if (c['model'],c['speaker']) in used:continue
    r=tgt/c['f0'];cost=abs(np.log(r))+(.5 if r<.7 or r>1.5 else 0)
+   cost+=(-.12 if c['model'].endswith('high') else 0.)+(.35*abs(np.log(r/np.clip(r,*SHIFT))) if True else 0.)
    if best is None or cost<best[0]:best=(cost,c,r)
   if best is None:break
-  c=best[1];r=float(np.clip(best[2],.72,1.55));used.add((c['model'],c['speaker']))
+  c=best[1];r=float(np.clip(best[2],*SHIFT));used.add((c['model'],c['speaker']))
   out[i]=dict(model=c['model'],speaker=c['speaker'],f0=c['f0'],shift=round(r,3),rate=round(POSTURE_RATE.get(L['posture'],1.0)*(1.0+.0*L['scale'][2]),3))
  return out
 # ---------------------------------------------------------------------------------------------------------------- synthesis (needs piper)
@@ -81,7 +84,7 @@ def synth(voice,text,mood='serious'):
  if p.exists():return p
  from piper import SynthesisConfig
  CACHE.mkdir(parents=True,exist_ok=True);v=_voice(voice['model']);r=voice.get('shift',1.)
- cfg=SynthesisConfig(speaker_id=int(voice['speaker']) if v.config.num_speakers>1 else None,length_scale=float(voice.get('rate',1.)*MOOD_RATE.get(mood,1.)*r),noise_scale=.6+(.1 if mood in('angry','joy') else 0),noise_w_scale=.8)
+ cfg=SynthesisConfig(speaker_id=int(voice['speaker']) if v.config.num_speakers>1 else None,length_scale=float(BASE_RATE*voice.get('rate',1.)*MOOD_RATE.get(mood,1.)*r),noise_scale=.6+(.1 if mood in('angry','joy') else 0),noise_w_scale=.8)
  chunks=[c.audio_float_array for c in v.synthesize(text,syn_config=cfg)]
  x=np.concatenate(chunks) if chunks else np.zeros(2000);sr=v.config.sample_rate
  if abs(r-1.)>.01:     # pitch: play the (r times longer) synthesis r times faster; length is back to natural, pitch and formants move with r
@@ -89,10 +92,17 @@ def synth(voice,text,mood='serious'):
  if sr!=SR:n=int(len(x)*SR/sr);x=np.interp(np.linspace(0,len(x)-1,n),np.arange(len(x)),x)
  i=np.nonzero(np.abs(x)>.01)[0]
  if len(i):x=x[max(0,i[0]-int(.03*SR)):i[-1]+int(.12*SR)]      # trim silence, keep a breath at the end
- pk=np.max(np.abs(x))+1e-9;x=x/pk*.8*min(1.2,MOOD_GAIN.get(mood,1.));x=np.clip(x,-1,1)
+ x=clarity(x)
+ pk=np.max(np.abs(x))+1e-9;x=x/pk*.85*min(1.1,MOOD_GAIN.get(mood,1.));x=np.clip(x,-1,1)
  tmp=str(p)+'.tmp'
  with wave.open(tmp,'wb') as w:w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((x*32767).astype('<i2').tobytes())
  os.replace(tmp,p);return p
+def clarity(x,sr=SR):
+ """speech clarity: high-pass at 80 Hz, a presence lift around 2.5-4 kHz, then a soft compressor so quiet syllables are not lost under the score"""
+ n=len(x)
+ if n<64:return x
+ X=np.fft.rfft(x);f=np.fft.rfftfreq(n,1./sr);g=np.clip(f/80.,0,1)**2*(1+.55*np.exp(-((f-3000.)/1100.)**2));x=np.fft.irfft(X*g,n)
+ rms=np.sqrt(np.mean(x**2))+1e-9;x=x/rms*.1;return np.tanh(3.2*x)/3.2*10.
 def _job(a):
  voice,text,mood=a;synth(voice,text,mood);return key(voice,text,mood)
 def lines_of(film,voices):
@@ -118,7 +128,7 @@ def prepare(film,registry,workers=4,echo=True):
   else:
    for l in todo:_job(l)
  return voices
-MODEL_URLS={'en_US-libritts_r-medium':'en/en_US/libritts_r/medium','en_GB-vctk-medium':'en/en_GB/vctk/medium','en_US-ryan-medium':'en/en_US/ryan/medium','en_US-amy-medium':'en/en_US/amy/medium','en_GB-alan-medium':'en/en_GB/alan/medium','en_GB-jenny_dioco-medium':'en/en_GB/jenny_dioco/medium'}
+MODEL_URLS={'en_US-ryan-high':'en/en_US/ryan/high','en_US-lessac-high':'en/en_US/lessac/high','en_US-libritts-high':'en/en_US/libritts/high','en_GB-cori-high':'en/en_GB/cori/high','en_US-hfc_female-medium':'en/en_US/hfc_female/medium','en_US-hfc_male-medium':'en/en_US/hfc_male/medium','en_US-libritts_r-medium':'en/en_US/libritts_r/medium','en_GB-vctk-medium':'en/en_GB/vctk/medium','en_US-ryan-medium':'en/en_US/ryan/medium','en_US-amy-medium':'en/en_US/amy/medium','en_GB-alan-medium':'en/en_GB/alan/medium','en_GB-jenny_dioco-medium':'en/en_GB/jenny_dioco/medium'}
 def download_models(names=None):
  """fetch the Piper voice models (about 400 MB, rhasspy/piper-voices on Hugging Face) into voices/"""
  import urllib.request
