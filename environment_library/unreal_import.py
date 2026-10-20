@@ -73,6 +73,17 @@ class UnrealBackend:
    except Exception:pass
    actor.static_mesh_component.set_static_mesh(obj);self.spawned.append(actor);return
   self.warnings.append('environment mesh %s was not found under /Game/Proxy/%s (import environment.fbx first)'%(name,self.scene))
+ def autoplay_actor(self):
+  """a LevelSequenceActor in the level that plays the sequence automatically when Play is pressed (and can be scrubbed in the editor)"""
+  u=self.u
+  try:
+   sub=u.get_editor_subsystem(u.EditorActorSubsystem);act=sub.spawn_actor_from_class(u.LevelSequenceActor,u.Vector(0,0,0));act.set_actor_label('%s/Player'%self.scene);act.tags=[u.Name(self.tag)]
+   try:act.set_folder_path('MovieBuilder/%s'%self.scene)
+   except Exception:pass
+   act.set_sequence(self.seq)
+   ps=act.get_editor_property('playback_settings');ps.set_editor_property('auto_play',True);act.set_editor_property('playback_settings',ps)
+   self.spawned.append(act)
+  except Exception as e:self.warnings.append('auto-play actor not created: %s %s'%(type(e).__name__,str(e)[:100]))
  def purge(self):
   """remove the actors a previous import of this scene left in the level (they carry the moviebuilder:<scene> tag); nothing else is touched"""
   u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem);n=0
@@ -187,7 +198,8 @@ class UnrealBackend:
   sec=tr.add_section();sec.set_range(start,end+1);sec.set_camera_binding_id(self.seq.get_binding_id(self.bind[h]))
  def audio(self,name,path,start,vol):
   u=self.u;tr=self.seq.add_track(u.MovieSceneAudioTrack);sec=tr.add_section();sec.set_range(start,start+1000);sec.set_sound(u.load_asset(path))
- def save(self):self.u.EditorAssetLibrary.save_loaded_asset(self.seq)
+ def save(self):
+  self.autoplay_actor();self.u.EditorAssetLibrary.save_loaded_asset(self.seq)
 def load_catalog(amap):
  """the installed-asset catalogue (Environment Studio's prompt-catalog.json) used to find real meshes for placeholders that have no explicit mapping"""
  here=os.path.dirname(os.path.abspath(__file__));p=amap.get('catalog') or os.path.join(here,'assets','prompt-catalog.json')

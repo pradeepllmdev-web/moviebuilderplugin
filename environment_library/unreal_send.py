@@ -43,7 +43,11 @@ def send_scene(bridge,json_path,import_assets=True,import_characters=False,dry_r
   for f in sorted(json_path.parent.glob('*.fbx')):
    if f.name.startswith(('anim_','character_')) and not import_characters:continue
    bridge.command('import_asset',{'file':str(f),'kind':'mesh','destination':'/Game/Proxy/%s'%doc['scene'],'replace':True});imported.append(f.name)
- res=bridge.command('apply_movie_scene',{'scene_json':str(json_path),'dry_run':bool(dry_run)});res['imported']=imported;return res
+ res=bridge.command('apply_movie_scene',{'scene_json':str(json_path),'dry_run':bool(dry_run)});res['imported']=imported
+ if not dry_run:
+  try:bridge.command('save_level',{});res['level_saved']=True      # the sequence's actors live in the level: save it so they are there next time the project opens
+  except BridgeError as e:res['level_saved']=False;res.setdefault('warnings',[]).append('level not saved: %s'%e)
+ return res
 def scenes_to_send(report,only=None):
  """(name, blend) for scenes that built and passed; scenes with audit issues, failures or no scene type are left out and reported"""
  ok=[];skipped=[]
