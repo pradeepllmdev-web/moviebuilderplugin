@@ -83,7 +83,11 @@ def validate_scene_path(path,root):
  if r != p and r not in p.parents:raise ValueError('scene file is outside the export root')
  if not p.is_file():raise ValueError('scene file does not exist')
  return p
-def load(path):return json.load(open(path,encoding='utf-8'))
+def load(path):
+ d=json.load(open(path,encoding='utf-8'))
+ if isinstance(d,dict) and str(path).endswith('.ue.json'):
+  import os;d['_dir']=os.path.dirname(os.path.abspath(str(path)))   # where the FBX files of this scene are
+ return d
 
 SYNONYMS={'Boulder':('rock','boulder','stone'),'Rock':('rock','boulder','stone'),'StoneDoor':('door','gate'),'Statue':('statue','sculpture','monument'),'StatueBase':('plinth','pedestal','statue'),'Crate':('crate','box','chest'),'CrateA':('crate','box'),'CrateB':('crate','box'),
  'Barrel':('barrel','cask'),'Plank':('plank','board','wood'),'House':('house','building','cottage'),'Tree':('tree',),'Trunk':('tree','trunk'),'Pillar':('column','pillar'),'Cliff':('cliff','rock'),'Stalactite':('stalactite','rock'),'Boat':('boat','canoe'),

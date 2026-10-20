@@ -43,13 +43,16 @@ class DryRun:
  def audio(self,name,path,start,vol):self.counts['audio']+=1
  def save(self):self.log.append(('save',))
  def environment(self,doc):pass
+ def ensure_characters(self,doc):pass
+ def character_asset(self,tag):return None
+ def clip_asset(self,tag,clip):return None
  sequence_path=None
 class UnrealBackend:
  """thin wrapper over the Unreal editor Python API (see the module docstring for the version note)"""
  def __init__(self,check=True):
   import unreal;self.u=unreal
   if check:guard(unreal)   # the editor bridge passes check=False: it has its own busy/undo rules and never overwrites
-  self.seq=None;self.bind={};self.sequence_path=None;self.warnings=[];self.spawned=[];self.tag=None;self.scene=None
+  self.seq=None;self.bind={};self.sequence_path=None;self.warnings=[];self.spawned=[];self.tag=None;self.scene=None;self.character_assets={};self.clip_assets={}
  def sequence(self,name,fps,start,end):
   u=self.u;self.scene=name;self.tag='moviebuilder:%s'%name;self.purge()
   tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset(unique_name(u.EditorAssetLibrary.does_asset_exist,'LS_%s'%name),'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
@@ -85,6 +88,39 @@ class UnrealBackend:
   if self.sequence_path:
    try:u.EditorAssetLibrary.delete_asset(self.sequence_path.split('.')[0])
    except Exception:pass
+ def ensure_characters(self,doc):
+  """import each character's skeletal mesh and every clip it uses (once; existing assets are kept) and remember where they ended up"""
+  u=self.u;folder=doc.get('_dir')
+  if not folder:return
+  lib=u.EditorAssetLibrary
+  for c in doc['characters']:
+   tag=c['name'];mesh_dir='/Game/Characters/%s'%tag;mesh_path='%s/character_%s'%(mesh_dir,tag);skel_path='%s/character_%s_Skeleton'%(mesh_dir,tag)
+   try:
+    if not lib.does_asset_exist(mesh_path):
+     self._import(os.path.join(folder,c['skeletal_mesh']),mesh_dir,mesh=True)
+    self.character_assets[tag]=mesh_path if lib.does_asset_exist(mesh_path) else None
+    skel=u.load_asset(skel_path) if lib.does_asset_exist(skel_path) else None
+    for clip in sorted({s['clip'] for s in c['clips']}):
+     target='/Game/Anim/%s'%tag
+     if skel is None:self.warnings.append('no skeleton for %s: animation %s not imported'%(tag,clip));continue
+     before=set(lib.list_assets(target,recursive=True,include_folder=False)) if lib.does_directory_exist(target) else set()
+     f=os.path.join(folder,'anim_%s.fbx'%clip)
+     got=self._import(f,target,mesh=False,skeleton=skel,name='anim_%s'%clip)
+     anims=[p for p in got if isinstance(u.load_asset(p),u.AnimSequence)] if got else []
+     if anims:self.clip_assets[(tag,clip)]=anims[0]
+     else:self.warnings.append('animation %s imported nothing'%clip)
+   except Exception as e:self.warnings.append('character %s import failed: %s %s'%(tag,type(e).__name__,str(e)[:120]))
+ def _import(self,filename,dest,mesh,skeleton=None,name=None):
+  u=self.u;task=u.AssetImportTask();task.set_editor_property('filename',filename);task.set_editor_property('destination_path',dest);task.set_editor_property('automated',True);task.set_editor_property('replace_existing',True);task.set_editor_property('save',False)
+  if name:task.set_editor_property('destination_name',name)
+  o=u.FbxImportUI();o.set_editor_property('automated_import_should_detect_type',False)
+  if mesh:
+   o.set_editor_property('import_mesh',True);o.set_editor_property('import_as_skeletal',True);o.set_editor_property('import_animations',False);o.set_editor_property('mesh_type_to_import',u.FBXImportType.FBXIT_SKELETAL_MESH)
+  else:
+   o.set_editor_property('import_mesh',False);o.set_editor_property('import_animations',True);o.set_editor_property('mesh_type_to_import',u.FBXImportType.FBXIT_ANIMATION);o.set_editor_property('skeleton',skeleton)
+  task.set_editor_property('options',o);u.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task]);return [str(p) for p in task.get_editor_property('imported_object_paths')]
+ def character_asset(self,tag):return self.character_assets.get(tag)
+ def clip_asset(self,tag,clip):return self.clip_assets.get((tag,clip))
  def proxy_candidates(self,a):
   """paths of the proxy meshes imported from props.fbx for this actor: Unreal turns '.' into '_' and adds a digit when a material already has the name"""
   out=[]
@@ -149,9 +185,12 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
  """create the sequence on the backend; returns the backend. Keys are reduced (position tolerance in cm, rotation in degrees) before they are written."""
  problems=ub.validate(doc)
  if problems:raise ValueError('export is inconsistent: %s'%problems[:5])
- backend.sequence(doc['scene'],doc['fps'],doc['frame_start'],doc['frame_end']);handles={}
+ backend.sequence(doc['scene'],doc['fps'],doc['frame_start'],doc['frame_end']);handles={};backend.ensure_characters(doc)
  for a in doc['actors']:
   asset,mapped=ub.resolve_asset(a['asset_key'],asset_map,proxy_dir,doc['scene']);k=a.get('keys');fitted=None
+  if a['role']=='character' and not mapped:
+   own=[backend.character_asset(c['name']) for c in doc['characters'] if c['root']==a['id']]
+   if own and own[0]:asset=own[0];mapped=True
   if not mapped and catalog and a['role'] in ('prop','effect') and a.get('bounds_cm'):
    hit=ub.pick_catalog_asset(a['asset_key'],a['bounds_cm'],catalog)
    if hit:asset,fit=hit;mapped=True;fitted=fit
@@ -164,7 +203,10 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
   if a['role']=='light':backend.light(h,a['light'])
  for c in doc['characters']:
   for s in c['clips']:
-   asset,mapped=ub.resolve_clip(s['clip'],c['name'],asset_map,anim_dir);backend.anim_section(handles[c['root']],asset,s['start'],s['end'],1.0/max(1e-6,s['scale']),mapped)
+   asset,mapped=ub.resolve_clip(s['clip'],c['name'],asset_map,anim_dir)
+   own=backend.clip_asset(c['name'],s['clip'])
+   if own and not mapped:asset,mapped=own,True
+   backend.anim_section(handles[c['root']],asset,s['start'],s['end'],1.0/max(1e-6,s['scale']),mapped)
  backend.environment(doc)
  for cut in doc['cuts']:backend.camera_cut(cut['name'],handles[cut['camera']],cut['start'],cut['end'])
  for au in doc['audio']:backend.audio(au['name'],au['file'],au['start'],au['volume'])
