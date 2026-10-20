@@ -7,7 +7,7 @@ FPS=24.
 GAITS={
  'walk':   dict(kind='built',clip='walk',   cycle=18,amp=.25,stance=.62,lift=.07,bob=.022,crouch=.035, lean=2,  arm_swing=.12,arm_out=.04,arm_up=.0, sway=.015,pelvis_yaw=5, toe_off=22,toe_up=8),
  'strut':  dict(kind='built',clip='strut',  cycle=22,amp=.27,stance=.58,lift=.08,bob=.03, crouch=.04, lean=-4, arm_swing=.15,arm_out=.07,arm_up=.02,sway=.025,pelvis_yaw=8, toe_off=25,toe_up=8),
- 'shuffle':dict(kind='built',clip='shuffle',cycle=28,amp=.13,stance=.72,lift=.03,bob=.01, crouch=.03,lean=11, arm_swing=.03,arm_out=.0, arm_up=-.04,sway=.01,pelvis_yaw=2, toe_off=6, toe_up=2),
+ 'shuffle':dict(kind='built',clip='shuffle',cycle=24,amp=.17,stance=.7,lift=.03,bob=.01, crouch=.03,lean=11, arm_swing=.03,arm_out=.0, arm_up=-.04,sway=.01,pelvis_yaw=2, toe_off=6, toe_up=2),
  'bounce': dict(kind='built',clip='bounce', cycle=18,amp=.24,stance=.5, lift=.11,bob=.045,crouch=.025, lean=0,  arm_swing=.2, arm_out=.08,arm_up=.06,sway=.02,pelvis_yaw=7, toe_off=30,toe_up=12),
  'sneak':  dict(kind='built',clip='sneak',  cycle=30,amp=.2, stance=.66,lift=.06,bob=.008,crouch=.16,lean=16, arm_swing=.05,arm_out=.02,arm_up=-.02,sway=.01,pelvis_yaw=3, toe_off=15,toe_up=4),
  'stomp':  dict(kind='built',clip='stomp',  cycle=20,amp=.26,stance=.65,lift=.05,bob=.04, crouch=.035, lean=5,  arm_swing=.16,arm_out=.1, arm_up=.03,sway=.03,pelvis_yaw=9, toe_off=12,toe_up=4),

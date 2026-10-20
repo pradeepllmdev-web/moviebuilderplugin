@@ -1,0 +1,503 @@
+"""Performance planner (pure Python + numpy, no Blender): compiles a declarative scene spec into per-frame motion, clips, speech, hand reaches and prop tracks, and audits the result.
+
+    plan=perf_plan.compile(spec, registry)        # spec: see below; registry: cast_registry.Registry (or {id: look})
+    plan.frames, plan.actors[id].X/Y/H (per frame), .clips, .hands, plan.lines, plan.events, plan.props, plan.audit()
+
+Spec (all plain data, JSON-able):
+    dict(id='s01', title=.., location=dict(preset='village_square', seed=2, objects=[..]), time='day'|'dusk'|'night'|'dawn'|'overcast', ambience='wind', music='calm',
+         cast=[dict(id='mara', at=[x,y], face=[x,y]|'id'), ...], props=[dict(id='lantern1', kind='lantern', at=[x,y], on='table1'|z=..)],
+         steps=[beat | [beat, beat, ...], ...])        # a step is one beat or a list of beats that run at the same time; steps run one after another
+Beats (who = character id):
+    go      who, to (point | character | prop | marker | object | seat), gait ('walk'|'run'|gait name, default from posture), stop (m before a character/prop target), face (point/id after arriving), via [points], pace
+    turn    who, to                         face a point or character
+    say     who, text, mood (serious|angry|warm|concern|sad|joy), to    a spoken line with lip sync, eye lines, the listener's reaction and body turns
+    act     who, clip, dur, to, scale       any library clip in place (wave, nod, shrug, laugh, push, kick, bow, startle, think, talk, argue, cele, hit, punch, block, dodge, jump, fall, getup, kneel, look, hips, cut)
+    look    who, at, dur                    eyes and head only
+    emote   who, kind (smile|frown|concern|sad|brows), dur
+    wait    dur                             everybody holds
+    take    who, prop, hand ('R'|'L'|'both')            walks to the prop, reaches with IK, carries it
+    put     who, prop, at (point) | on (object id)      carries it to the place and lets go
+    give    who, to, prop                   hands a carried prop to another character
+    push    who, prop, dist, dir            pushes a prop with both hands (the prop slides while the hands stay on it)
+    sit     who, on (seat id like 'bench1.0'), face      walks to the seat, turns, sits;   stand  who
+    sfx     name, at (offset s)             a sound event (door, thud, clang, splash, bell, gong, crash, thunder, chime, knock)
+    cam     size ('wide'|'medium'|'close'|'insert'), subject, mode ('follow'|'static'|'high'|'low'|'track')   hint for the camera director
+Everything is simulated at 24 fps; the planter never hides or removes anything. Heading is the world direction a character faces (radians); the Blender root rotation is heading+pi/2 (the rig faces -Y).
+Planted feet: a walk's ground speed comes from the gait table and the character's size, and the clip's play scale is derived from it, never tuned by hand."""
+import math,random
+import numpy as np
+import dialogue as dg,gaits,perf_locations as pl
+FPS=24
+CLIP_FRAMES=dict(argue=96,block=72,bow=72,cele=120,climb=96,crawl=96,cut=72,dodge=72,fall=72,getup=72,hips=72,hit=72,idle=96,jump=72,kick=72,kneel=96,laugh=96,lie=96,look=144,nod=72,pick=120,punch=72,push=72,run=48,shrug=72,sit=216,startle=72,talk=96,think=96,wave=72)
+for _g,_v in gaits.GAITS.items():CLIP_FRAMES.setdefault(_v['clip'],_v['cycle'])
+ACT_CLIPS=('argue','block','bow','cele','cut','dodge','fall','getup','hips','hit','jump','kick','kneel','laugh','lie','look','nod','punch','push','shrug','startle','talk','think','wave','idle')
+SEATED_OK=('look','emote','say')
+MOODS=dg.MOODS
+SIT_DOWN=(1,110)             # frames of the sit clip: standing -> seated (hips down by frame 97), then held
+SIT_HIPS_FWD=.11             # seated hips are this far in front of the root (x size)
+REACH_STAND=.52              # distance (x size) the actor stands from something it takes
+CARRY={'R':[(-.34,-.4,.78)],'L':[(.34,-.4,.78)],'both':[(-.2,-.44,.8),(.2,-.44,.8)]}
+class SpecError(ValueError):pass
+def wrap(a):
+ while a>math.pi:a-=2*math.pi
+ while a<-math.pi:a+=2*math.pi
+ return a
+def lerp_angle(a,b,u):return a+wrap(b-a)*u
+def ease(u):u=max(0.,min(1.,u));return u*u*(3-2*u)
+def _segdist(p0,p1,c):
+ dx,dy=p1[0]-p0[0],p1[1]-p0[1];L2=dx*dx+dy*dy
+ t=0. if L2<1e-9 else max(0.,min(1.,((c[0]-p0[0])*dx+(c[1]-p0[1])*dy)/L2));return math.hypot(p0[0]+dx*t-c[0],p0[1]+dy*t-c[1]),t
+class Router:
+ """grid A* around circular obstacles (x,y,r): cells inside an obstacle grown by `margin` are blocked, the start and goal discs are freed, the path is pulled straight where it can be"""
+ def __init__(s,obst,half,margin=.4,cell=.25):
+  s.cell=cell;s.hx,s.hy=half[0]+6,half[1]+6;s.nx,s.ny=int(2*s.hx/cell)+1,int(2*s.hy/cell)+1;s.margin=margin
+  xs=np.arange(s.nx)*cell-s.hx;ys=np.arange(s.ny)*cell-s.hy;X,Y=np.meshgrid(xs,ys,indexing='ij');m=np.zeros((s.nx,s.ny),bool)
+  for c in obst:m|=(X-c[0])**2+(Y-c[1])**2<(c[2]+margin)**2
+  s.blocked=m
+ def cellof(s,p):return (min(s.nx-1,max(0,int(round((p[0]+s.hx)/s.cell)))),min(s.ny-1,max(0,int(round((p[1]+s.hy)/s.cell)))))
+ def clear(s,p,q,free):
+  n=max(2,int(math.hypot(q[0]-p[0],q[1]-p[1])/(s.cell*.5)))
+  for i in range(n+1):
+   x=p[0]+(q[0]-p[0])*i/n;y=p[1]+(q[1]-p[1])*i/n;c=s.cellof((x,y))
+   if s.blocked[c] and not any(math.hypot(x-f[0],y-f[1])<f[2] for f in free):return False
+  return True
+ def route(s,p0,p1,free_r=.7):
+  free=[(p0[0],p0[1],free_r),(p1[0],p1[1],free_r)]
+  if s.clear(p0,p1,free):return [tuple(p0),tuple(p1)]
+  import heapq
+  a,b=s.cellof(p0),s.cellof(p1);blocked=s.blocked.copy()
+  for f in free:
+   c=s.cellof(f);r=int(f[2]/s.cell)+1
+   for i in range(max(0,c[0]-r),min(s.nx,c[0]+r+1)):
+    for j in range(max(0,c[1]-r),min(s.ny,c[1]+r+1)):
+     if math.hypot((i-c[0])*s.cell,(j-c[1])*s.cell)<f[2]:blocked[i,j]=False
+  g={a:0.};prev={};h=[(0.,a)];done=set();N=((1,0),(-1,0),(0,1),(0,-1),(1,1),(1,-1),(-1,1),(-1,-1))
+  while h:
+   _,c=heapq.heappop(h)
+   if c in done:continue
+   done.add(c)
+   if c==b:break
+   for d in N:
+    n=(c[0]+d[0],c[1]+d[1])
+    if not (0<=n[0]<s.nx and 0<=n[1]<s.ny) or blocked[n]:continue
+    if d[0] and d[1] and (blocked[c[0]+d[0],c[1]] or blocked[c[0],c[1]+d[1]]):continue
+    ng=g[c]+(1.414 if d[0] and d[1] else 1.)
+    if ng<g.get(n,1e9):g[n]=ng;prev[n]=c;heapq.heappush(h,(ng+math.hypot(n[0]-b[0],n[1]-b[1]),n))
+  if b not in prev and a!=b:return [tuple(p0),tuple(p1)]
+  cells=[b]
+  while cells[-1]!=a:cells.append(prev[cells[-1]])
+  pts=[tuple(p0)]+[(c[0]*s.cell-s.hx,c[1]*s.cell-s.hy) for c in reversed(cells[1:-1])]+[tuple(p1)]
+  out=[pts[0]];i=0
+  while i<len(pts)-1:   # string pulling
+   j=len(pts)-1
+   while j>i+1 and not s.clear(pts[i],pts[j],free):j-=1
+   out.append(pts[j]);i=j
+  return out
+def route(p0,p1,obst,half=(30,30),margin=.4):return Router(obst,half,margin).route(p0,p1)
+def polyline_samples(points,speed,dt=1./FPS):
+ """positions along a polyline at constant speed: list of (x,y,raw_heading); the last sample is the end point"""
+ pts=[tuple(p) for p in points];segs=[(a,b,math.hypot(b[0]-a[0],b[1]-a[1])) for a,b in zip(pts,pts[1:])];segs=[s for s in segs if s[2]>1e-6]
+ if not segs:return [(pts[0][0],pts[0][1],None)]
+ total=sum(s[2] for s in segs);n=max(1,int(round(total/speed/dt)));out=[];k=0;acc=0.
+ for i in range(n+1):
+  s=min(total,total*i/n)
+  while k<len(segs)-1 and s>acc+segs[k][2]+1e-9:acc+=segs[k][2];k+=1
+  a,b,L=segs[k];u=min(1.,(s-acc)/L);out.append((a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u,math.atan2(b[1]-a[1],b[0]-a[0])))
+ return out
+class Prop:
+ def __init__(s,spec,pos,table):
+  s.id=spec['id'];s.kind=spec['kind'];k=PROP_KINDS_CHECK(s.kind);s.size=tuple(x*spec.get('size',1.) for x in k['size']);s.carry=k['carry'];s.yaw=math.radians(spec.get('yaw',0.));s.pos=tuple(pos);s.track=[(0.,'world',tuple(pos))]
+ def at(s,t,plan):
+  cur=None
+  for seg in s.track:
+   if seg[0]<=t+1e-9:cur=seg
+   else:break
+  if cur[1]=='world':return cur[2]
+  return plan.held_pos(cur[2],cur[3],t,s)
+def PROP_KINDS_CHECK(kind):
+ if kind not in pl.PROP_KINDS:raise SpecError('unknown prop kind %r (known: %s)'%(kind,', '.join(sorted(pl.PROP_KINDS))))
+ return pl.PROP_KINDS[kind]
+class Actor:
+ def __init__(s,id_,look,x,y,h):
+  s.id=id_;s.look=look;s.size=look['scale'][2];s.radius=look['radius'];s.X=[x];s.Y=[y];s.H=[h];s.clips=[];s.hands={'R':[],'L':[]};s.state='stand';s.seat=None;s.holding=None;s.emotes=[];s.ignore=[];s.walks=[];s.gait=look['gait']
+ @property
+ def t(s):return (len(s.X)-1)/FPS
+ def pos(s):return s.X[-1],s.Y[-1]
+ def hold(s,dur):
+  n=max(0,int(round(dur*FPS)))
+  for _ in range(n):s.X.append(s.X[-1]);s.Y.append(s.Y[-1]);s.H.append(s.H[-1])
+ def pad_to(s,t):s.hold(t-s.t)
+ def turn_to(s,h1,dur=None):
+  h0=s.H[-1];d=abs(wrap(h1-h0))
+  if d<math.radians(4):return 0.
+  dur=dur or max(.3,d/math.radians(230.));n=max(2,int(round(dur*FPS)));x,y=s.X[-1],s.Y[-1]
+  for i in range(1,n+1):s.X.append(x);s.Y.append(y);s.H.append(lerp_angle(h0,h1,ease(i/n)))
+  return n/FPS
+ def face_point(s,p,dur=None):return s.turn_to(math.atan2(p[1]-s.Y[-1],p[0]-s.X[-1]),dur)
+ def play(s,name,t0,t1,scale=1.,**opt):
+  if s.clips and s.clips[-1][1]>t0+1e-6:
+   last=s.clips[-1]
+   if last[0]>=t0-1e-6:s.clips.pop()
+   else:s.clips[-1]=(last[0],t0,last[2],last[3],last[4])
+  if t1>t0+1e-6:s.clips.append((t0,t1,name,scale,opt))
+ def walk(s,points,speed,gait,scale,tau=.22):
+  smp=polyline_samples(points,speed)
+  if len(smp)<2:return 0.
+  h_raw=smp[0][2];t0=s.t;h=s.H[-1];k=1-math.exp(-1./FPS/tau)
+  for (x,y,hr) in smp[1:]:
+   if hr is not None:h=h+wrap(hr-h)*k
+   s.X.append(x);s.Y.append(y);s.H.append(h)
+  t1=s.t;s.play(gaits.GAITS[gait]['clip'],t0,t1,scale);s.walks.append((t0,t1,gait,scale,speed));return t1-t0
+class Plan:
+ def __init__(s,spec,registry,layout=None):
+  s.spec=spec;s.layout=layout or pl.layout(spec.get('location',dict(preset='meadow')));s.lines=[];s.events=[];s.sfx=[];s.cams=[];s.steps_t=[];s.steps_text=[]
+  looks={}
+  for c in spec.get('cast',[]):
+   looks[c['id']]=registry.resolve(c['id']) if hasattr(registry,'resolve') else registry[c['id']]
+  s.looks=looks;s.actors={}
+  for c in spec['cast']:
+   x,y=c['at'][:2];s.actors[c['id']]=Actor(c['id'],looks[c['id']],x,y,0.)
+  for c in spec['cast']:
+   a=s.actors[c['id']];f=c.get('face');a.H[0]=s._heading_to(a,f) if f is not None else math.pi/2
+  s.props={}
+  for p in spec.get('props',[]):
+   z=p.get('z');base=0.;pk=PROP_KINDS_CHECK(p['kind']);sz=pk['size'][2]*p.get('size',1.)
+   if p.get('on'):
+    if p['on'] not in s.layout['surfaces']:raise SpecError('prop %s sits on %r which is not a surface of the location'%(p['id'],p['on']))
+    base=s.layout['surfaces'][p['on']][2]
+   s.props[p['id']]=Prop(p,(p['at'][0],p['at'][1],(z if z is not None else base+sz/2)),None)
+  s.t_end=0.;s.router=Router(s.layout['obstacles'],s.layout['half'])
+ # ------------------------------------------------------------------------------------------------------ references
+ def _heading_to(s,a,ref):
+  p=s.point(ref);return math.atan2(p[1]-a.Y[-1],p[0]-a.X[-1])
+ def point(s,ref,t=None):
+  """(x,y,z) of a point, character, prop, marker, object or seat"""
+  if isinstance(ref,(list,tuple)):return (ref[0],ref[1],ref[2] if len(ref)>2 else 0.)
+  if ref in s.actors:a=s.actors[ref];return (a.X[-1],a.Y[-1],0.)
+  if ref in s.props:
+   p=s.props[ref];return p.at(s.cur_t() if t is None else t,s)
+  if ref in s.layout['markers']:m=s.layout['markers'][ref];return (m[0],m[1],0.)
+  if ref in s.layout['seats']:q=s.layout['seats'][ref];return (q[0],q[1],q[2])
+  for o in s.layout['objects']:
+   if o['id']==ref:return (o['at'][0],o['at'][1],0.)
+  raise SpecError('unknown reference %r (not a point, character, prop, marker, seat or object)'%(ref,))
+ def cur_t(s):return max(a.t for a in s.actors.values())
+ def local_to_world(s,a,t,l):
+  f=min(len(a.X)-1,max(0,int(round(t*FPS))));h=a.H[f]+math.pi/2;c,sn=math.cos(h),math.sin(h);k=a.size
+  return (a.X[f]+(c*l[0]-sn*l[1])*k,a.Y[f]+(sn*l[0]+c*l[1])*k,l[2]*k)
+ def hand_target(s,a,hand,t):
+  """(influence, world position) of an actor's IK hand target at time t, from its keys"""
+  ks=a.hands[hand]
+  if not ks:return 0.,None
+  def ev(k):
+   mode=k[2][0]
+   if mode=='local':return s.local_to_world(a,t,k[2][1])
+   if mode=='world':return k[2][1]
+   return s.props[k[2][1]].pos
+  if t<=ks[0][0]:return ks[0][1],ev(ks[0])
+  for k0,k1 in zip(ks,ks[1:]):
+   if k0[0]<=t<=k1[0]:
+    u=ease((t-k0[0])/max(1e-6,k1[0]-k0[0]));p0,p1=ev(k0),ev(k1);return k0[1]+(k1[1]-k0[1])*u,tuple(p0[i]+(p1[i]-p0[i])*u for i in range(3))
+  return ks[-1][1],ev(ks[-1])
+ def held_pos(s,who,hand,t,prop):
+  a=s.actors[who];hs=('R','L') if hand=='both' else (hand,);ps=[s.hand_target(a,h,t)[1] for h in hs]
+  if any(p is None for p in ps):return prop.pos
+  return tuple(sum(p[i] for p in ps)/len(ps) for i in range(3))
+ # ------------------------------------------------------------------------------------------------------ running
+ def run(s):
+  steps=s.spec['steps']
+  for i,st in enumerate(steps):
+   beats=st if isinstance(st,list) else [st];t0=s.cur_t();s.steps_t.append(t0)
+   for a in s.actors.values():a.pad_to(t0)
+   used=set();spoke=[]
+   for b in beats:
+    who=b.get('who')
+    if b['do'] in ('wait','sfx','cam'):getattr(s,'b_'+b['do'])(b,t0);continue
+    if who not in s.actors:raise SpecError('step %d: %s has no character %r (cast: %s)'%(i,b['do'],who,', '.join(s.actors)))
+    if who in used and b['do']!='look':raise SpecError('step %d: %s has two beats at the same time'%(i,who))
+    used.add(who)
+    if not hasattr(s,'b_'+b['do']):raise SpecError('step %d: unknown beat %r'%(i,b['do']))
+    r=getattr(s,'b_'+b['do'])(b,t0)
+    if b['do']=='say':spoke.append(r)
+   if len([1 for b in beats if b['do']=='say'])>1:raise SpecError('step %d: two lines at the same time (put each line in its own step)'%i)
+   end=max(a.t for a in s.actors.values())
+   for a in s.actors.values():a.pad_to(end)
+   for L in spoke:s._listen(L,used,t0,end)
+  end=s.cur_t()+2.5
+  for a in s.actors.values():a.pad_to(end)
+  s.frames=len(next(iter(s.actors.values())).X);s.seconds=(s.frames-1)/FPS
+  for a in s.actors.values():s._finish_clips(a)
+  return s
+ def _finish_clips(s,a):
+  src=sorted(a.clips,key=lambda c:c[0]);out=[];cur=0.
+  for k,(t0,t1,name,sc,opt) in enumerate(src):
+   if opt.get('hold'):   # a held pose (seated, fallen) lasts until the next clip starts
+    nxt=src[k+1][0] if k+1<len(src) else s.seconds;opt=dict(opt,len=t1-t0);t1=max(t1,nxt)
+   t0=max(t0,cur)
+   if t1-t0<.05:continue
+   if t0>cur+.04:out.append((cur,t0,'idle',1.,{}))
+   out.append((t0,t1,name,sc,opt));cur=t1
+  if cur<s.seconds-.04:out.append((cur,s.seconds,'idle',1.,{}))
+  a.clips=out
+ def _listen(s,L,used,t0,end):
+  """listeners with no beat in the step: face the speaker if far off, then react at the end of the line"""
+  for name,a in s.actors.items():
+   if name in used or name==L['speaker'] or a.state!='stand':continue
+   if L['to']==name and L['mood'] in dg.LISTEN_CLIP and dg.LISTEN_CLIP[L['mood']]:
+    ta=max(t0,L['t1']-.9);tb=min(end,L['t1']+.5)
+    if tb-ta>=.4:a.play(dg.LISTEN_CLIP[L['mood']],ta,tb,1.)
+ # ------------------------------------------------------------------------------------------------------ beats
+ def _stand_only(s,a,what):
+  if a.state!='stand':raise SpecError('%s: %s cannot %s while %s'%(s.cur_t(),a.id,what,a.state))
+ def b_wait(s,b,t0):
+  for a in s.actors.values():a.pad_to(t0+b['dur'])
+  s.events.append(dict(kind='wait',t0=t0,t1=t0+b['dur']))
+ def b_sfx(s,b,t0):s.sfx.append((t0+b.get('at',0.),b['name'],b.get('who'),b.get('gain',1.)))
+ def b_cam(s,b,t0):s.cams.append(dict(t0=t0,**{k:v for k,v in b.items() if k!='do'}))
+ def b_turn(s,b,t0):
+  a=s.actors[b['who']];s._stand_only(a,'turn');p=s.point(b['to']);d=a.face_point(p);s.events.append(dict(kind='turn',who=a.id,t0=t0,t1=t0+d,to=b['to']))
+ def b_look(s,b,t0):
+  a=s.actors[b['who']];a.pad_to(t0+b.get('dur',1.));s.events.append(dict(kind='look',who=a.id,t0=t0,t1=t0+b.get('dur',1.),to=b['at']))
+ def b_emote(s,b,t0):
+  a=s.actors[b['who']];d=b.get('dur',2.);a.emotes.append((t0,t0+d,b['kind']));a.pad_to(t0+d);s.events.append(dict(kind='emote',who=a.id,t0=t0,t1=t0+d,what=b['kind']))
+ def b_act(s,b,t0):
+  a=s.actors[b['who']];clip=b['clip']
+  if clip not in ACT_CLIPS:raise SpecError('act: unknown clip %r (known: %s)'%(clip,', '.join(ACT_CLIPS)))
+  if a.state=='sit' and clip not in SEATED_OK:raise SpecError('%s acts %r while seated'%(a.id,clip))
+  if a.state=='down' and clip!='getup':raise SpecError('%s is on the ground and can only get up'%a.id)
+  if clip=='getup' and a.state!='down':raise SpecError('%s gets up without having fallen'%a.id)
+  if b.get('to') is not None:a.face_point(s.point(b['to']))
+  ts=a.t;nat=CLIP_FRAMES[clip]/FPS;sc=b.get('scale',1.)
+  dur=b.get('dur',nat*sc) if clip not in ('fall','getup','kneel','bow','jump','kick','hit','punch','cut','push','dodge','block','startle','wave','nod','shrug','think') else b.get('dur',nat*sc)
+  sc=dur/nat if clip in ('fall','getup','kneel','bow','jump','kick','hit','punch','cut','dodge','block','startle','nod','shrug') else sc
+  loopable=clip in ('talk','argue','laugh','cele','idle','look','think','wave','hips')
+  if not loopable:dur=nat*sc
+  a.hold(dur);a.play(clip,ts,ts+dur,sc,hold=(clip=='fall'))
+  if clip=='fall':a.state='down'
+  elif clip=='getup':a.state='stand'
+  s.events.append(dict(kind='act',who=a.id,clip=clip,t0=ts,t1=ts+dur,to=b.get('to')))
+ def b_say(s,b,t0):
+  a=s.actors[b['who']];mood=b.get('mood') or dg.infer_mood(b['text']);to=b.get('to')
+  if mood not in MOODS:raise SpecError('say: unknown mood %r'%mood)
+  if to is None:
+   prev=s.lines[-1]['speaker'] if s.lines and s.lines[-1]['speaker']!=a.id else None
+   to=prev or min((o for o in s.actors if o!=a.id),key=lambda o:math.hypot(s.actors[o].X[-1]-a.X[-1],s.actors[o].Y[-1]-a.Y[-1]),default=a.id)
+  tp=s.point(to)
+  if a.state=='stand' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(35):a.face_point(tp)
+  syl=dg.syllables(b['text']);dur=max(1.6,len(syl)*.2+.5);ts=a.t+.15
+  a.hold(.15+dur+.35);k=len(s.lines);L=dict(k=k,speaker=a.id,mood=mood,text=b['text'],t0=ts,t1=ts+dur,syl=syl,dur=dur,to=to);s.lines.append(L)
+  if a.state=='stand':
+   clip=dg.SPEAK_CLIP[mood]
+   if not a.clips or a.clips[-1][1]<=ts:a.play(clip,ts-.2,ts+dur+.2,1.)
+  s.events.append(dict(kind='say',who=a.id,t0=ts,t1=ts+dur,to=to,mood=mood,k=k))
+  for name,o in s.actors.items():   # everybody idle and standing turns towards the speaker when far off
+   if name!=a.id and o.state=='stand' and o.t<=ts-.1 and abs(wrap(math.atan2(a.Y[-1]-o.Y[-1],a.X[-1]-o.X[-1])-o.H[-1]))>math.radians(48):o.face_point((a.X[-1],a.Y[-1]),.55)
+  return L
+ def _approach(s,a,target,stand,gait,face=None,mult=1.):
+  """walk a to within `stand` metres of the point `target` (xy), then face `face` (default the target)"""
+  px,py=a.pos();tx,ty=target[0],target[1];d=math.hypot(tx-px,ty-py)
+  if d>stand+.05:
+   ux,uy=(tx-px)/d,(ty-py)/d;end=(tx-ux*stand,ty-uy*stand);s._walk_to(a,end,gait,mult)
+  a.face_point(face if face is not None else target)
+ def _walk_to(s,a,end,gait,mult=1.,via=()):
+  if a.state=='sit':s._stand(a)
+  if a.state!='stand':raise SpecError('%s cannot walk while %s'%(a.id,a.state))
+  gait=gait or a.gait
+  if gait not in gaits.GAITS:raise SpecError('unknown gait %r (known: %s)'%(gait,', '.join(gaits.GAITS)))
+  pts=[a.pos()]+[tuple(v[:2]) for v in via]+[tuple(end[:2])];path=[pts[0]]
+  for p in pts[1:]:path+=s.router.route(path[-1],p)[1:]
+  if len(path)>1:
+   first=math.atan2(path[1][1]-path[0][1],path[1][0]-path[0][0]);a.turn_to(first,None)
+  size=a.size;nat=gaits.natural_speed(gait);speed=nat*size*a.look['pace']*mult;sc=gaits.play_scale(gait,speed,size);t0=a.t;a.walk(path,speed,gait,sc)
+  s.events.append(dict(kind='go',who=a.id,t0=t0,t1=a.t,gait=gait,to=tuple(end[:2]),speed=speed));return a.t-t0
+ def b_go(s,b,t0):
+  a=s.actors[b['who']];ref=b['to'];tp=s.point(ref);gait=b.get('gait') or (None)
+  stop=b.get('stop')
+  if stop is None:stop=(1.25*(a.size+s.actors[ref].size)/2 if isinstance(ref,str) and ref in s.actors else (.8*a.size if isinstance(ref,str) and ref in s.props else 0.))
+  tp2=tp
+  if stop>0:
+   px,py=a.pos();d=math.hypot(tp[0]-px,tp[1]-py)
+   if d>stop+.05:ux,uy=(tp[0]-px)/d,(tp[1]-py)/d;tp2=(tp[0]-ux*stop,tp[1]-uy*stop)
+   else:tp2=(px,py)
+  if math.hypot(tp2[0]-a.X[-1],tp2[1]-a.Y[-1])>.05:s._walk_to(a,tp2,gait,b.get('pace',1.),b.get('via',()))
+  face=b.get('face',ref if isinstance(ref,str) and (ref in s.actors or ref in s.props) else None)
+  if face is not None:a.face_point(s.point(face))
+ def b_sit(s,b,t0):
+  a=s.actors[b['who']];sid=b['on']
+  if sid not in s.layout['seats']:raise SpecError('sit: no seat %r (seats: %s)'%(sid,', '.join(sorted(s.layout['seats'])) or 'none'))
+  if any(o.seat==sid for o in s.actors.values()):raise SpecError('sit: seat %s is taken'%sid)
+  sx,sy,sz=s.layout['seats'][sid];f=b.get('face');hd=s._heading_to(a,f) if f is not None else a.H[-1]
+  root=(sx-math.cos(hd)*SIT_HIPS_FWD*a.size,sy-math.sin(hd)*SIT_HIPS_FWD*a.size)
+  if math.hypot(root[0]-a.X[-1],root[1]-a.Y[-1])>.05:s._walk_to(a,root,b.get('gait'),b.get('pace',1.))
+  a.turn_to(hd);ts=a.t;dur=3.2;a.hold(dur);a.play('sit',ts,ts+dur,(SIT_DOWN[1]/FPS)/dur,hold=True,f0=SIT_DOWN[0],f1=SIT_DOWN[1],sit=True);a.state='sit';a.seat=sid;a.ignore.append((ts-10,1e9,sid.split('.')[0]))
+  s.events.append(dict(kind='sit',who=a.id,t0=ts,t1=ts+dur,seat=sid))
+ def _stand(s,a):
+  ts=a.t;dur=2.6;a.hold(dur);a.play('sit',ts,ts+dur,(SIT_DOWN[1]/FPS)/dur,reverse=True,f0=SIT_DOWN[0],f1=SIT_DOWN[1]);a.state='stand';a.ignore[-1:]=[(a.ignore[-1][0],ts+dur,a.ignore[-1][2])] if a.ignore else [];a.seat=None
+  s.events.append(dict(kind='stand',who=a.id,t0=ts,t1=ts+dur))
+ def b_stand(s,b,t0):
+  a=s.actors[b['who']]
+  if a.state!='sit':raise SpecError('%s stands up without sitting'%a.id)
+  s._stand(a)
+ # ---- props
+ def _grip_points(s,prop,hand):
+  hs=('R','L') if hand=='both' else (hand,);x,y,z=prop.at(s.cur_t(),s);w=prop.size[0]/2+.02
+  return {h:(x,y,z) for h in hs} if len(hs)==1 else {'R':(x,y,z),'L':(x,y,z)}
+ def _reach(s,a,hs,points,t,dur=.6):
+  """key hands to world points: from their last key (or rest) at t to the points at t+dur"""
+  for h in hs:
+   ks=a.hands[h]
+   if not ks or ks[-1][1]<.5:ks.append((t,0.,('local',(-.36 if h=='R' else .36,-.1,.66))))
+   else:ks.append((t,ks[-1][1],ks[-1][2]))
+   ks.append((t+dur,1.,('world',points[h])))
+ def _carry(s,a,hs,t,dur=.7):
+  for i,h in enumerate(hs):a.hands[h].append((t+dur,1.,('local',CARRY['both'][0 if h=='R' else 1] if len(hs)==2 else CARRY[h][0])))
+ def _release(s,a,hs,t,dur=.7):
+  for h in hs:a.hands[h].append((t+dur,0.,('local',(-.36 if h=='R' else .36,-.1,.66))))
+ def b_take(s,b,t0):
+  a=s.actors[b['who']];pid=b['prop'];p=s.props.get(pid)
+  if p is None:raise SpecError('take: no prop %r'%pid)
+  if p.carry is None:raise SpecError('take: a %s cannot be carried'%p.kind)
+  if a.holding:raise SpecError('take: %s already holds %s'%(a.id,a.holding))
+  hand=b.get('hand') or p.carry;hs=('R','L') if hand=='both' else (hand,);x,y,z=p.at(a.t,s)
+  if z<.45*a.size or z>1.35*a.size:raise SpecError('take: %s is at z=%.2f, out of reach for %s (put it on a table or crate: %.2f..%.2f)'%(pid,z,a.id,.45*a.size,1.35*a.size))
+  s._approach(a,(x,y),REACH_STAND*a.size+p.size[1]/2,b.get('gait'))
+  ts=a.t;pts={h:(x,y,z) for h in hs};s._reach(a,hs,pts,ts,.6);tg=ts+.6;a.hold(.9)
+  p.track.append((tg,'held',a.id,hand));a.holding=pid;s._carry(a,hs,tg+.1,.7);a.hold(.9)
+  s.events.append(dict(kind='take',who=a.id,prop=pid,t0=ts,t1=a.t,hand=hand,t_grasp=tg))
+ def b_put(s,b,t0):
+  a=s.actors[b['who']];pid=b.get('prop') or a.holding;p=s.props.get(pid)
+  if a.holding!=pid or p is None:raise SpecError('put: %s does not hold %r'%(a.id,pid))
+  hand=[x for x in (p.track[-1][3],)][0];hs=('R','L') if hand=='both' else (hand,)
+  if b.get('on'):
+   if b['on'] not in s.layout['surfaces']:raise SpecError('put: %r is not a surface'%b['on'])
+   sx,sy,top,r=s.layout['surfaces'][b['on']];at=b.get('at') or [sx,sy];z=top+p.size[2]/2
+  else:at=b['at'];z=p.size[2]/2
+  a_ign=b.get('on')
+  if a_ign:a.ignore.append((a.t,a.t+8,a_ign))
+  s._approach(a,(at[0],at[1]),REACH_STAND*a.size+p.size[1]/2,b.get('gait'))
+  ts=a.t;pts={h:(at[0],at[1],z) for h in hs};s._reach(a,hs,pts,ts,.7);tg=ts+.7;a.hold(.9)
+  p.track.append((tg,'world',(at[0],at[1],z)));a.holding=None;s._release(a,hs,tg+.1,.7);a.hold(.9)
+  s.events.append(dict(kind='put',who=a.id,prop=pid,t0=ts,t1=a.t,t_grasp=tg));s.sfx.append((tg,'thud',a.id,.6))
+ def b_give(s,b,t0):
+  a=s.actors[b['who']];r=s.actors[b['to']];pid=a.holding;p=s.props.get(pid)
+  if p is None or a.holding!=pid:raise SpecError('give: %s holds nothing'%a.id)
+  if r.holding:raise SpecError('give: %s already holds %s'%(r.id,r.holding))
+  hand=p.track[-1][3];hs=('R','L') if hand=='both' else (hand,)
+  dist=(.55*a.size+.55*r.size)+.12
+  if math.hypot(r.X[-1]-a.X[-1],r.Y[-1]-a.Y[-1])>dist+.3:s._approach(a,(r.X[-1],r.Y[-1]),dist,b.get('gait'))
+  a.face_point((r.X[-1],r.Y[-1]));r.face_point((a.X[-1],a.Y[-1]),.5)
+  ts=max(a.t,r.t);a.pad_to(ts);r.pad_to(ts);fx,fy=math.cos(a.H[-1]),math.sin(a.H[-1])
+  M=(a.X[-1]+fx*.55*a.size,a.Y[-1]+fy*.55*a.size,.82*a.size);rh=p.carry if p.carry in ('R','L') else 'R'
+  for h in hs:a.hands[h].append((ts,a.hands[h][-1][1],a.hands[h][-1][2]));a.hands[h].append((ts+.7,1.,('world',M)))
+  r._reach_hand=rh;s._reach(r,(rh,),{rh:M},ts,.7)
+  tg=ts+.9;a.hold(1.1);r.pad_to(a.t);p.track.append((tg,'held',r.id,rh));r.holding=pid;a.holding=None
+  s._release(a,hs,tg,.7);s._carry(r,(rh,),tg,.7);a.hold(.8);r.pad_to(a.t)
+  s.events.append(dict(kind='give',who=a.id,to=r.id,prop=pid,t0=ts,t1=a.t,t_grasp=tg))
+ def b_push(s,b,t0):
+  a=s.actors[b['who']];pid=b['prop'];p=s.props.get(pid);dist=b.get('dist',1.2)
+  if p is None:raise SpecError('push: no prop %r'%pid)
+  x,y,z=p.at(a.t,s);d=b.get('dir')
+  dirv=(math.cos(math.radians(d)),math.sin(math.radians(d))) if isinstance(d,(int,float)) else None
+  if dirv is None:
+   px,py=a.pos();L=math.hypot(x-px,y-py) or 1.;dirv=((x-px)/L,(y-py)/L)
+  stand=.72*a.size+p.size[1]/2;sx_,sy_=x-dirv[0]*stand,y-dirv[1]*stand
+  if math.hypot(sx_-a.X[-1],sy_-a.Y[-1])>.05:s._walk_to(a,(sx_,sy_),b.get('gait'))
+  a.turn_to(math.atan2(dirv[1],dirv[0]));ts=a.t;nat=CLIP_FRAMES['push']/FPS;dur=nat*1.3;a.hold(dur);a.play('push',ts,ts+dur,1.3)
+  tm0,tm1=ts+dur*13/72,ts+dur*40/72;p.track.append((tm0,'world',(x,y,z)));
+  n=12
+  for i in range(1,n+1):
+   u=i/n;p.track.append((tm0+(tm1-tm0)*u,'world',(x+dirv[0]*dist*ease(u),y+dirv[1]*dist*ease(u),z)))
+  s.events.append(dict(kind='push',who=a.id,prop=pid,t0=ts,t1=a.t,t_push0=tm0,t_push1=tm1));s.sfx.append((tm0,'scrape',a.id,.7))
+ # ------------------------------------------------------------------------------------------------------ queries
+ def pos(s,who,t):
+  a=s.actors[who];f=min(len(a.X)-1,max(0,int(round(t*FPS))));return a.X[f],a.Y[f],a.H[f]
+ def head_pos(s,who,t):
+  a=s.actors[who];x,y,h=s.pos(who,t);z=1.42*a.size
+  for (t0,t1,name,sc,opt) in a.clips:
+   if t0<=t<t1 and opt.get('sit') and not opt.get('reverse'):z=1.12*a.size if t>t0+1.6 else z
+  return (x,y,z)
+ def line_at(s,t,pad=.1):
+  for L in s.lines:
+   if L['t0']-pad<=t<=L['t1']+pad:return L
+ def gaze(s,who,t):
+  """what who looks at at time t: ('char',id) | ('prop',id) | ('point',xyz) | None (look ahead)"""
+  a=s.actors[who]
+  for e in s.events:
+   if e['kind']=='look' and e['who']==who and e['t0']<=t<=e['t1']+.3:return ('point',s.point(e['to'],t))
+   if e['kind'] in ('take','put') and e['who']==who and e['t0']<=t<=e['t1']:return ('prop',e['prop'])
+   if e['kind']=='give' and e['t0']-.2<=t<=e['t1'] and who in (e['who'],e['to']):return ('char',e['to'] if who==e['who'] else e['who'])
+  L=s.line_at(t,.1)
+  if L:
+   if L['speaker']==who:return ('char',L['to']) if L['to'] in s.actors else ('point',s.point(L['to'],t))
+   return ('char',L['speaker'])
+  prev=[x for x in s.lines if x['t1']<t and t-x['t1']<2.2]
+  if prev and not s._walking(who,t):
+   L=prev[-1];return ('char',L['to'] if L['speaker']==who else L['speaker'])
+  for e in s.events:
+   if e['kind']=='go' and e['who']==who and e['t0']<=t<=e['t1']:
+    return None
+   if e['kind'] in ('go','turn') and e['who']==who and e['t1']<=t<=e['t1']+.8 and isinstance(e['to'],str) and e['to'] in s.actors:return ('char',e['to'])
+  return None
+ def _walking(s,who,t):return any(w[0]<=t<=w[1] for w in s.actors[who].walks)
+ def emote_at(s,who,t):return [(k,(t-t0)) for (t0,t1,k) in s.actors[who].emotes if t0<=t<=t1]
+ def footsteps(s):
+  out=[]
+  for who,a in s.actors.items():
+   for (t0,t1,g,sc,speed) in a.walks:
+    cyc=gaits.cycle_seconds(g,sc);half=cyc/2;k=0
+    while t0+half*k<t1-.05:out.append((t0+half*k,who,'L' if k%2==0 else 'R',a.size));k+=1
+  return sorted(out)
+ # ------------------------------------------------------------------------------------------------------ audit
+ def audit(s):
+  """numeric audits of the compiled plan: AUDIT strings (empty list = clean)"""
+  out=[];N=s.frames;ids=list(s.actors)
+  for a,b in zip(s.lines,s.lines[1:]):
+   if b['t0']<a['t1']:out.append('AUDIT speech: lines %d and %d overlap'%(a['k'],b['k']))
+  X=np.array([s.actors[i].X for i in ids]);Y=np.array([s.actors[i].Y for i in ids]);H=np.array([s.actors[i].H for i in ids]);R=np.array([s.actors[i].radius for i in ids])
+  for i in range(len(ids)):
+   for j in range(i+1,len(ids)):
+    d=np.hypot(X[i]-X[j],Y[i]-Y[j])-.8*(R[i]+R[j]);k=int(np.argmin(d))
+    if d[k]<-.05:out.append('AUDIT collision: %s and %s overlap by %.2f m at %.1f s'%(ids[i],ids[j],-d[k],k/FPS))
+  obst=s.layout['obstacles'];per=s.layout['per_object']
+  oid={};[oid.setdefault(c,k) for k,cs in per.items() for c in cs]
+  for n,i in enumerate(ids):
+   a=s.actors[i];worst=(0.,0,None)
+   for (cx,cy,r) in obst:
+    pen=(r+.18*a.size)-np.hypot(X[n]-cx,Y[n]-cy)
+    k=int(np.argmax(pen))
+    if pen[k]>worst[0]+1e-9:
+     ok=any(t0<=k/FPS<=t1 and o==oid.get((cx,cy,r)) for (t0,t1,o) in a.ignore)
+     if not ok:worst=(pen[k],k,(cx,cy,r))
+   if worst[0]>.12:out.append('AUDIT obstacle: %s walks %.2f m into a solid at %.1f s'%(i,worst[0],worst[1]/FPS))
+   hx,hy=s.layout['half']
+   if np.any(np.abs(X[n])>hx+2) or np.any(np.abs(Y[n])>hy+2):out.append('AUDIT bounds: %s leaves the location'%i)
+   dh=np.abs(np.diff(np.unwrap(H[n])))*FPS
+   if dh.size and dh.max()>math.radians(420):out.append('AUDIT turn: %s turns %.0f deg/s'%(i,math.degrees(dh.max())))
+   for (t0,t1,g,sc,speed) in a.walks:
+    nat=gaits.natural_speed(g)*a.size
+    if speed>nat*1.35 or speed<nat*.45:out.append('AUDIT gait: %s walks at %.2f m/s, natural for %s is %.2f'%(i,speed,g,nat))
+    f0,f1=int(t0*FPS),int(t1*FPS);
+    if f1-f0>6:
+     v=np.hypot(np.diff(X[n][f0:f1+1]),np.diff(Y[n][f0:f1+1])).mean()*FPS
+     if abs(v-speed)>.1*speed:out.append('AUDIT gait: %s moves %.2f m/s, planned %.2f'%(i,v,speed))
+  seats={};
+  for i,a in s.actors.items():
+   if a.state=='sit':pass
+  for e in s.events:
+   if e['kind'] in ('take','put','give'):
+    p=s.props[e['prop']]
+    if e['t1']-e['t0']<1.2:out.append('AUDIT prop: %s %s too fast'%(e['kind'],e['prop']))
+  for pid,p in s.props.items():
+   z=p.at(s.seconds,s)[2]
+   if z<p.size[2]/2-.06:out.append('AUDIT prop: %s ends below the floor'%pid)
+  if s.seconds>130:out.append('AUDIT length: scene is %.0f s'%s.seconds)
+  return out
+def normalise_spec(spec):
+ """steps get a 'do' key from their first key if written as {'go':..}"""
+ return spec
+def compile(spec,registry):
+ """Plan for a spec (runs it)"""
+ for st in spec['steps']:
+  for b in (st if isinstance(st,list) else [st]):
+   if 'do' not in b:raise SpecError('beat without "do": %r'%(b,))
+ return Plan(spec,registry).run()
