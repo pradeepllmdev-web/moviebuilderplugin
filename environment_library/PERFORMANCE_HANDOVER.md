@@ -59,3 +59,12 @@ The history of the audits is part of the result: the first full build of film 1 
 * Foot contact on `fall`/`getup`/`sit` is not grounded (clips are in place; no per-frame lift pass yet); the Blender audit does not measure it.
 * Interiors have no ceilings (cameras are kept below the wall tops).
 * Nothing was sent to or tested in Unreal; the Unreal handoff would need the new accessories/props to be exported as parts (they are plain primitives parented to bones).
+
+## Update: voices, music, subtitles, life (second round, after the first review)
+Feedback on the first version: camera 7/10, animation 6/10, music 2/10 (repetitive, not in sync with the story), no real dialogue, story unclear (1/10). Added:
+* Real voices: Piper neural TTS, one distinct voice per character (assigned by pitch from a 164-voice catalogue), cached; line lengths come from the recordings, lip sync from their energy envelope (`perf_voices.py`).
+* Story legibility: a title card with a one-line `intent` before every scene, a film logline card and an end card, coloured "Name: line" subtitles in the master (`assemble_movie.py`, `perf_movie.py`). Watch with `python perf_watch.py <build folder>`.
+* Score: per-film theme and motifs, place-dependent instruments, action cues, ducking under speech, rendered with FluidSynth + the GeneralUser GS SoundFont (`perf_score.py`, `perf_midi.py`; both downloaded into `music_tools/`, git-ignored).
+* The scene ambience beds were plain noise normalised too loud ("air flow"): now low, smooth and quiet (0.045-0.1 of full scale, under everything).
+* Life: background crowds (`extras`), word-driven gesture choice, glances, brow flashes, grounding pass for sit/fall/getup/kneel, slow camera push-ins and drifts.
+Final builds after this round: both films 0 audit lines; Twelve Strikes 16.4 min of scenes plus cards, The Ember Road 15.3 min plus cards (master 16.4 min). Still open: more animation clips (a motion-capture library would need a source we can download without an account), facial acting beyond the lion's shape keys, ceilings and richer scenery, and an actual listening/watching review by a person: I cannot hear the result, only measure it.
