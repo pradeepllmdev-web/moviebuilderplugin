@@ -165,7 +165,9 @@ from bpy_extras import anim_utils
 def body_layer():
  fr=pbody.key_frames(PLAN)
  for i,ch in CH.items():
-  rig=ch['rig'];sig=pbody.signals(PLAN,i);ad=rig.animation_data
+  rig=ch['rig'];sig=pbody.signals(PLAN,i);ad=rig.animation_data;pa_=PLAN.actors[i]
+  tt=(np.array(fr)-1)/FPS;reach_=np.array([max(PLAN.hand_target(pa_,'R',t)[0],PLAN.hand_target(pa_,'L',t)[0]) for t in tt]) if any(pa_.hands[h] for h in ('R','L')) else np.zeros(len(fr))
+  for b_ in ('Hips','Spine','Spine1','Spine2'):sig[b_]=sig[b_]*(1-.8*np.clip(reach_,0,1))[:,None]     # the trunk keeps still while an arm reaches for something
   if ad.action is None:       # one real keyframe makes the action, its slot and its channelbag
    pb0=rig.pose.bones['mixamorig:Hips'];pb0.keyframe_insert('rotation_quaternion',frame=1)
   act=ad.action;cbag=anim_utils.action_ensure_channelbag_for_slot(act,ad.action_slot)
@@ -200,6 +202,22 @@ GROUND=ground_pass()
 CUTS=pc.direct(PLAN,seed=sum(map(ord,SPEC['id'])))
 def pos_(kind,t,u):return pc.frame(PLAN,kind,t)
 S.cameras([(c['name'],c['t0'],c['t1'],c) for c in CUTS],pos_,('Prop',),cand=[(0,0,.6),(0,.8,0),(0,-.8,0),(.8,0,0),(-.8,0,0),(0,0,1.4),(0,0,2.5),(1.6,0,0),(-1.6,0,0),(0,1.6,0),(0,-1.6,0)],shake=.01,fstop=2.8)
+# a camera that view-clearing pushed far up goes back down: no cut is allowed to become a bird's-eye view
+CAP={'wide':7.,'group':7.,'follow_high':5.}
+for k,cam in enumerate(S.scene.timeline_markers):
+ pass
+def clamp_cameras():
+ marks=sorted((m for m in S.scene.timeline_markers if m.camera),key=lambda m:m.frame)
+ for k,m in enumerate(marks):
+  cam=m.camera;cap=CAP.get(CUTS[k]['kind'],3.4) if k<len(CUTS) else 7.;ad=cam.animation_data
+  if not ad or not ad.action:continue
+  cb=anim_utils.action_ensure_channelbag_for_slot(ad.action,ad.action_slot)
+  for fc in cb.fcurves:
+   if fc.data_path=='location' and fc.array_index==2:
+    for kp in fc.keyframe_points:
+     if kp.co[1]>cap:kp.co[1]=cap;kp.handle_left[1]=cap;kp.handle_right[1]=cap
+    fc.update()
+clamp_cameras()
 # ---------------------------------------------------------------------------------------------------------- audits (Blender side)
 def lowest_feet(ch):
  rig=ch['rig'];w=lambda n:rig.matrix_world@rig.pose.bones['mixamorig:'+n].head;return w('LeftFoot'),w('RightFoot')

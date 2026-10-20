@@ -131,6 +131,9 @@ def _frame(plan,c,t):
   fx,fy=_rotv(f,math.radians(30*c.get('side',1.)));return (x+fx*d,y+fy*d,1.35*a.size),(x,y,1.05*a.size),lens
  raise ValueError('unknown shot kind %r'%kd)
 
+def _obs(plan):
+ if not hasattr(plan,'_obs_arr'):plan._obs_arr=np.array(plan.layout['obstacles'],float).reshape(-1,3)
+ return plan._obs_arr
 def _score(plan,c,side):
  """how good this side is for a cut: distance of uninvolved characters from the line of sight, camera not inside a solid or off the map"""
  c2=dict(c,side=side);t=(c['t0']+c['t1'])/2;pos,aim,_=frame(plan,c2,t);sc=1.5
@@ -141,7 +144,11 @@ def _score(plan,c,side):
  for w in plan.actors:
   p=plan.pos(w,t);k=plan.actors[w].size;d=math.hypot(pos[0]-p[0],pos[1]-p[1])
   if d<1.5*k:sc-=(1.5*k-d)*2.
- if any(math.hypot(pos[0]-cx,pos[1]-cy)<r+.3 for cx,cy,r in plan.layout['obstacles']):sc-=2.
+ O=_obs(plan)
+ if len(O):
+  if np.any(np.hypot(pos[0]-O[:,0],pos[1]-O[:,1])<O[:,2]+.3):sc-=2.
+  dx,dy=aim[0]-pos[0],aim[1]-pos[1];L2=dx*dx+dy*dy or 1.;u=np.clip(((O[:,0]-pos[0])*dx+(O[:,1]-pos[1])*dy)/L2,0,1);d=np.hypot(pos[0]+dx*u-O[:,0],pos[1]+dy*u-O[:,1])
+  if np.any((O[:,2]>.5)&(d<O[:,2]*.8)&(u>.05)&(u<.92)):sc-=1.5       # a solid between the lens and the subject
  hx,hy=plan.layout['half']
  if abs(pos[0])>hx+4 or abs(pos[1])>hy+4:sc-=1.
  return sc
