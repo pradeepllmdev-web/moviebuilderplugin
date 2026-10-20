@@ -106,7 +106,7 @@ def polyline_samples(points,speed,dt=1./FPS):
  return out
 class Prop:
  def __init__(s,spec,pos,table):
-  s.id=spec['id'];s.kind=spec['kind'];k=PROP_KINDS_CHECK(s.kind);s.size=tuple(x*spec.get('size',1.) for x in k['size']);s.carry=k['carry'];s.yaw=math.radians(spec.get('yaw',0.));s.pos=tuple(pos);s.track=[(0.,'world',tuple(pos))]
+  s.id=spec['id'];s.kind=spec['kind'];k=PROP_KINDS_CHECK(s.kind);s.size=tuple(x*spec.get('size',1.) for x in k['size']);s.carry=k['carry'];s.yaw=math.radians(spec.get('yaw',0.));s.pos=tuple(pos);s.on=spec.get('on');s.track=[(0.,'world',tuple(pos))]
  def at(s,t,plan):
   cur=None
   for seg in s.track:
@@ -150,7 +150,7 @@ class Actor:
   t1=s.t;s.play(gaits.GAITS[gait]['clip'],t0,t1,scale);s.walks.append((t0,t1,gait,scale,speed));return t1-t0
 class Plan:
  def __init__(s,spec,registry,layout=None):
-  s.spec=spec;s.layout=layout or pl.layout(spec.get('location',dict(preset='meadow')));s.lines=[];s.events=[];s.sfx=[];s.cams=[];s.steps_t=[];s.steps_text=[]
+  s.spec=spec;s.layout=layout or pl.layout(spec.get('location',dict(preset='meadow')));s.lint=[];s.lines=[];s.events=[];s.sfx=[];s.cams=[];s.steps_t=[];s.steps_text=[]
   looks={}
   for c in spec.get('cast',[]):
    looks[c['id']]=registry.resolve(c['id']) if hasattr(registry,'resolve') else registry[c['id']]
@@ -283,11 +283,13 @@ class Plan:
    prev=s.lines[-1]['speaker'] if s.lines and s.lines[-1]['speaker']!=a.id else None
    to=prev or min((o for o in s.actors if o!=a.id),key=lambda o:math.hypot(s.actors[o].X[-1]-a.X[-1],s.actors[o].Y[-1]-a.Y[-1]),default=a.id)
   tp=s.point(to)
+  if a.state=='sit' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(80):s.lint.append('AUDIT seated: %s speaks to %s who is %.0f deg off the way %s sits'%(a.id,to,abs(math.degrees(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))),a.id))
   if a.state=='stand' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(35):a.face_point(tp)
   syl=dg.syllables(b['text']);dur=max(1.6,len(syl)*.2+.5);ts=a.t+.15
   a.hold(.15+dur+.35);k=len(s.lines);L=dict(k=k,speaker=a.id,mood=mood,text=b['text'],t0=ts,t1=ts+dur,syl=syl,dur=dur,to=to);s.lines.append(L)
   if a.state=='stand':
-   clip=dg.SPEAK_CLIP[mood]
+   clip=b.get('gesture') or dg.SPEAK_CLIP[mood]
+   if clip not in ACT_CLIPS:raise SpecError('say: unknown gesture %r'%clip)
    if not a.clips or a.clips[-1][1]<=ts:a.play(clip,ts-.2,ts+dur+.2,1.)
   s.events.append(dict(kind='say',who=a.id,t0=ts,t1=ts+dur,to=to,mood=mood,k=k))
   for name,o in s.actors.items():   # everybody idle and standing turns towards the speaker when far off
@@ -326,7 +328,7 @@ class Plan:
   a=s.actors[b['who']];sid=b['on']
   if sid not in s.layout['seats']:raise SpecError('sit: no seat %r (seats: %s)'%(sid,', '.join(sorted(s.layout['seats'])) or 'none'))
   if any(o.seat==sid for o in s.actors.values()):raise SpecError('sit: seat %s is taken'%sid)
-  sx,sy,sz=s.layout['seats'][sid];f=b.get('face');hd=s._heading_to(a,f) if f is not None else a.H[-1]
+  sx,sy,sz=s.layout['seats'][sid];f=b.get('face');fp=s.point(f) if f is not None else None;hd=math.atan2(fp[1]-sy,fp[0]-sx) if fp is not None else a.H[-1]
   root=(sx-math.cos(hd)*SIT_HIPS_FWD*a.size,sy-math.sin(hd)*SIT_HIPS_FWD*a.size)
   if math.hypot(root[0]-a.X[-1],root[1]-a.Y[-1])>.05:s._walk_to(a,root,b.get('gait'),b.get('pace',1.))
   a.turn_to(hd);ts=a.t;dur=3.2;a.hold(dur);a.play('sit',ts,ts+dur,(SIT_DOWN[1]/FPS)/dur,hold=True,f0=SIT_DOWN[0],f1=SIT_DOWN[1],sit=True);a.state='sit';a.seat=sid;a.ignore.append((ts-10,1e9,sid.split('.')[0]))
@@ -360,6 +362,7 @@ class Plan:
   if a.holding:raise SpecError('take: %s already holds %s'%(a.id,a.holding))
   hand=b.get('hand') or p.carry;hs=('R','L') if hand=='both' else (hand,);x,y,z=p.at(a.t,s)
   if z<.45*a.size or z>1.35*a.size:raise SpecError('take: %s is at z=%.2f, out of reach for %s (put it on a table or crate: %.2f..%.2f)'%(pid,z,a.id,.45*a.size,1.35*a.size))
+  if p.on:a.ignore.append((a.t,a.t+30,p.on))
   s._approach(a,(x,y),REACH_STAND*a.size+p.size[1]/2,b.get('gait'))
   ts=a.t;pts={h:(x,y,z) for h in hs};s._reach(a,hs,pts,ts,.6);tg=ts+.6;a.hold(.9)
   p.track.append((tg,'held',a.id,hand));a.holding=pid;s._carry(a,hs,tg+.1,.7);a.hold(.9)
@@ -373,7 +376,7 @@ class Plan:
    sx,sy,top,r=s.layout['surfaces'][b['on']];at=b.get('at') or [sx,sy];z=top+p.size[2]/2
   else:at=b['at'];z=p.size[2]/2
   a_ign=b.get('on')
-  if a_ign:a.ignore.append((a.t,a.t+8,a_ign))
+  if a_ign:a.ignore.append((a.t,a.t+30,a_ign))
   s._approach(a,(at[0],at[1]),REACH_STAND*a.size+p.size[1]/2,b.get('gait'))
   ts=a.t;pts={h:(at[0],at[1],z) for h in hs};s._reach(a,hs,pts,ts,.7);tg=ts+.7;a.hold(.9)
   p.track.append((tg,'world',(at[0],at[1],z)));a.holding=None;s._release(a,hs,tg+.1,.7);a.hold(.9)
@@ -383,11 +386,11 @@ class Plan:
   if p is None or a.holding!=pid:raise SpecError('give: %s holds nothing'%a.id)
   if r.holding:raise SpecError('give: %s already holds %s'%(r.id,r.holding))
   hand=p.track[-1][3];hs=('R','L') if hand=='both' else (hand,)
-  dist=(.55*a.size+.55*r.size)+.12
+  dist=.5*a.size+.5*r.size+.2
   if math.hypot(r.X[-1]-a.X[-1],r.Y[-1]-a.Y[-1])>dist+.3:s._approach(a,(r.X[-1],r.Y[-1]),dist,b.get('gait'))
   a.face_point((r.X[-1],r.Y[-1]));r.face_point((a.X[-1],a.Y[-1]),.5)
   ts=max(a.t,r.t);a.pad_to(ts);r.pad_to(ts);fx,fy=math.cos(a.H[-1]),math.sin(a.H[-1])
-  M=(a.X[-1]+fx*.55*a.size,a.Y[-1]+fy*.55*a.size,.82*a.size);rh=p.carry if p.carry in ('R','L') else 'R'
+  M=(a.X[-1]+fx*(.5*a.size+.1),a.Y[-1]+fy*(.5*a.size+.1),1.035*(a.size+r.size)/2);rh=p.carry if p.carry in ('R','L') else 'R'
   for h in hs:a.hands[h].append((ts,a.hands[h][-1][1],a.hands[h][-1][2]));a.hands[h].append((ts+.7,1.,('world',M)))
   r._reach_hand=rh;s._reach(r,(rh,),{rh:M},ts,.7)
   tg=ts+.9;a.hold(1.1);r.pad_to(a.t);p.track.append((tg,'held',r.id,rh));r.holding=pid;a.holding=None
@@ -450,7 +453,7 @@ class Plan:
  # ------------------------------------------------------------------------------------------------------ audit
  def audit(s):
   """numeric audits of the compiled plan: AUDIT strings (empty list = clean)"""
-  out=[];N=s.frames;ids=list(s.actors)
+  out=list(s.lint);N=s.frames;ids=list(s.actors)
   for a,b in zip(s.lines,s.lines[1:]):
    if b['t0']<a['t1']:out.append('AUDIT speech: lines %d and %d overlap'%(a['k'],b['k']))
   X=np.array([s.actors[i].X for i in ids]);Y=np.array([s.actors[i].Y for i in ids]);H=np.array([s.actors[i].H for i in ids]);R=np.array([s.actors[i].radius for i in ids])

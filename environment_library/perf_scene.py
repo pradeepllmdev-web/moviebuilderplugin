@@ -47,7 +47,7 @@ def place(ch,name,t0,t1,sc,opt,first):
   if need>=1:st.repeat=need
   else:st.action_frame_end=st.action_frame_start+max(2,need*n)-1
   st.extrapolation='NOTHING'
- st.blend_in=5 if ch['n']>1 else 0;st.blend_out=5;return st
+ st.blend_in=5 if ch['n']>1 else 0;st.blend_out=0 if opt.get('hold') else 5;return st
 for i,ch in CH.items():
  segs=[];cl=PLAN.actors[i].clips
  for c in cl:
@@ -154,6 +154,7 @@ for L in PLAN.lines:
   v=(S.head_pos(CH[tgt_id])-S.head_pos(ch)).normalized();ang=math.degrees(math.acos(max(-1,min(1,S.face_dir(ch).dot(v)))))
   if name==L['speaker']:worst_sp=max(worst_sp,ang)
   else:worst_li=max(worst_li,ang)
+  if ang>30:print('EYE line %d %s -> %s at %.1fs: %.0f deg'%(L['k'],name,tgt_id,t,ang))
 if worst_sp>34:issues.append('AUDIT eye line: a speaker looks %.0f degrees off the addressee (limit 34)'%worst_sp)
 if worst_li>40:issues.append('AUDIT eye line: the addressed listener looks %.0f degrees off the speaker (limit 40)'%worst_li)
 for L,x,syl,real in VOICES:
@@ -173,14 +174,16 @@ for i,ch in CH.items():
   if vs:slip+=sum(vs)/len(vs);nslip+=1
 mean_slip=slip/max(1,nslip)
 if mean_slip>.35:issues.append('AUDIT foot slip: planted feet slide at %.2f m/s on average while walking (limit 0.35)'%mean_slip)
-reach_worst=0.;reach_n=0
+reach_worst=0.;reach_n=0;reach_info=None
 for i,(IK,TG) in IKS.items():
  a=PLAN.actors[i];ch=CH[i]
  for hand,lb,bone in (('R','RH','RightHand'),('L','LH','LeftHand')):
   for f in list(S.keys(6)) if False else range(1,S.frames+1,6):
    t=(f-1)/FPS;infl,pos=PLAN.hand_target(a,hand,t)
    if pos is None or infl<.98:continue
-   S.settle(f);hp=ch['rig'].matrix_world@ch['rig'].pose.bones['mixamorig:'+bone].head;e=(hp-Vector(pos)).length;reach_worst=max(reach_worst,e);reach_n+=1
+   S.settle(f);hp=ch['rig'].matrix_world@ch['rig'].pose.bones['mixamorig:'+bone].head;e=(hp-Vector(pos)).length;reach_n+=1
+   if e>reach_worst:reach_worst=e;reach_info=(i,hand,t,tuple(round(v,2) for v in pos),tuple(round(v,2) for v in hp))
+if reach_worst>.22:print('REACH worst',reach_info)
 if reach_worst>.22:issues.append('AUDIT reach: a hand ends %.2f m from its target (limit 0.22; the arm cannot reach, move the prop or the actor)'%reach_worst)
 # every dialogue cut shows its speaker: head inside the frame at the middle of the cut
 from bpy_extras.object_utils import world_to_camera_view
@@ -215,3 +218,6 @@ os.makedirs(os.path.dirname(S.out),exist_ok=True)
 json.dump(dict(id=SPEC['id'],title=SPEC.get('title',''),seconds=PLAN.seconds,cuts=[dict(name=c['name'],t0=c['t0'],t1=c['t1'],kind=c['kind'],subject=c.get('subject')) for c in CUTS],lines=[dict(k=L['k'],speaker=L['speaker'],to=L['to'],mood=L['mood'],text=L['text'],t0=L['t0'],t1=L['t1']) for L in PLAN.lines],audit=issues,
  cast=list(CH),stats=dict(foot_slip=mean_slip,reach=reach_worst,eye_speaker=worst_sp,eye_listener=worst_li,framing_misses=miss,framing_checked=chk)),open(S.out+'.plan.json','w',encoding='utf-8'),indent=1)
 S.finish(issues,[CH[i]['root'] for i in CH],world=pl.normalise(SPEC.get('location',dict(preset='meadow'))).get('world') or scene_params.preset(TIME if TIME in scene_params.TIME_OF_DAY else 'day')['world'])
+if os.environ.get('PERF_DEBUG'):
+ for nm in CH:
+  S.settle(S.F(float(os.environ['PERF_DEBUG'])));print('DBG',nm,'head',tuple(round(v,2) for v in S.head_pos(CH[nm])),'face',tuple(round(v,2) for v in S.face_dir(CH[nm])),'root',tuple(round(v,2) for v in CH[nm]['root'].matrix_world.translation),'gz',tuple(round(v,2) for v in GZ[nm].matrix_world.translation),'H',round(math.degrees(PLAN.pos(nm,float(os.environ['PERF_DEBUG']))[2]),0))

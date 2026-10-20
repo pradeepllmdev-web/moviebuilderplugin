@@ -109,7 +109,7 @@ def normalise(loc):
  if loc.get('preset'):
   if loc['preset'] not in PRESETS:raise ValueError('unknown location preset %r (known: %s)'%(loc['preset'],', '.join(sorted(PRESETS))))
   base=PRESETS[loc['preset']](random.Random(loc.get('seed',1)),loc);objs+=base.get('objects',[])
-  for k in ('ground','half','water','markers','floor','sky'):
+  for k in ('ground','half','water','markers','floor','sky','inside'):
    if k in base and k not in loc:loc[k]=base[k]
   loc['markers']=dict(base.get('markers',{}),**loc.get('markers',{}))
  objs+=loc.get('objects',[]);out=[];count={}
@@ -152,7 +152,7 @@ def layout(loc):
    if k=='pedestal':top=o.get('height',.9)
    if k=='platform':top=o.get('height',.4)
    if top:r=max(.3,(fp[1]/2) if fp and fp[0]=='box' else (fp[1] if fp else .3));surf[o['id']]=(o['at'][0],o['at'][1],top,r)
- return dict(obstacles=obst,seats=seats,surfaces=surf,markers={k:tuple(v) for k,v in loc['markers'].items()},half=tuple(loc['half']),objects=loc['objects'],loc=loc,per_object=per)
+ return dict(inside=loc.get('inside'),obstacles=obst,seats=seats,surfaces=surf,markers={k:tuple(v) for k,v in loc['markers'].items()},half=tuple(loc['half']),objects=loc['objects'],loc=loc,per_object=per)
 def prims(loc):
  """primitive dicts for every object, in world space (yaw and position applied), plus ('light', ...) tuples"""
  loc=normalise(loc);out=[]
@@ -197,11 +197,11 @@ def hall(rnd,p):
  o=[dict(kind='wall',at=[-12,-9],to=[12,-9],id='wall_s',height=4),dict(kind='wall',at=[-12,9],to=[12,9],id='wall_n',height=4),dict(kind='wall',at=[-12,-9],to=[-12,9],id='wall_w',height=4),dict(kind='wall',at=[12,-9],to=[12,9],id='wall_e',height=4)]
  o+=[dict(kind='pillar',at=[x,y],id='pil%d%d'%(i,j)) for i,x in enumerate((-7,7)) for j,y in enumerate((-5,5))]+[dict(kind='table',at=[0,0],id='table',w=6,d=1.4)]+[dict(kind='chair',at=[x,y],yaw=90 if y>0 else -90,id='chair_%d_%d'%(i,j)) for i,x in enumerate((-2,0,2)) for j,y in enumerate((-1.3,1.3))]
  o+=[dict(kind='throne',at=[0,7.2],yaw=180,id='throne'),dict(kind='lamp',at=[-11,0],id='lamp_w',energy=60,lit=2),dict(kind='lamp',at=[11,0],id='lamp_e',energy=60,lit=2)]
- return dict(objects=o,ground=(.45,.4,.36),half=(14,11),floor='stone',markers=dict(center=(0,0),door=(0,-8),throne=(0,6),west=(-9,0),east=(9,0)))
+ return dict(objects=o,ground=(.45,.4,.36),half=(14,11),floor='stone',inside=[-11.3,-8.3,11.3,8.3],markers=dict(center=(0,0),door=(0,-8),throne=(0,6),west=(-9,0),east=(9,0)))
 def room(rnd,p):
  o=[dict(kind='wall',at=[-5,-4],to=[5,-4],id='wall_s',height=3,color=(.7,.62,.5)),dict(kind='wall',at=[-5,4],to=[5,4],id='wall_n',height=3,color=(.7,.62,.5)),dict(kind='wall',at=[-5,-4],to=[-5,4],id='wall_w',height=3,color=(.7,.62,.5)),dict(kind='wall',at=[5,-4],to=[5,4],id='wall_e',height=3,color=(.7,.62,.5)),
   dict(kind='table',at=[1,0],id='table',w=2.2,d=1.0),dict(kind='stool',at=[-.5,1.1],id='stool_a'),dict(kind='stool',at=[2.5,1.1],id='stool_b'),dict(kind='shelf',at=[-3,3.6],id='shelf'),dict(kind='bed',at=[3.8,2.6],id='bed'),dict(kind='lamp',at=[-4.3,-3.3],energy=40,lit=2,id='lamp')]
- return dict(objects=o,ground=(.5,.4,.3),half=(7,6),floor='wood',markers=dict(center=(0,0),door=(0,-3.5),table=(1,-1.0),window=(-3.5,0)))
+ return dict(objects=o,ground=(.5,.4,.3),half=(7,6),floor='wood',inside=[-4.4,-3.4,4.4,3.4],markers=dict(center=(0,0),door=(0,-3.5),table=(1,-1.0),window=(-3.5,0)))
 def ruins(rnd,p):
  o=[dict(kind='pillar',at=[x,y],id='pil%d'%i,height=rnd.uniform(1.5,4)) for i,(x,y) in enumerate(((-6,-5),(-6,2),(5,-6),(6,3),(0,8),(-2,-9)))]+[dict(kind='wall',at=[-9,6],to=[-3,9],height=2,id='wall_a'),dict(kind='wall',at=[4,9],to=[10,5],height=1.4,id='wall_b'),dict(kind='arch',at=[0,-10],id='arch'),dict(kind='statue',at=[0,0],id='statue'),dict(kind='rock',at=[-8,-2]),dict(kind='rock',at=[8,-1])]
  return dict(objects=o+_scatter(rnd,['bush','rock'],8,(-14,14),(-14,14),avoid=[(0,0,3)],gap=3),ground=(.45,.5,.38),half=(24,24),markers=dict(center=(0,-3),statue=(0,0),arch=(0,-8)))
@@ -214,7 +214,7 @@ def hilltop(rnd,p):
 def courtyard(rnd,p):
  o=[dict(kind='wall',at=[-14,-10],to=[14,-10],id='wall_s',height=3.5),dict(kind='wall',at=[-14,10],to=[14,10],id='wall_n',height=3.5),dict(kind='wall',at=[-14,-10],to=[-14,10],id='wall_w',height=3.5),dict(kind='wall',at=[14,-10],to=[14,10],id='wall_e',height=3.5),dict(kind='tower',at=[-14,-10],id='tower_a'),dict(kind='tower',at=[14,10],id='tower_b'),
   dict(kind='well',at=[0,0],id='well'),dict(kind='bench',at=[-6,-4],id='bench_a'),dict(kind='statue',at=[8,4],id='statue'),dict(kind='haystack',at=[-10,6]),dict(kind='crate',at=[10,-7]),dict(kind='lamp',at=[-4,5]),dict(kind='lamp',at=[5,-5])]
- return dict(objects=o,ground=(.5,.48,.42),half=(16,12),floor='stone',markers=dict(center=(0,0),gate=(0,-9),well=(0,0)))
+ return dict(objects=o,ground=(.5,.48,.42),half=(16,12),floor='stone',inside=[-13.3,-9.3,13.3,9.3],markers=dict(center=(0,0),gate=(0,-9),well=(0,0)))
 def workshop(rnd,p):
  b=room(rnd,p);b['objects']+=[dict(kind='anvil',at=[-3,-1],id='anvil'),dict(kind='crate',at=[3.6,-2.6],id='crate_w'),dict(kind='barrel',at=[-4.2,-2.8])];return b
 def cave(rnd,p):

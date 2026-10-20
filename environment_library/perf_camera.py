@@ -85,7 +85,12 @@ def _tidy(plan,cuts,rnd):
   if a['kind']==b['kind'] and a.get('subject')==b.get('subject') and abs(a['lens']-b['lens'])<6 and a.get('side')==b.get('side'):b['lens']=b['lens']*1.3 if b['lens']<45 else b['lens']*.75;b['side']=-(b.get('side') or 1.);b['ang']=b.get('ang',0.)+1.5
  return res
 def frame(plan,c,t):
- """(camera position, aim point, lens) at time t for a cut"""
+ """(camera position, aim point, lens) at time t for a cut; inside a room the camera stays inside its walls"""
+ pos,aim,lens=_frame(plan,c,t);ins=plan.layout.get('inside')
+ if ins:
+  pos=(min(max(pos[0],ins[0]),ins[2]),min(max(pos[1],ins[1]),ins[3]),min(max(pos[2],.6),2.5));lens=min(lens,26) if c['kind'] in ('wide','group') else lens
+ return pos,aim,lens
+def _frame(plan,c,t):
  kd=c['kind'];lens=c['lens']
  if kd in ('wide','group'):
   C,r=spread(plan,t);d=max(6.5,r*1.4+5.5);a=c.get('ang',0.);hz=3.2+r*.2
