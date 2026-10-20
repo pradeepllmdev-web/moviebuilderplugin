@@ -92,7 +92,7 @@ def frame(plan,c,t):
  """(camera position, aim point, lens) at time t for a cut; inside a room the camera stays inside its walls"""
  pos,aim,lens=_frame(plan,c,t);ins=plan.layout.get('inside')
  if ins:
-  pos=(min(max(pos[0],ins[0]),ins[2]),min(max(pos[1],ins[1]),ins[3]),min(max(pos[2],.6),2.5));lens=min(lens,{'wide':24,'group':24,'two':24,'track':26,'follow_high':26,'medium':30,'insert':40}.get(c['kind'],lens))   # a small room has no room to step back: widen instead
+  pos=(min(max(pos[0],ins[0]),ins[2]),min(max(pos[1],ins[1]),ins[3]),min(max(pos[2],.6),2.5));lens=min(lens,{'wide':24,'group':24,'two':24,'track':26,'follow_high':26,'medium':30,'ots':30,'single':30,'insert':40}.get(c['kind'],lens))   # a small room has no room to step back: widen instead
  return pos,aim,lens
 def _frame(plan,c,t):
  kd=c['kind'];lens=c['lens']
