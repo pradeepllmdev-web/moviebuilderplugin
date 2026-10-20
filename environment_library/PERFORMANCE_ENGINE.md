@@ -60,6 +60,13 @@ Each scene has an `intent` line (one sentence of what happens and why it matters
 ## Life
 Background characters (`extras=crowd(n, area, focus, seed)` in a scene): deterministic looks and places that avoid solids and the cast, turned to the focus, breathing out of step; the cast is routed around them. Gestures follow the words and mood (wave on greetings, argue on refusals, nod on agreement, never the same clip twice running); glances and brow flashes keep the faces alive; a grounding pass lifts the root per frame for sit/fall/getup/kneel/crawl/jump so the body rests on the floor; the camera pushes in slowly on dialogue and drifts round wides.
 
+## Body language (`perf_body.py`, `perf_plan.speech_gestures`)
+Hands: every spoken line is split into phrases and each long enough phrase gets a hand gesture chosen from its words (I: hand to the chest, you: point, we: both hands open, no/not: chop, a question: palms up, otherwise a beat), thinned by how expressive the posture is; the arms are driven by IK and return to rest between phrases; a character holding a prop does not gesture. Whole-body clips (wave, nod, shrug, think, argue) are only used when the words ask for one (a greeting, agreement, doubt, thought, rage); listeners nod or think only when the line calls for it.
+Body: a COMBINE layer over the clips (breathing, weight sway, head nods on stressed syllables, delivery posture per mood, question tilt, listening nods) and the upper body, neck and head lead every turn by a look-ahead of the plan's heading, so characters no longer rotate as one block; turns over 55 degrees are taken with small steps (walk clip in place). Gaze moves are smoothed and glances/brow flashes keep faces alive.
+
+## Mix
+Voices dominate (active RMS about 0.27), the score sits about 12 dB under them and is ducked a further 70 percent while anyone speaks, the ambience bed is about 20 dB under, footsteps are timed from the gait clip's own cycle (every foot plant, 10 per cycle for the scampering run clip) and sit far below the voices.
+
 ## Sound (`perf_audio.py`)
 Voices per speaker (synthesised, pitch from the registry; real recordings via `VOICE_DIR` still override), 10 ambience beds, 8 generative score moods, footsteps from the gait cycle, 13 effects (knock, door, thud, clang, bell, gong, crash, scrape, splash, thunder, chime, clap).
 
