@@ -30,7 +30,7 @@ import dialogue as dg,gaits,perf_locations as pl
 FPS=24
 CLIP_FRAMES=dict(argue=96,block=72,bow=72,cele=120,climb=96,crawl=96,cut=72,dodge=72,fall=72,getup=72,hips=72,hit=72,idle=96,jump=72,kick=72,kneel=96,laugh=96,lie=96,look=144,nod=72,pick=120,punch=72,push=72,run=48,shrug=72,sit=216,startle=72,talk=96,think=96,wave=72)
 for _g,_v in gaits.GAITS.items():CLIP_FRAMES.setdefault(_v['clip'],_v['cycle'])
-ACT_CLIPS=('argue','block','bow','cele','cut','dodge','fall','getup','hips','hit','jump','kick','kneel','laugh','lie','look','nod','punch','push','shrug','startle','talk','think','wave','idle')
+ACT_CLIPS=('pick','argue','block','bow','cele','cut','dodge','fall','getup','hips','hit','jump','kick','kneel','laugh','lie','look','nod','punch','push','shrug','startle','talk','think','wave','idle')
 SEATED_OK=('look','emote','say')
 MOODS=dg.MOODS
 SIT_DOWN=(1,110)             # frames of the sit clip: standing -> seated (hips down by frame 97), then held
@@ -55,17 +55,24 @@ class Router:
   for c in obst:m|=(X-c[0])**2+(Y-c[1])**2<(c[2]+margin)**2
   s.blocked=m
  def cellof(s,p):return (min(s.nx-1,max(0,int(round((p[0]+s.hx)/s.cell)))),min(s.ny-1,max(0,int(round((p[1]+s.hy)/s.cell)))))
- def clear(s,p,q,free):
-  n=max(2,int(math.hypot(q[0]-p[0],q[1]-p[1])/(s.cell*.5)))
+ def clear(s,p,q,free,mask=None):
+  mask=s.blocked if mask is None else mask;n=max(2,int(math.hypot(q[0]-p[0],q[1]-p[1])/(s.cell*.5)))
   for i in range(n+1):
    x=p[0]+(q[0]-p[0])*i/n;y=p[1]+(q[1]-p[1])*i/n;c=s.cellof((x,y))
-   if s.blocked[c] and not any(math.hypot(x-f[0],y-f[1])<f[2] for f in free):return False
+   if mask[c] and not any(math.hypot(x-f[0],y-f[1])<f[2] for f in free):return False
   return True
- def route(s,p0,p1,free_r=.7):
-  free=[(p0[0],p0[1],free_r),(p1[0],p1[1],free_r)]
-  if s.clear(p0,p1,free):return [tuple(p0),tuple(p1)]
+ def route(s,p0,p1,free_r=.7,extra=()):
+  free=[(p0[0],p0[1],free_r),(p1[0],p1[1],free_r)];mask=s.blocked
+  if extra:
+   mask=s.blocked.copy()
+   for (ex,ey,er) in extra:
+    c=s.cellof((ex,ey));r=int((er+s.margin)/s.cell)+1
+    for i in range(max(0,c[0]-r),min(s.nx,c[0]+r+1)):
+     for j in range(max(0,c[1]-r),min(s.ny,c[1]+r+1)):
+      if math.hypot((i-c[0])*s.cell,(j-c[1])*s.cell)<er+s.margin:mask[i,j]=True
+  if s.clear(p0,p1,free,mask):return [tuple(p0),tuple(p1)]
   import heapq
-  a,b=s.cellof(p0),s.cellof(p1);blocked=s.blocked.copy()
+  a,b=s.cellof(p0),s.cellof(p1);blocked=mask.copy()
   for f in free:
    c=s.cellof(f);r=int(f[2]/s.cell)+1
    for i in range(max(0,c[0]-r),min(s.nx,c[0]+r+1)):
@@ -90,10 +97,22 @@ class Router:
   out=[pts[0]];i=0
   while i<len(pts)-1:   # string pulling
    j=len(pts)-1
-   while j>i+1 and not s.clear(pts[i],pts[j],free):j-=1
+   while j>i+1 and not s.clear(pts[i],pts[j],free,mask):j-=1
    out.append(pts[j]);i=j
   return out
 def route(p0,p1,obst,half=(30,30),margin=.4):return Router(obst,half,margin).route(p0,p1)
+def round_corners(pts,r,n=6):
+ """polyline with every interior corner replaced by a quadratic curve of about radius r (people do not turn on the spot while walking)"""
+ pts=[tuple(p) for p in pts]
+ if len(pts)<3 or r<=.05:return pts
+ out=[pts[0]]
+ for i in range(1,len(pts)-1):
+  p0,p1,p2=pts[i-1],pts[i],pts[i+1];d0=math.hypot(p0[0]-p1[0],p0[1]-p1[1]);d1=math.hypot(p2[0]-p1[0],p2[1]-p1[1]);k=min(r,d0*.45,d1*.45)
+  if k<.05 or d0<1e-6 or d1<1e-6:out.append(p1);continue
+  a=(p1[0]+(p0[0]-p1[0])/d0*k,p1[1]+(p0[1]-p1[1])/d0*k);b=(p1[0]+(p2[0]-p1[0])/d1*k,p1[1]+(p2[1]-p1[1])/d1*k)
+  for j in range(n+1):
+   u=j/n;out.append(((1-u)**2*a[0]+2*u*(1-u)*p1[0]+u*u*b[0],(1-u)**2*a[1]+2*u*(1-u)*p1[1]+u*u*b[1]))
+ out.append(pts[-1]);return out
 def polyline_samples(points,speed,dt=1./FPS):
  """positions along a polyline at constant speed: list of (x,y,raw_heading); the last sample is the end point"""
  pts=[tuple(p) for p in points];segs=[(a,b,math.hypot(b[0]-a[0],b[1]-a[1])) for a,b in zip(pts,pts[1:])];segs=[s for s in segs if s[2]>1e-6]
@@ -130,7 +149,7 @@ class Actor:
  def turn_to(s,h1,dur=None):
   h0=s.H[-1];d=abs(wrap(h1-h0))
   if d<math.radians(4):return 0.
-  dur=dur or max(.3,d/math.radians(230.));n=max(2,int(round(dur*FPS)));x,y=s.X[-1],s.Y[-1]
+  dur=max(dur or 0.,d/math.radians(190.),.3);n=max(2,int(round(dur*FPS)));x,y=s.X[-1],s.Y[-1]
   for i in range(1,n+1):s.X.append(x);s.Y.append(y);s.H.append(lerp_angle(h0,h1,ease(i/n)))
   return n/FPS
  def face_point(s,p,dur=None):return s.turn_to(math.atan2(p[1]-s.Y[-1],p[0]-s.X[-1]),dur)
@@ -140,7 +159,7 @@ class Actor:
    if last[0]>=t0-1e-6:s.clips.pop()
    else:s.clips[-1]=(last[0],t0,last[2],last[3],last[4])
   if t1>t0+1e-6:s.clips.append((t0,t1,name,scale,opt))
- def walk(s,points,speed,gait,scale,tau=.22):
+ def walk(s,points,speed,gait,scale,tau=.14):
   smp=polyline_samples(points,speed)
   if len(smp)<2:return 0.
   h_raw=smp[0][2];t0=s.t;h=s.H[-1];k=1-math.exp(-1./FPS/tau)
@@ -157,8 +176,6 @@ class Plan:
   s.looks=looks;s.actors={}
   for c in spec['cast']:
    x,y=c['at'][:2];s.actors[c['id']]=Actor(c['id'],looks[c['id']],x,y,0.)
-  for c in spec['cast']:
-   a=s.actors[c['id']];f=c.get('face');a.H[0]=s._heading_to(a,f) if f is not None else math.pi/2
   s.props={}
   for p in spec.get('props',[]):
    z=p.get('z');base=0.;pk=PROP_KINDS_CHECK(p['kind']);sz=pk['size'][2]*p.get('size',1.)
@@ -166,6 +183,8 @@ class Plan:
     if p['on'] not in s.layout['surfaces']:raise SpecError('prop %s sits on %r which is not a surface of the location'%(p['id'],p['on']))
     base=s.layout['surfaces'][p['on']][2]
    s.props[p['id']]=Prop(p,(p['at'][0],p['at'][1],(z if z is not None else base+sz/2)),None)
+  for c in spec['cast']:
+   a=s.actors[c['id']];f=c.get('face');a.H[0]=s._heading_to(a,f) if f is not None else math.pi/2
   s.t_end=0.;s.router=Router(s.layout['obstacles'],s.layout['half'])
  # ------------------------------------------------------------------------------------------------------ references
  def _heading_to(s,a,ref):
@@ -209,18 +228,22 @@ class Plan:
   for i,st in enumerate(steps):
    beats=st if isinstance(st,list) else [st];t0=s.cur_t();s.steps_t.append(t0)
    for a in s.actors.values():a.pad_to(t0)
-   used=set();spoke=[]
+   used=set();spoke=[];s._hold_until=0.
+   s._spread(beats)
    for b in beats:
     who=b.get('who')
     if b['do'] in ('wait','sfx','cam'):getattr(s,'b_'+b['do'])(b,t0);continue
+    if b['do'] in ('look','emote'):
+     if b.get('who') not in s.actors:raise SpecError('step %d: %s has no character %r (cast: %s)'%(i,b['do'],b.get('who'),', '.join(s.actors)))
+     getattr(s,'b_'+b['do'])(b,t0);continue
     if who not in s.actors:raise SpecError('step %d: %s has no character %r (cast: %s)'%(i,b['do'],who,', '.join(s.actors)))
-    if who in used and b['do']!='look':raise SpecError('step %d: %s has two beats at the same time'%(i,who))
+    if who in used:raise SpecError('step %d: %s has two beats at the same time'%(i,who))
     used.add(who)
     if not hasattr(s,'b_'+b['do']):raise SpecError('step %d: unknown beat %r'%(i,b['do']))
     r=getattr(s,'b_'+b['do'])(b,t0)
     if b['do']=='say':spoke.append(r)
    if len([1 for b in beats if b['do']=='say'])>1:raise SpecError('step %d: two lines at the same time (put each line in its own step)'%i)
-   end=max(a.t for a in s.actors.values())
+   end=max(max(a.t for a in s.actors.values()),s._hold_until)
    for a in s.actors.values():a.pad_to(end)
    for L in spoke:s._listen(L,used,t0,end)
   end=s.cur_t()+2.5
@@ -249,6 +272,14 @@ class Plan:
  # ------------------------------------------------------------------------------------------------------ beats
  def _stand_only(s,a,what):
   if a.state!='stand':raise SpecError('%s: %s cannot %s while %s'%(s.cur_t(),a.id,what,a.state))
+ def _spread(s,beats):
+  """parallel walkers to the same target get side-by-side slots so they do not cross"""
+  g={}
+  for b in beats:
+   if b.get('do')=='go' and isinstance(b.get('to'),str) and b['to'] not in ('',):g.setdefault(b['to'],[]).append(b)
+  for k,v in g.items():
+   if len(v)>1:
+    for i,b in enumerate(v):b['_slot']=(i,len(v))
  def b_wait(s,b,t0):
   for a in s.actors.values():a.pad_to(t0+b['dur'])
   s.events.append(dict(kind='wait',t0=t0,t1=t0+b['dur']))
@@ -257,9 +288,9 @@ class Plan:
  def b_turn(s,b,t0):
   a=s.actors[b['who']];s._stand_only(a,'turn');p=s.point(b['to']);d=a.face_point(p);s.events.append(dict(kind='turn',who=a.id,t0=t0,t1=t0+d,to=b['to']))
  def b_look(s,b,t0):
-  a=s.actors[b['who']];a.pad_to(t0+b.get('dur',1.));s.events.append(dict(kind='look',who=a.id,t0=t0,t1=t0+b.get('dur',1.),to=b['at']))
+  a=s.actors[b['who']];s._hold_until=max(s._hold_until,t0+b.get('dur',1.));s.events.append(dict(kind='look',who=a.id,t0=t0,t1=t0+b.get('dur',1.),to=b['at']))
  def b_emote(s,b,t0):
-  a=s.actors[b['who']];d=b.get('dur',2.);a.emotes.append((t0,t0+d,b['kind']));a.pad_to(t0+d);s.events.append(dict(kind='emote',who=a.id,t0=t0,t1=t0+d,what=b['kind']))
+  a=s.actors[b['who']];d=b.get('dur',2.);a.emotes.append((t0,t0+d,b['kind']));s._hold_until=max(s._hold_until,t0+d);s.events.append(dict(kind='emote',who=a.id,t0=t0,t1=t0+d,what=b['kind']))
  def b_act(s,b,t0):
   a=s.actors[b['who']];clip=b['clip']
   if clip not in ACT_CLIPS:raise SpecError('act: unknown clip %r (known: %s)'%(clip,', '.join(ACT_CLIPS)))
@@ -285,7 +316,7 @@ class Plan:
   tp=s.point(to)
   if a.state=='sit' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(80):s.lint.append('AUDIT seated: %s speaks to %s who is %.0f deg off the way %s sits'%(a.id,to,abs(math.degrees(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))),a.id))
   if a.state=='stand' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(35):a.face_point(tp)
-  syl=dg.syllables(b['text']);dur=max(1.6,len(syl)*.2+.5);ts=a.t+.15
+  syl=dg.syllables(b['text']);dur=max(1.5,len(syl)*.18+.45);ts=a.t+.15
   a.hold(.15+dur+.35);k=len(s.lines);L=dict(k=k,speaker=a.id,mood=mood,text=b['text'],t0=ts,t1=ts+dur,syl=syl,dur=dur,to=to);s.lines.append(L)
   if a.state=='stand':
    clip=b.get('gesture') or dg.SPEAK_CLIP[mood]
@@ -301,13 +332,28 @@ class Plan:
   if d>stand+.05:
    ux,uy=(tx-px)/d,(ty-py)/d;end=(tx-ux*stand,ty-uy*stand);s._walk_to(a,end,gait,mult)
   a.face_point(face if face is not None else target)
+ def _clear_spot(s,a,p):
+  """move a goal point away from characters standing near it, so two characters never end up inside each other"""
+  p=(p[0],p[1])
+  for _ in range(3):
+   for o in s.actors.values():
+    if o is a:continue
+    ox,oy=o.pos();d=math.hypot(p[0]-ox,p[1]-oy);need=a.radius+o.radius+.2
+    if d<need:
+     if d<1e-6:ux,uy=a.X[-1]-ox,a.Y[-1]-oy;L=math.hypot(ux,uy) or 1.;ux,uy=ux/L,uy/L
+     else:ux,uy=(p[0]-ox)/d,(p[1]-oy)/d
+     p=(ox+ux*need,oy+uy*need)
+  return p
  def _walk_to(s,a,end,gait,mult=1.,via=()):
+  end=s._clear_spot(a,end)
   if a.state=='sit':s._stand(a)
   if a.state!='stand':raise SpecError('%s cannot walk while %s'%(a.id,a.state))
   gait=gait or a.gait
   if gait not in gaits.GAITS:raise SpecError('unknown gait %r (known: %s)'%(gait,', '.join(gaits.GAITS)))
   pts=[a.pos()]+[tuple(v[:2]) for v in via]+[tuple(end[:2])];path=[pts[0]]
-  for p in pts[1:]:path+=s.router.route(path[-1],p)[1:]
+  extra=[(o.X[-1],o.Y[-1],o.radius*.9) for o in s.actors.values() if o is not a]
+  for p in pts[1:]:path+=s.router.route(path[-1],p,extra=extra)[1:]
+  path=round_corners(path,1.0*a.size)
   if len(path)>1:
    first=math.atan2(path[1][1]-path[0][1],path[1][0]-path[0][0]);a.turn_to(first,None)
   size=a.size;nat=gaits.natural_speed(gait);speed=nat*size*a.look['pace']*mult;sc=gaits.play_scale(gait,speed,size);t0=a.t;a.walk(path,speed,gait,sc)
@@ -316,6 +362,9 @@ class Plan:
   a=s.actors[b['who']];ref=b['to'];tp=s.point(ref);gait=b.get('gait') or (None)
   stop=b.get('stop')
   if stop is None:stop=(1.25*(a.size+s.actors[ref].size)/2 if isinstance(ref,str) and ref in s.actors else (.8*a.size if isinstance(ref,str) and ref in s.props else 0.))
+  tp2=tp
+  if b.get('_slot'):
+   i,n=b['_slot'];px,py=a.pos();L=math.hypot(tp[0]-px,tp[1]-py) or 1.;nx,ny=-(tp[1]-py)/L,(tp[0]-px)/L;off=(i-(n-1)/2)*(1.0*a.size+.35);tp=(tp[0]+nx*off,tp[1]+ny*off,tp[2])
   tp2=tp
   if stop>0:
    px,py=a.pos();d=math.hypot(tp[0]-px,tp[1]-py)

@@ -52,7 +52,9 @@ class Compile(unittest.TestCase):
  def test_cannot_act_while_seated(self):
   with self.assertRaises(pp.SpecError):self.run_([dict(do='sit',who='mara',on='bench_a.0'),dict(do='act',who='mara',clip='wave')])
  def test_collision_is_audited(self):
-  P=self.run_([[go('mara',[0,0],stop=0.),go('bram',[0,0],stop=0.)]]);self.assertTrue(any('collision' in a for a in P.audit()))
+  P=self.run_([[go('mara',[6,-5],stop=0.),go('bram',[-8,-6],stop=0.)]]);self.assertTrue(any('collision' in a for a in P.audit()))
+ def test_walkers_do_not_end_inside_each_other(self):
+  P=self.run_([[go('mara',[0,0],stop=0.),go('bram',[0,0],stop=0.)]]);self.assertEqual([a for a in P.audit() if 'collision' in a],[])
  def test_walking_through_a_room_is_routed_around(self):
   P=pp.compile(spec([go('mara',[4,0])],cast=[dict(id='mara',at=[-3,0],face=[1,0]),dict(id='bram',at=[0,-3],face=[0,1])],loc=dict(preset='room')),REG);self.assertEqual([a for a in P.audit() if 'obstacle' in a],[])
 class Props(unittest.TestCase):
