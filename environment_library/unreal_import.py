@@ -47,6 +47,7 @@ class DryRun:
  def ensure_characters(self,doc):pass
  def character_asset(self,tag):return None
  def clip_asset(self,tag,clip):return None
+ def exists(self,path):return True
  sequence_path=None
 class UnrealBackend:
  """thin wrapper over the Unreal editor Python API (see the module docstring for the version note)"""
@@ -141,7 +142,12 @@ class UnrealBackend:
    o.set_editor_property('import_mesh',False);o.set_editor_property('import_animations',True);o.set_editor_property('mesh_type_to_import',u.FBXImportType.FBXIT_ANIMATION);o.set_editor_property('skeleton',skeleton)
   task.set_editor_property('options',o);u.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task]);return [str(p) for p in task.get_editor_property('imported_object_paths')]
  def character_asset(self,tag):return self.character_assets.get(tag)
- def clip_asset(self,tag,clip):return self.clip_assets.get((tag,clip))
+ def exists(self,path):return self.u.EditorAssetLibrary.does_asset_exist(path)
+ def clip_asset(self,tag,clip):
+  got=self.clip_assets.get((tag,clip))
+  if got:return got
+  p='/Game/Anim/%s/%s'%(tag,clip)   # imported earlier or under the plain name: use it
+  return p if self.u.EditorAssetLibrary.does_asset_exist(p) else None
  def proxy_candidates(self,a):
   """paths of the proxy meshes imported from props.fbx for this actor: Unreal turns '.' into '_' and adds a digit when a material already has the name"""
   out=[]
@@ -230,7 +236,8 @@ class UnrealBackend:
   except Exception as e:self.warnings.append('light %s not configured: %s'%(light['type'],type(e).__name__))
  def anim_section(self,h,asset,start,end,rate,mapped):
   u=self.u;b=self.bind[h];tr=b.find_tracks_by_exact_type(u.MovieSceneSkeletalAnimationTrack);tr=tr[0] if tr else b.add_track(u.MovieSceneSkeletalAnimationTrack)
-  sec=tr.add_section();sec.set_range(start,end+1);p=sec.params;p.animation=u.load_asset(asset)
+  sec=tr.add_section();sec.set_range(start,end+1);p=sec.params;ao=u.load_asset(asset);p.animation=ao
+  if ao is None and len(self.warnings)<6:self.warnings.append('animation not loaded: %s'%asset)
   if abs(rate-1.0)>1e-6:self.set_rate(p,rate)
  def set_rate(self,p,rate):
   """play rate of an animation section: a plain float up to UE 5.6, a MovieSceneTimeWarpVariant from 5.7; if neither works the clip keeps rate 1 and a warning says so"""
@@ -261,6 +268,13 @@ class UnrealBackend:
     m=c.static_mesh;o,e=a.get_actor_bounds(False)
     rows.append(dict(label=a.get_actor_label(),mesh=m.get_path_name() if m else None,mesh_extent=[round(v,1) for v in (m.get_bounds().box_extent.x,m.get_bounds().box_extent.y,m.get_bounds().box_extent.z)] if m else None,world_extent=[round(e.x,1),round(e.y,1),round(e.z,1)],pivot_offset=[round(o.x-a.get_actor_location().x,1),round(o.y-a.get_actor_location().y,1),round(o.z-a.get_actor_location().z,1)],visible=bool(c.is_visible()),hidden_game=bool(a.get_editor_property('hidden')),hidden_editor=bool(a.is_temporarily_hidden_in_editor()),comp_hidden_game=bool(c.get_editor_property('hidden_in_game')),comp_visible_prop=bool(c.get_editor_property('visible')),cast_shadow=bool(c.get_editor_property('cast_shadow')),main_pass=bool(c.get_editor_property('render_in_main_pass')),mat=(lambda m:(m.get_path_name(),str(m.get_base_material().get_editor_property('blend_mode')),m.get_base_material().get_path_name()) if m else None)(c.get_material(0)),mobility=str(c.mobility),materials=c.get_num_materials()))
    except Exception as ex:rows.append(dict(label='?',error=str(ex)[:120]))
+  for h,bd in self.bind.items():
+   try:
+    for tr in bd.get_tracks():
+     if isinstance(tr,self.u.MovieSceneSkeletalAnimationTrack):
+      for sec in tr.get_sections():
+       p=sec.get_editor_property('params');an=p.get_editor_property('animation');       rows.append(dict(label='anim',binding=h,asset=an.get_path_name() if an else None,start=str(sec.get_start_frame()),end=str(sec.get_end_frame()),play_rate=str(p.get_editor_property('play_rate')) if True else None))
+   except Exception as ex:rows.append(dict(label='anim?',error=str(ex)[:100]))
   return rows
  def save(self):
   self.autoplay_actor();self.u.EditorAssetLibrary.save_loaded_asset(self.seq)
@@ -302,7 +316,7 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
    key=s.get('anim_file') or 'anim_%s'%s['clip']
    asset,mapped=ub.resolve_clip(s['clip'],c['name'],asset_map,anim_dir)
    own=backend.clip_asset(c['name'],key)
-   if own and not mapped:asset,mapped=own,True
+   if own and (not mapped or not backend.exists(asset)):asset,mapped=own,True   # a mapped asset that is not in the project falls back to the clip imported with the scene
    loop=max(2,int(round((s.get('action_end',s['end'])-s.get('action_start',s['start'])+1)*s['scale']))) if s.get('action_end') is not None else max(2,s['end']-s['start'])
    t=s['start']
    while t<s['end']:       # a strip that repeats (Blender's repeat) becomes one section per repetition

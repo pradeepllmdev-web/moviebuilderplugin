@@ -66,6 +66,8 @@ import json,threading
 import unreal_send as us,ue_common as uc,movie_to_unreal as m2u
 class FakeBridge:
  def __init__(self):self.calls=[]
+ def clear_proxy(self,scene):self.calls.append(('clear_proxy',scene))
+ def drop_sequences(self,scene):self.calls.append(('drop_sequences',scene))
  def command(self,name,params=None):
   self.calls.append((name,params));return {'sequence':'/Game/Movie/LS_x'} if name=='apply_movie_scene' else {'assets':['a']}
 class Send(unittest.TestCase):
@@ -83,7 +85,7 @@ class Send(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    j=Path(d)/'s.ue.json';j.write_text(json.dumps({'scene':'s'}));[(Path(d)/n).write_text('x') for n in ('environment.fbx','props.fbx','character_Leo.fbx','anim_run.fbx')]
    b=FakeBridge();res=us.send_scene(b,j);names=[c[0] for c in b.calls]
-   self.assertEqual(names,['import_asset','import_asset','apply_movie_scene','save_level']);self.assertEqual(res['imported'],['environment.fbx','props.fbx']);self.assertEqual(b.calls[-2][1]['dry_run'],False);self.assertTrue(res['level_saved'])
+   self.assertEqual(names,['clear_proxy','import_asset','import_asset','drop_sequences','apply_movie_scene','save_level']);self.assertEqual(res['imported'],['environment.fbx','props.fbx']);self.assertEqual(b.calls[-2][1]['dry_run'],False);self.assertTrue(res['level_saved'])
  def test_dry_run_imports_nothing(self):
   with tempfile.TemporaryDirectory() as d:
    j=Path(d)/'s.ue.json';j.write_text(json.dumps({'scene':'s'}));(Path(d)/'environment.fbx').write_text('x');b=FakeBridge();us.send_scene(b,j,dry_run=True);self.assertEqual([c[0] for c in b.calls],['apply_movie_scene'])
