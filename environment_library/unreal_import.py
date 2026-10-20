@@ -52,7 +52,7 @@ class UnrealBackend:
  def __init__(self,check=True):
   import unreal;self.u=unreal
   if check:guard(unreal)   # the editor bridge passes check=False: it has its own busy/undo rules and never overwrites
-  self.seq=None;self.bind={};self.sequence_path=None;self.warnings=[];self.spawned=[];self.tag=None;self.scene=None;self.character_assets={};self.clip_assets={}
+  self.seq=None;self.bind={};self.sequence_path=None;self.warnings=[];self.spawned=[];self.tag=None;self.scene=None;self.character_assets={};self.clip_assets={};self.actors={}
  def sequence(self,name,fps,start,end):
   u=self.u;self.scene=name;self.tag='moviebuilder:%s'%name;self.purge()
   tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset(unique_name(u.EditorAssetLibrary.does_asset_exist,'LS_%s'%name),'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
@@ -138,7 +138,7 @@ class UnrealBackend:
   actor=sub.spawn_actor_from_class(cls,u.Vector(0,0,0));actor.set_actor_label('%s/%s'%(self.scene,a['name']));actor.tags=[u.Name(self.tag)]
   try:actor.set_folder_path('MovieBuilder/%s'%self.scene)
   except Exception:pass
-  self.spawned.append(actor)
+  self.spawned.append(actor);self.actors[a['id']]=actor
   want=u.SkeletalMesh if a['role']=='character' else u.StaticMesh
   cands=[asset]+self.proxy_candidates(a)
   for path in cands:
@@ -154,8 +154,21 @@ class UnrealBackend:
   for i,f in enumerate(frames):
    fn=u.FrameNumber(f);vals=loc[i]+[rot[i][0],rot[i][1],rot[i][2]]+scale[i]
    for c in range(9):ch[c].add_key(fn,vals[c])
- def lens_keys(self,h,frames,lens):pass
- def light(self,h,light):pass
+ def lens_keys(self,h,frames,lens):
+  act=self.actors.get(h)
+  try:
+   comp=act.get_cine_camera_component();comp.set_editor_property('current_focal_length',float(lens[0]))
+  except Exception as e:self.warnings.append('lens not set: %s'%type(e).__name__)
+ def light(self,h,light):
+  act=self.actors.get(h);u=self.u
+  try:
+   comp=act.get_component_by_class(u.LightComponent);t=light['type']
+   comp.set_editor_property('intensity',light['energy']*(ub.SUN_LUX_PER_STRENGTH if t=='SUN' else ub.POINT_CD_PER_W))
+   col=light['color'];comp.set_editor_property('light_color',u.Color(int(255*col[0]),int(255*col[1]),int(255*col[2]),255))
+   if t!='SUN':
+    try:comp.set_editor_property('intensity_units',u.LightUnits.CANDELAS)
+    except Exception:pass
+  except Exception as e:self.warnings.append('light %s not configured: %s'%(light['type'],type(e).__name__))
  def anim_section(self,h,asset,start,end,rate,mapped):
   u=self.u;b=self.bind[h];tr=b.find_tracks_by_exact_type(u.MovieSceneSkeletalAnimationTrack);tr=tr[0] if tr else b.add_track(u.MovieSceneSkeletalAnimationTrack)
   sec=tr.add_section();sec.set_range(start,end+1);p=sec.params;p.animation=u.load_asset(asset)

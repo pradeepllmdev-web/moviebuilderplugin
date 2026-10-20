@@ -12,6 +12,7 @@ sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import ue_common as ub
 args=sys.argv[sys.argv.index('--')+1:];OUT=args[0];sc=bpy.context.scene;NAME=args[1] if len(args)>1 else os.path.splitext(os.path.basename(bpy.data.filepath))[0].replace('_scene','')
 os.makedirs(OUT,exist_ok=True);FS,FE=sc.frame_start,sc.frame_end;FPS=sc.render.fps
+from mathutils import Vector
 EFFECTS=('Dust','Spark','Splash','Steam','Puff','Bolt','Snow')
 def top(o):
  while o.parent is not None:o=o.parent
@@ -46,11 +47,15 @@ samples={o.name:{'frames':[],'loc':[],'rot':[],'scale':[],'lens':[]} for o,_,_ i
 for f in range(FS,FE+1):
  sc.frame_set(f)
  for o,role,_ in tracked:
-  M=o.matrix_world;s=samples[o.name];e=M.to_euler('XYZ');s['frames'].append(f);s['loc'].append(ub.ue_loc(M.translation));s['rot'].append([e.x,e.y,e.z]);s['scale'].append(ub.ue_scale(M.to_scale()))
+  M=o.matrix_world;s=samples[o.name];e=M.to_euler('XYZ');s['frames'].append(f);s['loc'].append(ub.ue_loc(M.translation));s['scale'].append(ub.ue_scale(M.to_scale()))
+  if o.type=='CAMERA':fw=M.to_3x3()@Vector((0,0,-1));s['rot'].append(ub.ue_look_rot_deg((fw.x,fw.y,fw.z)));s['look']=True
+  else:s['rot'].append([e.x,e.y,e.z])
   if o.type=='CAMERA':s['lens'].append(o.data.lens)
  for l in lights:lightkeys[l.name].append((f,l.data.energy))
 def finish(o):
- s=samples[o.name];rot=np.array(s['rot']);rot=np.unwrap(rot,axis=0);rot=[ub.ue_rot_deg(r) for r in rot];rot=[[ub.unwrap_deg([r[c] for r in rot])[i] for c in range(3)] for i in range(len(rot))]
+ s=samples[o.name]
+ if s.get('look'):rot=[list(r) for r in s['rot']];rot=[[ub.unwrap_deg([r[c] for r in rot])[i] for c in range(3)] for i in range(len(rot))]
+ else:rot=np.array(s['rot']);rot=np.unwrap(rot,axis=0);rot=[ub.ue_rot_deg(r) for r in rot];rot=[[ub.unwrap_deg([r[c] for r in rot])[i] for c in range(3)] for i in range(len(rot))]
  fr=s['frames'];vals=[l+r+sc_ for l,r,sc_ in zip(s['loc'],rot,s['scale'])];keep=ub.reduce_keys(fr,vals,.05)
  d=dict(frames=[fr[i] for i in keep],loc=[s['loc'][i] for i in keep],rot=[[round(x,4) for x in rot[i]] for i in keep],scale=[s['scale'][i] for i in keep])
  if s['lens']:d['lens']=[s['lens'][i] for i in keep]
@@ -77,7 +82,7 @@ for a in doc['actors']:
   if lo[0]<1e8:a['bounds_cm']=[round((hi[i]-lo[i])*100,1) for i in range(3)]
 for l in lights:
  aid='a%03d'%len(idmap);idmap[l.name]=aid;M=l.matrix_world;e=M.to_euler('XYZ');ev=[v for f,v in lightkeys[l.name]];anim_l=(max(ev)-min(ev))>1e-3
- doc['actors'].append(dict(id=aid,name=l.name,role='light',asset_key=l.data.type,light=dict(type=l.data.type,color=list(l.data.color),energy=l.data.energy,energy_keys=[[f,v] for f,v in lightkeys[l.name]][::max(1,len(ev)//200)] if anim_l else None,spot_size=getattr(l.data,'spot_size',None)),keys=dict(frames=[FS],loc=[ub.ue_loc(M.translation)],rot=[ub.ue_rot_deg([e.x,e.y,e.z])],scale=[[1,1,1]])))
+ doc['actors'].append(dict(id=aid,name=l.name,role='light',asset_key=l.data.type,light=dict(type=l.data.type,color=list(l.data.color),energy=l.data.energy,energy_keys=[[f,v] for f,v in lightkeys[l.name]][::max(1,len(ev)//200)] if anim_l else None,spot_size=getattr(l.data,'spot_size',None)),keys=dict(frames=[FS],loc=[ub.ue_loc(M.translation)],rot=[ub.ue_look_rot_deg(tuple(M.to_3x3()@Vector((0,0,-1))))],scale=[[1,1,1]])))
 # characters: clips from the NLA strips, ik targets, the root actor
 for c in chars:
  rig=c['rig'];clips=[]

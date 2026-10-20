@@ -110,3 +110,9 @@ def pick_catalog_asset(key,dims_cm,catalog,max_ratio=4.0):
 def constant_scale(scale_keys,tol=1e-3):
   """True when an actor's scale never changes (so it can be replaced by a fitted uniform scale)"""
   return all(max(abs(a-b) for a,b in zip(row,scale_keys[0]))<tol for row in scale_keys)
+
+def ue_look_rot_deg(forward_blender):
+ """Unreal rotator [roll, pitch, yaw] (degrees) for an object that looks along a Blender world direction (cameras and lights look along their local -Z in Blender, along +X in Unreal), no roll"""
+ x,y,z=forward_blender;yaw=math.degrees(math.atan2(-y,x));pitch=math.degrees(math.atan2(z,math.hypot(x,y)));return [0.0,pitch,yaw]
+POINT_CD_PER_W=.05      # Blender point/spot watts -> Unreal candela (a rough visual match; exposure differs per project)
+SUN_LUX_PER_STRENGTH=3.0
