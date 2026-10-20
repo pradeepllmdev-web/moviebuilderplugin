@@ -45,3 +45,23 @@ class FromSeries(unittest.TestCase):
  def test_size_words(self):
   self.assertLess(cr.from_series_character({'name':'Pip','details':'a tiny mouse'})['height'],cr.SPECIES['mouse']['height'])
 if __name__=='__main__':unittest.main()
+import cast_builder as cb
+class Builder(unittest.TestCase):
+ def look(self,**k):return cr.resolve(dict(dict(id='t',name='T',species='lion',accessories=list(cr.ACCESSORIES)[:0]),**k))
+ def test_every_accessory_builds_known_bones_and_sane_sizes(self):
+  for a in cr.ACCESSORIES:
+   if a.startswith(('hat','crown','helmet')) is False or True:
+    ps=cb.accessory_prims(self.look(accessories=[a]))
+    self.assertTrue(ps,a)
+    for p in ps:
+     self.assertIn(p['bone'],cb.BONES);self.assertTrue(all(0<x<2.5 for x in p['scale']),(a,p['scale']));self.assertTrue(all(abs(v)<3 for v in p['loc']))
+ def test_head_items_sit_on_the_head(self):
+  for a in ('hat_top','hat_wizard','crown','helmet','hat_cap','hat_straw'):
+   for p in cb.accessory_prims(self.look(accessories=[a])):self.assertGreater(p['loc'][2],1.6,a)
+ def test_every_species_part_builds(self):
+  for sp in cr.SPECIES:
+   for p in cb.part_prims(self.look(species=sp)):self.assertIn(p['bone'],cb.BONES)
+ def test_staff_follows_the_hand(self):
+  ps=cb.accessory_prims(self.look(accessories=['staff']),hand_r=(-.4,-.2,.7));self.assertTrue(all(p['loc'][:2]==(-.4,-.2) for p in ps));self.assertTrue(all(p['bone']=='hand_r' for p in ps))
+ def test_unnamed_colour_is_stable_per_character(self):
+  a=cb.accessory_prims(self.look(accessories=['scarf']))[0]['color'];self.assertEqual(a,cb.accessory_prims(self.look(accessories=['scarf']))[0]['color'])
