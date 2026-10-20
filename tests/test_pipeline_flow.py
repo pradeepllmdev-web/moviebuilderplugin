@@ -83,7 +83,7 @@ class Send(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    j=Path(d)/'s.ue.json';j.write_text(json.dumps({'scene':'s'}));[(Path(d)/n).write_text('x') for n in ('environment.fbx','props.fbx','character_Leo.fbx','anim_run.fbx')]
    b=FakeBridge();res=us.send_scene(b,j);names=[c[0] for c in b.calls]
-   self.assertEqual(names,['import_asset','import_asset','apply_movie_scene']);self.assertEqual(res['imported'],['environment.fbx','props.fbx']);self.assertEqual(b.calls[-1][1]['dry_run'],False)
+   self.assertEqual(names,['import_asset','import_asset','apply_movie_scene','save_level']);self.assertEqual(res['imported'],['environment.fbx','props.fbx']);self.assertEqual(b.calls[-2][1]['dry_run'],False);self.assertTrue(res['level_saved'])
  def test_dry_run_imports_nothing(self):
   with tempfile.TemporaryDirectory() as d:
    j=Path(d)/'s.ue.json';j.write_text(json.dumps({'scene':'s'}));(Path(d)/'environment.fbx').write_text('x');b=FakeBridge();us.send_scene(b,j,dry_run=True);self.assertEqual([c[0] for c in b.calls],['apply_movie_scene'])
