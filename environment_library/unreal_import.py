@@ -49,6 +49,7 @@ class DryRun:
  def clip_asset(self,tag,clip):return None
  def exists(self,path):return True
  sequence_path=None
+EXPOSURE_BIAS=2.0   # stops added to every shot camera
 class UnrealBackend:
  """thin wrapper over the Unreal editor Python API (see the module docstring for the version note)"""
  def __init__(self,check=True):
@@ -223,6 +224,9 @@ class UnrealBackend:
     fb=u.CameraFilmbackSettings();fb.sensor_width=float(sensor or 36.);fb.sensor_height=fb.sensor_width*9./16.;comp.set_editor_property('filmback',fb)
     fs=comp.get_editor_property('focus_settings');fs.focus_method=u.CameraFocusMethod.DISABLE;comp.set_editor_property('focus_settings',fs)
    except Exception as e:self.warnings.append('filmback/focus not set: %s'%type(e).__name__)
+   try:     # the Blender look is flat and bright: lift the exposure of every shot (the level's own sun and sky keep their settings)
+    pp=comp.get_editor_property('post_process_settings');pp.override_auto_exposure_bias=True;pp.auto_exposure_bias=EXPOSURE_BIAS;pp.override_motion_blur_amount=True;pp.motion_blur_amount=.25;comp.set_editor_property('post_process_settings',pp);comp.set_editor_property('post_process_blend_weight',1.0)
+   except Exception as e:self.warnings.append('exposure not set: %s %s'%(type(e).__name__,str(e)[:80]))
   except Exception as e:self.warnings.append('lens not set: %s'%type(e).__name__)
  def light(self,h,light):
   act=self.actors.get(h);u=self.u
