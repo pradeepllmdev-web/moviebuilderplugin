@@ -12,7 +12,7 @@ GAITS={
  'sneak':  dict(kind='built',clip='sneak',  cycle=30,amp=.2, stance=.66,lift=.06,bob=.008,crouch=.16,lean=16, arm_swing=.05,arm_out=.02,arm_up=-.02,sway=.01,pelvis_yaw=3, toe_off=15,toe_up=4),
  'stomp':  dict(kind='built',clip='stomp',  cycle=20,amp=.26,stance=.65,lift=.05,bob=.04, crouch=.035, lean=5,  arm_swing=.16,arm_out=.1, arm_up=.03,sway=.03,pelvis_yaw=9, toe_off=12,toe_up=4),
  'brisk':  dict(kind='built',clip='brisk',  cycle=14,amp=.27,stance=.55,lift=.09,bob=.03, crouch=.04,lean=7,  arm_swing=.18,arm_out=.03,arm_up=.03,sway=.015,pelvis_yaw=6, toe_off=26,toe_up=8),
- 'run':    dict(kind='clip', clip='run',    cycle=48,speed=2.9),
+ 'run':    dict(kind='clip', clip='run',    cycle=48,speed=2.5),
  'crawl':  dict(kind='clip', clip='crawl',  cycle=96,speed=.3),
 }
 def _measured():
@@ -23,7 +23,9 @@ def _measured():
 MEASURED=_measured()
 def natural_speed(name):
  g=GAITS[name]
- if g['kind']=='clip':return g['speed']
+ if g['kind']=='clip':
+  import os
+  return float(os.environ.get('GAIT_'+name.upper(),g['speed']))
  if name in MEASURED:return MEASURED[name]
  return 2*g['amp']/(g['stance']*g['cycle']/FPS)
 def play_scale(name,speed,size=1.):

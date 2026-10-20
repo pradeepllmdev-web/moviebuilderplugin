@@ -25,7 +25,7 @@ S.append(scene('silent_clock','The silent clock',square(),[at('bram',0,11.5,face
   ('pip','He locked it in the glass case last night. I watched him do it.','concern','wren'),('bram','And this morning the case is open and the key is not in it.','sad','wren')]),
  act('wren','shrug'),sfx('bell',0.2),
  convo([('wren','Then we have until noon to find it, or twelve strikes become twelve rumours.','serious','bram')]),
- par(go('wren',[6,5],gait='walk'),act('bram','think',dur=3)),
+ act('bram','think',dur=2),
  convo([('pip','I will search every corner of the workshop. Every drawer, every cog, every crumb.','joy','bram')]),
  par(go('pip',[-8,5],gait='run'),look('bram','pip',3)),
 ],time='dawn',ambience='wind',music='mystery'))
@@ -63,7 +63,7 @@ S.append(scene('courier','The courier',square(4),[at('mara',-12,-3,face=[0,0]),a
  par(go('pip','mara',stop=1.4,gait='run'),look('mara','pip',2)),
  convo([('mara','Do not look at me. The cobbles moved.','joy','pip'),('pip','Mara, someone stole the clock key. We found half a letter and we think it is yours.','concern','mara'),
   ('mara','Mine? I have delivered nine hundred letters this year and written four.','serious','pip')]),
- act('mara','think'),
+
  convo([('mara','Round, careful... that is Rook. He writes like a man ironing shirts. He buys lamp oil from Tilda every night.','serious','pip')]),
  par(go('mara','tilda',stop=2.0,gait='brisk'),go('pip','tilda',stop=2.0,gait='brisk')),
  convo([('mara','Tilda, did a wolf buy oil from you last night?','concern','tilda'),('tilda','Three bottles and a candle. Said he wanted to read.','angry','mara'),('tilda','At midnight. Who reads at midnight?','angry','pip'),
@@ -75,7 +75,7 @@ S.append(scene('market_trail','The oil trail',loc('market',3),[at('mara',-7,-6,f
  par(go('mara','tilda',stop=2.2,gait='brisk'),go('pip','tilda',stop=2.2,gait='brisk')),
  convo([('tilda','Looking for oil? Fresh barrel, cheap, and no one asks questions.','warm','mara'),('mara','Where did the wolf go with his three bottles?','concern','tilda'),
   ('tilda','Out through the north road, toward the old orchard.','serious','mara'),('pip','Then so do we.','serious','tilda')]),
- par(go('mara',[5,-4],gait='brisk'),go('pip',[7.5,-5.5],gait='brisk'),act('tilda','wave')),
+ par(go('mara',[5,-4],gait='run'),go('pip',[7.5,-5.5],gait='run'),act('tilda','wave')),
  convo([('tilda','Bring me the key and I will bake you a cake the size of the bell!','joy','mara'),('mara','Is she serious?','concern','pip'),('pip','She is always serious. That is why the cakes are good.','warm','mara')]),
  par(go('mara',[6,-10.5],gait='run'),go('pip',[10,-8],gait='run')),
 ],time='day',ambience='market',music='bright'))
@@ -162,7 +162,7 @@ S.append(scene('announcement','The announcement',square(6),[at('wren',3,-4,face=
  par(go('tilda','odo',stop=2.2,gait='stomp'),look('wren','rook',2)),
  convo([('tilda','Odo, you said you do not ask twice. Ask once. Ask him politely.','angry','odo'),('odo','Politely... Show me the crack, wolf.','serious','rook')]),
  act('odo','nod'),
- convo([('wren','Then the festival waits a day. Tilda, tell the town the clock needs rest.','serious','tilda'),('tilda','A clock that needs rest. I have been saying that about myself for years.','warm','wren')]),
+ convo([('wren','Then the festival waits a day. Tilda, tell the town the clock needs rest.','serious','tilda')]),
  emote('wren','smile',2),
 ],time='dusk',ambience='crowd',music='calm'))
 # 13 --------------------------------------------------------------------------------------------------------------- repair at night
@@ -200,7 +200,7 @@ S.append(scene('dawn_square','The morning crowd',square(7),[at('wren',-2,-3,face
  convo([('odo','Mayor, the guard stands ready. Nobody climbs the tower but the repair crew.','serious','wren')]),
  act('wren','nod'),
  convo([('wren','Then we begin at noon. Mara, run and tell them the clock is back and so are we.','warm','mara')]),
- go('mara',[14,-2],gait='run'),
+ go('mara',[8,-2],gait='run'),
 ],time='dawn',ambience='market',music='bright'))
 # 16 --------------------------------------------------------------------------------------------------------------- twelve strikes
 S.append(scene('twelve_strikes','Twelve strikes',square(8),[at('wren',0,-4,face=[0,12]),at('bram',-3,7,face=[0,17]),at('rook',3,7,face=[0,17]),at('pip',0,6,face=[0,17]),at('mara',-6,-1,face=[0,17]),at('tilda',-9,3,face=[0,17]),at('odo',7,-1,face=[0,17])],steps=[
@@ -256,4 +256,5 @@ S.append(scene('evening','The evening strike',square(10),[at('wren',-3,-4,face=[
  convo([('pip','Can we do it again tomorrow?','joy','bram'),('bram','Every day, Pip. That is the whole secret of a clock.','warm','pip')]),
  wait(3),
 ],time='dusk',ambience='crowd',music='calm'))
+for _c in CAST:_c.setdefault('pace',1.25)   # film pacing: a brisker cadence on every gait (strides and planted feet unchanged)
 FILM=dict(id='clockwork_festival',title='Twelve Strikes',cast=CAST,scenes=S,target_minutes=15)

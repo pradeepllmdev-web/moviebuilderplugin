@@ -44,6 +44,8 @@ def direct(plan,seed=1):
    for L in says:
     k=L['k'];sp,to=L['who'],L['to']
     if to not in plan.actors:to=next(o for o in plan.actors if o!=sp) if len(plan.actors)>1 else sp
+    if to==sp:
+     cuts.append(dict(name='%s alone'%sp,kind='medium',t0=max(a,L['t0']-.25),t1=min(b,L['t1']+.3),subject=sp,side=1.,lens=40));continue
     key=tuple(sorted((sp,to)));side=pair_side.setdefault(key,1. if rnd.random()<.5 else -1.)
     t0=max(a,L['t0']-.25);t1=min(b,L['t1']+.3);mid=t0+(t1-t0)*.68
     kd='two' if k%3==2 or math.hypot(*[plan.pos(sp,mid)[i]-plan.pos(to,mid)[i] for i in (0,1)])>5. else 'ots'
@@ -100,10 +102,10 @@ def _frame(plan,c,t):
   hs=plan.head_pos(sp,t);to=c.get('to') or sp;ht=plan.head_pos(to,t);side=c.get('side',1.)
   d=_unit((hs[0]-ht[0],hs[1]-ht[1]));n=(-d[1]*side,d[0]*side)
   if kd=='ots':
-   k=plan.actors[to].size;wk=plan.actors[to].look['scale'][0]*.62;sep=max(.6,math.hypot(hs[0]-ht[0],hs[1]-ht[1]));back=1.6+.5*k
+   k=plan.actors[to].size;wk=plan.actors[to].look['scale'][0]*.62;sep=max(.6,math.hypot(hs[0]-ht[0],hs[1]-ht[1]));back=2.0+.6*k
    lat=min(2.4,max(.6*k,(wk+.2)*(back+sep)/sep));return (ht[0]-d[0]*back+n[0]*lat,ht[1]-d[1]*back+n[1]*lat,hs[2]+.15),(hs[0],hs[1],hs[2]),lens
   if kd=='single':
-   k=plan.actors[to].size;return (ht[0]+d[0]*2.4*k+n[0]*.5,ht[1]+d[1]*2.4*k+n[1]*.5,ht[2]),ht,lens
+   k=plan.actors[to].size*c.get('dm',1.);return (ht[0]+(d[0]*.8+n[0]*1.0)*2.3*k,ht[1]+(d[1]*.8+n[1]*1.0)*2.3*k,ht[2]+.05),ht,lens
   mid=((hs[0]+ht[0])/2,(hs[1]+ht[1])/2,(hs[2]+ht[2])/2);dist=max(4.2,math.hypot(hs[0]-ht[0],hs[1]-ht[1])*1.6+1.5)
   return (mid[0]+n[0]*dist,mid[1]+n[1]*dist,mid[2]+.4),mid,lens
  if kd in ('track','follow_high'):
@@ -112,13 +114,14 @@ def _frame(plan,c,t):
   f=(math.cos(h),math.sin(h));n=(-f[1]*side,f[0]*side);lead=1.2
   size=plan.actors[sp].size;hz=(1.4 if kd=='track' else 3.8)*size if kd=='track' else 3.6
   if kd=='follow_high':dist*=1.5
+  dist*=c.get('dm',1.)
   return (cx+n[0]*dist-f[0]*.6,cy+n[1]*dist-f[1]*.6,hz),(cx+f[0]*lead,cy+f[1]*lead,1.1*size),lens
  if kd=='insert':
-  p=plan.props[c['prop']];pp=p.at(t,plan);x,y,h=plan.pos(sp,t);a=plan.actors[sp]
+  p=plan.props[c['prop']];pp=p.at(t,plan);x,y,h=plan.pos(sp,t);a=plan.actors[sp];dm=c.get('dm',1.)
   f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.))
-  return (pp[0]-f[0]*.55*a.size+n[0]*.9,pp[1]-f[1]*.55*a.size+n[1]*.9,pp[2]+.35),pp,lens
+  return (pp[0]+f[0]*.6*dm+n[0]*1.5*a.size*dm,pp[1]+f[1]*.6*dm+n[1]*1.5*a.size*dm,pp[2]+.45),(pp[0]-f[0]*.2,pp[1]-f[1]*.2,pp[2]),lens
  if kd=='medium':
-  x,y,h=plan.pos(sp,t);a=plan.actors[sp];f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.));d=4.6*max(.8,a.size)
+  x,y,h=plan.pos(sp,t);a=plan.actors[sp];f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.));d=4.6*max(.8,a.size)*c.get('dm',1.)
   fx,fy=_rotv(f,math.radians(30*c.get('side',1.)));return (x+fx*d,y+fy*d,1.35*a.size),(x,y,1.05*a.size),lens
  raise ValueError('unknown shot kind %r'%kd)
 
@@ -129,6 +132,9 @@ def _score(plan,c,side):
  for w in plan.actors:
   if w in inv:continue
   p=plan.pos(w,t);d,_=_segdist2(pos,aim,p);sc=min(sc,d)
+ for w in plan.actors:
+  p=plan.pos(w,t);k=plan.actors[w].size;d=math.hypot(pos[0]-p[0],pos[1]-p[1])
+  if d<1.5*k:sc-=(1.5*k-d)*2.
  if any(math.hypot(pos[0]-cx,pos[1]-cy)<r+.3 for cx,cy,r in plan.layout['obstacles']):sc-=2.
  hx,hy=plan.layout['half']
  if abs(pos[0])>hx+4 or abs(pos[1])>hy+4:sc-=1.
@@ -138,8 +144,14 @@ def _segdist2(a,b,p):
 def _pick_sides(plan,cuts):
  for c in cuts:
   if c['kind'] in ('wide','group') or c.get('side') is None:continue
-  s0=c['side'];a,b=_score(plan,c,s0),_score(plan,c,-s0)
-  if c['kind'] in ('ots','single','two'):
-   if a<0 and b>=0:c['side']=-s0
-  elif b>a+.05:c['side']=-s0
+  s0=c['side']
+  if c['kind'] in ('ots','two'):
+   if _score(plan,c,s0)<0 and _score(plan,c,-s0)>=0:c['side']=-s0
+   continue
+  best=None
+  for dm in (1.,.8,1.3,1.6):
+   for sd in (s0,-s0):
+    c2=dict(c,dm=dm);sc=_score(plan,c2,sd)-.05*abs(dm-1.)-(.02 if sd!=s0 else 0)
+    if best is None or sc>best[0]:best=(sc,sd,dm)
+  c['side']=best[1];c['dm']=best[2]
  return cuts

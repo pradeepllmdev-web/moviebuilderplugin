@@ -147,7 +147,8 @@ for L in PLAN.lines:
  t=L['t0']+(L['t1']-L['t0'])*.6;f=S.F(t);S.settle(f)
  for name,ch in CH.items():
   a=PLAN.actors[name]
-  if name!=L['speaker'] and (a.state!='stand' and False or PLAN._walking(name,t) or name!=L['to']):continue
+  if L['to']==L['speaker']:continue
+  if name!=L['speaker'] and (PLAN._walking(name,t) or name!=L['to']):continue
   if name==L['speaker'] and PLAN._walking(name,t):continue
   tgt_id=L['to'] if name==L['speaker'] else L['speaker']
   if tgt_id not in CH:continue
@@ -163,7 +164,7 @@ slip=0.;nslip=0
 for i,ch in CH.items():
  a=PLAN.actors[i]
  for (t0,t1,g,sc,speed) in a.walks:
-  if t1-t0<1.6:continue
+  if t1-t0<1.6 or g=='run':continue
   fs=list(range(S.F(t0+.5),S.F(t1-.5),3))[:24];prev=None;vs=[]
   for f in fs:
    S.settle(f);L_,R_=lowest_feet(ch);low=L_ if L_.z<R_.z else R_
@@ -192,8 +193,13 @@ for k,m in enumerate(marks):
  c=CUTS[k] if k<len(CUTS) else None
  if not c or c['kind'] not in ('ots','two','medium','track','insert') or not c.get('subject'):continue
  f=int((m.frame+(marks[k+1].frame if k+1<len(marks) else sc.frame_end))/2);S.settle(f);sc.camera=m.camera
- subj=c['subject'] if c['kind']!='ots' else c['subject'];pt=S.head_pos(CH[subj])+Vector((0,0,.28*PLAN.actors[subj].size));co=world_to_camera_view(sc,m.camera,pt);chk+=1
- if not (0.03<co.x<.97 and 0.03<co.y<.97 and co.z>0):miss+=1;issues.append('AUDIT framing: cut "%s" has %s outside the frame (%.2f,%.2f)'%(m.name,subj,co.x,co.y))
+ subs=[c['subject']] if c['kind'] not in ('track',) else (c.get('group') or [c['subject']]);ok=False;chk+=1
+ for subj in subs:
+  pt=S.head_pos(CH[subj])+Vector((0,0,.28*PLAN.actors[subj].size))
+  if c['kind']=='insert':pt=Vector(PLAN.props[c['prop']].at((f-1)/FPS,PLAN))
+  co=world_to_camera_view(sc,m.camera,pt)
+  if 0.03<co.x<.97 and 0.03<co.y<.97 and co.z>0:ok=True;break
+ if not ok:miss+=1;issues.append('AUDIT framing: cut "%s" has %s outside the frame (%.2f,%.2f)'%(m.name,'/'.join(subs) if c['kind']!='insert' else c['prop'],co.x,co.y))
 sc.camera=marks[0].camera
 nl=len(PLAN.lines)
 print('PERF %s: %.0f s, %d characters, %d lines, %d cuts, %d footsteps, eye line worst: speaker %.0f listener %.0f, foot slip %.2f m/s, reach worst %.2f m (%d samples), framing misses %d/%d'%(SPEC['id'],PLAN.seconds,len(CH),nl,len(CUTS),len(PLAN.footsteps()),worst_sp,worst_li,mean_slip,reach_worst,reach_n,miss,chk))

@@ -101,7 +101,7 @@ def recipe(kind,o):
  return W,fp
 KINDS=('house','tower','tree','pine','rock','bush','wall','fence','table','stool','chair','bench','log','campfire','crate','barrel','lamp','pillar','arch','tent','stall','boat','well','statue','haystack','sign','cart','anvil','shelf','bed','throne','platform','pedestal','cloud','path','mountain')
 SEAT_KINDS={'stool':[(0,0,.3)],'chair':[(0,0,.3)],'bench':'bench','log':'bench','throne':[(0,0,.3)],'bed':[(0,0,.45)]}
-SURFACE_KINDS={'table':.8,'crate':.5,'barrel':.9,'pedestal':None,'anvil':.65,'platform':None,'stall':1.0,'shelf':None,'well':.82,'statue':.8}
+SURFACE_KINDS={'bench':.35,'table':.8,'crate':.5,'barrel':.9,'pedestal':None,'anvil':.65,'platform':None,'stall':1.0,'shelf':None,'well':.82,'statue':.8}
 def _rot(x,y,a):c,s=math.cos(a),math.sin(a);return x*c-y*s,x*s+y*c
 def normalise(loc):
  """objects with ids and defaults; the preset (if any) is expanded; returns a new dict"""
@@ -206,7 +206,7 @@ def ruins(rnd,p):
  o=[dict(kind='pillar',at=[x,y],id='pil%d'%i,height=rnd.uniform(1.5,4)) for i,(x,y) in enumerate(((-6,-5),(-6,2),(5,-6),(6,3),(0,8),(-2,-9)))]+[dict(kind='wall',at=[-9,6],to=[-3,9],height=2,id='wall_a'),dict(kind='wall',at=[4,9],to=[10,5],height=1.4,id='wall_b'),dict(kind='arch',at=[0,-10],id='arch'),dict(kind='statue',at=[0,0],id='statue'),dict(kind='rock',at=[-8,-2]),dict(kind='rock',at=[8,-1])]
  return dict(objects=o+_scatter(rnd,['bush','rock'],8,(-14,14),(-14,14),avoid=[(0,0,3)],gap=3),ground=(.45,.5,.38),half=(24,24),markers=dict(center=(0,-3),statue=(0,0),arch=(0,-8)))
 def harbor(rnd,p):
- o=[dict(kind='boat',at=[6,-12],yaw=80,id='boat'),dict(kind='boat',at=[-8,-13],yaw=100,id='boat2',color=(.4,.28,.2)),dict(kind='platform',at=[0,-4],w=30,d=6,height=.25,id='quay',color=(.55,.5,.45)),dict(kind='crate',at=[-5,-2],id='crate_a'),dict(kind='crate',at=[-4.4,-2],id='crate_b',size=.9),dict(kind='barrel',at=[3,-2]),dict(kind='barrel',at=[3.7,-2.3]),
+ o=[dict(kind='boat',at=[6,-12],yaw=80,id='boat'),dict(kind='boat',at=[-8,-13],yaw=100,id='boat2',color=(.4,.28,.2)),dict(kind='platform',at=[0,-4],w=30,d=6,height=.05,id='quay',color=(.55,.5,.45)),dict(kind='crate',at=[-5,-2],id='crate_a'),dict(kind='crate',at=[-4.4,-2],id='crate_b',size=.9),dict(kind='barrel',at=[3,-2]),dict(kind='barrel',at=[3.7,-2.3]),
   dict(kind='house',at=[-10,8],id='house_a'),dict(kind='house',at=[8,9],id='house_b',color=(.6,.7,.8)),dict(kind='lamp',at=[-2,-1]),dict(kind='lamp',at=[5,-1]),dict(kind='bench',at=[0,1],id='bench'),dict(kind='sign',at=[-6,1],id='sign')]
  return dict(objects=o,ground=(.5,.46,.4),half=(30,26),water=[-40,-40,40,-6],markers=dict(center=(0,0),quay=(0,-3),boat=(6,-7)))
 def hilltop(rnd,p):
