@@ -13,6 +13,11 @@ import ue_common as ub
 args=sys.argv[sys.argv.index('--')+1:];OUT=args[0];sc=bpy.context.scene;NAME=args[1] if len(args)>1 else os.path.splitext(os.path.basename(bpy.data.filepath))[0].replace('_scene','')
 os.makedirs(OUT,exist_ok=True);FS,FE=sc.frame_start,sc.frame_end;FPS=sc.render.fps
 from mathutils import Vector
+def _asset_map():
+ p=os.environ.get('UNREAL_ASSET_MAP') or os.path.join(os.path.dirname(os.path.abspath(__file__)),'unreal_asset_map.json')
+ try:return json.load(open(p,encoding='utf-8')) if os.path.exists(p) else {}
+ except (OSError,ValueError):return {}
+AMAP=_asset_map()   # objects the map swaps for a real Unreal asset stay out of the joined environment mesh, so each can be replaced on its own
 EFFECTS=('Dust','Spark','Splash','Steam','Puff','Bolt','Snow')
 def top(o):
  while o.parent is not None:o=o.parent
@@ -23,11 +28,18 @@ def anim(o):
   if o.constraints and any(c.type in ('TRACK_TO','CHILD_OF','DAMPED_TRACK','COPY_LOCATION') for c in o.constraints) and o.type=='CAMERA':return True
   o=o.parent
  return False
+def char_root(o):
+ # the character's own root (an empty named ...Root) even when it rides on something else (Leo's root is a child of the boat); otherwise the top of the hierarchy
+ x=o
+ while x is not None:
+  if x.type=='EMPTY' and x.name.endswith('Root'):return x
+  x=x.parent
+ return top(o)
 objs=list(sc.objects)
 chars=[];char_objs=set()
 for o in objs:
  if o.type=='ARMATURE':
-  r=top(o);chars.append(dict(rig=o,root=r,tag=r.name.replace('Root','') or o.name))
+  r=char_root(o);chars.append(dict(rig=o,root=r,tag=r.name.replace('Root','') or o.name))
   stack=[r]
   while stack:
    x=stack.pop();char_objs.add(x.name);stack+=list(x.children)
@@ -41,6 +53,17 @@ for o in objs:
 animated_roots=[o for o in animated_roots if not (o.parent and anim(o.parent))]
 role_of=lambda o:'effect' if o.name.startswith(EFFECTS) else 'prop'
 static=[o for o in objs if o.type=='MESH' and o.name not in char_objs and not anim(o) and not o.name.startswith(('Wrist_','Aim'))]
+swapped=[o for o in static if ub.swaps_object(o.name,AMAP,NAME)]
+if swapped:
+ sw={o.name for o in swapped};gone=set(sw)
+ for o in swapped:gone.update(c.name for c in o.children_recursive)
+ def under_swapped(o):
+  p=o.parent
+  while p is not None:
+   if p.name in sw:return True
+   p=p.parent
+  return False
+ animated_roots+=[o for o in swapped if not under_swapped(o)];static=[o for o in static if o.name not in gone]
 # ---------------------------------------------------------------------------------------------------------- per-frame sampling of the actors
 tracked=[(o,'character',None) for o in [c['root'] for c in chars]]+[(o,'ik_target',None) for o in ik]+[(o,'camera',None) for o in cams]+[(o,role_of(o),None) for o in animated_roots]
 samples={o.name:{'frames':[],'loc':[],'rot':[],'scale':[],'lens':[]} for o,_,_ in tracked};lightkeys={l.name:[] for l in lights}
@@ -60,7 +83,7 @@ def finish(o):
  d=dict(frames=[fr[i] for i in keep],loc=[s['loc'][i] for i in keep],rot=[[round(x,4) for x in rot[i]] for i in keep],scale=[s['scale'][i] for i in keep])
  if s['lens']:d['lens']=[s['lens'][i] for i in keep]
  d['loc']=[[round(x,3) for x in v] for v in d['loc']];d['scale']=[[round(x,4) for x in v] for v in d['scale']];return d
-doc=dict(scene=NAME,fps=FPS,frame_start=FS,frame_end=FE,units='cm, Unreal axes (Blender Y negated); rotations roll,pitch,yaw degrees',source=os.path.basename(bpy.data.filepath),actors=[],characters=[],cuts=[],audio=[],environment=dict(fbx='environment.fbx',static_meshes=len(static)),props_fbx='props.fbx')
+doc=dict(format_version=ub.FORMAT_VERSION,scene=NAME,fps=FPS,frame_start=FS,frame_end=FE,units='cm, Unreal axes (Blender Y negated); rotations roll,pitch,yaw degrees',source=os.path.basename(bpy.data.filepath),actors=[],characters=[],cuts=[],audio=[],environment=dict(fbx='environment.fbx',static_meshes=len(static)),props_fbx='props.fbx')
 idmap={}
 for o,role,_ in tracked:
  aid='a%03d'%len(idmap);idmap[o.name]=aid
@@ -79,7 +102,7 @@ for a in doc['actors']:
    from mathutils import Matrix
    l0,q0,s0=ro.matrix_world.decompose();Rinv=(Matrix.Translation(l0)@q0.to_matrix().to_4x4()).inverted()   # root space WITHOUT the root's scale: the document's part sizes (dims_cm) are world sizes, so the offsets must be world-sized too
    for p in [ro]+list(ro.children_recursive):
-    if p.type!='MESH':continue
+    if p.type!='MESH' or p.name in char_objs:continue
     Mr=Rinv@p.matrix_world;ee=Mr.to_3x3().normalized().to_euler('XYZ');parts.append(dict(mesh=p.name,self=(p is ro),loc=[round(x,3) for x in ub.ue_loc(Mr.translation)],rot=[round(x,4) for x in ub.ue_rot_deg([ee.x,ee.y,ee.z])],dims_cm=wdims(p)))
   a['parts']=parts
 for a in doc['actors']:
@@ -95,6 +118,20 @@ for a in doc['actors']:
 for l in lights:
  aid='a%03d'%len(idmap);idmap[l.name]=aid;M=l.matrix_world;e=M.to_euler('XYZ');ev=[v for f,v in lightkeys[l.name]];anim_l=(max(ev)-min(ev))>1e-3
  doc['actors'].append(dict(id=aid,name=l.name,role='light',asset_key=l.data.type,light=dict(type=l.data.type,color=list(l.data.color),energy=l.data.energy,energy_keys=[[f,v] for f,v in lightkeys[l.name]][::max(1,len(ev)//200)] if anim_l else None,spot_size=getattr(l.data,'spot_size',None)),keys=dict(frames=[FS],loc=[ub.ue_loc(M.translation)],rot=[ub.ue_look_rot_deg(tuple(M.to_3x3()@Vector((0,0,-1))))],scale=[[1,1,1]])))
+# the look: Blender's world colour/strength and its sun (the sun itself is a light actor above); unreal_import derives the scene's own lighting from this
+def world_look():
+ col=[.05,.05,.05];st=1.;w=sc.world
+ if w is not None:
+  col=list(w.color)[:3]
+  try:
+   bg=w.node_tree.nodes.get('Background') if w.node_tree else None
+   if bg is not None:col=list(bg.inputs['Color'].default_value)[:3];st=float(bg.inputs['Strength'].default_value)
+  except Exception:pass
+ suns=[l for l in lights if l.data.type=='SUN'];sun=None
+ if suns:
+  l=suns[0];sun=dict(light=l.name,color=list(l.data.color),energy=l.data.energy)
+ return dict(world_color=[round(x,4) for x in col],world_strength=round(st,4),sun=sun)
+doc['look']=world_look()
 # characters: clips from the NLA strips, ik targets, the root actor
 for c in chars:
  rig=c['rig'];clips=[]
@@ -134,17 +171,17 @@ if static:
  bpy.data.objects.remove(env,do_unlink=True)
 pm=[]
 for o in animated_roots:
- pm+=[x for x in ([o]+list(o.children_recursive)) if x.type=='MESH']
+ pm+=[x for x in ([o]+list(o.children_recursive)) if x.type=='MESH' and x.name not in char_objs]
 pm=list({x.name:x for x in pm}.values())
 if pm:
  # every prop mesh is exported at the identity transform (pivot at the object origin): the actor (and the part offsets in the document) supply where it stands, so a world position baked into the vertices would be applied twice
  from mathutils import Matrix
  flat=[]
  for x in pm:
-  nm=x.name;x.name=nm+'~src';c=x.copy();c.data=x.data.copy();c.animation_data_clear();c.parent=None;c.matrix_world=Matrix.Identity(4);c.name=nm;sc.collection.objects.link(c);flat.append((x,c,nm))
+  nm=x.name;c=x.copy();c.data=x.data.copy();c.animation_data_clear();c.parent=None;c.matrix_world=Matrix.Identity(4);c.name='M_'+nm;c.data.name='M_'+nm;sc.collection.objects.link(c);flat.append((x,c,nm))   # 'M_' keeps Unreal from renaming the mesh when a material has the plain name
  fbx(os.path.join(OUT,'props.fbx'),[c for x,c,nm in flat])
  for x,c,nm in flat:
-  bpy.data.objects.remove(c,do_unlink=True);x.name=nm
+  bpy.data.objects.remove(c,do_unlink=True)
 def in_root_space(root,grp):
 # the character's skeletal mesh and animations are authored relative to its root actor: the root's own world transform (where it stands at the export frame, and where the path takes it) is what Sequencer's transform track supplies, so it must not also be baked into the FBX
  Rinv=root.matrix_world.inverted();saved=[]

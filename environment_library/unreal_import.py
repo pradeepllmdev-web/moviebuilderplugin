@@ -32,9 +32,13 @@ class DryRun:
  """records what would be created; same interface as the Unreal backend"""
  def __init__(self):self.log=[];self.counts={'actors':0,'transform_keys':0,'anim_sections':0,'cuts':0,'audio':0,'unmapped':[],'mapped':[]}
  def sequence(self,name,fps,start,end):self.log.append(('sequence',name,fps,start,end))
- def spawn(self,a,asset,mapped):
-  self.counts['actors']+=1;(self.counts['mapped'] if mapped else self.counts['unmapped']).append(a['asset_key']);self.log.append(('spawn',a['name'],a['role'],asset))
+ def spawn(self,a,asset,mapped,swap=None):
+  self.counts['actors']+=1;(self.counts['mapped'] if mapped else self.counts['unmapped']).append(a['asset_key']);self.log.append(('spawn',a['name'],a['role'],asset,swap))
   return a['id']
+ def asset_fit(self,asset,bounds_cm):return None
+ def look(self,lk):self.log.append(('look',lk))
+ def set_exposure(self,scene,bias):self.log.append(('set_exposure',scene,bias))
+ def purge_scene(self,scene):self.log.append(('purge',scene))
  def transform_keys(self,h,frames,loc,rot,scale):self.counts['transform_keys']+=len(frames)
  def lens_keys(self,h,frames,lens,sensor=None):self.log.append(('lens',h,len(frames)))
  def light(self,h,light):self.log.append(('light',h,light['type']))
@@ -42,7 +46,7 @@ class DryRun:
  def camera_cut(self,name,h,start,end):self.counts['cuts']+=1
  def audio(self,name,path,start,vol):self.counts['audio']+=1
  def save(self):self.log.append(('save',))
- def environment(self,doc):pass
+ def environment(self,doc,swap=None):self.log.append(('environment',swap))
  self_fit={}
  def ensure_characters(self,doc):pass
  def character_asset(self,tag):return None
@@ -53,28 +57,37 @@ EXPOSURE_BIAS=2.0   # stops added to every shot camera
 class UnrealBackend:
  """thin wrapper over the Unreal editor Python API (see the module docstring for the version note)"""
  def __init__(self,check=True):
-  import unreal;self.u=unreal
+  import unreal;self.u=unreal;self.isolate=False;self.sun_scale=1.
   if check:guard(unreal)   # the editor bridge passes check=False: it has its own busy/undo rules and never overwrites
   self.seq=None;self.bind={};self.sequence_path=None;self.warnings=[];self.spawned=[];self.tag=None;self.scene=None;self.character_assets={};self.clip_assets={};self.actors={};self.self_fit={}
  def sequence(self,name,fps,start,end):
   u=self.u;self.scene=name;self.tag='moviebuilder:%s'%name;self.purge()
   tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset(unique_name(u.EditorAssetLibrary.does_asset_exist,'LS_%s'%name),'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
   self.sequence_path=self.seq.get_path_name();self.seq.set_display_rate(u.FrameRate(fps,1));self.seq.set_playback_start(start);self.seq.set_playback_end(end+1);self.fps=fps
- def environment(self,doc):
-  """place the joined environment mesh (one static mesh holding every static object at its world position) at the origin"""
-  u=self.u;name=(doc.get('environment') or {}).get('mesh')
+ def environment(self,doc,swap=None):
+  """place the joined environment mesh (one static mesh holding every static object at its world position) at the scene's offset; swap = a real Unreal environment (static mesh or Blueprint) from the asset map that replaces it"""
+  u=self.u;name=(doc.get('environment') or {}).get('mesh');sub=u.get_editor_subsystem(u.EditorActorSubsystem);off=getattr(self,'offset',(0,0,0))
+  if swap:
+   so=swap.get('offset') or [0,0,0];loc=u.Vector(off[0]+so[0],off[1]+so[1],off[2]+so[2]);rot=swap.get('rotation') or [0,0,0];obj=u.load_asset(swap['asset']) if u.EditorAssetLibrary.does_asset_exist(swap['asset']) else None
+   actor=None
+   if isinstance(obj,u.StaticMesh):
+    actor=sub.spawn_actor_from_class(u.StaticMeshActor,loc,u.Rotator(*rot));actor.static_mesh_component.set_static_mesh(obj)
+   elif obj is not None:
+    try:actor=sub.spawn_actor_from_class(u.EditorAssetLibrary.load_blueprint_class(swap['asset']),loc,u.Rotator(*rot))
+    except Exception as e:self.warnings.append('environment %s could not be spawned: %s'%(swap['asset'],type(e).__name__))
+   else:self.warnings.append('environment asset %s does not exist; the low-poly environment is used'%swap['asset'])
+   if actor is not None:
+    self._tag(actor,'%s/Environment'%self.scene)
+    if swap.get('scale'):actor.set_actor_scale3d(u.Vector(*([float(swap['scale'])]*3)))
+    if not swap.get('keep_proxy'):return
   if not name:return
-  sub=u.get_editor_subsystem(u.EditorActorSubsystem)
   tries=[(n,s) for n in (name,'environment') for s in ('','1','2')]   # a single-mesh FBX import is named after the file
   for n,suffix in tries:
    path='/Game/Proxy/%s/%s%s'%(self.scene,n,suffix)
    if not u.EditorAssetLibrary.does_asset_exist(path):continue
    obj=u.load_asset(path)
    if not isinstance(obj,u.StaticMesh):continue
-   actor=sub.spawn_actor_from_class(u.StaticMeshActor,u.Vector(0,0,0));actor.set_actor_label('%s/Environment'%self.scene);actor.tags=[u.Name(self.tag)]
-   try:actor.set_folder_path('MovieBuilder/%s'%self.scene)
-   except Exception:pass
-   actor.static_mesh_component.set_static_mesh(obj);self.spawned.append(actor);return
+   actor=sub.spawn_actor_from_class(u.StaticMeshActor,u.Vector(*off));self._tag(actor,'%s/Environment'%self.scene);actor.static_mesh_component.set_static_mesh(obj);return
   self.warnings.append('environment mesh %s was not found under /Game/Proxy/%s (import environment.fbx first)'%(name,self.scene))
  def autoplay_actor(self):
   """a LevelSequenceActor in the level that plays the sequence automatically when Play is pressed (and can be scrubbed in the editor)"""
@@ -116,23 +129,28 @@ class UnrealBackend:
   """import each character's skeletal mesh and every clip it uses (once; existing assets are kept) and remember where they ended up"""
   u=self.u;folder=doc.get('_dir')
   if not folder:return
-  lib=u.EditorAssetLibrary
+  lib=u.EditorAssetLibrary;reg=ub.load_registry()
   for c in doc['characters']:
    tag=c['name'];mesh_dir='/Game/Characters/%s'%tag;mesh_path='%s/character_%s'%(mesh_dir,tag);skel_path='%s/character_%s_Skeleton'%(mesh_dir,tag)
    try:
-    self._import(os.path.join(folder,c['skeletal_mesh']),mesh_dir,mesh=True)   # always re-imported over the old asset (same path, so earlier scenes keep working): the export changes between versions
+    mf=os.path.join(folder,c['skeletal_mesh']);msha=ub.file_sha(mf);ent=reg.setdefault(tag,{})
+    if not (ent.get('mesh')==msha and lib.does_asset_exist(mesh_path)):     # a character is defined once: the same mesh file (by content) is not imported again, in this movie or the next; a changed one replaces the asset at the same path
+     self._import(mf,mesh_dir,mesh=True);ent['mesh']=msha;ent['clips']={}
     self.character_assets[tag]=mesh_path if lib.does_asset_exist(mesh_path) else None
     skel=u.load_asset(skel_path) if lib.does_asset_exist(skel_path) else None
     for clip in sorted({s.get('anim_file') or 'anim_%s'%s['clip'] for s in c['clips']}):
      target='/Game/Anim/%s'%tag
      if skel is None:self.warnings.append('no skeleton for %s: animation %s not imported'%(tag,clip));continue
      before=set(lib.list_assets(target,recursive=True,include_folder=False)) if lib.does_directory_exist(target) else set()
-     f=os.path.join(folder,'%s.fbx'%clip)
+     f=os.path.join(folder,'%s.fbx'%clip);csha=ub.file_sha(f)
+     if ent.setdefault('clips',{}).get(clip)==csha and lib.does_asset_exist('%s/%s'%(target,clip)):continue     # same clip, already in the project (clip_asset finds it)
      got=self._import(f,target,mesh=False,skeleton=skel,name=clip)
+     ent['clips'][clip]=csha
      anims=[p for p in got if isinstance(u.load_asset(p),u.AnimSequence)] if got else []
      if anims:self.clip_assets[(tag,clip)]=anims[0]
      else:self.warnings.append('animation %s imported nothing'%clip)
    except Exception as e:self.warnings.append('character %s import failed: %s %s'%(tag,type(e).__name__,str(e)[:120]))
+  ub.save_registry(reg)
  def _import(self,filename,dest,mesh,skeleton=None,name=None):
   u=self.u;task=u.AssetImportTask();task.set_editor_property('filename',filename);task.set_editor_property('destination_path',dest);task.set_editor_property('automated',True);task.set_editor_property('replace_existing',True);task.set_editor_property('save',False)
   if name:task.set_editor_property('destination_name',name)
@@ -150,38 +168,54 @@ class UnrealBackend:
   p='/Game/Anim/%s/%s'%(tag,clip)   # imported earlier or under the plain name: use it
   return p if self.u.EditorAssetLibrary.does_asset_exist(p) else None
  def proxy_candidates(self,a):
-  """paths of the proxy meshes imported from props.fbx for this actor: Unreal turns '.' into '_' and adds a digit when a material already has the name"""
+  """paths of the proxy meshes imported from props.fbx for this actor (see ub.proxy_mesh_paths)"""
   out=[]
-  for m in a.get('meshes',[])[:1]:
-   n=m.replace('.','_')
-   for suffix in ('','1','2','3'):out.append('/Game/Proxy/%s/%s%s'%(self.scene,n,suffix))
+  for m in a.get('meshes',[])[:1]:out+=ub.proxy_mesh_paths(self.scene,m)
   return out
  def _class_for(self,role):
   u=self.u
   return {'camera':u.CineCameraActor,'light':u.PointLight,'character':u.SkeletalMeshActor}.get(role,u.StaticMeshActor)
  def find_mesh(self,mesh_name,want):
-  """the imported proxy asset of the given class for a Blender mesh name: Unreal turns '.' into '_' and appends a digit when a material already has the name"""
-  u=self.u;n=mesh_name.replace('.','_')
-  for suffix in ('','1','2','3'):
-   path='/Game/Proxy/%s/%s%s'%(self.scene,n,suffix)
+  """the imported proxy asset of the given class for a Blender mesh name (see ub.proxy_mesh_paths)"""
+  u=self.u
+  for path in ub.proxy_mesh_paths(self.scene,mesh_name):
    if u.EditorAssetLibrary.does_asset_exist(path):
     obj=u.load_asset(path)
     if isinstance(obj,want):return obj
   return None
+ def asset_fit(self,asset,bounds_cm):
+  """uniform scale that makes a real asset the size of the Blender prop it replaces (geometric mean of the box sizes), or None when the asset cannot be measured"""
+  try:
+   e=self.u.load_asset(asset).get_bounds().box_extent;nat=[e.x*2,e.y*2,e.z*2]
+   if min(nat)<=1e-3 or min(bounds_cm)<=1e-3:return None
+   return max(.001,min(1000.,(bounds_cm[0]*bounds_cm[1]*bounds_cm[2]/(nat[0]*nat[1]*nat[2]))**(1/3.)))
+  except Exception:return None
  def fit_of(self,mesh,dims_cm):
   """per-axis scale that makes the imported mesh the size the Blender object had (independent of whether the FBX import baked the object scale)"""
   try:
    e=mesh.get_bounds().box_extent;nat=(e.x*2,e.y*2,e.z*2)
   except Exception:return (1.,1.,1.)
   return tuple(max(.001,min(1000.,(d/n) if n>1e-3 and d>1e-3 else 1.)) for d,n in zip(dims_cm,nat))
- def _tag(self,actor,label):
+ def _tag(self,actor,label,movable=True):
   u=self.u;actor.set_actor_label(label);actor.tags=[u.Name(self.tag)]
   try:actor.set_folder_path('MovieBuilder/%s'%self.scene)
   except Exception:pass
-  try:actor.root_component.set_mobility(u.ComponentMobility.MOVABLE)   # Sequencer moves these: a Static component is not re-rendered when its transform changes
+  try:
+   if movable:actor.root_component.set_mobility(u.ComponentMobility.MOVABLE)   # Sequencer moves these: a Static component is not re-rendered when its transform changes
   except Exception:pass
+  if getattr(self,'isolate',False):self.isolate_lighting(actor)
   self.spawned.append(actor)
- def spawn(self,a,asset,mapped):
+ def isolate_lighting(self,actor):
+  """light the scene by its own lights only: every primitive and light of the actor uses lighting channel 1, the level's Env_Sun stays on channel 0"""
+  u=self.u
+  try:
+   ch=u.LightingChannels();ch.set_editor_property('channel0',False);ch.set_editor_property('channel1',True)
+   for c in actor.get_components_by_class(u.PrimitiveComponent)+actor.get_components_by_class(u.LightComponent):
+    try:c.set_editor_property('lighting_channels',ch)
+    except Exception:pass
+  except Exception as e:
+   if not any('lighting channels' in w for w in self.warnings):self.warnings.append('lighting channels not set: %s %s'%(type(e).__name__,str(e)[:80]))
+ def spawn(self,a,asset,mapped,swap=None):
   u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem);cls=self._class_for(a['role'])
   if a['role']=='light':
    cls={'SUN':u.DirectionalLight,'SPOT':u.SpotLight}.get(a['light']['type'],u.PointLight)
@@ -191,7 +225,13 @@ class UnrealBackend:
    obj=u.load_asset(asset) if u.EditorAssetLibrary.does_asset_exist(asset) else None
    if isinstance(obj,u.SkeletalMesh):actor.skeletal_mesh_component.set_skeletal_mesh(obj)
   elif a['role'] in ('prop','effect'):
-   if parts:
+   real=u.load_asset(asset) if swap and u.EditorAssetLibrary.does_asset_exist(asset) else None
+   if swap and not isinstance(real,u.StaticMesh):self.warnings.append('swap asset %s for %s is %s; the low-poly mesh stays'%(asset,a['name'],'not a static mesh' if real is not None else 'missing'));real=None
+   if real is not None:     # environment swap: the real asset replaces every part of the placeholder
+    comp=actor.static_mesh_component;comp.set_static_mesh(real)
+    if swap.get('offset'):comp.set_relative_location(u.Vector(*swap['offset']),False,False)
+    if swap.get('rotation'):comp.set_relative_rotation(u.Rotator(*swap['rotation']),False,False)
+   elif parts:
     for p in parts:
      mesh=self.find_mesh(p['mesh'],u.StaticMesh)
      if mesh is None:self.warnings.append('no imported mesh for %s'%p['mesh']);continue
@@ -204,6 +244,10 @@ class UnrealBackend:
      if not u.EditorAssetLibrary.does_asset_exist(path):continue
      obj=u.load_asset(path)
      if isinstance(obj,u.StaticMesh):actor.static_mesh_component.set_static_mesh(obj);break
+  if a['role']=='light':
+   try:
+    if a['light']['type']=='SUN':actor.get_component_by_class(u.DirectionalLightComponent).set_editor_property('atmosphere_sun_light',False)   # only the level's own sun drives the sky
+   except Exception:pass
   b=self.seq.add_possessable(actor);self.bind[a['id']]=b;return a['id']
  def transform_keys(self,h,frames,loc,rot,scale):
   u=self.u;b=self.bind[h];tr=b.add_track(u.MovieScene3DTransformTrack);sec=tr.add_section();sec.set_range(frames[0],frames[-1]+1);ch=sec.get_all_channels()
@@ -225,19 +269,48 @@ class UnrealBackend:
     fs=comp.get_editor_property('focus_settings');fs.focus_method=u.CameraFocusMethod.DISABLE;comp.set_editor_property('focus_settings',fs)
    except Exception as e:self.warnings.append('filmback/focus not set: %s'%type(e).__name__)
    try:     # the Blender look is flat and bright: lift the exposure of every shot (the level's own sun and sky keep their settings)
-    pp=comp.get_editor_property('post_process_settings');pp.override_auto_exposure_bias=True;pp.auto_exposure_bias=EXPOSURE_BIAS;pp.override_motion_blur_amount=True;pp.motion_blur_amount=.25;comp.set_editor_property('post_process_settings',pp);comp.set_editor_property('post_process_blend_weight',1.0)
+    pp=comp.get_editor_property('post_process_settings');pp.override_auto_exposure_bias=True;pp.auto_exposure_bias=getattr(self,'exposure',EXPOSURE_BIAS);pp.override_motion_blur_amount=True;pp.motion_blur_amount=.25;pp.override_bloom_intensity=True;pp.bloom_intensity=.15;comp.set_editor_property('post_process_settings',pp);comp.set_editor_property('post_process_blend_weight',1.0)
    except Exception as e:self.warnings.append('exposure not set: %s %s'%(type(e).__name__,str(e)[:80]))
   except Exception as e:self.warnings.append('lens not set: %s'%type(e).__name__)
  def light(self,h,light):
   act=self.actors.get(h);u=self.u
   try:
    comp=act.get_component_by_class(u.LightComponent);t=light['type']
-   comp.set_editor_property('intensity',light['energy']*(ub.SUN_LUX_PER_STRENGTH if t=='SUN' else ub.POINT_CD_PER_W))
+   comp.set_editor_property('intensity',light['energy']*(ub.SUN_LUX_PER_STRENGTH*getattr(self,'sun_scale',1.) if t=='SUN' else ub.POINT_CD_PER_W))
    col=light['color'];comp.set_editor_property('light_color',u.Color(int(255*col[0]),int(255*col[1]),int(255*col[2]),255))
    if t!='SUN':
     try:comp.set_editor_property('intensity_units',u.LightUnits.CANDELAS)
     except Exception:pass
   except Exception as e:self.warnings.append('light %s not configured: %s'%(light['type'],type(e).__name__))
+ def look(self,lk):
+  """the scene's own ambient light: a sky light at the scene's place with Blender's world colour"""
+  u=self.u
+  try:
+   sub=u.get_editor_subsystem(u.EditorActorSubsystem);off=getattr(self,'offset',(0,0,0));act=sub.spawn_actor_from_class(u.SkyLight,u.Vector(off[0],off[1],off[2]+500.));self._tag(act,'%s/Look_Sky'%self.scene)
+   comp=act.get_component_by_class(u.SkyLightComponent);sky=lk['sky']
+   comp.set_editor_property('source_type',u.SkyLightSourceType.SLS_SPECIFIED_CUBEMAP);comp.set_editor_property('cubemap',u.load_asset('/Engine/EngineResources/GrayLightTextureCube'))   # a flat grey sky, tinted by the light colour
+   comp.set_editor_property('light_color',u.Color(int(255*sky['color'][0]),int(255*sky['color'][1]),int(255*sky['color'][2]),255));comp.set_editor_property('intensity',sky['intensity']);comp.set_editor_property('lower_hemisphere_is_black',False)
+   comp.set_editor_property('mobility',u.ComponentMobility.MOVABLE)
+  except Exception as e:self.warnings.append('scene sky light not created: %s %s'%(type(e).__name__,str(e)[:100]))
+  for k,yaw in enumerate((0.,90.,180.,270.)):     # the flat ambient of the Blender world: four shadowless fill lights of its colour, one from each side
+   try:
+    fl=sub.spawn_actor_from_class(u.DirectionalLight,u.Vector(off[0],off[1],off[2]+800.),u.Rotator(0.,-55.,yaw));self._tag(fl,'%s/Look_Fill%d'%(self.scene,k+1));comp=fl.get_component_by_class(u.DirectionalLightComponent);col=lk['sky']['color']
+    comp.set_editor_property('intensity',lk['fill_lux']*.75);comp.set_editor_property('light_color',u.Color(int(255*col[0]),int(255*col[1]),int(255*col[2]),255));comp.set_editor_property('cast_shadows',False);comp.set_editor_property('atmosphere_sun_light',False)
+   except Exception as e:self.warnings.append('fill light not created: %s %s'%(type(e).__name__,str(e)[:100]))
+ def purge_scene(self,scene):
+  """remove a scene from the editor: its tagged actors and its Level Sequences (nothing else is touched)"""
+  self.scene=scene;self.tag='moviebuilder:%s'%scene;n=self.purge();self.sequence_path=None;return n
+ def set_exposure(self,scene,bias):
+  """change the exposure of the shot cameras of an already imported scene, in place (no rebuild): the cameras are the scene's tagged CineCameraActors"""
+  u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem);tag='moviebuilder:%s'%scene;n=0
+  for act in sub.get_all_level_actors():
+   if not any(str(t)==tag for t in act.tags) or not hasattr(act,'get_cine_camera_component'):continue
+   comp=act.get_cine_camera_component();pp=comp.get_editor_property('post_process_settings');pp.override_auto_exposure_bias=True;pp.auto_exposure_bias=float(bias);comp.set_editor_property('post_process_settings',pp);n+=1
+  if not n:self.warnings.append('no cameras of %s found: exposure not changed'%scene)
+  try:
+   p='/Game/Movie/LS_%s'%scene;lib=u.EditorAssetLibrary;found=[x for x in (p,)+tuple('%s_%d'%(p,i) for i in range(2,40)) if lib.does_asset_exist(x)]
+   if found:self.sequence_path=found[-1]
+  except Exception:pass
  def anim_section(self,h,asset,start,end,rate,mapped):
   u=self.u;b=self.bind[h];tr=b.find_tracks_by_exact_type(u.MovieSceneSkeletalAnimationTrack);tr=tr[0] if tr else b.add_track(u.MovieSceneSkeletalAnimationTrack)
   sec=tr.add_section();sec.set_range(start,end+1);p=sec.params;ao=u.load_asset(asset);p.animation=ao
@@ -264,6 +337,9 @@ class UnrealBackend:
    try:
     if hasattr(a,'get_cine_camera_component'):
      cc=a.get_cine_camera_component();rows.append(dict(label=a.get_actor_label(),focal=cc.current_focal_length,filmback=[cc.filmback.sensor_width,cc.filmback.sensor_height],aperture=cc.current_aperture,focus=str(cc.focus_settings.manual_focus_distance)));continue
+    lc=a.get_component_by_class(self.u.LightComponent) if hasattr(a,'get_component_by_class') else None
+    if lc is not None:
+     ch=lc.get_editor_property('lighting_channels');rows.append(dict(label=a.get_actor_label(),light=type(lc).__name__,intensity=lc.get_editor_property('intensity'),channels=[bool(ch.get_editor_property(n)) for n in ('channel0','channel1','channel2')],shadows=bool(lc.get_editor_property('cast_shadows')),mobility=str(lc.mobility),rot=[round(v,1) for v in (a.get_actor_rotation().roll,a.get_actor_rotation().pitch,a.get_actor_rotation().yaw)]));continue
     sk=getattr(a,'skeletal_mesh_component',None)
     if sk is not None and sk.skeletal_mesh is not None:
      o,e=a.get_actor_bounds(False);rows.append(dict(label=a.get_actor_label(),skeletal=sk.skeletal_mesh.get_path_name(),world_extent=[round(e.x,1),round(e.y,1),round(e.z,1)],scale=[a.get_actor_scale3d().x],visible=bool(sk.is_visible()),hidden_editor=bool(a.is_temporarily_hidden_in_editor()),hidden_in_game=bool(sk.get_editor_property('hidden_in_game')),mobility=str(sk.mobility),mats=[(m.get_path_name() if m else None) for m in sk.get_materials()],anim_mode=str(sk.get_editor_property('animation_mode')),main_pass=bool(sk.get_editor_property('render_in_main_pass')),owner_no_see=bool(sk.get_editor_property('owner_no_see')),only_owner_see=bool(sk.get_editor_property('only_owner_see')),wscale=[round(sk.get_world_scale().x,3),round(sk.get_world_scale().y,3),round(sk.get_world_scale().z,3)],loc=[round(sk.get_world_location().x,1),round(sk.get_world_location().y,1),round(sk.get_world_location().z,1)],bones=sk.get_num_bones(),lod=sk.get_editor_property('forced_lod_model'),cast=bool(sk.get_editor_property('cast_shadow')),origin=[round(o.x,1),round(o.y,1),round(o.z,1)]));continue
@@ -294,18 +370,29 @@ def load_catalog(amap):
  except (ValueError,OSError):return None
 def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',tol=(.1,.05,.002),catalog=None):
  """create the sequence on the backend; returns the backend. Keys are reduced (position tolerance in cm, rotation in degrees) before they are written."""
+ if doc.get('op')=='purge':backend.purge_scene(doc['scene']);return backend
+ if doc.get('op')=='set_exposure':     # change the exposure of an imported scene in place (unreal_send's calibration); nothing is rebuilt
+  backend.set_exposure(doc['scene'],float(doc['exposure_bias']));return backend
  problems=ub.validate(doc)
  if problems:raise ValueError('export is inconsistent: %s'%problems[:5])
- backend.sequence(doc['scene'],doc['fps'],doc['frame_start'],doc['frame_end']);backend.diag_dir=doc.get('_dir');handles={};backend.ensure_characters(doc)
+ scene=doc['scene'];lk=ub.derive_look(doc['look'],ub.look_overrides(asset_map,scene)) if doc.get('look') is not None else None
+ backend.isolate=bool(lk and lk['isolate']);backend.sun_scale=(lk['sun'] or {}).get('lux_scale',1.) if lk else 1.
+ off=ub.scene_offset(doc['scene']);backend.offset=off;backend.exposure=float(doc.get('exposure_bias',EXPOSURE_BIAS));backend.sequence(doc['scene'],doc['fps'],doc['frame_start'],doc['frame_end']);backend.diag_dir=doc.get('_dir');handles={};backend.ensure_characters(doc)
  for a in doc['actors']:
-  asset,mapped=ub.resolve_asset(a['asset_key'],asset_map,proxy_dir,doc['scene']);k=a.get('keys');fitted=None
+  asset,mapped=ub.resolve_asset(a['asset_key'],asset_map,proxy_dir,scene,name=a['name']);k=a.get('keys');fitted=None
+  swap=ub.swap_entry(a['name'],asset_map,scene) if a['role'] in ('prop','effect') else None
+  if k and k.get('loc'):k=dict(k,loc=[[l[0]+off[0],l[1]+off[1],l[2]+off[2]] for l in k['loc']])   # this scene's place in the level
   if a['role']=='character' and not mapped:
    own=[backend.character_asset(c['name']) for c in doc['characters'] if c['root']==a['id']]
    if own and own[0]:asset=own[0];mapped=True
-  if not mapped and catalog and a['role'] in ('prop','effect') and a.get('bounds_cm'):
+  if swap:     # environment swap: the real asset, at the size the placeholder had unless the entry says otherwise
+   if swap.get('scale'):fitted=float(swap['scale'])
+   elif swap.get('fit',True) is False:fitted=1.
+   elif a.get('bounds_cm'):fitted=backend.asset_fit(asset,a['bounds_cm'])
+  elif not mapped and catalog and a['role'] in ('prop','effect') and a.get('bounds_cm'):
    hit=ub.pick_catalog_asset(a['asset_key'],a['bounds_cm'],catalog)
    if hit:asset,fit=hit;mapped=True;fitted=fit
-  h=backend.spawn(a,asset,mapped);handles[a['id']]=h
+  h=backend.spawn(a,asset,mapped,swap=swap);handles[a['id']]=h
   if fitted and k and k['frames'] and ub.constant_scale(k['scale']):k=dict(k,scale=[[fitted,fitted,fitted] for _ in k['scale']])
   elif a['role'] in ('prop','effect') and a.get('parts') and k and k['frames']:
    s0=k['scale'][0];fit=backend.self_fit.get(a['id']) or (1.,1.,1.)   # the object's scale over time relative to its first frame, times the size fit of its own mesh
@@ -318,14 +405,15 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
  for c in doc['characters']:
   for s in c['clips']:
    key=s.get('anim_file') or 'anim_%s'%s['clip']
-   asset,mapped=ub.resolve_clip(s['clip'],c['name'],asset_map,anim_dir)
+   asset,mapped=ub.resolve_clip(s['clip'],c['name'],asset_map,anim_dir,scene)
    own=backend.clip_asset(c['name'],key)
    if own and (not mapped or not backend.exists(asset)):asset,mapped=own,True   # a mapped asset that is not in the project falls back to the clip imported with the scene
    loop=max(2,int(round((s.get('action_end',s['end'])-s.get('action_start',s['start'])+1)*s['scale']))) if s.get('action_end') is not None else max(2,s['end']-s['start'])
    t=s['start']
    while t<s['end']:       # a strip that repeats (Blender's repeat) becomes one section per repetition
     t1=min(s['end'],t+loop);backend.anim_section(handles[c['root']],asset,t,t1,1.0/max(1e-6,s['scale']),mapped);t=t1
- backend.environment(doc)
+ backend.environment(doc,ub.environment_swap(asset_map,scene))
+ if lk:backend.look(lk)
  for cut in doc['cuts']:backend.camera_cut(cut['name'],handles[cut['camera']],cut['start'],cut['end'])
  for au in doc['audio']:backend.audio(au['name'],au['file'],au['start'],au['volume'])
  backend.save();return backend

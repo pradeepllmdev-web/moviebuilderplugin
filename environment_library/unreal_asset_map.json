@@ -1,5 +1,5 @@
 {
- "_comment": "Placeholder id (the object name without numbers) -> Unreal asset path. Anything not listed falls back to the proxy FBX imported from the export. Replace one line at a time; the scene keeps playing.",
+ "_comment": "Environment swap layer. assets: placeholder id (object name without numbers) -> Unreal asset path. props: exact object name -> path (wins over assets). scenes: per scene (full name, glob like 'movie_*_swamp', or just the piece 'swamp') with its own props / assets / animations / environment / look. An entry is a path or {asset, scale, fit:false, offset:[x,y,z], rotation:[roll,pitch,yaw]}; fit (default) scales the real asset to the size of the Blender placeholder. scenes.<s>.environment replaces the whole low-poly environment mesh (path or {asset, offset, rotation, scale, keep_proxy}). scenes.<s>.look = {isolate, sun_scale, sky_scale, sky_color}. Anything not listed falls back to the exported low-poly mesh. Edit with `python unreal_handoff.py swap ...`; only scenes the entry concerns are re-imported.",
  "assets": {
   "Boulder": "/Game/Props/Rocks/SM_BigRound_Boulder",
   "StoneDoor": "/Game/Props/Temple/SM_StoneDoorSlab",
@@ -7,5 +7,7 @@
  },
  "animations": {
   "run": "/Game/Characters/Leo/Anim/A_Leo_Run_RootMotionOff"
- }
+ },
+ "props": {},
+ "scenes": {}
 }

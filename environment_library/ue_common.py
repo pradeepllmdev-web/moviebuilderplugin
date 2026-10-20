@@ -6,6 +6,7 @@ Conventions (Blender -> Unreal): metres -> centimetres; Blender is right-handed 
   scale     unchanged
 These follow the common FBX-importer convention and are NOT yet verified inside Unreal; keep the numbers in ue_* functions so one place fixes them if a check shows a flip."""
 import json,math,re
+FORMAT_VERSION=2   # the scene package (<scene>.ue.json + FBX + audio files) is the contract between Blender and Unreal or any other tool; 2 added look and M_-prefixed prop meshes (a package without the field is version 1)
 def ue_loc(v):return [100.0*v[0],-100.0*v[1],100.0*v[2]]
 def ue_rot_deg(e_rad):return [math.degrees(e_rad[0]),-math.degrees(e_rad[1]),-math.degrees(e_rad[2])]
 def ue_scale(s):return [float(s[0]),float(s[1]),float(s[2])]
@@ -33,18 +34,66 @@ def reduce_keys(frames,values,tol):
    if d>wd:wd=d;worst=i
   if wd>tol and worst>0:keep.append(worst);stack.append((a,worst));stack.append((worst,b))
  return sorted(set(keep))
-def resolve_asset(key,asset_map,default_dir,scene):
- """Unreal asset path for a placeholder key: the mapped one if present, else the imported proxy FBX mesh"""
- m=asset_map.get('assets',{})
- if key in m:return m[key],True
+def _scene_matches(pattern,scene):
+ """a scene entry of the asset map is addressed by the full scene name, a glob ('movie_*_swamp') or just the piece ('swamp')"""
+ import fnmatch
+ return pattern==scene or fnmatch.fnmatch(scene,pattern) or scene.endswith('_'+pattern)
+def scene_section(asset_map,scene,section):
+ """the layers of one map section that apply to a scene, most specific first: [scene-specific entries..., global entries]"""
+ out=[]
+ for pat,body in (asset_map.get('scenes') or {}).items():
+  if not pat.startswith('_') and isinstance(body,dict) and _scene_matches(pat,scene) and isinstance(body.get(section),dict):out.append(body[section])
+ if isinstance(asset_map.get(section),dict):out.append(asset_map[section])
+ return out
+def swap_entry(name,asset_map,scene):
+ """the environment-swap entry for an object, or None. Order of precedence: this scene's props[exact name], this scene's assets[placeholder key], the global props[name], the global assets[key].
+ An entry is an Unreal asset path or {'asset': path, 'scale': uniform scale, 'fit': false to keep the asset at its own size, 'offset': [x,y,z] cm, 'rotation': [roll,pitch,yaw]}; the result is always the dict form."""
+ key=asset_key(name);hit=None
+ scoped=[(pat,body) for pat,body in (asset_map.get('scenes') or {}).items() if not pat.startswith('_') and isinstance(body,dict) and _scene_matches(pat,scene)]
+ layers=[b.get('props') for _,b in scoped]+[b.get('assets') for _,b in scoped]+[asset_map.get('props'),asset_map.get('assets')]
+ for i,layer in enumerate(layers):
+  if not isinstance(layer,dict):continue
+  is_props=i<len(scoped) or i==2*len(scoped)
+  for k in ((name,key) if is_props else (key,)):
+   if k in layer:hit=layer[k];break
+  if hit is not None:break
+ if hit is None:return None
+ return dict(hit) if isinstance(hit,dict) and hit.get('asset') else ({'asset':hit} if isinstance(hit,str) and hit else None)
+def swap_names(asset_map,scene):
+ """every object name / placeholder key the map swaps in this scene (sorted): the exporter keeps those objects out of the joined environment mesh so each can be replaced on its own; it is part of the export cache key"""
+ out=set()
+ for sec in ('props','assets'):
+  for layer in scene_section(asset_map,scene,sec):out.update(k for k,v in layer.items() if not k.startswith('_') and (isinstance(v,str) or (isinstance(v,dict) and v.get('asset'))))
+ return sorted(out)
+def swaps_object(name,asset_map,scene):return swap_entry(name,asset_map,scene) is not None
+def environment_swap(asset_map,scene):
+ """a real Unreal environment for the whole scene: scenes.<scene>.environment = path or {'asset': path, 'offset': [x,y,z], 'rotation': [r,p,y], 'scale': s, 'keep_proxy': true to also show the low-poly one}"""
+ for pat,body in (asset_map.get('scenes') or {}).items():
+  if pat.startswith('_') or not isinstance(body,dict) or not _scene_matches(pat,scene):continue
+  e=body.get('environment')
+  if isinstance(e,str) and e:return {'asset':e}
+  if isinstance(e,dict) and e.get('asset'):return dict(e)
+ return None
+def look_overrides(asset_map,scene):
+ """scenes.<scene>.look = {'isolate': false, 'sun_scale': 1.5, 'sky_scale': 0.5, 'sky_color': [r,g,b], 'fill_scale': 1.0, 'exposure': 1.0 (pins the exposure bias, no measuring), 'exposure_target': 0.2 (mean brightness the measurement aims at; default .32, a dark scene wants less)}"""
+ out={}
+ for pat,body in (asset_map.get('scenes') or {}).items():
+  if not pat.startswith('_') and isinstance(body,dict) and _scene_matches(pat,scene) and isinstance(body.get('look'),dict):out.update(body['look'])
+ return out
+def resolve_asset(key,asset_map,default_dir,scene,name=None):
+ """Unreal asset path for a placeholder key: the mapped one if present (see swap_entry), else the imported proxy FBX mesh"""
+ e=swap_entry(name or key,asset_map,scene)
+ if e:return e['asset'],True
  return '%s/%s/SM_%s'%(default_dir.rstrip('/'),scene,key),False
-def resolve_clip(clip,char_tag,asset_map,default_dir):
- m=asset_map.get('animations',{})
- if clip in m:return m[clip],True
+def resolve_clip(clip,char_tag,asset_map,default_dir,scene=None):
+ for m in (scene_section(asset_map,scene,'animations') if scene else [asset_map.get('animations') or {}]):
+  if clip in m:return m[clip],True
  return '%s/%s/A_%s'%(default_dir.rstrip('/'),char_tag,clip),False
 def validate(doc):
  """problems in an exported scene document (empty list when it is consistent)"""
  p=[]
+ v=doc.get('format_version',1)
+ if not isinstance(v,int) or v>FORMAT_VERSION or v<1:p.append('scene package format %r is not supported (this importer reads up to %d): update the importer or re-export'%(v,FORMAT_VERSION))
  fs,fe=doc['frame_start'],doc['frame_end']
  if fe<=fs:p.append('empty frame range')
  ids=set()
@@ -116,3 +165,67 @@ def ue_look_rot_deg(forward_blender):
  x,y,z=forward_blender;yaw=math.degrees(math.atan2(-y,x));pitch=math.degrees(math.atan2(z,math.hypot(x,y)));return [0.0,pitch,yaw]
 POINT_CD_PER_W=.05      # Blender point/spot watts -> Unreal candela (a rough visual match; exposure differs per project)
 SUN_LUX_PER_STRENGTH=3.0
+SCENE_SPACING_CM=100000.   # 1 km between scenes
+def scene_offset(scene):
+ """where a scene sits in the shared level: scene <movie>_<NN>_<piece> is placed NN kilometres along +Y so the scenes of one film never overlap and none sits on the level's own origin (the level keeps its sky sphere, water zone and post process there)"""
+ m=re.search(r'_(\d+)_[A-Za-z]',scene or '');n=int(m.group(1)) if m else 1
+ return [0.,SCENE_SPACING_CM*n,0.]
+
+FILL_MIN_LUX=6.0       # a night world is nearly black but its Blender picture is still readable: the fill never drops below this (each of the two lights)
+FILL_LUX_PER_SKY=4.0   # Blender's flat ambient is reproduced by two shadowless fill lights (one from each side) of the world colour, because a sky light alone left the scene dark
+SKY_INTENSITY_PER_LUMA=2.0   # Blender world colour*strength (luma) -> Unreal sky light intensity
+def luma(c):return .2126*c[0]+.7152*c[1]+.0722*c[2]
+def derive_look(look,overrides=None):
+ """per-scene lighting from what Blender had: its sun (exported as a light actor; here only the switches around it) and its world colour/strength (a sky light of the same colour). The level's shared Env_Sun then does not light the scene
+ (isolate: the scene's meshes and lights use lighting channel 1 only). overrides come from scenes.<scene>.look in the asset map."""
+ look=look or {};ov=overrides or {};col=list(ov.get('sky_color') or look.get('world_color') or [.3,.35,.4])[:3];st=float(look.get('world_strength',1.) or 0.)
+ sky=dict(color=col,intensity=round(max(.02,min(4.,luma(col)*max(st,0.)*SKY_INTENSITY_PER_LUMA*float(ov.get('sky_scale',1.)))),3))
+ sun=look.get('sun');sun=dict(sun,lux_scale=float(ov.get('sun_scale',1.))) if sun else None
+ return dict(isolate=bool(ov.get('isolate',True)),sky=sky,sun=sun,fill_lux=round(max(FILL_MIN_LUX,sky['intensity']*FILL_LUX_PER_SKY)*float(ov.get('fill_scale',1.)),3))
+EXPOSURE_TOLERANCE=.15   # stops: a measured error smaller than this is left alone
+def exposure_step(current,measured,target=.32):
+ """new exposure bias (stops) after measuring the mean brightness of frames rendered at `current`: display brightness follows light^(1/2.2) and the correction is damped to 0.8, the bias stays within [-2.5, 4]"""
+ import math
+ d=.8*2.2*math.log2(target/max(measured,.02));new=max(-2.5,min(4.,current+d))
+ return round(current if abs(new-current)<EXPOSURE_TOLERANCE else new,2)
+def proxy_mesh_paths(scene,mesh,proxy_dir='/Game/Proxy'):
+ """candidate asset paths for the proxy mesh imported from props.fbx for a Blender mesh: the export prefixes mesh objects with 'M_' so no material of the same name can push Unreal into renaming them; older exports are found by their plain name plus the digit Unreal appended"""
+ n=mesh.replace('.','_');base='%s/%s'%(proxy_dir.rstrip('/'),scene)
+ return ['%s/M_%s'%(base,n)]+['%s/%s%s'%(base,n,s) for s in ('','1','2','3')]
+def scene_name(movie,index,piece):return '%s_%02d_%s'%(movie,index,piece or 'shot')
+def set_swap(asset_map,name,asset,scene=None,**opts):
+ """record (or with asset=None remove) an environment swap in the asset map dict: scene=None -> global props[name]; scene='swamp' -> scenes.swamp.props[name]. Everything else in the map is kept."""
+ m=asset_map.setdefault('scenes',{}).setdefault(scene,{}) if scene else asset_map
+ layer=m.setdefault('props',{})
+ if asset is None:layer.pop(name,None)
+ else:layer[name]=dict(asset=asset,**{k:v for k,v in opts.items() if v is not None}) if opts and any(v is not None for v in opts.values()) else asset
+ return asset_map
+def set_environment(asset_map,scene,asset,**opts):
+ body=asset_map.setdefault('scenes',{}).setdefault(scene,{})
+ if asset is None:body.pop('environment',None)
+ else:body['environment']=dict(asset=asset,**{k:v for k,v in opts.items() if v is not None}) if any(v is not None for v in opts.values()) else asset
+ return asset_map
+
+def file_sha(path):
+ import hashlib
+ h=hashlib.sha1()
+ try:
+  with open(path,'rb') as f:
+   for b in iter(lambda:f.read(1<<20),b''):h.update(b)
+ except OSError:return 'missing'
+ return h.hexdigest()
+def registry_path():
+ """where the imported characters are remembered (by content hash), next to the exports: one registry for every movie"""
+ import os
+ return os.path.join(os.environ.get('MOVIEBUILDER_EXPORT_ROOT') or os.path.join(os.path.dirname(os.path.abspath(__file__)),'scenes','unreal_export'),'character_registry.json')
+def load_registry():
+ try:return json.load(open(registry_path(),encoding='utf-8'))
+ except (OSError,ValueError):return {}
+def save_registry(reg):
+ import os
+ p=registry_path()
+ try:
+  os.makedirs(os.path.dirname(p),exist_ok=True);t=p+'.tmp'
+  with open(t,'w',encoding='utf-8') as f:json.dump(reg,f)
+  os.replace(t,p)
+ except OSError:pass
