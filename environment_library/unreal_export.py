@@ -102,7 +102,17 @@ def fbx(path,sel,anim_=False,frames=None):
  for o in sel:o.select_set(True)
  bpy.ops.export_scene.fbx(filepath=path,use_selection=True,axis_forward='-Y',axis_up='Z',apply_unit_scale=True,bake_anim=anim_,bake_anim_use_all_actions=False,bake_anim_use_nla_strips=False,add_leaf_bones=False,object_types={'MESH','ARMATURE','EMPTY'})
 sc.frame_set(FS)
-if static:fbx(os.path.join(OUT,'environment.fbx'),static)
+if static:
+ # one joined mesh (every static object at its world position) so the environment can be placed as a single actor at the origin
+ bpy.ops.object.select_all(action='DESELECT');copies=[]
+ for o in static:
+  c=o.copy();c.data=o.data.copy();c.parent=None;c.matrix_world=o.matrix_world;sc.collection.objects.link(c);copies.append(c)
+ for c in copies:
+  c.select_set(True)
+ bpy.context.view_layer.objects.active=copies[0]
+ bpy.ops.object.join();env=bpy.context.view_layer.objects.active;env.name='Environment_'+NAME;env.data.name='Environment_'+NAME
+ fbx(os.path.join(OUT,'environment.fbx'),[env]);doc['environment']['mesh']=env.name
+ bpy.data.objects.remove(env,do_unlink=True)
 pm=[]
 for o in animated_roots:
  pm+=[x for x in ([o]+list(o.children_recursive)) if x.type=='MESH' or x.type=='EMPTY']

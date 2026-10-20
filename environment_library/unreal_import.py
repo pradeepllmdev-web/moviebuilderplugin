@@ -42,6 +42,7 @@ class DryRun:
  def camera_cut(self,name,h,start,end):self.counts['cuts']+=1
  def audio(self,name,path,start,vol):self.counts['audio']+=1
  def save(self):self.log.append(('save',))
+ def environment(self,doc):pass
  sequence_path=None
 class UnrealBackend:
  """thin wrapper over the Unreal editor Python API (see the module docstring for the version note)"""
@@ -53,6 +54,22 @@ class UnrealBackend:
   u=self.u;self.scene=name;self.tag='moviebuilder:%s'%name;self.purge()
   tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset(unique_name(u.EditorAssetLibrary.does_asset_exist,'LS_%s'%name),'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
   self.sequence_path=self.seq.get_path_name();self.seq.set_display_rate(u.FrameRate(fps,1));self.seq.set_playback_start(start);self.seq.set_playback_end(end+1);self.fps=fps
+ def environment(self,doc):
+  """place the joined environment mesh (one static mesh holding every static object at its world position) at the origin"""
+  u=self.u;name=(doc.get('environment') or {}).get('mesh')
+  if not name:return
+  sub=u.get_editor_subsystem(u.EditorActorSubsystem)
+  tries=[(n,s) for n in (name,'environment') for s in ('','1','2')]   # a single-mesh FBX import is named after the file
+  for n,suffix in tries:
+   path='/Game/Proxy/%s/%s%s'%(self.scene,n,suffix)
+   if not u.EditorAssetLibrary.does_asset_exist(path):continue
+   obj=u.load_asset(path)
+   if not isinstance(obj,u.StaticMesh):continue
+   actor=sub.spawn_actor_from_class(u.StaticMeshActor,u.Vector(0,0,0));actor.set_actor_label('%s/Environment'%self.scene);actor.tags=[u.Name(self.tag)]
+   try:actor.set_folder_path('MovieBuilder/%s'%self.scene)
+   except Exception:pass
+   actor.static_mesh_component.set_static_mesh(obj);self.spawned.append(actor);return
+  self.warnings.append('environment mesh %s was not found under /Game/Proxy/%s (import environment.fbx first)'%(name,self.scene))
  def purge(self):
   """remove the actors a previous import of this scene left in the level (they carry the moviebuilder:<scene> tag); nothing else is touched"""
   u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem);n=0
@@ -113,7 +130,7 @@ class UnrealBackend:
   try:p.play_rate=rate;return
   except TypeError:pass
   try:
-   v=u.MovieSceneTimeWarpVariant();v.set_editor_property('fixed_play_rate',rate) if 'fixed_play_rate' in dir(v) else v.set_editor_property('play_rate',rate);p.play_rate=v;return
+   v=u.MovieSceneTimeWarpVariant();v.set_fixed_play_rate(rate);p.play_rate=v;return
   except Exception as e:
    self.warnings.append('play rate %.2f not applied (%s); fields of MovieSceneTimeWarpVariant: %s'%(rate,type(e).__name__,[n for n in dir(u.MovieSceneTimeWarpVariant) if not n.startswith('_')][:30]))
  def camera_cut(self,name,h,start,end):
@@ -148,6 +165,7 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
  for c in doc['characters']:
   for s in c['clips']:
    asset,mapped=ub.resolve_clip(s['clip'],c['name'],asset_map,anim_dir);backend.anim_section(handles[c['root']],asset,s['start'],s['end'],1.0/max(1e-6,s['scale']),mapped)
+ backend.environment(doc)
  for cut in doc['cuts']:backend.camera_cut(cut['name'],handles[cut['camera']],cut['start'],cut['end'])
  for au in doc['audio']:backend.audio(au['name'],au['file'],au['start'],au['volume'])
  backend.save();return backend
