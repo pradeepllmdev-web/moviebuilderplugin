@@ -36,7 +36,7 @@ class DryRun:
   self.counts['actors']+=1;(self.counts['mapped'] if mapped else self.counts['unmapped']).append(a['asset_key']);self.log.append(('spawn',a['name'],a['role'],asset))
   return a['id']
  def transform_keys(self,h,frames,loc,rot,scale):self.counts['transform_keys']+=len(frames)
- def lens_keys(self,h,frames,lens):self.log.append(('lens',h,len(frames)))
+ def lens_keys(self,h,frames,lens,sensor=None):self.log.append(('lens',h,len(frames)))
  def light(self,h,light):self.log.append(('light',h,light['type']))
  def anim_section(self,h,asset,start,end,rate,mapped):self.counts['anim_sections']+=1;(self.counts['mapped'] if mapped else self.counts['unmapped']).append(os.path.basename(asset))
  def camera_cut(self,name,h,start,end):self.counts['cuts']+=1
@@ -162,6 +162,8 @@ class UnrealBackend:
   u=self.u;actor.set_actor_label(label);actor.tags=[u.Name(self.tag)]
   try:actor.set_folder_path('MovieBuilder/%s'%self.scene)
   except Exception:pass
+  try:actor.root_component.set_mobility(u.ComponentMobility.MOVABLE)   # Sequencer moves these: a Static component is not re-rendered when its transform changes
+  except Exception:pass
   self.spawned.append(actor)
  def spawn(self,a,asset,mapped):
   u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem);cls=self._class_for(a['role'])
@@ -197,10 +199,14 @@ class UnrealBackend:
    for c in range(9):
     try:ch[c].add_key(fn,vals[c],0.0,u.SequenceTimeUnit.DISPLAY_RATE,u.MovieSceneKeyInterpolation.LINEAR)
     except Exception:ch[c].add_key(fn,vals[c])
- def lens_keys(self,h,frames,lens):
-  act=self.actors.get(h)
+ def lens_keys(self,h,frames,lens,sensor=None):
+  u=self.u;act=self.actors.get(h)
   try:
    comp=act.get_cine_camera_component();comp.set_editor_property('current_focal_length',float(lens[0]))
+   try:     # Blender's 36 mm sensor (Unreal's default 23.76 mm would crop the picture to two thirds), and no depth of field (Blender's focus distance is not exported, so a manual focus would blur the actors)
+    fb=u.CameraFilmbackSettings();fb.sensor_width=float(sensor or 36.);fb.sensor_height=fb.sensor_width*9./16.;comp.set_editor_property('filmback',fb)
+    fs=comp.get_editor_property('focus_settings');fs.focus_method=u.CameraFocusMethod.DISABLE;comp.set_editor_property('focus_settings',fs)
+   except Exception as e:self.warnings.append('filmback/focus not set: %s'%type(e).__name__)
   except Exception as e:self.warnings.append('lens not set: %s'%type(e).__name__)
  def light(self,h,light):
   act=self.actors.get(h);u=self.u
@@ -230,8 +236,28 @@ class UnrealBackend:
   sec=tr.add_section();sec.set_range(start,end+1);sec.set_camera_binding_id(self.seq.get_binding_id(self.bind[h]))
  def audio(self,name,path,start,vol):
   u=self.u;tr=self.seq.add_track(u.MovieSceneAudioTrack);sec=tr.add_section();sec.set_range(start,start+1000);sec.set_sound(u.load_asset(path))
+ def diagnostics(self):
+  """what the editor really holds for every static-mesh actor (mesh, bounds, visibility); written beside the scene file so a missing or mis-sized prop is found without looking at frames"""
+  rows=[]
+  for a in self.spawned:
+   try:
+    if hasattr(a,'get_cine_camera_component'):
+     cc=a.get_cine_camera_component();rows.append(dict(label=a.get_actor_label(),focal=cc.current_focal_length,filmback=[cc.filmback.sensor_width,cc.filmback.sensor_height],aperture=cc.current_aperture,focus=str(cc.focus_settings.manual_focus_distance)));continue
+    sk=getattr(a,'skeletal_mesh_component',None)
+    if sk is not None and sk.skeletal_mesh is not None:
+     o,e=a.get_actor_bounds(False);rows.append(dict(label=a.get_actor_label(),skeletal=sk.skeletal_mesh.get_path_name(),world_extent=[round(e.x,1),round(e.y,1),round(e.z,1)],scale=[a.get_actor_scale3d().x]));continue
+    c=getattr(a,'static_mesh_component',None)
+    if c is None:continue
+    m=c.static_mesh;o,e=a.get_actor_bounds(False)
+    rows.append(dict(label=a.get_actor_label(),mesh=m.get_path_name() if m else None,mesh_extent=[round(v,1) for v in (m.get_bounds().box_extent.x,m.get_bounds().box_extent.y,m.get_bounds().box_extent.z)] if m else None,world_extent=[round(e.x,1),round(e.y,1),round(e.z,1)],visible=bool(c.is_visible()),mobility=str(c.mobility),materials=c.get_num_materials()))
+   except Exception as ex:rows.append(dict(label='?',error=str(ex)[:120]))
+  return rows
  def save(self):
   self.autoplay_actor();self.u.EditorAssetLibrary.save_loaded_asset(self.seq)
+  try:
+   import json;folder=getattr(self,'diag_dir',None)
+   if folder:open(os.path.join(folder,'%s.import.json'%self.scene),'w',encoding='utf-8').write(json.dumps(self.diagnostics(),indent=1))
+  except Exception as ex:self.warnings.append('diagnostics not written: %s'%str(ex)[:100])
 def load_catalog(amap):
  """the installed-asset catalogue (Environment Studio's prompt-catalog.json) used to find real meshes for placeholders that have no explicit mapping"""
  here=os.path.dirname(os.path.abspath(__file__));p=amap.get('catalog') or os.path.join(here,'assets','prompt-catalog.json')
@@ -242,7 +268,7 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
  """create the sequence on the backend; returns the backend. Keys are reduced (position tolerance in cm, rotation in degrees) before they are written."""
  problems=ub.validate(doc)
  if problems:raise ValueError('export is inconsistent: %s'%problems[:5])
- backend.sequence(doc['scene'],doc['fps'],doc['frame_start'],doc['frame_end']);handles={};backend.ensure_characters(doc)
+ backend.sequence(doc['scene'],doc['fps'],doc['frame_start'],doc['frame_end']);backend.diag_dir=doc.get('_dir');handles={};backend.ensure_characters(doc)
  for a in doc['actors']:
   asset,mapped=ub.resolve_asset(a['asset_key'],asset_map,proxy_dir,doc['scene']);k=a.get('keys');fitted=None
   if a['role']=='character' and not mapped:
@@ -259,7 +285,7 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
   if k and k['frames']:
    vals=[l+r+s for l,r,s in zip(k['loc'],k['rot'],k['scale'])];keep=ub.reduce_keys(k['frames'],vals,tol[0])
    backend.transform_keys(h,[k['frames'][i] for i in keep],[k['loc'][i] for i in keep],[k['rot'][i] for i in keep],[k['scale'][i] for i in keep])
-   if 'lens' in k:backend.lens_keys(h,[k['frames'][i] for i in keep],[k['lens'][i] for i in keep])
+   if 'lens' in k:backend.lens_keys(h,[k['frames'][i] for i in keep],[k['lens'][i] for i in keep],(a.get('camera') or {}).get('sensor_width'))
   if a['role']=='light':backend.light(h,a['light'])
  for c in doc['characters']:
   for s in c['clips']:
