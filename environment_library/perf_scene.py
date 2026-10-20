@@ -16,10 +16,16 @@ from mathutils import Vector
 args=sys.argv[sys.argv.index('--')+1:]
 SPEC=json.load(open(args[2],encoding='utf-8'))
 REG=cr.Registry.load(args[3] if len(args)>3 else SPEC['registry'])
+import perf_voices as pv
+pp.DURATION_PROVIDER=pv.duration
 S=sb.Scene(SPEC['id']);PI=math.pi;smooth=kit.smooth
 PLAN=pp.compile(SPEC,REG);LAY=PLAN.layout;issues=list(PLAN.audit());S.clock(PLAN.seconds);FPS=24
 TIME=SPEC.get('time','day');LOC=pl.build(S,SPEC.get('location',dict(preset='meadow')),TIME)
 # ---------------------------------------------------------------------------------------------------------- the cast
+def _piper(L,k):
+ v=PLAN.actors[L['speaker']].look.get('voice')
+ return pv.load(v,L['text'],L['mood']) if v else None
+dg.register_voice_provider('piper',_piper)
 orig_pitch=dg.pitch_of;PITCH={i:PLAN.actors[i].look['pitch'] for i in PLAN.actors}
 dg.pitch_of=lambda name:PITCH.get(name,orig_pitch(name))
 CH={}

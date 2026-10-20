@@ -36,5 +36,5 @@ class Films(unittest.TestCase):
  def test_cache_key_changes_with_the_spec_and_the_cast(self):
   film=pm.load_film(FILMS[0]);sp=film['scenes'][0];k=pm.scene_key(sp,'{}','e');self.assertEqual(k,pm.scene_key(sp,'{}','e'));self.assertNotEqual(k,pm.scene_key(dict(sp,title='x'),'{}','e'));self.assertNotEqual(k,pm.scene_key(sp,'{"a":1}','e'));self.assertNotEqual(k,pm.scene_key(sp,'{}','f'))
  def test_plan_only_run_writes_the_report_and_story_records(self):
-  out=Path(tempfile.mkdtemp());r=pm.run(FILMS[0],out,plan_only=True,echo=False);self.assertTrue((out/'plan_report.md').exists());recs=json.loads((out/'cast_story.json').read_text());self.assertTrue(all('description' in x and 'species' in x for x in recs));self.assertGreater(r['total'],800)
+  out=Path(tempfile.mkdtemp());r=pm.run(FILMS[0],out,plan_only=True,echo=False,voices=False);self.assertTrue((out/'plan_report.md').exists());recs=json.loads((out/'cast_story.json').read_text());self.assertTrue(all('description' in x and 'species' in x for x in recs));self.assertGreater(r['total'],800)
 if __name__=='__main__':unittest.main()

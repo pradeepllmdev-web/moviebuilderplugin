@@ -82,7 +82,7 @@ def resolve(rec):
  for k in rec.get('no_parts',[]):parts.pop(k,None)
  posture=rec.get('posture',sp['posture']);lo,hi=sp['pitch'];pitch=rec.get('voice_pitch',lo+(hi-lo)*hash_unit(rec['id'],'pitch'))
  acc=[_acc(a) for a in rec.get('accessories',[])]
- return dict(id=rec['id'],name=rec['name'],species=rec.get('species','lion'),height=h,scale=(round(w*sz,4),round(d*sz,4),round(sz,4)),tint=tint,parts=list(parts.values()),accessories=acc,posture=posture,gait=GAIT_BY_POSTURE[posture],pace=rec.get('pace',1.),pitch=pitch,
+ return dict(id=rec['id'],name=rec['name'],species=rec.get('species','lion'),height=h,scale=(round(w*sz,4),round(d*sz,4),round(sz,4)),tint=tint,parts=list(parts.values()),accessories=acc,posture=posture,gait=GAIT_BY_POSTURE[posture],pace=rec.get('pace',1.),pitch=pitch,voice=rec.get('voice'),
   reach=.55*sz,radius=round(max(w,d)*sz*.38,3))
 def from_series_character(rec):
  """a character of the sibling 3dobjectnew repo ({'name','details'|'description','character_type'}) -> a registry entry guessed from its words; nothing in that repo is touched"""

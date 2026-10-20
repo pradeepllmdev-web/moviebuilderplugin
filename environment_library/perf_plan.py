@@ -39,6 +39,7 @@ SIT_DOWN=(1,110)             # frames of the sit clip: standing -> seated (hips 
 SIT_HIPS_FWD=.11             # seated hips are this far in front of the root (x size)
 REACH_STAND=.46              # distance (x size) the actor stands from something it takes
 CARRY={'R':[(-.34,-.4,.78)],'L':[(.34,-.4,.78)],'both':[(-.2,-.44,.8),(.2,-.44,.8)]}
+DURATION_PROVIDER=None   # fn(voice, text, mood) -> seconds of the recorded line or None; perf_movie / perf_scene set it so lines last as long as the real voice
 class SpecError(ValueError):pass
 def wrap(a):
  while a>math.pi:a-=2*math.pi
@@ -357,7 +358,9 @@ class Plan:
   tp=s.point(to)
   if a.state=='sit' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(80):s.lint.append('AUDIT seated: %s speaks to %s who is %.0f deg off the way %s sits'%(a.id,to,abs(math.degrees(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))),a.id))
   if a.state=='stand' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(35):a.face_point(tp)
-  syl=dg.syllables(b['text']);dur=max(1.5,len(syl)*.18+.45);ts=a.t+.12
+  syl=dg.syllables(b['text']);dur=max(1.5,len(syl)*.18+.45);real=DURATION_PROVIDER(a.look['voice'],b['text'],mood) if (DURATION_PROVIDER and a.look.get('voice')) else None
+  if real:dur=real+.1
+  ts=a.t+.12
   a.hold(.12+dur+.22);k=len(s.lines);L=dict(k=k,speaker=a.id,mood=mood,text=b['text'],t0=ts,t1=ts+dur,syl=syl,dur=dur,to=to);s.lines.append(L)
   if a.state=='stand':
    clip=b.get('gesture') or dg.SPEAK_CLIP[mood]

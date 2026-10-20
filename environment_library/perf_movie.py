@@ -26,6 +26,15 @@ def registry_of(film):
  import cast_registry as cr
  return cr.Registry(film['cast'])
 def scene_key(spec,reg_json,eh):return hashlib.sha1((json.dumps(spec,sort_keys=True)+reg_json+eh).encode()).hexdigest()[:12]
+def use_voices(film,reg,echo=True):
+ """assign Piper voices to the cast (stored in the registry records) and synthesise every line; falls back silently to the formant voices when Piper or the models are missing"""
+ import perf_voices as pv,perf_plan as pp
+ try:
+  import piper
+ except ImportError:
+  return False
+ if not pv.catalogue_voices():return False
+ pv.prepare(film,reg,echo=echo);pp.DURATION_PROVIDER=pv.duration;return True
 def plan_check(film,reg=None):
  """compile every scene without Blender: [(index, id, seconds, lines, audit list or [error])]"""
  import perf_plan as pp
@@ -58,8 +67,9 @@ def sheet(rec,out,n=12):
  try:cs.render(rec['file'],str(p),n,3,480);rec['sheet']=str(p)
  except Exception as e:rec['sheet_error']=str(e)[:200]
  return rec
-def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=True,target_minutes=15.,echo=True):
+def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=True,target_minutes=15.,echo=True,voices=True):
  film=load_film(film_path);out=Path(out).resolve();out.mkdir(parents=True,exist_ok=True);reg=registry_of(film)
+ if voices:use_voices(film,reg,echo)
  problems=reg.distinct_report();rows=plan_check(film,reg);cast_json=out/'cast.json';reg.save(str(cast_json));(out/'cast_story.json').write_text(json.dumps(reg.export_story_records(),indent=1),encoding='utf-8')
  lines=['# %s: build report'%film.get('title',film.get('id','film')),'','Cast: %d characters%s'%(len(film['cast']),''.join('\n* WARNING: %s and %s look alike (score %.2f)'%p for p in problems)),'','## Plan check (no Blender)','']
  for r in rows:lines.append('* scene %02d %s: %.1f s, %d characters, %d lines%s%s'%(r['index'],r['id'],r['seconds'],r['cast'],r['lines'],('\n  * SPEC ERROR: '+r['error']) if r['error'] else '',''.join('\n  * '+a for a in r['audit'])))
@@ -97,4 +107,4 @@ if __name__=='__main__':
  sc=None
  if '--scenes' in a:i=a.index('--scenes');sc=[int(x) for x in a[i+1].split(',')];del a[i:i+2]
  flags=set(x for x in a if x.startswith('--'));pos=[x for x in a if not x.startswith('--')]
- run(pos[0],pos[1],sc,'--force' in flags,'--plan-only' in flags,0 if '--no-sheets' in flags else 12,'--no-master' not in flags)
+ run(pos[0],pos[1],sc,'--force' in flags,'--plan-only' in flags,0 if '--no-sheets' in flags else 12,'--no-master' not in flags,voices='--no-voices' not in flags)

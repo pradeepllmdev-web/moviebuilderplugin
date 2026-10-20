@@ -1,0 +1,822 @@
+[
+{
+"model": "en_GB-alan-medium",
+"speaker": 0,
+"f0": 97.1
+},
+{
+"model": "en_GB-jenny_dioco-medium",
+"speaker": 0,
+"f0": 196.9
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 0,
+"f0": 195.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 1,
+"f0": 234.6
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 2,
+"f0": 198.6
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 3,
+"f0": 206.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 4,
+"f0": 117.3
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 5,
+"f0": 132.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 6,
+"f0": 247.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 7,
+"f0": 106.5
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 8,
+"f0": 212.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 9,
+"f0": 139.6
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 10,
+"f0": 96.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 11,
+"f0": 229.7
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 12,
+"f0": 101.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 13,
+"f0": 91.9
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 14,
+"f0": 200.5
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 15,
+"f0": 175.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 16,
+"f0": 116.7
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 17,
+"f0": 206.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 18,
+"f0": 214.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 19,
+"f0": 152.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 20,
+"f0": 96.7
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 21,
+"f0": 208.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 22,
+"f0": 186.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 23,
+"f0": 99.3
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 24,
+"f0": 96.7
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 25,
+"f0": 120.5
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 26,
+"f0": 102.6
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 27,
+"f0": 242.3
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 28,
+"f0": 104.5
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 29,
+"f0": 88.9
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 30,
+"f0": 209.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 31,
+"f0": 212.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 32,
+"f0": 87.2
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 33,
+"f0": 190.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 34,
+"f0": 183.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 35,
+"f0": 185.3
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 36,
+"f0": 247.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 37,
+"f0": 204.2
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 38,
+"f0": 101.6
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 39,
+"f0": 167.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 40,
+"f0": 239.7
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 41,
+"f0": 182.2
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 42,
+"f0": 214.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 43,
+"f0": 195.1
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 44,
+"f0": 220.5
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 45,
+"f0": 188.5
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 46,
+"f0": 175.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 47,
+"f0": 93.2
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 48,
+"f0": 208.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 49,
+"f0": 247.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 50,
+"f0": 106.5
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 51,
+"f0": 202.3
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 52,
+"f0": 192.6
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 53,
+"f0": 216.2
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 54,
+"f0": 183.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 55,
+"f0": 107.3
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 56,
+"f0": 186.9
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 57,
+"f0": 114.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 58,
+"f0": 196.9
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 59,
+"f0": 172.3
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 60,
+"f0": 114.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 61,
+"f0": 107.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 62,
+"f0": 121.2
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 63,
+"f0": 177.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 64,
+"f0": 110.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 65,
+"f0": 180.7
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 66,
+"f0": 212.0
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 67,
+"f0": 120.5
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 68,
+"f0": 176.4
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 69,
+"f0": 124.6
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 70,
+"f0": 117.3
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 71,
+"f0": 80.9
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 72,
+"f0": 198.6
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 73,
+"f0": 220.5
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 74,
+"f0": 196.9
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 75,
+"f0": 96.3
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 76,
+"f0": 81.4
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 77,
+"f0": 186.9
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 78,
+"f0": 177.8
+},
+{
+"model": "en_GB-vctk-medium",
+"speaker": 79,
+"f0": 120.5
+},
+{
+"model": "en_US-amy-medium",
+"speaker": 0,
+"f0": 196.0
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 0,
+"f0": 179.3
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 11,
+"f0": 191.7
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 22,
+"f0": 92.6
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 33,
+"f0": 176.4
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 44,
+"f0": 117.9
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 55,
+"f0": 122.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 66,
+"f0": 204.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 77,
+"f0": 193.4
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 88,
+"f0": 154.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 99,
+"f0": 198.6
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 110,
+"f0": 130.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 121,
+"f0": 131.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 132,
+"f0": 90.7
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 143,
+"f0": 177.8
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 154,
+"f0": 190.1
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 165,
+"f0": 176.4
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 176,
+"f0": 135.7
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 187,
+"f0": 104.3
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 198,
+"f0": 115.1
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 209,
+"f0": 127.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 220,
+"f0": 191.7
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 231,
+"f0": 112.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 242,
+"f0": 173.6
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 253,
+"f0": 126.0
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 264,
+"f0": 117.3
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 275,
+"f0": 134.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 286,
+"f0": 126.0
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 297,
+"f0": 107.0
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 308,
+"f0": 149.0
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 319,
+"f0": 197.8
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 330,
+"f0": 114.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 341,
+"f0": 105.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 352,
+"f0": 200.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 363,
+"f0": 147.0
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 374,
+"f0": 116.7
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 385,
+"f0": 111.4
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 396,
+"f0": 237.1
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 407,
+"f0": 138.7
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 418,
+"f0": 102.6
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 429,
+"f0": 108.6
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 440,
+"f0": 179.3
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 451,
+"f0": 197.8
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 462,
+"f0": 164.6
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 473,
+"f0": 101.6
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 484,
+"f0": 109.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 495,
+"f0": 125.3
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 506,
+"f0": 121.8
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 517,
+"f0": 245.0
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 528,
+"f0": 115.4
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 539,
+"f0": 237.1
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 550,
+"f0": 237.1
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 561,
+"f0": 204.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 572,
+"f0": 113.1
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 583,
+"f0": 132.8
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 594,
+"f0": 98.9
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 605,
+"f0": 104.0
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 616,
+"f0": 128.9
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 627,
+"f0": 112.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 638,
+"f0": 170.9
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 649,
+"f0": 204.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 660,
+"f0": 115.1
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 671,
+"f0": 120.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 682,
+"f0": 170.9
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 693,
+"f0": 242.3
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 704,
+"f0": 118.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 715,
+"f0": 99.8
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 726,
+"f0": 167.0
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 737,
+"f0": 249.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 748,
+"f0": 182.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 759,
+"f0": 190.1
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 770,
+"f0": 123.9
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 781,
+"f0": 109.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 792,
+"f0": 128.2
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 803,
+"f0": 114.8
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 814,
+"f0": 128.9
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 825,
+"f0": 134.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 836,
+"f0": 128.9
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 847,
+"f0": 104.5
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 858,
+"f0": 108.4
+},
+{
+"model": "en_US-libritts_r-medium",
+"speaker": 869,
+"f0": 222.7
+},
+{
+"model": "en_US-ryan-medium",
+"speaker": 0,
+"f0": 154.2
+}
+]
