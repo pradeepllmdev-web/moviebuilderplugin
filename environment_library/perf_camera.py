@@ -48,7 +48,7 @@ def direct(plan,seed=1):
      cuts.append(dict(name='%s alone'%sp,kind='medium',t0=max(a,L['t0']-.25),t1=min(b,L['t1']+.3),subject=sp,side=1.,lens=40));continue
     key=tuple(sorted((sp,to)));side=pair_side.setdefault(key,1. if rnd.random()<.5 else -1.)
     t0=max(a,L['t0']-.25);t1=min(b,L['t1']+.3);mid=t0+(t1-t0)*.68
-    kd='two' if k%3==2 or math.hypot(*[plan.pos(sp,mid)[i]-plan.pos(to,mid)[i] for i in (0,1)])>5. else 'ots'
+    kd='two' if (k%3==2 or math.hypot(*[plan.pos(sp,mid)[i]-plan.pos(to,mid)[i] for i in (0,1)])>5.) and not plan.layout.get('inside') else 'ots'   # a small room has no room for a two-shot
     if t0>cuts[-1]['t1']+.2 and mid-cuts[-1]['t1']>0:t0=cuts[-1]['t1']
     cuts.append(dict(name='%s speaks'%sp,kind=kd,t0=t0,t1=mid,subject=sp,to=to,side=side,lens=42 if kd=='ots' else 36))
     if t1-mid>.4:cuts.append(dict(name='%s listens'%to,kind='single',t0=mid,t1=t1,subject=to,to=sp,side=side,lens=36))
