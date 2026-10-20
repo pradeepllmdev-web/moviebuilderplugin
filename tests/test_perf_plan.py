@@ -52,11 +52,17 @@ class Compile(unittest.TestCase):
  def test_cannot_act_while_seated(self):
   with self.assertRaises(pp.SpecError):self.run_([dict(do='sit',who='mara',on='bench_a.0'),dict(do='act',who='mara',clip='wave')])
  def test_collision_is_audited(self):
-  P=self.run_([[go('mara',[6,-5],stop=0.),go('bram',[-8,-6],stop=0.)]]);self.assertTrue(any('collision' in a for a in P.audit()))
+  P=self.run_([go('mara',[0,0],stop=2.)]);self.assertEqual([a for a in P.audit() if 'collision' in a],[]);b=P.actors['bram'];m=P.actors['mara'];b.X[:]=m.X[:];b.Y[:]=m.Y[:];self.assertTrue(any('collision' in a for a in P.audit()))   # the audit itself catches an overlap
  def test_walkers_do_not_end_inside_each_other(self):
   P=self.run_([[go('mara',[0,0],stop=0.),go('bram',[0,0],stop=0.)]]);self.assertEqual([a for a in P.audit() if 'collision' in a],[])
  def test_walking_through_a_room_is_routed_around(self):
   P=pp.compile(spec([go('mara',[4,0])],cast=[dict(id='mara',at=[-3,0],face=[1,0]),dict(id='bram',at=[0,-3],face=[0,1])],loc=dict(preset='room')),REG);self.assertEqual([a for a in P.audit() if 'obstacle' in a],[])
+class Reactions(unittest.TestCase):
+ def test_react_turns_towards_the_cause_and_plays_the_clip(self):
+  P=pp.compile(spec([dict(do='react',who='mara',kind='startle',to='bram')]),REG);a=P.actors['mara'];self.assertTrue(any(c[2]=='startle' for c in a.clips));self.assertLess(abs(pp.wrap(math.atan2(P.pos('bram',0)[1]-a.Y[-1],P.pos('bram',0)[0]-a.X[-1])-a.H[-1])),.1)
+  with self.assertRaises(pp.SpecError):pp.compile(spec([dict(do='react',who='mara',kind='dance')]),REG)
+ def test_climb_is_an_in_place_act(self):
+  P=pp.compile(spec([dict(do='act',who='mara',clip='climb',dur=2)]),REG);self.assertTrue(any(c[2]=='climb' for c in P.actors['mara'].clips))
 class Props(unittest.TestCase):
  def base(self,steps):
   return pp.compile(spec(steps,props=[dict(id='cup',kind='cup',at=[-1,0],z=.9),dict(id='crate',kind='crate',at=[2,3],z=.9)],cast=[dict(id='mara',at=[-4,0],face=[1,0]),dict(id='bram',at=[4,0],face=[-1,0])],loc=dict(preset='meadow')),REG)

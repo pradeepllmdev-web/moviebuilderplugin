@@ -12,6 +12,7 @@ Beats (who = character id):
     turn    who, to                         face a point or character
     say     who, text, mood (serious|angry|warm|concern|sad|joy), to    a spoken line with lip sync, eye lines, the listener's reaction and body turns
     act     who, clip, dur, to, scale       any library clip in place (wave, nod, shrug, laugh, push, kick, bow, startle, think, talk, argue, cele, hit, punch, block, dodge, jump, fall, getup, kneel, look, hips, cut)
+    react   who, kind, to                   a reaction clip (startle, nod, laugh, think, shrug, wave, cele, block, dodge, hit, bow) turned towards what it reacts to
     look    who, at, dur                    eyes and head only
     emote   who, kind (smile|frown|concern|sad|brows), dur
     wait    dur                             everybody holds
@@ -30,7 +31,7 @@ import dialogue as dg,gaits,perf_locations as pl
 FPS=24
 CLIP_FRAMES=dict(argue=96,block=72,bow=72,cele=120,climb=96,crawl=96,cut=72,dodge=72,fall=72,getup=72,hips=72,hit=72,idle=96,jump=72,kick=72,kneel=96,laugh=96,lie=96,look=144,nod=72,pick=120,punch=72,push=72,run=48,shrug=72,sit=216,startle=72,talk=96,think=96,wave=72)
 for _g,_v in gaits.GAITS.items():CLIP_FRAMES.setdefault(_v['clip'],_v['cycle'])
-ACT_CLIPS=('pick','argue','block','bow','cele','cut','dodge','fall','getup','hips','hit','jump','kick','kneel','laugh','lie','look','nod','punch','push','shrug','startle','talk','think','wave','idle')
+ACT_CLIPS=('climb','pick','argue','block','bow','cele','cut','dodge','fall','getup','hips','hit','jump','kick','kneel','laugh','lie','look','nod','punch','push','shrug','startle','talk','think','wave','idle')
 QUICK=dict(nod=.7,shrug=.75,wave=.75,startle=.8,think=.75,laugh=.7,cele=.7,block=.8,bow=.8,argue=.7,talk=.8,hips=.8,pick=.8)   # gestures play a little quicker than the library clip (the film is short)
 SEATED_OK=('look','emote','say')
 MOODS=dg.MOODS
@@ -56,29 +57,37 @@ class Router:
   for c in obst:m|=(X-c[0])**2+(Y-c[1])**2<(c[2]+margin)**2
   s.blocked=m
  def cellof(s,p):return (min(s.nx-1,max(0,int(round((p[0]+s.hx)/s.cell)))),min(s.ny-1,max(0,int(round((p[1]+s.hy)/s.cell)))))
- def clear(s,p,q,free,mask=None):
+ def clear(s,p,q,free,mask=None,extra=None):
   mask=s.blocked if mask is None else mask;n=max(2,int(math.hypot(q[0]-p[0],q[1]-p[1])/(s.cell*.5)))
   for i in range(n+1):
    x=p[0]+(q[0]-p[0])*i/n;y=p[1]+(q[1]-p[1])*i/n;c=s.cellof((x,y))
+   if extra is not None and extra[c]:return False
    if mask[c] and not any(math.hypot(x-f[0],y-f[1])<f[2] for f in free):return False
   return True
- def route(s,p0,p1,free_r=.7,extra=()):
-  free=[(p0[0],p0[1],free_r),(p1[0],p1[1],free_r)];mask=s.blocked
+ def route(s,p0,p1,free_r=.7,extra=(),start_r=.7):
+  free=[(p0[0],p0[1],start_r),(p1[0],p1[1],free_r)];emask=None
   if extra:
-   mask=s.blocked.copy()
+   emask=np.zeros_like(s.blocked)
    for (ex,ey,er) in extra:
     c=s.cellof((ex,ey));r=int((er+s.margin)/s.cell)+1
     for i in range(max(0,c[0]-r),min(s.nx,c[0]+r+1)):
      for j in range(max(0,c[1]-r),min(s.ny,c[1]+r+1)):
-      if math.hypot((i-c[0])*s.cell,(j-c[1])*s.cell)<er+s.margin:mask[i,j]=True
-  if s.clear(p0,p1,free,mask):return [tuple(p0),tuple(p1)]
+      if math.hypot((i-c[0])*s.cell,(j-c[1])*s.cell)<er+s.margin:emask[i,j]=True
+  if s.clear(p0,p1,free,s.blocked,emask):return [tuple(p0),tuple(p1)]
   import heapq
-  a,b=s.cellof(p0),s.cellof(p1);blocked=mask.copy()
+  a,b=s.cellof(p0),s.cellof(p1);blocked=s.blocked.copy()
   for f in free:
    c=s.cellof(f);r=int(f[2]/s.cell)+1
    for i in range(max(0,c[0]-r),min(s.nx,c[0]+r+1)):
     for j in range(max(0,c[1]-r),min(s.ny,c[1]+r+1)):
      if math.hypot((i-c[0])*s.cell,(j-c[1])*s.cell)<f[2]:blocked[i,j]=False
+  if emask is not None:
+   blocked|=emask
+   for f in free:     # the cells right at the start and at the goal are always walkable
+    c=s.cellof(f);r=int(.4/s.cell)+1
+    for i in range(max(0,c[0]-r),min(s.nx,c[0]+r+1)):
+     for j in range(max(0,c[1]-r),min(s.ny,c[1]+r+1)):
+      if math.hypot((i-c[0])*s.cell,(j-c[1])*s.cell)<.4:blocked[i,j]=False
   g={a:0.};prev={};h=[(0.,a)];done=set();N=((1,0),(-1,0),(0,1),(0,-1),(1,1),(1,-1),(-1,1),(-1,-1))
   while h:
    _,c=heapq.heappop(h)
@@ -91,14 +100,14 @@ class Router:
     if d[0] and d[1] and (blocked[c[0]+d[0],c[1]] or blocked[c[0],c[1]+d[1]]):continue
     ng=g[c]+(1.414 if d[0] and d[1] else 1.)
     if ng<g.get(n,1e9):g[n]=ng;prev[n]=c;heapq.heappush(h,(ng+math.hypot(n[0]-b[0],n[1]-b[1]),n))
-  if b not in prev and a!=b:return [tuple(p0),tuple(p1)]
+  if b not in prev and a!=b:return s.route(p0,p1,free_r,(),start_r) if extra else [tuple(p0),tuple(p1)]   # no way round the characters: ignore them, keep the solids
   cells=[b]
   while cells[-1]!=a:cells.append(prev[cells[-1]])
   pts=[tuple(p0)]+[(c[0]*s.cell-s.hx,c[1]*s.cell-s.hy) for c in reversed(cells[1:-1])]+[tuple(p1)]
   out=[pts[0]];i=0
   while i<len(pts)-1:   # string pulling
    j=len(pts)-1
-   while j>i+1 and not s.clear(pts[i],pts[j],free,mask):j-=1
+   while j>i+1 and not s.clear(pts[i],pts[j],free,s.blocked,emask):j-=1
    out.append(pts[j]);i=j
   return out
 def route(p0,p1,obst,half=(30,30),margin=.4):return Router(obst,half,margin).route(p0,p1)
@@ -332,6 +341,13 @@ class Plan:
   if clip=='fall':a.state='down'
   elif clip=='getup':a.state='stand'
   s.events.append(dict(kind='act',who=a.id,clip=clip,t0=ts,t1=ts+dur,to=b.get('to')))
+ def b_react(s,b,t0):
+  """a reaction (startle, nod, laugh, think, shrug, wave, ...) with the head and body turned towards what it reacts to"""
+  kind=b.get('kind') or b.get('clip')
+  if kind not in ('startle','nod','laugh','think','shrug','wave','cele','block','dodge','hit','bow'):raise SpecError('react: unknown reaction %r'%kind)
+  nb=dict(do='act',who=b['who'],clip=kind)
+  if b.get('to') is not None:nb['to']=b['to']
+  return s.b_act(nb,t0)
  def b_say(s,b,t0):
   a=s.actors[b['who']];mood=b.get('mood') or dg.infer_mood(b['text']);to=b.get('to')
   if mood not in MOODS:raise SpecError('say: unknown mood %r'%mood)
@@ -396,15 +412,15 @@ class Plan:
     q=(p[0]+math.cos(j*math.pi/8)*r,p[1]+math.sin(j*math.pi/8)*r)
     if ok(q):return q
   return p
- def _walk_to(s,a,end,gait,mult=1.,via=()):
-  end=s._clear_spot(a,s._free_goal(a,end))
+ def _walk_to(s,a,end,gait,mult=1.,via=(),exact=False):
+  if not exact:end=s._clear_spot(a,s._free_goal(a,end))
   if a.state=='sit':s._stand(a)
   if a.state!='stand':raise SpecError('%s cannot walk while %s'%(a.id,a.state))
   gait=gait or a.gait
   if gait not in gaits.GAITS:raise SpecError('unknown gait %r (known: %s)'%(gait,', '.join(gaits.GAITS)))
   pts=[a.pos()]+[tuple(v[:2]) for v in via]+[tuple(end[:2])];path=[pts[0]]
-  extra=[(o.X[-1],o.Y[-1],o.radius*.9) for o in s.actors.values() if o is not a]
-  for p in pts[1:]:path+=s.router.route(path[-1],p,extra=extra)[1:]
+  extra=[(o.X[-1],o.Y[-1],o.radius+a.radius*.8) for o in s.actors.values() if o is not a]
+  for p in pts[1:]:path+=s.router.route(path[-1],p,free_r=.6 if exact else .7,extra=extra)[1:]
   path=round_corners(path,1.0*a.size)
   if len(path)>1:
    first=math.atan2(path[1][1]-path[0][1],path[1][0]-path[0][0]);a.turn_to(first,None)
@@ -465,8 +481,9 @@ class Plan:
   if a.holding:raise SpecError('take: %s already holds %s'%(a.id,a.holding))
   hand=b.get('hand') or p.carry;hs=('R','L') if hand=='both' else (hand,);x,y,z=p.at(a.t,s)
   if z<.45*a.size or z>1.35*a.size:raise SpecError('take: %s is at z=%.2f, out of reach for %s (put it on a table or crate: %.2f..%.2f)'%(pid,z,a.id,.45*a.size,1.35*a.size))
+  if p.on:a.ignore.append((a.t,a.t+30,p.on))
   spot=s._stand_spot(a,(x,y),z,'take')
-  if math.hypot(spot[0]-a.X[-1],spot[1]-a.Y[-1])>.05:s._walk_to(a,spot,b.get('gait'))
+  if math.hypot(spot[0]-a.X[-1],spot[1]-a.Y[-1])>.05:s._walk_to(a,spot,b.get('gait'),exact=True)
   a.face_point((x,y))
   ts=a.t;pts={h:(x,y,z) for h in hs};s._reach(a,hs,pts,ts,.6);tg=ts+.6;a.hold(.9)
   p.track.append((tg,'held',a.id,hand));a.holding=pid;s._carry(a,hs,tg+.1,.7);a.hold(.9)
@@ -479,8 +496,9 @@ class Plan:
    if b['on'] not in s.layout['surfaces']:raise SpecError('put: %r is not a surface'%b['on'])
    sx,sy,top,r=s.layout['surfaces'][b['on']];at=b.get('at') or [sx,sy];z=top+p.size[2]/2
   else:at=b['at'];z=b.get('z',p.size[2]/2)
+  if b.get('on'):a.ignore.append((a.t,a.t+30,b['on']))
   spot=s._stand_spot(a,(at[0],at[1]),z,'put')
-  if math.hypot(spot[0]-a.X[-1],spot[1]-a.Y[-1])>.05:s._walk_to(a,spot,b.get('gait'))
+  if math.hypot(spot[0]-a.X[-1],spot[1]-a.Y[-1])>.05:s._walk_to(a,spot,b.get('gait'),exact=True)
   a.face_point((at[0],at[1]))
   ts=a.t;pts={h:(at[0],at[1],z) for h in hs};s._reach(a,hs,pts,ts,.7);tg=ts+.7;a.hold(.9)
   p.track.append((tg,'world',(at[0],at[1],z)));a.holding=None;s._release(a,hs,tg+.1,.7);a.hold(.9)

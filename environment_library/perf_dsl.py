@@ -13,6 +13,10 @@ def say(who,text,mood=None,to=None,**k):
  if to:d['to']=to
  return d
 def act(who,clip,**k):return dict(do='act',who=who,clip=clip,**k)
+def react(who,kind,to=None):
+ d=dict(do='react',who=who,kind=kind)
+ if to is not None:d['to']=to
+ return d
 def look(who,at,dur=1.5):return dict(do='look',who=who,at=at,dur=dur)
 def emote(who,kind,dur=2.):return dict(do='emote',who=who,kind=kind,dur=dur)
 def wait(dur):return dict(do='wait',dur=dur)
