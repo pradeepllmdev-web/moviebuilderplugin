@@ -155,6 +155,14 @@ class Handler(SimpleHTTPRequestHandler):
      from movie_prompt import worker as movie_worker,validate as validate_movie
      kwargs={'prompt':body.get('prompt','')} if self.path=='/api/movie-plan' else {'plan':validate_movie(body['plan'])}
     JOBS[job['id']]=job;launch(movie_worker,job,BUILD_LOCK,**kwargs);self.send_json(job,202);return
+   if self.path=='/api/story-to-unreal':
+    from movie_to_unreal import worker as m2u
+    prompt=body.get('prompt');story=body.get('story')
+    for v in (prompt,story):
+     if v is not None and (not isinstance(v,str) or not 5<=len(v.strip())<=20000):raise ValueError('prompt/story must contain 5..20000 characters')
+    if not prompt and not story:raise ValueError('Give a prompt or a story')
+    kwargs={'prompt':prompt.strip() if prompt else None,'story':(story.strip()+chr(10)) if story else None,'minutes':max(1,min(30,int(body.get('minutes',8)))),'bridge_url':body.get('bridge_url') or None,'dry_run':bool(body.get('dry_run')),'use_model':bool(body.get('use_model',True))}
+    JOBS[job['id']]=job;launch(m2u,job,BUILD_LOCK,**kwargs);self.send_json(job,202);return
    if self.path in ('/api/route','/api/story-write'):
     prompt=body.get('prompt','')
     if not isinstance(prompt,str) or not 5<=len(prompt.strip())<=4000:raise ValueError('Prompt must contain 5..4000 characters')

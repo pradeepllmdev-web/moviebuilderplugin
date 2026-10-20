@@ -21,7 +21,7 @@ prompt or story text
 | Registry | `set_pieces.py`, `story_plan.py`, `story_writer.SENT` | a scene type exists when it is in `SET_PIECES`; `register_piece.py` / `scaffold_scene.py` add it everywhere |
 | Language models | `llm.py` | the only module that talks to a model; pluggable, cached, always has an offline fallback |
 | Routing | `prompt_router.py`, `studio_server.py` (`/api/route`, `/api/story-write`) | new pipeline where it applies, old builders elsewhere, `PROMPT_ENGINE=legacy` rolls back |
-| Unreal | `unreal_bridge.py`, `unreal_export.py`, `unreal_import.py`, `unreal_asset_map.json` | the scene is described, not rebuilt by hand; placeholders swapped for real assets by id |
+| Unreal | `ue_common.py`, `unreal_export.py`, `unreal_import.py`, `unreal_asset_map.json` | the scene is described, not rebuilt by hand; placeholders swapped for real assets by id |
 | Gate | `verify_all_scenes.py`, `tests/`, the audit lines inside every scene | nothing is "done" until its audit says so |
 
 Other repositories keep their roles: `3dobjectnew` owns movie records, scheduling and final assembly; `unrealplugin-next` owns native Unreal scene construction and its editor bridge; `blendplugin` owns the

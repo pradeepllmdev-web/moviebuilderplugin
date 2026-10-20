@@ -75,4 +75,12 @@ def summary(doc):
  roles={}
  for a in doc['actors']:roles[a['role']]=roles.get(a['role'],0)+1
  return dict(scene=doc['scene'],frames=doc['frame_end']-doc['frame_start']+1,fps=doc['fps'],actors=roles,characters=len(doc['characters']),clips=sum(len(c['clips']) for c in doc['characters']),cuts=len(doc['cuts']),audio=len(doc['audio']))
+def validate_scene_path(path,root):
+ """the only files the Unreal bridge will read: <root>/**/<name>.ue.json, resolved (no .., no links out of the root). Returns the resolved Path or raises ValueError."""
+ from pathlib import Path
+ p=Path(str(path)).resolve();r=Path(str(root)).resolve()
+ if not p.name.endswith('.ue.json'):raise ValueError('scene file must end in .ue.json')
+ if r != p and r not in p.parents:raise ValueError('scene file is outside the export root')
+ if not p.is_file():raise ValueError('scene file does not exist')
+ return p
 def load(path):return json.load(open(path,encoding='utf-8'))

@@ -11,5 +11,15 @@ Idea: do not rebuild scenes in Unreal by hand. Each built scene exports a descri
 
 Status: the exporter ran on the Boulder Trap (60 actors, 8 clip strips, 10 cuts, 6 audio strips; 678 frames reduced to 765 keys) and the dry-run importer and tests pass.
 NOT yet verified: the Unreal API calls (written for UE 5.3+) and the axis conversion (location Y negated, rotation = roll, -pitch, -yaw) have not been run inside Unreal. Open the sequence in Unreal, check that Leo runs forward along the corridor with the boulder behind him,
-and if anything is mirrored or turned, fix it in `ue_loc` / `ue_rot_deg` in `unreal_bridge.py` (one place).
+and if anything is mirrored or turned, fix it in `ue_loc` / `ue_rot_deg` in `ue_common.py` (one place).
 Not covered yet: material/emission animation, shape keys (jaw, lids), cloth and fur, per-clip root-motion settings, lighting and post-process look.
+
+## One Studio job from story to Unreal (uses the UnrealBridge plugin)
+`POST /api/story-to-unreal {prompt | story, minutes, dry_run, bridge_url}` runs: story_writer (if a prompt) > build_movie (scene by scene, audits) > stop if any scene fails its audit > for each good scene: export (`unreal_export.py`), `import_asset` the environment/prop FBX through the bridge, `apply_movie_scene`.
+From a shell: `python unreal_send.py <movie_folder> [--bridge http://127.0.0.1:8500] [--dry-run] [--scenes 1,2]`.
+
+Unreal side (one-time): in `unrealplugin-next` the command `apply_movie_scene` was added (new file `UnrealBridge/Content/Python/unreal_bridge/movie_scene.py`, registered in `commands.py`). Those edits are NOT committed there, because that repo already
+had uncommitted changes of yours; review and commit them yourself. Before starting the editor set `MOVIEBUILDER_ENV_LIB=<this folder>` (and optionally `MOVIEBUILDER_EXPORT_ROOT`). The bridge reads only `<name>.ue.json` files below the export root and never overwrites an existing sequence.
+The pure helper module is `ue_common.py` (not `unreal_bridge.py`, which would collide with the plugin's own package name).
+Tested here: the whole path against a fake local bridge (real Blender export of the Boulder Trap, real HTTP client, command order). Not tested: the commands inside a live editor.
+Characters: the bridge's cast and animation library own the real character assets; map `LeoRoot` and the clip names in `unreal_asset_map.json` to your imported lion and animations (see the earlier steps), or import them with the bridge's own `import_cast`.

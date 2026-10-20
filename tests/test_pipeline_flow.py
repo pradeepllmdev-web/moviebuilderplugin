@@ -61,3 +61,46 @@ class UnrealGuard(unittest.TestCase):
  def test_override_and_unique_names(self):
   ui.guard(self.fake('C:/x/Other/p.uproject'),{'UNREAL_IMPORT_ANY_PROJECT':'1'});self.assertEqual(ui.unique_name(lambda p:p.endswith('LS_a'),'LS_a'),'LS_a_2')
 if __name__=='__main__':unittest.main()
+
+import json,threading
+import unreal_send as us,ue_common as uc,movie_to_unreal as m2u
+class FakeBridge:
+ def __init__(self):self.calls=[]
+ def command(self,name,params=None):
+  self.calls.append((name,params));return {'sequence':'/Game/Movie/LS_x'} if name=='apply_movie_scene' else {'assets':['a']}
+class Send(unittest.TestCase):
+ def test_bridge_url_rules(self):
+  us.Bridge('http://127.0.0.1:8500');us.Bridge('http://localhost:8501')
+  for bad in ('https://127.0.0.1:8500','http://example.com:8500','http://127.0.0.1:8500/x','http://u:p@127.0.0.1:8500'):
+   with self.assertRaises(ValueError):us.Bridge(bad)
+ def test_scene_path_validation(self):
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d)/'root';(root/'m').mkdir(parents=True);good=root/'m'/'a.ue.json';good.write_text('{}');(root/'m'/'b.json').write_text('{}');outside=Path(d)/'c.ue.json';outside.write_text('{}')
+   self.assertEqual(uc.validate_scene_path(good,root),good.resolve())
+   for bad in (root/'m'/'b.json',outside,root/'m'/'..'/'..'/'c.ue.json',root/'m'/'missing.ue.json'):
+    with self.assertRaises(ValueError):uc.validate_scene_path(bad,root)
+ def test_send_scene_imports_meshes_then_applies(self):
+  with tempfile.TemporaryDirectory() as d:
+   j=Path(d)/'s.ue.json';j.write_text(json.dumps({'scene':'s'}));[(Path(d)/n).write_text('x') for n in ('environment.fbx','props.fbx','character_Leo.fbx','anim_run.fbx')]
+   b=FakeBridge();res=us.send_scene(b,j);names=[c[0] for c in b.calls]
+   self.assertEqual(names,['import_asset','import_asset','apply_movie_scene']);self.assertEqual(res['imported'],['environment.fbx','props.fbx']);self.assertEqual(b.calls[-1][1]['dry_run'],False)
+ def test_dry_run_imports_nothing(self):
+  with tempfile.TemporaryDirectory() as d:
+   j=Path(d)/'s.ue.json';j.write_text(json.dumps({'scene':'s'}));(Path(d)/'environment.fbx').write_text('x');b=FakeBridge();us.send_scene(b,j,dry_run=True);self.assertEqual([c[0] for c in b.calls],['apply_movie_scene'])
+ def test_send_movie_skips_scenes_with_problems(self):
+  with tempfile.TemporaryDirectory() as d:
+   rep=dict(report=[dict(index=1,piece='ice',file='a.blend',status='built in 5s',audit=[]),dict(index=2,piece='ruins',file='b.blend',status='built in 5s',audit=['AUDIT x']),dict(index=3,piece=None,file=None,status='needs the shot-by-shot planner',audit=[])])
+   (Path(d)/'report.json').write_text(json.dumps(rep));made=[]
+   def fake_export(blend,out,name):
+    out=Path(out);out.mkdir(parents=True,exist_ok=True);j=out/(name+'.ue.json');j.write_text(json.dumps({'scene':name}));made.append(name);return j
+   os.environ['MOVIEBUILDER_EXPORT_ROOT']=str(Path(d)/'exp')
+   try:res=us.send_movie(d,FakeBridge(),export=fake_export)
+   finally:os.environ.pop('MOVIEBUILDER_EXPORT_ROOT')
+   self.assertEqual(len(res['sent']),1);self.assertEqual([s['index'] for s in res['skipped']],[2,3])
+class StudioJob(unittest.TestCase):
+ def test_refuses_when_busy_and_bad_bridge(self):
+  lock=threading.Lock();lock.acquire();job={'id':'a'*32};m2u.worker(job,lock,prompt='Leo climbs a cliff');self.assertEqual(job['status'],'failed');lock.release()
+  job={'id':'b'*32};
+  with self.assertRaises(ValueError):m2u.worker(job,threading.Lock(),prompt='Leo climbs a cliff',bridge_url='http://example.com:1')
+ def test_needs_prompt_or_story(self):
+  with self.assertRaises(ValueError):m2u.worker({'id':'c'*32},threading.Lock())

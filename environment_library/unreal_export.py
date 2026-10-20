@@ -9,7 +9,7 @@ placeholder ids for real assets through unreal_asset_map.json. See UNREAL_BRIDGE
 import bpy,json,math,os,re,sys
 import numpy as np
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
-import unreal_bridge as ub
+import ue_common as ub
 args=sys.argv[sys.argv.index('--')+1:];OUT=args[0];sc=bpy.context.scene;NAME=args[1] if len(args)>1 else os.path.splitext(os.path.basename(bpy.data.filepath))[0].replace('_scene','')
 os.makedirs(OUT,exist_ok=True);FS,FE=sc.frame_start,sc.frame_end;FPS=sc.render.fps
 EFFECTS=('Dust','Spark','Splash','Steam','Puff','Bolt','Snow')

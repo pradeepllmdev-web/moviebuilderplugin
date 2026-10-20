@@ -12,7 +12,7 @@ unreal_asset_map.json fall back to the proxy FBX meshes imported from the export
 The Unreal API calls are written against 5.3+ (LevelSequence, MovieScene tracks, EditorActorSubsystem) and have not been run inside Unreal yet; the DryRun backend exercises all the logic around them."""
 import json,os,sys
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
-import unreal_bridge as ub
+import ue_common as ub
 def unique_name(exists,base,folder='/Game/Movie'):
  """never overwrite: LS_<scene>, LS_<scene>_2, ... first name whose asset does not exist"""
  n=0
@@ -42,13 +42,16 @@ class DryRun:
  def camera_cut(self,name,h,start,end):self.counts['cuts']+=1
  def audio(self,name,path,start,vol):self.counts['audio']+=1
  def save(self):self.log.append(('save',))
+ sequence_path=None
 class UnrealBackend:
  """thin wrapper over the Unreal editor Python API (see the module docstring for the version note)"""
- def __init__(self):
-  import unreal;self.u=unreal;guard(unreal);self.seq=None;self.bind={}
+ def __init__(self,check=True):
+  import unreal;self.u=unreal
+  if check:guard(unreal)   # the editor bridge passes check=False: it has its own busy/undo rules and never overwrites
+  self.seq=None;self.bind={};self.sequence_path=None
  def sequence(self,name,fps,start,end):
   u=self.u;tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset(unique_name(u.EditorAssetLibrary.does_asset_exist,'LS_%s'%name),'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
-  self.scene=name;self.seq.set_display_rate(u.FrameRate(fps,1));self.seq.set_playback_start(start);self.seq.set_playback_end(end+1);self.fps=fps
+  self.scene=name;self.sequence_path=self.seq.get_path_name();self.seq.set_display_rate(u.FrameRate(fps,1));self.seq.set_playback_start(start);self.seq.set_playback_end(end+1);self.fps=fps
  def _class_for(self,role):
   u=self.u
   return {'camera':u.CineCameraActor,'light':u.PointLight,'character':u.SkeletalMeshActor}.get(role,u.StaticMeshActor)
