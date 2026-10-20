@@ -28,7 +28,7 @@ S.append(scene('silent_clock','The silent clock',square(),[at('bram',0,11.5,face
  act('bram','think',dur=2),
  convo([('pip','I will search every corner of the workshop. Every drawer, every cog, every crumb.','joy','bram')]),
  par(go('pip',[-8,5],gait='run'),look('bram','pip',3)),
-],time='dawn',ambience='wind',music='mystery'))
+],time='dawn',ambience='wind',music='mystery',extras=crowd(5,[-9,3,9,13],[0,12.5],1)))
 # 2 ---------------------------------------------------------------------------------------------------------------- the captain accuses
 S.append(scene('accusation','The captain accuses',square(3),[at('odo',-8,-3,face=[0,0]),at('bram',2,3,face=[-8,-3]),at('tilda',-6,6,face=[0,0]),at('pip',4,5,face=[0,0])],steps=[
  go('odo','bram',stop=2.4,gait='stomp'),
@@ -40,7 +40,7 @@ S.append(scene('accusation','The captain accuses',square(3),[at('odo',-8,-3,face
  convo([('odo','Very well. Until sunset. Then I search, and I do not ask twice.','serious','bram'),('bram','You will not need to. My door is open to anyone who can find a key in a clock.','sad','odo')]),
  par(go('odo',[-7,-5],gait='stomp'),emote('bram','sad',3)),
  act('tilda','wave'),
-],time='day',ambience='market',music='tense'))
+],time='day',ambience='market',music='tense',extras=crowd(5,[-12,-8,12,10],[0,0],2)))
 # 3 ---------------------------------------------------------------------------------------------------------------- the empty case
 S.append(scene('empty_case','The empty case',loc('workshop',2),[at('bram',-1.5,-1.0,face='table'),at('pip',2.8,1.8,face='table')],props=[prop('scrap','letter',1.6,-0.38,on='table')],steps=[
  par(go('pip',[1.0,-1.3],gait='brisk'),look('bram','table',2)),
@@ -79,7 +79,7 @@ S.append(scene('market_trail','The oil trail',loc('market',3),[at('mara',-7,-6,f
  par(go('mara',[5,-4],gait='run'),go('pip',[7.5,-5.5],gait='run'),act('tilda','wave')),
  convo([('tilda','Bring me the key and I will bake you a cake the size of the bell!','joy','mara'),('mara','Is she serious?','concern','pip'),('pip','She is always serious. That is why the cakes are good.','warm','mara')]),
  par(go('mara',[6,-10.5],gait='run'),go('pip',[10,-8],gait='run')),
-],time='day',ambience='market',music='bright'))
+],time='day',ambience='market',music='bright',extras=crowd(9,[-14,-12,14,10],[0,-1],3)))
 # 6 ---------------------------------------------------------------------------------------------------------------- the council
 S.append(scene('council','The council',loc('hall',2),[at('wren',0,6.2,face=[0,-4]),at('odo',-2.5,-6.5,face=[0,5]),at('bram',2.5,-6.8,face=[0,5])],steps=[
  par(go('odo',[-2,-2.6],gait='stomp'),go('bram',[2,-2.6],gait='walk')),
@@ -91,7 +91,7 @@ S.append(scene('council','The council',loc('hall',2),[at('wren',0,6.2,face=[0,-4
   ('wren','Then we ring the festival with a handbell and I will apologise to the whole town myself.','sad','odo')]),
  par(go('odo',[-2.5,-6.5],gait='stomp'),go('bram',[2.5,-6.8],gait='walk')),
  emote('wren','sad',3),
-],time='day',ambience='hall',music='tense'))
+],time='day',ambience='hall',music='tense',extras=crowd(4,[-10,-7,10,7],[0,5],4)))
 # 7 ---------------------------------------------------------------------------------------------------------------- the orchard
 S.append(scene('orchard','The old orchard',loc('forest_clearing',5,objects=[dict(kind='tree',at=[-4,3],id='apple1'),dict(kind='tree',at=[4,-3],id='apple2'),dict(kind='log',at=[0,-5],id='trunk')]),[at('mara',-5,-1,face=[0,0]),at('pip',-6,-2,face=[0,0])],steps=[
  par(go('mara',[-3,0],gait='walk'),go('pip',[-4,-1.5],gait='walk')),
@@ -165,7 +165,7 @@ S.append(scene('announcement','The announcement',square(6),[at('wren',3,-4,face=
  act('odo','nod'),
  convo([('wren','Then the festival waits a day. Tilda, tell the town the clock needs rest.','serious','tilda')]),
  emote('wren','smile',2),
-],time='dusk',ambience='crowd',music='calm'))
+],time='dusk',ambience='crowd',music='calm',extras=crowd(8,[-11,-9,11,9],[3,-4],5)))
 # 13 --------------------------------------------------------------------------------------------------------------- repair at night
 S.append(scene('repair','The night repair',loc('workshop',4),[at('bram',-1.5,-1.0,face='table'),at('rook',3.0,-1.8,face='table'),at('pip',-3.5,-2.2,face=[0,0])],props=[prop('wrench','tool',1.0,-.36,on='table'),prop('crate_gear','crate',3.6,-2.9,z=.35),prop('lamp2','lantern',2.2,-.36,on='table')],steps=[
  par(go('pip',[2.7,-2.9],gait='brisk'),look('bram','table',2)),
@@ -202,7 +202,7 @@ S.append(scene('dawn_square','The morning crowd',square(7),[at('wren',-2,-3,face
  act('wren','nod'),
  convo([('wren','Then we begin at noon. Mara, run and tell them the clock is back and so are we.','warm','mara')]),
  go('mara',[8,-2],gait='run'),
-],time='dawn',ambience='market',music='bright'))
+],time='dawn',ambience='market',music='bright',extras=crowd(8,[-12,-9,12,10],[0,6],6)))
 # 16 --------------------------------------------------------------------------------------------------------------- twelve strikes
 S.append(scene('twelve_strikes','Twelve strikes',square(8),[at('wren',0,-4,face=[0,12]),at('bram',-3,7,face=[0,17]),at('rook',3,7,face=[0,17]),at('pip',0,6,face=[0,17]),at('mara',-6,-1,face=[0,17]),at('tilda',-9,3,face=[0,17]),at('odo',7,-1,face=[0,17])],steps=[
  par(act('wren','talk',dur=3),look('bram',[0,17],4)),
@@ -213,7 +213,7 @@ S.append(scene('twelve_strikes','Twelve strikes',square(8),[at('wren',0,-4,face=
  par(sfx('bell',0.5),sfx('bell',2.5),sfx('gong',4.5),act('bram','laugh'),act('rook','laugh'),act('pip','wave')),
  convo([('pip','Twelve! It counted twelve!','joy','mara'),('mara','And not a minute late!','joy','pip'),('tilda','Cake in the square! Come while it is warm!','joy','odo')]),
  par(act('odo','cele'),act('mara','wave')),
-],time='day',ambience='crowd',music='bright'))
+],time='day',ambience='crowd',music='bright',extras=crowd(14,[-13,-8,13,11],[0,12],7)))
 # 17 --------------------------------------------------------------------------------------------------------------- an apology
 S.append(scene('apology','An apology',square(9),[at('odo',-4,-2,face=[0,0]),at('rook',4,-3,face=[0,0])],steps=[
  par(go('odo','rook',stop=1.9,gait='walk'),look('rook','odo',2)),
@@ -223,7 +223,7 @@ S.append(scene('apology','An apology',square(9),[at('odo',-4,-2,face=[0,0]),at('
  convo([('rook','A job?','concern','odo'),('odo','Keeper of the clock tower. Someone who listens to gears. The pay is bad, the stairs are steep.','warm','rook'),('rook','I accept. I like steep stairs. They keep my tail in shape.','joy','odo')]),
  par(act('odo','laugh'),act('rook','laugh')),
  convo([('odo','Come, the baker is handing out cake the size of a bell.','warm','rook'),('rook','Then lead on, Captain. I will walk behind you, so I can see your helmet.','warm','odo')]),
-],time='day',ambience='market',music='warm'))
+],time='day',ambience='market',music='warm',extras=crowd(4,[-12,-8,12,8],[0,0],8)))
 # 18 --------------------------------------------------------------------------------------------------------------- farewell
 S.append(scene('farewell','The farewell',loc('hilltop',3),[at('mara',-1,-1,face=[8,6]),at('pip',-2.5,-1.5,face='mara')],steps=[
  par(look('mara',[10,12],3),act('pip','wave')),
@@ -256,7 +256,7 @@ S.append(scene('evening','The evening strike',square(10),[at('wren',-3,-4,face=[
  par(go('pip','bram',stop=1.2,gait='brisk'),go('mara','pip',stop=1.4)),
  convo([('pip','Can we do it again tomorrow?','joy','bram'),('bram','Every day, Pip. That is the whole secret of a clock.','warm','pip')]),
  wait(3),
-],time='dusk',ambience='crowd',music='calm'))
+],time='dusk',ambience='crowd',music='calm',extras=crowd(10,[-13,-8,13,10],[0,12],9)))
 INTENT={
  'silent_clock':'Dawn before the harvest festival. The town clock is silent: its key is gone.',
  'accusation':'The guard captain blames the clockmaker and gives him until sunset.',

@@ -55,15 +55,17 @@ def at(id_,x,y,face=None):
  d=dict(id=id_,at=[x,y])
  if face is not None:d['face']=list(face) if isinstance(face,(tuple,list)) else face
  return d
+def crowd(n,area,focus=(0,0),seed=1,species=None):
+ return dict(n=n,area=list(area),focus=list(focus),seed=seed,**({'species':species} if species else {}))
 def loc(preset,seed=1,**k):return dict(preset=preset,seed=seed,**k)
 def prop(id_,kind,x,y,z=None,on=None,**k):
  d=dict(id=id_,kind=kind,at=[x,y],**k)
  if z is not None:d['z']=z
  if on:d['on']=on
  return d
-def scene(id_,title,location,cast,steps,props=None,time='day',ambience='wind',music='calm',intent=''):
+def scene(id_,title,location,cast,steps,props=None,time='day',ambience='wind',music='calm',intent='',extras=None):
  flat=[]
  for s in steps:
   if isinstance(s,Convo):flat+=list(s)
   else:flat.append(s)
- return dict(id=id_,title=title,intent=intent,location=location,time=time,ambience=ambience,music=music,cast=cast,props=props or [],steps=flat)
+ return dict(id=id_,title=title,intent=intent,extras=extras,location=location,time=time,ambience=ambience,music=music,cast=cast,props=props or [],steps=flat)

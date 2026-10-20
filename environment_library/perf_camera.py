@@ -90,7 +90,11 @@ def _tidy(plan,cuts,rnd):
  return res
 def frame(plan,c,t):
  """(camera position, aim point, lens) at time t for a cut; inside a room the camera stays inside its walls"""
- pos,aim,lens=_frame(plan,c,t);ins=plan.layout.get('inside')
+ pos,aim,lens=_frame(plan,c,t);ins=plan.layout.get('inside');u=max(0.,min(1.,(t-c['t0'])/max(.1,c['t1']-c['t0'])))
+ if c['kind'] in ('ots','single','medium','insert'):    # a slow push-in over the shot
+  k=1-.08*u;pos=(aim[0]+(pos[0]-aim[0])*k,aim[1]+(pos[1]-aim[1])*k,aim[2]+(pos[2]-aim[2])*k)
+ elif c['kind'] in ('wide','group'):     # a slow drift round the scene
+  C,r=spread(plan,t);ang=.22*u;dx,dy=pos[0]-C[0],pos[1]-C[1];pos=(C[0]+dx*math.cos(ang)-dy*math.sin(ang),C[1]+dx*math.sin(ang)+dy*math.cos(ang),pos[2])
  if ins:
   pos=(min(max(pos[0],ins[0]),ins[2]),min(max(pos[1],ins[1]),ins[3]),min(max(pos[2],.6),2.5));lens=min(lens,{'wide':24,'group':24,'two':24,'track':26,'follow_high':26,'medium':30,'ots':30,'single':30,'insert':40}.get(c['kind'],lens))   # a small room has no room to step back: widen instead
  return pos,aim,lens

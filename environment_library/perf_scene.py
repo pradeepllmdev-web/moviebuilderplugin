@@ -7,7 +7,7 @@ Technique: PLAN FIRST, BLENDER SECOND. perf_plan compiles the spec to per-frame 
 prop being handled, ahead when walking), keys lip sync and expression from the synthesised voices, drives the arms with IK towards the plan's hand targets (props follow the hands), lets the automatic camera director (perf_camera) cut the coverage,
 and writes the sound (voices, ambience, score, footsteps, effects). Audits (all numeric, printed as AUDIT lines): the plan's own (speech overlap, collisions, solids, gait speeds), eye lines, lip sync, planted-foot slip, hand-to-prop distance,
 speaker framing in every dialogue cut, camera inside or behind solids, persistence. Also writes <out>.plan.json (cuts, lines, audits) for the movie runner and the contact sheets."""
-import bpy,math,sys,os,json
+import bpy,math,sys,os,json,random
 import numpy as np
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import scene_base as sb,scene_kit as kit,scene_params,dialogue as dg,gaits
@@ -31,6 +31,9 @@ dg.pitch_of=lambda name:PITCH.get(name,orig_pitch(name))
 CH={}
 for i,a in PLAN.actors.items():
  CH[i]=cb.build(S,a.look,i)
+EXTRAS={}
+for e in PLAN.extras:
+ ch=cb.build(S,e['look'],e['id']);EXTRAS[e['id']]=ch;r=ch['root'];r.location=(e['x'],e['y'],0.);r.rotation_euler=(0,0,e['h']+PI/2)
 def keyroot(i):
  a=PLAN.actors[i];r=CH[i]['root'];prev=None
  for f in S.keys():
@@ -53,13 +56,16 @@ def place(ch,name,t0,t1,sc,opt,first):
   if need>=1:st.repeat=need
   else:st.action_frame_end=st.action_frame_start+max(2,need*n)-1
   st.extrapolation='NOTHING'
- st.blend_in=5 if ch['n']>1 else 0;st.blend_out=0 if opt.get('hold') else 5;return st
+ walk=name in ('walk','strut','shuffle','bounce','sneak','stomp','brisk','run')
+ st.blend_in=(8 if walk else 5) if ch['n']>1 else 0;st.blend_out=0 if opt.get('hold') else (8 if walk else 5);return st
 for i,ch in CH.items():
  segs=[];cl=PLAN.actors[i].clips
  for c in cl:
   if segs and c[1]-c[0]<.35 and not c[4]:segs[-1]=segs[-1][:1]+(c[1],)+segs[-1][2:];continue
   segs.append(c)
  for k,(t0,t1,name,sc,opt) in enumerate(segs):place(ch,name,t0,t1,sc,opt,k==0)
+for e in PLAN.extras:     # extras stand and breathe out of step with each other, looking at the focus
+ ch=EXTRAS[e['id']];rx=random.Random(sum(map(ord,e['id']+SPEC['id'])));place(ch,'idle',0,S.seconds,1.,dict(f0=rx.randint(1,60),f1=96),True)
 # ---------------------------------------------------------------------------------------------------------- gaze
 def face_xyz(who,t):
  a=PLAN.actors[who];hx,hy,hz=PLAN.head_pos(who,t);x,y,h=PLAN.pos(who,t);g=PLAN.gaze(who,t)
@@ -71,13 +77,18 @@ def face_xyz(who,t):
  if abs(ang)>lim:
   na=h+math.copysign(lim,ang);r=max(1.,math.hypot(*d));tgt=(hx+math.cos(na)*r,hy+math.sin(na)*r,tgt[2])
  return Vector(tgt)
-GZ={};FACE0={}
+import random
+GZ={};FACE0={};SAC={i:Vector((0,0,0)) for i in CH};rnd_s={i:random.Random(sum(map(ord,SPEC['id']+i))) for i in CH}
 for i,ch in CH.items():
  a=PLAN.actors[i];h0=a.H[0];FACE0[i]=(math.cos(h0),math.sin(h0),0);GZ[i]=S.gaze(ch,FACE0[i])
  cur=None
  for f in S.keys():
-  t=(f-1)/FPS;tg=face_xyz(i,t);cur=tg if cur is None else cur+(tg-cur)*.45
+  t=(f-1)/FPS;tg=face_xyz(i,t)
+  if (f-1)//2%5==0:SAC[i]=Vector((rnd_s[i].uniform(-.22,.22),rnd_s[i].uniform(-.22,.22),rnd_s[i].uniform(-.12,.12)))   # a small glance every ~0.4 s
+  tg=tg+SAC[i];cur=tg if cur is None else cur+(tg-cur)*.45
   GZ[i].location=cur;GZ[i].keyframe_insert('location',frame=f)
+for e in PLAN.extras:
+ ch=EXTRAS[e['id']];fx=(math.cos(e['h']),math.sin(e['h']),0);g=S.gaze(ch,fx);g.location=(e['focus'][0],e['focus'][1],1.3*e['look']['scale'][2])
 # ---------------------------------------------------------------------------------------------------------- lip sync and expression
 def meshes_with(ch,key):return [o.data.shape_keys for o in ch['objs'] if o.type=='MESH' and o.data.shape_keys and key in o.data.shape_keys.key_blocks]
 for ch in CH.values():
@@ -97,6 +108,12 @@ for L in PLAN.lines:
  for nm,val in dg.MOOD_KEYS[L['mood']].items():key(ch,nm,[(S.F(L['t0']-.3),0),(S.F(L['t0']+.2),val),(S.F(L['t1']-.2),val),(S.F(L['t1']+.3),0)])
  if L['to'] in CH and L['to']!=L['speaker']:
   for nm,val in (dg.MOOD_KEYS['warm'] if L['mood'] in ('warm','joy') else (dg.MOOD_KEYS['concern'] if L['mood'] in ('angry','sad') else {})).items():key(CH[L['to']],nm,[(S.F(L['t0']+.4),0),(S.F(L['t0']+1.0),val*.8),(S.F(L['t1']-.1),val*.8),(S.F(L['t1']+.4),0)])
+for L in PLAN.lines:
+ rb=random.Random(L['k']*131+sum(map(ord,SPEC['id'])));ch=CH[L['speaker']];t=L['t0']+rb.uniform(.4,.9)
+ while t<L['t1']-.3:
+  v=rb.uniform(.25,.45)
+  for nm in ('ActingBrowL','ActingBrowR'):key(ch,nm,[(S.F(t),0),(S.F(t+.12),v),(S.F(t+.35),0)])
+  t+=rb.uniform(.9,1.6)
 EMOTE={'smile':dict(WarmSmile=.8),'frown':dict(Frown=.6),'concern':dict(Concern=.6,ActingBrowL=.4,ActingBrowR=.4),'sad':dict(ConcernStrong=.6,Frown=.2),'brows':dict(ActingBrowL=.7,ActingBrowR=.7)}
 for i,a in PLAN.actors.items():
  for (t0,t1,kind) in a.emotes:
@@ -141,6 +158,25 @@ for pid,p in PLAN.props.items():
   yaw=p.yaw
   if cur and cur[1]=='held':yaw=PLAN.actors[cur[2]].H[min(len(PLAN.actors[cur[2]].H)-1,f-1)]
   root.rotation_euler=(0,0,yaw);root.keyframe_insert('rotation_euler',frame=f)
+# ---------------------------------------------------------------------------------------------------------- grounding: the in-place clips of falling, getting up, kneeling, crawling and sitting sink into or float over the floor, so the root is lifted per frame until the lowest point of the body rests on it
+GROUNDED=('sit','fall','getup','kneel','lie','crawl','jump')
+def ground_pass():
+ report={}
+ for i,ch in CH.items():
+  a=PLAN.actors[i];win=[(c[0]-.3,c[1]+.3) for c in a.clips if c[2] in GROUNDED]
+  if not win:continue
+  body=max((o for o in ch['objs'] if o.type=='MESH' and o.name.startswith(('char1','Body'))),key=lambda o:len(o.data.vertices),default=None)
+  if body is None:continue
+  frames=sorted({f for (a0,b0) in win for f in range(S.F(max(0,a0)),S.F(min(S.seconds,b0))+1) if (f-1)%2==0});low={}
+  for f in frames:
+   S.settle(f);dg=bpy.context.evaluated_depsgraph_get();e=body.evaluated_get(dg);me=e.to_mesh();n=len(me.vertices);co=np.empty(n*3);me.vertices.foreach_get('co',co);co=co.reshape(n,3);M=np.array(e.matrix_world)
+   low[f]=float((co@M[2,:3]+M[2,3]).min());e.to_mesh_clear()
+  lift=kit.ground_lift(low,0.,margin=.005,limit=.8,window=1);r=ch['root']
+  for f,z in lift.items():
+   k=min(len(a.X)-1,f-1);r.location=(a.X[k],a.Y[k],z);r.keyframe_insert('location',frame=f)
+  report[i]=max(lift.values()) if lift else 0.
+ return report
+GROUND=ground_pass()
 # ---------------------------------------------------------------------------------------------------------- cameras
 CUTS=pc.direct(PLAN,seed=sum(map(ord,SPEC['id'])))
 def pos_(kind,t,u):return pc.frame(PLAN,kind,t)
@@ -218,7 +254,7 @@ def snd(A):
    if L['speaker']==name:A.at(v,L['t0']+.2,x,1.)
   if np.abs(v).max()>0:A.track('voice %s'%name,v,.9)
  N=A.N;SR=A.SR
- A.track('ambience',pa.ambience(SPEC.get('ambience','wind'),N,SR,rng),.28)
+ amb=pa.ambience(SPEC.get('ambience','wind'),N,SR,rng);A.track('ambience',amb,{'fire':.1,'sea':.09,'rain':.1,'crowd':.07,'market':.07}.get(SPEC.get('ambience'),.045))   # a bed under everything, never the loudest thing
  mus=None
  if SPEC.get('theme'):mus=ps.render(PLAN,SPEC['theme'],SPEC.get('music','calm'),SPEC.get('location',{}).get('preset'),TIME,SPEC['id'],SPEC.get('music_cues'),sr=SR)
  if mus is None:mus=pa.music(SPEC.get('music','calm'),N,SR,sum(map(ord,SPEC['id'])))
@@ -231,7 +267,7 @@ def snd(A):
 S.audio(snd)
 os.makedirs(os.path.dirname(S.out),exist_ok=True)
 json.dump(dict(id=SPEC['id'],title=SPEC.get('title',''),seconds=PLAN.seconds,cuts=[dict(name=c['name'],t0=c['t0'],t1=c['t1'],kind=c['kind'],subject=c.get('subject')) for c in CUTS],lines=[dict(k=L['k'],speaker=L['speaker'],to=L['to'],mood=L['mood'],text=L['text'],t0=L['t0'],t1=L['t1']) for L in PLAN.lines],audit=issues,
- cast=list(CH),stats=dict(foot_slip=mean_slip,reach=reach_worst,eye_speaker=worst_sp,eye_listener=worst_li,framing_misses=miss,framing_checked=chk)),open(S.out+'.plan.json','w',encoding='utf-8'),indent=1)
+ cast=list(CH),stats=dict(ground_lift=max(GROUND.values(),default=0.),foot_slip=mean_slip,reach=reach_worst,eye_speaker=worst_sp,eye_listener=worst_li,framing_misses=miss,framing_checked=chk)),open(S.out+'.plan.json','w',encoding='utf-8'),indent=1)
 S.finish(issues,[CH[i]['root'] for i in CH],world=pl.normalise(SPEC.get('location',dict(preset='meadow'))).get('world') or scene_params.preset(TIME if TIME in scene_params.TIME_OF_DAY else 'day')['world'])
 if os.environ.get('PERF_DEBUG'):
  for nm in CH:

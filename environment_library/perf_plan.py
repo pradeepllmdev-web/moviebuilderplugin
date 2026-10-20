@@ -134,6 +134,24 @@ def polyline_samples(points,speed,dt=1./FPS):
   while k<len(segs)-1 and s>acc+segs[k][2]+1e-9:acc+=segs[k][2];k+=1
   a,b,L=segs[k];u=min(1.,(s-acc)/L);out.append((a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u,math.atan2(b[1]-a[1],b[0]-a[0])))
  return out
+EXTRA_SPECIES=('rabbit','cat','badger','boar','mouse','fox','owl','bear','ox','heron','wolf','elder')
+EXTRA_ACC=('hat_cap','hat_straw','scarf','satchel','backpack','apron','bowtie','cane','flower','glasses')
+EXTRA_POSTURES=('neutral','proud','tired','jaunty','hunched')
+def make_extras(spec,layout,starts):
+  """background characters of a scene (spec 'extras': dict(n, area=[x0,y0,x1,y1], focus=[x,y], seed, species)): deterministic looks and places that avoid solids and the cast, all turned towards the focus. They stand and breathe; the planner routes the cast around them."""
+  ex=spec.get('extras')
+  if not ex:return []
+  import cast_registry as cr
+  rnd=random.Random(ex.get('seed',1));x0,y0,x1,y1=ex['area'];focus=ex.get('focus',[0,0]);out=[];tries=0;species=ex.get('species') or list(EXTRA_SPECIES)
+  while len(out)<ex['n'] and tries<ex['n']*60:
+   tries+=1;x,y=rnd.uniform(x0,x1),rnd.uniform(y0,y1)
+   if any(math.hypot(x-c[0],y-c[1])<c[2]+.6 for c in layout['obstacles']) or any(math.hypot(x-sx,y-sy)<1.8 for sx,sy in starts) or any(math.hypot(x-o['x'],y-o['y'])<1.25 for o in out):continue
+   sp=rnd.choice(species);acc=rnd.sample(EXTRA_ACC,rnd.choice([0,1,1,2]))
+   if sum(1 for a in acc if a in('hat_cap','hat_straw'))>1:acc=acc[:1]
+   t=cr.SPECIES[sp]['tint'];tint=tuple(round(min(1.9,max(.1,v*rnd.uniform(.8,1.15))),3) for v in t)
+   look=cr.resolve(dict(id='x%d'%len(out),name='Extra',species=sp,accessories=acc,tint=tint,posture=rnd.choice(EXTRA_POSTURES),height=cr.SPECIES[sp]['height']*rnd.uniform(.9,1.1)))
+   h=math.atan2(focus[1]-y,focus[0]-x)+rnd.uniform(-.35,.35);out.append(dict(id='x%d'%len(out),x=x,y=y,h=h,look=look,focus=list(focus)))
+  return out
 class Prop:
  def __init__(s,spec,pos,table):
   s.id=spec['id'];s.kind=spec['kind'];k=PROP_KINDS_CHECK(s.kind);s.size=tuple(x*spec.get('size',1.) for x in k['size']);s.carry=k['carry'];s.yaw=math.radians(spec.get('yaw',0.));s.pos=tuple(pos);s.on=spec.get('on');s.track=[(0.,'world',tuple(pos))]
@@ -149,7 +167,7 @@ def PROP_KINDS_CHECK(kind):
  return pl.PROP_KINDS[kind]
 class Actor:
  def __init__(s,id_,look,x,y,h):
-  s.id=id_;s.look=look;s.size=look['scale'][2];s.stride=look['scale'][1];s.radius=look['radius'];s.X=[x];s.Y=[y];s.H=[h];s.clips=[];s.hands={'R':[],'L':[]};s.state='stand';s.seat=None;s.holding=None;s.emotes=[];s.ignore=[];s.walks=[];s.gait=look['gait']
+  s.id=id_;s.look=look;s.size=look['scale'][2];s.stride=look['scale'][1];s.radius=look['radius'];s.X=[x];s.Y=[y];s.H=[h];s.clips=[];s.hands={'R':[],'L':[]};s.state='stand';s.seat=None;s.holding=None;s.emotes=[];s.ignore=[];s.walks=[];s.gait=look['gait'];s.last_gesture=None
  @property
  def t(s):return (len(s.X)-1)/FPS
  def pos(s):return s.X[-1],s.Y[-1]
@@ -196,6 +214,8 @@ class Plan:
    s.props[p['id']]=Prop(p,(p['at'][0],p['at'][1],(z if z is not None else base+sz/2)),None)
   for c in spec['cast']:
    a=s.actors[c['id']];f=c.get('face');a.H[0]=s._heading_to(a,f) if f is not None else math.pi/2
+  s.extras=make_extras(spec,s.layout,[(c['at'][0],c['at'][1]) for c in spec['cast']])
+  if s.extras:s.layout=dict(s.layout,obstacles=s.layout['obstacles']+[(e['x'],e['y'],e['look']['radius']*1.1) for e in s.extras])
   s.t_end=0.;s.router=Router(s.layout['obstacles'],s.layout['half'])
  # ------------------------------------------------------------------------------------------------------ references
  def _heading_to(s,a,ref):
@@ -363,7 +383,8 @@ class Plan:
   ts=a.t+.12
   a.hold(.12+dur+.22);k=len(s.lines);L=dict(k=k,speaker=a.id,mood=mood,text=b['text'],t0=ts,t1=ts+dur,syl=syl,dur=dur,to=to);s.lines.append(L)
   if a.state=='stand':
-   clip=b.get('gesture') or dg.SPEAK_CLIP[mood]
+   clip=b.get('gesture') or gesture_for(b['text'],mood,a.last_gesture,len(s.lines))
+   a.last_gesture=clip
    if clip not in ACT_CLIPS:raise SpecError('say: unknown gesture %r'%clip)
    if not a.clips or a.clips[-1][1]<=ts:a.play(clip,ts-.2,ts+dur+.2,1.)
   s.events.append(dict(kind='say',who=a.id,t0=ts,t1=ts+dur,to=to,mood=mood,k=k))
@@ -622,6 +643,15 @@ class Plan:
    if z<p.size[2]/2-.06:out.append('AUDIT prop: %s ends below the floor'%pid)
   if s.seconds>130:out.append('AUDIT length: scene is %.0f s'%s.seconds)
   return out
+import re
+GESTURES={'serious':('talk','think','hips'),'warm':('talk','nod','wave'),'concern':('think','talk','shrug'),'sad':('shrug','think'),'angry':('argue','hips','argue'),'joy':('laugh','talk','wave')}
+GESTURE_WORDS=((r"\b(hello|hi|goodbye|farewell|welcome|friends)\b",'wave'),(r"\b(no|never|not|enough|stop|wrong|cannot)\b",'argue'),(r"\b(yes|right|agreed|deal|of course|exactly)\b",'nod'),(r"\b(perhaps|maybe|mostly|who knows|i do not know)\b",'shrug'),(r"\b(think|remember|wonder|idea|plan)\b",'think'))
+def gesture_for(text,mood,last=None,k=0):
+  """a clip for the speaker of a line from its words and mood, never the same as the speaker's previous gesture"""
+  low=text.lower()
+  for pat,clip in GESTURE_WORDS:
+   if re.search(pat,low) and clip!=last and (mood!='sad' or clip in('shrug','think','nod')):return clip
+  opts=[c for c in GESTURES.get(mood,('talk',)) if c!=last] or ['talk'];return opts[k%len(opts)]
 def normalise_spec(spec):
  """steps get a 'do' key from their first key if written as {'go':..}"""
  return spec

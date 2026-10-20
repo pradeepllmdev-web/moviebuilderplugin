@@ -12,7 +12,7 @@ def _env(n,a=.005,d=8.,sr=22050):t=np.arange(n)/sr;return np.minimum(t/a,1)*np.e
 def ambience(kind,N,SR,rng):
  t=np.arange(N)/SR
  if kind=='none':return np.zeros(N)
- if kind=='wind':return _noise(rng,N,60)*(.5+.5*np.sin(t*.35+rng.uniform(0,6)))*1.4+_noise(rng,N,300)*.4
+ if kind=='wind':return _noise(rng,N,700)*(.6+.4*np.sin(t*.22+rng.uniform(0,6)))*2.2   # a low, slow swell, not hiss
  if kind=='fire':
   x=_noise(rng,N,40)*(.6+.4*np.sin(t*7.3));
   for _ in range(int(N/SR*3)):
@@ -25,12 +25,12 @@ def ambience(kind,N,SR,rng):
   return x
  if kind=='rain':return _noise(rng,N,3)*.6+_noise(rng,N,40)*.3
  if kind=='night':
-  x=_noise(rng,N,400)*.25
-  for k in range(int(N/SR*1.5)):
+  x=_noise(rng,N,900)*.5
+  for k in range(int(N/SR*.6)):
    j=int(rng.uniform(0,max(1,N-3000)));f=rng.uniform(3000,4500);m=min(2000,N-j);x[j:j+m]+=np.sin(2*PI*f*np.arange(m)/SR)*np.sin(np.arange(m)/m*PI*8)**2*.05
   return x
- if kind=='hall':return _noise(rng,N,150)*.4+np.sin(2*PI*55*t)*.08
- if kind=='cave':return _noise(rng,N,200)*.35+np.sin(2*PI*45*t)*.1+(rng.random(N)<2e-5)*np.exp(-np.arange(N)%4000/500.)*.3
+ if kind=='hall':return _noise(rng,N,900)*.8+np.sin(2*PI*55*t)*.05
+ if kind=='cave':return _noise(rng,N,900)*.6+np.sin(2*PI*45*t)*.06+(rng.random(N)<2e-5)*np.exp(-np.arange(N)%4000/500.)*.3
  if kind=='market':
   x=ambience('crowd',N,SR,rng)*.9
   for _ in range(int(N/SR*.5)):

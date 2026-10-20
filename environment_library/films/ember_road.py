@@ -26,7 +26,7 @@ S.append(scene('failing_light','The failing light',loc('harbor',2,objects=[dict(
   ('sera','Then the ships stay home. We have done it before.','serious','moss'),('brant','Not without a light, Captain. Not with the Cape Tern beacon dead for years.','angry','sera')]),
  act('sera','think'),
  convo([('moss','The coal is the last of its fire. Take it back, and the old beacon wakes.','serious','sera'),('sera','Across the hills in three days, with a coal that sneezes.','concern','moss')]),
-],time='dusk',ambience='sea',music='mystery'))
+],time='dusk',ambience='sea',music='mystery',extras=crowd(5,[-12,-4,12,5],[2,-1],11)))
 # 2 ---------------------------------------------------------------------------------------------------------------- the council
 S.append(scene('council','The council of ash',loc('hall',3),[at('sera',-3,-6.5,face=[0,5]),at('moss',3,-6.8,face=[0,5]),at('brant',0,-7.5,face=[0,5]),at('dorn',-6,-7.2,face=[0,5])],props=[prop('chart','map',1.0,-.45,on='table')],steps=[
  par(go('sera',[-1.2,-2.6],gait='strut'),go('moss',[1.6,-2.6],gait='strut'),go('brant',[-3.0,-2.2],gait='stomp'),go('dorn',[3.5,-2.0],gait='walk')),
@@ -38,7 +38,7 @@ S.append(scene('council','The council of ash',loc('hall',3),[at('sera',-3,-6.5,f
  wait(.5),
  convo([('brant','The harbour gives you the cart, the ember, and every prayer it has left.','serious','sera'),('sera','Then we leave at dawn. Everyone sleeps. Nobody argues.','serious','brant')]),
  sfx('gong',0.3),
-],time='day',ambience='hall',music='epic'))
+],time='day',ambience='hall',music='epic',extras=crowd(5,[-10,-7,10,7],[0,0],12)))
 # 3 ---------------------------------------------------------------------------------------------------------------- loading the cart
 S.append(scene('loading','Loading the cart',loc('harbor',4),[at('dorn',-6.5,0.5,face=[-4.4,-2]),at('kit',4,1.5,face=[0,0]),at('wick',6,2.5,face=[0,0])],props=[prop('flour','crate',-4.5,-1.5,z=.25)],steps=[
  par(go('kit',[-1,0.5],gait='brisk'),push('dorn','flour',dist=2.0,dir=0)),
@@ -50,7 +50,7 @@ S.append(scene('loading','Loading the cart',loc('harbor',4),[at('dorn',-6.5,0.5,
  par(go('kit','wick',stop=1.2,gait='brisk'),go('dorn','wick',stop=1.8,gait='walk')),
  convo([('dorn','A stowaway! A very small stowaway! Who are you?','angry','wick'),('wick','Wick. I want to see the beacon light up. I have a snack. I have two snacks.','concern','dorn'),('kit','He is smaller than the cat.','joy','dorn')]),
  act('dorn','shrug'),
-],time='night',ambience='sea',music='bright'))
+],time='night',ambience='sea',music='bright',extras=crowd(4,[-10,-3,10,5],[-4,-2],13)))
 # 4 ---------------------------------------------------------------------------------------------------------------- the departure
 S.append(scene('departure','Departure at dawn',loc('meadow',2),[at('sera',-8,-6,face=[0,0]),at('moss',-10,-7,face=[0,0]),at('dorn',-12,-5,face=[0,0]),at('kit',-9,-9,face=[0,0]),at('wick',-13,-8,face=[0,0])],steps=[
  par(go('sera',[-1,0],gait='strut'),go('moss',[-3,-1.8],gait='strut'),go('dorn',[-5,1],gait='walk'),go('kit',[0,2.5],gait='brisk'),go('wick',[-4,3],gait='brisk')),
@@ -58,7 +58,7 @@ S.append(scene('departure','Departure at dawn',loc('meadow',2),[at('sera',-8,-6,
  par(act('sera','wave'),emote('wick','smile',2)),
  convo([('kit','Captain, the road is empty and golden and nobody is following us.','joy','sera'),('sera','Good. Keep it that way, scout.','warm','kit')]),
  par(go('kit',[12,6],gait='run'),go('sera',[10,3],gait='strut'),go('moss',[8,0],gait='strut'),go('dorn',[7,-3],gait='walk'),go('wick',[6,2.5],gait='brisk')),
-],time='dawn',ambience='wind',music='bright'))
+],time='dawn',ambience='wind',music='bright',extras=crowd(6,[-14,-10,-6,0],[-1,0],14)))
 # 5 ---------------------------------------------------------------------------------------------------------------- first fire
 S.append(scene('first_fire','The first fire',loc('campfire_night',3),[at('dorn',-5,3,face=[0,0]),at('sera',4,5,face=[0,0]),at('moss',-3,-6,face=[0,0]),at('kit',6,-3,face=[0,0]),at('wick',-8,-2,face=[0,0])],steps=[
  par(sit('sera','log_e.0',face=[0,0]),sit('moss','log_w.0',face=[0,0]),go('dorn',[-1.8,1.9],gait='walk')),
@@ -92,7 +92,7 @@ S.append(scene('market_trouble','Market trouble',loc('market',4),[at('wick',-2,-
  par(go('sera',[8,-5],gait='brisk'),go('dorn',[2,-2],gait='walk')),
  act('wick','fall'),act('wick','getup'),
  convo([('wick','It was a small apple. Everyone said we need to be careful with weight.','concern','kit'),('kit','You are tiny and your conscience is bigger than your head. We pay for it.','warm','wick'),('sera','You pay, Wick. Out of your two snacks.','serious','wick')]),
-],time='day',ambience='market',music='comic'))
+],time='day',ambience='market',music='comic',extras=crowd(10,[-14,-12,14,10],[0,-2],15)))
 # 8 ---------------------------------------------------------------------------------------------------------------- the fog line
 S.append(scene('fog_line','The fog line',loc('hilltop',4),[at('moss',-2,-2,face=[8,12]),at('thorne',-4,-3,face=[8,12]),at('wick',-1,-4,face=[8,12])],steps=[
  par(look('moss',[10,14],4),look('thorne',[10,14],4),emote('wick','concern',3)),

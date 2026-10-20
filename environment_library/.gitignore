@@ -5,3 +5,4 @@ music_tools/*.sf2
 music_tools/*.zip
 music_tools/fluidsynth_dl/
 music_tools/cache/
+voices/*.onnx.json
