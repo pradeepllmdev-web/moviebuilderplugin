@@ -108,6 +108,12 @@ class Camera(unittest.TestCase):
   for c in pc.direct(P):
    for u in (.1,.5,.9):
     pos,aim,lens=pc.frame(P,c,c['t0']+(c['t1']-c['t0'])*u);self.assertTrue(all(math.isfinite(v) for v in list(pos)+list(aim)));self.assertGreater(pos[2],.2);self.assertGreater(lens,15)
+class RoomCamera(unittest.TestCase):
+ def test_cameras_stay_inside_the_walls_and_widen(self):
+  P=pp.compile(spec([dict(do='say',who='mara',text='We should not be here after dark.',to='bram'),dict(do='say',who='bram',text='Nonsense, sit down.',to='mara'),dict(do='say',who='mara',text='Fine, only for a moment.',to='bram')],cast=[dict(id='mara',at=[-2,-1],face=[1,0]),dict(id='bram',at=[2,-1],face=[-1,0])],loc=dict(preset='room')),REG);ins=P.layout['inside']
+  for c in pc.direct(P):
+   pos,aim,lens=pc.frame(P,c,(c['t0']+c['t1'])/2);self.assertTrue(ins[0]<=pos[0]<=ins[2] and ins[1]<=pos[1]<=ins[3]);self.assertLessEqual(lens,45)
+   if c['kind'] in ('wide','group','two'):self.assertLessEqual(lens,24)
 class Locations(unittest.TestCase):
  def test_every_preset_lays_out(self):
   for k in pl.PRESETS:

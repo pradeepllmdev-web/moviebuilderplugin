@@ -39,7 +39,6 @@ S.append(scene('accusation','The captain accuses',square(3),[at('odo',-8,-3,face
  act('odo','shrug'),
  convo([('odo','Very well. Until sunset. Then I search, and I do not ask twice.','serious','bram'),('bram','You will not need to. My door is open to anyone who can find a key in a clock.','sad','odo')]),
  par(go('odo',[-7,-5],gait='stomp'),emote('bram','sad',3)),
- convo([('pip','We need a detective. Not a captain.','concern','bram')]),
  act('tilda','wave'),
 ],time='day',ambience='market',music='tense'))
 # 3 ---------------------------------------------------------------------------------------------------------------- the empty case
@@ -48,7 +47,9 @@ S.append(scene('empty_case','The empty case',loc('workshop',2),[at('bram',-1.5,-
  convo([('pip','Here! The latch was lifted, not broken. Whoever came knew the case.','concern','bram'),('bram','A thief who knew the case. That narrows it to everyone I ever taught.','sad','pip')]),
  take('pip','scrap'),
  convo([('pip','And this was caught on the hinge. Half a letter, torn.','serious','bram')]),
- give('pip','bram'),
+ put('pip',on='table',at=[0.4,-.4]),
+ go('pip',[2.4,-1.9],gait='brisk'),
+ take('bram','scrap'),
  par(act('bram','think',dur=3),look('pip','bram',3)),
  convo([('bram','A careful hand. Round letters, like a clerk or a courier.','serious','pip'),('pip','Courier. Mara carries every letter in town.','concern','bram'),('bram','Then we ask her before she leaves for the hills.','serious','pip')]),
  put('bram',on='table',at=[1.2,-.4]),
@@ -186,7 +187,7 @@ S.append(scene('bread','Bread at midnight',loc('courtyard',3),[at('odo',-4,-2,fa
  emote('odo','smile',2),
  convo([('odo','I was wrong about the wolf. I was loud before I was right.','sad','tilda'),('tilda','You are always loud first. It is a gift, mostly.','warm','odo')]),
  sit('tilda','bench_a.1',face='odo'),
- convo([('odo','If that tower falls on the festival, I will not forgive myself.','sad','tilda'),('tilda','Then we make sure it does not. You hold the ladder, I hold the bread.','warm','odo'),('odo','That is the best plan anyone has had today.','warm','tilda')]),
+ convo([('odo','If that tower falls on the festival, I will not forgive myself.','sad','tilda'),('tilda','Then we make sure it does not. You hold the ladder, I hold the bread.','warm','odo')]),
  emote('tilda','smile',3),
 ],time='night',ambience='night',music='warm'))
 # 15 --------------------------------------------------------------------------------------------------------------- dawn
@@ -230,7 +231,7 @@ S.append(scene('farewell','The farewell',loc('hilltop',3),[at('mara',-1,-1,face=
  act('pip','pick'),
  convo([('mara','A brass key. Not the clock’s.','joy','pip'),('pip','The workshop door. He says couriers need somewhere to be late to.','joy','mara')]),
  act('mara','laugh'),
- convo([('mara','Tell him I will be late to everything. Especially the cake.','joy','pip'),('pip','Be careful on the road. And do not fall in the orchard.','warm','mara')]),
+ convo([('mara','Tell him I will be late to everything. Especially the cake.','joy','pip')]),
  par(go('mara',[8,10],gait='run'),act('pip','wave')),
  convo([('pip','Run! Be late to everything!','joy','mara')]),
 ],time='day',ambience='wind',music='warm'))

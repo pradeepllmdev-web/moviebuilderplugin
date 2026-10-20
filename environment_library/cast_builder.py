@@ -11,7 +11,7 @@ from cast_registry import hash_unit
 PI=math.pi
 HC=(0.,-.12,1.45)                 # head centre, lion idle pose
 BONES={'head':'mixamorig:Head','neck':'mixamorig:Neck','spine':'mixamorig:Spine2','spine1':'mixamorig:Spine1','hips':'mixamorig:Hips','hand_r':'mixamorig:RightHand','hand_l':'mixamorig:LeftHand','tail':'Tail'}
-PALETTE=[(.75,.15,.12),(.15,.35,.7),(.2,.55,.3),(.85,.65,.15),(.5,.25,.6),(.9,.9,.85),(.3,.2,.12),(.15,.15,.18)]
+PALETTE=[(.75,.15,.12),(.15,.35,.7),(.2,.55,.3),(.85,.65,.15),(.5,.25,.6),(.9,.9,.85),(.55,.35,.2),(.2,.5,.55)]
 GOLD=(.95,.75,.2);STEEL=(.7,.72,.78);LEATHER=(.4,.26,.14);CLOTH=(.85,.8,.7);DARK=(.1,.1,.12)
 def P(shape,name,loc,scale,color,bone,rot=(0,0,0),emit=0.):return dict(shape=shape,name=name,loc=loc if isinstance(loc,str) else tuple(loc),scale=tuple(scale),rot=tuple(rot),color=tuple(color),bone=bone,emit=emit)
 def color_of(acc,rid,i=0):
