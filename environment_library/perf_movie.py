@@ -61,6 +61,18 @@ def build_scene(spec,out,index,cast_json,force=False,sheets=12,eh=None):
   rec.update(status='build failed',audit=['BUILD FAILED: '+(r.stdout[-700:]+r.stderr[-500:]).strip().replace('\n',' | ')[-900:]],seconds=0,stats={});meta.write_text(json.dumps(rec));return rec
  info=json.loads(pj.read_text());rec.update(status='built in %.0fs'%(time.time()-t),audit=info['audit'],seconds=round(info['seconds'],1),stats=info['stats'],lines=len(info['lines']),cuts=len(info['cuts']),cast=info['cast'])
  meta.write_text(json.dumps(rec));return rec
+SUB_COLORS=[(1,.92,.5,1),(.6,.9,1,1),(1,.7,.7,1),(.7,1,.7,1),(.9,.75,1,1),(1,.85,.6,1),(.8,.8,.8,1)]
+def subtitles_of(rec,film):
+  """[{t0,t1,text,color}] of a built scene from its .plan.json: 'Name: line', coloured per character"""
+  pj=Path(rec['file']+'.plan.json')
+  if not pj.exists():return []
+  info=json.loads(pj.read_text());names={c['id']:c.get('name',c['id']) for c in film['cast']};ids=[c['id'] for c in film['cast']];out=[]
+  for L in info['lines']:out.append(dict(t0=L['t0']+.2,t1=L['t1']+.3,text='%s: %s'%(names.get(L['speaker'],L['speaker']),L['text']),color=SUB_COLORS[ids.index(L['speaker'])%len(SUB_COLORS)] if L['speaker'] in ids else (1,1,1,1)))
+  return out
+def master_items(film,items):
+  """plan.json items: film title card, each scene with its card and subtitles, end card"""
+  head=dict(title=film.get('title',''),card=film.get('logline',''),card_seconds=4.0);tail=dict(title='The End',card=film.get('title',''),card_seconds=3.0)
+  return [head]+items+[tail]
 def sheet(rec,out,n=12):
  import contact_sheet as cs
  d=out/'sheets';d.mkdir(exist_ok=True);p=d/('scene_%02d_%s.png'%(rec['index'],rec['id']))
@@ -70,6 +82,8 @@ def sheet(rec,out,n=12):
 def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=True,target_minutes=15.,echo=True,voices=True):
  film=load_film(film_path);out=Path(out).resolve();out.mkdir(parents=True,exist_ok=True);reg=registry_of(film)
  if voices:use_voices(film,reg,echo)
+ for sp in film['scenes']:
+  if film.get('theme'):sp['theme']=film['theme']
  problems=reg.distinct_report();rows=plan_check(film,reg);cast_json=out/'cast.json';reg.save(str(cast_json));(out/'cast_story.json').write_text(json.dumps(reg.export_story_records(),indent=1),encoding='utf-8')
  lines=['# %s: build report'%film.get('title',film.get('id','film')),'','Cast: %d characters%s'%(len(film['cast']),''.join('\n* WARNING: %s and %s look alike (score %.2f)'%p for p in problems)),'','## Plan check (no Blender)','']
  for r in rows:lines.append('* scene %02d %s: %.1f s, %d characters, %d lines%s%s'%(r['index'],r['id'],r['seconds'],r['cast'],r['lines'],('\n  * SPEC ERROR: '+r['error']) if r['error'] else '',''.join('\n  * '+a for a in r['audit'])))
@@ -80,17 +94,17 @@ def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=T
  for i,sp in enumerate(film['scenes'],1):
   if want and i not in want:
    meta=out/('scene_%02d_%s.meta.json'%(i,sp['id']))
-   if meta.exists():r=json.loads(meta.read_text());r['status']='kept';recs.append(r);files.append(dict(file=r['file'],title=sp.get('title',''),card_seconds=0))
+   if meta.exists():r=json.loads(meta.read_text());r['status']='kept';recs.append(r);files.append(dict(file=r['file'],title=sp.get('title',''),card=sp.get('intent',''),card_seconds=3.0,subtitles=subtitles_of(r,film)))
    continue
   if rows[i-1]['error']:recs.append(dict(index=i,id=sp['id'],title=sp.get('title',''),status='spec error',audit=['SPEC ERROR: '+rows[i-1]['error']],seconds=0,stats={}));continue
   rec=build_scene(sp,out,i,cast_json,force,sheets,eh);print('scene %02d %s: %s, %s s, %d audit lines'%(i,sp['id'],rec['status'],rec.get('seconds'),len(rec.get('audit',[]))),flush=True)
   if sheets and rec['status']!='build failed' and (rec['status']!='reused' or not (out/'sheets'/('scene_%02d_%s.png'%(i,sp['id']))).exists()):sheet(rec,out,sheets)
   elif sheets and rec['status']=='reused':rec['sheet']=str(out/'sheets'/('scene_%02d_%s.png'%(i,sp['id'])))
   recs.append(rec)
-  if rec['status']!='build failed':files.append(dict(file=rec['file'],title=sp.get('title',''),card_seconds=0))
+  if rec['status']!='build failed':files.append(dict(file=rec['file'],title=sp.get('title',''),card=sp.get('intent',''),card_seconds=3.0,subtitles=subtitles_of(rec,film)))
  masterf=None
  if master and files:
-  (out/'plan.json').write_text(json.dumps(dict(scenes=files)))
+  (out/'plan.json').write_text(json.dumps(dict(scenes=master_items(film,files))))
   subprocess.run([BLENDER,'-b','--python',str(H/'assemble_movie.py'),'--',str(out/'plan.json'),str(out/'movie.blend')],capture_output=True,text=True,errors='ignore')
   masterf=str(out/'movie.blend') if (out/'movie.blend').exists() else None
  lines+=['## Build','']

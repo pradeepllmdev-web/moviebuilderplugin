@@ -11,7 +11,7 @@ import bpy,math,sys,os,json
 import numpy as np
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import scene_base as sb,scene_kit as kit,scene_params,dialogue as dg,gaits
-import cast_registry as cr,cast_builder as cb,perf_plan as pp,perf_camera as pc,perf_locations as pl,perf_audio as pa
+import cast_registry as cr,cast_builder as cb,perf_plan as pp,perf_camera as pc,perf_locations as pl,perf_audio as pa,perf_score as ps
 from mathutils import Vector
 args=sys.argv[sys.argv.index('--')+1:]
 SPEC=json.load(open(args[2],encoding='utf-8'))
@@ -219,7 +219,10 @@ def snd(A):
   if np.abs(v).max()>0:A.track('voice %s'%name,v,.9)
  N=A.N;SR=A.SR
  A.track('ambience',pa.ambience(SPEC.get('ambience','wind'),N,SR,rng),.28)
- mus=pa.music(SPEC.get('music','calm'),N,SR,sum(map(ord,SPEC['id'])))
+ mus=None
+ if SPEC.get('theme'):mus=ps.render(PLAN,SPEC['theme'],SPEC.get('music','calm'),SPEC.get('location',{}).get('preset'),TIME,SPEC['id'],SPEC.get('music_cues'),sr=SR)
+ if mus is None:mus=pa.music(SPEC.get('music','calm'),N,SR,sum(map(ord,SPEC['id'])))
+ elif len(mus)<N:mus=np.pad(mus,(0,N-len(mus)))
  if np.abs(mus).max()>0:A.track('music',mus,.3)
  ev=pa.footstep_events(PLAN.footsteps(),SR,rng,'stone' if LOC.get('floor')=='stone' else 'dirt')
  if ev:A.track('steps',pa.mix_events(N,SR,ev),.45)

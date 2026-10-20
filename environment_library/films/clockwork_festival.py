@@ -257,5 +257,30 @@ S.append(scene('evening','The evening strike',square(10),[at('wren',-3,-4,face=[
  convo([('pip','Can we do it again tomorrow?','joy','bram'),('bram','Every day, Pip. That is the whole secret of a clock.','warm','pip')]),
  wait(3),
 ],time='dusk',ambience='crowd',music='calm'))
+INTENT={
+ 'silent_clock':'Dawn before the harvest festival. The town clock is silent: its key is gone.',
+ 'accusation':'The guard captain blames the clockmaker and gives him until sunset.',
+ 'empty_case':'In the workshop: a torn letter. The thief writes in round letters.',
+ 'courier':'Mara the courier knows that handwriting: a wolf called Rook.',
+ 'market_trail':'The oil seller saw Rook buy lamp oil at midnight. He went north.',
+ 'council':'The mayor warns: no key by noon, no festival.',
+ 'orchard':'Dusk. Mara and Pip follow the trail into the old orchard.',
+ 'rook_camp':"Rook's camp. He has the key, and a reason.",
+ 'chase':'Rook runs. Mara and Pip chase him across the meadow.',
+ 'confession':'Cornered, Rook explains: the great gear is cracked and will shatter.',
+ 'the_crack':'Back at the workshop, Bram sees the crack for himself.',
+ 'announcement':'The captain wants Rook arrested. Bram and Tilda stand up for him.',
+ 'repair':'Night. Bram, Rook and Pip mend the gear.',
+ 'bread':'Midnight. Captain Odo admits he was wrong; Tilda feeds him.',
+ 'dawn_square':'Next morning. The mayor prepares to restart the festival.',
+ 'twelve_strikes':'Noon. The repaired clock strikes twelve.',
+ 'apology':'The captain apologises and offers Rook a job.',
+ 'farewell':'Mara leaves on her round, with a gift from Bram.',
+ 'tea':'Bram and Rook share tea: master and apprentice, reconciled.',
+ 'evening':'Evening. The clock keeps time and the town celebrates.',
+}
+for _s in S:_s['intent']=INTENT[_s['id']]
+LOGLINE='A village comedy: the key to the town clock is stolen the night before the harvest festival. The thief is not who he seems.'
+THEME=dict(root=57,mode='mixolydian',tempo=104,motif=[(0,.5),(0,.5),(2,.5),(0,.5),(4,1),(2,1)],motifs=dict(bram=[0,-1,0,2],mara=[4,5,6,4],pip=[7,6,7,9],odo=[0,0,4,0],wren=[2,1,0,-1],tilda=[4,3,2,0],rook=[0,2,3,2]),palette=dict(pad=48,bass=43,pluck=45,hit=47))
 for _c in CAST:_c.setdefault('pace',1.25)   # film pacing: a brisker cadence on every gait (strides and planted feet unchanged)
-FILM=dict(id='clockwork_festival',title='Twelve Strikes',cast=CAST,scenes=S,target_minutes=15)
+FILM=dict(id='clockwork_festival',title='Twelve Strikes',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=15)

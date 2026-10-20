@@ -224,5 +224,30 @@ S.append(scene('sunrise','Sunrise on the cape',loc('hilltop',6),[at('sera',-2,-2
  convo([('sera','Home, then. By the shorter path.','warm','kit'),('kit','Under the cliffs. The painted way. I know the map.','joy','sera')]),
  wait(3),
 ],time='dawn',ambience='wind',music='warm'))
+INTENT={
+ 'failing_light':'Dusk at the harbour. The lighthouse coal is dying and the winter fog is three days away.',
+ 'council':'Captain Sera takes the mission: carry the coal over the hills to the dead beacon at Cape Tern.',
+ 'loading':'Night. The cart is loaded, and a stowaway mouse is found.',
+ 'departure':'Dawn. The caravan leaves the sea behind.',
+ 'first_fire':'First camp. The stowaway is welcomed.',
+ 'stranger':'A guide named Thorne offers to lead them through the Hollow Hills.',
+ 'market_trouble':'Resupply in a hill market. Wick steals an apple and they chase him.',
+ 'fog_line':'From a hilltop they see the fog coming. Thorne once kept the Cape Tern beacon.',
+ 'storm_ruins':'A storm. Sera shields the failing coal in the ruins.',
+ 'murals':'Kit and Wick find a painted cave and a map of a shorter path.',
+ 'collapse':'The cave ceiling falls. A boulder blocks the way out.',
+ 'morning':'Morning. Sera confesses her fear to Dorn.',
+ 'confession':'Thorne confesses: he sold the beacon oil and let it die.',
+ 'lesson':'Moss teaches Wick to find the way by the stars.',
+ 'tracking':'Thorne has gone. Kit and Sera follow his tracks.',
+ 'ledge':'They find Thorne hurt in the ruins and take him back.',
+ 'cape_tern':'The party reaches Cape Tern: a dark tower with a cracked lens.',
+ 'lens_repair':'Night. Thorne repairs the lens with everyone helping.',
+ 'relight':'The coal is set in the beacon, and it catches.',
+ 'sunrise':'Sunrise. The light shines, and Thorne has found his way back.',
+}
+for _s in S:_s['intent']=INTENT[_s['id']]
+LOGLINE='A caravan carries the last coal of a failing lighthouse over the hills to relight a dead beacon before the winter fog.'
+THEME=dict(root=52,mode='dorian',tempo=92,motif=[(0,1),(4,1),(3,.5),(2,.5),(0,1)],motifs=dict(sera=[0,4,7],moss=[2,1,0],kit=[4,6,4,7],dorn=[0,0,-1],thorne=[0,3,2,0],wick=[7,6,7],brant=[0,-1,0]),palette=dict(pad=48,bass=43,pluck=46,hit=47))
 for _c in CAST:_c.setdefault('pace',1.25)   # film pacing: a brisker cadence on every gait (strides and planted feet unchanged)
-FILM=dict(id='ember_road',title='The Ember Road',cast=CAST,scenes=S,target_minutes=15)
+FILM=dict(id='ember_road',title='The Ember Road',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=15)
