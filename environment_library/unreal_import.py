@@ -83,14 +83,24 @@ class UnrealBackend:
  def audio(self,name,path,start,vol):
   u=self.u;tr=self.seq.add_master_track(u.MovieSceneAudioTrack);sec=tr.add_section();sec.set_range(start,start+1000);sec.set_sound(u.load_asset(path))
  def save(self):self.u.EditorAssetLibrary.save_loaded_asset(self.seq)
-def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',tol=(.1,.05,.002)):
+def load_catalog(amap):
+ """the installed-asset catalogue (Environment Studio's prompt-catalog.json) used to find real meshes for placeholders that have no explicit mapping"""
+ here=os.path.dirname(os.path.abspath(__file__));p=amap.get('catalog') or os.path.join(here,'assets','prompt-catalog.json')
+ p=p if os.path.isabs(p) else os.path.join(here,p)
+ try:return ub.load(p) if os.path.exists(p) else None
+ except (ValueError,OSError):return None
+def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',tol=(.1,.05,.002),catalog=None):
  """create the sequence on the backend; returns the backend. Keys are reduced (position tolerance in cm, rotation in degrees) before they are written."""
  problems=ub.validate(doc)
  if problems:raise ValueError('export is inconsistent: %s'%problems[:5])
  backend.sequence(doc['scene'],doc['fps'],doc['frame_start'],doc['frame_end']);handles={}
  for a in doc['actors']:
-  asset,mapped=ub.resolve_asset(a['asset_key'],asset_map,proxy_dir,doc['scene']);h=backend.spawn(a,asset,mapped);handles[a['id']]=h
-  k=a.get('keys')
+  asset,mapped=ub.resolve_asset(a['asset_key'],asset_map,proxy_dir,doc['scene']);k=a.get('keys');fitted=None
+  if not mapped and catalog and a['role'] in ('prop','effect') and a.get('bounds_cm'):
+   hit=ub.pick_catalog_asset(a['asset_key'],a['bounds_cm'],catalog)
+   if hit:asset,fit=hit;mapped=True;fitted=fit
+  h=backend.spawn(a,asset,mapped);handles[a['id']]=h
+  if fitted and k and k['frames'] and ub.constant_scale(k['scale']):k=dict(k,scale=[[fitted,fitted,fitted] for _ in k['scale']])
   if k and k['frames']:
    vals=[l+r+s for l,r,s in zip(k['loc'],k['rot'],k['scale'])];keep=ub.reduce_keys(k['frames'],vals,tol[0])
    backend.transform_keys(h,[k['frames'][i] for i in keep],[k['loc'][i] for i in keep],[k['rot'][i] for i in keep],[k['scale'][i] for i in keep])
@@ -105,8 +115,8 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
 def run(json_path,map_path=None):
  """entry point inside the Unreal editor"""
  doc=ub.load(json_path);amap=ub.load(map_path) if map_path and os.path.exists(map_path) else {}
- return build(doc,amap,UnrealBackend())
+ return build(doc,amap,UnrealBackend(),catalog=load_catalog(amap))
 if __name__=='__main__':
- doc=ub.load(sys.argv[1]);amap=ub.load(sys.argv[2]) if len(sys.argv)>2 else {};b=build(doc,amap,DryRun())
+ doc=ub.load(sys.argv[1]);amap=ub.load(sys.argv[2]) if len(sys.argv)>2 else {};b=build(doc,amap,DryRun(),catalog=load_catalog(amap))
  c=b.counts;print('DRY RUN',json.dumps(ub.summary(doc)));print('actors %d, transform keys after reduction %d, animation sections %d, cuts %d, audio %d'%(c['actors'],c['transform_keys'],c['anim_sections'],c['cuts'],c['audio']))
  print('mapped to real assets: %d; using proxy fallback: %d'%(len(c['mapped']),len(c['unmapped'])));print('proxy keys:',sorted(set(c['unmapped']))[:30])

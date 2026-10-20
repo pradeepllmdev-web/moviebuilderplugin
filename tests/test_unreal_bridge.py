@@ -28,3 +28,17 @@ class DryRunBuild(unittest.TestCase):
   d=doc();d['cuts'][0]['end']=0
   with self.assertRaises(ValueError):ui.build(d,{},ui.DryRun())
 if __name__=='__main__':unittest.main()
+class Catalog(unittest.TestCase):
+ CAT={'assets':[dict(id='r1',mesh_type='static',category='rock',name='Big Round Rock',path='/Game/Rocks/R1',dimensions_cm=[600,580,640],tags=['rock']),
+  dict(id='r2',mesh_type='static',category='rock',name='Flat Slab',path='/Game/Rocks/R2',dimensions_cm=[900,900,60],tags=['rock']),
+  dict(id='t1',mesh_type='static',category='tree',name='Oak',path='/Game/Trees/T1',dimensions_cm=[400,400,1200],tags=['tree']),
+  dict(id='s1',mesh_type='skeletal',category='rock',name='Rock Golem',path='/Game/Skel/G1',dimensions_cm=[600,600,600],tags=[])]}
+ def test_picks_by_word_then_shape_and_fits_scale(self):
+  path,fit=ub.pick_catalog_asset('Boulder',[641,610,678],self.CAT);self.assertEqual(path,'/Game/Rocks/R1');self.assertAlmostEqual(fit,1.06,delta=.1)
+ def test_rejects_wrong_shape_or_missing_words(self):
+  self.assertIsNone(ub.pick_catalog_asset('Boulder',[100,100,1500],self.CAT));self.assertIsNone(ub.pick_catalog_asset('Statue',[100,100,335],self.CAT))
+ def test_import_uses_catalog_and_fits_constant_scale(self):
+  d=doc();d['actors'][2]['bounds_cm']=[640,600,680];d['actors'][2]['keys']['scale']=[[3.2,3.2,3.2]]*3
+  b=ui.build(d,{},ui.DryRun(),catalog=self.CAT);self.assertIn('Boulder',b.counts['mapped'])
+ def test_constant_scale(self):
+  self.assertTrue(ub.constant_scale([[1,1,1],[1,1,1]]));self.assertFalse(ub.constant_scale([[1,1,1],[1,1,2]]))

@@ -84,3 +84,25 @@ def validate_scene_path(path,root):
  if not p.is_file():raise ValueError('scene file does not exist')
  return p
 def load(path):return json.load(open(path,encoding='utf-8'))
+
+SYNONYMS={'Boulder':('rock','boulder','stone'),'Rock':('rock','boulder','stone'),'StoneDoor':('door','gate'),'Statue':('statue','sculpture','monument'),'StatueBase':('plinth','pedestal','statue'),'Crate':('crate','box','chest'),'CrateA':('crate','box'),'CrateB':('crate','box'),
+ 'Barrel':('barrel','cask'),'Plank':('plank','board','wood'),'House':('house','building','cottage'),'Tree':('tree',),'Trunk':('tree','trunk'),'Pillar':('column','pillar'),'Cliff':('cliff','rock'),'Stalactite':('stalactite','rock'),'Boat':('boat','canoe'),
+ 'Coral':('coral',),'Spire':('rock','spire','cliff'),'Tower':('tower',),'Anvil':('anvil',),'Torch':('torch','lamp'),'Cloud':('cloud',),'Mountain':('mountain','rock')}
+def pick_catalog_asset(key,dims_cm,catalog,max_ratio=4.0):
+  """closest catalog mesh for a placeholder: by name/category words, then by size. dims_cm = the placeholder's bounding box (x,y,z in cm). Returns (path, uniform_scale) or None.
+  Size is compared on the sorted dimensions; the uniform scale makes the asset's geometric-mean size equal the placeholder's. Anything more than max_ratio off in shape is rejected."""
+  words=SYNONYMS.get(key) or (key.lower(),)
+  items=[a for a in catalog.get('assets',[]) if a.get('mesh_type')=='static' and any(w in (a.get('category','')+' '+a.get('name','')+' '+' '.join(a.get('tags',[]))).lower() for w in words)]
+  if not items or not dims_cm or min(dims_cm)<=0:return None
+  want=sorted(abs(x) for x in dims_cm);best=None
+  for a in items:
+   have=sorted(abs(x) for x in a.get('dimensions_cm',[0,0,0]))
+   if min(have)<=0:continue
+   ratios=[w/h for w,h in zip(want,have)];spread=max(ratios)/min(ratios)
+   if spread>max_ratio:continue
+   score=spread
+   if best is None or score<best[0]:best=(score,a,(ratios[0]*ratios[1]*ratios[2])**(1/3.))
+  return (best[1]['path'],best[2]) if best else None
+def constant_scale(scale_keys,tol=1e-3):
+  """True when an actor's scale never changes (so it can be replaced by a fitted uniform scale)"""
+  return all(max(abs(a-b) for a,b in zip(row,scale_keys[0]))<tol for row in scale_keys)

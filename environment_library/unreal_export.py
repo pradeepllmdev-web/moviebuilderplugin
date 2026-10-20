@@ -63,6 +63,18 @@ for o,role,_ in tracked:
  if o.type=='CAMERA':a['camera']=dict(sensor_width=o.data.sensor_width,clip_end=o.data.clip_end)
  if role in ('prop','effect'):a['meshes']=[c.name for c in o.children_recursive if c.type=='MESH'] or ([o.name] if o.type=='MESH' else [])
  doc['actors'].append(a)
+sc.frame_set(FS)
+from mathutils import Vector
+for a in doc['actors']:
+ if a['role'] in ('prop','effect') and a.get('meshes'):
+  lo=[1e9]*3;hi=[-1e9]*3
+  for mn in a['meshes']:
+   ob=bpy.data.objects.get(mn)
+   if ob is None or ob.type!='MESH':continue
+   for corner in ob.bound_box:
+    w=ob.matrix_world@Vector(corner)
+    for i in range(3):lo[i]=min(lo[i],w[i]);hi[i]=max(hi[i],w[i])
+  if lo[0]<1e8:a['bounds_cm']=[round((hi[i]-lo[i])*100,1) for i in range(3)]
 for l in lights:
  aid='a%03d'%len(idmap);idmap[l.name]=aid;M=l.matrix_world;e=M.to_euler('XYZ');ev=[v for f,v in lightkeys[l.name]];anim_l=(max(ev)-min(ev))>1e-3
  doc['actors'].append(dict(id=aid,name=l.name,role='light',asset_key=l.data.type,light=dict(type=l.data.type,color=list(l.data.color),energy=l.data.energy,energy_keys=[[f,v] for f,v in lightkeys[l.name]][::max(1,len(ev)//200)] if anim_l else None,spot_size=getattr(l.data,'spot_size',None)),keys=dict(frames=[FS],loc=[ub.ue_loc(M.translation)],rot=[ub.ue_rot_deg([e.x,e.y,e.z])],scale=[[1,1,1]])))
