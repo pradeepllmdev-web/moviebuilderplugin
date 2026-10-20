@@ -1,0 +1,94 @@
+{
+ "walk": {
+  "name": "walk",
+  "cycle": 18,
+  "speed": 1.075,
+  "planted": 1.009,
+  "reach_error": 0.0552,
+  "hips": [
+   0.553,
+   0.596
+  ],
+  "issues": [
+   "AUDIT gait walk: ankle misses its target by 0.055 m (the leg cannot reach; lower amp or crouch less)"
+  ]
+ },
+ "strut": {
+  "name": "strut",
+  "cycle": 22,
+  "speed": 1.016,
+  "planted": 0.95,
+  "reach_error": 0.0577,
+  "hips": [
+   0.54,
+   0.599
+  ],
+  "issues": [
+   "AUDIT gait strut: ankle misses its target by 0.058 m (the leg cannot reach; lower amp or crouch less)"
+  ]
+ },
+ "shuffle": {
+  "name": "shuffle",
+  "cycle": 28,
+  "speed": 0.31,
+  "planted": 0.308,
+  "reach_error": 0.0057,
+  "hips": [
+   0.57,
+   0.59
+  ],
+  "issues": []
+ },
+ "bounce": {
+  "name": "bounce",
+  "cycle": 18,
+  "speed": 1.28,
+  "planted": 1.232,
+  "reach_error": 0.0346,
+  "hips": [
+   0.54,
+   0.627
+  ],
+  "issues": []
+ },
+ "sneak": {
+  "name": "sneak",
+  "cycle": 30,
+  "speed": 0.485,
+  "planted": 0.485,
+  "reach_error": 0.0,
+  "hips": [
+   0.442,
+   0.458
+  ],
+  "issues": []
+ },
+ "stomp": {
+  "name": "stomp",
+  "cycle": 20,
+  "speed": 0.96,
+  "planted": 0.899,
+  "reach_error": 0.0555,
+  "hips": [
+   0.537,
+   0.613
+  ],
+  "issues": [
+   "AUDIT gait stomp: ankle misses its target by 0.056 m (the leg cannot reach; lower amp or crouch less)"
+  ]
+ },
+ "brisk": {
+  "name": "brisk",
+  "cycle": 14,
+  "speed": 1.683,
+  "planted": 1.575,
+  "reach_error": 0.0544,
+  "hips": [
+   0.541,
+   0.6
+  ],
+  "issues": [
+   "AUDIT gait brisk: ankle misses its target by 0.054 m (the leg cannot reach; lower amp or crouch less)"
+  ]
+ }
+}
