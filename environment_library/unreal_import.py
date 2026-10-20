@@ -48,10 +48,33 @@ class UnrealBackend:
  def __init__(self,check=True):
   import unreal;self.u=unreal
   if check:guard(unreal)   # the editor bridge passes check=False: it has its own busy/undo rules and never overwrites
-  self.seq=None;self.bind={};self.sequence_path=None
+  self.seq=None;self.bind={};self.sequence_path=None;self.warnings=[];self.spawned=[];self.tag=None;self.scene=None
  def sequence(self,name,fps,start,end):
-  u=self.u;tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset(unique_name(u.EditorAssetLibrary.does_asset_exist,'LS_%s'%name),'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
-  self.scene=name;self.sequence_path=self.seq.get_path_name();self.seq.set_display_rate(u.FrameRate(fps,1));self.seq.set_playback_start(start);self.seq.set_playback_end(end+1);self.fps=fps
+  u=self.u;self.scene=name;self.tag='moviebuilder:%s'%name;self.purge()
+  tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset(unique_name(u.EditorAssetLibrary.does_asset_exist,'LS_%s'%name),'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
+  self.sequence_path=self.seq.get_path_name();self.seq.set_display_rate(u.FrameRate(fps,1));self.seq.set_playback_start(start);self.seq.set_playback_end(end+1);self.fps=fps
+ def purge(self):
+  """remove the actors a previous import of this scene left in the level (they carry the moviebuilder:<scene> tag); nothing else is touched"""
+  u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem);n=0
+  for act in sub.get_all_level_actors():
+   if any(str(t)==self.tag for t in act.tags):sub.destroy_actor(act);n+=1
+  return n
+ def abort(self):
+  """undo a failed import: destroy the actors spawned so far and delete the half-built sequence"""
+  u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem)
+  for act in self.spawned:
+   try:sub.destroy_actor(act)
+   except Exception:pass
+  if self.sequence_path:
+   try:u.EditorAssetLibrary.delete_asset(self.sequence_path.split('.')[0])
+   except Exception:pass
+ def proxy_candidates(self,a):
+  """paths of the proxy meshes imported from props.fbx for this actor: Unreal turns '.' into '_' and adds a digit when a material already has the name"""
+  out=[]
+  for m in a.get('meshes',[])[:1]:
+   n=m.replace('.','_')
+   for suffix in ('','1','2','3'):out.append('/Game/Proxy/%s/%s%s'%(self.scene,n,suffix))
+  return out
  def _class_for(self,role):
   u=self.u
   return {'camera':u.CineCameraActor,'light':u.PointLight,'character':u.SkeletalMeshActor}.get(role,u.StaticMeshActor)
@@ -59,16 +82,22 @@ class UnrealBackend:
   u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem);cls=self._class_for(a['role'])
   if a['role']=='light':
    cls={'SUN':u.DirectionalLight,'SPOT':u.SpotLight}.get(a['light']['type'],u.PointLight)
-  actor=sub.spawn_actor_from_class(cls,u.Vector(0,0,0));actor.set_actor_label(a['name'])
-  cands=[asset]+['/Game/Proxy/%s/%s'%(self.scene,m.replace('.','_')) for m in a.get('meshes',[])[:1]]
+  actor=sub.spawn_actor_from_class(cls,u.Vector(0,0,0));actor.set_actor_label('%s/%s'%(self.scene,a['name']));actor.tags=[u.Name(self.tag)]
+  try:actor.set_folder_path('MovieBuilder/%s'%self.scene)
+  except Exception:pass
+  self.spawned.append(actor)
+  want=u.SkeletalMesh if a['role']=='character' else u.StaticMesh
+  cands=[asset]+self.proxy_candidates(a)
   for path in cands:
-   if u.EditorAssetLibrary.does_asset_exist(path):
-    if a['role']=='character':actor.skeletal_mesh_component.set_skeletal_mesh(u.load_asset(path))
-    elif a['role'] in ('prop','effect'):actor.static_mesh_component.set_static_mesh(u.load_asset(path))
-    break
+   if not u.EditorAssetLibrary.does_asset_exist(path):continue
+   obj=u.load_asset(path)
+   if not isinstance(obj,want):continue      # an FBX import also creates materials with the same name: only the right class counts
+   if a['role']=='character':actor.skeletal_mesh_component.set_skeletal_mesh(obj)
+   elif a['role'] in ('prop','effect'):actor.static_mesh_component.set_static_mesh(obj)
+   break
   b=self.seq.add_possessable(actor);self.bind[a['id']]=b;return a['id']
  def transform_keys(self,h,frames,loc,rot,scale):
-  u=self.u;b=self.bind[h];tr=b.add_track(u.MovieScene3DTransformTrack);sec=tr.add_section();sec.set_range(frames[0],frames[-1]+1);ch=sec.get_channels()
+  u=self.u;b=self.bind[h];tr=b.add_track(u.MovieScene3DTransformTrack);sec=tr.add_section();sec.set_range(frames[0],frames[-1]+1);ch=sec.get_all_channels()
   for i,f in enumerate(frames):
    fn=u.FrameNumber(f);vals=loc[i]+[rot[i][0],rot[i][1],rot[i][2]]+scale[i]
    for c in range(9):ch[c].add_key(fn,vals[c])
@@ -76,12 +105,22 @@ class UnrealBackend:
  def light(self,h,light):pass
  def anim_section(self,h,asset,start,end,rate,mapped):
   u=self.u;b=self.bind[h];tr=b.find_tracks_by_exact_type(u.MovieSceneSkeletalAnimationTrack);tr=tr[0] if tr else b.add_track(u.MovieSceneSkeletalAnimationTrack)
-  sec=tr.add_section();sec.set_range(start,end+1);p=sec.params;p.animation=u.load_asset(asset);p.play_rate=rate
+  sec=tr.add_section();sec.set_range(start,end+1);p=sec.params;p.animation=u.load_asset(asset)
+  if abs(rate-1.0)>1e-6:self.set_rate(p,rate)
+ def set_rate(self,p,rate):
+  """play rate of an animation section: a plain float up to UE 5.6, a MovieSceneTimeWarpVariant from 5.7; if neither works the clip keeps rate 1 and a warning says so"""
+  u=self.u
+  try:p.play_rate=rate;return
+  except TypeError:pass
+  try:
+   v=u.MovieSceneTimeWarpVariant();v.set_editor_property('fixed_play_rate',rate) if 'fixed_play_rate' in dir(v) else v.set_editor_property('play_rate',rate);p.play_rate=v;return
+  except Exception as e:
+   self.warnings.append('play rate %.2f not applied (%s); fields of MovieSceneTimeWarpVariant: %s'%(rate,type(e).__name__,[n for n in dir(u.MovieSceneTimeWarpVariant) if not n.startswith('_')][:30]))
  def camera_cut(self,name,h,start,end):
-  u=self.u;tr=self.seq.find_master_tracks_by_exact_type(u.MovieSceneCameraCutTrack);tr=tr[0] if tr else self.seq.add_master_track(u.MovieSceneCameraCutTrack)
-  sec=tr.add_section();sec.set_range(start,end+1);sec.set_camera_binding_id(self.bind[h].get_binding_id())
+  u=self.u;tr=self.seq.find_tracks_by_exact_type(u.MovieSceneCameraCutTrack);tr=tr[0] if tr else self.seq.add_track(u.MovieSceneCameraCutTrack)
+  sec=tr.add_section();sec.set_range(start,end+1);sec.set_camera_binding_id(self.seq.get_binding_id(self.bind[h]))
  def audio(self,name,path,start,vol):
-  u=self.u;tr=self.seq.add_master_track(u.MovieSceneAudioTrack);sec=tr.add_section();sec.set_range(start,start+1000);sec.set_sound(u.load_asset(path))
+  u=self.u;tr=self.seq.add_track(u.MovieSceneAudioTrack);sec=tr.add_section();sec.set_range(start,start+1000);sec.set_sound(u.load_asset(path))
  def save(self):self.u.EditorAssetLibrary.save_loaded_asset(self.seq)
 def load_catalog(amap):
  """the installed-asset catalogue (Environment Studio's prompt-catalog.json) used to find real meshes for placeholders that have no explicit mapping"""

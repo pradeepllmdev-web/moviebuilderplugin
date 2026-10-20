@@ -20,6 +20,10 @@ class Bridge:
   data=json.dumps({'command':name,'params':params or {}}).encode('utf-8');req=urllib.request.Request(self.url+'/',data,{'Content-Type':'application/json'})
   try:
    with urllib.request.urlopen(req,timeout=self.timeout) as r:body=json.loads(r.read())
+  except urllib.error.HTTPError as e:
+   try:msg=json.loads(e.read()).get('error')
+   except Exception:msg=None
+   raise BridgeError('Unreal bridge %s failed (%d): %s'%(name,e.code,(msg or '')[:1500]))
   except (urllib.error.URLError,TimeoutError,OSError,ValueError) as e:raise BridgeError('Unreal bridge %s could not complete: %s'%(name,type(e).__name__))
   if not isinstance(body,dict) or body.get('status')!='ok' or 'result' not in body:raise BridgeError((body.get('error') if isinstance(body,dict) else None) or 'Invalid Unreal bridge response')
   return body['result']
