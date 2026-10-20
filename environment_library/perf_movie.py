@@ -69,6 +69,13 @@ def subtitles_of(rec,film):
   info=json.loads(pj.read_text());names={c['id']:c.get('name',c['id']) for c in film['cast']};ids=[c['id'] for c in film['cast']];out=[]
   for L in info['lines']:out.append(dict(t0=L['t0']+.2,t1=L['t1']+.3,text='%s: %s'%(names.get(L['speaker'],L['speaker']),L['text']),color=SUB_COLORS[ids.index(L['speaker'])%len(SUB_COLORS)] if L['speaker'] in ids else (1,1,1,1)))
   return out
+PLACE_NAME={'village_square':'Village square','market':'Market','hall':'Council hall','room':'Workshop','workshop':'Workshop','forest_clearing':'Forest','campfire_night':'Campsite','ruins':'Ruins','harbor':'Harbour','hilltop':'Hilltop','courtyard':'Courtyard','cave':'Cave','meadow':'Meadow'}
+def hud_of(sp):
+  """the caption lines kept on screen through a scene: the goal (top left) and the place and time (top right)"""
+  out=[]
+  if sp.get('objective'):out.append(dict(text=sp['objective'],loc=[.02,.95],align='LEFT',size=30))
+  pr=(sp.get('location') or {}).get('preset','');out.append(dict(text='%s, %s'%(PLACE_NAME.get(pr,pr.replace('_',' ').title()),sp.get('time','day')),loc=[.98,.95],align='RIGHT',size=30))
+  return out
 def master_items(film,items):
   """plan.json items: film title card, each scene with its card and subtitles, end card"""
   head=dict(title=film.get('title',''),card=film.get('logline',''),card_seconds=4.0);tail=dict(title='The End',card=film.get('title',''),card_seconds=3.0)
@@ -96,14 +103,14 @@ def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=T
  for i,sp in enumerate(film['scenes'],1):
   if want and i not in want:
    meta=out/('scene_%02d_%s.meta.json'%(i,sp['id']))
-   if meta.exists():r=json.loads(meta.read_text());r['status']='kept';recs.append(r);files.append(dict(file=r['file'],title=sp.get('title',''),card=sp.get('intent',''),card_seconds=3.0,subtitles=subtitles_of(r,film)))
+   if meta.exists():r=json.loads(meta.read_text());r['status']='kept';recs.append(r);files.append(dict(file=r['file'],title=sp.get('title',''),card=sp.get('intent',''),card_seconds=3.0,subtitles=subtitles_of(r,film),hud=hud_of(sp)))
    continue
   if rows[i-1]['error']:recs.append(dict(index=i,id=sp['id'],title=sp.get('title',''),status='spec error',audit=['SPEC ERROR: '+rows[i-1]['error']],seconds=0,stats={}));continue
   rec=build_scene(sp,out,i,cast_json,force,sheets,eh);print('scene %02d %s: %s, %s s, %d audit lines'%(i,sp['id'],rec['status'],rec.get('seconds'),len(rec.get('audit',[]))),flush=True)
   if sheets and rec['status']!='build failed' and (rec['status']!='reused' or not (out/'sheets'/('scene_%02d_%s.png'%(i,sp['id']))).exists()):sheet(rec,out,sheets)
   elif sheets and rec['status']=='reused':rec['sheet']=str(out/'sheets'/('scene_%02d_%s.png'%(i,sp['id'])))
   recs.append(rec)
-  if rec['status']!='build failed':files.append(dict(file=rec['file'],title=sp.get('title',''),card=sp.get('intent',''),card_seconds=3.0,subtitles=subtitles_of(rec,film)))
+  if rec['status']!='build failed':files.append(dict(file=rec['file'],title=sp.get('title',''),card=sp.get('intent',''),card_seconds=3.0,subtitles=subtitles_of(rec,film),hud=hud_of(sp)))
  masterf=None
  if master and files:
   (out/'plan.json').write_text(json.dumps(dict(scenes=master_items(film,files))))

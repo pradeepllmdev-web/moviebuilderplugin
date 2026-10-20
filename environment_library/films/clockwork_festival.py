@@ -1,5 +1,4 @@
 """Film 1: 'Twelve Strikes' - the key to the great town clock vanishes the night before the harvest festival (about 15 minutes, 20 scenes, 7 characters, 8 locations).
-
 A village comedy-drama written for the performance engine (perf_dsl): a bear clockmaker, a fox courier, a mouse apprentice, an ox guard captain, an owl mayor, a cat baker and a wolf who is not the thief he seems.
 Everything is data: python perf_movie.py films/clockwork_festival.py out/clockwork --plan-only   (seconds)   or without --plan-only to build it in Blender."""
 import sys,os
@@ -23,9 +22,8 @@ S.append(scene('silent_clock','The silent clock',square(),[at('bram',0,11.5,face
  par(go('wren','bram',stop=1.7,gait='walk'),turn('pip','wren')),
  convo([('wren','Bram, the festival begins at noon. Why is my clock silent?','concern','bram'),('bram','Because it cannot be wound, Mayor. The great key is gone.','sad','wren'),('wren','Gone? Keys do not simply walk away!','angry','bram'),
   ('pip','He locked it in the glass case last night. I watched him do it.','concern','wren'),('bram','And this morning the case is open and the key is not in it.','sad','wren')]),
- act('wren','shrug'),sfx('bell',0.2),
+ sfx('bell',0.2),
  convo([('wren','Then we have until noon to find it, or twelve strikes become twelve rumours.','serious','bram')]),
- act('bram','think',dur=2),
  convo([('pip','I will search every corner of the workshop. Every drawer, every cog, every crumb.','joy','bram')]),
  par(go('pip',[-8,5],gait='run'),look('bram','pip',3)),
 ],time='dawn',ambience='wind',music='mystery',extras=crowd(5,[-9,3,9,13],[0,12.5],1)))
@@ -36,10 +34,8 @@ S.append(scene('accusation','The captain accuses',square(3),[at('odo',-8,-3,face
   ('odo','Then close is not close enough. I will have my guards search your workshop.','angry','bram'),('pip','You cannot! He has been fixing that clock for forty years!','angry','odo')]),
  par(go('tilda','odo',stop=2.0,gait='stomp'),look('bram','odo',2)),
  convo([('tilda','Forty years and never once on time. Odo, leave the old bear be, my bread is rising.','angry','odo'),('tilda','Rising bread is my concern when the festival has no clock to start it and no bread to end it.','angry','odo')]),
- act('odo','shrug'),
  convo([('odo','Very well. Until sunset. Then I search, and I do not ask twice.','serious','bram'),('bram','You will not need to. My door is open to anyone who can find a key in a clock.','sad','odo')]),
  par(go('odo',[-7,-5],gait='stomp'),emote('bram','sad',3)),
- act('tilda','wave'),
 ],time='day',ambience='market',music='tense',extras=crowd(5,[-12,-8,12,10],[0,0],2)))
 # 3 ---------------------------------------------------------------------------------------------------------------- the empty case
 S.append(scene('empty_case','The empty case',loc('workshop',2),[at('bram',-1.5,-1.0,face='table'),at('pip',2.8,1.8,face='table')],props=[prop('scrap','letter',1.6,-0.38,on='table')],steps=[
@@ -50,10 +46,10 @@ S.append(scene('empty_case','The empty case',loc('workshop',2),[at('bram',-1.5,-
  put('pip',on='table',at=[0.4,-.4]),
  go('pip',[2.4,-1.9],gait='brisk'),
  take('bram','scrap'),
- par(act('bram','think',dur=3),look('pip','bram',3)),
+ par(look('pip','bram',3)),
  convo([('bram','A careful hand. Round letters, like a clerk or a courier.','serious','pip'),('pip','Courier. Mara carries every letter in town.','concern','bram'),('bram','Then we ask her before she leaves for the hills.','serious','pip')]),
  put('bram',on='table',at=[1.2,-.4]),
- par(act('pip','wave'),sfx('door',1.0)),
+ par(sfx('door',1.0)),
  convo([('pip','I will run. You will see. Faster than a clock.','joy','bram'),('bram','Faster than this clock, yes. That is not a high bar.','warm','pip')]),
  go('pip',[1.5,-3.5],gait='run'),
 ],time='day',ambience='fire',music='mystery'))
@@ -64,7 +60,6 @@ S.append(scene('courier','The courier',square(4),[at('mara',-12,-3,face=[0,0]),a
  par(go('pip','mara',stop=1.4,gait='run'),look('mara','pip',2)),
  convo([('mara','Do not look at me. The cobbles moved.','joy','pip'),('pip','Mara, someone stole the clock key. We found half a letter and we think it is yours.','concern','mara'),
   ('mara','Mine? I have delivered nine hundred letters this year and written four.','serious','pip')]),
-
  convo([('mara','Round, careful... that is Rook. He writes like a man ironing shirts. He buys lamp oil from Tilda every night.','serious','pip')]),
  par(go('mara','tilda',stop=2.0,gait='brisk'),go('pip','tilda',stop=2.0,gait='brisk')),
  convo([('mara','Tilda, did a wolf buy oil from you last night?','concern','tilda'),('tilda','Three bottles and a candle. Said he wanted to read.','angry','mara'),('tilda','At midnight. Who reads at midnight?','angry','pip'),
@@ -76,7 +71,7 @@ S.append(scene('market_trail','The oil trail',loc('market',3),[at('mara',-7,-6,f
  par(go('mara','tilda',stop=2.2,gait='brisk'),go('pip','tilda',stop=2.2,gait='brisk')),
  convo([('tilda','Looking for oil? Fresh barrel, cheap, and no one asks questions.','warm','mara'),('mara','Where did the wolf go with his three bottles?','concern','tilda'),
   ('tilda','Out through the north road, toward the old orchard.','serious','mara'),('pip','Then so do we.','serious','tilda')]),
- par(go('mara',[5,-4],gait='run'),go('pip',[7.5,-5.5],gait='run'),act('tilda','wave')),
+ par(go('mara',[5,-4],gait='run'),go('pip',[7.5,-5.5],gait='run'),),
  convo([('tilda','Bring me the key and I will bake you a cake the size of the bell!','joy','mara'),('mara','Is she serious?','concern','pip'),('pip','She is always serious. That is why the cakes are good.','warm','mara')]),
  par(go('mara',[6,-10.5],gait='run'),go('pip',[10,-8],gait='run')),
 ],time='day',ambience='market',music='bright',extras=crowd(9,[-14,-12,14,10],[0,-1],3)))
@@ -147,12 +142,11 @@ S.append(scene('the_crack','The crack',loc('workshop',3),[at('bram',-1.2,-1.2,fa
  take('rook','key'),
  give('rook','bram'),
  go('rook',[2.6,-2.8],gait='walk'),
- par(act('bram','think',dur=3),emote('bram','concern',3)),
+ par(emote('bram','concern',3)),
  convo([('bram','Thirty years I oiled that gear. I would have felt it.','sad','rook'),('rook','You oiled it. You never turned it by hand with a lantern behind it.','serious','bram')]),
  put('bram',on='table',at=[1.2,-.4]),
  par(go('mara','bram',stop=1.9,gait='walk'),go('pip','bram',stop=1.9,gait='brisk')),
  convo([('pip','Then we need to see it. Tonight.','concern','bram'),('bram','Tonight, and tomorrow before noon, we repair it or stop the festival. Both are hard.','sad','pip')]),
- act('bram','nod'),
 ],time='dusk',ambience='fire',music='warm'))
 # 12 --------------------------------------------------------------------------------------------------------------- the announcement
 S.append(scene('announcement','The announcement',square(6),[at('wren',3,-4,face=[0,0]),at('odo',-6,-3,face=[0,0]),at('bram',-2,1,face=[3,-4]),at('rook',1,2,face=[3,-4]),at('tilda',-8,4,face=[0,0])],steps=[
@@ -162,7 +156,6 @@ S.append(scene('announcement','The announcement',square(6),[at('wren',3,-4,face=
  convo([('bram','Captain, he is not the thief. He is the one person who listened to the clock.','angry','odo'),('rook','The gear is cracked, sir. Come and look.','serious','odo')]),
  par(go('tilda','odo',stop=2.2,gait='stomp'),look('wren','rook',2)),
  convo([('tilda','Odo, you said you do not ask twice. Ask once. Ask him politely.','angry','odo'),('odo','Politely... Show me the crack, wolf.','serious','rook')]),
- act('odo','nod'),
  convo([('wren','Then the festival waits a day. Tilda, tell the town the clock needs rest.','serious','tilda')]),
  emote('wren','smile',2),
 ],time='dusk',ambience='crowd',music='calm',extras=crowd(8,[-11,-9,11,9],[3,-4],5)))
@@ -170,11 +163,11 @@ S.append(scene('announcement','The announcement',square(6),[at('wren',3,-4,face=
 S.append(scene('repair','The night repair',loc('workshop',4),[at('bram',-1.5,-1.0,face='table'),at('rook',3.0,-1.8,face='table'),at('pip',-3.5,-2.2,face=[0,0])],props=[prop('wrench','tool',1.0,-.36,on='table'),prop('crate_gear','crate',3.6,-2.9,z=.35),prop('lamp2','lantern',2.2,-.36,on='table')],steps=[
  par(go('pip',[2.7,-2.9],gait='brisk'),look('bram','table',2)),
  convo([('bram','Rook, the lantern. And Pip, the new escape wheel from the crate.','serious','rook')]),
- par(take('rook','lamp2'),act('pip','nod')),
+ par(take('rook','lamp2'),),
  push('pip','crate_gear',dist=1.4,dir=180),
  convo([('pip','It is heavy. Gears are heavier than gossip.','joy','bram'),('bram','Nothing is heavier than gossip, Pip. Gears at least stay where you put them.','warm','pip')]),
  take('bram','wrench'),
- par(act('bram','hips'),sfx('clang',0.5)),
+ par(sfx('clang',0.5)),
  convo([('rook','Hold the wheel steady. I will turn the arbor.','serious','bram'),('bram','Your hands remember it better than mine do.','warm','rook')]),
  put('bram',on='table',at=[1.2,-.4]),
  par(act('pip','cele'),sfx('chime',0.2)),
@@ -192,14 +185,12 @@ S.append(scene('bread','Bread at midnight',loc('courtyard',3),[at('odo',-4,-2,fa
 ],time='night',ambience='night',music='warm'))
 # 15 --------------------------------------------------------------------------------------------------------------- dawn
 S.append(scene('dawn_square','The morning crowd',square(7),[at('wren',-2,-3,face=[0,6]),at('mara',6,-6,face=[0,0]),at('tilda',-8,3,face=[0,0]),at('odo',3,-2,face=[0,8])],steps=[
- par(go('mara','wren',stop=1.8,gait='run'),act('tilda','wave')),
+ par(go('mara','wren',stop=1.8,gait='run'),),
  convo([('mara','Mayor! They are still inside the tower. Bram says the wheel is in and the key is cut.','joy','wren'),('wren','Then I must write a speech. I have had one for twelve years but it begins with an apology.','concern','mara')]),
  par(go('tilda','wren',stop=2.2,gait='stomp')),
  convo([('tilda','Do not apologise. Say what happened. A cracked gear and a clever wolf and an old bear who is not too proud.','warm','wren'),('wren','Too long for a speech.','serious','tilda'),('tilda','Then keep it short and shout the last bit.','warm','wren')]),
- act('wren','think'),
  par(go('odo','wren',stop=2.2,gait='stomp')),
  convo([('odo','Mayor, the guard stands ready. Nobody climbs the tower but the repair crew.','serious','wren')]),
- act('wren','nod'),
  convo([('wren','Then we begin at noon. Mara, run and tell them the clock is back and so are we.','warm','mara')]),
  go('mara',[8,-2],gait='run'),
 ],time='dawn',ambience='market',music='bright',extras=crowd(8,[-12,-9,12,10],[0,6],6)))
@@ -250,8 +241,8 @@ S.append(scene('tea','Tea in the workshop',loc('workshop',5),[at('bram',-1.5,-2.
 S.append(scene('evening','The evening strike',square(10),[at('wren',-3,-4,face=[0,12]),at('tilda',3,-4,face=[0,12]),at('odo',0,-6,face=[0,12]),at('pip',1,2,face=[0,12]),at('mara',-6,-1,face=[0,12]),at('bram',-1,5,face=[0,12]),at('rook',1.5,5,face=[0,12])],steps=[
  par(look('wren',[0,17],3),emote('tilda','smile',3)),
  convo([('tilda','Cake for everyone! The tall bell-shaped kind!','joy','odo')]),
- par(act('odo','laugh'),act('pip','cele'),act('mara','wave')),
- par(sfx('bell',0.3),sfx('bell',2.3),sfx('bell',4.3),look('bram',[0,17],4),look('rook',[0,17],4),act('wren','nod')),
+ par(act('odo','laugh'),act('pip','cele'),),
+ par(sfx('bell',0.3),sfx('bell',2.3),sfx('bell',4.3),look('bram',[0,17],4),look('rook',[0,17],4),),
  convo([('bram','Six strikes. Right on the hour.','warm','rook'),('rook','Right on the hour.','warm','bram')]),
  par(go('pip','bram',stop=1.2,gait='brisk'),go('mara','pip',stop=1.4)),
  convo([('pip','Can we do it again tomorrow?','joy','bram'),('bram','Every day, Pip. That is the whole secret of a clock.','warm','pip')]),
@@ -280,6 +271,13 @@ INTENT={
  'evening':'Evening. The clock keeps time and the town celebrates.',
 }
 for _s in S:_s['intent']=INTENT[_s['id']]
+OBJECTIVE={}
+for _id in ('silent_clock','accusation','empty_case','courier','market_trail','council','orchard','rook_camp','chase'):OBJECTIVE[_id]='Goal: find the stolen clock key'
+for _id in ('confession','the_crack','announcement'):OBJECTIVE[_id]='Goal: prove the great gear is cracked'
+for _id in ('repair','bread','dawn_square'):OBJECTIVE[_id]='Goal: repair the clock before noon'
+OBJECTIVE['twelve_strikes']='Goal: strike twelve'
+for _id in ('apology','farewell','tea','evening'):OBJECTIVE[_id]='The clock keeps time again'
+for _s in S:_s['objective']=OBJECTIVE[_s['id']]
 LOGLINE='A village comedy: the key to the town clock is stolen the night before the harvest festival. The thief is not who he seems.'
 THEME=dict(root=57,mode='mixolydian',tempo=104,motif=[(0,.5),(0,.5),(2,.5),(0,.5),(4,1),(2,1)],motifs=dict(bram=[0,-1,0,2],mara=[4,5,6,4],pip=[7,6,7,9],odo=[0,0,4,0],wren=[2,1,0,-1],tilda=[4,3,2,0],rook=[0,2,3,2]),palette=dict(pad=48,bass=43,pluck=45,hit=47))
 for _c in CAST:_c.setdefault('pace',1.25)   # film pacing: a brisker cadence on every gait (strides and planted feet unchanged)
