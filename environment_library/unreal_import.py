@@ -33,7 +33,7 @@ class UnrealBackend:
   import unreal;self.u=unreal;self.seq=None;self.bind={}
  def sequence(self,name,fps,start,end):
   u=self.u;tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset('LS_%s'%name,'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
-  self.seq.set_display_rate(u.FrameRate(fps,1));self.seq.set_playback_start(start);self.seq.set_playback_end(end+1);self.fps=fps
+  self.scene=name;self.seq.set_display_rate(u.FrameRate(fps,1));self.seq.set_playback_start(start);self.seq.set_playback_end(end+1);self.fps=fps
  def _class_for(self,role):
   u=self.u
   return {'camera':u.CineCameraActor,'light':u.PointLight,'character':u.SkeletalMeshActor}.get(role,u.StaticMeshActor)
@@ -42,8 +42,12 @@ class UnrealBackend:
   if a['role']=='light':
    cls={'SUN':u.DirectionalLight,'SPOT':u.SpotLight}.get(a['light']['type'],u.PointLight)
   actor=sub.spawn_actor_from_class(cls,u.Vector(0,0,0));actor.set_actor_label(a['name'])
-  if a['role'] in ('prop','effect') and u.EditorAssetLibrary.does_asset_exist(asset):
-   actor.static_mesh_component.set_static_mesh(u.load_asset(asset))
+  cands=[asset]+['/Game/Proxy/%s/%s'%(self.scene,m.replace('.','_')) for m in a.get('meshes',[])[:1]]
+  for path in cands:
+   if u.EditorAssetLibrary.does_asset_exist(path):
+    if a['role']=='character':actor.skeletal_mesh_component.set_skeletal_mesh(u.load_asset(path))
+    elif a['role'] in ('prop','effect'):actor.static_mesh_component.set_static_mesh(u.load_asset(path))
+    break
   b=self.seq.add_possessable(actor);self.bind[a['id']]=b;return a['id']
  def transform_keys(self,h,frames,loc,rot,scale):
   u=self.u;b=self.bind[h];tr=b.add_track(u.MovieScene3DTransformTrack);sec=tr.add_section();sec.set_range(frames[0],frames[-1]+1);ch=sec.get_channels()
