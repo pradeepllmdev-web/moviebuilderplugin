@@ -155,6 +155,12 @@ class Handler(SimpleHTTPRequestHandler):
      from movie_prompt import worker as movie_worker,validate as validate_movie
      kwargs={'prompt':body.get('prompt','')} if self.path=='/api/movie-plan' else {'plan':validate_movie(body['plan'])}
     JOBS[job['id']]=job;launch(movie_worker,job,BUILD_LOCK,**kwargs);self.send_json(job,202);return
+   if self.path in ('/api/route','/api/story-write'):
+    prompt=body.get('prompt','')
+    if not isinstance(prompt,str) or not 5<=len(prompt.strip())<=4000:raise ValueError('Prompt must contain 5..4000 characters')
+    if self.path=='/api/route':
+     import prompt_router;self.send_json(prompt_router.route(prompt.strip()));return
+    import story_writer;minutes=max(1,min(30,int(body.get('minutes',8))));text,notes=story_writer.write_story(prompt.strip(),minutes,use_model=bool(body.get('use_model',True)));self.send_json(dict(story=text,notes=notes));return
    if self.path in ('/api/set-piece-plan','/api/set-piece-build'):
     from set_pieces import worker as piece_worker
     if self.path=='/api/set-piece-plan':

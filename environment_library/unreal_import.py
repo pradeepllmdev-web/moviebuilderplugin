@@ -13,6 +13,21 @@ The Unreal API calls are written against 5.3+ (LevelSequence, MovieScene tracks,
 import json,os,sys
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import unreal_bridge as ub
+def unique_name(exists,base,folder='/Game/Movie'):
+ """never overwrite: LS_<scene>, LS_<scene>_2, ... first name whose asset does not exist"""
+ n=0
+ while True:
+  name=base if n==0 else '%s_%d'%(base,n+1)
+  if not exists('%s/%s'%(folder,name)):return name
+  n+=1
+def guard(u,environ=None):
+ """refuse to touch the editor unless it is the verification project with nothing unsaved (same rules as open_saved_unreal.py / build_prompt_unreal.py)"""
+ env=environ if environ is not None else os.environ
+ mark=env.get('UNREAL_PROJECT_MARK','LatestSceneVerification')
+ if env.get('UNREAL_IMPORT_ANY_PROJECT')!='1' and mark not in str(u.Paths.get_project_file_path()):
+  raise RuntimeError('wrong project: expected %r in the project path (set UNREAL_IMPORT_ANY_PROJECT=1 to override)'%mark)
+ lib=u.EditorLoadingAndSavingUtils
+ if lib.get_dirty_map_packages() or lib.get_dirty_content_packages():raise RuntimeError('save or discard the unsaved Unreal changes first; nothing was imported')
 class DryRun:
  """records what would be created; same interface as the Unreal backend"""
  def __init__(self):self.log=[];self.counts={'actors':0,'transform_keys':0,'anim_sections':0,'cuts':0,'audio':0,'unmapped':[],'mapped':[]}
@@ -30,9 +45,9 @@ class DryRun:
 class UnrealBackend:
  """thin wrapper over the Unreal editor Python API (see the module docstring for the version note)"""
  def __init__(self):
-  import unreal;self.u=unreal;self.seq=None;self.bind={}
+  import unreal;self.u=unreal;guard(unreal);self.seq=None;self.bind={}
  def sequence(self,name,fps,start,end):
-  u=self.u;tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset('LS_%s'%name,'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
+  u=self.u;tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset(unique_name(u.EditorAssetLibrary.does_asset_exist,'LS_%s'%name),'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
   self.scene=name;self.seq.set_display_rate(u.FrameRate(fps,1));self.seq.set_playback_start(start);self.seq.set_playback_end(end+1);self.fps=fps
  def _class_for(self,role):
   u=self.u
