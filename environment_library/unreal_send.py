@@ -30,6 +30,22 @@ class Bridge:
   return body['result']
  def get(self,path):
   with urllib.request.urlopen(self.url+path,timeout=60) as r:return json.loads(r.read())
+ def drop_sequences(self,scene):
+  """delete earlier Level Sequences of this scene (LS_<scene>, LS_<scene>_2, ...)"""
+  try:have={a['path'].split('.')[0] for a in self.get('/assets?path=/Game/Movie')['assets']}
+  except Exception:return
+  for p in sorted(have):
+   n=p.split('/')[-1]
+   if n=='LS_'+scene or (n.startswith('LS_%s_'%scene) and n[len('LS_%s_'%scene):].isdigit()):
+    try:self.command('delete_asset',{'asset_path':p})
+    except BridgeError:pass
+ def clear_proxy(self,scene):
+  """delete the scene's imported proxy meshes and materials: a re-import over an existing asset keeps the old geometry, so a changed export would not show"""
+  try:items=self.get('/assets?path=/Game/Proxy/%s'%scene)['assets']
+  except Exception:return
+  for a in items:
+   try:self.command('delete_asset',{'asset_path':a['path']})
+   except BridgeError:pass
  def wait_for_scene(self,scene,timeout=1200,quiet=8.0):
   """after a pending reply: wait until the scene's sequence exists and its actors stopped appearing"""
   t0=time.time();last=None;stable_since=None
@@ -58,9 +74,11 @@ def send_scene(bridge,json_path,import_assets=True,import_characters=False,dry_r
  """import the scene's mesh files, then apply the scene; returns the bridge's answer"""
  json_path=Path(json_path);doc=json.loads(json_path.read_text(encoding='utf-8'));imported=[]
  if import_assets and not dry_run:
+  bridge.clear_proxy(doc['scene'])
   for f in sorted(json_path.parent.glob('*.fbx')):
    if f.name.startswith(('anim_','character_')) and not import_characters:continue
    bridge.command('import_asset',{'file':str(f),'kind':'mesh','destination':'/Game/Proxy/%s'%doc['scene'],'replace':True});imported.append(f.name)
+ if not dry_run:bridge.drop_sequences(doc['scene'])   # an old sequence points at actors the import removes; the editor can only delete it from outside the import
  res=bridge.command('apply_movie_scene',{'scene_json':str(json_path),'dry_run':bool(dry_run)});res['imported']=imported
  if res.get('pending') and not dry_run:res['sequence']=bridge.wait_for_scene(doc['scene']);res['pending']=False
  if not dry_run:

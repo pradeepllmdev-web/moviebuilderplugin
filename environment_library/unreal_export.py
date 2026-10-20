@@ -76,10 +76,11 @@ for a in doc['actors']:
  if a['role'] in ('prop','effect'):
   ro=bpy.data.objects.get(a['name']);parts=[]
   if ro is not None:
-   Rinv=ro.matrix_world.inverted()
+   from mathutils import Matrix
+   l0,q0,s0=ro.matrix_world.decompose();Rinv=(Matrix.Translation(l0)@q0.to_matrix().to_4x4()).inverted()   # root space WITHOUT the root's scale: the document's part sizes (dims_cm) are world sizes, so the offsets must be world-sized too
    for p in [ro]+list(ro.children_recursive):
     if p.type!='MESH':continue
-    Mr=Rinv@p.matrix_world;ee=Mr.to_euler('XYZ');parts.append(dict(mesh=p.name,self=(p is ro),loc=[round(x,3) for x in ub.ue_loc(Mr.translation)],rot=[round(x,4) for x in ub.ue_rot_deg([ee.x,ee.y,ee.z])],dims_cm=wdims(p)))
+    Mr=Rinv@p.matrix_world;ee=Mr.to_3x3().normalized().to_euler('XYZ');parts.append(dict(mesh=p.name,self=(p is ro),loc=[round(x,3) for x in ub.ue_loc(Mr.translation)],rot=[round(x,4) for x in ub.ue_rot_deg([ee.x,ee.y,ee.z])],dims_cm=wdims(p)))
   a['parts']=parts
 for a in doc['actors']:
  if a['role'] in ('prop','effect') and a.get('meshes'):
@@ -133,11 +134,31 @@ if static:
  bpy.data.objects.remove(env,do_unlink=True)
 pm=[]
 for o in animated_roots:
- pm+=[x for x in ([o]+list(o.children_recursive)) if x.type=='MESH' or x.type=='EMPTY']
-if pm:fbx(os.path.join(OUT,'props.fbx'),pm)
+ pm+=[x for x in ([o]+list(o.children_recursive)) if x.type=='MESH']
+pm=list({x.name:x for x in pm}.values())
+if pm:
+ # every prop mesh is exported at the identity transform (pivot at the object origin): the actor (and the part offsets in the document) supply where it stands, so a world position baked into the vertices would be applied twice
+ from mathutils import Matrix
+ flat=[]
+ for x in pm:
+  nm=x.name;x.name=nm+'~src';c=x.copy();c.data=x.data.copy();c.animation_data_clear();c.parent=None;c.matrix_world=Matrix.Identity(4);c.name=nm;sc.collection.objects.link(c);flat.append((x,c,nm))
+ fbx(os.path.join(OUT,'props.fbx'),[c for x,c,nm in flat])
+ for x,c,nm in flat:
+  bpy.data.objects.remove(c,do_unlink=True);x.name=nm
+def in_root_space(root,grp):
+# the character's skeletal mesh and animations are authored relative to its root actor: the root's own world transform (where it stands at the export frame, and where the path takes it) is what Sequencer's transform track supplies, so it must not also be baked into the FBX
+ Rinv=root.matrix_world.inverted();saved=[]
+ for o in grp:
+  if o.parent is None or o.parent not in grp:
+   saved.append((o,o.parent,o.matrix_parent_inverse.copy(),o.matrix_basis.copy()));w=Rinv@o.matrix_world;o.parent=None;o.matrix_basis=w
+ bpy.context.view_layer.update();return saved
+def restore_space(saved):
+ for o,p,pi,mb in saved:o.parent=p;o.matrix_parent_inverse=pi;o.matrix_basis=mb
+ bpy.context.view_layer.update()
 for c in chars:
  grp=[c['rig']]+[x for x in c['rig'].children_recursive]+[x for x in c['root'].children_recursive if x.type=='MESH'];grp=list({o.name:o for o in grp}.values())
  ad=c['rig'].animation_data;saved_mute=[t.mute for t in ad.nla_tracks] if ad else []
+ saved_space=in_root_space(c['root'],grp)
  fbx(os.path.join(OUT,'character_%s.fbx'%c['tag']),grp)
  # one animation FBX per clip
  for cl in {x['anim_file']:x for x in doc['characters'][chars.index(c)]['clips']}.values():
@@ -150,6 +171,7 @@ for c in chars:
   sc.frame_start=int(round(cl['action_start']));sc.frame_end=max(sc.frame_start+1,int(round(cl['action_end'])));fbx(os.path.join(OUT,cl['anim_file']+'.fbx'),grp,anim_=True)
   ad.action=prev
  for t,m in zip(ad.nla_tracks,saved_mute):t.mute=m
+ restore_space(saved_space)
  sc.frame_start,sc.frame_end=FS,FE
 problems=ub.validate(doc)
 with open(os.path.join(OUT,NAME+'.ue.json'),'w',encoding='utf-8') as fh:json.dump(doc,fh)

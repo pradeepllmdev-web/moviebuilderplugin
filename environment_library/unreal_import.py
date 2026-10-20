@@ -90,6 +90,16 @@ class UnrealBackend:
   u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem);n=0
   for act in sub.get_all_level_actors():
    if any(str(t)==self.tag for t in act.tags):sub.destroy_actor(act);n+=1
+  # earlier sequences of this scene pointed at the actors just removed and would play an empty level: drop them so the new one is the only (and the plainly named) sequence
+  try:u.LevelSequenceEditorBlueprintLibrary.close_level_sequence()   # an open sequence cannot be deleted
+  except Exception:pass
+  try:u.SystemLibrary.collect_garbage()   # the destroyed actors' references to the old sequence go away
+  except Exception:pass
+  lib=u.EditorAssetLibrary;base='/Game/Movie/LS_%s'%self.scene
+  for p in [base]+['%s_%d'%(base,i) for i in range(2,40)]:
+   try:
+    if lib.does_asset_exist(p) and not lib.delete_asset(p):self.warnings.append('old sequence %s could not be deleted'%p)
+   except Exception:pass
   return n
  def abort(self):
   """undo a failed import: destroy the actors spawned so far and delete the half-built sequence"""
@@ -108,8 +118,7 @@ class UnrealBackend:
   for c in doc['characters']:
    tag=c['name'];mesh_dir='/Game/Characters/%s'%tag;mesh_path='%s/character_%s'%(mesh_dir,tag);skel_path='%s/character_%s_Skeleton'%(mesh_dir,tag)
    try:
-    if not lib.does_asset_exist(mesh_path):
-     self._import(os.path.join(folder,c['skeletal_mesh']),mesh_dir,mesh=True)
+    self._import(os.path.join(folder,c['skeletal_mesh']),mesh_dir,mesh=True)   # always re-imported over the old asset (same path, so earlier scenes keep working): the export changes between versions
     self.character_assets[tag]=mesh_path if lib.does_asset_exist(mesh_path) else None
     skel=u.load_asset(skel_path) if lib.does_asset_exist(skel_path) else None
     for clip in sorted({s.get('anim_file') or 'anim_%s'%s['clip'] for s in c['clips']}):
@@ -179,13 +188,10 @@ class UnrealBackend:
     for p in parts:
      mesh=self.find_mesh(p['mesh'],u.StaticMesh)
      if mesh is None:self.warnings.append('no imported mesh for %s'%p['mesh']);continue
-     fit=self.fit_of(mesh,p['dims_cm'])
-     if p['self']:
-      actor.static_mesh_component.set_static_mesh(mesh);self.self_fit[a['id']]=fit
-     else:
-      ch=sub.spawn_actor_from_class(u.StaticMeshActor,u.Vector(0,0,0));self._tag(ch,'%s/%s/%s'%(self.scene,a['name'],p['mesh']));ch.static_mesh_component.set_static_mesh(mesh)
-      ch.attach_to_actor(actor,'',u.AttachmentRule.KEEP_RELATIVE,u.AttachmentRule.KEEP_RELATIVE,u.AttachmentRule.KEEP_RELATIVE,False)
-      ch.set_actor_relative_location(u.Vector(*p['loc']),False,False);ch.set_actor_relative_rotation(u.Rotator(p['rot'][0],p['rot'][1],p['rot'][2]),False,False);ch.set_actor_relative_scale3d(u.Vector(*fit))
+     fit=self.fit_of(mesh,p['dims_cm'])   # every mesh, the root's own included, is a child part: the actor carries only the animation, so the offsets of the other parts are not scaled by this mesh's size fit
+     ch=sub.spawn_actor_from_class(u.StaticMeshActor,u.Vector(0,0,0));self._tag(ch,'%s/%s/%s'%(self.scene,a['name'],p['mesh']));ch.static_mesh_component.set_static_mesh(mesh)
+     ch.attach_to_actor(actor,'',u.AttachmentRule.KEEP_RELATIVE,u.AttachmentRule.KEEP_RELATIVE,u.AttachmentRule.KEEP_RELATIVE,False)
+     ch.set_actor_relative_location(u.Vector(*p['loc']),False,False);ch.set_actor_relative_rotation(u.Rotator(p['rot'][0],p['rot'][1],p['rot'][2]),False,False);ch.set_actor_relative_scale3d(u.Vector(*fit))
    else:
     for path in [asset]+self.proxy_candidates(a):
      if not u.EditorAssetLibrary.does_asset_exist(path):continue
@@ -194,9 +200,13 @@ class UnrealBackend:
   b=self.seq.add_possessable(actor);self.bind[a['id']]=b;return a['id']
  def transform_keys(self,h,frames,loc,rot,scale):
   u=self.u;b=self.bind[h];tr=b.add_track(u.MovieScene3DTransformTrack);sec=tr.add_section();sec.set_range(frames[0],frames[-1]+1);ch=sec.get_all_channels()
+  animated_scale=any(abs(x-y)>1e-6 for row in scale for x,y in zip(row,scale[0]))   # a constant scale is set on the actor instead of keyed (nine channels of identical keys add nothing)
+  if not animated_scale:
+   try:self.actors[h].set_actor_scale3d(u.Vector(*scale[0]))
+   except Exception as e:self.warnings.append('scale not set: %s'%type(e).__name__)
   for i,f in enumerate(frames):
    fn=u.FrameNumber(f);vals=loc[i]+[rot[i][0],rot[i][1],rot[i][2]]+scale[i]
-   for c in range(9):
+   for c in range(9 if animated_scale else 6):
     try:ch[c].add_key(fn,vals[c],0.0,u.SequenceTimeUnit.DISPLAY_RATE,u.MovieSceneKeyInterpolation.LINEAR)
     except Exception:ch[c].add_key(fn,vals[c])
  def lens_keys(self,h,frames,lens,sensor=None):
@@ -245,11 +255,11 @@ class UnrealBackend:
      cc=a.get_cine_camera_component();rows.append(dict(label=a.get_actor_label(),focal=cc.current_focal_length,filmback=[cc.filmback.sensor_width,cc.filmback.sensor_height],aperture=cc.current_aperture,focus=str(cc.focus_settings.manual_focus_distance)));continue
     sk=getattr(a,'skeletal_mesh_component',None)
     if sk is not None and sk.skeletal_mesh is not None:
-     o,e=a.get_actor_bounds(False);rows.append(dict(label=a.get_actor_label(),skeletal=sk.skeletal_mesh.get_path_name(),world_extent=[round(e.x,1),round(e.y,1),round(e.z,1)],scale=[a.get_actor_scale3d().x]));continue
+     o,e=a.get_actor_bounds(False);rows.append(dict(label=a.get_actor_label(),skeletal=sk.skeletal_mesh.get_path_name(),world_extent=[round(e.x,1),round(e.y,1),round(e.z,1)],scale=[a.get_actor_scale3d().x],visible=bool(sk.is_visible()),hidden_editor=bool(a.is_temporarily_hidden_in_editor()),hidden_in_game=bool(sk.get_editor_property('hidden_in_game')),mobility=str(sk.mobility),mats=[(m.get_path_name() if m else None) for m in sk.get_materials()],anim_mode=str(sk.get_editor_property('animation_mode')),main_pass=bool(sk.get_editor_property('render_in_main_pass')),owner_no_see=bool(sk.get_editor_property('owner_no_see')),only_owner_see=bool(sk.get_editor_property('only_owner_see')),wscale=[round(sk.get_world_scale().x,3),round(sk.get_world_scale().y,3),round(sk.get_world_scale().z,3)],loc=[round(sk.get_world_location().x,1),round(sk.get_world_location().y,1),round(sk.get_world_location().z,1)],bones=sk.get_num_bones(),lod=sk.get_editor_property('forced_lod_model'),cast=bool(sk.get_editor_property('cast_shadow')),origin=[round(o.x,1),round(o.y,1),round(o.z,1)]));continue
     c=getattr(a,'static_mesh_component',None)
     if c is None:continue
     m=c.static_mesh;o,e=a.get_actor_bounds(False)
-    rows.append(dict(label=a.get_actor_label(),mesh=m.get_path_name() if m else None,mesh_extent=[round(v,1) for v in (m.get_bounds().box_extent.x,m.get_bounds().box_extent.y,m.get_bounds().box_extent.z)] if m else None,world_extent=[round(e.x,1),round(e.y,1),round(e.z,1)],visible=bool(c.is_visible()),mobility=str(c.mobility),materials=c.get_num_materials()))
+    rows.append(dict(label=a.get_actor_label(),mesh=m.get_path_name() if m else None,mesh_extent=[round(v,1) for v in (m.get_bounds().box_extent.x,m.get_bounds().box_extent.y,m.get_bounds().box_extent.z)] if m else None,world_extent=[round(e.x,1),round(e.y,1),round(e.z,1)],pivot_offset=[round(o.x-a.get_actor_location().x,1),round(o.y-a.get_actor_location().y,1),round(o.z-a.get_actor_location().z,1)],visible=bool(c.is_visible()),hidden_game=bool(a.get_editor_property('hidden')),hidden_editor=bool(a.is_temporarily_hidden_in_editor()),comp_hidden_game=bool(c.get_editor_property('hidden_in_game')),comp_visible_prop=bool(c.get_editor_property('visible')),cast_shadow=bool(c.get_editor_property('cast_shadow')),main_pass=bool(c.get_editor_property('render_in_main_pass')),mat=(lambda m:(m.get_path_name(),str(m.get_base_material().get_editor_property('blend_mode')),m.get_base_material().get_path_name()) if m else None)(c.get_material(0)),mobility=str(c.mobility),materials=c.get_num_materials()))
    except Exception as ex:rows.append(dict(label='?',error=str(ex)[:120]))
   return rows
  def save(self):
