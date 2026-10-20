@@ -80,3 +80,5 @@ environment_library/quick_review/
 *.log
 
 environment_library/bank/
+
+environment_library/scenes/unreal_export/
