@@ -99,6 +99,9 @@ SET_PIECES={
  'observatory':dict(title='The Observatory',script='observatory_scene.py',keywords='observatory|telescope|mirrors?|moonbeam|light beam|crystal|dome opens|star ?gaz',
   needs=['scenes/ship_assets (needs idle, climb, cele)'],
   beats="Leo turns four mirror wheels one after another until a moonbeam bounces through all of them onto a crystal that opens the dome: the beam is ray-traced every frame from the lamp (reflecting off the mirrors' live yaws), each mirror's required yaw is solved from the intended path, and his hands follow the wheel rim (about 45 s)",limits='a horizontal beam plane, flat mirrors, one lamp; hands are IK targets with no finger poses'),
+ 'colossus':dict(title='The Colossus',script='colossus_scene.py',keywords='colossus|stone giant|giant golem|golem|climbs? the giant|giant lifts',
+  needs=['scenes/ship_assets (needs idle, jump, climb, cele)'],
+  beats="a stone giant lifts one arm; Leo hops onto its level palm, rides it up, walks the arm to the shoulder, climbs the stairs on its chest and pulls out the glowing core, and the giant powers down and sinks back into the earth: his position lives in the giant's moving frame so he stays on the surfaces that carry him (about 55 s)",limits='one giant with a single raised arm, stairs and platform are part of the giant, hands are IK targets with no finger poses'),
  'horse_herd':dict(title='Horse herd',script='horse_herd.py',keywords=r'herd of horses|horse herd|galloping horses|wild horses|stampede',
   needs=['assets/quaternius_farm_animals_download (CC0 "Farm Animals Animated" by Quaternius; ask before downloading)'],
   beats='aerial herd of 70 galloping horses along a river toward mountains (16 s, 5 cameras, sound)',limits='no riders, foals are scaled copies'),
@@ -112,7 +115,7 @@ def match(prompt):
 def planner_text():
  names=', '.join('%s (%s)'%(k,v['beats'].split(' (')[0][:70]) for k,v in SET_PIECES.items())
  return ' Whole-scene set pieces exist outside this shot builder: '+names+'. If the request is one of these (creature chase, ship at sea, horse herd, riding a horse), do not fake it with walk or run beats: list "set_piece:<id>" in unsupported and keep a plain idle beat so the studio can route it.'
-ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle','reef','forge','sky','market','swamp','duel','bridge','observatory')   # scenes that take (ship_assets, out)
+ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle','reef','forge','sky','market','swamp','duel','bridge','observatory','colossus')   # scenes that take (ship_assets, out)
 def missing(piece):
  """Human-readable list of what is not there yet (nothing is downloaded automatically)."""
  gone=[]

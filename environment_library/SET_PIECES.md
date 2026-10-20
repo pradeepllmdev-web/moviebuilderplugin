@@ -194,6 +194,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: a horizontal beam plane, flat mirrors, one lamp; hands are IK targets with no finger poses
 * prompt keywords: `observatory|telescope|mirrors?|moonbeam|light beam|crystal|dome opens|star ?gaz`
 
+## The Colossus (`colossus`)
+
+* script: `colossus_scene.py`
+* story: a stone giant lifts one arm; Leo hops onto its level palm, rides it up, walks the arm to the shoulder, climbs the stairs on its chest and pulls out the glowing core, and the giant powers down and sinks back into the earth: his position lives in the giant's moving frame so he stays on the surfaces that carry him (about 55 s)
+* needs: scenes/ship_assets (needs idle, jump, climb, cele)
+* known limits: one giant with a single raised arm, stairs and platform are part of the giant, hands are IK targets with no finger poses
+* prompt keywords: `colossus|stone giant|giant golem|golem|climbs? the giant|giant lifts`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

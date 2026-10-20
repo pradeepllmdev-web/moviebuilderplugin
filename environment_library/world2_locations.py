@@ -255,3 +255,20 @@ def _observatory(ctx,state):
  for k in range(6):
   a=k*math.pi/3+.3;lt=bpy.data.objects.new('ObsLamp',bpy.data.lights.new('ObsLamp','POINT'));lt.data.energy=700;lt.data.color=(1,.82,.55);lt.location=(math.cos(a)*9,math.sin(a)*9,6);link(lt)
 reg('observatory',_observatory,OBS,'observatory')
+# ------------------------------------------------------------------------------------------------ 12 colossus valley
+COLOSSUS=dict(stool=(9.5,-4.2,0.),stool_h=1.3,sx=9.5,sz=24.,arm=23.)
+def _colossus_valley(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];C=COLOSSUS;rnd=random.Random(99)
+ prim('cube','ValleyFloor',(0,0,-.5),(.45,.38,.28),scale=(120,120,.5))
+ sx,sy,sz=C['stool'];prim('cube','Stool',(sx,sy,C['stool_h']/2),(.5,.46,.4),scale=(1.2,1.2,C['stool_h']/2))
+ for k in range(40):
+  x=rnd.uniform(-100,100);y=rnd.uniform(-100,60);
+  if abs(x)<14 and abs(y)<14:continue
+  r=rnd.uniform(1,4);prim('sphere','Boulder',(x,y,r*.4),(.4,.36,.3),scale=(r,r,r*.7),subdivisions=2)
+ for k in range(14):
+  a=rnd.uniform(0,6.28);d=rnd.uniform(60,115);h=rnd.uniform(14,40);prim('cone','Mountain',(math.cos(a)*d,math.sin(a)*d+10,h/2-1),(.3,.28,.3),scale=(rnd.uniform(10,22),)*2+(h/2,),vertices=7,radius1=1,depth=2)
+ for k in range(10):
+  x=rnd.uniform(-60,60);y=rnd.uniform(-60,-24);prim('cyl','RuinPillar',(x,y,3),(.5,.46,.4),scale=(.9,.9,3+rnd.random()*2),vertices=8,radius=1,depth=2)
+ sn=bpy.data.objects.new('Sun','SUN' and bpy.data.lights.new('SunLight','SUN'));sn.data.energy=4.;sn.data.color=(1,.88,.7);sn.rotation_euler=(math.radians(35),0,math.radians(-25));link(sn)
+reg('colossus_valley',_colossus_valley,COLOSSUS,'colossus')
