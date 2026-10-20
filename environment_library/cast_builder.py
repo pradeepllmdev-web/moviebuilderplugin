@@ -62,7 +62,7 @@ def accessory_prims(look,hand_r=(-.36,-.1,.66),hand_l=(.36,-.1,.66)):
   elif k=='scarf':out+=[P('cyl',n('wrap'),(0,y0+.06,1.17),(.25,.22,.06),c,'neck'),P('cube',n('end'),(.15,-.21,1.0),(.085,.025,.26),c,'spine'),P('cube',n('end2'),(.27,.0,1.12),(.03,.1,.05),c,'neck')]
   elif k=='bowtie':out+=[P('cone',n('a'),(.07,-.27,1.14),(.06,.06,.08),c,'neck',(0,PI/2,0)),P('cone',n('b'),(-.07,-.27,1.14),(.06,.06,.08),c,'neck',(0,-PI/2,0)),P('sphere',n('knot'),(0,-.27,1.14),(.035,.035,.035),c,'neck')]
   elif k=='cape':out+=[P('cube',n('clothL'),(.15,.24,1.0),(.17,.015,.3),c,'spine',(-.1,0,.3)),P('cube',n('clothR'),(-.15,.24,1.0),(.17,.015,.3),c,'spine',(-.1,0,-.3)),P('cyl',n('clasp'),(0,-.12,1.2),(.07,.07,.02),GOLD,'spine',(PI/2,0,0))]
-  elif k=='backpack':out+=[P('cube',n('pack'),(0,.3,.98),(.28,.13,.3),LEATHER,'spine'),P('cyl',n('roll'),(0,.3,1.33),(.12,.12,.34),c,'spine',(0,PI/2,0))]
+  elif k=='backpack':out+=[P('cube',n('pack'),(0,.27,.98),(.2,.1,.22),LEATHER,'spine'),P('cyl',n('roll'),(0,.27,1.24),(.08,.08,.22),c,'spine',(0,PI/2,0))]
   elif k=='apron':out+=[P('cube',n('cloth'),(0,-.2,.82),(.22,.015,.36),CLOTH,'spine1'),P('cube',n('strap'),(0,-.19,1.2),(.2,.012,.03),c,'spine1')]
   elif k=='medals':
    for j in range(3):out.append(P('sphere',n('m%d'%j),(.16-j*.1,-.205,1.02),(.035,.015,.035),GOLD if j%2==0 else STEEL,'spine1'))

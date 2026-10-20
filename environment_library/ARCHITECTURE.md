@@ -41,6 +41,9 @@ Blender scene pipeline for shot-by-shot human scenes; `automatedmoviebuilder` ow
 - Use a different model provider: set `LLM_PROVIDER` (`scene_ai`, `anthropic`, `none`) or `llm.register_provider(name, fn)`; plans are cached in `analysis_cache/`.
 - Send a scene to Unreal: see `UNREAL_BRIDGE.md`; the importer refuses to run unless the verification project is open with nothing unsaved and never overwrites an existing sequence.
 
+## Declarative performance films (second route)
+Besides the 28 bespoke set pieces there is a data-driven route: a cast registry (`cast_registry.py`: species looks, accessories, gaits, voices on the single lion rig), scene specs written with `perf_dsl.py`, compiled and audited by `perf_plan.py` (no Blender), shot by `perf_camera.py`, played by `perf_scene.py`, built into films by `perf_movie.py` (`films/`). See `PERFORMANCE_ENGINE.md`; it does not touch the set-piece registry or the Unreal bridge.
+
 ## Known gaps (honest list)
 - Characters are one lion rig with clips; no finger poses, face acting beyond lip sync, fur or cloth. Environments are blocked-in geometry. The Unreal bridge exists to replace both with real assets.
 - Only 27 scene types; a prompt outside them falls back to the old single-shot builder.
