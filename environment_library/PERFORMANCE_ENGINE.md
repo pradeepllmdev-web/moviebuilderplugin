@@ -46,6 +46,20 @@ Plan audits: speech overlap, collisions, walking into solids, bounds, turn rates
 Establishing wide, then per step: dialogue coverage (over-the-shoulder with lateral offset sized to the listener so the speaker shows past a bear, a three-quarter single on the listener, a two-shot every third line, soliloquy = medium on the speaker), tracking shots beside walkers (high follow for long walks), an insert in front of the prop for take/put/give/push, a medium for
 big acts, a wide hold at the end. Sides and distances are scored (uninvolved characters off the line of sight, nobody inside the lens, camera not in a solid or off the map); dialogue keeps one side per pair; shots are 1.3-9 s; near-identical consecutive framings are varied; inside a room the camera is clamped inside the walls. In Blender the existing `scene_base.cameras` adds depth of field, a light sway and clears the view of solids.
 
+## Voices (`perf_voices.py`)
+Real speech from Piper neural TTS (`pip install piper-tts`, models in `voices/`, fetched by `python perf_voices.py download`, about 400 MB, git-ignored). `perf_voices.catalogue` measures the pitch of 164 candidate voices once (`voices/catalogue.json`); `assign(registry)` gives every character the free voice whose pitch is closest to its registry pitch (shift by resampling for the rest), personality sets the speaking rate and the mood the delivery.
+Lines are synthesised in parallel and cached as wav (`voices/cache/`, keyed by voice, text, mood); the planner uses the recorded length, the Blender player reads the cache (Blender itself never needs Piper) and the mouth follows the energy envelope of the real audio. Without Piper the formant voices are used.
+
+## Score (`perf_score.py`, `perf_midi.py`)
+Each film has a THEME (root, mode, tempo, main motif, instrument palette, character motifs). The composer writes MIDI from the compiled plan: the same motif varied in every scene, character motifs on their first line, the lead instrument chosen by the place (accordion in markets, flute in clearings, horn in ruins, vibraphone in caves), intensity from the action (running, falls, startles, thunder), a soft pad under speech, hits on crashes and thunder, a rising run for cheers, a resolving last bar.
+It is rendered by FluidSynth with the GeneralUser GS SoundFont (`python perf_midi.py download`, into `music_tools/`, git-ignored) and cached. Without them the old generative score plays.
+
+## Story legibility
+Each scene has an `intent` line (one sentence of what happens and why it matters) shown on a title card before the scene; the film has a logline card and an end card; every spoken line is a coloured subtitle ("Name: line") in the master (`perf_movie` writes plan.json, `assemble_movie.py` makes the strips). Watch it with `python perf_watch.py out/<film>` (sequencer preview, sound, subtitles).
+
+## Life
+Background characters (`extras=crowd(n, area, focus, seed)` in a scene): deterministic looks and places that avoid solids and the cast, turned to the focus, breathing out of step; the cast is routed around them. Gestures follow the words and mood (wave on greetings, argue on refusals, nod on agreement, never the same clip twice running); glances and brow flashes keep the faces alive; a grounding pass lifts the root per frame for sit/fall/getup/kneel/crawl/jump so the body rests on the floor; the camera pushes in slowly on dialogue and drifts round wides.
+
 ## Sound (`perf_audio.py`)
 Voices per speaker (synthesised, pitch from the registry; real recordings via `VOICE_DIR` still override), 10 ambience beds, 8 generative score moods, footsteps from the gait cycle, 13 effects (knock, door, thud, clang, bell, gong, crash, scrape, splash, thunder, chime, clap).
 

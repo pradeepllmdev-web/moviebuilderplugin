@@ -114,6 +114,26 @@ class RoomCamera(unittest.TestCase):
   for c in pc.direct(P):
    pos,aim,lens=pc.frame(P,c,(c['t0']+c['t1'])/2);self.assertTrue(ins[0]<=pos[0]<=ins[2] and ins[1]<=pos[1]<=ins[3]);self.assertLessEqual(lens,45)
    if c['kind'] in ('wide','group','two'):self.assertLessEqual(lens,24)
+class Extras(unittest.TestCase):
+ def sp(self,**k):
+  return spec([go('mara',[4,2])],loc=dict(preset='village_square'),**k)|dict(extras=dict(n=8,area=[-10,-8,10,8],focus=[0,0],seed=3))
+ def test_deterministic_and_clear_of_solids_and_cast(self):
+  a=pp.compile(self.sp(),REG);b=pp.compile(self.sp(),REG);self.assertEqual(len(a.extras),8);self.assertEqual([(e['x'],e['y']) for e in a.extras],[(e['x'],e['y']) for e in b.extras])
+  base=pl.layout(dict(preset='village_square'))['obstacles']
+  for e in a.extras:
+   self.assertTrue(all(math.hypot(e['x']-c[0],e['y']-c[1])>=c[2]+.5 for c in base));self.assertTrue(all(math.hypot(e['x']-c['at'][0],e['y']-c['at'][1])>=1.7 for c in a.spec['cast']))
+ def test_cast_walks_around_them(self):
+  P=pp.compile(self.sp(),REG);self.assertEqual([x for x in P.audit() if 'obstacle' in x or 'collision' in x],[])
+ def test_no_extras_by_default(self):self.assertEqual(pp.compile(spec([go('mara',[4,2])]),REG).extras,[])
+class Gestures(unittest.TestCase):
+ def test_words_and_mood_choose_the_clip(self):
+  self.assertEqual(pp.gesture_for('Hello there, friends.','warm'),'wave');self.assertEqual(pp.gesture_for('No. Never again!','angry'),'argue');self.assertEqual(pp.gesture_for('Yes, agreed.','serious'),'nod')
+ def test_never_the_same_twice_in_a_row(self):
+  for mood in pp.GESTURES:
+   for last in ('talk','think','shrug','argue','laugh','nod','hips','wave'):self.assertNotEqual(pp.gesture_for('The road is long and the night is cold.',mood,last),last)
+ def test_a_speaker_varies_in_the_plan(self):
+  P=pp.compile(spec([dict(do='say',who='mara',text='The road is long and the night is cold.',mood='serious',to='bram')]*1+[dict(do='say',who='bram',text='We rest.',to='mara'),dict(do='say',who='mara',text='The fire is warm and the bread is fresh.',mood='serious',to='bram')]),REG)
+  cl=[c[2] for c in P.actors['mara'].clips if c[2] in ('talk','think','hips')];self.assertGreaterEqual(len(set(cl)),2)
 class Locations(unittest.TestCase):
  def test_every_preset_lays_out(self):
   for k in pl.PRESETS:
