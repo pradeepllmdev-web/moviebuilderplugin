@@ -199,7 +199,7 @@ for k,m in enumerate(marks):
   if c['kind']=='insert':pt=Vector(PLAN.props[c['prop']].at((f-1)/FPS,PLAN))
   co=world_to_camera_view(sc,m.camera,pt)
   if 0.03<co.x<.97 and 0.03<co.y<.97 and co.z>0:ok=True;break
- if not ok:miss+=1;issues.append('AUDIT framing: cut "%s" has %s outside the frame (%.2f,%.2f)'%(m.name,'/'.join(subs) if c['kind']!='insert' else c['prop'],co.x,co.y))
+ if not ok:miss+=1;issues.append('AUDIT framing: %s cut "%s" at %.1f s has %s outside the frame (%.2f,%.2f)'%(c['kind'],m.name,(f-1)/FPS,'/'.join(subs) if c['kind']!='insert' else c['prop'],co.x,co.y))
 sc.camera=marks[0].camera
 nl=len(PLAN.lines)
 print('PERF %s: %.0f s, %d characters, %d lines, %d cuts, %d footsteps, eye line worst: speaker %.0f listener %.0f, foot slip %.2f m/s, reach worst %.2f m (%d samples), framing misses %d/%d'%(SPEC['id'],PLAN.seconds,len(CH),nl,len(CUTS),len(PLAN.footsteps()),worst_sp,worst_li,mean_slip,reach_worst,reach_n,miss,chk))

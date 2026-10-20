@@ -371,9 +371,9 @@ class Plan:
   return p
  def _stand_spot(s,a,target,z,what):
   """where a stands to reach a target point at height z: free of solids and of other characters, within arm's reach of the point, nearest to where it is now"""
-  k=a.size;drop=1.12*k-z;arm=.56*k
-  if abs(drop)>arm*.97:raise SpecError('%s: %s cannot reach %s at height %.2f (shoulder %.2f, arm %.2f)'%(what,a.id,target,z,1.12*k,arm))
-  dmax=min(.52*k,math.sqrt(arm*arm-drop*drop));dmin=min(.3*k,dmax*.7);obst=s.layout['obstacles']
+  k=a.size;drop=1.12*k-z;arm=.5*k;lat=.22*k
+  if abs(drop)>arm*.97 or arm*arm-drop*drop-lat*lat<.01:raise SpecError('%s: %s cannot reach %s at height %.2f (shoulder %.2f, arm %.2f)'%(what,a.id,target,z,1.12*k,arm))
+  dmax=min(.42*k,math.sqrt(arm*arm-drop*drop-lat*lat)+.07*k);dmin=min(.3*k,dmax*.7);obst=s.layout['obstacles']
   def ok(q):
    if any(math.hypot(q[0]-c[0],q[1]-c[1])<c[2]+.02+a.radius*.2 for c in obst):return False
    return all(math.hypot(q[0]-o.X[-1],q[1]-o.Y[-1])>=(a.radius+o.radius)*.9+.1 for o in s.actors.values() if o is not a)
@@ -490,11 +490,11 @@ class Plan:
   if p is None or a.holding!=pid:raise SpecError('give: %s holds nothing'%a.id)
   if r.holding:raise SpecError('give: %s already holds %s'%(r.id,r.holding))
   hand=p.track[-1][3];hs=('R','L') if hand=='both' else (hand,)
-  dist=.5*a.size+.5*r.size+.2
+  dist=.4*(a.size+r.size)+.1
   if math.hypot(r.X[-1]-a.X[-1],r.Y[-1]-a.Y[-1])>dist+.3:s._approach(a,(r.X[-1],r.Y[-1]),dist,b.get('gait'))
   a.face_point((r.X[-1],r.Y[-1]));r.face_point((a.X[-1],a.Y[-1]),.5)
   ts=max(a.t,r.t);a.pad_to(ts);r.pad_to(ts);fx,fy=math.cos(a.H[-1]),math.sin(a.H[-1])
-  M=(a.X[-1]+fx*(.5*a.size+.1),a.Y[-1]+fy*(.5*a.size+.1),1.035*(a.size+r.size)/2);rh=p.carry if p.carry in ('R','L') else 'R'
+  M=(a.X[-1]+fx*(.4*a.size+.05),a.Y[-1]+fy*(.4*a.size+.05),.85*(a.size+r.size)/2);rh=p.carry if p.carry in ('R','L') else 'R'
   for h in hs:a.hands[h].append((ts,a.hands[h][-1][1],a.hands[h][-1][2]));a.hands[h].append((ts+.7,1.,('world',M)))
   r._reach_hand=rh;s._reach(r,(rh,),{rh:M},ts,.7)
   tg=ts+.9;a.hold(1.1);r.pad_to(a.t);p.track.append((tg,'held',r.id,rh));r.holding=pid;a.holding=None

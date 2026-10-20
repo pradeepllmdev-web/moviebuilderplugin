@@ -17,7 +17,7 @@ CAST=[
 EMBER=lambda x,y,on=None,z=None:prop('ember','lantern',x,y,on=on,z=z)
 S=[]
 # 1 ---------------------------------------------------------------------------------------------------------------- the failing light
-S.append(scene('failing_light','The failing light',loc('harbor',2),[at('moss',0,0,face=[3,-2]),at('brant',7,1,face=[3,-1]),at('sera',10,-1,face=[0,0])],props=[EMBER(3.0,-2.0,on='barrel1')],steps=[
+S.append(scene('failing_light','The failing light',loc('harbor',2,objects=[dict(kind='pedestal',at=[2.0,-1.0],id='stand0',height=1.0,size=.7)]),[at('moss',0,0,face=[2,-1]),at('brant',7,1,face=[3,-1]),at('sera',10,-1,face=[0,0])],props=[EMBER(2.0,-1.0,on='stand0')],steps=[
  look('brant','moss',2),
  take('moss','ember'),
  convo([('moss','Look at it, Brant. It sneezes. It has not held a steady flame since Tuesday.','concern','brant'),('brant','The last coal from the Cape Tern beacon. Forty winters it fed our lighthouse.','sad','moss')]),
@@ -32,7 +32,7 @@ S.append(scene('council','The council of ash',loc('hall',3),[at('sera',-3,-6.5,f
  par(go('sera',[-1.2,-2.6],gait='strut'),go('moss',[1.6,-2.6],gait='strut'),go('brant',[-3.0,-2.2],gait='stomp'),go('dorn',[3.5,-2.0],gait='walk')),
  take('sera','chart'),
  convo([('brant','Three days over the Hollow Hills. No road. Only moss and cliffs and one old guide, if he lives.','angry','sera'),('moss','I have walked it. In my head. Many times. The map is mostly correct.','serious','sera')]),
- give('sera','moss'),
+ act('sera','think'),
  convo([('sera','Mostly.','concern','moss'),('dorn','Mostly is what we say about my soup and nobody has died.','joy','sera'),('sera','Dorn. You are coming. We will need food and morale and a large pot.','warm','dorn'),
   ('dorn','Morale is in the pot.','warm','sera')]),
  wait(.5),
@@ -103,7 +103,7 @@ S.append(scene('fog_line','The fog line',loc('hilltop',4),[at('moss',-2,-2,face=
  convo([('wick','I will keep it.','warm','thorne'),('thorne','You are the size of a doorknob.','joy','wick'),('wick','Doorknobs are very important to doors.','serious','thorne')]),
 ],time='dusk',ambience='wind',music='sad'))
 # 9 ---------------------------------------------------------------------------------------------------------------- storm in the ruins
-S.append(scene('storm_ruins','Shelter from the storm',loc('ruins',3),[at('sera',-6,-4,face=[0,0]),at('dorn',-7,-6,face=[0,0]),at('kit',-9,-5,face=[0,0]),at('moss',-8,-8,face=[0,0])],props=[EMBER(0,0.2,on='statue')],steps=[
+S.append(scene('storm_ruins','Shelter from the storm',loc('ruins',3,objects=[dict(kind='pedestal',at=[-2.5,1.5],id='shrine',height=.85,size=.7)]),[at('sera',-6,-4,face=[0,0]),at('dorn',-7,-6,face=[0,0]),at('kit',-9,-5,face=[0,0]),at('moss',-8,-8,face=[0,0])],props=[EMBER(-2.5,1.5,on='shrine')],steps=[
  par(go('sera',[-1.5,-1.8],gait='run'),go('dorn',[-2.8,-2.6],gait='walk'),go('kit',[1.8,-2.4],gait='run'),go('moss',[-0.2,-3.2],gait='strut')),
  sfx('thunder',0.2),
  par(act('kit','startle'),act('dorn','startle')),
@@ -117,7 +117,7 @@ S.append(scene('storm_ruins','Shelter from the storm',loc('ruins',3),[at('sera',
  emote('sera','smile',2),
 ],time='night',ambience='rain',music='tense'))
 # 10 --------------------------------------------------------------------------------------------------------------- the murals
-S.append(scene('murals','The painted cave',loc('cave',3,objects=[dict(kind='pedestal',at=[3,-1],id='plinth',height=.7)]),[at('kit',0,-5,face=[0,0]),at('wick',1,-6,face=[0,0])],props=[prop('chart2','map',3,-1,on='plinth')],steps=[
+S.append(scene('murals','The painted cave',loc('cave',3,objects=[dict(kind='pedestal',at=[3,-1],id='plinth',height=.7,size=.6)]),[at('kit',0,-5,face=[0,0]),at('wick',1,-6,face=[0,0])],props=[prop('chart2','map',3,-1,on='plinth')],steps=[
  par(go('kit',[0.5,-3],gait='brisk'),go('wick',[1.6,-4.2],gait='brisk')),
  convo([('wick','It is enormous. The ceiling is painted. Those are stars. Those are boats.','joy','kit'),('kit','And that is a beacon. A tall one. With rays coming out like a hedgehog.','joy','wick')]),
  par(go('kit',[2.2,-.8],gait='walk'),go('wick',[1.0,-1.6],gait='walk')),
@@ -195,7 +195,7 @@ S.append(scene('cape_tern','Cape Tern',loc('courtyard',4),[at('sera',-12,-8,face
  act('sera','nod'),
 ],time='dusk',ambience='sea',music='epic'))
 # 18 --------------------------------------------------------------------------------------------------------------- the repair
-S.append(scene('lens_repair','The night repair',loc('courtyard',5,objects=[dict(kind='pedestal',at=[6,2],id='bench1',height=.8)]),[at('thorne',-1,-3,face='statue'),at('dorn',-5,-5,face='statue'),at('kit',5,-6,face=[0,0]),at('wick',-3,2,face=[0,0])],props=[prop('tool1','tool',6.0,2.0,on='bench1')],steps=[
+S.append(scene('lens_repair','The night repair',loc('courtyard',5,objects=[dict(kind='pedestal',at=[6,2],id='bench1',height=.8,size=.7)]),[at('thorne',-1,-3,face='statue'),at('dorn',-5,-5,face='statue'),at('kit',5,-6,face=[0,0]),at('wick',-3,2,face=[0,0])],props=[prop('tool1','tool',6.0,2.0,on='bench1')],steps=[
  par(go('thorne',[3.5,0.5],gait='walk'),go('kit',[8,.8],gait='brisk')),
  take('thorne','tool1'),
  convo([('thorne','Hold the frame. Kit, hands steady. Wick, pass the cloth.','serious','kit'),('kit','My hands are made of jelly and enthusiasm.','joy','thorne')]),
@@ -205,7 +205,7 @@ S.append(scene('lens_repair','The night repair',loc('courtyard',5,objects=[dict(
  par(act('kit','cele'),sfx('chime',0.2)),
 ],time='night',ambience='night',music='warm'))
 # 19 --------------------------------------------------------------------------------------------------------------- relight
-S.append(scene('relight','The relighting',loc('courtyard',6,objects=[dict(kind='pedestal',at=[-3.4,-4.2],id='stand1',height=.8),dict(kind='pedestal',at=[4.5,3.0],id='stand2',height=.8)]),[at('sera',-3,-5,face='statue'),at('moss',-6,-3,face='statue'),at('thorne',-4,-7,face='statue'),at('dorn',-8,-5,face='statue'),at('wick',-5,-8,face='statue'),at('kit',-7,-8,face='statue')],props=[EMBER(-3.4,-4.2,on='stand1')],steps=[
+S.append(scene('relight','The relighting',loc('courtyard',6,objects=[dict(kind='pedestal',at=[-3.4,-4.2],id='stand1',height=.8,size=.7),dict(kind='pedestal',at=[4.5,3.0],id='stand2',height=.8,size=.7)]),[at('sera',-3,-5,face='statue'),at('moss',-6,-3,face='statue'),at('thorne',-4,-7,face='statue'),at('dorn',-8,-5,face='statue'),at('wick',-5,-8,face='statue'),at('kit',-7,-8,face='statue')],props=[EMBER(-3.4,-4.2,on='stand1')],steps=[
  par(take('sera','ember'),look('moss','sera',3)),
  convo([('sera','Nine winters dark. Three days of road. Let us see if the old girl remembers.','serious','thorne')]),
  par(go('sera',[5.8,2.2],gait='strut'),go('thorne',[4.4,3.5],gait='walk'),go('moss',[3,2],gait='strut'),go('wick',[2.5,4],gait='brisk')),

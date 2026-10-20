@@ -55,13 +55,13 @@ def accessory_prims(look,hand_r=(-.36,-.1,.66),hand_l=(.36,-.1,.66)):
   elif k=='glasses':
    for sg in (-1,1):out.append(P('cyl',n('lens%d'%sg),(sg*.11,-.46,1.47),(.06,.06,.01),(.7,.85,.95),'head',(PI/2,0,0)))
    out.append(P('cube',n('bridge'),(0,-.46,1.48),(.04,.01,.01),DARK,'head'))
-  elif k=='eyepatch':out+=[P('cyl',n('patch'),(.11,-.465,1.47),(.08,.08,.012),DARK,'head',(PI/2,0,0)),P('cyl',n('strap'),(0,y0-.0,1.5),(.33,.33,.015),DARK,'head')]
+  elif k=='eyepatch':out+=[P('cyl',n('patch'),(.11,-.465,1.47),(.085,.085,.012),DARK,'head',(PI/2,0,0)),P('cube',n('cord'),(.2,-.43,1.52),(.15,.008,.008),DARK,'head',(0,0,.5))]
   elif k=='flower':
    out.append(P('sphere',n('heart'),(.27,y0-.05,1.62),(.04,.04,.04),(.95,.85,.2),'head'))
    for j in range(5):a=2*PI*j/5;out.append(P('sphere',n('petal%d'%j),(.27+math.cos(a)*.06,y0-.07,1.62+math.sin(a)*.06),(.045,.025,.045),c,'head'))
   elif k=='scarf':out+=[P('cyl',n('wrap'),(0,y0+.08,1.2),(.3,.27,.1),c,'neck'),P('cube',n('end'),(.15,-.21,1.0),(.085,.025,.26),c,'spine'),P('cube',n('end2'),(.27,.0,1.12),(.03,.1,.05),c,'neck')]
   elif k=='bowtie':out+=[P('cone',n('a'),(.07,-.27,1.14),(.06,.06,.08),c,'neck',(0,PI/2,0)),P('cone',n('b'),(-.07,-.27,1.14),(.06,.06,.08),c,'neck',(0,-PI/2,0)),P('sphere',n('knot'),(0,-.27,1.14),(.035,.035,.035),c,'neck')]
-  elif k=='cape':out+=[P('cube',n('cloth'),(0,.22,1.02),(.26,.015,.27),c,'spine',(-.1,0,0)),P('cyl',n('clasp'),(0,-.12,1.2),(.07,.07,.02),GOLD,'spine',(PI/2,0,0))]
+  elif k=='cape':out+=[P('cube',n('clothL'),(.15,.24,1.0),(.17,.015,.3),c,'spine',(-.1,0,.3)),P('cube',n('clothR'),(-.15,.24,1.0),(.17,.015,.3),c,'spine',(-.1,0,-.3)),P('cyl',n('clasp'),(0,-.12,1.2),(.07,.07,.02),GOLD,'spine',(PI/2,0,0))]
   elif k=='backpack':out+=[P('cube',n('pack'),(0,.3,.98),(.28,.13,.3),LEATHER,'spine'),P('cyl',n('roll'),(0,.3,1.33),(.12,.12,.34),c,'spine',(0,PI/2,0))]
   elif k=='apron':out+=[P('cube',n('cloth'),(0,-.2,.82),(.22,.015,.36),CLOTH,'spine1'),P('cube',n('strap'),(0,-.19,1.2),(.2,.012,.03),c,'spine1')]
   elif k=='medals':

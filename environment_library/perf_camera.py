@@ -50,12 +50,14 @@ def direct(plan,seed=1):
     t0=max(a,L['t0']-.25);t1=min(b,L['t1']+.3);mid=t0+(t1-t0)*.68
     kd='two' if k%3==2 or math.hypot(*[plan.pos(sp,mid)[i]-plan.pos(to,mid)[i] for i in (0,1)])>5. else 'ots'
     if t0>cuts[-1]['t1']+.2 and mid-cuts[-1]['t1']>0:t0=cuts[-1]['t1']
-    cuts.append(dict(name='%s speaks'%sp,kind=kd,t0=t0,t1=mid,subject=sp,to=to,side=side,lens=45 if kd=='ots' else 36))
-    if t1-mid>.4:cuts.append(dict(name='%s listens'%to,kind='single',t0=mid,t1=t1,subject=to,to=sp,side=side,lens=50))
+    cuts.append(dict(name='%s speaks'%sp,kind=kd,t0=t0,t1=mid,subject=sp,to=to,side=side,lens=42 if kd=='ots' else 36))
+    if t1-mid>.4:cuts.append(dict(name='%s listens'%to,kind='single',t0=mid,t1=t1,subject=to,to=sp,side=side,lens=36))
    if cuts[-1]['t1']<b-.1:cuts[-1]['t1']=b
   elif gos:
    e=max(gos,key=lambda e:e['t1']-e['t0']);who=e['who'];mv=[g for g in gos if g['t0']<e['t1'] and g['t1']>e['t0']]
-   walk_side[0]*=-1.;dur=b-a
+   walk_side[0]*=-1.;dur=b-a;tm=(a+b)/2;gp=[plan.pos(g['who'],tm)[:2] for g in mv]
+   if max((math.hypot(p[0]-q[0],p[1]-q[1]) for p in gp for q in gp),default=0)>5.5:
+    cuts.append(dict(name='%s and company'%who,kind='group',t0=a,t1=b,subject=None,ang=float(rnd.uniform(0,6.28)),lens=30));continue
    cuts.append(dict(name='%s walks'%who,kind='track' if dur<9 else 'follow_high',t0=a,t1=b,subject=who,group=[g['who'] for g in mv],side=walk_side[0],lens=34 if dur<9 else 30,dist=float(rnd.uniform(3.4,4.6))))
   elif inter:
    e=inter[0];who=e['who'];cuts.append(dict(name='%s %s'%(who,e['kind']),kind='insert',t0=a,t1=max(a+1.5,(e.get('t_grasp') or e.get('t_push1') or (a+b)/2)+.9),subject=who,prop=e['prop'],lens=50,side=1.))
@@ -102,10 +104,10 @@ def _frame(plan,c,t):
   hs=plan.head_pos(sp,t);to=c.get('to') or sp;ht=plan.head_pos(to,t);side=c.get('side',1.)
   d=_unit((hs[0]-ht[0],hs[1]-ht[1]));n=(-d[1]*side,d[0]*side)
   if kd=='ots':
-   k=plan.actors[to].size;wk=plan.actors[to].look['scale'][0]*.62;sep=max(.6,math.hypot(hs[0]-ht[0],hs[1]-ht[1]));back=2.0+.6*k
+   k=plan.actors[to].size;wk=plan.actors[to].look['scale'][0]*.62;sep=max(.6,math.hypot(hs[0]-ht[0],hs[1]-ht[1]));back=2.4+.6*k
    lat=min(2.4,max(.6*k,(wk+.2)*(back+sep)/sep));return (ht[0]-d[0]*back+n[0]*lat,ht[1]-d[1]*back+n[1]*lat,hs[2]+.15),(hs[0],hs[1],hs[2]),lens
   if kd=='single':
-   k=plan.actors[to].size*c.get('dm',1.);return (ht[0]+(d[0]*.8+n[0]*1.0)*2.3*k,ht[1]+(d[1]*.8+n[1]*1.0)*2.3*k,ht[2]+.05),ht,lens
+   k=plan.actors[to].size*c.get('dm',1.);return (ht[0]+(d[0]*.8+n[0]*1.0)*3.1*k,ht[1]+(d[1]*.8+n[1]*1.0)*3.1*k,ht[2]+.05),ht,lens
   mid=((hs[0]+ht[0])/2,(hs[1]+ht[1])/2,(hs[2]+ht[2])/2);dist=max(4.2,math.hypot(hs[0]-ht[0],hs[1]-ht[1])*1.6+1.5)
   return (mid[0]+n[0]*dist,mid[1]+n[1]*dist,mid[2]+.4),mid,lens
  if kd in ('track','follow_high'):

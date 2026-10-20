@@ -130,7 +130,7 @@ def footprint_circles(o,fp):
   return out
  if fp[0]=='segment':
   L,t=fp[1],fp[2];ex,ey=o['to'];n=max(1,int(math.ceil(L/max(.3,t*1.6))));return [(x0+(ex-x0)*i/n,y0+(ey-y0)*i/n,max(.25,t*.9)) for i in range(n+1)]
- w,d=fp[1],fp[2];long_,short=max(w,d),min(w,d);r=max(.25,short/2*.95);n=max(1,int(math.ceil(long_/(r*1.2))))
+ w,d=fp[1],fp[2];long_,short=max(w,d),min(w,d);r=max(.12,short/2*.95);n=max(1,int(math.ceil(long_/(r*1.2))))
  for i in range(n+1):
   u=-long_/2+r+(long_-2*r)*(i/n) if long_>2*r else 0.
   lx,ly=(u,0) if w>=d else (0,u);dx,dy=_rot(lx,ly,a);out.append((x0+dx,y0+dy,r))
@@ -219,7 +219,7 @@ def workshop(rnd,p):
  b=room(rnd,p);b['objects']+=[dict(kind='anvil',at=[-3,-1],id='anvil'),dict(kind='crate',at=[3.6,-2.6],id='crate_w'),dict(kind='barrel',at=[-4.2,-2.8])];return b
 def cave(rnd,p):
  o=_ring(rnd,['rock','rock','rock'],26,0,0,9,12,size=2.2)+[dict(kind='rock',at=[-4,3]),dict(kind='rock',at=[5,-3]),dict(kind='pedestal',at=[0,6],id='altar',height=1.0),dict(kind='campfire',at=[-5,-4],id='fire')]
- return dict(objects=o,ground=(.28,.25,.24),half=(14,14),floor='stone',markers=dict(center=(0,0),altar=(0,5),mouth=(0,-10)))
+ return dict(objects=o,ground=(.28,.25,.24),half=(14,14),floor='stone',inside=[-7.4,-7.4,7.4,7.4],markers=dict(center=(0,0),altar=(0,5),mouth=(0,-10)))
 def meadow(rnd,p):
  return dict(objects=_scatter(rnd,['tree','bush','rock'],14,(-24,24),(-24,24),avoid=[(0,0,6)],gap=5)+[dict(kind='haystack',at=[8,5]),dict(kind='fence',at=[-12,-8],to=[12,-8],id='fence'),dict(kind='log',at=[-3,2],yaw=20,id='log')],ground=(.42,.6,.3),half=(30,26),markers=dict(center=(0,0),east=(9,0),west=(-9,0),far=(0,14)))
 PRESETS=dict(forest_clearing=forest_clearing,campfire_night=campfire_night,village_square=village_square,market=market,hall=hall,room=room,ruins=ruins,harbor=harbor,hilltop=hilltop,courtyard=courtyard,workshop=workshop,cave=cave,meadow=meadow)
