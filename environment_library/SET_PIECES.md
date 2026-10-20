@@ -202,6 +202,14 @@ Whole-scene Blender scripts for creature, herd, rider and ship scenes. The dinos
 * known limits: one giant with a single raised arm, stairs and platform are part of the giant, hands are IK targets with no finger poses
 * prompt keywords: `colossus|stone giant|giant golem|golem|climbs? the giant|giant lifts`
 
+## The Conversation (`talk`)
+
+* script: `talk_scene.py`
+* story: two to four characters talk around a campfire or a council table from a script of lines: voices from a synthesiser or real recordings, lip sync keyed from the voice, mood expressions and blinks, talk/argue/shrug/laugh clips with nod/think reactions, eye lines that follow the speaker, and camera coverage with depth of field generated from the script (about 10-60 s)
+* needs: scenes/ship_assets (needs idle, talk, argue, shrug, laugh, nod, think)
+* known limits: the ring is static (no walking or blocking changes), gestures come from clips (no IK, no finger poses), up to four speakers and 24 lines per scene
+* prompt keywords: `conversation|dialogue|talks? (?:with|to|around)|around the campfire|campfire`
+
 ## Horse herd (`horse_herd`)
 
 * script: `horse_herd.py`

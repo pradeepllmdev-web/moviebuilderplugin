@@ -41,7 +41,7 @@ SET_PIECES={
   needs=['scenes/ship_assets (python build_ship_assets.py; needs idle, look, run, climb, kick, fall, cele)'],
   beats='an army of 34 cloned lions and 240 troopers besieges a citadel: four catapults breach the wall (54 baked blocks), Leo climbs a ladder, kicks a defender off the wall, turns the winch to raise the portcullis, the army floods in and he hoists the banner (72 s, 14 cameras, sound)',
   limits='troopers are cones, the portcullis does not block the crowd physically, arrows are not aimed at actors, no cavalry'),
- 'council':dict(title='The Council',script='council_scene.py',keywords=r'council|debate|negotiat|meeting|argue around|round table|decide together|discuss(?:es|ion)?|conversation at the table',
+ 'council':dict(title='The Council',script='council_scene.py',keywords=r'council|debate|negotiat|\bmeeting\b|argue around|round table|decide together|discuss(?:es|ion)?|conversation at the table',
   needs=['scenes/ship_assets (python build_ship_assets.py; needs sit)'],
   beats='six lions argue and decide around a round table: scripted lines with lip sync from syllables, eye lines to the speaker, arm gestures, a scroll passed across the table, a gavel (66 s, generated coverage, voices synthesised from the same syllable times)',
   limits='seated gestures are IK arm targets (no finger poses), voices are synthetic syllable tones, expressions come from the pipeline shape keys'),
@@ -102,6 +102,9 @@ SET_PIECES={
  'colossus':dict(title='The Colossus',script='colossus_scene.py',keywords='colossus|stone giant|giant golem|golem|climbs? the giant|giant lifts',
   needs=['scenes/ship_assets (needs idle, jump, climb, cele)'],
   beats="a stone giant lifts one arm; Leo hops onto its level palm, rides it up, walks the arm to the shoulder, climbs the stairs on its chest and pulls out the glowing core, and the giant powers down and sinks back into the earth: his position lives in the giant's moving frame so he stays on the surfaces that carry him (about 55 s)",limits='one giant with a single raised arm, stairs and platform are part of the giant, hands are IK targets with no finger poses'),
+ 'talk':dict(title='The Conversation',script='talk_scene.py',keywords='conversation|dialogue|talks? (?:with|to|around)|around the campfire|campfire',
+  needs=['scenes/ship_assets (needs idle, talk, argue, shrug, laugh, nod, think)'],
+  beats='two to four characters talk around a campfire or a council table from a script of lines: voices from a synthesiser or real recordings, lip sync keyed from the voice, mood expressions and blinks, talk/argue/shrug/laugh clips with nod/think reactions, eye lines that follow the speaker, and camera coverage with depth of field generated from the script (about 10-60 s)',limits='the ring is static (no walking or blocking changes), gestures come from clips (no IK, no finger poses), up to four speakers and 24 lines per scene'),
  'horse_herd':dict(title='Horse herd',script='horse_herd.py',keywords=r'herd of horses|horse herd|galloping horses|wild horses|stampede',
   needs=['assets/quaternius_farm_animals_download (CC0 "Farm Animals Animated" by Quaternius; ask before downloading)'],
   beats='aerial herd of 70 galloping horses along a river toward mountains (16 s, 5 cameras, sound)',limits='no riders, foals are scaled copies'),
@@ -110,12 +113,14 @@ SET_PIECES={
   beats='rider mounts and gallops, jumps a fence, dust at every hoof, 7 cameras incl. rider point of view (22 s)',limits='mount is a leap, legs are IK, hands do not wrap the reins'),
 }
 def match(prompt):
- """Set piece ids whose keywords appear in the prompt, best first."""
+ """Set piece ids whose keywords appear in the prompt, best first (a script with two or more spoken lines is always a conversation)."""
+ import dialogue
+ if len(dialogue.parse(prompt)['lines'])>=2:return ['talk']
  scored=[(len(re.findall(v['keywords'],prompt,re.I)),k) for k,v in SET_PIECES.items()];return [k for n,k in sorted(scored,reverse=True) if n]
 def planner_text():
  names=', '.join('%s (%s)'%(k,v['beats'].split(' (')[0][:70]) for k,v in SET_PIECES.items())
  return ' Whole-scene set pieces exist outside this shot builder: '+names+'. If the request is one of these (creature chase, ship at sea, horse herd, riding a horse), do not fake it with walk or run beats: list "set_piece:<id>" in unsupported and keep a plain idle beat so the studio can route it.'
-ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle','reef','forge','sky','market','swamp','duel','bridge','observatory','colossus')   # scenes that take (ship_assets, out)
+ASSET_PIECES=('storm_ship','cliff_rescue','arena_duel','great_escape','avalanche','siege','council','heist','workshop','rapids','flood','flight','ice','ruins','jungle','reef','forge','sky','market','swamp','duel','bridge','observatory','colossus','talk')   # scenes that take (ship_assets, out)
 def missing(piece):
  """Human-readable list of what is not there yet (nothing is downloaded automatically)."""
  gone=[]
@@ -136,7 +141,7 @@ def command(piece,out,seconds=None):
  if piece in ASSET_PIECES:return b+[str(H/'scenes/ship_assets'),str(out)]+tail
  if piece=='horse_herd':return b+[str(horse_blend()),str(out),'64']+tail
  return b+[str(horse_blend()),str(H/'scenes/lion_source.blend'),str(out),str(seconds or 22),'lion']
-PARAM_PIECES=('last_egg','arena_duel','great_escape','avalanche','siege')   # scenes that read SCENE_PARAMS (time_of_day, hero_tint); the storm scenes keep their own sky
+PARAM_PIECES=tuple(sorted(set(('last_egg','arena_duel','great_escape','avalanche','siege')+tuple(p for p in ASSET_PIECES if p not in ('storm_ship','cliff_rescue'))+('talk',))))   # scenes that read SCENE_PARAMS (time_of_day, hero_tint); the storm scenes keep their own sky
 def build(piece,out=None,seconds=None,params=None):
  """Build a set piece in Blender; returns {'ok','out','audit':[...],'missing':[...]} (audit lines come from scene_kit.audit)."""
  gone=missing(piece)

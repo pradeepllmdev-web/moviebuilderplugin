@@ -92,10 +92,36 @@ class Scene:
   """Head damped-track to an empty (returned) keyed by the caller; facing = world direction the character faces at frame 1."""
   self.scene.frame_set(1);bpy.context.view_layer.update();rig=ch['rig'];hm=(rig.matrix_world@rig.pose.bones['mixamorig:Head'].matrix).to_3x3()
   AX={'TRACK_X':hm.col[0],'TRACK_NEGATIVE_X':-hm.col[0],'TRACK_Y':hm.col[1],'TRACK_NEGATIVE_Y':-hm.col[1],'TRACK_Z':hm.col[2],'TRACK_NEGATIVE_Z':-hm.col[2]}
-  fa=max(AX,key=lambda k:AX[k].normalized().dot(Vector(facing).normalized()));g=bpy.data.objects.new('Gaze_'+ch['tag'],None);self.link(g)
+  fa=max(AX,key=lambda k:AX[k].normalized().dot(Vector(facing).normalized()));ch['face_axis']=fa;g=bpy.data.objects.new('Gaze_'+ch['tag'],None);self.link(g)
   k=rig.pose.bones['mixamorig:Head'].constraints.new('DAMPED_TRACK');k.target=g;k.track_axis=fa;k.influence=influence;return g
+ def face_dir(self,ch):
+  """world direction the character's face points (needs gaze() to have run); call after settle(frame)"""
+  rig=ch['rig'];hm=(rig.matrix_world@rig.pose.bones['mixamorig:Head'].matrix).to_3x3();fa=ch['face_axis']
+  v=hm.col[0] if fa=='TRACK_X' else hm.col['XYZ'.index(fa[-1])]*(-1 if 'NEGATIVE' in fa else 1)
+  return Vector(v).normalized()
+ def head_pos(self,ch):
+  rig=ch['rig'];return rig.matrix_world@rig.pose.bones['mixamorig:Head'].head
+ def blinks(self,ch,seed=1,t0=0.):
+  """natural blinking: a 0.16 s blink every 2.2-5.5 s on every mesh of the character that has BlinkL/BlinkR shape keys (the lids and creases)"""
+  import random
+  rnd=random.Random(seed*7919+len(ch['tag']));t=t0+rnd.uniform(.6,2.5);keys=[]
+  for o in ch['objs']:
+   kb=o.data.shape_keys if o.type=='MESH' else None
+   if kb and ('BlinkL' in kb.key_blocks or 'BlinkR' in kb.key_blocks):
+    if kb.animation_data is None:kb.animation_data_create()
+    keys.append(kb)
+  if not keys:return 0
+  n=0
+  while t<self.seconds-.3:
+   f0,f1,f2=self.F(t),self.F(t+.07),self.F(t+.16)
+   for kb in keys:
+    for nm in ('BlinkL','BlinkR'):
+     b=kb.key_blocks.get(nm)
+     if b:b.value=0;b.keyframe_insert('value',frame=f0);b.value=1;b.keyframe_insert('value',frame=f1);b.value=0;b.keyframe_insert('value',frame=f2)
+   n+=1;t+=rnd.uniform(2.2,5.5)
+  return n
  def settle(self,f):self.scene.frame_set(f);bpy.context.view_layer.update()
- def cameras(self,cuts,pos_fn,family_prefixes=(),cand=None,lens=32):
+ def cameras(self,cuts,pos_fn,family_prefixes=(),cand=None,lens=32,dof=True,fstop=4.0,shake=0.):
   """cuts: [(name,a,b,kind)]; pos_fn(kind,t,u)->(camera position, aim point[, lens]). Keys every 2 frames, marks the cuts, clears the view of anything in the way (smoothed over time)."""
   sc=self.scene;cams=[];ck=[]
   for k,(name,a,b,kind) in enumerate(cuts):
@@ -103,7 +129,12 @@ class Scene:
    con=cam.constraints.new('TRACK_TO');con.target=aim;con.track_axis='TRACK_NEGATIVE_Z';con.up_axis='UP_Y'
    for f in range(self.F(a),self.F(b)+1,2):
     t=(f-1)/self.fps;u=(t-a)/max(.1,b-a);r=pos_fn(kind,t,u);P,q=Vector(r[0]),Vector(r[1]);cam.data.lens=r[2] if len(r)>2 else lens
-    cam.location=P;cam.keyframe_insert('location',frame=f);aim.location=q;aim.keyframe_insert('location',frame=f);cam.data.keyframe_insert('lens',frame=f);ck.append((k,cam,aim,f))
+    if shake:
+     import math as _m;ph=f*.13+k*3.1;P=P+Vector((_m.sin(ph*1.7),_m.sin(ph*2.3+1),_m.sin(ph*1.1+2)))*shake;q=q+Vector((_m.sin(ph*2.9),_m.sin(ph*1.3+2),_m.sin(ph*2.1)))*shake*.6
+    cam.location=P;cam.keyframe_insert('location',frame=f);aim.location=q;aim.keyframe_insert('location',frame=f);cam.data.keyframe_insert('lens',frame=f)
+    if dof:
+     cam.data.dof.use_dof=True;cam.data.dof.aperture_fstop=fstop;cam.data.dof.focus_distance=max(.5,(P-q).length);cam.data.dof.keyframe_insert('focus_distance',frame=f)
+    ck.append((k,cam,aim,f))
    sc.timeline_markers.new(name,frame=self.F(a)).camera=cam
   sc.camera=cams[0];fam=set()
   for c in self.chars:fam|=set(kit._family(c['root']))
@@ -124,6 +155,8 @@ class Scene:
   """build(A) fills named tracks: A.track(name,array,peak); helpers A.at(arr,t,x,g), A.noise(n,k) (low-passed noise), A.chords(seq,vol). Tracks are added as sound strips."""
   A=Audio(self);build(A);A.save()
  def finish(self,issues=None,subjects=None,world=(.3,.35,.4)):
+  for i,c in enumerate(self.chars):
+   if not c.get('blinked'):self.blinks(c,i+1);c['blinked']=True
   sc=self.scene;issues=list(issues or [])+kit.persistence_audit(sc)+kit.camera_checks(sc,subjects or [c['root'] for c in self.chars[:1]])
   for i in issues:print(i)
   print('AUDIT',len(issues),'issues')

@@ -66,7 +66,7 @@ class SceneKit(unittest.TestCase):
 class MoviePipeline(unittest.TestCase):
  def test_scene_params_validation(self):
   import scene_params as sp
-  self.assertEqual(sp.get('{"time_of_day":"night","hero_tint":[1,0.5,0.5],"title":"x"}'),dict(time_of_day='night',hero_tint=(1.,.5,.5),title='x',location_state=None))
+  self.assertEqual(sp.get('{"time_of_day":"night","hero_tint":[1,0.5,0.5],"title":"x"}'),dict(time_of_day='night',hero_tint=(1.,.5,.5),title='x',location_state=None,dialogue=None,setting=None))
   d=sp.get('{"time_of_day":"moon","hero_tint":[9,0,0]}');self.assertIsNone(d['time_of_day']);self.assertIsNone(d['hero_tint'])
   self.assertEqual(sp.get('not json'),sp.defaults());self.assertEqual(sp.get(''),sp.defaults())
  def test_story_plan_routes_and_warns(self):

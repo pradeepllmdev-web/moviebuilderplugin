@@ -272,3 +272,22 @@ def _colossus_valley(ctx,state):
   x=rnd.uniform(-60,60);y=rnd.uniform(-60,-24);prim('cyl','RuinPillar',(x,y,3),(.5,.46,.4),scale=(.9,.9,3+rnd.random()*2),vertices=8,radius=1,depth=2)
  sn=bpy.data.objects.new('Sun','SUN' and bpy.data.lights.new('SunLight','SUN'));sn.data.energy=4.;sn.data.color=(1,.88,.7);sn.rotation_euler=(math.radians(35),0,math.radians(-25));link(sn)
 reg('colossus_valley',_colossus_valley,COLOSSUS,'colossus')
+# ------------------------------------------------------------------------------------------------ 13 campfire clearing (conversations)
+CAMPFIRE=dict(r=3.0,logs=4)
+def _campfire(ctx,state):
+ import bpy
+ link,mat,prim=ctx['link'],ctx['mat'],ctx['prim'];C=CAMPFIRE;rnd=random.Random(120)
+ prim('cyl','Clearing',(0,0,-.1),(.2,.26,.14),scale=(14,14,.1),vertices=40,radius=1,depth=2);prim('cyl','FirePit',(0,0,.08),(.25,.22,.2),scale=(.7,.7,.1),vertices=14,radius=1,depth=2)
+ for k in range(9):
+  a=k*2*math.pi/9;prim('sphere','PitStone',(math.cos(a)*.75,math.sin(a)*.75,.12),(.4,.38,.36),scale=(.16,.16,.12),subdivisions=1)
+ prim('cone','Flame',(0,0,.55),(1,.55,.15),scale=(.35,.35,.6),vertices=8,radius1=1,depth=2,emit=9.);prim('cone','FlameCore',(0,0,.4),(1,.9,.5),scale=(.18,.18,.35),vertices=8,radius1=1,depth=2,emit=14.)
+ for k in range(C['logs']):
+  a=k*2*math.pi/C['logs']+.4;prim('cyl','Log',(math.cos(a)*3.6,math.sin(a)*3.6,.25),(.28,.18,.1),scale=(.28,.28,.9),rot=(math.pi/2,0,a+math.pi/2),vertices=8,radius=1,depth=2)
+ for k in range(70):
+  a=rnd.uniform(0,6.28);d=rnd.uniform(11,24);h=rnd.uniform(6,13);x,y=math.cos(a)*d,math.sin(a)*d
+  prim('cyl','Trunk',(x,y,h/2),(.2,.14,.09),scale=(.35,.35,h/2),vertices=6,radius=1,depth=2);prim('sphere','Crown',(x,y,h+.8),(.06,.2,.1),scale=(2.2,2.2,2.6),subdivisions=1)
+ for k in range(120):
+  a=rnd.uniform(0,6.28);b=rnd.uniform(.2,1.4);prim('sphere','Star',(math.cos(a)*math.cos(b)*80,math.sin(a)*math.cos(b)*80,math.sin(b)*80),(1,1,.9),scale=(.2,.2,.2),emit=6.,subdivisions=1)
+ fl=bpy.data.objects.new('FireLight',bpy.data.lights.new('FireLight','POINT'));fl.data.energy=1500;fl.data.color=(1,.55,.2);fl.location=(0,0,1.0);link(fl)
+ mn=bpy.data.objects.new('Moon',bpy.data.lights.new('MoonLight','SUN'));mn.data.energy=.8;mn.data.color=(.55,.65,1);mn.rotation_euler=(math.radians(55),0,math.radians(40));link(mn)
+reg('campfire',_campfire,CAMPFIRE,'talk')

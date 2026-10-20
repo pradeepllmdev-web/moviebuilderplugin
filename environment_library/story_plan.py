@@ -5,12 +5,12 @@
 Scenes are separated by blank lines or lines such as 'Scene 3: ...'. Each scene is matched to a set piece (set_pieces.match), gets a time of day from its words, a length and parameters.
 Scenes with no set piece are marked builder='shots' (the shot-by-shot movie planner in movie_prompt.py builds those). The plan also lists continuity warnings."""
 import re,sys,json,hashlib
-import set_pieces,scene_params,locations
+import set_pieces,scene_params,locations,dialogue
 LOCATION_OF={m['piece_default']:k for k,m in locations.REGISTRY.items()}
 DAMAGES={'avalanche':'buried','siege':'breached'}          # what a scene does to its location for the scenes that follow
 SUPPORTS_STATE={'avalanche':True,'siege':False}            # whether the scene script can show a damaged location
 TOD_WORDS=[('night',r'\bnight|midnight|moonlit|stars\b'),('dusk',r'\bdusk|sunset|evening|twilight'),('dawn',r'\bdawn|sunrise|early morning|first light'),('overcast',r'\bstorm|overcast|rain|fog|gloomy'),('day',r'\bnoon|midday|afternoon|bright day|daylight|\bmorning\b')]
-DEFAULT_SECONDS={'colossus':55,'observatory':45,'bridge':20,'duel':38,'swamp':50,'market':45,'sky':40,'forge':45,'reef':55,'jungle':36,'ruins':28,'last_egg':50,'storm_ship':60,'cliff_rescue':62,'arena_duel':52,'great_escape':54,'avalanche':48,'siege':72,'council':66,'heist':50,'workshop':30,'rapids':36,'flood':30,'flight':36,'ice':40,'horse_herd':16,'rider':22}
+DEFAULT_SECONDS={'talk':30,'colossus':55,'observatory':45,'bridge':20,'duel':38,'swamp':50,'market':45,'sky':40,'forge':45,'reef':55,'jungle':36,'ruins':28,'last_egg':50,'storm_ship':60,'cliff_rescue':62,'arena_duel':52,'great_escape':54,'avalanche':48,'siege':72,'council':66,'heist':50,'workshop':30,'rapids':36,'flood':30,'flight':36,'ice':40,'horse_herd':16,'rider':22}
 def split_scenes(text):
  parts=[p.strip() for p in re.split(r'\n\s*\n|^\s*scene\s*\d+\s*[:.\-]\s*',text.strip(),flags=re.I|re.M) if p and p.strip()]
  return parts or [text.strip()]
@@ -23,7 +23,10 @@ def plan(text,hero_tint=None):
  scenes=[];warn=[];state_by_loc={}
  for i,t in enumerate(split_scenes(text),start=1):
   ids=set_pieces.match(t);piece=ids[0] if ids else None;tod=time_of_day(t)
-  params={}
+  params={};talk=dialogue.parse(t)
+  if len(talk['lines'])>=2:
+   if len(dialogue.cast(talk['lines']))>4:warn.append('scene %d has more than 4 speakers; only the first 4 are voiced in one conversation'%i)
+   piece='talk';params['dialogue']=talk['lines'][:scene_params.MAX_LINES];params['setting']=talk['setting']
   if tod and piece in set_pieces.PARAM_PIECES:params['time_of_day']=tod
   if hero_tint and piece in set_pieces.PARAM_PIECES:params['hero_tint']=list(hero_tint)
   loc=LOCATION_OF.get(piece)
@@ -32,6 +35,7 @@ def plan(text,hero_tint=None):
    else:warn.append('scene %d revisits %s after it was %s, but this set piece can only show it intact'%(i,loc,state_by_loc[loc]))
   if loc and piece in DAMAGES and loc not in state_by_loc:state_by_loc[loc]=DAMAGES[piece]
   secs=DEFAULT_SECONDS.get(piece) if piece else max(8,min(90,int(len(t.split())/2.5)))
+  if piece=='talk':secs=int(max(10,round(dialogue.schedule(params['dialogue'])[-1]['t1']+4)))
   title=(re.sub(r'\s+',' ',t)[:48]).strip(' .,;:')
   scenes.append(dict(index=i,title=title,text=t,builder='set_piece' if piece else 'shots',piece=piece,location=loc,params=params,seconds=secs,missing=set_pieces.missing(piece) if piece else [],time_of_day=tod))
  for a,b in zip(scenes,scenes[1:]):

@@ -104,3 +104,9 @@ class StudioJob(unittest.TestCase):
   with self.assertRaises(ValueError):m2u.worker(job,threading.Lock(),prompt='Leo climbs a cliff',bridge_url='http://example.com:1')
  def test_needs_prompt_or_story(self):
   with self.assertRaises(ValueError):m2u.worker({'id':'c'*32},threading.Lock())
+class Hygiene(unittest.TestCase):
+ def test_no_backspace_characters_in_sources(self):
+  """a regex written as '\b' in a non-raw string becomes a backspace and silently never matches"""
+  root=Path(__file__).resolve().parent.parent/'environment_library'
+  bad=[p.name for p in root.glob('*.py') if chr(8) in p.read_text(encoding='utf-8',errors='ignore')]
+  self.assertEqual(bad,[])

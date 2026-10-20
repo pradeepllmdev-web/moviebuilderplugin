@@ -38,9 +38,10 @@ SENT={
  'bridge':'Leo sprints across the rotten rope bridge as the planks fall away behind him.',
  'sky':'Leo crosses the floating city, riding the moving platforms above the clouds.',
  'colossus':'A stone giant lifts its arm and Leo rides the palm, walks to the shoulder and pulls the glowing core from its chest.',
+ 'talk':'Around the campfire the travellers talk about the road ahead.\nLeo (warm): "We made it to the clearing at last."\nMara (serious): "The pass behind us is closed. There is no turning back."\nLeo (serious): "Then we go forward together."',
  'duel':'On the moonlit tower the rival mage and Leo trade spells in a magic duel, and Leo\'s shield turns the last spell back.'}
 # a dramatic default order: set-up, journey, trials, the big set piece, the confrontation
-ARC=['council','observatory','workshop','market','great_escape','rapids','swamp','jungle','ruins','ice','forge','reef','horse_herd','rider','cliff_rescue','avalanche','flood','bridge','sky','flight','storm_ship','last_egg','heist','siege','colossus','arena_duel','duel']
+ARC=['council','talk','observatory','workshop','market','great_escape','rapids','swamp','jungle','ruins','ice','forge','reef','horse_herd','rider','cliff_rescue','avalanche','flood','bridge','sky','flight','storm_ship','last_egg','heist','siege','colossus','arena_duel','duel']
 def seconds_of(piece):return story_plan.DEFAULT_SECONDS.get(piece,40)
 def _pieces_in_prompt(prompt):
  hits=[p for p in set_pieces.match(prompt) if p in SENT]
