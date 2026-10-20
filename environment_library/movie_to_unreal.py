@@ -5,7 +5,7 @@ POST /api/story-to-unreal {prompt | story, minutes, dry_run, bridge_url}. Stages
 The job record carries the story text, the build report, what was sent and what was skipped, so a failure at any stage leaves the earlier results usable."""
 import json,time
 from pathlib import Path
-import story_writer,build_movie,unreal_send
+import story_writer,build_movie,unreal_send,unreal_handoff
 H=Path(__file__).resolve().parent
 def worker(job,lock,prompt=None,story=None,minutes=8,bridge_url=None,dry_run=False,use_model=True):
  if story is None and not prompt:raise ValueError('Give a prompt or a story')
@@ -19,6 +19,6 @@ def worker(job,lock,prompt=None,story=None,minutes=8,bridge_url=None,dry_run=Fal
   bad=[r for r in res['report'] if r['piece'] and (r['audit'] or not (r['status'].startswith('built') or r['status']=='reused'))]
   if bad:job.update(status='failed',error='scene %d (%s) has issues: %s. Nothing was sent to Unreal.'%(bad[0]['index'],bad[0]['piece'],(bad[0]['audit'] or [bad[0]['status']])[0]));return
   job['stage']='Sending to Unreal'
-  sent=unreal_send.send_movie(out,bridge,dry_run=dry_run,progress=lambda s:job.update(stage=s))
+  sent=unreal_handoff.handoff(out,bridge,dry_run=dry_run,progress=lambda s:job.update(stage=s))
   job.update(status='complete',stage='In Unreal: open the Level Sequences listed in sent' if not dry_run else 'Dry run complete (nothing created in Unreal)',sent=sent['sent'],skipped=sent['skipped'])
  finally:lock.release()

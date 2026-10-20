@@ -96,7 +96,7 @@ class Send(unittest.TestCase):
    def fake_export(blend,out,name):
     out=Path(out);out.mkdir(parents=True,exist_ok=True);j=out/(name+'.ue.json');j.write_text(json.dumps({'scene':name}));made.append(name);return j
    os.environ['MOVIEBUILDER_EXPORT_ROOT']=str(Path(d)/'exp')
-   try:res=us.send_movie(d,FakeBridge(),export=fake_export)
+   try:res=us.send_movie(d,FakeBridge(),export=fake_export,calibrate=False)
    finally:os.environ.pop('MOVIEBUILDER_EXPORT_ROOT')
    self.assertEqual(len(res['sent']),1);self.assertEqual([s['index'] for s in res['skipped']],[2,3])
 class StudioJob(unittest.TestCase):
