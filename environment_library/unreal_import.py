@@ -43,6 +43,7 @@ class DryRun:
  def audio(self,name,path,start,vol):self.counts['audio']+=1
  def save(self):self.log.append(('save',))
  def environment(self,doc):pass
+ self_fit={}
  def ensure_characters(self,doc):pass
  def character_asset(self,tag):return None
  def clip_asset(self,tag,clip):return None
@@ -52,7 +53,7 @@ class UnrealBackend:
  def __init__(self,check=True):
   import unreal;self.u=unreal
   if check:guard(unreal)   # the editor bridge passes check=False: it has its own busy/undo rules and never overwrites
-  self.seq=None;self.bind={};self.sequence_path=None;self.warnings=[];self.spawned=[];self.tag=None;self.scene=None;self.character_assets={};self.clip_assets={};self.actors={}
+  self.seq=None;self.bind={};self.sequence_path=None;self.warnings=[];self.spawned=[];self.tag=None;self.scene=None;self.character_assets={};self.clip_assets={};self.actors={};self.self_fit={}
  def sequence(self,name,fps,start,end):
   u=self.u;self.scene=name;self.tag='moviebuilder:%s'%name;self.purge()
   tools=u.AssetToolsHelpers.get_asset_tools();self.seq=tools.create_asset(unique_name(u.EditorAssetLibrary.does_asset_exist,'LS_%s'%name),'/Game/Movie',u.LevelSequence,u.LevelSequenceFactoryNew())
@@ -111,12 +112,12 @@ class UnrealBackend:
      self._import(os.path.join(folder,c['skeletal_mesh']),mesh_dir,mesh=True)
     self.character_assets[tag]=mesh_path if lib.does_asset_exist(mesh_path) else None
     skel=u.load_asset(skel_path) if lib.does_asset_exist(skel_path) else None
-    for clip in sorted({s['clip'] for s in c['clips']}):
+    for clip in sorted({s.get('anim_file') or 'anim_%s'%s['clip'] for s in c['clips']}):
      target='/Game/Anim/%s'%tag
      if skel is None:self.warnings.append('no skeleton for %s: animation %s not imported'%(tag,clip));continue
      before=set(lib.list_assets(target,recursive=True,include_folder=False)) if lib.does_directory_exist(target) else set()
-     f=os.path.join(folder,'anim_%s.fbx'%clip)
-     got=self._import(f,target,mesh=False,skeleton=skel,name='anim_%s'%clip)
+     f=os.path.join(folder,'%s.fbx'%clip)
+     got=self._import(f,target,mesh=False,skeleton=skel,name=clip)
      anims=[p for p in got if isinstance(u.load_asset(p),u.AnimSequence)] if got else []
      if anims:self.clip_assets[(tag,clip)]=anims[0]
      else:self.warnings.append('animation %s imported nothing'%clip)
@@ -142,29 +143,60 @@ class UnrealBackend:
  def _class_for(self,role):
   u=self.u
   return {'camera':u.CineCameraActor,'light':u.PointLight,'character':u.SkeletalMeshActor}.get(role,u.StaticMeshActor)
+ def find_mesh(self,mesh_name,want):
+  """the imported proxy asset of the given class for a Blender mesh name: Unreal turns '.' into '_' and appends a digit when a material already has the name"""
+  u=self.u;n=mesh_name.replace('.','_')
+  for suffix in ('','1','2','3'):
+   path='/Game/Proxy/%s/%s%s'%(self.scene,n,suffix)
+   if u.EditorAssetLibrary.does_asset_exist(path):
+    obj=u.load_asset(path)
+    if isinstance(obj,want):return obj
+  return None
+ def fit_of(self,mesh,dims_cm):
+  """per-axis scale that makes the imported mesh the size the Blender object had (independent of whether the FBX import baked the object scale)"""
+  try:
+   e=mesh.get_bounds().box_extent;nat=(e.x*2,e.y*2,e.z*2)
+  except Exception:return (1.,1.,1.)
+  return tuple(max(.001,min(1000.,(d/n) if n>1e-3 and d>1e-3 else 1.)) for d,n in zip(dims_cm,nat))
+ def _tag(self,actor,label):
+  u=self.u;actor.set_actor_label(label);actor.tags=[u.Name(self.tag)]
+  try:actor.set_folder_path('MovieBuilder/%s'%self.scene)
+  except Exception:pass
+  self.spawned.append(actor)
  def spawn(self,a,asset,mapped):
   u=self.u;sub=u.get_editor_subsystem(u.EditorActorSubsystem);cls=self._class_for(a['role'])
   if a['role']=='light':
    cls={'SUN':u.DirectionalLight,'SPOT':u.SpotLight}.get(a['light']['type'],u.PointLight)
-  actor=sub.spawn_actor_from_class(cls,u.Vector(0,0,0));actor.set_actor_label('%s/%s'%(self.scene,a['name']));actor.tags=[u.Name(self.tag)]
-  try:actor.set_folder_path('MovieBuilder/%s'%self.scene)
-  except Exception:pass
-  self.spawned.append(actor);self.actors[a['id']]=actor
-  want=u.SkeletalMesh if a['role']=='character' else u.StaticMesh
-  cands=[asset]+self.proxy_candidates(a)
-  for path in cands:
-   if not u.EditorAssetLibrary.does_asset_exist(path):continue
-   obj=u.load_asset(path)
-   if not isinstance(obj,want):continue      # an FBX import also creates materials with the same name: only the right class counts
-   if a['role']=='character':actor.skeletal_mesh_component.set_skeletal_mesh(obj)
-   elif a['role'] in ('prop','effect'):actor.static_mesh_component.set_static_mesh(obj)
-   break
+  actor=sub.spawn_actor_from_class(cls,u.Vector(0,0,0));self._tag(actor,'%s/%s'%(self.scene,a['name']));self.actors[a['id']]=actor
+  parts=a.get('parts') or []
+  if a['role']=='character':
+   obj=u.load_asset(asset) if u.EditorAssetLibrary.does_asset_exist(asset) else None
+   if isinstance(obj,u.SkeletalMesh):actor.skeletal_mesh_component.set_skeletal_mesh(obj)
+  elif a['role'] in ('prop','effect'):
+   if parts:
+    for p in parts:
+     mesh=self.find_mesh(p['mesh'],u.StaticMesh)
+     if mesh is None:self.warnings.append('no imported mesh for %s'%p['mesh']);continue
+     fit=self.fit_of(mesh,p['dims_cm'])
+     if p['self']:
+      actor.static_mesh_component.set_static_mesh(mesh);self.self_fit[a['id']]=fit
+     else:
+      ch=sub.spawn_actor_from_class(u.StaticMeshActor,u.Vector(0,0,0));self._tag(ch,'%s/%s/%s'%(self.scene,a['name'],p['mesh']));ch.static_mesh_component.set_static_mesh(mesh)
+      ch.attach_to_actor(actor,'',u.AttachmentRule.KEEP_RELATIVE,u.AttachmentRule.KEEP_RELATIVE,u.AttachmentRule.KEEP_RELATIVE,False)
+      ch.set_actor_relative_location(u.Vector(*p['loc']),False,False);ch.set_actor_relative_rotation(u.Rotator(p['rot'][0],p['rot'][1],p['rot'][2]),False,False);ch.set_actor_relative_scale3d(u.Vector(*fit))
+   else:
+    for path in [asset]+self.proxy_candidates(a):
+     if not u.EditorAssetLibrary.does_asset_exist(path):continue
+     obj=u.load_asset(path)
+     if isinstance(obj,u.StaticMesh):actor.static_mesh_component.set_static_mesh(obj);break
   b=self.seq.add_possessable(actor);self.bind[a['id']]=b;return a['id']
  def transform_keys(self,h,frames,loc,rot,scale):
   u=self.u;b=self.bind[h];tr=b.add_track(u.MovieScene3DTransformTrack);sec=tr.add_section();sec.set_range(frames[0],frames[-1]+1);ch=sec.get_all_channels()
   for i,f in enumerate(frames):
    fn=u.FrameNumber(f);vals=loc[i]+[rot[i][0],rot[i][1],rot[i][2]]+scale[i]
-   for c in range(9):ch[c].add_key(fn,vals[c])
+   for c in range(9):
+    try:ch[c].add_key(fn,vals[c],0.0,u.SequenceTimeUnit.DISPLAY_RATE,u.MovieSceneKeyInterpolation.LINEAR)
+    except Exception:ch[c].add_key(fn,vals[c])
  def lens_keys(self,h,frames,lens):
   act=self.actors.get(h)
   try:
@@ -221,6 +253,9 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
    if hit:asset,fit=hit;mapped=True;fitted=fit
   h=backend.spawn(a,asset,mapped);handles[a['id']]=h
   if fitted and k and k['frames'] and ub.constant_scale(k['scale']):k=dict(k,scale=[[fitted,fitted,fitted] for _ in k['scale']])
+  elif a['role'] in ('prop','effect') and a.get('parts') and k and k['frames']:
+   s0=k['scale'][0];fit=backend.self_fit.get(a['id']) or (1.,1.,1.)   # the object's scale over time relative to its first frame, times the size fit of its own mesh
+   k=dict(k,scale=[[(r/s if abs(s)>1e-9 else 1.)*f for r,s,f in zip(row,s0,fit)] for row in k['scale']])
   if k and k['frames']:
    vals=[l+r+s for l,r,s in zip(k['loc'],k['rot'],k['scale'])];keep=ub.reduce_keys(k['frames'],vals,tol[0])
    backend.transform_keys(h,[k['frames'][i] for i in keep],[k['loc'][i] for i in keep],[k['rot'][i] for i in keep],[k['scale'][i] for i in keep])
@@ -228,10 +263,14 @@ def build(doc,asset_map,backend,proxy_dir='/Game/Proxy',anim_dir='/Game/Anim',to
   if a['role']=='light':backend.light(h,a['light'])
  for c in doc['characters']:
   for s in c['clips']:
+   key=s.get('anim_file') or 'anim_%s'%s['clip']
    asset,mapped=ub.resolve_clip(s['clip'],c['name'],asset_map,anim_dir)
-   own=backend.clip_asset(c['name'],s['clip'])
+   own=backend.clip_asset(c['name'],key)
    if own and not mapped:asset,mapped=own,True
-   backend.anim_section(handles[c['root']],asset,s['start'],s['end'],1.0/max(1e-6,s['scale']),mapped)
+   loop=max(2,int(round((s.get('action_end',s['end'])-s.get('action_start',s['start'])+1)*s['scale']))) if s.get('action_end') is not None else max(2,s['end']-s['start'])
+   t=s['start']
+   while t<s['end']:       # a strip that repeats (Blender's repeat) becomes one section per repetition
+    t1=min(s['end'],t+loop);backend.anim_section(handles[c['root']],asset,t,t1,1.0/max(1e-6,s['scale']),mapped);t=t1
  backend.environment(doc)
  for cut in doc['cuts']:backend.camera_cut(cut['name'],handles[cut['camera']],cut['start'],cut['end'])
  for au in doc['audio']:backend.audio(au['name'],au['file'],au['start'],au['volume'])

@@ -25,8 +25,26 @@ class Bridge:
    except Exception:msg=None
    raise BridgeError('Unreal bridge %s failed (%d): %s'%(name,e.code,(msg or '')[:1500]))
   except (urllib.error.URLError,TimeoutError,OSError,ValueError) as e:raise BridgeError('Unreal bridge %s could not complete: %s'%(name,type(e).__name__))
+  if isinstance(body,dict) and body.get('status')=='pending':return {'pending':True,'message':body.get('message','')}   # the editor is still working (replies are limited to ~30 s)
   if not isinstance(body,dict) or body.get('status')!='ok' or 'result' not in body:raise BridgeError((body.get('error') if isinstance(body,dict) else None) or 'Invalid Unreal bridge response')
   return body['result']
+ def get(self,path):
+  with urllib.request.urlopen(self.url+path,timeout=60) as r:return json.loads(r.read())
+ def wait_for_scene(self,scene,timeout=1200,quiet=8.0):
+  """after a pending reply: wait until the scene's sequence exists and its actors stopped appearing"""
+  t0=time.time();last=None;stable_since=None
+  while time.time()-t0<timeout:
+   try:
+    seq=[a for a in self.get('/assets?path=/Game/Movie')['assets'] if a['path'].split('/')[-1].startswith('LS_'+scene)]
+    n=sum(1 for a in self.get('/status')['actors'] if a['label'].startswith(scene+'/'))
+   except Exception:time.sleep(3);continue
+   key=(len(seq),n)
+   if seq and n and key==last:
+    stable_since=stable_since or time.time()
+    if time.time()-stable_since>=quiet:return seq[-1]['path']
+   else:stable_since=None
+   last=key;time.sleep(3)
+  raise BridgeError('the editor did not finish importing %s within %d s'%(scene,timeout))
 def export_root():return Path(os.environ.get('MOVIEBUILDER_EXPORT_ROOT') or (H/'scenes'/'unreal_export')).resolve()
 def export_scene(blend,out_dir,name):
  """headless Blender export of one built scene; returns the .ue.json path"""
@@ -44,6 +62,7 @@ def send_scene(bridge,json_path,import_assets=True,import_characters=False,dry_r
    if f.name.startswith(('anim_','character_')) and not import_characters:continue
    bridge.command('import_asset',{'file':str(f),'kind':'mesh','destination':'/Game/Proxy/%s'%doc['scene'],'replace':True});imported.append(f.name)
  res=bridge.command('apply_movie_scene',{'scene_json':str(json_path),'dry_run':bool(dry_run)});res['imported']=imported
+ if res.get('pending') and not dry_run:res['sequence']=bridge.wait_for_scene(doc['scene']);res['pending']=False
  if not dry_run:
   try:bridge.command('save_level',{});res['level_saved']=True      # the sequence's actors live in the level: save it so they are there next time the project opens
   except BridgeError as e:res['level_saved']=False;res.setdefault('warnings',[]).append('level not saved: %s'%e)

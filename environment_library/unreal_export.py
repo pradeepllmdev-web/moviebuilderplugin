@@ -70,6 +70,17 @@ for o,role,_ in tracked:
  doc['actors'].append(a)
 sc.frame_set(FS)
 from mathutils import Vector
+def wdims(p):
+ bb=[Vector(c) for c in p.bound_box];ws=p.matrix_world.to_scale();return [round(abs(max(v[i] for v in bb)-min(v[i] for v in bb))*abs(ws[i])*100,2) for i in range(3)]
+for a in doc['actors']:
+ if a['role'] in ('prop','effect'):
+  ro=bpy.data.objects.get(a['name']);parts=[]
+  if ro is not None:
+   Rinv=ro.matrix_world.inverted()
+   for p in [ro]+list(ro.children_recursive):
+    if p.type!='MESH':continue
+    Mr=Rinv@p.matrix_world;ee=Mr.to_euler('XYZ');parts.append(dict(mesh=p.name,self=(p is ro),loc=[round(x,3) for x in ub.ue_loc(Mr.translation)],rot=[round(x,4) for x in ub.ue_rot_deg([ee.x,ee.y,ee.z])],dims_cm=wdims(p)))
+  a['parts']=parts
 for a in doc['actors']:
  if a['role'] in ('prop','effect') and a.get('meshes'):
   lo=[1e9]*3;hi=[-1e9]*3
@@ -90,6 +101,8 @@ for c in chars:
   for tr in rig.animation_data.nla_tracks:
    for st in tr.strips:
     if st.action:clips.append(dict(clip=re.sub(r'\.\d+$','',st.action.name).replace('leo_',''),action=st.action.name,start=int(round(st.frame_start)),end=int(round(st.frame_end)),scale=st.scale,repeat=st.repeat,action_start=st.action_frame_start,action_end=st.action_frame_end,blend_in=st.blend_in,blend_out=st.blend_out))
+ for c_ in clips:
+  c_['anim_file']='anim_%s_%d_%d'%(c_['clip'],int(round(c_['action_start'])),int(round(c_['action_end'])))
  clips.sort(key=lambda x:x['start'])
  doc['characters'].append(dict(name=c['tag'],root=idmap[c['root'].name],rig=rig.name,skeletal_mesh='character_%s.fbx'%c['tag'],clips=clips,ik_targets=[dict(limb=o.name.split('_')[-1],actor=idmap[o.name]) for o in ik if o.name.startswith('Wrist_%s'%c['tag'])or (o.name in ('Wrist_LH','Wrist_RH') and len(chars)==1)]))
 # cuts
@@ -127,14 +140,14 @@ for c in chars:
  ad=c['rig'].animation_data;saved_mute=[t.mute for t in ad.nla_tracks] if ad else []
  fbx(os.path.join(OUT,'character_%s.fbx'%c['tag']),grp)
  # one animation FBX per clip
- for cl in {x['clip']:x for x in doc['characters'][chars.index(c)]['clips']}.values():
+ for cl in {x['anim_file']:x for x in doc['characters'][chars.index(c)]['clips']}.values():
   act=bpy.data.actions.get(cl['action']);
   if act is None:continue
   for t in ad.nla_tracks:t.mute=True
   prev=ad.action;ad.action=act
   try:ad.action_slot=act.slots[0]
   except Exception:pass
-  sc.frame_start=int(act.frame_range[0]);sc.frame_end=int(act.frame_range[1]);fbx(os.path.join(OUT,'anim_%s.fbx'%cl['clip']),grp,anim_=True)
+  sc.frame_start=int(round(cl['action_start']));sc.frame_end=max(sc.frame_start+1,int(round(cl['action_end'])));fbx(os.path.join(OUT,cl['anim_file']+'.fbx'),grp,anim_=True)
   ad.action=prev
  for t,m in zip(ad.nla_tracks,saved_mute):t.mute=m
  sc.frame_start,sc.frame_end=FS,FE
