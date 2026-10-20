@@ -17,30 +17,30 @@ CAST=[
 EMBER=lambda x,y,on=None,z=None:prop('ember','lantern',x,y,on=on,z=z)
 S=[]
 # 1 ---------------------------------------------------------------------------------------------------------------- the failing light
-S.append(scene('failing_light','The failing light',loc('harbor',2),[at('moss',-3,-1,face=[-5,-2]),at('brant',4,1,face=[-3,-1]),at('sera',8,-1,face=[0,0])],props=[EMBER(-5,-2,on='crate_a')],steps=[
- par(go('moss',[-4.8,-0.7],gait='walk'),look('brant','moss',2)),
+S.append(scene('failing_light','The failing light',loc('harbor',2),[at('moss',0,0,face=[3,-2]),at('brant',7,1,face=[3,-1]),at('sera',10,-1,face=[0,0])],props=[EMBER(3.0,-2.0,on='barrel1')],steps=[
+ look('brant','moss',2),
  take('moss','ember'),
  convo([('moss','Look at it, Brant. It sneezes. It has not held a steady flame since Tuesday.','concern','brant'),('brant','The last coal from the Cape Tern beacon. Forty winters it fed our lighthouse.','sad','moss')]),
- par(go('brant',[-2.6,0.4],gait='walk'),go('sera',[-1,-0.5],gait='walk')),
+ par(go('brant',[1.5,0.6],gait='walk'),go('sera',[2.4,-0.2],gait='walk')),
  convo([('brant','Captain Sera! Good. Tell her, Moss. Tell her what the stars said.','angry','sera'),('moss','The fog comes in three days. Thick as wool, until spring.','serious','sera'),
   ('sera','Then the ships stay home. We have done it before.','serious','moss'),('brant','Not without a light, Captain. Not with the Cape Tern beacon dead for years.','angry','sera')]),
  act('sera','think'),
  convo([('moss','The coal is the last of its fire. Take it back, and the old beacon wakes.','serious','sera'),('sera','Across the hills in three days, with a coal that sneezes.','concern','moss')]),
 ],time='dusk',ambience='sea',music='mystery'))
 # 2 ---------------------------------------------------------------------------------------------------------------- the council
-S.append(scene('council','The council of ash',loc('hall',3),[at('sera',-3,-6.5,face=[0,5]),at('moss',3,-6.8,face=[0,5]),at('brant',0,-7.5,face=[0,5]),at('dorn',-6,-7.2,face=[0,5])],props=[prop('chart','map',1.0,-.4,on='table')],steps=[
+S.append(scene('council','The council of ash',loc('hall',3),[at('sera',-3,-6.5,face=[0,5]),at('moss',3,-6.8,face=[0,5]),at('brant',0,-7.5,face=[0,5]),at('dorn',-6,-7.2,face=[0,5])],props=[prop('chart','map',1.0,-.45,on='table')],steps=[
  par(go('sera',[-1.2,-2.6],gait='strut'),go('moss',[1.6,-2.6],gait='strut'),go('brant',[-3.0,-2.2],gait='stomp'),go('dorn',[3.5,-2.0],gait='walk')),
- take('moss','chart'),
+ take('sera','chart'),
  convo([('brant','Three days over the Hollow Hills. No road. Only moss and cliffs and one old guide, if he lives.','angry','sera'),('moss','I have walked it. In my head. Many times. The map is mostly correct.','serious','sera')]),
- give('moss','sera'),
+ give('sera','moss'),
  convo([('sera','Mostly.','concern','moss'),('dorn','Mostly is what we say about my soup and nobody has died.','joy','sera'),('sera','Dorn. You are coming. We will need food and morale and a large pot.','warm','dorn'),
   ('dorn','Morale is in the pot.','warm','sera')]),
- put('sera',on='table',at=[-1.2,-.4]),
+ wait(.5),
  convo([('brant','The harbour gives you the cart, the ember, and every prayer it has left.','serious','sera'),('sera','Then we leave at dawn. Everyone sleeps. Nobody argues.','serious','brant')]),
  sfx('gong',0.3),
 ],time='day',ambience='hall',music='epic'))
 # 3 ---------------------------------------------------------------------------------------------------------------- loading the cart
-S.append(scene('loading','Loading the cart',loc('harbor',4),[at('dorn',-6.5,0.5,face=[-4.4,-2]),at('kit',4,1.5,face=[0,0]),at('wick',6,2.5,face=[0,0])],props=[prop('crate_b','crate',-4.4,-2,z=.95) if False else prop('sack1','sack',3.0,-2.4,z=.25)] if False else [prop('flour','crate',-4.5,-1.5,z=.25)],steps=[
+S.append(scene('loading','Loading the cart',loc('harbor',4),[at('dorn',-6.5,0.5,face=[-4.4,-2]),at('kit',4,1.5,face=[0,0]),at('wick',6,2.5,face=[0,0])],props=[prop('flour','crate',-4.5,-1.5,z=.25)],steps=[
  par(go('kit',[-1,0.5],gait='brisk'),push('dorn','flour',dist=2.0,dir=0)),
  convo([('kit','The north road is clear and the moon is up. I counted four owls and one very rude cat.','joy','dorn'),('dorn','You counted a cat as a threat?','concern','kit'),('kit','It looked at me like I owed it money.','concern','dorn')]),
  par(go('wick',[1.5,0.2],gait='brisk'),look('dorn','wick',1)),
@@ -52,7 +52,7 @@ S.append(scene('loading','Loading the cart',loc('harbor',4),[at('dorn',-6.5,0.5,
  act('dorn','shrug'),
 ],time='night',ambience='sea',music='bright'))
 # 4 ---------------------------------------------------------------------------------------------------------------- the departure
-S.append(scene('departure','Departure at dawn',loc('meadow',2),[at('sera',-8,-6,face=[0,0]),at('moss',-10,-7,face=[0,0]),at('dorn',-12,-5,face=[0,0]),at('kit',-9,-9,face=[0,0]),at('wick',-13,-8,face=[0,0])],props=[EMBER(-7.5,-5.5,z=.9)] if False else [],steps=[
+S.append(scene('departure','Departure at dawn',loc('meadow',2),[at('sera',-8,-6,face=[0,0]),at('moss',-10,-7,face=[0,0]),at('dorn',-12,-5,face=[0,0]),at('kit',-9,-9,face=[0,0]),at('wick',-13,-8,face=[0,0])],steps=[
  par(go('sera',[-1,0],gait='strut'),go('moss',[-3,-1.8],gait='strut'),go('dorn',[-5,1],gait='walk'),go('kit',[0,2.5],gait='brisk'),go('wick',[-4,3],gait='brisk')),
  convo([('sera','One more look at the sea. After this, only hills.','serious','moss'),('moss','Hills are just waves that forgot to move.','serious','sera'),('dorn','And I have forgotten my second pot.','concern','sera')]),
  par(act('sera','wave'),emote('wick','smile',2)),
@@ -94,7 +94,7 @@ S.append(scene('market_trouble','Market trouble',loc('market',4),[at('wick',-2,-
  convo([('wick','It was a small apple. Everyone said we need to be careful with weight.','concern','kit'),('kit','You are tiny and your conscience is bigger than your head. We pay for it.','warm','wick'),('sera','You pay, Wick. Out of your two snacks.','serious','wick')]),
 ],time='day',ambience='market',music='comic'))
 # 8 ---------------------------------------------------------------------------------------------------------------- the fog line
-S.append(scene('fog_line','The fog line',loc('hilltop',4),[at('moss',-2,-2,face=[8,12]),at('thorne',-4,-3,face=[8,12]),at('wick',-1,-4,face=[8,12])],props=[EMBER(1.0,-1.0,z=.8)] if False else [],steps=[
+S.append(scene('fog_line','The fog line',loc('hilltop',4),[at('moss',-2,-2,face=[8,12]),at('thorne',-4,-3,face=[8,12]),at('wick',-1,-4,face=[8,12])],steps=[
  par(look('moss',[10,14],4),look('thorne',[10,14],4),emote('wick','concern',3)),
  convo([('moss','There. The grey edge on the horizon. That is the fog, walking inland.','serious','thorne'),('wick','It looks like a wall.','concern','moss'),('thorne','It is a wall, little one. Nothing inside it is where you left it.','serious','wick')]),
  par(go('thorne',[-1,-1],gait='walk'),turn('moss','thorne')),
@@ -195,8 +195,8 @@ S.append(scene('cape_tern','Cape Tern',loc('courtyard',4),[at('sera',-12,-8,face
  act('sera','nod'),
 ],time='dusk',ambience='sea',music='epic'))
 # 18 --------------------------------------------------------------------------------------------------------------- the repair
-S.append(scene('lens_repair','The night repair',loc('courtyard',5),[at('thorne',-1,-3,face='statue'),at('dorn',-5,-5,face='statue'),at('kit',5,-6,face=[0,0]),at('wick',-3,2,face=[0,0])],props=[prop('tool1','tool',8.0,4.0,on='statue')],steps=[
- par(go('thorne',[6.8,2.4],gait='walk'),go('kit',[8,.8],gait='brisk')),
+S.append(scene('lens_repair','The night repair',loc('courtyard',5,objects=[dict(kind='pedestal',at=[6,2],id='bench1',height=.8)]),[at('thorne',-1,-3,face='statue'),at('dorn',-5,-5,face='statue'),at('kit',5,-6,face=[0,0]),at('wick',-3,2,face=[0,0])],props=[prop('tool1','tool',6.0,2.0,on='bench1')],steps=[
+ par(go('thorne',[3.5,0.5],gait='walk'),go('kit',[8,.8],gait='brisk')),
  take('thorne','tool1'),
  convo([('thorne','Hold the frame. Kit, hands steady. Wick, pass the cloth.','serious','kit'),('kit','My hands are made of jelly and enthusiasm.','joy','thorne')]),
  give('thorne','kit'),
@@ -205,11 +205,11 @@ S.append(scene('lens_repair','The night repair',loc('courtyard',5),[at('thorne',
  par(act('kit','cele'),sfx('chime',0.2)),
 ],time='night',ambience='night',music='warm'))
 # 19 --------------------------------------------------------------------------------------------------------------- relight
-S.append(scene('relight','The relighting',loc('courtyard',6,objects=[dict(kind='pedestal',at=[-3.4,-4.2],id='stand1',height=.8)]),[at('sera',-3,-5,face='statue'),at('moss',-6,-3,face='statue'),at('thorne',-4,-7,face='statue'),at('dorn',-8,-5,face='statue'),at('wick',-5,-8,face='statue'),at('kit',-7,-8,face='statue')],props=[EMBER(-3.4,-4.2,on='stand1')],steps=[
+S.append(scene('relight','The relighting',loc('courtyard',6,objects=[dict(kind='pedestal',at=[-3.4,-4.2],id='stand1',height=.8),dict(kind='pedestal',at=[4.5,3.0],id='stand2',height=.8)]),[at('sera',-3,-5,face='statue'),at('moss',-6,-3,face='statue'),at('thorne',-4,-7,face='statue'),at('dorn',-8,-5,face='statue'),at('wick',-5,-8,face='statue'),at('kit',-7,-8,face='statue')],props=[EMBER(-3.4,-4.2,on='stand1')],steps=[
  par(take('sera','ember'),look('moss','sera',3)),
  convo([('sera','Nine winters dark. Three days of road. Let us see if the old girl remembers.','serious','thorne')]),
  par(go('sera',[5.8,2.2],gait='strut'),go('thorne',[4.4,3.5],gait='walk'),go('moss',[3,2],gait='strut'),go('wick',[2.5,4],gait='brisk')),
- put('sera',on='statue'),
+ put('sera',on='stand2'),
  par(sfx('chime',0.2),sfx('bell',0.8),emote('sera','smile',3)),
  convo([('wick','It is warming. It is humming. It is the colour of tea.','joy','sera'),('moss','It is catching on the lens. Look at the walls. Look!','joy','thorne')]),
  par(act('kit','cele'),act('dorn','laugh'),act('wick','cele')),

@@ -69,7 +69,7 @@ class Props(unittest.TestCase):
  def test_boulder_cannot_be_carried(self):
   with self.assertRaises(pp.SpecError):pp.compile(spec([dict(do='take',who='mara',prop='b')],props=[dict(id='b',kind='boulder',at=[0,0],z=.9)],cast=[dict(id='mara',at=[-4,0])],loc=dict(preset='meadow')),REG)
  def test_put_leaves_it_at_the_place(self):
-  P=self.base([dict(do='take',who='mara',prop='cup'),dict(do='put',who='mara',at=[0,2])]);x,y,z=P.props['cup'].at(P.seconds,P);self.assertAlmostEqual(x,0,2);self.assertAlmostEqual(y,2,2);self.assertEqual(P.actors['mara'].holding,None)
+  P=self.base([dict(do='take',who='mara',prop='cup'),dict(do='put',who='mara',at=[0,2],z=.9)]);x,y,z=P.props['cup'].at(P.seconds,P);self.assertAlmostEqual(x,0,2);self.assertAlmostEqual(y,2,2);self.assertEqual(P.actors['mara'].holding,None)
  def test_give_hands_it_over(self):
   P=self.base([dict(do='take',who='mara',prop='cup'),dict(do='give',who='mara',to='bram')]);self.assertEqual(P.actors['bram'].holding,'cup');self.assertIsNone(P.actors['mara'].holding)
   t=P.seconds-.4;self.assertLess(math.dist(P.hand_target(P.actors['bram'],'R',t)[1],P.props['cup'].at(t,P)),.06)

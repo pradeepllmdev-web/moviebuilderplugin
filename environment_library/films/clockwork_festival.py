@@ -43,7 +43,7 @@ S.append(scene('accusation','The captain accuses',square(3),[at('odo',-8,-3,face
  act('tilda','wave'),
 ],time='day',ambience='market',music='tense'))
 # 3 ---------------------------------------------------------------------------------------------------------------- the empty case
-S.append(scene('empty_case','The empty case',loc('workshop',2),[at('bram',-1.5,-1.0,face='table'),at('pip',2.8,1.8,face='table')],props=[prop('scrap','letter',1.6,0.2,on='table')],steps=[
+S.append(scene('empty_case','The empty case',loc('workshop',2),[at('bram',-1.5,-1.0,face='table'),at('pip',2.8,1.8,face='table')],props=[prop('scrap','letter',1.6,-0.38,on='table')],steps=[
  par(go('pip',[1.0,-1.3],gait='brisk'),look('bram','table',2)),
  convo([('pip','Here! The latch was lifted, not broken. Whoever came knew the case.','concern','bram'),('bram','A thief who knew the case. That narrows it to everyone I ever taught.','sad','pip')]),
  take('pip','scrap'),
@@ -51,7 +51,7 @@ S.append(scene('empty_case','The empty case',loc('workshop',2),[at('bram',-1.5,-
  give('pip','bram'),
  par(act('bram','think',dur=3),look('pip','bram',3)),
  convo([('bram','A careful hand. Round letters, like a clerk or a courier.','serious','pip'),('pip','Courier. Mara carries every letter in town.','concern','bram'),('bram','Then we ask her before she leaves for the hills.','serious','pip')]),
- put('bram',on='table'),
+ put('bram',on='table',at=[1.2,-.4]),
  par(act('pip','wave'),sfx('door',1.0)),
  convo([('pip','I will run. You will see. Faster than a clock.','joy','bram'),('bram','Faster than this clock, yes. That is not a high bar.','warm','pip')]),
  go('pip',[1.5,-3.5],gait='run'),
@@ -109,7 +109,7 @@ S.append(scene('rook_camp',"Rook's camp",loc('campfire_night',2),[at('rook',0,-3
  sit('rook','log_s.0',face=[0,0]),
  par(look('rook',[0,0],2),emote('rook','concern',3)),
  convo([('rook','Thirty teeth on the escape wheel. Two cracked. One more winding and it shatters.','sad','rook')]),
- act('rook','think') if False else emote('rook','sad',2),
+ emote('rook','sad',2),
  convo([('rook','And nobody listens to a wolf who says the tower will fall.','sad','rook')]),
  par(go('mara',[-4,3],gait='walk'),go('pip',[-5,4],gait='walk'),look('rook',[-5,5],2)),
  convo([('rook','Someone is there. I can hear two sets of paws, and one of them is arguing with a root.','concern','rook'),('pip','It is not arguing! It tripped!','concern','rook')]),
@@ -140,7 +140,7 @@ S.append(scene('confession','The confession',loc('meadow',5,objects=[dict(kind='
  convo([('pip','I knew it. A bad wolf would never read in an orchard.','joy','rook')]),
 ],time='dusk',ambience='wind',music='sad'))
 # 11 --------------------------------------------------------------------------------------------------------------- the crack
-S.append(scene('the_crack','The crack',loc('workshop',3),[at('bram',-1.2,-1.2,face='table'),at('rook',-0.4,-3.0,face=[0,0]),at('mara',3,-1.6,face=[0,0]),at('pip',3.3,-2.5,face=[0,0])],props=[prop('key','key',1.2,0.15,on='table')],steps=[
+S.append(scene('the_crack','The crack',loc('workshop',3),[at('bram',-1.2,-1.2,face='table'),at('rook',-0.4,-3.0,face=[0,0]),at('mara',3,-1.6,face=[0,0]),at('pip',3.3,-2.5,face=[0,0])],props=[prop('key','key',1.2,-0.4,on='table')],steps=[
  par(go('rook',[0.8,-1.9],gait='walk'),turn('bram','rook')),
  convo([('bram','Rook. I thought you were a story the apprentices told each other.','sad','rook'),('rook','I am a story that came back to say sorry. And to say the gear is cracked.','serious','bram')]),
  take('rook','key'),
@@ -148,7 +148,7 @@ S.append(scene('the_crack','The crack',loc('workshop',3),[at('bram',-1.2,-1.2,fa
  go('rook',[2.6,-2.8],gait='walk'),
  par(act('bram','think',dur=3),emote('bram','concern',3)),
  convo([('bram','Thirty years I oiled that gear. I would have felt it.','sad','rook'),('rook','You oiled it. You never turned it by hand with a lantern behind it.','serious','bram')]),
- put('bram',on='table'),
+ put('bram',on='table',at=[1.2,-.4]),
  par(go('mara','bram',stop=1.9,gait='walk'),go('pip','bram',stop=1.9,gait='brisk')),
  convo([('pip','Then we need to see it. Tonight.','concern','bram'),('bram','Tonight, and tomorrow before noon, we repair it or stop the festival. Both are hard.','sad','pip')]),
  act('bram','nod'),
@@ -166,7 +166,7 @@ S.append(scene('announcement','The announcement',square(6),[at('wren',3,-4,face=
  emote('wren','smile',2),
 ],time='dusk',ambience='crowd',music='calm'))
 # 13 --------------------------------------------------------------------------------------------------------------- repair at night
-S.append(scene('repair','The night repair',loc('workshop',4),[at('bram',-1.5,-1.0,face='table'),at('rook',3.0,-1.8,face='table'),at('pip',-3.5,-2.2,face=[0,0])],props=[prop('wrench','tool',1.0,-.2,on='table'),prop('crate_gear','crate',3.6,-2.9,z=.35),prop('lamp2','lantern',2.2,.3,on='table')],steps=[
+S.append(scene('repair','The night repair',loc('workshop',4),[at('bram',-1.5,-1.0,face='table'),at('rook',3.0,-1.8,face='table'),at('pip',-3.5,-2.2,face=[0,0])],props=[prop('wrench','tool',1.0,-.36,on='table'),prop('crate_gear','crate',3.6,-2.9,z=.35),prop('lamp2','lantern',2.2,-.36,on='table')],steps=[
  par(go('pip',[2.7,-2.9],gait='brisk'),look('bram','table',2)),
  convo([('bram','Rook, the lantern. And Pip, the new escape wheel from the crate.','serious','rook')]),
  par(take('rook','lamp2'),act('pip','nod')),
@@ -175,7 +175,7 @@ S.append(scene('repair','The night repair',loc('workshop',4),[at('bram',-1.5,-1.
  take('bram','wrench'),
  par(act('bram','hips'),sfx('clang',0.5)),
  convo([('rook','Hold the wheel steady. I will turn the arbor.','serious','bram'),('bram','Your hands remember it better than mine do.','warm','rook')]),
- put('bram',on='table'),
+ put('bram',on='table',at=[1.2,-.4]),
  par(act('pip','cele'),sfx('chime',0.2)),
 ],time='night',ambience='fire',music='warm'))
 # 14 --------------------------------------------------------------------------------------------------------------- bread at midnight
@@ -235,7 +235,7 @@ S.append(scene('farewell','The farewell',loc('hilltop',3),[at('mara',-1,-1,face=
  convo([('pip','Run! Be late to everything!','joy','mara')]),
 ],time='day',ambience='wind',music='warm'))
 # 19 --------------------------------------------------------------------------------------------------------------- tea
-S.append(scene('tea','Tea in the workshop',loc('workshop',5),[at('bram',-1.5,-2.5,face='table'),at('rook',3.5,-2.0,face='table')],props=[prop('cup1','cup',0.9,0.2,on='table'),prop('cup2','cup',1.6,-0.1,on='table')],steps=[
+S.append(scene('tea','Tea in the workshop',loc('workshop',5),[at('bram',-1.5,-2.5,face='table'),at('rook',3.5,-2.0,face='table')],props=[prop('cup1','cup',0.9,-0.38,on='table'),prop('cup2','cup',1.6,-0.38,on='table')],steps=[
  par(take('bram','cup1'),take('rook','cup2')),
  par(sit('rook','stool_b.0',face=[0.8,0]),sit('bram','stool_a.0',face=[1,0.5])),
  convo([('bram','Forty years, and the wolf who fixed it did it in one night.','warm','rook'),('rook','You oiled it for forty. I only listened for one.','warm','bram'),

@@ -179,7 +179,7 @@ reach_worst=0.;reach_n=0;reach_info=None
 for i,(IK,TG) in IKS.items():
  a=PLAN.actors[i];ch=CH[i]
  for hand,lb,bone in (('R','RH','RightHand'),('L','LH','LeftHand')):
-  for f in list(S.keys(6)) if False else range(1,S.frames+1,6):
+  for f in range(1,S.frames+1,6):
    t=(f-1)/FPS;infl,pos=PLAN.hand_target(a,hand,t)
    if pos is None or infl<.98:continue
    S.settle(f);hp=ch['rig'].matrix_world@ch['rig'].pose.bones['mixamorig:'+bone].head;e=(hp-Vector(pos)).length;reach_n+=1

@@ -369,6 +369,23 @@ class Plan:
      else:ux,uy=(p[0]-ox)/d,(p[1]-oy)/d
      p=(ox+ux*need,oy+uy*need)
   return p
+ def _stand_spot(s,a,target,z,what):
+  """where a stands to reach a target point at height z: free of solids and of other characters, within arm's reach of the point, nearest to where it is now"""
+  k=a.size;drop=1.12*k-z;arm=.56*k
+  if abs(drop)>arm*.97:raise SpecError('%s: %s cannot reach %s at height %.2f (shoulder %.2f, arm %.2f)'%(what,a.id,target,z,1.12*k,arm))
+  dmax=min(.52*k,math.sqrt(arm*arm-drop*drop));dmin=min(.3*k,dmax*.7);obst=s.layout['obstacles']
+  def ok(q):
+   if any(math.hypot(q[0]-c[0],q[1]-c[1])<c[2]+.02+a.radius*.2 for c in obst):return False
+   return all(math.hypot(q[0]-o.X[-1],q[1]-o.Y[-1])>=(a.radius+o.radius)*.9+.1 for o in s.actors.values() if o is not a)
+  best=None
+  for r in [dmin+(dmax-dmin)*i/6. for i in range(7)]:
+   for j in range(24):
+    q=(target[0]+math.cos(j*math.pi/12)*r,target[1]+math.sin(j*math.pi/12)*r)
+    if ok(q):
+     d=math.hypot(q[0]-a.X[-1],q[1]-a.Y[-1])+r*2.
+     if best is None or d<best[0]:best=(d,q)
+  if best is None:raise SpecError('%s: %s cannot stand within reach (%.2f m) of %s; move the prop to the edge of its table or clear the way'%(what,a.id,dmax,tuple(round(v,2) for v in target)))
+  return best[1]
  def _free_goal(s,a,p):
   """a goal inside a solid (a rock, a tree) is moved to the nearest free spot"""
   obst=s.layout['obstacles'];ok=lambda q:not any(math.hypot(q[0]-c[0],q[1]-c[1])<c[2]+.15+a.radius*.6 for c in obst)
@@ -448,8 +465,9 @@ class Plan:
   if a.holding:raise SpecError('take: %s already holds %s'%(a.id,a.holding))
   hand=b.get('hand') or p.carry;hs=('R','L') if hand=='both' else (hand,);x,y,z=p.at(a.t,s)
   if z<.45*a.size or z>1.35*a.size:raise SpecError('take: %s is at z=%.2f, out of reach for %s (put it on a table or crate: %.2f..%.2f)'%(pid,z,a.id,.45*a.size,1.35*a.size))
-  if p.on:a.ignore.append((a.t,a.t+30,p.on))
-  s._approach(a,(x,y),REACH_STAND*a.size+p.size[1]/2,b.get('gait'))
+  spot=s._stand_spot(a,(x,y),z,'take')
+  if math.hypot(spot[0]-a.X[-1],spot[1]-a.Y[-1])>.05:s._walk_to(a,spot,b.get('gait'))
+  a.face_point((x,y))
   ts=a.t;pts={h:(x,y,z) for h in hs};s._reach(a,hs,pts,ts,.6);tg=ts+.6;a.hold(.9)
   p.track.append((tg,'held',a.id,hand));a.holding=pid;s._carry(a,hs,tg+.1,.7);a.hold(.9)
   s.events.append(dict(kind='take',who=a.id,prop=pid,t0=ts,t1=a.t,hand=hand,t_grasp=tg))
@@ -460,10 +478,10 @@ class Plan:
   if b.get('on'):
    if b['on'] not in s.layout['surfaces']:raise SpecError('put: %r is not a surface'%b['on'])
    sx,sy,top,r=s.layout['surfaces'][b['on']];at=b.get('at') or [sx,sy];z=top+p.size[2]/2
-  else:at=b['at'];z=p.size[2]/2
-  a_ign=b.get('on')
-  if a_ign:a.ignore.append((a.t,a.t+30,a_ign))
-  s._approach(a,(at[0],at[1]),REACH_STAND*a.size+p.size[1]/2,b.get('gait'))
+  else:at=b['at'];z=b.get('z',p.size[2]/2)
+  spot=s._stand_spot(a,(at[0],at[1]),z,'put')
+  if math.hypot(spot[0]-a.X[-1],spot[1]-a.Y[-1])>.05:s._walk_to(a,spot,b.get('gait'))
+  a.face_point((at[0],at[1]))
   ts=a.t;pts={h:(at[0],at[1],z) for h in hs};s._reach(a,hs,pts,ts,.7);tg=ts+.7;a.hold(.9)
   p.track.append((tg,'world',(at[0],at[1],z)));a.holding=None;s._release(a,hs,tg+.1,.7);a.hold(.9)
   s.events.append(dict(kind='put',who=a.id,prop=pid,t0=ts,t1=a.t,t_grasp=tg));s.sfx.append((tg,'thud',a.id,.6))

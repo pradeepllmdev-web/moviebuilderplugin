@@ -20,7 +20,7 @@ def load_film(path):
 def engine_hash():
  h=hashlib.sha1()
  for f in ENGINE_FILES:h.update((H/f).read_bytes())
- for g in sorted((ASSETS).glob('leo_*.blend')) if False else []:h.update(g.read_bytes())
+ if (ASSETS/'gait_report.json').exists():h.update((ASSETS/'gait_report.json').read_bytes())   # new walking clips change every scene
  return h.hexdigest()[:12]
 def registry_of(film):
  import cast_registry as cr
@@ -58,7 +58,7 @@ def sheet(rec,out,n=12):
  try:cs.render(rec['file'],str(p),n,3,480);rec['sheet']=str(p)
  except Exception as e:rec['sheet_error']=str(e)[:200]
  return rec
-def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=True,target_minutes=15.):
+def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=True,target_minutes=15.,echo=True):
  film=load_film(film_path);out=Path(out).resolve();out.mkdir(parents=True,exist_ok=True);reg=registry_of(film)
  problems=reg.distinct_report();rows=plan_check(film,reg);cast_json=out/'cast.json';reg.save(str(cast_json));(out/'cast_story.json').write_text(json.dumps(reg.export_story_records(),indent=1),encoding='utf-8')
  lines=['# %s: build report'%film.get('title',film.get('id','film')),'','Cast: %d characters%s'%(len(film['cast']),''.join('\n* WARNING: %s and %s look alike (score %.2f)'%p for p in problems)),'','## Plan check (no Blender)','']
