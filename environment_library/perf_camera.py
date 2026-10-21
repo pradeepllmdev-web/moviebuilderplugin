@@ -111,7 +111,7 @@ def _frame(plan,c,t):
    k=plan.actors[to].size;wk=plan.actors[to].look['scale'][0]*.8;sep=max(.6,math.hypot(hs[0]-ht[0],hs[1]-ht[1]));back=3.0+.7*k      # costumes (capes, armour, robes) make the listener wider than the body alone
    lat=min(2.8,max(.7*k,(wk+.25)*(back+sep)/sep));return (ht[0]-d[0]*back+n[0]*lat,ht[1]-d[1]*back+n[1]*lat,hs[2]+.15),(hs[0],hs[1],hs[2]),lens
   if kd=='single':
-   k=plan.actors[to].size*c.get('dm',1.);return (ht[0]+(d[0]*.8+n[0]*1.0)*3.1*k,ht[1]+(d[1]*.8+n[1]*1.0)*3.1*k,ht[2]+.05),ht,lens
+   k=plan.actors[to].size*c.get('dm',1.);return (ht[0]+(d[0]*.25+n[0]*1.0)*3.0*k,ht[1]+(d[1]*.25+n[1]*1.0)*3.0*k,ht[2]+.05),ht,lens
   mid=((hs[0]+ht[0])/2,(hs[1]+ht[1])/2,(hs[2]+ht[2])/2);dist=max(4.2,math.hypot(hs[0]-ht[0],hs[1]-ht[1])*1.6+1.5)
   return (mid[0]+n[0]*dist,mid[1]+n[1]*dist,mid[2]+.4),mid,lens
  if kd in ('track','follow_high'):
@@ -137,7 +137,7 @@ def _obs(plan):
 def _score(plan,c,side):
  """how good this side is for a cut: distance of uninvolved characters from the line of sight, camera not inside a solid or off the map"""
  c2=dict(c,side=side);t=(c['t0']+c['t1'])/2;pos,aim,_=frame(plan,c2,t);sc=1.5
- inv={c.get('subject'),c.get('to')}|set(c.get('group') or [])
+ inv={c.get('subject')}|set(c.get('group') or [])|({c.get('to')} if c['kind'] in ('ots','two') else set())    # in a single the other speaker is a possible blocker
  for w in plan.actors:
   if w in inv:continue
   p=plan.pos(w,t);d,_=_segdist2(pos,aim,p);sc=min(sc,d)
