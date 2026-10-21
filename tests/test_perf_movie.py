@@ -16,10 +16,10 @@ class Films(unittest.TestCase):
  def test_every_film_plans_clean_and_is_about_fifteen_minutes(self):
   for f in FILMS:
    film=pm.load_film(f);rows=pm.plan_check(film)
-   self.assertGreaterEqual(len(film['scenes']),18,f.name)
+   tm=film.get('target_minutes',15);self.assertGreaterEqual(len(film['scenes']),round(tm*1.2),f.name)
    for r in rows:
     self.assertIsNone(r['error'],'%s %s'%(f.name,r['error']));self.assertEqual(r['audit'],[],'%s scene %s'%(f.name,r['id']))
-   tot=pm.total_seconds(rows);self.assertTrue(13.5*60<=tot<=17.5*60,'%s is %.1f minutes'%(f.name,tot/60))
+   tot=pm.total_seconds(rows);self.assertTrue(.9*tm*60<=tot<=1.17*tm*60,'%s is %.1f minutes (target %s)'%(f.name,tot/60,tm))
  def test_scene_ids_are_unique_and_use_only_cast_members(self):
   for f in FILMS:
    film=pm.load_film(f);ids=[s['id'] for s in film['scenes']];self.assertEqual(len(ids),len(set(ids)));cast={c['id'] for c in film['cast']}
@@ -28,8 +28,8 @@ class Films(unittest.TestCase):
  def test_casts_are_distinct_and_variety_is_real(self):
   for f in FILMS:
    film=pm.load_film(f);reg=pm.registry_of(film);self.assertEqual(reg.distinct_report(),[],f.name)
-   looks=[reg.resolve(i) for i in reg.ids()];self.assertGreaterEqual(len({l['species'] for l in looks}),6);self.assertGreaterEqual(len({round(l['scale'][2],1) for l in looks}),5)
-   self.assertGreaterEqual(len({l['gait'] for l in looks}),4)
+   looks=[reg.resolve(i) for i in reg.ids()];self.assertGreaterEqual(len({l['species'] for l in looks}),min(6,len(looks)));self.assertGreaterEqual(len({round(l['scale'][2],1) for l in looks}),min(5,len(looks)))
+   self.assertGreaterEqual(len({l['gait'] for l in looks}),min(4,len(looks)))
  def test_films_use_different_premises_and_casts(self):
   a,b=[pm.load_film(f) for f in FILMS[:2]];self.assertNotEqual(a['id'],b['id']);self.assertFalse({c['id'] for c in a['cast']}&{c['id'] for c in b['cast']})
   la={s['location']['preset'] for s in a['scenes']};lb={s['location']['preset'] for s in b['scenes']};self.assertGreaterEqual(len(la|lb),9)

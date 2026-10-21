@@ -16,7 +16,7 @@ PROP_KINDS={
  'lantern':dict(size=(.16,.16,.26),carry='R',color=(.95,.75,.3),emit=2.5),'scroll':dict(size=(.1,.1,.3),carry='R',color=(.9,.85,.7)),'book':dict(size=(.22,.3,.06),carry='R',color=(.5,.15,.15)),'key':dict(size=(.07,.16,.02),carry='R',color=(.95,.8,.25)),
  'cup':dict(size=(.1,.1,.12),carry='R',color=(.75,.75,.8)),'jar':dict(size=(.14,.14,.2),carry='R',color=(.5,.75,.6)),'gem':dict(size=(.12,.12,.16),carry='R',color=(.4,.9,1.),emit=3.),'flag':dict(size=(.3,.04,.9),carry='R',color=(.8,.2,.2)),
  'plank':dict(size=(.9,.2,.05),carry='both',color=(.6,.45,.28)),'bundle':dict(size=(.5,.3,.3),carry='both',color=(.8,.8,.7)),'tool':dict(size=(.5,.06,.06),carry='R',color=(.5,.5,.55)),'apple':dict(size=(.09,.09,.09),carry='R',color=(.8,.15,.1)),
- 'bell':dict(size=(.15,.15,.18),carry='R',color=(.95,.8,.3)),'letter':dict(size=(.2,.14,.02),carry='R',color=(.95,.95,.9)),'egg':dict(size=(.14,.14,.2),carry='both',color=(.9,.85,.7)),'map':dict(size=(.3,.2,.02),carry='R',color=(.85,.75,.5)),
+ 'bell':dict(size=(.15,.15,.18),carry='R',color=(.95,.8,.3)),'pie':dict(size=(.42,.42,.1),carry='both',color=(.85,.55,.22)),'letter':dict(size=(.2,.14,.02),carry='R',color=(.95,.95,.9)),'egg':dict(size=(.14,.14,.2),carry='both',color=(.9,.85,.7)),'map':dict(size=(.3,.2,.02),carry='R',color=(.85,.75,.5)),
  'cart_load':dict(size=(.9,.6,.5),carry=None,color=(.6,.5,.3)),'boulder':dict(size=(.8,.8,.7),carry=None,color=(.5,.5,.5)),'door_big':dict(size=(.2,1.3,1.9),carry=None,color=(.45,.3,.18)),
 }
 # ---------------------------------------------------------------------------------------------------------------- object recipes

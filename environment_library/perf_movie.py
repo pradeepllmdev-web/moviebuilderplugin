@@ -14,7 +14,7 @@ from pathlib import Path
 H=Path(__file__).resolve().parent
 BLENDER=os.environ.get('BLENDER','C:/Program Files/Blender Foundation/Blender 5.2/blender.exe')
 ASSETS=H/'scenes'/'ship_assets'
-ENGINE_FILES=('perf_scene.py','perf_plan.py','perf_camera.py','perf_locations.py','perf_audio.py','cast_builder.py','cast_registry.py','gaits.py','dialogue.py','scene_base.py')
+ENGINE_FILES=('perf_scene.py','perf_plan.py','perf_camera.py','perf_locations.py','perf_audio.py','cast_builder.py','cast_garments.py','cast_registry.py','gaits.py','dialogue.py','scene_base.py')
 def load_film(path):
  spec=importlib.util.spec_from_file_location('film_'+Path(path).stem,str(path));m=importlib.util.module_from_spec(spec);sys.path.insert(0,str(H));spec.loader.exec_module(m);return m.FILM
 def engine_hash():

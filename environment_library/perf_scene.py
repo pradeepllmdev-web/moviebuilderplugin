@@ -128,7 +128,7 @@ for i,a in PLAN.actors.items():
  for (t0,t1,kind) in a.emotes:
   for nm,val in EMOTE[kind].items():key(CH[i],nm,[(S.F(t0),0),(S.F(t0+.4),val),(S.F(t1-.3),val),(S.F(t1),0)])
 # ---------------------------------------------------------------------------------------------------------- props
-SHAPE={'cyl':('cup','jar','basket','barrel_small','scroll','tool','bell'),'sphere':('sack','apple','egg','gem','boulder')}
+SHAPE={'cyl':('cup','jar','basket','barrel_small','scroll','tool','bell','pie'),'sphere':('sack','apple','egg','gem','boulder')}
 PROPOBJ={}
 def prop_shape(k):
  for s,ks in SHAPE.items():
