@@ -42,19 +42,19 @@ def fitted(S,ch,name,kind,color,color2=None):
  bmesh.ops.delete(bm,geom=[f for f in bm.faces if cut(f)],context='FACES')
  bm.verts.ensure_lookup_table();bm.normal_update()
  for v in bm.verts:v.co+=v.normal*off
- pat=op.get('pattern')
+ pat=op.get('pattern');cuff=op.get('cuff',0.);zmin=min((v.co.z for v in bm.verts),default=0.)
  for f in bm.faces:
   x,y,z=f.calc_center_median()
-  f.material_index=1 if (pat=='plaid' and (x%11<2.4 or z%11<2.4)) or (pat=='stripe' and z%12<4.5) else 0
+  f.material_index=2 if (cuff and z<zmin+cuff) else 1 if (pat=='plaid' and (x%11<2.4 or z%11<2.4)) or (pat=='stripe' and z%12<4.5) else 0
  bm.to_mesh(new.data);bm.free();new.data.materials.clear();new.data.materials.append(S.mat(name,color,0))
- if pat:new.data.materials.append(S.mat(name+'_b',color2 or (_trim(color) if pat=='plaid' else (.93,.92,.88)),0))
+ new.data.materials.append(S.mat(name+'_b',color2 or (_trim(color) if pat=='plaid' else (.93,.92,.88)),0));new.data.materials.append(S.mat(name+'_c',_trim(color),0))
  return new
 import cast_garments as cg
 TORSO=('Head','Spine','Spine1','Spine2','Hips','LeftUpLeg','RightUpLeg','LeftShoulder','RightShoulder')
 FITTED.update({'tshirt':(TORSO+('LeftArm','RightArm'),(58,200),1.9,88),'jacket':(TORSO+ARMS,(46,200),2.9,88),'vest':(TORSO,(50,200),2.5,88),'tunicbody':(TORSO+('LeftArm','RightArm'),(60,200),2.2,88),
  'bodice':(TORSO,(60,200),1.9,88),'robebody':(TORSO+ARMS,(60,200),2.4,88),'plate':(TORSO,(64,200),3.0,88),'bib':(('Spine','Spine1','Spine2','Hips'),(58,100),2.2,0),
  'plaidshirt':FITTED['shirt'],'stripedshirt':FITTED['shirt'],'plaidsleeves':FITTED['sleeves'],'stripedsleeves':FITTED['sleeves']})
-FIT_OPT={'jacket':dict(open=5.5),'vest':dict(open=6.),'bib':dict(front=13.),'plaidsleeves':dict(pattern='plaid'),'stripedsleeves':dict(pattern='stripe')}
+FIT_OPT={'jacket':dict(open=5.5),'vest':dict(open=6.),'bib':dict(front=13.),'plaidsleeves':dict(pattern='plaid',cuff=5.),'stripedsleeves':dict(pattern='stripe',cuff=5.),'sleeves':dict(cuff=5.),'shortsleeves':dict(cuff=4.),'pants':dict(cuff=4.)}
 SKIN_POOL=('Hips','LeftUpLeg','RightUpLeg','LeftLeg','RightLeg','Spine','Spine1')
 # kind -> pieces: ('fit', fitted kind, colour), ('skirt', cast_garments.SKIRTS key, colour), ('cape',); colours: c main, t trim, steel, white
 # shells: torso skins from cast_garments.shell (name -> arguments); fit = cut from the body; skirt = cast_garments.SKIRTS
@@ -67,9 +67,9 @@ COMPOSE={'shirt':[('shell','shirt','c'),('fit','sleeves','c')],'tshirt':[('shell
  'poncho':[('skirt','poncho','c')],'apron':[('shell','bib','c'),('skirt','apronskirt','c')],'overalls':[('fit','pants','c'),('shell','bib','c'),('shell','strapL','c'),('shell','strapR','c')],'kilt':[('skirt','kilt','c')],'cape':[('cape',)],
  'suit':[('shell','jacket','c'),('fit','sleeves','c'),('shell','dressshirt','white'),('fit','pants','c')]}
 GARMENT_KINDS=(set(COMPOSE)|set(cg.HATS))-{'armor','cape'}
-HATZ={'helmet':1.6,'hat_beret':1.52,'hat_chef':1.6,'hat_hood':1.42,'hat_bonnet':1.55,'hat_flatcap':1.52,'hat_cap':1.55,'hat_beanie':1.5,'hat_cowboy':1.6,'hat_sou':1.62,'hat_straw':1.66}
-HATSCALE={'hat_beret':1.22,'hat_flatcap':1.2,'hat_cap':1.18,'hat_beanie':1.1,'hat_chef':1.1,'hat_bonnet':1.1}
-HATCOL={'hat_top':lambda c:(c,GOLD),'hat_wizard':lambda c:(c,GOLD),'hat_straw':lambda c:((.85,.72,.4),c),'hat_cowboy':lambda c:((.55,.38,.2),c),'hat_chef':lambda c:((.95,.95,.92),(.8,.8,.8)),'hat_bonnet':lambda c:((.92,.9,.82),c),'helmet':lambda c:(STEEL,c),'crown':lambda c:(GOLD,GOLD)}
+HATZ={'helmet':1.6,'hat_cap':1.55,'hat_beanie':1.5,'hat_cowboy':1.6,'hat_sou':1.62,'hat_straw':1.66}
+HATSCALE={'hat_cap':1.18,'hat_beanie':1.1}
+HATCOL={'hat_top':lambda c:(c,GOLD),'hat_wizard':lambda c:(c,GOLD),'hat_straw':lambda c:((.85,.72,.4),c),'hat_cowboy':lambda c:((.55,.38,.2),c),'helmet':lambda c:(STEEL,c),'crown':lambda c:(GOLD,GOLD)}
 def _mesh_object(S,name,V,F,M,cols,like=None):
  """a mesh object from raw geometry with one material per colour; like = an object whose parent, modifiers and transform it copies (the body, to share the skeleton)"""
  import bpy
@@ -130,6 +130,15 @@ def _skin(body,o,ts,anchor,pool,ramp=1.2,k=4):
    acc={g:w*a for g,w in acc.items()};acc[anchor]=acc.get(anchor,0.)+1-a
   for g,w in sorted(acc.items(),key=lambda x:-x[1])[:4]:
    if g in real and w>.01:o.vertex_groups[real[g]].add([i],w,'REPLACE')
+BUTTONED={'shirt':(86,60),'plaidshirt':(86,60),'stripedshirt':(86,60),'shirt_under':(86,50)}
+def _buttons(S,body,name,z0,z1,off,color):
+ """a row of small buttons down the front of a closed shirt, skinned to the torso like the shell it sits on"""
+ import cast_garments as cg
+ f=_env_fn(body);parts=[]
+ for j in range(int((z0-z1)//8)+1):
+  z=z0-8*j;cy,rad=f(z);m=len(rad);r=rad[(m*3)//4]+off+.5   # angle -pi/2 is index 3m/4
+  parts.append(cg.lathe([(0.,-1.1,0),(.8,-.8,0),(1.1,0.,0),(.8,.8,0),(0.,1.1,0)],seg=8,cx=0.,cy=cy-r,zb=z))
+ V,F,M=cg._join(*parts);o=_mesh_object(S,name,V,F,M,[color],like=body);_skin(body,o,[0.]*len(o.data.vertices),None,TORSO_GROUPS);return o
 def _cloth_colors(spec,c):return {'c':c,'t':_trim(c),'steel':STEEL,'white':(.93,.92,.88),'leather':LEATHER}[spec]
 def garment(S,ch,look,acc,i):
  """every Blender object of one accessory that is not a primitive: hats (rigid on the head bone), fitted pieces and skinned lofts (deformed by the skeleton), as a list"""
@@ -142,6 +151,7 @@ def garment(S,ch,look,acc,i):
   if pc[0]=='fit':out.append(fitted(S,ch,nm,pc[1],col))
   elif pc[0]=='shell':
    opt=dict(SHELLS[pc[1]]);V,F,M=cg.shell(_env_fn(body),**opt);o=_mesh_object(S,nm,V,F,M,[col,_trim(col) if opt.get('pattern')=='plaid' else (.93,.92,.88) if opt.get('pattern') else (GOLD if pc[2]=='steel' else _trim(col))],like=body);_skin(body,o,[0.]*len(o.data.vertices),None,TORSO_GROUPS);out.append(o)
+   if pc[1] in BUTTONED:out.append(_buttons(S,body,nm+'_btn',BUTTONED[pc[1]][0],BUTTONED[pc[1]][1],opt['off'],(.12,.1,.08) if sum(col)>1.8 else (.93,.9,.8)))
   elif pc[0]=='skirt':
    V,F,M,ts=cg.skirt(pc[1]);o=_mesh_object(S,nm,V,F,M,[col,_trim(col) if pc[2]!='steel' else GOLD],like=body);_skin(body,o,ts,'Hips',SKIN_POOL);out.append(o)
   elif pc[0]=='cape':

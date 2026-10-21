@@ -95,7 +95,6 @@ def hat(kind,zb=1.7,cy=-.1):
  if kind=='hat_cap':
   d=[(.285*math.cos(PI/2*k/8),.2*math.sin(PI/2*k/8)+(0 if k else 0),0) for k in range(9)];d[0]=(.285,0,0)
   return _join(L([(.28,-.03,1),(.285,0,1)]+d[1:]),peak(cy,zb+.0))
- if kind=='hat_flatcap':
   return _join(L([(.27,-.02,1),(.29,.0,1),(.31,.04,0),(.29,.1,0),(.2,.12,0),(0,.115,0)]),peak(cy,zb+.01,.29,.40,.9,drop=.03))
  if kind=='hat_straw':return L([(.19,0,0),(.30,-.012,0),(.41,-.06,0),(.42,-.056,0),(.30,.0,0),(.2,.025,0),(.2,.025,1),(.2,.06,1),(.2,.06,0),(.19,.12,0),(.16,.15,0),(0,.155,0)],seg=32)
  if kind=='hat_cowboy':
@@ -106,10 +105,6 @@ def hat(kind,zb=1.7,cy=-.1):
   return L([(.285,-.01,0),(.40,-.04,0),(.43,-.07,0),(.44,-.065,0),(.40,-.03,0),(.29,.005,0),(.285,.005,0),(.28,.1,0),(.22,.2,0),(0,.23,0)],seg=32,rscale=lambda th:1+.28*max(0.,math.sin(th))-.12*max(0.,-math.sin(th)))
  if kind=='hat_beanie':
   return _join(L([(.285,-.03,1),(.30,-.03,1),(.30,.04,1),(.29,.04,0),(.28,.12,0),(.2,.21,0),(.09,.26,0),(0,.28,0)]),lathe([(0.,.27,1)]+[(.06*math.sin(PI*k/6),.27+.06-.06*math.cos(PI*k/6),1) for k in range(1,7)],seg=10,cy=cy,zb=zb))
- if kind=='hat_beret':return L([(.19,-.01,1),(.2,.02,1),(.27,.03,0),(.33,.06,0),(.32,.1,0),(.2,.13,0),(0,.13,0)],seg=32,bend=lambda x,y,z:(x,y,z+.03*(x/.33)))
- if kind=='hat_chef':return L([(.27,0,1),(.285,.0,1),(.285,.07,1),(.28,.07,0),(.3,.16,0),(.32,.26,0),(.27,.34,0),(.15,.37,0),(0,.37,0)],seg=28)
- if kind=='hat_hood':return L([(.33,-.1,0),(.35,0,0),(.33,.14,0),(.25,.28,0),(.15,.36,0),(.05,.38,0),(0,.375,0)],seg=32,gap=(-PI/2-.62,-PI/2+.62),bend=lambda x,y,z:(x,y+.55*max(0.,z-zb-.05)**1.6,z-.2*max(0.,y-cy)))
- if kind=='hat_bonnet':return L([(.3,-.04,1),(.315,0,1),(.32,.1,0),(.27,.22,0),(.14,.3,0),(0,.31,0)],seg=32,gap=(-PI/2-.55,-PI/2+.55))
  if kind=='helmet':
   d=[(.335*math.cos(PI/2*k/9),.3*math.sin(PI/2*k/9)+.03,0) for k in range(10)]
   return _join(L([(.34,-.03,1),(.345,0,1)]+[(.34,.03,1)]+d[1:],seg=32),fin(.31,.045,.035,cy,zb))
@@ -121,7 +116,7 @@ def hat(kind,zb=1.7,cy=-.1):
    V.append((cxp,cyp,zb+.17));F.append((o,o+1,o+2));M.append(0)
   return V,F,M
  return None
-for k in ('hat_top','hat_wizard','hat_cap','hat_flatcap','hat_straw','hat_cowboy','hat_sou','hat_beanie','hat_beret','hat_chef','hat_hood','hat_bonnet','helmet','crown'):HATS[k]=True
+for k in ('hat_top','hat_wizard','hat_cap','hat_straw','hat_cowboy','hat_sou','hat_beanie','helmet','crown'):HATS[k]=True
 #                 z0   z1   rx  ry  extras
 SKIRTS={'tunic':dict(z0=78,z1=44,rx=21,ry=18,rows=5,flare=.18,pleat=.02,hem=3),
  'dress':dict(z0=78,z1=14,rx=20.5,ry=17.5,rows=10,flare=.62,pleat=.05,folds=10,hem=4),

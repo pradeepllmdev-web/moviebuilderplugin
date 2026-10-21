@@ -382,7 +382,9 @@ class Plan:
    to=prev or min((o for o in s.actors if o!=a.id),key=lambda o:math.hypot(s.actors[o].X[-1]-a.X[-1],s.actors[o].Y[-1]-a.Y[-1]),default=a.id)
   tp=s.point(to)
   if a.state=='sit' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(80):s.lint.append('AUDIT seated: %s speaks to %s who is %.0f deg off the way %s sits'%(a.id,to,abs(math.degrees(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))),a.id))
-  if a.state=='stand' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(35):a.face_point(tp)
+  lim=math.radians(72 if getattr(a,'settled',-1)==len(a.walks) else 35)   # once a character has turned into the conversation the body stays put; changing speaker is done with the eyes and head, not by rotating the body
+  if a.state=='stand' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>lim:a.face_point(tp,.9)
+  a.settled=len(a.walks)
   syl=dg.syllables(b['text']);dur=max(1.5,len(syl)*.18+.45);real=DURATION_PROVIDER(a.look['voice'],b['text'],mood) if (DURATION_PROVIDER and a.look.get('voice')) else None
   if real:dur=real+.1
   ts=a.t+.12
@@ -397,7 +399,10 @@ class Plan:
      for kt,infl,pos in keys:a.hands[h].append((kt,infl,('local',pos)))
   s.events.append(dict(kind='say',who=a.id,t0=ts,t1=ts+dur,to=to,mood=mood,k=k))
   for name,o in s.actors.items():   # everybody idle and standing turns towards the speaker when far off
-   if name!=a.id and o.state=='stand' and o.t<=ts-.1 and abs(wrap(math.atan2(a.Y[-1]-o.Y[-1],a.X[-1]-o.X[-1])-o.H[-1]))>math.radians(48):o.face_point((a.X[-1],a.Y[-1]),.55)
+   if name!=a.id and o.state=='stand' and o.t<=ts-.1:
+    lim2=math.radians(80 if getattr(o,'settled',-1)==len(o.walks) else 48)
+    if abs(wrap(math.atan2(a.Y[-1]-o.Y[-1],a.X[-1]-o.X[-1])-o.H[-1]))>lim2:o.face_point((a.X[-1],a.Y[-1]),.9)
+    o.settled=len(o.walks)
   return L
  def _approach(s,a,target,stand,gait,face=None,mult=1.):
   """walk a to within `stand` metres of the point `target` (xy), then face `face` (default the target)"""

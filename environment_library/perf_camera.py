@@ -91,17 +91,21 @@ def _tidy(plan,cuts,rnd):
 def frame(plan,c,t):
  """(camera position, aim point, lens) at time t for a cut; inside a room the camera stays inside its walls"""
  pos,aim,lens=_frame(plan,c,t);ins=plan.layout.get('inside');u=max(0.,min(1.,(t-c['t0'])/max(.1,c['t1']-c['t0'])))
- if c['kind'] in ('ots','single','medium','insert'):    # a slow push-in over the shot
-  k=1-.08*u;pos=(aim[0]+(pos[0]-aim[0])*k,aim[1]+(pos[1]-aim[1])*k,aim[2]+(pos[2]-aim[2])*k)
- elif c['kind'] in ('wide','group'):     # a slow drift round the scene
-  C,r=spread(plan,t);ang=.22*u;dx,dy=pos[0]-C[0],pos[1]-C[1];pos=(C[0]+dx*math.cos(ang)-dy*math.sin(ang),C[1]+dx*math.sin(ang)+dy*math.cos(ang),pos[2])
+ e=u*u*(3-2*u)    # eased progress: every shot moves, starting and ending softly
+ if c['kind'] in ('ots','single','medium','insert'):    # a push-in over the shot with a slow slide sideways (parallax against the background)
+  k=1-.12*e;px,py=pos[0]-aim[0],pos[1]-aim[1];L=math.hypot(px,py) or 1.;sl=(e-.5)*(.5 if c['kind']=='insert' else .7)*c.get('side',1.)
+  pos=(aim[0]+(pos[0]-aim[0])*k-py/L*sl,aim[1]+(pos[1]-aim[1])*k+px/L*sl,aim[2]+(pos[2]-aim[2])*k)
+ elif c['kind'] in ('wide','group'):     # a slow orbit round the scene while the camera sinks a little
+  C,r=spread(plan,t);ang=.32*e;dx,dy=pos[0]-C[0],pos[1]-C[1];pos=(C[0]+dx*math.cos(ang)-dy*math.sin(ang),C[1]+dx*math.sin(ang)+dy*math.cos(ang),pos[2]-.7*e)
+ elif c['kind']=='two':     # a slow dolly toward the pair
+  k=1-.08*e;pos=(aim[0]+(pos[0]-aim[0])*k,aim[1]+(pos[1]-aim[1])*k,pos[2])
  if ins:
   pos=(min(max(pos[0],ins[0]),ins[2]),min(max(pos[1],ins[1]),ins[3]),min(max(pos[2],.6),2.5));lens=min(lens,{'wide':24,'group':24,'two':24,'track':26,'follow_high':26,'medium':30,'ots':30,'single':30,'insert':40}.get(c['kind'],lens))   # a small room has no room to step back: widen instead
  return pos,aim,lens
 def _frame(plan,c,t):
  kd=c['kind'];lens=c['lens']
  if kd in ('wide','group'):
-  C,r=spread(plan,t);d=max(6.5,r*1.4+5.5);a=c.get('ang',0.);hz=3.2+r*.2
+  C,r=spread(plan,t);d=max(6.5 if len(plan.actors)>2 else 4.8,r*1.4+(5.5 if len(plan.actors)>2 else 3.5));a=c.get('ang',0.);hz=3.2+r*.2
   return (C[0]+math.cos(a)*d,C[1]+math.sin(a)*d,hz),(C[0],C[1],1.0),lens
  sp=c.get('subject')
  if kd in ('ots','two','single'):
@@ -120,14 +124,14 @@ def _frame(plan,c,t):
   f=(math.cos(h),math.sin(h));n=(-f[1]*side,f[0]*side);lead=1.2
   size=plan.actors[sp].size;hz=(1.4 if kd=='track' else 3.8)*size if kd=='track' else 3.6
   if kd=='follow_high':dist*=1.5
-  dist*=c.get('dm',1.)
+  dist*=c.get('dm',1.)*max(.72,size**.6)    # a small walker is followed from closer, so he stays big in the frame
   return (cx+n[0]*dist-f[0]*.6,cy+n[1]*dist-f[1]*.6,hz),(cx+f[0]*lead,cy+f[1]*lead,1.1*size),lens
  if kd=='insert':
   p=plan.props[c['prop']];pp=p.at(t,plan);x,y,h=plan.pos(sp,t);a=plan.actors[sp];dm=c.get('dm',1.)
   f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.))
   return (pp[0]+f[0]*.6*dm+n[0]*1.5*a.size*dm,pp[1]+f[1]*.6*dm+n[1]*1.5*a.size*dm,pp[2]+.45),(pp[0]-f[0]*.2,pp[1]-f[1]*.2,pp[2]),lens
  if kd=='medium':
-  x,y,h=plan.pos(sp,t);a=plan.actors[sp];f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.));d=4.6*max(.8,a.size)*c.get('dm',1.)
+  x,y,h=plan.pos(sp,t);a=plan.actors[sp];f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.));d=4.6*max(.65,a.size)*c.get('dm',1.)
   fx,fy=_rotv(f,math.radians(30*c.get('side',1.)));return (x+fx*d,y+fy*d,1.35*a.size),(x,y,1.05*a.size),lens
  raise ValueError('unknown shot kind %r'%kd)
 
@@ -148,7 +152,8 @@ def _score(plan,c,side):
  if len(O):
   if np.any(np.hypot(pos[0]-O[:,0],pos[1]-O[:,1])<O[:,2]+.3):sc-=2.
   dx,dy=aim[0]-pos[0],aim[1]-pos[1];L2=dx*dx+dy*dy or 1.;u=np.clip(((O[:,0]-pos[0])*dx+(O[:,1]-pos[1])*dy)/L2,0,1);d=np.hypot(pos[0]+dx*u-O[:,0],pos[1]+dy*u-O[:,1])
-  if np.any((O[:,2]>.5)&(d<O[:,2]*.8)&(u>.05)&(u<.92)):sc-=1.5       # a solid between the lens and the subject
+  if np.any((O[:,2]>.5)&(d<O[:,2]*.8)&(u>.05)&(u<.92)):sc-=1.5
+  if np.any((O[:,2]<=.5)&(d<O[:,2]+.25)&(u>.05)&(u<.6)):sc-=.8       # a post or lamp close in front of the lens       # a solid between the lens and the subject
  hx,hy=plan.layout['half']
  if abs(pos[0])>hx+4 or abs(pos[1])>hy+4:sc-=1.
  return sc
@@ -156,7 +161,13 @@ def _segdist2(a,b,p):
  dx,dy=b[0]-a[0],b[1]-a[1];L2=dx*dx+dy*dy or 1.;u=max(0.,min(1.,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/L2));return math.hypot(a[0]+dx*u-p[0],a[1]+dy*u-p[1]),u
 def _pick_sides(plan,cuts):
  for c in cuts:
-  if c['kind'] in ('wide','group') or c.get('side') is None:continue
+  if c['kind'] in ('wide','group'):    # turn the wide round until no wall or house stands between the lens and the people
+   best=None
+   for k in range(8):
+    c2=dict(c,ang=c.get('ang',0.)+k*math.pi/4);sc=_score(plan,c2,1.)-.02*k
+    if best is None or sc>best[0]:best=(sc,c2['ang'])
+   c['ang']=best[1];continue
+  if c.get('side') is None:continue
   s0=c['side']
   if c['kind'] in ('ots','two'):
    if _score(plan,c,s0)<0 and _score(plan,c,-s0)>=0:c['side']=-s0
