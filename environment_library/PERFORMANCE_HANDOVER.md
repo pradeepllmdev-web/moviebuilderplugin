@@ -68,3 +68,12 @@ Feedback on the first version: camera 7/10, animation 6/10, music 2/10 (repetiti
 * The scene ambience beds were plain noise normalised too loud ("air flow"): now low, smooth and quiet (0.045-0.1 of full scale, under everything).
 * Life: background crowds (`extras`), word-driven gesture choice, glances, brow flashes, grounding pass for sit/fall/getup/kneel, slow camera push-ins and drifts.
 Final builds after this round: both films 0 audit lines; Twelve Strikes 16.4 min of scenes plus cards, The Ember Road 15.3 min plus cards (master 16.4 min). Still open: more animation clips (a motion-capture library would need a source we can download without an account), facial acting beyond the lion's shape keys, ceilings and richer scenery, and an actual listening/watching review by a person: I cannot hear the result, only measure it.
+
+## Update 3: costumes, textures, head turning, mix
+* Outfits: `outfit='knight'` + `colors=[...]` in a cast record (14 named costumes: baker, queen, king, knight, farmer, wizard, merchant, peasant, scout, sailor, scholar, guard, noble, traveller); every film character is dressed differently (tested). Characters carry the fur TEXTURE tinted per character (not only a flat colour); scene files open in Solid/Texture through the camera.
+* Head turning: eyes (the lion's gaze shape keys) lead, the head follows on a critically damped, rate-limited curve, the body starts a moment later and turns >55 degrees with small steps; the upper body leads every turn (`perf_body.py`).
+* Mix: voices ~12 dB above the score, footsteps ~18 dB below (timed from the gait cycle), ambience a faint bed, music and ambience duck under every line.
+* Viewing: `perf_play.py <build folder>` opens the scene files one after another; `perf_watch.py <build folder>` plays the master (cards, goal/place captions, subtitles).
+* Known weak spots: crowded scenes still produce a few over-the-shoulder and medium shots with a costumed character's back filling the frame; clothing is boxy primitives; faces are the lion's; no mocap library (procedural gestures only).
+* Incident: `perf_scene.py` was once overwritten with null bytes (Blender then quits silently); restored from git. If a whole build fails with only "Blender quit", check the engine files for null bytes first.
+Final builds: both films 0 audit lines (Twelve Strikes 16.9 min, The Ember Road 15.7 min of scenes, plus title cards).
