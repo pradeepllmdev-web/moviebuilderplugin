@@ -140,7 +140,7 @@ for pid,p in PLAN.props.items():
  sc=(sx/2,sy/2,sz/2) if shp!='cyl' else (sx/2,sy/2,sz/2)
  m=S.prim(shp,'PropM_'+pid,(0,0,0),info['color'],scale=sc,rot=rot,emit=info.get('emit',0.),parent=root);PROPOBJ[pid]=root
  if p.kind=='lantern':
-  ld=bpy.data.lights.new('PropLight_'+pid,'POINT');ld.energy=60 if TIME in ('night','dusk','dawn') else 15;ld.color=(1,.8,.5);lo=bpy.data.objects.new('PropLight_'+pid,ld);lo.parent=root;S.link(lo)
+  ld=bpy.data.lights.new('PropLight_'+pid,'POINT');ld.energy=260 if TIME in ('night','dusk','dawn','overcast') else 40;ld.color=(1,.78,.45);ld.shadow_soft_size=.2;lo=bpy.data.objects.new('PropLight_'+pid,ld);lo.parent=root;S.link(lo)
  for f in S.keys():
   t=(f-1)/FPS;pos=p.at(t,PLAN);root.location=pos
   seg=None
@@ -322,6 +322,7 @@ for scr in bpy.data.screens:      # the saved window opens in Solid with texture
     if sp.type=='VIEW_3D':
      try:sp.shading.type='SOLID';sp.shading.light='STUDIO';sp.shading.color_type='TEXTURE';sp.shading.show_cavity=False;sp.overlay.show_overlays=False;sp.region_3d.view_perspective='CAMERA'
      except Exception as _e:print('viewport:',_e)
+S.sky_hook=lambda sc:pl.sky(sc,TIME,float(SPEC.get('fog',0.)))
 S.finish(issues,[CH[i]['root'] for i in CH],color_type='TEXTURE',world=pl.normalise(SPEC.get('location',dict(preset='meadow'))).get('world') or scene_params.preset(TIME if TIME in scene_params.TIME_OF_DAY else 'day')['world'])
 if os.environ.get('PERF_DEBUG'):
  for nm in CH:

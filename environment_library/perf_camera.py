@@ -58,7 +58,8 @@ def direct(plan,seed=1):
    walk_side[0]*=-1.;dur=b-a;tm=(a+b)/2;gp=[plan.pos(g['who'],tm)[:2] for g in mv]
    if max((math.hypot(p[0]-q[0],p[1]-q[1]) for p in gp for q in gp),default=0)>5.5:
     cuts.append(dict(name='%s and company'%who,kind='group',t0=a,t1=b,subject=None,ang=float(rnd.uniform(0,6.28)),lens=30));continue
-   cuts.append(dict(name='%s walks'%who,kind='track' if dur<9 else 'follow_high',t0=a,t1=b,subject=who,group=[g['who'] for g in mv],side=walk_side[0],lens=34 if dur<9 else 30,dist=float(rnd.uniform(3.4,4.6))))
+   fast=e.get('gait') in ('run','brisk','sprint')
+   cuts.append(dict(name='%s %s'%(who,'runs' if fast else 'walks'),kind='track' if (dur<9 or fast) else 'follow_high',t0=a,t1=b,subject=who,group=[g['who'] for g in mv],side=walk_side[0],lens=24 if fast else (34 if dur<9 else 30),dist=float(rnd.uniform(2.6,3.2)) if fast else float(rnd.uniform(3.4,4.6)),fast=fast))   # a run is filmed low, close and wide: the ground rushes past
   elif inter:
    e=inter[0];who=e['who'];cuts.append(dict(name='%s %s'%(who,e['kind']),kind='insert',t0=a,t1=max(a+1.5,(e.get('t_grasp') or e.get('t_push1') or (a+b)/2)+.9),subject=who,prop=e['prop'],lens=50,side=1.))
    if cuts[-1]['t1']<b-.2:cuts.append(dict(name='%s works'%who,kind='medium',t0=cuts[-1]['t1'],t1=b,subject=who,side=-1.,lens=34))
@@ -120,7 +121,7 @@ def _frame(plan,c,t):
   g=c.get('group') or [sp];mid_t=(c['t0']+c['t1'])/2;h=heading_at(plan,sp,mid_t);side=c.get('side',1.);dist=c.get('dist',4.)
   ps=[plan.pos(w,t) for w in g];cx=sum(p[0] for p in ps)/len(ps);cy=sum(p[1] for p in ps)/len(ps)
   f=(math.cos(h),math.sin(h));n=(-f[1]*side,f[0]*side);lead=1.2
-  size=plan.actors[sp].size;hz=(1.4 if kd=='track' else 3.8)*size if kd=='track' else 3.6
+  size=plan.actors[sp].size;hz=((.55 if c.get('fast') else 1.4) if kd=='track' else 3.8)*size if kd=='track' else 3.6
   if kd=='follow_high':dist*=1.5
   dist*=c.get('dm',1.)*max(.72,size**.6)    # a small walker is followed from closer, so he stays big in the frame
   ahead=1.6*c.get('front',1.)    # the camera stands a little ahead of the walker, so the face is seen
@@ -164,7 +165,7 @@ def _score(plan,c,side):
 def shot_quality(plan,c,t):
  """(worst angle off the lens axis as a fraction of the half field of view over the people the shot is about, face-to-camera cosine of the main subject): a shot should keep them in frame and show the face"""
  pos,aim,lens=frame(plan,c,t);half=math.atan(18./lens);ax=np.array(aim)-np.array(pos);ax/=np.linalg.norm(ax) or 1.
- who=[c['subject']] if c.get('subject') else []
+ who=[c['subject']] if c.get('subject') and c['kind']!='insert' else []    # an insert is about the hands and the prop, not the face
  if c['kind']=='two' and c.get('to'):who.append(c['to'])
  off=0.
  for w in who:

@@ -112,6 +112,8 @@ def normalise(loc):
   for k in ('ground','half','water','markers','floor','sky','inside'):
    if k in base and k not in loc:loc[k]=base[k]
   loc['markers']=dict(base.get('markers',{}),**loc.get('markers',{}))
+ if loc.get('dress',True) and loc.get('preset') in DRESS:
+  kinds,n,r0,r1=DRESS[loc['preset']];objs+=_ring(random.Random(loc.get('seed',1)*7+3),kinds,n,0,0,r0,r1)    # a living edge: trees, rocks, barrels and lamps round the playing area
  objs+=loc.get('objects',[]);out=[];count={}
  for o in objs:
   o=dict(o);k=o['kind']
@@ -165,6 +167,7 @@ def prims(loc):
    lx,ly,lz=p['loc'];dx,dy=_rot(lx,ly,a);q=dict(p);q['loc']=(o['at'][0]+dx,o['at'][1]+dy,lz+o.get('z',0.));r=list(p['rot']);r[2]+=a;q['rot']=tuple(r);out.append(q)
  return out
 def floor_z(loc,x,y):return 0.
+DRESS={'village_square':(['tree','bush','rock','haystack','barrel','crate','tree'],18,20,28),'market':(['barrel','crate','bush','tree','haystack'],14,19,26),'harbor':(['crate','barrel','rock','bush','crate'],10,20,27),'meadow':(['tree','bush','rock','log','tree','pine'],14,17,29),'hilltop':(['rock','bush','pine','tree'],8,14,24),'forest_clearing':(['tree','pine','bush','rock'],12,18,28)}
 def blocked(lay,x,y,margin=0.):return any(math.hypot(x-cx,y-cy)<r+margin for cx,cy,r in lay['obstacles'])
 # ---------------------------------------------------------------------------------------------------------------- presets (generators of small object lists)
 def _scatter(rnd,kinds,n,xr,yr,avoid=(),gap=2.5,**kw):
@@ -236,5 +239,19 @@ def build(S,loc,time='day'):
    ld=bpy.data.lights.new(p[1],'POINT');ld.energy=p[3] if time in ('night','dusk','dawn') else p[3]*.2;ld.color=p[4];ld.shadow_soft_size=.3;lo=bpy.data.objects.new(p[1],ld);lo.location=p[2];S.link(lo);continue
   o=S.prim(p['shape'],p['name'],p['loc'],p['color'],scale=p['scale'],rot=p['rot'],emit=p['emit'] if (p['emit']<2.9 or time in ('night','dusk','dawn') or True) else 0.,**p['kw'])
  pr=scene_params.preset(time if time in scene_params.TIME_OF_DAY else 'day')
- sn=bpy.data.objects.new('Sun',bpy.data.lights.new('SunLight','SUN'));sn.data.energy=pr['sun_energy'];sn.data.color=pr['sun_color'];sn.rotation_euler=pr['sun_rot'];S.link(sn);S.world_color=pr['world']
+ sn=bpy.data.objects.new('Sun',bpy.data.lights.new('SunLight','SUN'));sn.data.energy=pr['sun_energy'];sn.data.color=pr['sun_color'];sn.data.angle=math.radians(4);sn.rotation_euler=pr['sun_rot'];S.link(sn);S.world_color=pr['world']
+ rx,ry,rz=pr['sun_rot'];warm=pr['sun_color']
+ fl=bpy.data.objects.new('FillLight',bpy.data.lights.new('FillLight','SUN'));fl.data.energy=pr['sun_energy']*.28;fl.data.color=(.55,.65,1.) if time not in ('night',) else (.3,.4,.8);fl.data.angle=math.radians(25);fl.rotation_euler=(rx*.8,ry,rz+math.pi);S.link(fl)    # cool fill from the other side: shadows keep their form
+ rm=bpy.data.objects.new('RimLight',bpy.data.lights.new('RimLight','SUN'));rm.data.energy=pr['sun_energy']*(.9 if time in ('night','dusk','dawn') else .35);rm.data.color=(.6,.75,1.) if time=='night' else (1.,.8,.6);rm.data.angle=math.radians(6);rm.rotation_euler=(math.radians(125),0,rz+math.pi*.5);S.link(rm)    # a low back light that edges every character against the ground
  return loc
+SKY={'dawn':((1.,.72,.5),(.35,.45,.75)),'day':((.75,.85,.98),(.25,.5,.9)),'dusk':((1.,.55,.3),(.18,.2,.45)),'night':((.1,.12,.25),(.01,.015,.05)),'overcast':((.62,.65,.7),(.4,.44,.5))}
+def sky(sc,time,fog=0.):
+ """a gradient sky (horizon to zenith) as the world, lit by the same colours; fog pulls the whole sky toward a flat grey"""
+ import bpy
+ hz,zn=SKY.get(time,SKY['day']);g=(.55,.58,.62)
+ hz=tuple(h*(1-fog)+g[i]*fog*(.6 if time=='night' else 1.) for i,h in enumerate(hz));zn=tuple(z*(1-fog)+g[i]*fog*(.6 if time=='night' else 1.) for i,z in enumerate(zn))
+ w=bpy.data.worlds.new('Sky');w.use_nodes=True;nt=w.node_tree;nt.nodes.clear()
+ tc=nt.nodes.new('ShaderNodeTexCoord');sep=nt.nodes.new('ShaderNodeSeparateXYZ');mp=nt.nodes.new('ShaderNodeMapRange');cr=nt.nodes.new('ShaderNodeValToRGB');bg=nt.nodes.new('ShaderNodeBackground');out=nt.nodes.new('ShaderNodeOutputWorld')
+ mp.inputs['From Min'].default_value=-.05;mp.inputs['From Max'].default_value=.9;cr.color_ramp.elements[0].color=(*hz,1);cr.color_ramp.elements[1].color=(*zn,1);bg.inputs['Strength'].default_value=1.
+ nt.links.new(tc.outputs['Generated'],sep.inputs[0]);nt.links.new(sep.outputs['Z'],mp.inputs['Value']);nt.links.new(mp.outputs[0],cr.inputs[0]);nt.links.new(cr.outputs[0],bg.inputs['Color']);nt.links.new(bg.outputs[0],out.inputs['Surface'])
+ w.color=hz;sc.world=w

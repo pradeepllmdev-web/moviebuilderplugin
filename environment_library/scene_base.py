@@ -160,7 +160,7 @@ class Scene:
   sc=self.scene;issues=list(issues or [])+kit.persistence_audit(sc)+kit.camera_checks(sc,subjects or [c['root'] for c in self.chars[:1]])
   for i in issues:print(i)
   print('AUDIT',len(issues),'issues')
-  sc.world=bpy.data.worlds.new('W');sc.world.color=world;sc.display.shading.light='STUDIO';sc.display.shading.color_type=color_type;sc.render.resolution_x=1280;sc.render.resolution_y=720
+  sc.world=bpy.data.worlds.new('W');sc.world.color=world;getattr(self,'sky_hook',lambda sc:None)(sc);sc.display.shading.light='STUDIO';sc.display.shading.color_type=color_type;sc.render.resolution_x=1280;sc.render.resolution_y=720
   sc.frame_set(1);bpy.context.view_layer.update();bpy.ops.wm.save_as_mainfile(filepath=self.out);print(self.name.upper()+'_DONE',self.frames,'frames');return issues
 class Audio:
  SR=22050

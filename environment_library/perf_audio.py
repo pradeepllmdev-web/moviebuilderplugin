@@ -83,8 +83,12 @@ def sfx(name,SR,rng):
  if name=='thunder':tt=T(3.0);return _noise(rng,len(tt),90)*np.exp(-tt*1.1)*(1+.5*np.sin(tt*14))*.9
  if name=='chime':tt=T(1.6);return sum(np.sin(2*PI*f*tt)*np.exp(-tt*d) for f,d in ((1046,3),(1318,3.4),(1568,4)))*.3
  if name=='clap':tt=T(.25);return _noise(rng,len(tt),3)*np.exp(-tt*28)*.8
+ if name=='sting':tt=T(1.4);return (sum(np.sin(2*PI*f*tt)*a for f,a in ((98,1),(104,.9),(147,.6),(233,.4)))*np.exp(-tt*2.6)*(1-np.exp(-tt*60)))*.45     # a low, dissonant stab: the story turns
+ if name=='whoosh':tt=T(.7);return _noise(rng,len(tt),14)*np.sin(np.minimum(tt/.7,1)*PI)**2*.55
+ if name=='hum':tt=T(2.4);return (np.sin(2*PI*110*tt)+.5*np.sin(2*PI*220.7*tt)+.25*np.sin(2*PI*331*tt))*np.sin(np.minimum(tt/2.4,1)*PI)*.18     # a warm lantern or beacon tone
+ if name=='creak':tt=T(.9);return np.sin(2*PI*(260+90*np.sin(tt*9))*tt)*np.sin(np.minimum(tt/.9,1)*PI)*.22+_noise(rng,len(tt),8)*.08
  raise ValueError('unknown sound effect %r'%name)
-SFX=('knock','door','thud','step','clang','bell','gong','crash','scrape','splash','thunder','chime','clap')
+SFX=('knock','door','thud','step','clang','bell','gong','crash','scrape','splash','thunder','chime','clap','sting','whoosh','hum','creak')
 def mix_events(N,SR,events):
  """events: (time seconds, samples, gain) -> one array"""
  out=np.zeros(N+SR*4)

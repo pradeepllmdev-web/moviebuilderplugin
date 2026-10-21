@@ -64,7 +64,9 @@ def setup():
      for o in s.objects:
       if o.type=='MESH' and not o.hide_get() and o.name!='Ground' and MODE=='single':o.select_set(True)
      if MODE=='movie':
-      space.region_3d.view_perspective='CAMERA';space.overlay.show_floor=False;space.overlay.show_extras=False;space.overlay.show_cursor=False
+      space.region_3d.view_perspective='CAMERA'
+      if os.environ.get('VIEW_SHADING','MATERIAL')=='MATERIAL':space.shading.type='MATERIAL';space.shading.use_scene_lights=True;space.shading.use_scene_world=True    # lit with the scene's own lights and sky (set VIEW_SHADING=SOLID for a faster viewport)
+      space.overlay.show_floor=False;space.overlay.show_extras=False;space.overlay.show_cursor=False
      else:
       bpy.ops.view3d.view_axis(type='BACK' if MODE=='gallery' else 'RIGHT')
       if MODE=='gallery':

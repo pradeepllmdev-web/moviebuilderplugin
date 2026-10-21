@@ -63,9 +63,9 @@ def prop(id_,kind,x,y,z=None,on=None,**k):
  if z is not None:d['z']=z
  if on:d['on']=on
  return d
-def scene(id_,title,location,cast,steps,props=None,time='day',ambience='wind',music='calm',intent='',extras=None):
+def scene(id_,title,location,cast,steps,props=None,time='day',ambience='wind',music='calm',intent='',extras=None,fog=0.):
  flat=[]
  for s in steps:
   if isinstance(s,Convo):flat+=list(s)
   else:flat.append(s)
- return dict(id=id_,title=title,intent=intent,extras=extras,location=location,time=time,ambience=ambience,music=music,cast=cast,props=props or [],steps=flat)
+ return dict(id=id_,title=title,intent=intent,extras=extras,fog=fog,location=location,time=time,ambience=ambience,music=music,cast=cast,props=props or [],steps=flat)
