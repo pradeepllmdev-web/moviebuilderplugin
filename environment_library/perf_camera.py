@@ -108,8 +108,8 @@ def _frame(plan,c,t):
   hs=plan.head_pos(sp,t);to=c.get('to') or sp;ht=plan.head_pos(to,t);side=c.get('side',1.)
   d=_unit((hs[0]-ht[0],hs[1]-ht[1]));n=(-d[1]*side,d[0]*side)
   if kd=='ots':
-   k=plan.actors[to].size;wk=plan.actors[to].look['scale'][0]*.62;sep=max(.6,math.hypot(hs[0]-ht[0],hs[1]-ht[1]));back=2.4+.6*k
-   lat=min(2.4,max(.6*k,(wk+.2)*(back+sep)/sep));return (ht[0]-d[0]*back+n[0]*lat,ht[1]-d[1]*back+n[1]*lat,hs[2]+.15),(hs[0],hs[1],hs[2]),lens
+   k=plan.actors[to].size;wk=plan.actors[to].look['scale'][0]*.8;sep=max(.6,math.hypot(hs[0]-ht[0],hs[1]-ht[1]));back=3.0+.7*k      # costumes (capes, armour, robes) make the listener wider than the body alone
+   lat=min(2.8,max(.7*k,(wk+.25)*(back+sep)/sep));return (ht[0]-d[0]*back+n[0]*lat,ht[1]-d[1]*back+n[1]*lat,hs[2]+.15),(hs[0],hs[1],hs[2]),lens
   if kd=='single':
    k=plan.actors[to].size*c.get('dm',1.);return (ht[0]+(d[0]*.8+n[0]*1.0)*3.1*k,ht[1]+(d[1]*.8+n[1]*1.0)*3.1*k,ht[2]+.05),ht,lens
   mid=((hs[0]+ht[0])/2,(hs[1]+ht[1])/2,(hs[2]+ht[2])/2);dist=max(4.2,math.hypot(hs[0]-ht[0],hs[1]-ht[1])*1.6+1.5)
