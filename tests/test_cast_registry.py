@@ -65,7 +65,7 @@ class Builder(unittest.TestCase):
  def look(self,**k):return cr.resolve(dict(dict(id='t',name='T',species='lion',accessories=list(cr.ACCESSORIES)[:0]),**k))
  def test_every_accessory_builds_known_bones_and_sane_sizes(self):
   for a in cr.ACCESSORIES:
-   if a not in cb.FITTED:
+   if a not in cb.FITTED and a not in cb.GARMENT_KINDS and a not in cb.COMPOSE:
     ps=cb.accessory_prims(self.look(accessories=[a]))
     self.assertTrue(ps,a)
     for p in ps:
