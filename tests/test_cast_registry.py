@@ -39,9 +39,9 @@ class Registry(unittest.TestCase):
   r=cr.Registry([rec(accessories=['scarf'])]);o=r.export_story_records()[0];self.assertEqual(o['name'],'Mara');self.assertIn('scarf',o['description']);self.assertEqual(o['species'],'fox')
 class Outfits(unittest.TestCase):
  def test_outfit_expands_with_colours_in_turn(self):
-  L=cr.resolve(dict(id='q',name='Q',species='lion',outfit='queen',colors=[(.7,.1,.3),(.9,.8,.2)]));k=[a['kind'] for a in L['accessories']];self.assertEqual(k,['dress','crown','cape']);self.assertEqual(L['accessories'][0]['color'],(.7,.1,.3));self.assertEqual(L['accessories'][1]['color'],(.9,.8,.2));self.assertEqual(L['accessories'][2]['color'],(.7,.1,.3))
+  L=cr.resolve(dict(id='q',name='Q',species='lion',outfit='queen',colors=[(.7,.1,.3),(.9,.8,.2)]));k=[a['kind'] for a in L['accessories']];self.assertEqual(k,['dress','sleeves','crown','cape','boots']);c=[a['color'] for a in L['accessories']];self.assertEqual(c[0],(.7,.1,.3));self.assertEqual(c[1],(.7,.1,.3));self.assertEqual(c[3],(.9,.8,.2));self.assertEqual(c[4],(.7,.1,.3))
  def test_own_accessories_follow_the_outfit_and_unknown_outfit_is_rejected(self):
-  L=cr.resolve(dict(id='k',name='K',species='lion',outfit='peasant',accessories=['scarf']));self.assertEqual([a['kind'] for a in L['accessories']],['tunic','belt','scarf'])
+  L=cr.resolve(dict(id='k',name='K',species='lion',outfit='peasant',accessories=['scarf']));self.assertEqual([a['kind'] for a in L['accessories']],['tunic','sleeves','pants','belt','boots','scarf'])
   self.assertTrue(cr.validate(dict(id='x',name='X',outfit='astronaut')))
  def test_two_hats_through_an_outfit_are_rejected(self):self.assertTrue(cr.validate(dict(id='x',name='X',outfit='knight',accessories=['hat_top'])))
  def test_every_outfit_piece_builds(self):

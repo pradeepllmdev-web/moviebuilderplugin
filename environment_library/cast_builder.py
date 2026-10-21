@@ -10,7 +10,12 @@ import math
 from cast_registry import hash_unit
 PI=math.pi
 HC=(0.,-.12,1.45)                 # head centre, lion idle pose
+LIMB_BONES={n:'mixamorig:'+n for n in ('LeftArm','LeftForeArm','RightArm','RightForeArm','LeftUpLeg','LeftLeg','RightUpLeg','RightLeg','LeftFoot','RightFoot','LeftHand','RightHand')}
 BONES={'head':'mixamorig:Head','neck':'mixamorig:Neck','spine':'mixamorig:Spine2','spine1':'mixamorig:Spine1','hips':'mixamorig:Hips','hand_r':'mixamorig:RightHand','hand_l':'mixamorig:LeftHand','tail':'Tail'}
+BONES.update(LIMB_BONES)
+def T(name,bone,r,t0,t1,color):
+ """a tube along a limb bone from fraction t0 to t1 of its length (radius r, metres at scale 1): sleeves, trousers, boots follow the bone exactly"""
+ return dict(shape='tube',name=name,loc=(0,0,0),scale=(1,1,1),rot=(0,0,0),color=tuple(color),bone=bone,emit=0.,kw={},r=r,t0=t0,t1=t1)
 PALETTE=[(.75,.15,.12),(.15,.35,.7),(.2,.55,.3),(.85,.65,.15),(.5,.25,.6),(.9,.9,.85),(.55,.35,.2),(.2,.5,.55)]
 GOLD=(.95,.75,.2);STEEL=(.7,.72,.78);LEATHER=(.4,.26,.14);CLOTH=(.85,.8,.7);DARK=(.1,.1,.12)
 def P(shape,name,loc,scale,color,bone,rot=(0,0,0),emit=0.,kw=None):return dict(kw=dict(kw or {}),shape=shape,name=name,loc=loc if isinstance(loc,str) else tuple(loc),scale=tuple(scale),rot=tuple(rot),color=tuple(color),bone=bone,emit=emit)
@@ -75,6 +80,18 @@ def accessory_prims(look,hand_r=(-.36,-.1,.66),hand_l=(.36,-.1,.66)):
   elif k=='overalls':out+=[P('cube',n('bib'),(0,-.27,.95),(.24,.02,.22),c,'spine'),P('cube',n('s1'),(.15,-.1,1.2),(.03,.1,.03),c,'spine'),P('cube',n('s2'),(-.15,-.1,1.2),(.03,.1,.03),c,'spine'),P('cyl',n('waist'),(0,-.01,.72),(.36,.29,.1),c,'hips')]
   elif k=='poncho':out+=[P('cone',n('p'),(0,0,.95),(.52,.44,.27),c,'spine',kw=dict(vertices=14)),P('cyl',n('rim'),(0,0,.68),(.52,.44,.02),_trim(c),'spine')]
   elif k=='armor':out+=[P('cyl',n('chest'),(0,-.01,1.0),(.38,.29,.22),STEEL,'spine'),P('sphere',n('padL'),(.42,0,1.2),(.14,.14,.1),STEEL,'spine'),P('sphere',n('padR'),(-.42,0,1.2),(.14,.14,.1),STEEL,'spine'),P('cyl',n('skirt'),(0,-.01,.72),(.39,.3,.09),c,'hips')]
+  elif k in('sleeves','shortsleeves'):
+   for sd in ('Left','Right'):
+    out.append(T(n(sd+'upper'),sd+'Arm',.105,.04,1.0 if k=='sleeves' else .62,c))
+    if k=='sleeves':out+=[T(n(sd+'fore'),sd+'ForeArm',.092,0.,.88,c),T(n(sd+'cuff'),sd+'ForeArm',.1,.84,1.0,_trim(c))]
+  elif k in('pants','shorts'):
+   for sd in ('Left','Right'):
+    out.append(T(n(sd+'thigh'),sd+'UpLeg',.135,0.,1.0 if k=='pants' else .78,c))
+    if k=='pants':out+=[T(n(sd+'shin'),sd+'Leg',.108,0.,.82,c),T(n(sd+'cuff'),sd+'Leg',.114,.78,.9,_trim(c))]
+  elif k=='boots':
+   for sd in ('Left','Right'):out+=[T(n(sd+'shaft'),sd+'Leg',.118,.7,1.0,c),T(n(sd+'foot'),sd+'Foot',.105,0.,1.0,c)]
+  elif k=='gloves':
+   for sd in ('Left','Right'):out.append(T(n(sd+'glove'),sd+'Hand',.085,0.,.95,c))
   elif k=='belt':out+=[P('cyl',n('band'),(0,-.02,.8),(.36,.28,.035),LEATHER,'hips'),P('cube',n('buckle'),(0,-.285,.8),(.04,.012,.035),GOLD,'hips')]
   elif k=='satchel':out+=[P('cube',n('bag'),(.37,.0,.72),(.07,.17,.15),LEATHER,'hips'),P('cube',n('strap'),(.0,-.19,1.0),(.025,.015,.3),LEATHER,'spine1',(0,-.75,.0))]
   elif k=='sword':out+=[P('cube',n('blade'),(.34,.12,.5),(.018,.012,.4),STEEL,'hips',(-.3,0,0)),P('cube',n('guard'),(.34,.06,.78),(.07,.014,.014),GOLD,'hips'),P('cyl',n('grip'),(.34,.05,.86),(.015,.015,.07),LEATHER,'hips')]
@@ -112,7 +129,11 @@ def build(S,look,tag=None):
  prims=part_prims(look)+accessory_prims(look,tuple(hr),tuple(hl));dress=[]
  for p in prims:
   loc=p['loc'];loc=tuple(tail) if loc=='TAIL_TIP' else loc
-  o=S.prim(p['shape'],p['name'],loc,p['color'],scale=p['scale'],rot=p['rot'],emit=p['emit'],**p['kw']);bpy.context.view_layer.update();Wm=o.matrix_world.copy()
+  if p['shape']=='tube':
+   pbt=rig.pose.bones[BONES[p['bone']]];hd=rig.matrix_world@pbt.head;tl=rig.matrix_world@pbt.tail;v=tl-hd;Ln=v.length;d=v.normalized();c0=hd+v*((p['t0']+p['t1'])/2);half=Ln*(p['t1']-p['t0'])/2
+   eul=Vector((0,0,1)).rotation_difference(d).to_euler();o=S.prim('cyl',p['name'],tuple(c0),p['color'],scale=(p['r'],p['r'],half),rot=tuple(eul),vertices=14);bpy.context.view_layer.update();Wm=o.matrix_world.copy()
+  else:
+   o=S.prim(p['shape'],p['name'],loc,p['color'],scale=p['scale'],rot=p['rot'],emit=p['emit'],**p['kw']);bpy.context.view_layer.update();Wm=o.matrix_world.copy()
   pb=rig.pose.bones[BONES[p['bone']]];o.parent=rig;o.parent_type='BONE';o.parent_bone=pb.name;o.matrix_parent_inverse=Matrix.Identity(4);o.matrix_basis=Wm;bpy.context.view_layer.update()
   Pm=o.matrix_world@Wm.inverted();o.matrix_parent_inverse=Pm.inverted();o.matrix_basis=Wm;dress.append(o)
  rig.animation_data.action=None;rig.animation_data_clear();rig.animation_data_create();ch['tracks']=[rig.animation_data.nla_tracks.new(),rig.animation_data.nla_tracks.new()];ch['n']=0
