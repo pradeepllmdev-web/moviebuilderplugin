@@ -91,7 +91,7 @@ def tint_textures(ch,tint,size=1024):
    if key not in _TINTED:
     img=base.image.copy();img.name='%s_tint%d'%(base.image.name,len(_TINTED))
     if img.size[0]>size:img.scale(size,size)
-    n=len(img.pixels);a=np.empty(n,np.float32);img.pixels.foreach_get(a);a=a.reshape(-1,4);mx=max(tint)+1e-6;f=[min(1.6,1.3*v/mx) for v in tint];a[:,0]*=f[0];a[:,1]*=f[1];a[:,2]*=f[2]   # the tint sets the hue, the fur keeps its own light and dark;np.clip(a,0,1,out=a);img.pixels.foreach_set(a.reshape(-1));img.update();img.pack();_TINTED[key]=img
+    n=len(img.pixels);a=np.empty(n,np.float32);img.pixels.foreach_get(a);a=a.reshape(-1,4);mx=max(tint)+1e-6;f=[min(1.6,1.3*v/mx) for v in tint];a[:,0]*=f[0];a[:,1]*=f[1];a[:,2]*=f[2]  ;np.clip(a,0,1,out=a);img.pixels.foreach_set(a.reshape(-1));img.update();img.pack();_TINTED[key]=img
    base.image=_TINTED[key]
 def build(S,look,tag=None):
  """the character: lion rig, tint, scaled root, parts and accessories. Returns the S.character dict plus ch['look'], ch['dress'] (the dressing objects)."""
