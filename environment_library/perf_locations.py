@@ -94,7 +94,7 @@ def recipe(kind,o):
  elif kind=='cloud':
   W=[_p('sphere',n('c%d'%i),(i*.9-.9,0,0),(1.2,.9,.5),(.95,.95,.98)) for i in range(3)];fp=None
  elif kind=='path':
-  c=c or (.62,.52,.38);L=math.hypot(o['to'][0]-o['at'][0],o['to'][1]-o['at'][1]);W=[_p('cube',n('p'),(L/2,0,.012),(L/2,o.get('width',1.2)/2,.012),c)];fp=None
+  c=c or (.62,.52,.38);L=math.hypot(o['to'][0]-o['at'][0],o['to'][1]-o['at'][1]);zq=.012+.004*(int(abs(o['at'][0]*7+o['at'][1]*13+o['to'][0]*3+o['to'][1]*5))%6);W=[_p('cube',n('p'),(L/2,0,zq),(L/2,o.get('width',1.2)/2,.012),c)];fp=None   # every path a different height: crossing paths never share a top face (no flicker where they meet)
  elif kind=='mountain':
   c=c or (.45,.45,.5);W=[_p('cone',n('m'),(0,0,6*s),(12*s,12*s,6*s),c,kw=dict(vertices=8)),_p('cone',n('snow'),(0,0,10.2*s),(4.5*s,4.5*s,2*s),(.95,.95,1.),kw=dict(vertices=8))];fp=None
  else:raise ValueError('unknown object kind %r'%kind)

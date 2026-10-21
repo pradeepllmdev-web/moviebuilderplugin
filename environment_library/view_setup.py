@@ -17,7 +17,7 @@ def proxies():
 def setup():
  s=bpy.context.scene;rig=next(o for o in s.objects if o.type=='ARMATURE')
  for o in s.objects:
-  if o.type=='EMPTY' or o.type=='CAMERA' or o.type=='LIGHT':o.hide_set(True)
+  if o.type=='EMPTY' or o.type=='LIGHT' or (o.type=='CAMERA' and MODE!='movie'):o.hide_set(True)   # the movie view looks through the scene's camera, so it must stay visible
   if MODE=='single' and o.type=='MESH' and o.parent is None and not any(m.type=='ARMATURE' for m in o.modifiers) and not o.name.startswith('Proxy'):o.hide_set(True)
  proxies();s.frame_set(1)
  for window in bpy.context.window_manager.windows:
@@ -29,7 +29,8 @@ def setup():
      bpy.ops.object.select_all(action='DESELECT')
      for o in s.objects:
       if o.type=='MESH' and not o.hide_get() and o.name!='Ground' and MODE=='single':o.select_set(True)
-     if MODE=='movie':bpy.ops.view3d.view_camera()
+     if MODE=='movie':
+      space.region_3d.view_perspective='CAMERA';space.overlay.show_floor=False;space.overlay.show_extras=False;space.overlay.show_cursor=False
      else:
       bpy.ops.view3d.view_axis(type='BACK' if MODE=='gallery' else 'RIGHT')
       if MODE=='gallery':

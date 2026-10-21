@@ -58,14 +58,14 @@ FIT_OPT={'jacket':dict(open=5.5),'vest':dict(open=6.),'bib':dict(front=13.),'pla
 SKIN_POOL=('Hips','LeftUpLeg','RightUpLeg','LeftLeg','RightLeg','Spine','Spine1')
 # kind -> pieces: ('fit', fitted kind, colour), ('skirt', cast_garments.SKIRTS key, colour), ('cape',); colours: c main, t trim, steel, white
 # shells: torso skins from cast_garments.shell (name -> arguments); fit = cut from the body; skirt = cast_garments.SKIRTS
-SHELLS={'shirt':dict(z0=90,z1=54,off=2.1),'tshirt':dict(z0=90,z1=56,off=2.1),'plaidshirt':dict(z0=90,z1=54,off=2.1,pattern='plaid'),'stripedshirt':dict(z0=90,z1=54,off=2.1,pattern='stripe'),'jacket':dict(z0=90,z1=44,off=3.4,gap=.3,hem=2),'vest':dict(z0=90,z1=52,off=2.9,gap=.3,hem=1.5),
+SHELLS={'waist':dict(z0=74,z1=46,off=2.3,neck=False),'shirt':dict(z0=90,z1=54,off=2.1),'tshirt':dict(z0=90,z1=56,off=2.1),'plaidshirt':dict(z0=90,z1=54,off=2.1,pattern='plaid'),'stripedshirt':dict(z0=90,z1=54,off=2.1,pattern='stripe'),'jacket':dict(z0=90,z1=44,off=3.4,gap=.3,hem=2),'vest':dict(z0=90,z1=52,off=2.9,gap=.3,hem=1.5),
  'dressshirt':dict(z0=90,z1=44,off=2.1),'tunicbody':dict(z0=90,z1=60,off=2.4),'bodice':dict(z0=90,z1=66,off=2.1),'robebody':dict(z0=90,z1=60,off=2.8),'plate':dict(z0=90,z1=62,off=3.6,hem=2),'bib':dict(z0=84,z1=60,off=2.5,arc=(-math.pi/2-.62,-math.pi/2+.62),seg=14,neck=False),
  'strapL':dict(z0=96,z1=80,off=2.7,arc=(-math.pi/2+.42,-math.pi/2+.56),seg=2,neck=False,step=2.),'strapR':dict(z0=96,z1=80,off=2.7,arc=(-math.pi/2-.56,-math.pi/2-.42),seg=2,neck=False,step=2.)}
-COMPOSE={'shirt':[('shell','shirt','c'),('fit','sleeves','c')],'tshirt':[('shell','tshirt','c'),('fit','shortsleeves','c')],'plaidshirt':[('shell','plaidshirt','c'),('fit','plaidsleeves','c')],'stripedshirt':[('shell','stripedshirt','c'),('fit','stripedsleeves','c')],
+COMPOSE={'pants':[('fit','pants','c'),('shell','waist','c')],'shorts':[('fit','shorts','c'),('shell','waist','c')],'shirt':[('shell','shirt','c'),('fit','sleeves','c')],'tshirt':[('shell','tshirt','c'),('fit','shortsleeves','c')],'plaidshirt':[('shell','plaidshirt','c'),('fit','plaidsleeves','c')],'stripedshirt':[('shell','stripedshirt','c'),('fit','stripedsleeves','c')],
  'jacket':[('shell','jacket','c'),('fit','sleeves','c')],'vest':[('shell','vest','c')],
  'tunic':[('shell','tunicbody','c'),('fit','shortsleeves','c'),('skirt','tunic','c')],'dress':[('shell','bodice','c'),('skirt','dress','c')],'robe':[('shell','robebody','c'),('fit','sleeves','c'),('skirt','robe','c')],'armor':[('shell','plate','steel'),('skirt','tassets','c')],
- 'poncho':[('skirt','poncho','c')],'apron':[('shell','bib','c'),('skirt','apronskirt','c')],'overalls':[('fit','pants','c'),('shell','bib','c'),('shell','strapL','c'),('shell','strapR','c')],'kilt':[('skirt','kilt','c')],'cape':[('cape',)],
- 'suit':[('shell','jacket','c'),('fit','sleeves','c'),('shell','dressshirt','white'),('fit','pants','c')]}
+ 'poncho':[('skirt','poncho','c')],'apron':[('shell','bib','c'),('skirt','apronskirt','c')],'overalls':[('fit','pants','c'),('shell','waist','c'),('shell','bib','c'),('shell','strapL','c'),('shell','strapR','c')],'kilt':[('skirt','kilt','c')],'cape':[('cape',)],
+ 'suit':[('shell','jacket','c'),('fit','sleeves','c'),('shell','dressshirt','white'),('fit','pants','c'),('shell','waist','c')]}
 GARMENT_KINDS=(set(COMPOSE)|set(cg.HATS))-{'armor','cape'}
 HATZ={'helmet':1.6,'hat_cap':1.55,'hat_beanie':1.5,'hat_cowboy':1.6,'hat_sou':1.62,'hat_straw':1.66}
 HATSCALE={'hat_cap':1.18,'hat_beanie':1.1}
@@ -139,6 +139,33 @@ def _buttons(S,body,name,z0,z1,off,color):
   z=z0-8*j;cy,rad=f(z);m=len(rad);r=rad[(m*3)//4]+off+.5   # angle -pi/2 is index 3m/4
   parts.append(cg.lathe([(0.,-1.1,0),(.8,-.8,0),(1.1,0.,0),(.8,.8,0),(0.,1.1,0)],seg=8,cx=0.,cy=cy-r,zb=z))
  V,F,M=cg._join(*parts);o=_mesh_object(S,name,V,F,M,[color],like=body);_skin(body,o,[0.]*len(o.data.vertices),None,TORSO_GROUPS);return o
+# limb garments: tubes fitted around the arm or leg of the body mesh (cleaner than cutting its faces): groups per side, part of the limb length, trim cuff, extra radius in cm
+LIMBS={'sleeves':dict(g=('Arm','ForeArm'),frac=(0.,1.),cuff=True,off=1.9),'shortsleeves':dict(g=('Arm','ForeArm'),frac=(0.,.45),cuff=True,off=1.9),'plaidsleeves':dict(g=('Arm','ForeArm'),frac=(0.,1.),cuff=True,off=1.9,pattern='plaid'),'stripedsleeves':dict(g=('Arm','ForeArm'),frac=(0.,1.),cuff=True,off=1.9,pattern='stripe'),
+ 'pants':dict(g=('UpLeg','Leg'),frac=(0.,.93),cuff=True,off=1.7),'shorts':dict(g=('UpLeg','Leg'),frac=(0.,.42),cuff=True,off=1.7)}
+_LIMBCACHE={}
+def _limb_rings(body,groups,frac,off,n=14):
+ """rings (centre, u, v, radius) along the vertices of the given groups: the limb axis is the principal direction of those vertices, pointing down; each ring is centred on its slab and as wide as the slab's 85th-percentile distance from the centre plus `off`, smoothed"""
+ import numpy as np
+ names={g.index:g.name.split(':')[-1] for g in body.vertex_groups};pts=[]
+ for v in body.data.vertices:
+  if v.groups and names[max(v.groups,key=lambda g:g.weight).group] in groups:pts.append(tuple(v.co))
+ P=np.array(pts);c0=P.mean(0);_,_,vt=np.linalg.svd(P-c0,full_matrices=False);ax=vt[0]
+ if ax[2]>0:ax=-ax
+ u=np.cross(ax,(1.,0.,0.));u=u/np.linalg.norm(u) if np.linalg.norm(u)>.1 else np.cross(ax,(0.,1.,0.));u=u/np.linalg.norm(u);v=np.cross(ax,u)
+ t=(P-c0)@ax;t0,t1=t.min(),t.max();rings=[]
+ for k in range(n+1):
+  tt=t0+(t1-t0)*(frac[0]+(frac[1]-frac[0])*k/n);sel=np.abs(t-tt)<(t1-t0)/(n*1.5)
+  if sel.sum()<6:sel=np.argsort(np.abs(t-tt))[:12]
+  Q=P[sel];c=Q.mean(0);d=np.linalg.norm((Q-c)-np.outer((Q-c)@ax,ax),axis=1);rings.append([c,np.percentile(d,85)])
+ rr=[r[1] for r in rings];sm=[(rr[max(0,i-1)]+2*rr[i]+rr[min(len(rr)-1,i+1)])/4 for i in range(len(rr))]
+ return [(tuple(r[0]),tuple(u),tuple(v),sm[i]+off) for i,r in enumerate(rings)]
+def _limb_object(S,body,name,kind,color):
+ import cast_garments as cg
+ sp=LIMBS[kind];parts=[];pool=[]
+ for side in ('Left','Right'):
+  gr=tuple(side+x for x in sp['g']);pool+=list(gr);parts.append(cg.tube(_limb_rings(body,gr,sp['frac'],sp['off']),16,sp['cuff'],sp.get('pattern')))
+ V,F,M=cg._join(*parts);pat=sp.get('pattern')
+ o=_mesh_object(S,name,V,F,M,[color,_trim(color) if sp['cuff'] and not pat else ((.93,.92,.88) if pat=='stripe' else _trim(color))],like=body);_skin(body,o,[0.]*len(o.data.vertices),None,tuple(pool),k=3);return o
 def _cloth_colors(spec,c):return {'c':c,'t':_trim(c),'steel':STEEL,'white':(.93,.92,.88),'leather':LEATHER}[spec]
 def garment(S,ch,look,acc,i):
  """every Blender object of one accessory that is not a primitive: hats (rigid on the head bone), fitted pieces and skinned lofts (deformed by the skeleton), as a list"""
@@ -148,7 +175,7 @@ def garment(S,ch,look,acc,i):
   V,F,M=cg.hat(k,zb=HATZ.get(k,1.7));sc=HATSCALE.get(k,1.);V=[(x*sc,-.1+(y+.1)*sc,z) for x,y,z in V];main,trim=HATCOL.get(k,lambda c:(c,_trim(c)))(c);o=_mesh_object(S,base,V,F,M,[main,trim]);_to_bone(rig,o,'head');return [o]
  for j,pc in enumerate(COMPOSE.get(k,[('fit',k,'c')] if k in FITTED else [])):
   col=_cloth_colors(pc[2],c) if len(pc)>2 else c;nm='%s_%d'%(base,j)
-  if pc[0]=='fit':out.append(fitted(S,ch,nm,pc[1],col))
+  if pc[0]=='fit':out.append(_limb_object(S,body,nm,pc[1],col) if pc[1] in LIMBS else fitted(S,ch,nm,pc[1],col))
   elif pc[0]=='shell':
    opt=dict(SHELLS[pc[1]]);V,F,M=cg.shell(_env_fn(body),**opt);o=_mesh_object(S,nm,V,F,M,[col,_trim(col) if opt.get('pattern')=='plaid' else (.93,.92,.88) if opt.get('pattern') else (GOLD if pc[2]=='steel' else _trim(col))],like=body);_skin(body,o,[0.]*len(o.data.vertices),None,TORSO_GROUPS);out.append(o)
    if pc[1] in BUTTONED:out.append(_buttons(S,body,nm+'_btn',BUTTONED[pc[1]][0],BUTTONED[pc[1]][1],opt['off'],(.12,.1,.08) if sum(col)>1.8 else (.93,.9,.8)))

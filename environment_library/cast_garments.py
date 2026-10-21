@@ -155,3 +155,18 @@ def shell(env,z0,z1,off=2.,seg=40,step=3.,gap=None,arc=None,hem=0.,neck=True,pat
    mi=mats[j] or (1 if (pattern=='plaid' and (x%11<2.4 or z%11<2.4)) or (pattern=='stripe' and z%12<4.5) else 0)
    f.append(q);mm.append(mi)
  return verts,f,mm
+
+def tube(rings,seg=16,cuff=False,pattern=None):
+ """a sleeve or trouser leg from rings (centre, u, v, radius) listed along the limb: outward normals, an optional trim band on the last ring pair, stripes (bands) or plaid (blocks) as material 1"""
+ verts=[];idx=[]
+ for c,u,v,r in rings:
+  ring=[]
+  for i in range(seg):
+   a=2*PI*i/seg;ring.append(len(verts));verts.append(tuple(c[k]+r*(math.cos(a)*u[k]+math.sin(a)*v[k]) for k in range(3)))
+  idx.append(ring)
+ f=[];m=[];n=len(rings)-1
+ for j in range(n):
+  for i in range(seg):
+   i2=(i+1)%seg;f.append((idx[j][i],idx[j][i2],idx[j+1][i2],idx[j+1][i]))
+   m.append(1 if (cuff and j>=n-1) or (pattern=='stripe' and (j//2)%2) or (pattern=='plaid' and (j//2+i//3)%2) else 0)
+ return verts,f,m
