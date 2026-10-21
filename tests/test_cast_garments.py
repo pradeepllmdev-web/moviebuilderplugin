@@ -34,3 +34,16 @@ def test_new_outfits_resolve_with_known_kinds():
     for o in ('villager','villageress','blacksmith','fisherman','shepherd','innkeeper','miller','monk','mayor','gentleman','tourist','cook','highlander','cowboy','artist'):
         assert o in cr.OUTFITS,o
         for a in cr.expand_outfit(dict(outfit=o,colors=[(.5,.5,.5)]*4)):assert (a if isinstance(a,str) else a['kind']) in cr.ACCESSORIES,(o,a)
+
+def test_camera_keeps_people_in_frame_and_shows_faces():
+    from pathlib import Path
+    import perf_movie as pm,perf_plan as pp,perf_camera as pc
+    for f in sorted((Path(__file__).resolve().parents[1]/'environment_library'/'films').glob('*.py')):
+        film=pm.load_film(f);reg=pm.registry_of(film);bad=tot=0
+        for sp in film['scenes']:
+            P=pp.compile(sp,reg)
+            for c in pc.direct(P):
+                if c['kind'] in ('wide','group'):continue
+                for u in (.15,.5,.85):
+                    tot+=1;off,face=pc.shot_quality(P,c,c['t0']+(c['t1']-c['t0'])*u);bad+=off>.8 or face<.25
+        assert bad<=.03*tot,(f.name,bad,tot)

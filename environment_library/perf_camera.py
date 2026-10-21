@@ -48,10 +48,10 @@ def direct(plan,seed=1):
      cuts.append(dict(name='%s alone'%sp,kind='medium',t0=max(a,L['t0']-.25),t1=min(b,L['t1']+.3),subject=sp,side=1.,lens=40));continue
     key=tuple(sorted((sp,to)));side=pair_side.setdefault(key,1. if rnd.random()<.5 else -1.)
     t0=max(a,L['t0']-.25);t1=min(b,L['t1']+.3);mid=t0+(t1-t0)*.68
-    kd='two' if (k%3==2 or math.hypot(*[plan.pos(sp,mid)[i]-plan.pos(to,mid)[i] for i in (0,1)])>5.) and not plan.layout.get('inside') else 'ots'   # a small room has no room for a two-shot
+    kd='two' if k%3==2 and math.hypot(*[plan.pos(sp,mid)[i]-plan.pos(to,mid)[i] for i in (0,1)])<=5.5 and not plan.layout.get('inside') else 'medium'    # a face from the front quarter, never a foreground back of a head (a two-shot of people far apart is a tiny picture)   # a small room has no room for a two-shot
     if t0>cuts[-1]['t1']+.2 and mid-cuts[-1]['t1']>0:t0=cuts[-1]['t1']
-    cuts.append(dict(name='%s speaks'%sp,kind=kd,t0=t0,t1=mid,subject=sp,to=to,side=side,lens=42 if kd=='ots' else 36))
-    if t1-mid>.4:cuts.append(dict(name='%s listens'%to,kind='single',t0=mid,t1=t1,subject=to,to=sp,side=side,lens=36))
+    cuts.append(dict(name='%s speaks'%sp,kind=kd,t0=t0,t1=mid,subject=sp,to=to,side=side,lens=40 if kd=='medium' else 36))
+    if t1-mid>.4:cuts.append(dict(name='%s listens'%to,kind='medium',t0=mid,t1=t1,subject=to,to=sp,side=-side,lens=40))
    if cuts[-1]['t1']<b-.1:cuts[-1]['t1']=b
   elif gos:
    e=max(gos,key=lambda e:e['t1']-e['t0']);who=e['who'];mv=[g for g in gos if g['t0']<e['t1'] and g['t1']>e['t0']]
@@ -111,11 +111,9 @@ def _frame(plan,c,t):
  if kd in ('ots','two','single'):
   hs=plan.head_pos(sp,t);to=c.get('to') or sp;ht=plan.head_pos(to,t);side=c.get('side',1.)
   d=_unit((hs[0]-ht[0],hs[1]-ht[1]));n=(-d[1]*side,d[0]*side)
-  if kd=='ots':
-   k=plan.actors[to].size;wk=plan.actors[to].look['scale'][0]*.8;sep=max(.6,math.hypot(hs[0]-ht[0],hs[1]-ht[1]));back=3.0+.7*k      # costumes (capes, armour, robes) make the listener wider than the body alone
-   lat=min(2.8,max(.7*k,(wk+.25)*(back+sep)/sep));return (ht[0]-d[0]*back+n[0]*lat,ht[1]-d[1]*back+n[1]*lat,hs[2]+.15),(hs[0],hs[1],hs[2]),lens
-  if kd=='single':
-   k=plan.actors[to].size*c.get('dm',1.);return (ht[0]+(d[0]*.25+n[0]*1.0)*3.0*k,ht[1]+(d[1]*.25+n[1]*1.0)*3.0*k,ht[2]+.05),ht,lens
+  if kd in ('ots','single'):    # a single is the reverse angle: behind the speaker, on the listener's face, a little tighter
+   k=plan.actors[to].size;wk=plan.actors[to].look['scale'][0]*.8;sep=max(.6,math.hypot(hs[0]-ht[0],hs[1]-ht[1]));back=(3.0+.7*k)*(.75 if kd=='single' else 1.)      # costumes (capes, armour, robes) make the listener wider than the body alone
+   lat=min(3.2,max(.7*k,(wk+.25)*(back+sep)/sep))*(.95 if kd=='single' else 1.2);return (ht[0]-d[0]*back+n[0]*lat,ht[1]-d[1]*back+n[1]*lat,hs[2]+.15),(hs[0],hs[1],hs[2]),lens
   mid=((hs[0]+ht[0])/2,(hs[1]+ht[1])/2,(hs[2]+ht[2])/2);dist=max(4.2,math.hypot(hs[0]-ht[0],hs[1]-ht[1])*1.6+1.5)
   return (mid[0]+n[0]*dist,mid[1]+n[1]*dist,mid[2]+.4),mid,lens
  if kd in ('track','follow_high'):
@@ -125,7 +123,8 @@ def _frame(plan,c,t):
   size=plan.actors[sp].size;hz=(1.4 if kd=='track' else 3.8)*size if kd=='track' else 3.6
   if kd=='follow_high':dist*=1.5
   dist*=c.get('dm',1.)*max(.72,size**.6)    # a small walker is followed from closer, so he stays big in the frame
-  return (cx+n[0]*dist-f[0]*.6,cy+n[1]*dist-f[1]*.6,hz),(cx+f[0]*lead,cy+f[1]*lead,1.1*size),lens
+  ahead=1.6*c.get('front',1.)    # the camera stands a little ahead of the walker, so the face is seen
+  return (cx+n[0]*dist+f[0]*ahead,cy+n[1]*dist+f[1]*ahead,hz),(cx+f[0]*lead*.5,cy+f[1]*lead*.5,1.1*size),lens
  if kd=='insert':
   p=plan.props[c['prop']];pp=p.at(t,plan);x,y,h=plan.pos(sp,t);a=plan.actors[sp];dm=c.get('dm',1.)
   f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.))
@@ -156,7 +155,24 @@ def _score(plan,c,side):
   if np.any((O[:,2]<=.5)&(d<O[:,2]+.25)&(u>.05)&(u<.6)):sc-=.8       # a post or lamp close in front of the lens       # a solid between the lens and the subject
  hx,hy=plan.layout['half']
  if abs(pos[0])>hx+4 or abs(pos[1])>hy+4:sc-=1.
+ if c['kind'] not in ('wide','group'):
+  for u in (.15,.5,.85):
+   off,face=shot_quality(plan,c2,c['t0']+(c['t1']-c['t0'])*u)
+   if off>.8:sc-=2.5*(off-.8)+.5     # the people drift out of the frame
+   if face<.25 and c['kind']!='ots':sc-=1.5*(.25-face)+.3    # we would be looking at the back of the head
  return sc
+def shot_quality(plan,c,t):
+ """(worst angle off the lens axis as a fraction of the half field of view over the people the shot is about, face-to-camera cosine of the main subject): a shot should keep them in frame and show the face"""
+ pos,aim,lens=frame(plan,c,t);half=math.atan(18./lens);ax=np.array(aim)-np.array(pos);ax/=np.linalg.norm(ax) or 1.
+ who=[c['subject']] if c.get('subject') else []
+ if c['kind']=='two' and c.get('to'):who.append(c['to'])
+ off=0.
+ for w in who:
+  v=np.array(plan.head_pos(w,t))-np.array(pos);v/=np.linalg.norm(v) or 1.;off=max(off,math.acos(max(-1.,min(1.,float(ax@v))))/half)
+ face=1.
+ if who and c['kind'] not in ('wide','group','insert','ots','two'):
+  w=who[0];x,y,h=plan.pos(w,t);d=_unit((pos[0]-x,pos[1]-y));face=math.cos(h)*d[0]+math.sin(h)*d[1]
+ return off,face
 def _segdist2(a,b,p):
  dx,dy=b[0]-a[0],b[1]-a[1];L2=dx*dx+dy*dy or 1.;u=max(0.,min(1.,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/L2));return math.hypot(a[0]+dx*u-p[0],a[1]+dy*u-p[1]),u
 def _pick_sides(plan,cuts):
@@ -170,12 +186,15 @@ def _pick_sides(plan,cuts):
   if c.get('side') is None:continue
   s0=c['side']
   if c['kind'] in ('ots','two'):
-   if _score(plan,c,s0)<0 and _score(plan,c,-s0)>=0:c['side']=-s0
+   a_,b_=_score(plan,c,s0),_score(plan,c,-s0)
+   if b_>a_+.05:c['side']=-s0;a_=b_
+   if a_<-.4 and c['kind']=='ots':c.update(kind='medium',side=s0,lens=36)    # no clean over-the-shoulder: a front medium of the speaker instead
    continue
   best=None
-  for dm in (1.,.8,1.3,1.6):
-   for sd in (s0,-s0):
-    c2=dict(c,dm=dm);sc=_score(plan,c2,sd)-.05*abs(dm-1.)-(.02 if sd!=s0 else 0)
-    if best is None or sc>best[0]:best=(sc,sd,dm)
-  c['side']=best[1];c['dm']=best[2]
+  for fr in ((1.,2.,3.) if c['kind'] in ('track','follow_high') else (1.,)):
+   for dm in (1.,.8,1.3,1.6):
+    for sd in (s0,-s0):
+     c2=dict(c,dm=dm,front=fr);sc=_score(plan,c2,sd)-.05*abs(dm-1.)-(.02 if sd!=s0 else 0)-.03*(fr-1.)
+     if best is None or sc>best[0]:best=(sc,sd,dm,fr)
+  c['side']=best[1];c['dm']=best[2];c['front']=best[3]
  return cuts

@@ -102,7 +102,7 @@ class Camera(unittest.TestCase):
  def test_every_line_is_covered_by_its_speaker_or_a_two_shot(self):
   P=self.plan();C=pc.direct(P)
   for L in P.lines:
-   mid=(L['t0']+L['t1'])/2;c=[c for c in C if c['t0']<=mid<c['t1']][0];self.assertIn(c['kind'],('ots','two','single','wide'))
+   mid=(L['t0']+L['t1'])/2;c=[c for c in C if c['t0']<=mid<c['t1']][0];self.assertIn(c['kind'],('ots','two','single','wide','medium'))
  def test_frames_are_finite_and_cameras_above_ground(self):
   P=self.plan()
   for c in pc.direct(P):
