@@ -154,13 +154,13 @@ class Scene:
  def audio(self,build):
   """build(A) fills named tracks: A.track(name,array,peak); helpers A.at(arr,t,x,g), A.noise(n,k) (low-passed noise), A.chords(seq,vol). Tracks are added as sound strips."""
   A=Audio(self);build(A);A.save()
- def finish(self,issues=None,subjects=None,world=(.3,.35,.4)):
+ def finish(self,issues=None,subjects=None,world=(.3,.35,.4),color_type='MATERIAL'):
   for i,c in enumerate(self.chars):
    if not c.get('blinked'):self.blinks(c,i+1);c['blinked']=True
   sc=self.scene;issues=list(issues or [])+kit.persistence_audit(sc)+kit.camera_checks(sc,subjects or [c['root'] for c in self.chars[:1]])
   for i in issues:print(i)
   print('AUDIT',len(issues),'issues')
-  sc.world=bpy.data.worlds.new('W');sc.world.color=world;sc.display.shading.light='STUDIO';sc.display.shading.color_type='MATERIAL';sc.render.resolution_x=1280;sc.render.resolution_y=720
+  sc.world=bpy.data.worlds.new('W');sc.world.color=world;sc.display.shading.light='STUDIO';sc.display.shading.color_type=color_type;sc.render.resolution_x=1280;sc.render.resolution_y=720
   sc.frame_set(1);bpy.context.view_layer.update();bpy.ops.wm.save_as_mainfile(filepath=self.out);print(self.name.upper()+'_DONE',self.frames,'frames');return issues
 class Audio:
  SR=22050

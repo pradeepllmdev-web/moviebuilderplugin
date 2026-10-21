@@ -5,7 +5,7 @@ blender -b <scene.blend> --python contact_frames.py -- <out_dir> [N=12] [width=4
 Writes <out_dir>/f_<index>_<frame>.png and frames.json (index, frame, time, cut name). contact_sheet.py joins them into one labelled image."""
 import bpy,sys,os,json
 a=sys.argv[sys.argv.index('--')+1:];out=a[0];N=int(a[1]) if len(a)>1 else 12;W=int(a[2]) if len(a)>2 else 480
-os.makedirs(out,exist_ok=True);sc=bpy.context.scene;sc.render.engine='BLENDER_WORKBENCH';sc.display.shading.light='STUDIO';sc.display.shading.color_type='MATERIAL'
+os.makedirs(out,exist_ok=True);sc=bpy.context.scene;sc.render.engine='BLENDER_WORKBENCH';sc.display.shading.light='STUDIO';sc.display.shading.color_type='TEXTURE'
 sc.render.resolution_x=W;sc.render.resolution_y=int(W*9/16);sc.render.resolution_percentage=100;sc.render.image_settings.file_format='PNG'
 marks=sorted([m for m in sc.timeline_markers if m.camera],key=lambda m:m.frame);ends=[m.frame for m in marks[1:]]+[sc.frame_end]
 fr=[(m,(m.frame+e)//2) for m,e in zip(marks,ends)]

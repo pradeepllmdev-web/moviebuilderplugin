@@ -306,7 +306,14 @@ S.audio(snd)
 os.makedirs(os.path.dirname(S.out),exist_ok=True)
 json.dump(dict(id=SPEC['id'],title=SPEC.get('title',''),seconds=PLAN.seconds,cuts=[dict(name=c['name'],t0=c['t0'],t1=c['t1'],kind=c['kind'],subject=c.get('subject')) for c in CUTS],lines=[dict(k=L['k'],speaker=L['speaker'],to=L['to'],mood=L['mood'],text=L['text'],t0=L['t0'],t1=L['t1']) for L in PLAN.lines],audit=issues,
  cast=list(CH),stats=dict(ground_lift=max(GROUND.values(),default=0.),foot_slip=mean_slip,reach=reach_worst,eye_speaker=worst_sp,eye_listener=worst_li,framing_misses=miss,framing_checked=chk)),open(S.out+'.plan.json','w',encoding='utf-8'),indent=1)
-S.finish(issues,[CH[i]['root'] for i in CH],world=pl.normalise(SPEC.get('location',dict(preset='meadow'))).get('world') or scene_params.preset(TIME if TIME in scene_params.TIME_OF_DAY else 'day')['world'])
+for scr in bpy.data.screens:      # the saved window opens in Solid with textures, through the active camera
+ for ar in scr.areas:
+  if ar.type=='VIEW_3D':
+   for sp in ar.spaces:
+    if sp.type=='VIEW_3D':
+     try:sp.shading.type='SOLID';sp.shading.light='STUDIO';sp.shading.color_type='TEXTURE';sp.shading.show_cavity=False;sp.overlay.show_overlays=False;sp.region_3d.view_perspective='CAMERA'
+     except Exception as _e:print('viewport:',_e)
+S.finish(issues,[CH[i]['root'] for i in CH],color_type='TEXTURE',world=pl.normalise(SPEC.get('location',dict(preset='meadow'))).get('world') or scene_params.preset(TIME if TIME in scene_params.TIME_OF_DAY else 'day')['world'])
 if os.environ.get('PERF_DEBUG'):
  for nm in CH:
   S.settle(S.F(float(os.environ['PERF_DEBUG'])));print('DBG',nm,'head',tuple(round(v,2) for v in S.head_pos(CH[nm])),'face',tuple(round(v,2) for v in S.face_dir(CH[nm])),'root',tuple(round(v,2) for v in CH[nm]['root'].matrix_world.translation),'gz',tuple(round(v,2) for v in GZ[nm].matrix_world.translation),'H',round(math.degrees(PLAN.pos(nm,float(os.environ['PERF_DEBUG']))[2]),0))

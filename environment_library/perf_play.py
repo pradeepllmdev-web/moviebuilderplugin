@@ -14,13 +14,13 @@ def _try(f):
  except Exception as e:print('perf_play:',e)
 def setup():
  s=bpy.context.scene;_try(lambda:s.frame_set(s.frame_start));s.render.engine='BLENDER_WORKBENCH'
- s.display.shading.type='SOLID';s.display.shading.light='STUDIO';s.display.shading.color_type='MATERIAL'
+ s.display.shading.type='SOLID';s.display.shading.light='STUDIO';s.display.shading.color_type='TEXTURE'
  for w in bpy.context.window_manager.windows:
   for a in w.screen.areas:
    if a.type=='VIEW_3D':
     sp=a.spaces[0]
     def shade(sp=sp):
-     sp.shading.type='SOLID';sp.shading.light='STUDIO';sp.shading.color_type='MATERIAL';sp.shading.show_cavity=False;sp.shading.use_dof=False
+     sp.shading.type='SOLID';sp.shading.light='STUDIO';sp.shading.color_type='TEXTURE';sp.shading.show_cavity=False;sp.shading.use_dof=False
     _try(shade);_try(lambda sp=sp:setattr(sp.region_3d,'view_perspective','CAMERA'));_try(lambda sp=sp:setattr(sp.overlay,'show_overlays',False))
   def play(w=w):
    with bpy.context.temp_override(window=w):bpy.ops.screen.animation_play()

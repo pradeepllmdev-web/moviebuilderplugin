@@ -75,11 +75,30 @@ def accessory_prims(look,hand_r=(-.36,-.1,.66),hand_l=(.36,-.1,.66)):
   elif k=='lantern':out+=[P('cube',n('frame'),(hand_l[0],hand_l[1],hand_l[2]-.12),(.08,.08,.1),DARK,'hand_l'),P('sphere',n('flame'),(hand_l[0],hand_l[1],hand_l[2]-.12),(.065,.065,.065),(1.,.8,.35),'hand_l',emit=3.)]
   elif k=='banner':out+=[P('cyl',n('pole'),(hand_r[0],hand_r[1],1.05),(.02,.02,1.05),LEATHER,'hand_r'),P('cube',n('cloth'),(hand_r[0],hand_r[1]-.22,1.85),(.01,.22,.16),c,'hand_r')]
  return out
+_TINTED={}
+def tint_textures(ch,tint,size=1024):
+ """the fur texture multiplied by the tint, so the character shows a tinted TEXTURE in every viewport mode and render (the viewport colour alone only helps flat shading); cached per source image and tint"""
+ import bpy
+ import numpy as np
+ for o in ch['objs']:
+  if o.type!='MESH':continue
+  for slot in o.material_slots:
+   m=slot.material
+   if not m or not m.use_nodes:continue
+   base=next((l.from_node for l in m.node_tree.links if l.to_socket.name=='Base Color' and l.from_node.type=='TEX_IMAGE'),None)
+   if base is None or base.image is None:continue
+   key=(base.image.name,tuple(round(v,3) for v in tint))
+   if key not in _TINTED:
+    img=base.image.copy();img.name='%s_tint%d'%(base.image.name,len(_TINTED))
+    if img.size[0]>size:img.scale(size,size)
+    n=len(img.pixels);a=np.empty(n,np.float32);img.pixels.foreach_get(a);a=a.reshape(-1,4);mx=max(tint)+1e-6;f=[min(1.6,1.3*v/mx) for v in tint];a[:,0]*=f[0];a[:,1]*=f[1];a[:,2]*=f[2]   # the tint sets the hue, the fur keeps its own light and dark;np.clip(a,0,1,out=a);img.pixels.foreach_set(a.reshape(-1));img.update();img.pack();_TINTED[key]=img
+   base.image=_TINTED[key]
 def build(S,look,tag=None):
  """the character: lion rig, tint, scaled root, parts and accessories. Returns the S.character dict plus ch['look'], ch['dress'] (the dressing objects)."""
  import bpy
  from mathutils import Matrix,Vector
  tag=tag or look['id'];ch=S.character(tag,look['tint']);rig=ch['rig'];root=ch['root'];ch['look']=look
+ if tuple(look['tint'])!=(1.,1.,1.):tint_textures(ch,look['tint'])
  act=S.clip('idle');rig.animation_data.action=act;rig.animation_data.action_slot=act.slots[0];S.scene.frame_set(1);bpy.context.view_layer.update()
  W=lambda b:rig.matrix_world@rig.pose.bones[b].head;hr,hl=W('mixamorig:RightHand'),W('mixamorig:LeftHand');tail=rig.matrix_world@rig.pose.bones['Tail'].tail
  prims=part_prims(look)+accessory_prims(look,tuple(hr),tuple(hl));dress=[]
