@@ -227,11 +227,23 @@ def meadow(rnd,p):
  return dict(objects=_scatter(rnd,['tree','bush','rock'],14,(-24,24),(-24,24),avoid=[(0,0,6)],gap=5)+[dict(kind='haystack',at=[8,5]),dict(kind='fence',at=[-12,-8],to=[12,-8],id='fence'),dict(kind='log',at=[-3,2],yaw=20,id='log')],ground=(.42,.6,.3),half=(30,26),markers=dict(center=(0,0),east=(9,0),west=(-9,0),far=(0,14)))
 PRESETS=dict(forest_clearing=forest_clearing,campfire_night=campfire_night,village_square=village_square,market=market,hall=hall,room=room,ruins=ruins,harbor=harbor,hilltop=hilltop,courtyard=courtyard,workshop=workshop,cave=cave,meadow=meadow)
 # ---------------------------------------------------------------------------------------------------------------- Blender
+def _ground_texture(ob,base):
+ """soft patches of lighter and darker ground and a fine grain (procedural, visible in the lit view and in renders)"""
+ import bpy
+ m=ob.active_material
+ if m is None or not m.use_nodes:return
+ nt=m.node_tree;bs=nt.nodes.get('Principled BSDF')
+ if bs is None:return
+ tc=nt.nodes.new('ShaderNodeTexCoord');n1=nt.nodes.new('ShaderNodeTexNoise');n2=nt.nodes.new('ShaderNodeTexNoise');mx=nt.nodes.new('ShaderNodeMix');cr=nt.nodes.new('ShaderNodeValToRGB');bm=nt.nodes.new('ShaderNodeBump')
+ n1.inputs['Scale'].default_value=.18;n1.inputs['Detail'].default_value=3.;n2.inputs['Scale'].default_value=6.;n2.inputs['Detail'].default_value=6.
+ cr.color_ramp.elements[0].color=(*[c*.72 for c in base],1);cr.color_ramp.elements[1].color=(*[min(1.,c*1.22) for c in base],1)
+ mx.data_type='RGBA';mx.blend_type='MULTIPLY';mx.inputs[0].default_value=.35;bm.inputs['Strength'].default_value=.25
+ nt.links.new(tc.outputs['Object'],n1.inputs['Vector']);nt.links.new(tc.outputs['Object'],n2.inputs['Vector']);nt.links.new(n1.outputs['Fac'],cr.inputs[0]);nt.links.new(cr.outputs[0],mx.inputs[6]);nt.links.new(n2.outputs['Color'],mx.inputs[7]);nt.links.new(mx.outputs[2],bs.inputs['Base Color']);nt.links.new(n2.outputs['Fac'],bm.inputs['Height']);nt.links.new(bm.outputs[0],bs.inputs['Normal'])
 def build(S,loc,time='day'):
  """create the location in the scene_base.Scene S: ground (and water), objects, lights, sun for the time of day; returns the normalised location"""
  import bpy
  import scene_params
- loc=normalise(loc);hx,hy=loc['half'];S.prim('cube','Ground',(0,0,-.5),loc['ground'],scale=(hx+20,hy+20,.5))
+ loc=normalise(loc);hx,hy=loc['half'];gr=S.prim('cube','Ground',(0,0,-.5),loc['ground'],scale=(hx+20,hy+20,.5));_ground_texture(gr,loc['ground'])
  if loc.get('water'):
   x0,y0,x1,y1=loc['water'];S.prim('cube','Water',((x0+x1)/2,(y0+y1)/2,-.12),(.2,.4,.6),scale=((x1-x0)/2,(y1-y0)/2,.1))
  for p in prims(loc):
@@ -239,9 +251,9 @@ def build(S,loc,time='day'):
    ld=bpy.data.lights.new(p[1],'POINT');ld.energy=p[3] if time in ('night','dusk','dawn') else p[3]*.2;ld.color=p[4];ld.shadow_soft_size=.3;lo=bpy.data.objects.new(p[1],ld);lo.location=p[2];S.link(lo);continue
   o=S.prim(p['shape'],p['name'],p['loc'],p['color'],scale=p['scale'],rot=p['rot'],emit=p['emit'] if (p['emit']<2.9 or time in ('night','dusk','dawn') or True) else 0.,**p['kw'])
  pr=scene_params.preset(time if time in scene_params.TIME_OF_DAY else 'day')
- sn=bpy.data.objects.new('Sun',bpy.data.lights.new('SunLight','SUN'));sn.data.energy=pr['sun_energy'];sn.data.color=pr['sun_color'];sn.data.angle=math.radians(4);sn.rotation_euler=pr['sun_rot'];S.link(sn);S.world_color=pr['world']
+ sn=bpy.data.objects.new('Sun',bpy.data.lights.new('SunLight','SUN'));sn.data.energy=pr['sun_energy']*1.3;sn.data.color=pr['sun_color'];sn.data.angle=math.radians(4);sn.rotation_euler=pr['sun_rot'];S.link(sn);S.world_color=pr['world']
  rx,ry,rz=pr['sun_rot'];warm=pr['sun_color']
- fl=bpy.data.objects.new('FillLight',bpy.data.lights.new('FillLight','SUN'));fl.data.energy=pr['sun_energy']*.28;fl.data.color=(.55,.65,1.) if time not in ('night',) else (.3,.4,.8);fl.data.angle=math.radians(25);fl.rotation_euler=(rx*.8,ry,rz+math.pi);S.link(fl)    # cool fill from the other side: shadows keep their form
+ fl=bpy.data.objects.new('FillLight',bpy.data.lights.new('FillLight','SUN'));fl.data.energy=pr['sun_energy']*.16;fl.data.color=(.55,.65,1.) if time not in ('night',) else (.3,.4,.8);fl.data.angle=math.radians(25);fl.rotation_euler=(rx*.8,ry,rz+math.pi);S.link(fl)    # cool fill from the other side: shadows keep their form
  rm=bpy.data.objects.new('RimLight',bpy.data.lights.new('RimLight','SUN'));rm.data.energy=pr['sun_energy']*(.9 if time in ('night','dusk','dawn') else .35);rm.data.color=(.6,.75,1.) if time=='night' else (1.,.8,.6);rm.data.angle=math.radians(6);rm.rotation_euler=(math.radians(125),0,rz+math.pi*.5);S.link(rm)    # a low back light that edges every character against the ground
  return loc
 SKY={'dawn':((1.,.72,.5),(.35,.45,.75)),'day':((.75,.85,.98),(.25,.5,.9)),'dusk':((1.,.55,.3),(.18,.2,.45)),'night':((.1,.12,.25),(.01,.015,.05)),'overcast':((.62,.65,.7),(.4,.44,.5))}
@@ -249,6 +261,7 @@ def sky(sc,time,fog=0.):
  """a gradient sky (horizon to zenith) as the world, lit by the same colours; fog pulls the whole sky toward a flat grey"""
  import bpy
  hz,zn=SKY.get(time,SKY['day']);g=(.55,.58,.62)
+ fog*=.55    # fog tints the sky but never washes it out
  hz=tuple(h*(1-fog)+g[i]*fog*(.6 if time=='night' else 1.) for i,h in enumerate(hz));zn=tuple(z*(1-fog)+g[i]*fog*(.6 if time=='night' else 1.) for i,z in enumerate(zn))
  w=bpy.data.worlds.new('Sky');w.use_nodes=True;nt=w.node_tree;nt.nodes.clear()
  tc=nt.nodes.new('ShaderNodeTexCoord');sep=nt.nodes.new('ShaderNodeSeparateXYZ');mp=nt.nodes.new('ShaderNodeMapRange');cr=nt.nodes.new('ShaderNodeValToRGB');bg=nt.nodes.new('ShaderNodeBackground');out=nt.nodes.new('ShaderNodeOutputWorld')

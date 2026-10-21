@@ -46,10 +46,10 @@ def par(*beats):return list(beats)
 class Convo(list):
  """a run of say beats that happen one after another (scene() spreads it into the step list)"""
 def convo(lines):
- """[(who, text[, mood[, to]]), ...] -> say beats"""
+ """[(who, text[, mood[, to[, extras]]]), ...] -> say beats; extras is a dict such as dict(delay=.5)"""
  out=Convo()
  for l in lines:
-  who,text=l[0],l[1];mood=l[2] if len(l)>2 else None;to=l[3] if len(l)>3 else None;out.append(say(who,text,mood,to))
+  who,text=l[0],l[1];mood=l[2] if len(l)>2 else None;to=l[3] if len(l)>3 else None;out.append(say(who,text,mood,to,**(l[4] if len(l)>4 else {})))
  return out
 def at(id_,x,y,face=None):
  d=dict(id=id_,at=[x,y])

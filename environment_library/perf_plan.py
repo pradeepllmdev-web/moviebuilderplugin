@@ -380,6 +380,9 @@ class Plan:
   if to is None:
    prev=s.lines[-1]['speaker'] if s.lines and s.lines[-1]['speaker']!=a.id else None
    to=prev or min((o for o in s.actors if o!=a.id),key=lambda o:math.hypot(s.actors[o].X[-1]-a.X[-1],s.actors[o].Y[-1]-a.Y[-1]),default=a.id)
+  ov=b.get('overlap_by',0.);n=int(ov*FPS)
+  if n>0 and len(a.X)>n+2 and abs(a.X[-1]-a.X[-1-n])<1e-6 and abs(a.Y[-1]-a.Y[-1-n])<1e-6:del a.X[-n:];del a.Y[-n:];del a.H[-n:]    # an interruption: the line starts while the previous one is still ending
+  if b.get('delay'):a.hold(b['delay'])    # a line that starts while another is still being spoken (inside a par): an interruption or an answer on the heels of the last word
   tp=s.point(to)
   if a.state=='sit' and abs(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))>math.radians(80):s.lint.append('AUDIT seated: %s speaks to %s who is %.0f deg off the way %s sits'%(a.id,to,abs(math.degrees(wrap(math.atan2(tp[1]-a.Y[-1],tp[0]-a.X[-1])-a.H[-1]))),a.id))
   lim=math.radians(72 if getattr(a,'settled',-1)==len(a.walks) else 35)   # once a character has turned into the conversation the body stays put; changing speaker is done with the eyes and head, not by rotating the body
@@ -388,7 +391,7 @@ class Plan:
   syl=dg.syllables(b['text']);dur=max(1.5,len(syl)*.18+.45);real=DURATION_PROVIDER(a.look['voice'],b['text'],mood) if (DURATION_PROVIDER and a.look.get('voice')) else None
   if real:dur=real+.1
   ts=a.t+.12
-  a.hold(.12+dur+.22);k=len(s.lines);L=dict(k=k,speaker=a.id,mood=mood,text=b['text'],t0=ts,t1=ts+dur,syl=syl,dur=dur,to=to);s.lines.append(L)
+  a.hold(.12+dur+.08);k=len(s.lines);L=dict(k=k,speaker=a.id,mood=mood,text=b['text'],t0=ts,t1=ts+dur,syl=syl,dur=dur,to=to,overlap=bool(b.get('delay') or b.get('overlap') or n>0));s.lines.append(L)
   if a.state=='stand':
    clip=b.get('gesture') or semantic_clip(b['text'],mood)
    if clip and clip not in ACT_CLIPS:raise SpecError('say: unknown gesture %r'%clip)
@@ -465,11 +468,15 @@ class Plan:
   if len(path)>1:
    first=math.atan2(path[1][1]-path[0][1],path[1][0]-path[0][0]);a.turn_to(first,None)
   size=a.stride;nat=gaits.natural_speed(gait);L=sum(math.hypot(q[0]-p0[0],q[1]-p0[1]) for p0,q in zip(path,path[1:]))
-  if mult==1. and L/(nat*size*a.look['pace'])>12.:mult=min(1.35,L/(nat*size*a.look['pace'])/12.)   # long walks get a brisker cadence, never a different stride
+  tn=L/(nat*size*a.look['pace'])
+  if tn>7. and gait in('shuffle','walk','strut','stomp'):    # a long walk is cut short by a quicker gait, then by a brisker cadence: the film never waits for someone to arrive
+   g2='walk' if gait=='shuffle' else 'brisk'
+   if gaits.natural_speed(g2)>nat:gait=g2;nat=gaits.natural_speed(g2);tn=L/(nat*size*a.look['pace'])
+  if mult==1. and tn>6.:mult=min(1.4,tn/6.)
   speed=nat*size*a.look['pace']*mult;sc=gaits.play_scale(gait,speed,size);t0=a.t;a.walk(path,speed,gait,sc)
   s.events.append(dict(kind='go',who=a.id,t0=t0,t1=a.t,gait=gait,to=tuple(end[:2]),speed=speed));return a.t-t0
  def b_go(s,b,t0):
-  a=s.actors[b['who']];ref=b['to'];tp=s.point(ref);gait=b.get('gait') or (None)
+  a=s.actors[b['who']];ref=b['to'];tp=s.point(ref);gait=b.get('gait') or (None);t_start=a.t
   stop=b.get('stop')
   if stop is None:stop=(1.25*(a.size+s.actors[ref].size)/2 if isinstance(ref,str) and ref in s.actors else (.8*a.size if isinstance(ref,str) and ref in s.props else 0.))
   tp2=tp
@@ -483,6 +490,15 @@ class Plan:
   if math.hypot(tp2[0]-a.X[-1],tp2[1]-a.Y[-1])>.05:s._walk_to(a,tp2,gait,b.get('pace',1.),b.get('via',()))
   face=b.get('face',ref if isinstance(ref,str) and (ref in s.actors or ref in s.props) else None)
   if face is not None:a.face_point(s.point(face))
+  if b.get('talk'):    # walk and talk: the line is spoken while the character moves (a short walk is held until the line ends)
+   text,mood,to=(list(b['talk'])+[None,None])[:3];mood=mood or dg.infer_mood(text)
+   if mood not in MOODS:raise SpecError('go talk: unknown mood %r'%mood)
+   to=to or min((o for o in s.actors if o!=a.id),key=lambda o:math.hypot(s.actors[o].X[-1]-a.X[-1],s.actors[o].Y[-1]-a.Y[-1]),default=a.id)
+   syl=dg.syllables(text);dur=max(1.5,len(syl)*.18+.45);real=DURATION_PROVIDER(a.look['voice'],text,mood) if (DURATION_PROVIDER and a.look.get('voice')) else None
+   if real:dur=real+.1
+   ts=t_start+.4;te=ts+dur
+   if te>a.t-.05:a.hold(te-a.t+.15)
+   L=dict(k=len(s.lines),speaker=a.id,mood=mood,text=text,t0=ts,t1=te,syl=syl,dur=dur,to=to,overlap=True);s.lines.append(L);s.events.append(dict(kind='say',who=a.id,t0=ts,t1=te,to=to,mood=mood,k=L['k']))
  def b_sit(s,b,t0):
   a=s.actors[b['who']];sid=b['on']
   if sid not in s.layout['seats']:raise SpecError('sit: no seat %r (seats: %s)'%(sid,', '.join(sorted(s.layout['seats'])) or 'none'))
@@ -623,7 +639,7 @@ class Plan:
   """numeric audits of the compiled plan: AUDIT strings (empty list = clean)"""
   out=list(s.lint);N=s.frames;ids=list(s.actors)
   for a,b in zip(s.lines,s.lines[1:]):
-   if b['t0']<a['t1']:out.append('AUDIT speech: lines %d and %d overlap'%(a['k'],b['k']))
+   if b['t0']<a['t1'] and not (a.get('overlap') or b.get('overlap')):out.append('AUDIT speech: lines %d and %d overlap'%(a['k'],b['k']))
   X=np.array([s.actors[i].X for i in ids]);Y=np.array([s.actors[i].Y for i in ids]);H=np.array([s.actors[i].H for i in ids]);R=np.array([s.actors[i].radius for i in ids])
   for i in range(len(ids)):
    for j in range(i+1,len(ids)):

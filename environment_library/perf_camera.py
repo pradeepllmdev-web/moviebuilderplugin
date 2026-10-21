@@ -12,7 +12,7 @@ Rules applied after the shots are chosen: no shot shorter than MIN_SHOT (merged 
 and the last shot is a wide hold. All geometry comes from the plan (head positions, headings), so the director never needs Blender; the Blender side only evaluates frame() and clears the view of anything in the way."""
 import math
 import numpy as np
-MIN_SHOT=1.3;MAX_SHOT=9.0
+MIN_SHOT=2.2;MAX_SHOT=11.0    # longer holds: a shot is not cut on every short line
 def _unit(v):
  n=math.hypot(*v) or 1.;return (v[0]/n,v[1]/n)
 def _rotv(v,a):c,s=math.cos(a),math.sin(a);return (v[0]*c-v[1]*s,v[0]*s+v[1]*c)
@@ -51,7 +51,7 @@ def direct(plan,seed=1):
     kd='two' if k%3==2 and math.hypot(*[plan.pos(sp,mid)[i]-plan.pos(to,mid)[i] for i in (0,1)])<=5.5 and not plan.layout.get('inside') else 'medium'    # a face from the front quarter, never a foreground back of a head (a two-shot of people far apart is a tiny picture)   # a small room has no room for a two-shot
     if t0>cuts[-1]['t1']+.2 and mid-cuts[-1]['t1']>0:t0=cuts[-1]['t1']
     cuts.append(dict(name='%s speaks'%sp,kind=kd,t0=t0,t1=mid,subject=sp,to=to,side=side,lens=40 if kd=='medium' else 36))
-    if t1-mid>.4:cuts.append(dict(name='%s listens'%to,kind='medium',t0=mid,t1=t1,subject=to,to=sp,side=-side,lens=40))
+    if t1-mid>1.6:cuts.append(dict(name='%s listens'%to,kind='medium',t0=mid,t1=t1,subject=to,to=sp,side=-side,lens=40))
    if cuts[-1]['t1']<b-.1:cuts[-1]['t1']=b
   elif gos:
    e=max(gos,key=lambda e:e['t1']-e['t0']);who=e['who'];mv=[g for g in gos if g['t0']<e['t1'] and g['t1']>e['t0']]
@@ -72,7 +72,7 @@ def direct(plan,seed=1):
  cuts[-1]['t1']=max(cuts[-1]['t1'],plan.seconds)
  end_t0=max(plan.seconds-3.2,cuts[-1]['t0']+MIN_SHOT)
  if cuts[-1]['kind']!='wide':
-  if cuts[-1]['t1']-cuts[-1]['t0']>MIN_SHOT+3:cuts[-1]['t1']=end_t0;cuts.append(dict(name='end',kind='wide',t0=end_t0,t1=plan.seconds,subject=None,ang=float(rnd.uniform(0,6.28)),lens=26))
+  if cuts[-1]['t1']-cuts[-1]['t0']>MIN_SHOT+1.2:cuts[-1]['t1']=end_t0;cuts.append(dict(name='end',kind='wide',t0=end_t0,t1=plan.seconds,subject=None,ang=float(rnd.uniform(0,6.28)),lens=26))
  return _pick_sides(plan,_tidy(plan,cuts,rnd))
 def _tidy(plan,cuts,rnd):
  out=[]

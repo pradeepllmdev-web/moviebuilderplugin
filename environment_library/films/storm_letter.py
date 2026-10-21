@@ -122,4 +122,4 @@ for _s in S:_s['objective']=OBJECTIVE[_s['id']]
 LOGLINE='A courier who never stops breaks her promise once, for a good reason, and it saves a ferry full of families from a storm.'
 THEME=dict(root=53,mode='dorian',tempo=108,motif=[(0,1),(2,1),(4,.5),(3,.5),(7,1.5)],motifs=dict(pepper=[7,6,4],vesper=[0,3,5],odile=[2,0,-2],tobias=[-5,-3,-5],grub=[0,0,-3],mo=[2,1,-1]),palette=dict(pad=48,bass=43,pluck=52,hit=47))
 for _c in CAST:_c.setdefault('pace',1.2)
-FILM=dict(id='storm_letter',title='The Storm Letter',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=5.5)
+FILM=dict(id='storm_letter',title='The Storm Letter',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=5)

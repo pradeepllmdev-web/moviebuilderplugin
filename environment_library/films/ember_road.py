@@ -201,7 +201,8 @@ S.append(scene('lens_repair','The night repair',loc('courtyard',5,objects=[dict(
 S.append(scene('relight','The relighting',loc('courtyard',6,objects=[dict(kind='pedestal',at=[-3.4,-4.2],id='stand1',height=.8,size=.7),dict(kind='pedestal',at=[4.5,3.0],id='stand2',height=.8,size=.7)]),[at('sera',-3,-5,face='statue'),at('moss',-6,-3,face='statue'),at('thorne',-4,-7,face='statue'),at('dorn',-8,-5,face='statue'),at('wick',-5,-8,face='statue'),at('kit',-7,-8,face='statue')],props=[EMBER(-3.4,-4.2,on='stand1')],steps=[
  par(take('sera','ember'),look('moss','sera',3)),
  convo([('sera','Nine winters dark. Three days of road. Let us see if the old girl remembers.','serious','thorne')]),
- par(go('sera',[5.8,2.0],gait='strut'),go('thorne',[4.6,4.6],gait='walk'),go('moss',[2.8,1.6],gait='strut'),go('wick',[1.6,4.4],gait='brisk')),
+ par(go('sera',[6.2,1.6],gait='strut'),go('thorne',[5.0,5.4],gait='walk')),
+ par(go('moss',[2.4,0.8],gait='strut'),go('wick',[0.8,4.8],gait='brisk')),
  put('sera',on='stand2'),
  par(sfx('chime',0.2),sfx('bell',0.8),emote('sera','smile',3)),
  convo([('wick','It is warming. It is humming. It is the colour of tea.','joy','sera'),('moss','It is catching on the lens. Look at the walls. Look!','joy','thorne')]),

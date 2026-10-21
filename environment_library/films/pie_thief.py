@@ -134,4 +134,4 @@ for _s in S:_s['objective']=OBJECTIVE[_s['id']]
 LOGLINE='A baker’s giant pie vanishes before the village contest, and the trail of small footprints leads to a very different kind of thief.'
 THEME=dict(root=57,mode='major',tempo=96,motif=[(0,1),(2,1),(4,1),(2,.5),(0,1.5)],motifs=dict(tilda=[0,2,4],orin=[0,4,7],gus=[0,-3,0],pip=[7,6,4],fen=[2,0,-1],rosa=[4,5,4]),palette=dict(pad=48,bass=45,pluck=52,hit=47))
 for _c in CAST:_c.setdefault('pace',1.15)
-FILM=dict(id='pie_thief',title='The Pie Thief',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=7)
+FILM=dict(id='pie_thief',title='The Pie Thief',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=6.5)

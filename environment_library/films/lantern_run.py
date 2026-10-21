@@ -104,4 +104,4 @@ for _s in S:_s['objective']=OBJECTIVE[_s['id']]
 LOGLINE='A fisherman’s daughter steals the village’s Great Lantern during a foggy festival night, and the chase that follows lights the way home for fourteen lost boats.'
 THEME=dict(root=50,mode='dorian',tempo=104,motif=[(0,1),(3,1),(4,.5),(3,.5),(7,1.5)],motifs=dict(rue=[0,-3,0],pim=[0,4,7],dot=[7,6,4],sal=[0,0,-2],nell=[4,5,4],ferris=[-3,-5,-3]),palette=dict(pad=48,bass=43,pluck=52,hit=47))
 for _c in CAST:_c.setdefault('pace',1.2)
-FILM=dict(id='lantern_run',title='The Lantern Run',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=5)
+FILM=dict(id='lantern_run',title='The Lantern Run',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=4.5)

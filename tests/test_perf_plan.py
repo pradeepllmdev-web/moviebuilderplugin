@@ -21,8 +21,8 @@ class Compile(unittest.TestCase):
  def run_(self,steps,**k):return pp.compile(spec(steps,**k),REG)
  def test_walk_reaches_target_with_gait_speed_and_clean_audit(self):
   P=self.run_([go('mara','well',stop=2.)]);a=P.actors['mara'];self.assertAlmostEqual(math.hypot(a.X[-1]-0,a.Y[-1]-0),2.,0);self.assertEqual(P.audit(),[])
-  (t0,t1,g,sc,speed)=a.walks[0];self.assertEqual(g,'bounce');self.assertAlmostEqual(speed,gaits.natural_speed('bounce')*a.stride,3)
-  self.assertAlmostEqual(gaits.play_scale(g,speed,a.stride),1.,3)
+  (t0,t1,g,sc,speed)=a.walks[0];self.assertEqual(g,'bounce');self.assertGreaterEqual(speed,gaits.natural_speed('bounce')*a.stride-1e-6);self.assertLessEqual(speed,gaits.natural_speed('bounce')*a.stride*1.4+1e-6)    # a long walk gets a brisker cadence (never more than 1.4 times natural)
+  self.assertTrue(.7<=gaits.play_scale(g,speed,a.stride)<=1.43)    # the clip speeds up with a brisker cadence: feet stay planted because the scale is derived from the speed
  def test_clips_are_contiguous_and_cover_everything(self):
   P=self.run_([go('mara','well',stop=2.),dict(do='say',who='mara',text='Hello there friend.',to='bram'),dict(do='act',who='bram',clip='wave')])
   for a in P.actors.values():

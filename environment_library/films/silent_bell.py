@@ -90,4 +90,4 @@ for _s in S:_s['objective']=OBJECTIVE[_s['id']]
 LOGLINE='The festival bell vanishes hours before sunset, and a trail of clues leads a village search party to a surprising gift.'
 THEME=dict(root=55,mode='dorian',tempo=100,motif=[(0,1),(4,1),(2,.5),(4,.5),(7,1.5)],motifs=dict(marta=[0,4,2],hugo=[0,0,-3],finn=[4,6,4],lulu=[2,4,7],otto=[-5,-3,-5],bea=[7,9,7]),palette=dict(pad=48,bass=43,pluck=52,hit=47))
 for _c in CAST:_c.setdefault('pace',1.15)
-FILM=dict(id='silent_bell',title='The Silent Bell',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=4.5)
+FILM=dict(id='silent_bell',title='The Silent Bell',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=4)
