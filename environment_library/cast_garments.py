@@ -122,7 +122,7 @@ SKIRTS={'tunic':dict(z0=78,z1=44,rx=21,ry=18,rows=5,flare=.18,pleat=.02,hem=3),
  'dress':dict(z0=78,z1=14,rx=20.5,ry=17.5,rows=10,flare=.62,pleat=.05,folds=10,hem=4),
  'robe':dict(z0=78,z1=4,rx=21,ry=18,rows=12,flare=.5,pleat=.05,folds=8,hem=5),
  'tassets':dict(z0=76,z1=40,rx=21,ry=18,rows=4,flare=.22,pleat=.0,hem=2),
- 'apronskirt':dict(z0=82,z1=26,rx=22,ry=20,rows=8,flare=.12,arc=(-PI/2-.75,-PI/2+.75),seg=18,hem=3),
+ 'apronskirt':dict(z0=82,z1=26,rx=22,ry=20,rows=8,flare=.12,arc=(-PI/2-.5,-PI/2+.5),seg=14,hem=3),
  'poncho':dict(z0=96,z1=48,rx=26,ry=22,rows=8,flare=.85,pleat=.03,folds=7,hem=3,cy=-12.),
  'kilt':dict(z0=76,z1=36,rx=21,ry=18,rows=6,flare=.2,pleat=.07,folds=14,hem=0)}
 def skirt(kind,**over):
