@@ -41,7 +41,7 @@ class Outfits(unittest.TestCase):
  def test_outfit_expands_with_colours_in_turn(self):
   L=cr.resolve(dict(id='q',name='Q',species='lion',outfit='queen',colors=[(.7,.1,.3),(.9,.8,.2)]));k=[a['kind'] for a in L['accessories']];self.assertEqual(k,['dress','sleeves','crown','cape','boots']);c=[a['color'] for a in L['accessories']];self.assertEqual(c[0],(.7,.1,.3));self.assertEqual(c[1],(.7,.1,.3));self.assertEqual(c[3],(.9,.8,.2));self.assertEqual(c[4],(.7,.1,.3))
  def test_own_accessories_follow_the_outfit_and_unknown_outfit_is_rejected(self):
-  L=cr.resolve(dict(id='k',name='K',species='lion',outfit='peasant',accessories=['scarf']));self.assertEqual([a['kind'] for a in L['accessories']],['tunic','sleeves','pants','belt','boots','scarf'])
+  L=cr.resolve(dict(id='k',name='K',species='lion',outfit='peasant',accessories=['scarf']));self.assertEqual([a['kind'] for a in L['accessories']],['shirt','sleeves','pants','belt','boots','scarf'])
   self.assertTrue(cr.validate(dict(id='x',name='X',outfit='astronaut')))
  def test_two_hats_through_an_outfit_are_rejected(self):self.assertTrue(cr.validate(dict(id='x',name='X',outfit='knight',accessories=['hat_top'])))
  def test_every_outfit_piece_builds(self):
@@ -65,7 +65,7 @@ class Builder(unittest.TestCase):
  def look(self,**k):return cr.resolve(dict(dict(id='t',name='T',species='lion',accessories=list(cr.ACCESSORIES)[:0]),**k))
  def test_every_accessory_builds_known_bones_and_sane_sizes(self):
   for a in cr.ACCESSORIES:
-   if a.startswith(('hat','crown','helmet')) is False or True:
+   if a not in cb.FITTED:
     ps=cb.accessory_prims(self.look(accessories=[a]))
     self.assertTrue(ps,a)
     for p in ps:

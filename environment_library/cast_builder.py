@@ -19,6 +19,26 @@ def T(name,bone,r,t0,t1,color):
 PALETTE=[(.75,.15,.12),(.15,.35,.7),(.2,.55,.3),(.85,.65,.15),(.5,.25,.6),(.9,.9,.85),(.55,.35,.2),(.2,.5,.55)]
 GOLD=(.95,.75,.2);STEEL=(.7,.72,.78);LEATHER=(.4,.26,.14);CLOTH=(.85,.8,.7);DARK=(.1,.1,.12)
 def P(shape,name,loc,scale,color,bone,rot=(0,0,0),emit=0.,kw=None):return dict(kw=dict(kw or {}),shape=shape,name=name,loc=loc if isinstance(loc,str) else tuple(loc),scale=tuple(scale),rot=tuple(rot),color=tuple(color),bone=bone,emit=emit)
+# fitted garments are cut from the lion's own body mesh (so they bend exactly with the skeleton), pushed out along the normals: (vertex groups, height range in cm, offset in cm)
+ARMS=('LeftArm','RightArm','LeftForeArm','RightForeArm');LEGS=('Hips','LeftUpLeg','RightUpLeg','LeftLeg','RightLeg')
+FITTED={'shirt':(('Head','Spine','Spine1','Spine2','LeftShoulder','RightShoulder','Hips','LeftUpLeg','RightUpLeg')+ARMS,(56,200),1.9,88),'sleeves':(ARMS,(0,200),1.6,0),'shortsleeves':(('LeftArm','RightArm'),(0,200),1.6,0),
+ 'pants':(LEGS,(0,72),1.3,0),'shorts':(('Hips','LeftUpLeg','RightUpLeg'),(34,72),1.3,0),'gloves':(('LeftHand','RightHand'),(0,200),1.4,0),'boots':(('LeftFoot','RightFoot','LeftToeBase','RightToeBase','LeftLeg','RightLeg'),(0,15),1.5,0)}
+def fitted(S,ch,name,kind,color):
+ """one fitted garment as a copy of the body mesh with only the wanted faces, sharing its armature and weights; zh>0 lets head-weighted vertices below that height in"""
+ import bpy,bmesh
+ groups,zr,off,zh=FITTED[kind];body=[o for o in ch['objs'] if o.name.startswith('char1')][0]
+ names={g.index:g.name.split(':')[-1] for g in body.vertex_groups}
+ new=body.copy();new.data=body.data.copy();new.name=name;bpy.context.scene.collection.objects.link(new)
+ bm=bmesh.new();bm.from_mesh(new.data);dl=bm.verts.layers.deform.active;ok={}
+ for v in bm.verts:
+  d=v[dl]
+  if not d:ok[v.index]=False;continue
+  n=names[max(d.items(),key=lambda a:a[1])[0]]
+  ok[v.index]=zr[0]<=v.co.z<=zr[1] and ((n in groups and n!='Head') or (n=='Head' and 'Head' in groups and v.co.z<=zh))
+ bmesh.ops.delete(bm,geom=[f for f in bm.faces if not all(ok[v.index] for v in f.verts)],context='FACES')
+ bm.verts.ensure_lookup_table();bm.normal_update()
+ for v in bm.verts:v.co+=v.normal*off
+ bm.to_mesh(new.data);bm.free();new.data.materials.clear();new.data.materials.append(S.mat(name,color,0));return new
 def _trim(c):return tuple(min(1.,x*.55+.35) for x in c)
 def color_of(acc,rid,i=0):
  return tuple(acc['color']) if acc.get('color') else PALETTE[int(hash_unit(rid,'acc%d'%i)*len(PALETTE))%len(PALETTE)]
@@ -80,18 +100,7 @@ def accessory_prims(look,hand_r=(-.36,-.1,.66),hand_l=(.36,-.1,.66)):
   elif k=='overalls':out+=[P('cube',n('bib'),(0,-.27,.95),(.24,.02,.22),c,'spine'),P('cube',n('s1'),(.15,-.1,1.2),(.03,.1,.03),c,'spine'),P('cube',n('s2'),(-.15,-.1,1.2),(.03,.1,.03),c,'spine'),P('cyl',n('waist'),(0,-.01,.72),(.36,.29,.1),c,'hips')]
   elif k=='poncho':out+=[P('cone',n('p'),(0,0,.95),(.52,.44,.27),c,'spine',kw=dict(vertices=14)),P('cyl',n('rim'),(0,0,.68),(.52,.44,.02),_trim(c),'spine')]
   elif k=='armor':out+=[P('cyl',n('chest'),(0,-.01,1.0),(.38,.29,.22),STEEL,'spine'),P('sphere',n('padL'),(.42,0,1.2),(.14,.14,.1),STEEL,'spine'),P('sphere',n('padR'),(-.42,0,1.2),(.14,.14,.1),STEEL,'spine'),P('cyl',n('skirt'),(0,-.01,.72),(.39,.3,.09),c,'hips')]
-  elif k in('sleeves','shortsleeves'):
-   for sd in ('Left','Right'):
-    out.append(T(n(sd+'upper'),sd+'Arm',.105,.04,1.0 if k=='sleeves' else .62,c))
-    if k=='sleeves':out+=[T(n(sd+'fore'),sd+'ForeArm',.092,0.,.88,c),T(n(sd+'cuff'),sd+'ForeArm',.1,.84,1.0,_trim(c))]
-  elif k in('pants','shorts'):
-   for sd in ('Left','Right'):
-    out.append(T(n(sd+'thigh'),sd+'UpLeg',.135,0.,1.0 if k=='pants' else .78,c))
-    if k=='pants':out+=[T(n(sd+'shin'),sd+'Leg',.108,0.,.82,c),T(n(sd+'cuff'),sd+'Leg',.114,.78,.9,_trim(c))]
-  elif k=='boots':
-   for sd in ('Left','Right'):out+=[T(n(sd+'shaft'),sd+'Leg',.118,.7,1.0,c),T(n(sd+'foot'),sd+'Foot',.105,0.,1.0,c)]
-  elif k=='gloves':
-   for sd in ('Left','Right'):out.append(T(n(sd+'glove'),sd+'Hand',.085,0.,.95,c))
+  elif k in FITTED:pass
   elif k=='belt':out+=[P('cyl',n('band'),(0,-.02,.8),(.36,.28,.035),LEATHER,'hips'),P('cube',n('buckle'),(0,-.285,.8),(.04,.012,.035),GOLD,'hips')]
   elif k=='satchel':out+=[P('cube',n('bag'),(.37,.0,.72),(.07,.17,.15),LEATHER,'hips'),P('cube',n('strap'),(.0,-.19,1.0),(.025,.015,.3),LEATHER,'spine1',(0,-.75,.0))]
   elif k=='sword':out+=[P('cube',n('blade'),(.34,.12,.5),(.018,.012,.4),STEEL,'hips',(-.3,0,0)),P('cube',n('guard'),(.34,.06,.78),(.07,.014,.014),GOLD,'hips'),P('cyl',n('grip'),(.34,.05,.86),(.015,.015,.07),LEATHER,'hips')]
@@ -136,6 +145,9 @@ def build(S,look,tag=None):
    o=S.prim(p['shape'],p['name'],loc,p['color'],scale=p['scale'],rot=p['rot'],emit=p['emit'],**p['kw']);bpy.context.view_layer.update();Wm=o.matrix_world.copy()
   pb=rig.pose.bones[BONES[p['bone']]];o.parent=rig;o.parent_type='BONE';o.parent_bone=pb.name;o.matrix_parent_inverse=Matrix.Identity(4);o.matrix_basis=Wm;bpy.context.view_layer.update()
   Pm=o.matrix_world@Wm.inverted();o.matrix_parent_inverse=Pm.inverted();o.matrix_basis=Wm;dress.append(o)
+ for i,acc in enumerate(look['accessories']):
+  if acc['kind'] in FITTED:
+   o=fitted(S,ch,'Acc_%s_%s'%(look['id'],acc['kind']),acc['kind'],color_of(acc,look['id'],i));dress.append(o)
  rig.animation_data.action=None;rig.animation_data_clear();rig.animation_data_create();ch['tracks']=[rig.animation_data.nla_tracks.new(),rig.animation_data.nla_tracks.new()];ch['n']=0
  for o in dress:ch['objs'].append(o)
  ch['dress']=dress;root.scale=tuple(look['scale']);return ch

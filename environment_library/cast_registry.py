@@ -36,15 +36,16 @@ ACCESSORIES={
  'glasses':('head','round spectacles'),'eyepatch':('head','eye patch'),'flower':('head','flower behind the ear'),
  'scarf':('neck','scarf with a hanging end'),'bowtie':('neck','bow tie'),'cape':('spine','short cape'),'backpack':('spine','pack on the back'),'apron':('spine','apron'),'medals':('spine','row of medals'),
  'belt':('hips','belt with a buckle'),'satchel':('hips','side satchel'),'sword':('hips','sword on the hip'),
+ 'shirt':('spine','fitted shirt cut from the body'),
  'sleeves':('limbs','long sleeves with cuffs'),'shortsleeves':('limbs','short sleeves'),'pants':('limbs','trousers with cuffs'),'shorts':('limbs','short trousers'),'boots':('limbs','boots'),'gloves':('limbs','gloves'),
  'tunic':('spine','tunic with a trim at the hem'),'dress':('hips','dress with a flared skirt'),'robe':('spine','long robe'),'vest':('spine','open vest'),'overalls':('spine','overalls with a bib'),'poncho':('spine','poncho'),'armor':('spine','breastplate with shoulder plates'),
  'staff':('hand_r','tall staff in the right hand'),'cane':('hand_r','walking cane'),'lantern':('hand_l','lantern in the left hand'),'banner':('hand_r','small banner on a pole'),
 }
 # an OUTFIT is a named costume: clothing plus the pieces that go with it; rec['outfit']='knight' (and rec['colors']=[main, trim, ...]) expands to accessories, so different characters of the same species read apart at a glance
-OUTFITS={'baker':['apron:1','hat_straw:0','sleeves:0','pants:2','boots:3'],'queen':['dress:0','sleeves:0','crown','cape:1','boots:2'],'king':['tunic:0','sleeves:0','pants:1','boots:2','crown','cape:1','belt'],'knight':['armor:0','sleeves:1','pants:1','boots:2','helmet','sword','cape:0'],
- 'farmer':['overalls:0','sleeves:1','boots:2','hat_straw'],'wizard':['robe:0','sleeves:0','hat_wizard:0','staff','boots:1'],'merchant':['vest:0','sleeves:1','pants:2','boots:3','satchel','hat_top:0'],'peasant':['tunic:0','sleeves:1','pants:2','belt','boots:3'],
- 'scout':['poncho:0','pants:1','boots:2','hat_cap:0','satchel'],'sailor':['vest:0','sleeves:1','pants:0','hat_cap:1','scarf:2','boots:3'],'scholar':['robe:0','sleeves:0','glasses','satchel','boots:1'],'guard':['tunic:0','sleeves:1','pants:1','boots:2','helmet','sword','belt'],
- 'noble':['vest:0','sleeves:1','pants:2','boots:3','cape:0','bowtie'],'traveller':['poncho:0','pants:1','boots:2','backpack','scarf:0'],'mother':['dress:0','sleeves:0','apron:1','boots:2'],'child':['tunic:0','sleeves:1','shorts:2','boots:3']}
+OUTFITS={'baker':['apron:1','hat_straw:0','sleeves:0','pants:2','boots:3'],'queen':['dress:0','sleeves:0','crown','cape:1','boots:2'],'king':['shirt:0','sleeves:0','pants:1','boots:2','crown','cape:1','belt'],'knight':['armor:0','sleeves:1','pants:1','boots:2','helmet','sword','cape:0'],
+ 'farmer':['overalls:0','sleeves:1','boots:2','hat_straw'],'wizard':['robe:0','sleeves:0','hat_wizard:0','staff','boots:1'],'merchant':['vest:0','sleeves:1','pants:2','boots:3','satchel','hat_top:0'],'peasant':['shirt:0','sleeves:1','pants:2','belt','boots:3'],
+ 'scout':['poncho:0','pants:1','boots:2','hat_cap:0','satchel'],'sailor':['vest:0','sleeves:1','pants:0','hat_cap:1','scarf:2','boots:3'],'scholar':['robe:0','sleeves:0','glasses','satchel','boots:1'],'guard':['shirt:0','sleeves:1','pants:1','boots:2','helmet','sword','belt'],
+ 'noble':['vest:0','sleeves:1','pants:2','boots:3','cape:0','bowtie'],'traveller':['poncho:0','pants:1','boots:2','backpack','scarf:0'],'mother':['dress:0','sleeves:0','apron:1','boots:2'],'child':['shirt:0','sleeves:1','shorts:2','boots:3']}
 def expand_outfit(rec):
  """accessories of a record with its outfit expanded: each piece 'kind' or 'kind:i' takes colour i of rec['colors'] (a piece that already names a colour keeps it; no colour = the accessory palette)"""
  acc=[];cols=rec.get('colors') or []
