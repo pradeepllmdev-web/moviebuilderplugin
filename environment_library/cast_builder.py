@@ -13,7 +13,8 @@ HC=(0.,-.12,1.45)                 # head centre, lion idle pose
 BONES={'head':'mixamorig:Head','neck':'mixamorig:Neck','spine':'mixamorig:Spine2','spine1':'mixamorig:Spine1','hips':'mixamorig:Hips','hand_r':'mixamorig:RightHand','hand_l':'mixamorig:LeftHand','tail':'Tail'}
 PALETTE=[(.75,.15,.12),(.15,.35,.7),(.2,.55,.3),(.85,.65,.15),(.5,.25,.6),(.9,.9,.85),(.55,.35,.2),(.2,.5,.55)]
 GOLD=(.95,.75,.2);STEEL=(.7,.72,.78);LEATHER=(.4,.26,.14);CLOTH=(.85,.8,.7);DARK=(.1,.1,.12)
-def P(shape,name,loc,scale,color,bone,rot=(0,0,0),emit=0.):return dict(shape=shape,name=name,loc=loc if isinstance(loc,str) else tuple(loc),scale=tuple(scale),rot=tuple(rot),color=tuple(color),bone=bone,emit=emit)
+def P(shape,name,loc,scale,color,bone,rot=(0,0,0),emit=0.,kw=None):return dict(kw=dict(kw or {}),shape=shape,name=name,loc=loc if isinstance(loc,str) else tuple(loc),scale=tuple(scale),rot=tuple(rot),color=tuple(color),bone=bone,emit=emit)
+def _trim(c):return tuple(min(1.,x*.55+.35) for x in c)
 def color_of(acc,rid,i=0):
  return tuple(acc['color']) if acc.get('color') else PALETTE[int(hash_unit(rid,'acc%d'%i)*len(PALETTE))%len(PALETTE)]
 def part_prims(look):
@@ -63,11 +64,18 @@ def accessory_prims(look,hand_r=(-.36,-.1,.66),hand_l=(.36,-.1,.66)):
   elif k=='bowtie':out+=[P('cone',n('a'),(.07,-.27,1.14),(.06,.06,.08),c,'neck',(0,PI/2,0)),P('cone',n('b'),(-.07,-.27,1.14),(.06,.06,.08),c,'neck',(0,-PI/2,0)),P('sphere',n('knot'),(0,-.27,1.14),(.035,.035,.035),c,'neck')]
   elif k=='cape':out+=[P('cube',n('clothL'),(.15,.24,1.0),(.17,.015,.3),c,'spine',(-.1,0,.3)),P('cube',n('clothR'),(-.15,.24,1.0),(.17,.015,.3),c,'spine',(-.1,0,-.3)),P('cyl',n('clasp'),(0,-.12,1.2),(.07,.07,.02),GOLD,'spine',(PI/2,0,0))]
   elif k=='backpack':out+=[P('cube',n('pack'),(0,.27,.98),(.2,.1,.22),LEATHER,'spine'),P('cyl',n('roll'),(0,.27,1.24),(.08,.08,.22),c,'spine',(0,PI/2,0))]
-  elif k=='apron':out+=[P('cube',n('cloth'),(0,-.2,.82),(.22,.015,.36),CLOTH,'spine1'),P('cube',n('strap'),(0,-.19,1.2),(.2,.012,.03),c,'spine1')]
+  elif k=='apron':out+=[P('cube',n('cloth'),(0,-.27,.82),(.26,.015,.36),CLOTH,'spine1'),P('cube',n('strap'),(0,-.19,1.2),(.2,.012,.03),c,'spine1')]
   elif k=='medals':
    for j in range(3):out.append(P('sphere',n('m%d'%j),(.16-j*.1,-.205,1.02),(.035,.015,.035),GOLD if j%2==0 else STEEL,'spine1'))
    out.append(P('cube',n('bar'),(.06,-.2,1.075),(.15,.01,.015),c,'spine1'))
-  elif k=='belt':out+=[P('cyl',n('band'),(0,-.02,.8),(.25,.2,.03),LEATHER,'hips'),P('cube',n('buckle'),(0,-.215,.8),(.035,.012,.03),GOLD,'hips')]
+  elif k=='tunic':out+=[P('cyl',n('body'),(0,-.01,.93),(.37,.29,.3),c,'spine'),P('cyl',n('hem'),(0,-.01,.64),(.39,.31,.03),_trim(c),'spine')]
+  elif k=='dress':out+=[P('cyl',n('bodice'),(0,-.01,1.0),(.36,.28,.2),c,'spine'),P('cone',n('skirt'),(0,0,.5),(.52,.43,.34),c,'hips',kw=dict(vertices=18)),P('cyl',n('hem'),(0,0,.17),(.54,.45,.02),_trim(c),'hips')]
+  elif k=='robe':out+=[P('cyl',n('upper'),(0,-.01,.98),(.38,.3,.26),c,'spine'),P('cone',n('robe'),(0,0,.46),(.56,.46,.42),c,'spine',kw=dict(vertices=18)),P('cyl',n('collar'),(0,.0,1.24),(.34,.26,.05),_trim(c),'spine')]
+  elif k=='vest':out+=[P('cube',n('l'),(.16,-.27,.96),(.13,.02,.25),c,'spine'),P('cube',n('r'),(-.16,-.27,.96),(.13,.02,.25),c,'spine'),P('cube',n('back'),(0,.27,.96),(.34,.02,.25),c,'spine')]
+  elif k=='overalls':out+=[P('cube',n('bib'),(0,-.27,.95),(.24,.02,.22),c,'spine'),P('cube',n('s1'),(.15,-.1,1.2),(.03,.1,.03),c,'spine'),P('cube',n('s2'),(-.15,-.1,1.2),(.03,.1,.03),c,'spine'),P('cyl',n('waist'),(0,-.01,.72),(.36,.29,.1),c,'hips')]
+  elif k=='poncho':out+=[P('cone',n('p'),(0,0,.95),(.52,.44,.27),c,'spine',kw=dict(vertices=14)),P('cyl',n('rim'),(0,0,.68),(.52,.44,.02),_trim(c),'spine')]
+  elif k=='armor':out+=[P('cyl',n('chest'),(0,-.01,1.0),(.38,.29,.22),STEEL,'spine'),P('sphere',n('padL'),(.42,0,1.2),(.14,.14,.1),STEEL,'spine'),P('sphere',n('padR'),(-.42,0,1.2),(.14,.14,.1),STEEL,'spine'),P('cyl',n('skirt'),(0,-.01,.72),(.39,.3,.09),c,'hips')]
+  elif k=='belt':out+=[P('cyl',n('band'),(0,-.02,.8),(.36,.28,.035),LEATHER,'hips'),P('cube',n('buckle'),(0,-.285,.8),(.04,.012,.035),GOLD,'hips')]
   elif k=='satchel':out+=[P('cube',n('bag'),(.37,.0,.72),(.07,.17,.15),LEATHER,'hips'),P('cube',n('strap'),(.0,-.19,1.0),(.025,.015,.3),LEATHER,'spine1',(0,-.75,.0))]
   elif k=='sword':out+=[P('cube',n('blade'),(.34,.12,.5),(.018,.012,.4),STEEL,'hips',(-.3,0,0)),P('cube',n('guard'),(.34,.06,.78),(.07,.014,.014),GOLD,'hips'),P('cyl',n('grip'),(.34,.05,.86),(.015,.015,.07),LEATHER,'hips')]
   elif k=='staff':out+=[P('cyl',n('shaft'),(hand_r[0],hand_r[1],.98),(.028,.028,1.04),LEATHER,'hand_r'),P('sphere',n('orb'),(hand_r[0],hand_r[1],2.0),(.07,.07,.07),c,'hand_r',emit=.8)]
@@ -104,7 +112,7 @@ def build(S,look,tag=None):
  prims=part_prims(look)+accessory_prims(look,tuple(hr),tuple(hl));dress=[]
  for p in prims:
   loc=p['loc'];loc=tuple(tail) if loc=='TAIL_TIP' else loc
-  o=S.prim(p['shape'],p['name'],loc,p['color'],scale=p['scale'],rot=p['rot'],emit=p['emit']);bpy.context.view_layer.update();Wm=o.matrix_world.copy()
+  o=S.prim(p['shape'],p['name'],loc,p['color'],scale=p['scale'],rot=p['rot'],emit=p['emit'],**p['kw']);bpy.context.view_layer.update();Wm=o.matrix_world.copy()
   pb=rig.pose.bones[BONES[p['bone']]];o.parent=rig;o.parent_type='BONE';o.parent_bone=pb.name;o.matrix_parent_inverse=Matrix.Identity(4);o.matrix_basis=Wm;bpy.context.view_layer.update()
   Pm=o.matrix_world@Wm.inverted();o.matrix_parent_inverse=Pm.inverted();o.matrix_basis=Wm;dress.append(o)
  rig.animation_data.action=None;rig.animation_data_clear();rig.animation_data_create();ch['tracks']=[rig.animation_data.nla_tracks.new(),rig.animation_data.nla_tracks.new()];ch['n']=0

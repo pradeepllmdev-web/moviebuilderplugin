@@ -180,6 +180,7 @@ class Actor:
   h0=s.H[-1];d=abs(wrap(h1-h0))
   if d<math.radians(4):return 0.
   dur=max(dur or 0.,d/math.radians(190.),.3);n=max(2,int(round(dur*FPS)));x,y=s.X[-1],s.Y[-1]
+  if d>math.radians(25):s.hold(.16)      # the eyes and head go first, the body follows a moment later
   t0=s.t
   for i in range(1,n+1):s.X.append(x);s.Y.append(y);s.H.append(lerp_angle(h0,h1,ease(i/n)))
   if d>math.radians(55) and s.state=='stand':s.play('walk',t0,s.t,1.5)   # a big turn is taken with small steps, not by spinning on the spot

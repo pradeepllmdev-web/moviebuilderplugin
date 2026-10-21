@@ -1,4 +1,5 @@
 import os,sys,tempfile,unittest
+from pathlib import Path
 sys.path.insert(0,os.path.join(os.path.dirname(__file__),'..','environment_library'))
 import cast_registry as cr,gaits
 def rec(**k):return dict(dict(id='mara',name='Mara',species='fox'),**k)
@@ -36,6 +37,20 @@ class Registry(unittest.TestCase):
   r=cr.Registry([rec(id='a',name='A'),rec(id='b',name='B'),rec(id='c',name='C',species='ox')]);rep=r.distinct_report();self.assertEqual([(x[0],x[1]) for x in rep],[('a','b')])
  def test_story_export(self):
   r=cr.Registry([rec(accessories=['scarf'])]);o=r.export_story_records()[0];self.assertEqual(o['name'],'Mara');self.assertIn('scarf',o['description']);self.assertEqual(o['species'],'fox')
+class Outfits(unittest.TestCase):
+ def test_outfit_expands_with_colours_in_turn(self):
+  L=cr.resolve(dict(id='q',name='Q',species='lion',outfit='queen',colors=[(.7,.1,.3),(.9,.8,.2)]));k=[a['kind'] for a in L['accessories']];self.assertEqual(k,['dress','crown','cape']);self.assertEqual(L['accessories'][0]['color'],(.7,.1,.3));self.assertEqual(L['accessories'][1]['color'],(.9,.8,.2));self.assertEqual(L['accessories'][2]['color'],(.7,.1,.3))
+ def test_own_accessories_follow_the_outfit_and_unknown_outfit_is_rejected(self):
+  L=cr.resolve(dict(id='k',name='K',species='lion',outfit='peasant',accessories=['scarf']));self.assertEqual([a['kind'] for a in L['accessories']],['tunic','belt','scarf'])
+  self.assertTrue(cr.validate(dict(id='x',name='X',outfit='astronaut')))
+ def test_two_hats_through_an_outfit_are_rejected(self):self.assertTrue(cr.validate(dict(id='x',name='X',outfit='knight',accessories=['hat_top'])))
+ def test_every_outfit_piece_builds(self):
+  for o in cr.OUTFITS:
+   for p in cb.accessory_prims(cr.resolve(dict(id='t',name='T',species='lion',outfit=o))):self.assertIn(p['bone'],cb.BONES)
+ def test_the_two_films_dress_everyone_differently(self):
+  import perf_movie as pm
+  for f in ('clockwork_festival','ember_road'):
+   film=pm.load_film(str(Path(__file__).resolve().parents[1]/'environment_library'/'films'/(f+'.py')));sig=[(c.get('outfit'),tuple(map(tuple,c.get('colors',[])))) for c in film['cast']];self.assertEqual(len(sig),len(set(sig)))
 class FromSeries(unittest.TestCase):
  def test_words_become_a_look(self):
   r=cr.from_series_character({'name':'Old Bram','details':'a gruff old bear in a wizard hat with a staff and a scarf','character_type':'animal'})

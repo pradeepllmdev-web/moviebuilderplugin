@@ -36,8 +36,19 @@ ACCESSORIES={
  'glasses':('head','round spectacles'),'eyepatch':('head','eye patch'),'flower':('head','flower behind the ear'),
  'scarf':('neck','scarf with a hanging end'),'bowtie':('neck','bow tie'),'cape':('spine','short cape'),'backpack':('spine','pack on the back'),'apron':('spine','apron'),'medals':('spine','row of medals'),
  'belt':('hips','belt with a buckle'),'satchel':('hips','side satchel'),'sword':('hips','sword on the hip'),
+ 'tunic':('spine','tunic with a trim at the hem'),'dress':('hips','dress with a flared skirt'),'robe':('spine','long robe'),'vest':('spine','open vest'),'overalls':('spine','overalls with a bib'),'poncho':('spine','poncho'),'armor':('spine','breastplate with shoulder plates'),
  'staff':('hand_r','tall staff in the right hand'),'cane':('hand_r','walking cane'),'lantern':('hand_l','lantern in the left hand'),'banner':('hand_r','small banner on a pole'),
 }
+# an OUTFIT is a named costume: clothing plus the pieces that go with it; rec['outfit']='knight' (and rec['colors']=[main, trim, ...]) expands to accessories, so different characters of the same species read apart at a glance
+OUTFITS={'baker':['apron','hat_straw'],'queen':['dress','crown','cape'],'king':['tunic','crown','cape','belt'],'knight':['armor','helmet','sword','cape'],'farmer':['overalls','hat_straw'],'wizard':['robe','hat_wizard','staff'],'merchant':['vest','satchel','hat_top'],
+ 'peasant':['tunic','belt'],'scout':['poncho','hat_cap','satchel'],'sailor':['vest','hat_cap','scarf'],'scholar':['robe','glasses','satchel'],'guard':['tunic','helmet','sword','belt'],'noble':['vest','cape','bowtie'],'traveller':['poncho','backpack','scarf']}
+def expand_outfit(rec):
+ """accessories of a record with its outfit expanded: pieces take the outfit's colours in turn (a piece that already names a colour keeps it)"""
+ acc=[]
+ for k,kind in enumerate(OUTFITS.get(rec.get('outfit'),[])):
+  col=(rec.get('colors') or [None])[k%max(1,len(rec.get('colors') or [None]))]
+  acc.append(dict(kind=kind,color=col) if col else kind)
+ return acc+list(rec.get('accessories',[]))
 GAIT_BY_POSTURE={'neutral':'walk','proud':'strut','tired':'shuffle','jaunty':'bounce','tense':'sneak','angry':'stomp','hurried':'brisk','hunched':'shuffle'}
 KEYWORDS={   # description words -> species / accessories / colour / posture, used by from_series_character
  'species':{'lion':r'lion|lioness','bear':r'\bbears?\b','fox':r'\bfox|vixen','rabbit':r'rabbit|hare|bunny','ox':r'\box\b|bull|bison|buffalo|cow','owl':r'\bowl','wolf':r'wolf|wolves|hound','mouse':r'mouse|mice|rat\b|hamster','heron':r'heron|crane|stork|ostrich|giraffe','badger':r'badger|wolverine|otter','boar':r'boar|pig|hog','cat':r'\bcat\b|kitten|panther|lynx','elder':r'\belder|ancient|sage'},
@@ -56,7 +67,8 @@ def validate(rec):
  if not rec.get('name'):out.append('name missing')
  sp=rec.get('species','lion')
  if sp not in SPECIES:out.append('unknown species %r'%sp)
- for a in rec.get('accessories',[]):
+ if rec.get('outfit') and rec['outfit'] not in OUTFITS:out.append('unknown outfit %r (known: %s)'%(rec['outfit'],', '.join(sorted(OUTFITS))))
+ for a in expand_outfit(rec) if rec.get('outfit') in OUTFITS else rec.get('accessories',[]):
   if (a if isinstance(a,str) else a.get('kind')) not in ACCESSORIES:out.append('unknown accessory %r'%(a,))
  if rec.get('posture','neutral') not in POSTURES:out.append('unknown posture %r'%rec.get('posture'))
  t=rec.get('tint')
@@ -66,11 +78,11 @@ def validate(rec):
  p=rec.get('voice_pitch')
  if p is not None and not 50<=p<=400:out.append('voice_pitch outside 50..400 Hz')
  if not .5<=rec.get('pace',1.)<=1.5:out.append('pace outside 0.5..1.5')
- heads=[a for a in rec.get('accessories',[]) if ACCESSORIES.get(a if isinstance(a,str) else a.get('kind'),('',))[0]=='head' and (a if isinstance(a,str) else a.get('kind')).startswith(('hat','crown','helmet'))]
+ heads=[a for a in (expand_outfit(rec) if rec.get('outfit') in OUTFITS else rec.get('accessories',[])) if ACCESSORIES.get(a if isinstance(a,str) else a.get('kind'),('',))[0]=='head' and (a if isinstance(a,str) else a.get('kind')).startswith(('hat','crown','helmet'))]
  if len(heads)>1:out.append('more than one hat/crown/helmet')
  return out
 def _acc(a):
- return dict(kind=a,color=None) if isinstance(a,str) else dict(color=None,**a)
+ return dict(kind=a,color=None) if isinstance(a,str) else {**dict(color=None),**a}
 def resolve(rec):
  """the full look: scale (sx,sy,sz), tint, parts (species parts overridden by kind), accessories, gait, pitch, pace"""
  bad=validate(rec)
@@ -81,7 +93,7 @@ def resolve(rec):
  for p in rec.get('parts',[]):parts[p['kind']]=dict(parts.get(p['kind'],{}),**p)
  for k in rec.get('no_parts',[]):parts.pop(k,None)
  posture=rec.get('posture',sp['posture']);lo,hi=sp['pitch'];pitch=rec.get('voice_pitch',lo+(hi-lo)*hash_unit(rec['id'],'pitch'))
- acc=[_acc(a) for a in rec.get('accessories',[])]
+ acc=[_acc(a) for a in expand_outfit(rec)]
  return dict(id=rec['id'],name=rec['name'],species=rec.get('species','lion'),height=h,scale=(round(w*sz,4),round(d*sz,4),round(sz,4)),tint=tint,parts=list(parts.values()),accessories=acc,posture=posture,gait=GAIT_BY_POSTURE[posture],pace=rec.get('pace',1.),pitch=pitch,voice=rec.get('voice'),
   reach=.55*sz,radius=round(max(w,d)*sz*.38,3))
 def from_series_character(rec):

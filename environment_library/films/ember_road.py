@@ -5,13 +5,13 @@ import sys,os
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'..'))
 from perf_dsl import *
 CAST=[
- dict(id='sera',name='Captain Sera',species='lion',posture='proud',accessories=['cape','sword','belt'],tint=[1.0,.82,.6],description='the caravan captain, certain until she is not'),
- dict(id='dorn',name='Dorn',species='boar',posture='tired',accessories=['apron','backpack'],description='the cook, who carries everyone’s opinions'),
- dict(id='kit',name='Kit',species='rabbit',posture='hurried',accessories=['hat_cap','satchel'],description='the scout, first to run and first to stop'),
- dict(id='moss',name='Moss',species='heron',posture='proud',accessories=['glasses','staff'],description='the navigator, tall, vague and usually right'),
- dict(id='thorne',name='Thorne',species='wolf',posture='tense',accessories=['scarf','belt'],tint=[.45,.5,.58],description='a road guide with a debt he does not mention'),
- dict(id='wick',name='Wick',species='mouse',posture='hurried',accessories=['backpack'],tint=[.8,.75,.7],description='a stowaway who wants to see a beacon'),
- dict(id='brant',name='Harbour Master Brant',species='badger',posture='angry',accessories=['hat_cap','medals'],description='the harbour master, gruff and worried'),
+ dict(id='sera',name='Captain Sera',species='lion',posture='proud',outfit='knight',colors=[(.8,.2,.15)],accessories=['belt'],tint=[1.0,.82,.6],description='the caravan captain, certain until she is not'),
+ dict(id='dorn',name='Dorn',species='boar',posture='tired',outfit='baker',colors=[(.9,.85,.7)],accessories=['backpack'],description='the cook, who carries everyone’s opinions'),
+ dict(id='kit',name='Kit',species='rabbit',posture='hurried',outfit='scout',colors=[(.3,.6,.35)],accessories=[],description='the scout, first to run and first to stop'),
+ dict(id='moss',name='Moss',species='heron',posture='proud',outfit='scholar',colors=[(.2,.35,.6)],accessories=['staff'],description='the navigator, tall, vague and usually right'),
+ dict(id='thorne',name='Thorne',species='wolf',posture='tense',outfit='traveller',colors=[(.4,.3,.2)],accessories=['belt'],tint=[.45,.5,.58],description='a road guide with a debt he does not mention'),
+ dict(id='wick',name='Wick',species='mouse',posture='hurried',outfit='peasant',colors=[(.6,.3,.2)],accessories=['backpack'],tint=[.8,.75,.7],description='a stowaway who wants to see a beacon'),
+ dict(id='brant',name='Harbour Master Brant',species='badger',posture='angry',outfit='noble',colors=[(.15,.3,.2)],accessories=['hat_cap','medals'],description='the harbour master, gruff and worried'),
 ]
 EMBER=lambda x,y,on=None,z=None:prop('ember','lantern',x,y,on=on,z=z)
 S=[]

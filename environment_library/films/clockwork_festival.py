@@ -5,13 +5,13 @@ import sys,os
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),'..'))
 from perf_dsl import *
 CAST=[
- dict(id='bram',name='Bram',species='bear',posture='tired',accessories=['glasses','apron','cane'],description='the old clockmaker, gentle and stubborn'),
- dict(id='mara',name='Mara',species='fox',posture='jaunty',accessories=['hat_cap','satchel'],voice_pitch=205,description='a quick courier who talks faster than she runs'),
- dict(id='pip',name='Pip',species='mouse',posture='hurried',accessories=['scarf'],description="Bram's apprentice, small and brave"),
- dict(id='odo',name='Captain Odo',species='ox',posture='proud',accessories=['helmet','medals','sword'],description='captain of the town guard, loud and fair'),
- dict(id='wren',name='Mayor Wren',species='owl',posture='hunched',accessories=['hat_top','bowtie'],description='the mayor, who dislikes surprises'),
- dict(id='tilda',name='Tilda',species='cat',posture='angry',accessories=['apron','scarf'],tint=[.95,.7,.45],description='the baker with opinions about everything'),
- dict(id='rook',name='Rook',species='wolf',posture='tense',accessories=['cape','eyepatch'],description='a quiet stranger who knows the clock better than the town'),
+ dict(id='bram',name='Bram',species='bear',posture='tired',outfit='scholar',colors=[(.45,.3,.55)],accessories=['cane'],description='the old clockmaker, gentle and stubborn'),
+ dict(id='mara',name='Mara',species='fox',posture='jaunty',outfit='scout',colors=[(.8,.5,.2)],accessories=[],voice_pitch=205,description='a quick courier who talks faster than she runs'),
+ dict(id='pip',name='Pip',species='mouse',posture='hurried',outfit='peasant',colors=[(.3,.55,.35)],accessories=['scarf'],description="Bram's apprentice, small and brave"),
+ dict(id='odo',name='Captain Odo',species='ox',posture='proud',outfit='guard',colors=[(.2,.3,.65)],accessories=['medals'],description='captain of the town guard, loud and fair'),
+ dict(id='wren',name='Mayor Wren',species='owl',posture='hunched',outfit='noble',colors=[(.55,.1,.2)],accessories=['hat_top'],description='the mayor, who dislikes surprises'),
+ dict(id='tilda',name='Tilda',species='cat',posture='angry',outfit='baker',colors=[(.95,.95,.9)],accessories=['scarf'],tint=[.95,.7,.45],description='the baker with opinions about everything'),
+ dict(id='rook',name='Rook',species='wolf',posture='tense',outfit='traveller',colors=[(.25,.28,.35)],accessories=['eyepatch'],description='a quiet stranger who knows the clock better than the town'),
 ]
 TOWER=dict(kind='tower',at=[0,17],id='clocktower',size=1.4)
 def square(seed=2):return loc('village_square',seed,objects=[TOWER],markers=dict(clock=[0,12.5]))
