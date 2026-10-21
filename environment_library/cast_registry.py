@@ -23,12 +23,12 @@ SPECIES={
  'ox':     dict(height=2.0, width=1.35,depth=1.25,tint=(.45,.4,.36),parts=[dict(kind='horns',shape='curve',size=1.,color=(.9,.86,.75)),dict(kind='ears',shape='side',size=.8,color=(.4,.34,.3))],posture='tense',pitch=(60,85)),
  'owl':    dict(height=1.4, width=.85,depth=.85, tint=(.66,.55,.42),parts=[dict(kind='ears',shape='tuft',size=1.,color=(.5,.4,.3)),dict(kind='beak',size=1.,color=(.95,.75,.2))],posture='proud',pitch=(130,170)),
  'wolf':   dict(height=1.85,width=.95,depth=1.0, tint=(.55,.58,.64),parts=[dict(kind='ears',shape='point',size=1.0,color=(.45,.47,.52))],posture='tense',pitch=(75,100)),
- 'mouse':  dict(height=1.05,width=.65,depth=.7,  tint=(.78,.72,.66),parts=[dict(kind='ears',shape='disc',size=1.5,color=(.95,.75,.75))],posture='hurried',pitch=(230,290)),
+ 'mouse':  dict(height=1.05,width=.65,depth=.7,  tint=(.78,.72,.66),parts=[dict(kind='ears',shape='disc',size=1.05,color=(.95,.75,.75))],posture='hurried',pitch=(230,290)),
  'heron':  dict(height=2.3, width=.7, depth=.75, tint=(.7,.78,.88),parts=[dict(kind='beak',size=1.4,color=(.95,.8,.3))],posture='proud',pitch=(140,175)),
  'badger': dict(height=1.4, width=1.25,depth=1.1,tint=(.38,.38,.4),parts=[dict(kind='ears',shape='round',size=.7,color=(.3,.3,.32)),dict(kind='tuft',size=.8,color=(.95,.95,.95))],posture='angry',pitch=(85,110)),
  'boar':   dict(height=1.55,width=1.3, depth=1.2, tint=(.62,.42,.4),parts=[dict(kind='tusks',size=1.,color=(.96,.94,.86)),dict(kind='ears',shape='side',size=.9,color=(.55,.38,.36))],posture='angry',pitch=(75,100)),
  'cat':    dict(height=1.45,width=.8, depth=.85, tint=(.4,.4,.5),parts=[dict(kind='ears',shape='point',size=.9,color=(.35,.35,.42))],posture='jaunty',pitch=(160,210)),
- 'elder':  dict(height=1.55,width=.9, depth=.9,  tint=(.85,.82,.78),parts=[dict(kind='ruff',size=.85,color=(.95,.95,.95))],posture='hunched',pitch=(100,130)),
+ 'elder':  dict(height=1.55,width=.9, depth=.9,  tint=(.85,.82,.78),parts=[],posture='hunched',pitch=(100,130)),
 }
 # accessory catalogue: where it attaches (rig bone) and what it is made of (the builder owns the geometry)
 ACCESSORIES={

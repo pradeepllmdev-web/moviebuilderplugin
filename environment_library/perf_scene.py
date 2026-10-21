@@ -299,14 +299,14 @@ def snd(A):
   v=A.buf(1)
   for L,x,syl,real in VOICES:
    if L['speaker']==name:A.at(v,L['t0']+.2,x,1.)
-  if np.abs(v).max()>0:A.track('voice %s'%name,v,.9);vsum+=np.abs(v[:N])
- duck=pa.duck_mask(vsum,SR,.7);duck_l=pa.duck_mask(vsum,SR,.45)    # music and ambience make room for every line
- amb=pa.ambience(SPEC.get('ambience','wind'),N,SR,rng);A.track('ambience',amb*duck_l,{'fire':.1,'sea':.09,'rain':.1,'crowd':.07,'market':.07}.get(SPEC.get('ambience'),.045))   # a bed under everything, never the loudest thing
+  if np.abs(v).max()>0:A.track('voice %s'%name,v,1.0);vsum+=np.abs(v[:N])
+ duck=pa.duck_mask(vsum,SR,.85);duck_l=pa.duck_mask(vsum,SR,.6)    # music and ambience make room for every line
+ amb=pa.ambience(SPEC.get('ambience','wind'),N,SR,rng);A.track('ambience',amb*duck_l,{'fire':.1,'sea':.09,'rain':.1,'crowd':.07,'market':.07}.get(SPEC.get('ambience'),.032))   # a bed under everything, never the loudest thing
  mus=None
  if SPEC.get('theme'):mus=ps.render(PLAN,SPEC['theme'],SPEC.get('music','calm'),SPEC.get('location',{}).get('preset'),TIME,SPEC['id'],SPEC.get('music_cues'),sr=SR,arc=SPEC.get('arc'))
  if mus is None:mus=pa.music(SPEC.get('music','calm'),N,SR,sum(map(ord,SPEC['id'])))
  elif len(mus)<N:mus=np.pad(mus,(0,N-len(mus)))
- if np.abs(mus).max()>0:A.track('music',mus*duck,.3)
+ if np.abs(mus).max()>0:A.track('music',mus*duck,.24)
  ev=pa.footstep_events(PLAN.footsteps(),SR,rng,'stone' if LOC.get('floor')=='stone' else 'dirt')
  if ev:A.track('steps',pa.mix_events(N,SR,ev)*duck_l,.1)   # footsteps sit far below the voices
  ev=[(t,pa.sfx(nm,SR,rng),g) for (t,nm,who,g) in PLAN.sfx]

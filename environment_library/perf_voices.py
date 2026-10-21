@@ -17,8 +17,8 @@ import numpy as np
 H=Path(__file__).resolve().parent
 VOICE_DIR=H/'voices';CACHE=VOICE_DIR/'cache';CATALOGUE=VOICE_DIR/'catalogue.json';SR=22050
 MOOD_RATE={'sad':1.12,'serious':1.0,'warm':1.0,'concern':1.04,'angry':.95,'joy':.96}
-BASE_RATE=1.1       # a little slower than the model's default: clearer
-SHIFT=(.88,1.15)    # more pitch shifting than this distorts the voice; the nearest voice is used instead
+BASE_RATE=1.2       # a little slower than the model's default: clearer
+SHIFT=(.93,1.09)    # more pitch shifting than this distorts the voice; the nearest voice is used instead
 MOOD_GAIN={'sad':.8,'serious':.95,'warm':.95,'concern':.9,'angry':1.15,'joy':1.1}
 POSTURE_RATE={'tired':1.12,'hunched':1.1,'proud':1.02,'neutral':1.0,'jaunty':.94,'tense':1.0,'angry':.95,'hurried':.88}
 def models():return sorted(p.name[:-5] for p in VOICE_DIR.glob("*.onnx"))
@@ -36,7 +36,7 @@ def f0_estimate(x,sr=SR,lo=60,hi=420):
   if seg[k]/ac[0]>.4:out.append(sr/(lag0+k))
  return float(np.median(out)) if out else None
 def key(voice,text,mood='serious'):
- s='|'.join(str(v) for v in ('v3',voice['model'],voice['speaker'],round(voice.get('shift',1.),3),round(voice.get('rate',1.),3),mood,text))
+ s='|'.join(str(v) for v in ('v4',voice['model'],voice['speaker'],round(voice.get('shift',1.),3),round(voice.get('rate',1.),3),mood,text))
  return hashlib.sha1(s.encode('utf-8')).hexdigest()[:16]
 def wav_path(k):return CACHE/(k+'.wav')
 def read_wav(p):
@@ -65,7 +65,7 @@ def assign(registry,catalogue=None):
   for c in cat:
    if (c['model'],c['speaker']) in used:continue
    r=tgt/c['f0'];cost=abs(np.log(r))+(.5 if r<.7 or r>1.5 else 0)
-   cost+=(-.12 if c['model'].endswith('high') else 0.)+(.35*abs(np.log(r/np.clip(r,*SHIFT))) if True else 0.)
+   cost+=(-.45 if c['model'].endswith('high') else (.1 if 'vctk' in c['model'] else 0.))     # the high-quality models are the clearest+(.35*abs(np.log(r/np.clip(r,*SHIFT))) if True else 0.)
    if best is None or cost<best[0]:best=(cost,c,r)
   if best is None:break
   c=best[1];r=float(np.clip(best[2],*SHIFT));used.add((c['model'],c['speaker']))
@@ -101,7 +101,7 @@ def clarity(x,sr=SR):
  """speech clarity: high-pass at 80 Hz, a presence lift around 2.5-4 kHz, then a soft compressor so quiet syllables are not lost under the score"""
  n=len(x)
  if n<64:return x
- X=np.fft.rfft(x);f=np.fft.rfftfreq(n,1./sr);g=np.clip(f/80.,0,1)**2*(1+.55*np.exp(-((f-3000.)/1100.)**2));x=np.fft.irfft(X*g,n)
+ X=np.fft.rfft(x);f=np.fft.rfftfreq(n,1./sr);g=np.clip(f/90.,0,1)**2*(1+.8*np.exp(-((f-3200.)/1200.)**2)+.25*np.exp(-((f-6500.)/1500.)**2));x=np.fft.irfft(X*g,n)
  rms=np.sqrt(np.mean(x**2))+1e-9;x=x/rms*.1;return np.tanh(3.2*x)/3.2*10.
 def _job(a):
  voice,text,mood=a;synth(voice,text,mood);return key(voice,text,mood)

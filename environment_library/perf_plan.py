@@ -220,7 +220,7 @@ class Plan:
    a=s.actors[c['id']];f=c.get('face');a.H[0]=s._heading_to(a,f) if f is not None else math.pi/2
   s.extras=make_extras(spec,s.layout,[(c['at'][0],c['at'][1]) for c in spec['cast']])
   if s.extras:s.layout=dict(s.layout,obstacles=s.layout['obstacles']+[(e['x'],e['y'],e['look']['radius']*1.1) for e in s.extras])
-  s.t_end=0.;s.router=Router(s.layout['obstacles'],s.layout['half'])
+  s.t_end=0.;s.router=Router(s.layout['obstacles'],s.layout['half'],margin=.55)   # centre-to-solid clearance: a body, an apron or a skirt is wider than the walking point
  # ------------------------------------------------------------------------------------------------------ references
  def _heading_to(s,a,ref):
   p=s.point(ref);return math.atan2(p[1]-a.Y[-1],p[0]-a.X[-1])
@@ -398,11 +398,14 @@ class Plan:
     for h,keys in speech_gestures(b['text'],mood,ts,ts+dur,a.look['posture'],k*977+sum(map(ord,a.id))):
      for kt,infl,pos in keys:a.hands[h].append((kt,infl,('local',pos)))
   s.events.append(dict(kind='say',who=a.id,t0=ts,t1=ts+dur,to=to,mood=mood,k=k))
-  for name,o in s.actors.items():   # everybody idle and standing turns towards the speaker when far off
-   if name!=a.id and o.state=='stand' and o.t<=ts-.1:
-    lim2=math.radians(80 if getattr(o,'settled',-1)==len(o.walks) else 48)
-    if abs(wrap(math.atan2(a.Y[-1]-o.Y[-1],a.X[-1]-o.X[-1])-o.H[-1]))>lim2:o.face_point((a.X[-1],a.Y[-1]),.9)
-    o.settled=len(o.walks)
+  turned=0
+  for name,o in s.actors.items():   # the addressee turns to the speaker when far off, bystanders only when the speaker is behind them, and never all at the same moment
+   if name==a.id or o.state!='stand' or o.t>ts-.1:continue
+   off=abs(wrap(math.atan2(a.Y[-1]-o.Y[-1],a.X[-1]-o.X[-1])-o.H[-1]))
+   lim2=math.radians((80 if getattr(o,'settled',-1)==len(o.walks) else 48) if name==to else 120)
+   if off>lim2:
+    o.hold(.25+.35*turned+.1*((sum(map(ord,name))+k)%4));turned+=1;o.face_point((a.X[-1],a.Y[-1]),1.0)
+   if name==to:o.settled=len(o.walks)
   return L
  def _approach(s,a,target,stand,gait,face=None,mult=1.):
   """walk a to within `stand` metres of the point `target` (xy), then face `face` (default the target)"""
@@ -631,12 +634,12 @@ class Plan:
   for n,i in enumerate(ids):
    a=s.actors[i];worst=(0.,0,None)
    for (cx,cy,r) in obst:
-    pen=(r+.18*a.size)-np.hypot(X[n]-cx,Y[n]-cy)
+    pen=(r+.42*a.radius)-np.hypot(X[n]-cx,Y[n]-cy)
     k=int(np.argmax(pen))
     if pen[k]>worst[0]+1e-9:
      ok=any(t0<=k/FPS<=t1 and o==oid.get((cx,cy,r)) for (t0,t1,o) in a.ignore)
      if not ok:worst=(pen[k],k,(cx,cy,r))
-   if worst[0]>.12:out.append('AUDIT obstacle: %s walks %.2f m into a solid at %.1f s'%(i,worst[0],worst[1]/FPS))
+   if worst[0]>.14:out.append('AUDIT obstacle: %s walks %.2f m into a solid at %.1f s'%(i,worst[0],worst[1]/FPS))
    hx,hy=s.layout['half']
    if np.any(np.abs(X[n])>hx+2) or np.any(np.abs(Y[n])>hy+2):out.append('AUDIT bounds: %s leaves the location'%i)
    dh=np.abs(np.diff(np.unwrap(H[n])))*FPS
