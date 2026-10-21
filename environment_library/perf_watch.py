@@ -10,7 +10,7 @@ except ImportError:
  bpy=None
 BLENDER=os.environ.get('BLENDER','C:/Program Files/Blender Foundation/Blender 5.2/blender.exe')
 def setup():
- s=bpy.context.scene;s.frame_set(s.frame_start);s.render.engine='BLENDER_WORKBENCH';s.render.resolution_x=960;s.render.resolution_y=540
+ s=bpy.context.scene;s.frame_set(s.frame_start);s.sync_mode='AUDIO_SYNC';s.render.engine='BLENDER_WORKBENCH';s.render.resolution_x=960;s.render.resolution_y=540
  for w in bpy.context.window_manager.windows:
   for a in w.screen.areas:
    if a.type=='VIEW_3D':a.type='SEQUENCE_EDITOR';a.spaces[0].view_type='SEQUENCER_PREVIEW'

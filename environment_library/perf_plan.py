@@ -402,7 +402,7 @@ class Plan:
   for name,o in s.actors.items():   # the addressee turns to the speaker when far off, bystanders only when the speaker is behind them, and never all at the same moment
    if name==a.id or o.state!='stand' or o.t>ts-.1:continue
    off=abs(wrap(math.atan2(a.Y[-1]-o.Y[-1],a.X[-1]-o.X[-1])-o.H[-1]))
-   lim2=math.radians((80 if getattr(o,'settled',-1)==len(o.walks) else 48) if name==to else 120)
+   lim2=math.radians((55 if getattr(o,'settled',-1)==len(o.walks) else 45) if name==to else 120)
    if off>lim2:
     o.hold(.25+.35*turned+.1*((sum(map(ord,name))+k)%4));turned+=1;o.face_point((a.X[-1],a.Y[-1]),1.0)
    if name==to:o.settled=len(o.walks)

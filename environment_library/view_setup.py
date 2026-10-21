@@ -51,7 +51,9 @@ def setup():
   if o.type=='EMPTY' or o.type=='LIGHT' or (o.type=='CAMERA' and MODE!='movie'):o.hide_set(True)   # the movie view looks through the scene's camera, so it must stay visible
   if MODE=='single' and o.type=='MESH' and o.parent is None and not any(m.type=='ARMATURE' for m in o.modifiers) and not o.name.startswith('Proxy'):o.hide_set(True)
  proxies();s.frame_set(1)
- if MODE=='movie':captions()
+ if MODE=='movie':
+  s.sync_mode='AUDIO_SYNC'    # a viewport slower than 24 fps drops frames to stay with the sound, instead of letting lips drift away from the voice
+  if os.environ.get('CAPTIONS')=='1':captions()    # subtitles are off unless asked for
  for window in bpy.context.window_manager.windows:
   for area in window.screen.areas:
    if area.type=='VIEW_3D':
