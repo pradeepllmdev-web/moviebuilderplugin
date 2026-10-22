@@ -236,7 +236,7 @@ def _ground_texture(ob,base):
  if bs is None:return
  tc=nt.nodes.new('ShaderNodeTexCoord');n1=nt.nodes.new('ShaderNodeTexNoise');n2=nt.nodes.new('ShaderNodeTexNoise');mx=nt.nodes.new('ShaderNodeMix');cr=nt.nodes.new('ShaderNodeValToRGB');bm=nt.nodes.new('ShaderNodeBump')
  n1.inputs['Scale'].default_value=.18;n1.inputs['Detail'].default_value=3.;n2.inputs['Scale'].default_value=6.;n2.inputs['Detail'].default_value=6.
- cr.color_ramp.elements[0].color=(*[c*.72 for c in base],1);cr.color_ramp.elements[1].color=(*[min(1.,c*1.22) for c in base],1)
+ sat=lambda c,k:tuple(max(0.,min(1.,m_+(x-m_)*k)) for x in c for m_ in [sum(c)/3]);bs.inputs['Base Color'].default_value=(*sat(base,1.4),1);cr.color_ramp.elements[0].color=(*[c*.7 for c in sat(base,1.4)],1);cr.color_ramp.elements[1].color=(*[min(1.,c*1.2) for c in sat(base,1.4)],1)
  mx.data_type='RGBA';mx.blend_type='MULTIPLY';mx.inputs[0].default_value=.35;bm.inputs['Strength'].default_value=.25
  nt.links.new(tc.outputs['Object'],n1.inputs['Vector']);nt.links.new(tc.outputs['Object'],n2.inputs['Vector']);nt.links.new(n1.outputs['Fac'],cr.inputs[0]);nt.links.new(cr.outputs[0],mx.inputs[6]);nt.links.new(n2.outputs['Color'],mx.inputs[7]);nt.links.new(mx.outputs[2],bs.inputs['Base Color']);nt.links.new(n2.outputs['Fac'],bm.inputs['Height']);nt.links.new(bm.outputs[0],bs.inputs['Normal'])
 def build(S,loc,time='day'):
@@ -251,12 +251,20 @@ def build(S,loc,time='day'):
    ld=bpy.data.lights.new(p[1],'POINT');ld.energy=p[3] if time in ('night','dusk','dawn') else p[3]*.2;ld.color=p[4];ld.shadow_soft_size=.3;lo=bpy.data.objects.new(p[1],ld);lo.location=p[2];S.link(lo);continue
   o=S.prim(p['shape'],p['name'],p['loc'],p['color'],scale=p['scale'],rot=p['rot'],emit=p['emit'] if (p['emit']<2.9 or time in ('night','dusk','dawn') or True) else 0.,**p['kw'])
  pr=scene_params.preset(time if time in scene_params.TIME_OF_DAY else 'day')
- sn=bpy.data.objects.new('Sun',bpy.data.lights.new('SunLight','SUN'));sn.data.energy=pr['sun_energy']*1.3;sn.data.color=pr['sun_color'];sn.data.angle=math.radians(4);sn.rotation_euler=pr['sun_rot'];S.link(sn);S.world_color=pr['world']
- rx,ry,rz=pr['sun_rot'];warm=pr['sun_color']
- fl=bpy.data.objects.new('FillLight',bpy.data.lights.new('FillLight','SUN'));fl.data.energy=pr['sun_energy']*.16;fl.data.color=(.55,.65,1.) if time not in ('night',) else (.3,.4,.8);fl.data.angle=math.radians(25);fl.rotation_euler=(rx*.8,ry,rz+math.pi);S.link(fl)    # cool fill from the other side: shadows keep their form
- rm=bpy.data.objects.new('RimLight',bpy.data.lights.new('RimLight','SUN'));rm.data.energy=pr['sun_energy']*(.9 if time in ('night','dusk','dawn') else .35);rm.data.color=(.6,.75,1.) if time=='night' else (1.,.8,.6);rm.data.angle=math.radians(6);rm.rotation_euler=(math.radians(125),0,rz+math.pi*.5);S.link(rm)    # a low back light that edges every character against the ground
+ lk=LOOK.get(time,LOOK['day']);az=math.radians(-40+20*(int(loc.get('seed',1))%5));el=math.radians(lk['el'])
+ def sun(name,col,energy,elev,azim,ang):
+  o=bpy.data.objects.new(name,bpy.data.lights.new(name,'SUN'));o.data.energy=energy;o.data.color=col;o.data.angle=ang;o.rotation_euler=(math.pi/2-elev,0,azim);S.link(o);return o
+ sun('Sun',lk['key'],lk['ke'],el,az,math.radians(3))            # the key: low and coloured, long soft shadows
+ sun('FillLight',lk['fill'],lk['fe'],math.radians(50),az+math.pi*.85,math.radians(30))    # a cool fill from the shadow side
+ sun('RimLight',lk['rim'],lk['re'],math.radians(14),az+math.pi,math.radians(5))           # a low back light that edges every character
+ S.world_color=pr['world']
  return loc
-SKY={'dawn':((1.,.72,.5),(.35,.45,.75)),'day':((.75,.85,.98),(.25,.5,.9)),'dusk':((1.,.55,.3),(.18,.2,.45)),'night':((.1,.12,.25),(.01,.015,.05)),'overcast':((.62,.65,.7),(.4,.44,.5))}
+LOOK={'day':dict(key=(1.,.86,.64),ke=3.6,el=30,fill=(.5,.62,1.),fe=.4,rim=(1.,.78,.55),re=1.0),
+ 'dawn':dict(key=(1.,.7,.5),ke=2.6,el=14,fill=(.6,.55,.9),fe=.5,rim=(1.,.6,.5),re=1.4),
+ 'dusk':dict(key=(1.,.5,.28),ke=2.4,el=9,fill=(.45,.4,.85),fe=.5,rim=(1.,.45,.6),re=1.6),
+ 'night':dict(key=(.5,.6,1.),ke=.9,el=38,fill=(.2,.3,.7),fe=.3,rim=(.5,.65,1.),re=1.0),
+ 'overcast':dict(key=(.9,.93,1.),ke=1.5,el=55,fill=(.7,.75,.9),fe=.8,rim=(.9,.9,1.),re=.3)}
+SKY={'dawn':((1.,.72,.5),(.3,.4,.8)),'day':((.8,.9,1.),(.2,.48,.95)),'dusk':((1.,.58,.32),(.25,.18,.55)),'night':((.12,.14,.3),(.01,.015,.06)),'overcast':((.7,.72,.78),(.42,.46,.55))}
 def sky(sc,time,fog=0.):
  """a gradient sky (horizon to zenith) as the world, lit by the same colours; fog pulls the whole sky toward a flat grey"""
  import bpy
@@ -265,6 +273,9 @@ def sky(sc,time,fog=0.):
  hz=tuple(h*(1-fog)+g[i]*fog*(.6 if time=='night' else 1.) for i,h in enumerate(hz));zn=tuple(z*(1-fog)+g[i]*fog*(.6 if time=='night' else 1.) for i,z in enumerate(zn))
  w=bpy.data.worlds.new('Sky');w.use_nodes=True;nt=w.node_tree;nt.nodes.clear()
  tc=nt.nodes.new('ShaderNodeTexCoord');sep=nt.nodes.new('ShaderNodeSeparateXYZ');mp=nt.nodes.new('ShaderNodeMapRange');cr=nt.nodes.new('ShaderNodeValToRGB');bg=nt.nodes.new('ShaderNodeBackground');out=nt.nodes.new('ShaderNodeOutputWorld')
- mp.inputs['From Min'].default_value=-.05;mp.inputs['From Max'].default_value=.9;cr.color_ramp.elements[0].color=(*hz,1);cr.color_ramp.elements[1].color=(*zn,1);bg.inputs['Strength'].default_value=1.
+ mp.inputs['From Min'].default_value=-.05;mp.inputs['From Max'].default_value=.9;cr.color_ramp.elements[0].color=(*hz,1);cr.color_ramp.elements[1].color=(*zn,1);bg.inputs['Strength'].default_value=.45    # the sky lights softly; the sun and spot do the modelling
  nt.links.new(tc.outputs['Generated'],sep.inputs[0]);nt.links.new(sep.outputs['Z'],mp.inputs['Value']);nt.links.new(mp.outputs[0],cr.inputs[0]);nt.links.new(cr.outputs[0],bg.inputs['Color']);nt.links.new(bg.outputs[0],out.inputs['Surface'])
  w.color=hz;sc.world=w
+ try:
+  vs=sc.view_settings;vs.view_transform='AgX';vs.look='AgX - Punchy';vs.exposure={'day':-.2,'dawn':0.,'dusk':.05,'night':.5,'overcast':0.}.get(time,0.)    # a graded, punchy image
+ except Exception:pass

@@ -21,6 +21,7 @@ S.append(scene('empty_stand','The empty stand',loc('village_square',7,objects=[S
  par(go('marta',[1.2,-2.6],gait='brisk'),look('hugo','marta',2)),
  act('marta','startle'),
  convo([('marta','Hugo! The festival bell is gone!','sad','hugo')]),
+ point('marta','stand0',1.4),
  par(go('hugo',[-1.4,-1.0],gait='stomp'),go('bea',[5.0,-2.8],gait='brisk')),
  convo([('hugo','Gone? It must ring at sunset. That is five hours away!','angry','marta'),('bea','There are wheel tracks in the dust. Big ones.','concern','hugo'),('hugo','Then everyone looks. Everyone!','angry','marta')]),
 ],time='day',ambience='wind',music='tense',intent='The festival bell has vanished from its stand. It must ring at sunset.'))
@@ -35,6 +36,7 @@ S.append(scene('plan','Splitting up',loc('village_square',7,objects=[STAND]),[at
 S.append(scene('harbor','Clue one: the harbour',loc('harbor',4),[at('finn',-10,-2.6,face=[0,-3]),at('bea',-12,-3.2,face=[0,-3])],steps=[
  par(go('finn',[-3,-1.0],gait='bounce'),go('bea',[-5,0.2],gait='brisk')),
  convo([('finn','No bell in the boats. No bell in the nets. Only fish.','concern','bea')]),
+ point('bea',[-1,1.8],1.4),
  par(look('bea',[-1,1.8],1.5),act('bea','kneel')),
  convo([('bea','Finn, look! Wheel marks. Deep ones, like something heavy.','concern','finn'),('finn','Heavy and heading up the hill road. Toward the smithy!','serious','bea')]),
  par(act('finn','cut'),act('bea','cele')),
@@ -57,6 +59,7 @@ S.append(scene('smithy','The smithy',loc('workshop',2),[at('otto',-1.6,-2.4,face
  par(act('otto','hit'),sfx('clang',0.3)),
  par(go('hugo',[-0.2,-1.2],gait='stomp'),go('marta',[1.1,-1.8],gait='brisk'),go('bea',[2.6,-1.6],gait='brisk')),
  convo([('hugo','Otto! You took our festival bell!','angry','otto')]),
+ point('hugo','otto',1.2),
  par(emote('otto','concern',2.5),act('otto','shrug')),
  convo([('otto','It cracked at the last festival. I mended it at dawn. A gift. I wanted no fuss.','warm','hugo'),('marta','Otto. It is perfect.','joy','otto'),('hugo','Ahem. I may have shouted a little too early.','concern','otto')]),
  par(act('bea','cele'),emote('marta','smile',3)),

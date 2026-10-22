@@ -347,6 +347,16 @@ class Plan:
  def b_cam(s,b,t0):s.cams.append(dict(t0=t0,**{k:v for k,v in b.items() if k!='do'}))
  def b_turn(s,b,t0):
   a=s.actors[b['who']];s._stand_only(a,'turn');p=s.point(b['to']);d=a.face_point(p);s.events.append(dict(kind='turn',who=a.id,t0=t0,t1=t0+d,to=b['to']))
+ def b_point(s,b,t0):
+  """point: the arm reaches out toward a point, character or prop while the head looks there; dur seconds, hand R or L"""
+  a=s.actors[b['who']];tp=s.point(b['at']);dur=b.get('dur',1.6);hd=b.get('hand','R')
+  if a.state!='stand':raise SpecError('point: %s must be standing'%a.id)
+  dx,dy=tp[0]-a.X[-1],tp[1]-a.Y[-1];L=math.hypot(dx,dy) or 1.;ux,uy=dx/L,dy/L;side=-1. if hd=='R' else 1.
+  M=(a.X[-1]+ux*.62*a.size-uy*side*.12*a.size,a.Y[-1]+uy*.62*a.size+ux*side*.12*a.size,a.size*(1.18+.5*max(-.4,min(.5,(tp[2]-a.size*1.2)/max(1.,L)))))
+  if abs(wrap(math.atan2(dy,dx)-a.H[-1]))>math.radians(35):a.face_point(tp,.7)
+  ts=a.t;ks=a.hands[hd];prev=(ks[-1][1],ks[-1][2]) if ks else (0.,('local',(-.36 if hd=='R' else .36,-.1,.66)))
+  ks.append((ts,prev[0],prev[1]));ks.append((ts+.35,1.,('world',M)));ks.append((ts+.35+dur,1.,('world',M)));ks.append((ts+.35+dur+.45,0.,('local',(-.36 if hd=='R' else .36,-.1,.66))))
+  a.hold(.35+dur+.45);s.events.append(dict(kind='point',who=a.id,t0=ts,t1=a.t,to=b['at']));s.b_look(dict(do='look',who=a.id,at=b['at'],dur=dur+.6),ts)
  def b_look(s,b,t0):
   a=s.actors[b['who']];s._hold_until=max(s._hold_until,t0+b.get('dur',1.));s.events.append(dict(kind='look',who=a.id,t0=t0,t1=t0+b.get('dur',1.),to=b['at']))
  def b_emote(s,b,t0):

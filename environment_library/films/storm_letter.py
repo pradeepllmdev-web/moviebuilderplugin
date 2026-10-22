@@ -24,6 +24,7 @@ S.append(scene('warning','Storm by sunset',loc('room',3),[at('odile',-2.6,-2.6,f
  take('odile','letter'),
  run('pepper',[2.0,-2.2]),
  convo([('odile','My barometer is falling like a stone. A great storm by sunset.','serious','pepper'),('odile','The ferry sails at sunset. Captain Tobias must read this letter. Do not stop for anything.','serious','pepper'),('pepper','I never stop!','joy','odile')]),
+ point('odile',[10,12],1.6),
  give('odile','pepper'),
  par(act('pepper','cele'),sfx('thunder',0.3)),
  run('pepper',[0.2,-3.3]),
@@ -35,6 +36,7 @@ S.append(scene('square','Vesper notices',loc('village_square',5),[at('pepper',-9
  convo([('vesper','Where is the little courier going in such a hurry?','warm','pepper'),('pepper','Secret ferry business!','joy','vesper'),('vesper','Ferry business is my business.','serious','pepper')]),
  par(act('pepper','dodge'),sfx('whoosh',0.1)),
  run('pepper',[16,-4]),
+ point('vesper',[16,-4],1.4),
  par(look('vesper',[16,-4],2),emote('vesper','smile',2.5)),
 ],time='day',ambience='wind',music='bright',fog=.15,intent='Vesper spots the letter and seems curious. Pepper dodges her and runs on.'))
 # 3 ---------------------------------------------------------------------------------------------------------------- Old Mo's cart
@@ -69,6 +71,7 @@ S.append(scene('bridge','The broken bridge',loc('harbor',5,water=[-5,-9,5,3],obj
  run('pepper',[-9.4,-3.6]),
  convo([('pepper','Give it back, Vesper!','angry','vesper'),('vesper','I read it. A storm! I was taking it to Tobias myself. You were too slow.','serious','pepper')]),
  par(act('pepper','startle'),sfx('thunder',0.2)),
+ point('vesper',[5,-3.6],1.5),
  convo([('pepper','You were warning him?','concern','vesper'),('vesper','But the bridge is out. We cannot cross.','sad','pepper')]),
  par(take('pepper','plank')),
  par(go('pepper',[-5.6,-3.4],gait='brisk')),
@@ -100,6 +103,7 @@ S.append(scene('ferry','Last bell',loc('harbor',7,objects=[LOW(5,-17.6,-3.0)]),[
 ],time='dusk',ambience='sea',music='epic',fog=.45,extras=crowd(8,[4,-9,18,-1],[11,-5],71),intent='At the last bell Pepper trips, Vesper helps her up, and they run the last steps together to hand over the letter.'))
 # 8 ---------------------------------------------------------------------------------------------------------------- the storm breaks
 S.append(scene('storm','The storm breaks',loc('harbor',7),[at('tobias',9,-3.2,face='pepper'),at('pepper',5.4,-3.6,face='tobias'),at('vesper',4.2,-4.4,face='tobias')],steps=[
+ point('pepper',[-4,-22],1.2),
  convo([('tobias','A storm by sunset... Odile is never wrong.','serious','pepper')]),
  par(sfx('thunder',0.2),act('tobias','startle')),
  convo([('tobias','Everybody off the ferry! Passengers to shelter! Now!','angry','pepper')]),

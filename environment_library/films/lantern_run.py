@@ -21,6 +21,7 @@ S.append(scene('great_lantern','The Great Lantern',loc('village_square',9,object
  convo([('pim','Neighbours! Tonight the Great Lantern lights our festival!','joy','nell'),('sal','Brightest lamp in the county.','warm','pim')]),
  par(act('nell','cele'),act('sal','nod')),
  par(look('dot',[0,-25],3),emote('dot','sad',3)),
+ point('pim','stand0',1.4),
  convo([('pim','Brother Ferris, guard it until the feast.','serious','ferris'),('ferris','I never sleep on duty.','serious','pim')]),
  par(go('pim',[-16,2],gait='strut'),go('nell',[-16,-4],gait='walk'),go('sal',[16,3],gait='stomp'),go('dot',[16,-8],gait='shuffle')),
  go('ferris',[3.6,-2.8],gait='shuffle'),
@@ -30,6 +31,7 @@ S.append(scene('fog','Fog at sea',loc('harbor',4),[at('rue',-8,-3.0,face=[0,-20]
  par(look('rue',[0,-22],3),emote('rue','sad',3)),
  run('dot',[-5.6,-3.0]),
  convo([('dot','Papa! The fog is thick. The boats cannot see the harbour!','concern','rue'),('rue','The old beacon cracked last week. Nothing bright enough.','sad','dot')]),
+ point('rue',[0,-22],1.5),
  par(emote('dot','brows',2),look('dot',[10,10],2)),
  convo([('dot','What about the Great Lantern?','concern','rue'),('rue','It belongs to the village, Dot. Not to us.','serious','dot')]),
  par(emote('dot','sad',3),look('dot',[0,-22],3)),
@@ -58,6 +60,7 @@ S.append(scene('quay','Cornered on the quay',loc('harbor',4,objects=[STAND(2,9.4
  take('dot','lantern'),
  par(go('dot',[12.5,-3.6],gait='brisk'),go('sal',[2,-3.6],gait='stomp'),go('nell',[0,-2.4],gait='brisk'),go('pim',[-2,-3.0],gait='stomp')),
  convo([('sal','Give it back, child!','angry','dot'),('dot','I cannot. Not yet.','sad','sal')]),
+ point('sal','dot',1.3),
  par(go('pim',[7.6,-3.0],gait='stomp')),
  convo([('pim','Dot! That is the village lantern! Explain yourself!','angry','dot')]),
 ],time='night',ambience='sea',music='tense',intent='The chase ends at the quay. Dot holds the lantern and will not give it up.'))
@@ -83,6 +86,7 @@ S.append(scene('light','Light the harbour',loc('harbor',4,objects=[STAND(2,9.4,-
 # 8 ---------------------------------------------------------------------------------------------------------------- the boats come home
 S.append(scene('boats','The boats come home',loc('harbor',4,objects=[STAND(3,14.5,-3.4,.7)]),[at('rue',9,-3.0,face=[-4,-22]),at('dot',12,-3.5,face=[-4,-22]),at('pim',7,-2.4,face=[-4,-22]),at('nell',5.2,-3.6,face=[-4,-22]),at('sal',3.2,-2.6,face=[-4,-22])],props=[LANTERN(14.5,-3.4,'stand3')],steps=[
  par(look('rue',[-4,-22],3),look('dot',[-4,-22],3)),
+ point('dot',[-4,-22],1.5),
  sfx('bell',0.4),
  convo([('dot','Papa! Look! A mast!','joy','rue'),('rue','Fourteen boats, and every one of them following that light!','joy','dot')]),
  par(act('rue','cele'),act('dot','cele'),act('nell','cele'),act('sal','cele'),act('pim','cele')),

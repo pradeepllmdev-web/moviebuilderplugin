@@ -34,10 +34,29 @@ for i,a in PLAN.actors.items():
 EXTRAS={}
 for e in PLAN.extras:
  ch=cb.build(S,e['look'],e['id']);EXTRAS[e['id']]=ch;r=ch['root'];r.location=(e['x'],e['y'],0.);r.rotation_euler=(0,0,e['h']+PI/2)
+def hop(i,t):
+ """(height, step back) of a character at time t from the emotion beats: hops of joy, a recoil and a little jump of surprise, shaking laughter: the story's feelings read in the body"""
+ a=PLAN.actors[i];sz=a.size;z=0.;back=0.
+ for e in PLAN.events:
+  if e.get('who')!=i or e['kind']!='act':continue
+  c=e.get('clip');t0=e['t0']
+  if c=='cele':
+   for dt in (.25,.8):
+    u=(t-(t0+dt))/.38
+    if 0<=u<=1:z=max(z,.18*sz*4*u*(1-u))
+  elif c=='startle':
+   u=(t-(t0+.05))/.3
+   if 0<=u<=1:z=max(z,.08*sz*4*u*(1-u))
+   w=t-t0;back=max(back,.28*sz*(math.sin(min(1.,max(0.,w/.35))*PI/2) if w<.9 else max(0.,1-(w-.9)/.7)))
+  elif c=='laugh':
+   for k in range(3):
+    u=(t-(t0+.2+.35*k))/.28
+    if 0<=u<=1:z=max(z,.05*sz*4*u*(1-u))
+ return z,back
 def keyroot(i):
  a=PLAN.actors[i];r=CH[i]['root'];prev=None
  for f in S.keys():
-  k=min(len(a.X)-1,f-1);r.location=(a.X[k],a.Y[k],0.);h=a.H[k]+PI/2
+  k=min(len(a.X)-1,f-1);hz_,hb_=hop(i,(f-1)/FPS);r.location=(a.X[k]-math.cos(a.H[k])*hb_,a.Y[k]-math.sin(a.H[k])*hb_,hz_);h=a.H[k]+PI/2
   if prev is not None:h=prev+pp.wrap(h-prev)
   prev=h;r.rotation_euler=(0,0,h);r.keyframe_insert('location',frame=f);r.keyframe_insert('rotation_euler',frame=f)
 for i in CH:keyroot(i)
@@ -145,6 +164,12 @@ for pid,p in PLAN.props.items():
   t=(f-1)/FPS;pos=p.at(t,PLAN);root.location=pos
   seg=None
   root.keyframe_insert('location',frame=f)
+for pid,p in PLAN.props.items():       # a quick pop when a prop is taken, put down or handed over: the eye finds the important object
+ root=PROPOBJ[pid]
+ for e in PLAN.events:
+  if e['kind'] in ('take','put','give') and e.get('prop')==pid:
+   tg=e.get('t_grasp',e['t0'])
+   for dt,sc_ in ((-.05,1.),(.09,1.35),(.32,1.)):root.scale=(sc_,sc_,sc_);root.keyframe_insert('scale',frame=S.F(max(0,tg+dt)))
 # ---------------------------------------------------------------------------------------------------------- IK arms
 IKS={}
 for i,ch in CH.items():
@@ -300,13 +325,13 @@ def snd(A):
   for L,x,syl,real in VOICES:
    if L['speaker']==name:A.at(v,L['t0']+.2,x,1.)
   if np.abs(v).max()>0:A.track('voice %s'%name,v,1.0);vsum+=np.abs(v[:N])
- duck=pa.duck_mask(vsum,SR,.85);duck_l=pa.duck_mask(vsum,SR,.6)    # music and ambience make room for every line
+ duck=pa.duck_mask(vsum,SR,.6);duck_l=pa.duck_mask(vsum,SR,.6)    # music and ambience make room for every line
  amb=pa.ambience(SPEC.get('ambience','wind'),N,SR,rng);A.track('ambience',amb*duck_l,{'fire':.1,'sea':.09,'rain':.1,'crowd':.07,'market':.07}.get(SPEC.get('ambience'),.032))   # a bed under everything, never the loudest thing
  mus=None
  if SPEC.get('theme'):mus=ps.render(PLAN,SPEC['theme'],SPEC.get('music','calm'),SPEC.get('location',{}).get('preset'),TIME,SPEC['id'],SPEC.get('music_cues'),sr=SR,arc=SPEC.get('arc'))
  if mus is None:mus=pa.music(SPEC.get('music','calm'),N,SR,sum(map(ord,SPEC['id'])))
  elif len(mus)<N:mus=np.pad(mus,(0,N-len(mus)))
- if np.abs(mus).max()>0:A.track('music',mus*duck,.24)
+ if np.abs(mus).max()>0:A.track('music',mus*duck,.34)
  ev=pa.footstep_events(PLAN.footsteps(),SR,rng,'stone' if LOC.get('floor')=='stone' else 'dirt')
  if ev:A.track('steps',pa.mix_events(N,SR,ev)*duck_l,.1)   # footsteps sit far below the voices
  ev=[(t,pa.sfx(nm,SR,rng),g) for (t,nm,who,g) in PLAN.sfx]
@@ -322,6 +347,14 @@ for scr in bpy.data.screens:      # the saved window opens in Solid with texture
     if sp.type=='VIEW_3D':
      try:sp.shading.type='SOLID';sp.shading.light='STUDIO';sp.shading.color_type='TEXTURE';sp.shading.show_cavity=False;sp.overlay.show_overlays=False;sp.region_3d.view_perspective='CAMERA'
      except Exception as _e:print('viewport:',_e)
+# a focus light: a soft spot above the action, so the scene has a bright pool with darker edges
+try:
+ import mathutils
+ _pts=[PLAN.pos(i,PLAN.seconds*.5)[:2] for i in PLAN.actors];_cx=sum(p[0] for p in _pts)/len(_pts);_cy=sum(p[1] for p in _pts)/len(_pts)
+ _sp=bpy.data.lights.new('FocusSpot','SPOT');_sp.energy={'night':1200,'dusk':600,'dawn':450,'day':160,'overcast':350}.get(TIME,500);_sp.spot_size=math.radians(75);_sp.spot_blend=.9;_sp.color=(1.,.88,.7);_sp.shadow_soft_size=1.5
+ _so=bpy.data.objects.new('FocusSpot',_sp);_so.location=(_cx+2.5,_cy-5.5,8.5);S.link(_so)
+ _tg=bpy.data.objects.new('FocusTarget',None);_tg.location=(_cx,_cy,1.0);S.link(_tg);_tc=_so.constraints.new('TRACK_TO');_tc.target=_tg;_tc.track_axis='TRACK_NEGATIVE_Z';_tc.up_axis='UP_Y'
+except Exception as _e:print('focus light skipped',_e)
 S.sky_hook=lambda sc:pl.sky(sc,TIME,float(SPEC.get('fog',0.)))
 S.finish(issues,[CH[i]['root'] for i in CH],color_type='TEXTURE',world=pl.normalise(SPEC.get('location',dict(preset='meadow'))).get('world') or scene_params.preset(TIME if TIME in scene_params.TIME_OF_DAY else 'day')['world'])
 if os.environ.get('PERF_DEBUG'):

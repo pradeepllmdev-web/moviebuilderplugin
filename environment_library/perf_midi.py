@@ -33,7 +33,7 @@ def render(notes,programs,seconds,sr=22050,bpm=90.,gain=.7):
  """FluidSynth render of the notes to a mono numpy array of `seconds`, or None without the tools"""
  if not available():return None
  d=tempfile.mkdtemp(prefix='mid_');mid=os.path.join(d,'a.mid');wav=os.path.join(d,'a.wav');write(mid,notes,programs,bpm)
- r=subprocess.run([str(fluidsynth_exe()),'-ni','-g',str(gain),'-r',str(sr),'-F',wav,str(SOUNDFONT),mid],capture_output=True,text=True,errors='ignore')
+ r=subprocess.run([str(fluidsynth_exe()),'-ni','-g',str(gain),'-r',str(sr),'-o','synth.reverb.active=1','-o','synth.reverb.room-size=0.7','-o','synth.reverb.damp=0.35','-o','synth.reverb.level=0.55','-o','synth.chorus.active=1','-o','synth.chorus.level=0.8','-F',wav,str(SOUNDFONT),mid],capture_output=True,text=True,errors='ignore')
  if not os.path.exists(wav):return None
  with wave.open(wav,'rb') as w:
   ch,nf=w.getnchannels(),w.getnframes();x=np.frombuffer(w.readframes(nf),dtype='<i2').astype(float)/32768.

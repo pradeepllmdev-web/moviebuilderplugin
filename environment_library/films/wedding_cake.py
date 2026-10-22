@@ -20,6 +20,7 @@ S=[]
 S.append(scene('bakery','Cake day',loc('room',3,objects=[LOW(0,-1.0,-0.9)]),[at('bettina',-2.6,-2.6,face=[-1,-0.9]),at('dash',3.2,-3.0,face='bettina')],props=[CAKE(-1.0,-0.9,'stand0')],steps=[
  par(go('bettina',[-1.9,-1.5],gait='brisk'),go('dash',[1.2,-2.2],gait='bounce',talk=('Miss Bettina! The clock says three!','concern','bettina'))),
  convo([('bettina','Three?! The wedding is at four!','angry','dash'),('dash','And the chapel is on the far hill!','concern','bettina',dict(overlap_by=.5)),('bettina','Then we run. Take the left, I take the right.','serious','dash',dict(overlap_by=.4))]),
+ point('dash',[12,-3],1.4),
  par(take('bettina','cake')),
  par(go('bettina',[0,-3.2],gait='brisk',talk=('Mind the icing! Mind the icing!','concern','dash')),go('dash',[1.2,-3.4],gait='bounce')),
 ],time='day',ambience='hall',music='comic',fog=0.,intent='Bettina and Dash realise the wedding cake is late. The wedding is at four.'))
@@ -29,6 +30,7 @@ S.append(scene('market','Through the market',loc('market',3,objects=[LOW(1,-13.0
  par(go('bettina',[-2,-3.2],gait='brisk',talk=('Out of the way, please! Wedding cake coming through!','angry','dash')),go('dash',[-4.8,-5.0],gait='bounce')),
  par(go('rufus',[-0.8,-4.4],gait='stomp',talk=('Is that the cake? Give it here, I am the best man!','joy','bettina'))),
  convo([('bettina','You are the best man at what, exactly? Carrying?','concern','rufus'),('rufus','At everything! Hand it over!','joy','bettina',dict(overlap_by=.4)),('dash','He’s very big, Miss Bettina.','concern','bettina',dict(overlap_by=.3))]),
+ point('bettina','rufus',1.2),
  give('bettina','rufus'),
  par(go('rufus',[14,-3.2],gait='stomp',talk=('Easy! Nothing could be easier!','joy','dash')),go('bettina',[8.6,-3.0],gait='brisk'),go('dash',[7.0,-5.8],gait='bounce')),
 ],time='day',ambience='market',music='comic',fog=0.,extras=crowd(6,[-12,-4,12,10],[0,-2],41),intent='The best man grabs the cake and strides off with it. 40 minutes left.'))
@@ -41,6 +43,7 @@ S.append(scene('drop','The wobble',loc('village_square',8,objects=[LOW(2,-9.0,-1
  put('rufus',on='stand3'),
  par(sfx('crash',0.1),act('bettina','fall')),
  par(act('dash','startle'),act('rufus','shrug')),
+ point('dash','rufus',1.3,'L'),
  convo([('dash','The top tier...','sad','bettina')]),
 ],time='day',ambience='wind',music='sad',fog=0.,intent='Rufus wobbles and the cake drops. The top tier is ruined. 25 minutes left.'))
 # 4 ---------------------------------------------------------------------------------------------------------------- despair
@@ -49,6 +52,7 @@ S.append(scene('despair','All is lost',loc('hilltop',4,objects=[dict(kind='bench
  sit('bettina','bench0.0',face=[3,-2.2]),
  convo([('bettina','Twenty years of baking, and the best cake of my life is a pancake.','sad','dash'),('rufus','It was a very good pancake.','concern','bettina'),('dash','Rufus!','angry','rufus',dict(overlap_by=.3))]),
  par(emote('bettina','sad',4),look('bettina',[3,-2.2],3)),
+ point('rufus',[3,-2.2],1.2),
  wait(1.0),
 ],time='day',ambience='wind',music='sad',fog=0.,intent='Bettina sits on a bench, sure the wedding is ruined. 15 minutes left.'))
 # 5 ---------------------------------------------------------------------------------------------------------------- the bride arrives

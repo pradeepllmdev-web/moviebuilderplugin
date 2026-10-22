@@ -72,13 +72,15 @@ S.append(scene('blame','Who took it?',loc('village_square',4,objects=[STAND(2.5,
  par(go('gus',[4.5,-0.5],gait='stomp')),
  convo([('tilda','Nobody else loves pie like you, Gus.','sad','gus'),('gus','This is a terrible thing to say about a blacksmith!','angry','tilda')]),
  par(go('rosa',[2.8,-1.6],gait='walk'),look('rosa',[2.5,-2.4],2)),
+ point('rosa',[2.5,-2.4],1.4),
  convo([('rosa','Wait. Look. Small footprints in the dust. Little ones. Going east.','concern','orin'),('gus','Small! Do I look small?','concern','rosa'),
   ('orin','Follow them! The contest is at noon.','serious','tilda')]),
 ],time='day',ambience='wind',music='tense',intent='Everyone blames Gus, until Rosa notices small footprints leading away.',extras=crowd(4,[-14,-8,14,8],[2.5,-1],7)))
 # 7 ---------------------------------------------------------------------------------------------------------------- tracking
 S.append(scene('tracking','Following the footprints',loc('meadow',5),[at('rosa',-8,-6,face=[8,4]),at('tilda',-10,-7.5,face=[8,4]),at('orin',-12,-6,face=[8,4]),at('gus',-13,-8,face=[8,4])],steps=[
  par(go('rosa',[-2,-2],gait='walk'),go('tilda',[-4,-3.5],gait='brisk'),go('orin',[-5,-2],gait='walk'),go('gus',[-6.5,-3.5],gait='stomp')),
- par(look('rosa',[-1,-1],2),look('tilda',[-3,-2],2)),
+ point('rosa',[-1,-1],1.3),
+ par(look('tilda',[-3,-2],2)),
  convo([('rosa','Here. A cherry crumb.','concern','tilda'),('tilda','He ate my pie on the way?','angry','rosa'),('orin','A thief with small feet and a big appetite.','serious','tilda')]),
  par(go('rosa',[5,3],gait='brisk'),go('tilda',[4,2],gait='brisk'),go('orin',[3,3.5],gait='walk'),go('gus',[2,2],gait='stomp')),
  convo([('gus','Hungry thieves go uphill. I would.','warm','orin'),('rosa','The prints climb the shepherd’s hill.','serious','tilda')]),
@@ -97,6 +99,7 @@ S.append(scene('hill','Grandfather’s hill',loc('hilltop',3,objects=[BENCH,LOW(
 S.append(scene('caught','Caught',loc('hilltop',3,objects=[BENCH]),[at('fen',-2.8,-2.2,face=[6,6]),at('pip',-1.2,-2.8,face=[6,6]),at('tilda',9,7,face=[0,0]),at('rosa',11,6,face=[0,0]),at('orin',12,8,face=[0,0]),at('gus',10,9,face=[0,0])],steps=[
  par(go('tilda',[3.4,2.4],gait='stomp'),go('rosa',[4.4,3.4],gait='brisk'),go('orin',[5.4,3.6],gait='walk'),go('gus',[6.4,4.2],gait='stomp')),
  par(act('pip','startle'),emote('fen','concern',3)),
+ point('tilda','pip',1.3),
  convo([('tilda','My pie! Who took my Golden Spoon pie?','angry','pip')]),
  par(go('pip',[-1.0,-0.2],gait='walk'),turn('fen','tilda')),
  convo([('pip','It was me. I am sorry.','sad','tilda'),('fen','He took it for me. I have eaten nothing for three days. My sheep ran off and I could not leave the hill.','sad','tilda')]),
