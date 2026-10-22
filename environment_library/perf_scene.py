@@ -334,6 +334,55 @@ def body_layer():
     n=len(fr);fc.keyframe_points.add(n);co=np.empty(n*2);co[0::2]=fr;co[1::2]=qs[:,c];fc.keyframe_points.foreach_set('co',co);fc.update()
   ad.action_blend_type='COMBINE';ad.action_influence=1.
 body_layer()
+# ---------------------------------------------------------------------------------------------------------- animals and dinosaurs: head and neck turn to what they attend to, breathing, tail sway (a wag when they celebrate), as a COMBINE layer over the few clips they have
+def creature_layer():
+ if not CRE:return
+ from mathutils import Matrix
+ fr=list(range(1,S.frames+1,2));dt=2./FPS
+ def attend(i,t):
+  """world xy the animal looks at (its planned gaze, else the speaker it is near, else straight ahead) and whether it is looking at all"""
+  g=PLAN.gaze(i,t);x,y,h=PLAN.pos(i,t)
+  if g is None:
+   cand=[(math.hypot(*(np.array(PLAN.pos(j,t)[:2])-(x,y))),j) for j in PLAN.actors if j!=i and PLAN.line_at(t) is not None and PLAN.line_at(t)['speaker']==j]
+   if cand:return PLAN.pos(min(cand)[1],t)[:2]
+   return None
+  if g[0]=='char':return PLAN.pos(g[1],t)[:2]
+  if g[0]=='prop':return PLAN.props[g[1]].at(t,PLAN)[:2]
+  return g[1][:2]
+ for i,ch in CRE.items():
+  rig=ch['rig'];pbs=rig.pose.bones;a_=PLAN.actors[i];rb=random.Random(sum(map(ord,i+SPEC['id'])));ph=rb.uniform(0,6.28)
+  chain=[n for n in ('Neck','Head') if n in pbs];tails=[n for n in pbs.keys() if n.startswith('Tail')];body=[n for n in ('Torso','Back') if n in pbs]
+  rest={n:pbs[n].bone.matrix_local.to_3x3() for n in chain+tails+body}
+  joy=[(t0,t1) for (t0,t1,nm,sc,opt) in a_.clips if nm in('cele','jump','hips','bow','laugh','kick')]
+  yaw=vy=pit=vp=0.;sig={n:[] for n in chain+tails+body}
+  for f in fr:
+   t=(f-1)/FPS;x,y,h=PLAN.pos(i,t);tg=attend(i,t);moving=PLAN._walking(i,t)
+   if tg is not None:ty=max(-1.1,min(1.1,pp.wrap(math.atan2(tg[1]-y,tg[0]-x)-h)));tp=.05
+   else:ty=.22*math.sin(2*math.pi*.09*t+ph)+.1*math.sin(2*math.pi*.23*t+ph*2);tp=.04*math.sin(2*math.pi*.13*t+ph)     # no one to look at: an idle glance around
+   k=.35 if moving else 1.
+   yaw,vy=damped(yaw,vy,ty*k,5.,dt,math.radians(160));pit,vp=damped(pit,vp,tp,5.,dt,math.radians(90))
+   happy=any(a0-.2<=t<=b0+.2 for a0,b0 in joy);wag=(.5 if happy else .16)*(.5 if moving else 1.)
+   ws=2*math.pi*(2.6 if happy else .55)
+   for n in chain:
+    w=.6 if n=='Neck' else .4;R=Euler((pit*w,0,yaw*w),'XYZ').to_matrix();sig[n].append(rest[n].inverted()@R@rest[n])
+   for j,n in enumerate(tails):
+    R=Euler((0,0,wag*math.sin(ws*t-j*.7+ph)/(1+.3*j)),'XYZ').to_matrix();sig[n].append(rest[n].inverted()@R@rest[n])
+   for n in body:
+    R=Euler((.012*math.sin(2*math.pi*.33*t+ph),0,.01*math.sin(2*math.pi*.09*t+ph)),'XYZ').to_matrix();sig[n].append(rest[n].inverted()@R@rest[n])
+  ad=rig.animation_data
+  if not sig:continue
+  first=next(iter(sig));pb0=pbs[first];pb0.rotation_mode='QUATERNION'
+  for n in sig:pbs[n].rotation_mode='QUATERNION'
+  ad.action=None;pb0.keyframe_insert('rotation_quaternion',frame=1)
+  act=ad.action;cbag=anim_utils.action_ensure_channelbag_for_slot(act,ad.action_slot)
+  for n,mats in sig.items():
+   qs=np.array([tuple(m.to_quaternion()) for m in mats]);path='pose.bones["%s"].rotation_quaternion'%n
+   for c in range(4):
+    fc=next((q for q in cbag.fcurves if q.data_path==path and q.array_index==c),None) or cbag.fcurves.new(path,index=c)
+    fc.keyframe_points.clear() if hasattr(fc.keyframe_points,'clear') else None
+    m_=len(fr);fc.keyframe_points.add(m_);co=np.empty(m_*2);co[0::2]=fr;co[1::2]=qs[:,c];fc.keyframe_points.foreach_set('co',co);fc.update()
+  ad.action_blend_type='COMBINE';ad.action_influence=1.
+creature_layer()
 # ---------------------------------------------------------------------------------------------------------- grounding: the in-place clips of falling, getting up, kneeling, crawling and sitting sink into or float over the floor, so the root is lifted per frame until the lowest point of the body rests on it
 GROUNDED=('sit','fall','getup','kneel','lie','crawl','jump')
 def ground_pass():
