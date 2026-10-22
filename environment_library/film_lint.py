@@ -53,6 +53,8 @@ def lint(film):
  for sp,r in zip(film['scenes'],rows):
   if r['error']:errors.append('scene %s: %s'%(sp['id'],r['error']));plans.append(None);continue
   errors+=['scene %s: %s'%(sp['id'],a) for a in r['audit']]
+  tgt=sp.get('target_seconds')
+  if tgt and not (.7*tgt-1<=r['seconds']<=1.3*tgt+1):errors.append('scene %s: lasts %.0f s but the brief asks for %.0f s (within 30%%): cut lines and walks, do not just shorten waits'%(sp['id'],r['seconds'],tgt))
   try:plans.append(pp.compile(sp,reg))
   except pp.SpecError as e:plans.append(None);errors.append('scene %s: %s'%(sp['id'],e))
  try:problems=reg.distinct_report()

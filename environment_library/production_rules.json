@@ -2,34 +2,305 @@
  "version": 1,
  "about": "Every observation from watching the films, as a rule. 'stages' say which prompt gets the rule (story, characters, scenes, film_spec, animation, unreal). 'severity' is must or should. 'guard' is text that exists in the code and checks it (tests/test_production_rules.py fails if it disappears), or 'manual'. 'text' is the exact wording a prompt receives.",
  "rules": [
-  {"id": "S01", "stages": ["story", "scenes", "film_spec"], "severity": "must", "guard": "no goal or intent written", "text": "Every scene has ONE goal, written as a short title and a one-sentence intent. By the end of the scene something has visibly changed: an object moved, someone learned something, or a decision was made."},
-  {"id": "S02", "stages": ["story", "scenes", "film_spec"], "severity": "must", "guard": "is set up but never used", "text": "Build the story as cause and effect with setups and payoffs (lost object, search, found, returned). Every important object that appears must be used later, and nothing important may appear only once."},
-  {"id": "S03", "stages": ["story", "film_spec"], "severity": "must", "guard": "closing beat", "text": "End on a small closing beat: a laugh, a warm line or a small joke."},
-  {"id": "S04", "stages": ["story", "scenes", "film_spec"], "severity": "must", "guard": "few story events", "text": "The story must be understandable with the sound off. Show the important actions (take, give, put, point, a reaction icon, a reveal) instead of only saying them in dialogue."},
-  {"id": "S05", "stages": ["scenes", "film_spec"], "severity": "should", "guard": "the first line comes at", "text": "Say what the scene is about within the first 8 seconds."},
-  {"id": "S06", "stages": ["story", "scenes", "film_spec"], "severity": "must", "guard": "is spoken", "text": "Never repeat a line of dialogue across scenes."},
-  {"id": "S07", "stages": ["story", "scenes", "film_spec"], "severity": "should", "guard": "manual", "text": "Dialogue is specific to the situation, 6 to 16 words a line, with feeling or a little humour underneath. Characters speak differently from each other. No generic lines like 'Let us go' or 'What is that?'. A line says why, not only what."},
-  {"id": "S08", "stages": ["story", "film_spec"], "severity": "should", "guard": "target_minutes", "text": "Scenes run 25 to 50 seconds; a short film has 4 to 8 scenes (3 to 6 minutes) unless asked otherwise."},
-  {"id": "C01", "stages": ["characters", "film_spec"], "severity": "must", "guard": "look alike", "text": "Make the cast visibly different from each other: different heights (at least 0.1 apart in scale), builds, colours, outfits, hair and voices."},
-  {"id": "C02", "stages": ["characters", "film_spec"], "severity": "should", "guard": "manual", "text": "Human characters use species 'person' with a height of 1.25 to 2.0 m and a width of 0.9 to 1.25. Animals and dinosaurs are for fables, and move at their own measured speeds."},
-  {"id": "C03", "stages": ["characters", "film_spec"], "severity": "should", "guard": "voice_pitch", "text": "Each speaking character has its own voice pitch; children higher, elders and large people lower."},
-  {"id": "T01", "stages": ["scenes", "film_spec"], "severity": "must", "guard": "walks for", "text": "Keep every walk under about 8 seconds. A person walks 0.85 metres a second (a child 0.65), so 10 metres is 12 to 15 seconds. Start characters near each other and near what the scene is about; end an exit as soon as the character is out of frame."},
-  {"id": "T02", "stages": ["scenes", "film_spec"], "severity": "must", "guard": "then nothing happens", "text": "A walk must have a reason: a line, an action or a reaction on arrival, or an exit."},
-  {"id": "T03", "stages": ["scenes", "film_spec"], "severity": "must", "guard": "talk=", "text": "Speak while walking (a go beat with talk=[line, mood, to]) rather than walking and then speaking, so no time is dead."},
-  {"id": "T04", "stages": ["scenes", "film_spec", "animation"], "severity": "must", "guard": "a run is a jog", "text": "People only run when the story demands it (a chase, an emergency). Otherwise they walk; a hurry is a quicker walk (gait brisk)."},
-  {"id": "T05", "stages": ["scenes", "film_spec"], "severity": "must", "guard": "no speech and no story event", "text": "No stretch longer than 6 seconds without speech or a story event."},
-  {"id": "T06", "stages": ["scenes", "film_spec"], "severity": "must", "guard": "cannot reach", "text": "A person can take or put objects between about 0.9 and 1.1 metres high (on a pedestal or table of that height); a child a little lower. Objects on the floor are out of reach."},
-  {"id": "T07", "stages": ["scenes", "film_spec"], "severity": "must", "guard": "does not carry it on", "text": "An object carried at the end of a scene is carried into the next: start that character with holds=<prop id>."},
-  {"id": "T08", "stages": ["scenes", "film_spec"], "severity": "should", "guard": "dead_cause", "text": "Avoid sit beats on a bench the character must walk round to reach: a sit can cost 15 seconds. Sit characters near the seat, in front of it."},
-  {"id": "T09", "stages": ["scenes", "film_spec"], "severity": "must", "guard": "AUDIT collision", "text": "Characters must not overlap or stand in objects; keep at least a metre between standing characters."},
-  {"id": "T10", "stages": ["scenes", "film_spec"], "severity": "should", "guard": "AUDIT eye line", "text": "A character speaks to someone in front of them, within about 40 degrees. Seated characters face where the person they talk to stands."},
-  {"id": "K01", "stages": ["shots", "film_spec"], "severity": "should", "guard": "_out_of_solids", "text": "One idea per shot. Show faces for emotional lines, reveal what a character points at, never put the lens inside a tree, rock or building."},
-  {"id": "A01", "stages": ["animation"], "severity": "must", "guard": "AUDIT pose: arms held out in a T", "text": "No character may ever hold a T-pose: every character always has an idle underneath its animations."},
-  {"id": "A02", "stages": ["animation"], "severity": "must", "guard": "relaxed hands", "text": "Hands are relaxed and half open, never tight fists."},
-  {"id": "A03", "stages": ["animation"], "severity": "must", "guard": "stands almost motionless", "text": "No character stands frozen: idles vary, with weight shifts, head tilts, glances, nods when addressed, gestures when speaking."},
-  {"id": "A04", "stages": ["animation"], "severity": "should", "guard": "follow-through", "text": "Apply anticipation before a walk starts and follow-through when it stops; head and neck lag the body."},
-  {"id": "A05", "stages": ["animation", "film_spec"], "severity": "should", "guard": "manual", "text": "Joy is shown with a smile, a light gesture and a nod, not a dance. Keep celebrations short and restrained."},
-  {"id": "U01", "stages": ["unreal"], "severity": "must", "guard": "AUDIT 0", "text": "Nothing goes to Unreal with an audit line open. Export only scenes that build with zero audit lines."},
-  {"id": "U02", "stages": ["unreal"], "severity": "should", "guard": "review_pack", "text": "Review the review pack (every shot with its purpose, the lines and the audits) before exporting; render the draft last."}
+  {
+   "id": "S01",
+   "stages": [
+    "story",
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "no goal or intent written",
+   "text": "Every scene has ONE goal, written as a short title and a one-sentence intent. By the end of the scene something has visibly changed: an object moved, someone learned something, or a decision was made."
+  },
+  {
+   "id": "S02",
+   "stages": [
+    "story",
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "is set up but never used",
+   "text": "Build the story as cause and effect with setups and payoffs (lost object, search, found, returned). Every important object that appears must be used later, and nothing important may appear only once."
+  },
+  {
+   "id": "S03",
+   "stages": [
+    "story",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "closing beat",
+   "text": "End on a small closing beat: a laugh, a warm line or a small joke."
+  },
+  {
+   "id": "S04",
+   "stages": [
+    "story",
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "few story events",
+   "text": "The story must be understandable with the sound off. Show the important actions (take, give, put, point, a reaction icon, a reveal) instead of only saying them in dialogue."
+  },
+  {
+   "id": "S05",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "should",
+   "guard": "the first line comes at",
+   "text": "Say what the scene is about within the first 8 seconds."
+  },
+  {
+   "id": "S06",
+   "stages": [
+    "story",
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "is spoken",
+   "text": "Never repeat a line of dialogue across scenes."
+  },
+  {
+   "id": "S07",
+   "stages": [
+    "story",
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "should",
+   "guard": "manual",
+   "text": "Dialogue is specific to the situation, 6 to 16 words a line, with feeling or a little humour underneath. Characters speak differently from each other. No generic lines like 'Let us go' or 'What is that?'. A line says why, not only what."
+  },
+  {
+   "id": "S08",
+   "stages": [
+    "story",
+    "film_spec"
+   ],
+   "severity": "should",
+   "guard": "target_minutes",
+   "text": "Scenes run 25 to 50 seconds; a short film has 4 to 8 scenes (3 to 6 minutes) unless asked otherwise."
+  },
+  {
+   "id": "S09",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "but the brief asks for",
+   "text": "If a scene is given a length (target_seconds), hit it within 30 percent by cutting lines and walks; a 5 second scene is one short line and one visible action."
+  },
+  {
+   "id": "C01",
+   "stages": [
+    "characters",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "look alike",
+   "text": "Make the cast visibly different from each other: different heights (at least 0.1 apart in scale), builds, colours, outfits, hair and voices."
+  },
+  {
+   "id": "C02",
+   "stages": [
+    "characters",
+    "film_spec"
+   ],
+   "severity": "should",
+   "guard": "manual",
+   "text": "Human characters use species 'person' with a height of 1.25 to 2.0 m and a width of 0.9 to 1.25. Animals and dinosaurs are for fables, and move at their own measured speeds."
+  },
+  {
+   "id": "C03",
+   "stages": [
+    "characters",
+    "film_spec"
+   ],
+   "severity": "should",
+   "guard": "voice_pitch",
+   "text": "Each speaking character has its own voice pitch; children higher, elders and large people lower."
+  },
+  {
+   "id": "T01",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "walks for",
+   "text": "Keep every walk under about 8 seconds. A person walks 0.85 metres a second (a child 0.65), so 10 metres is 12 to 15 seconds. Start characters near each other and near what the scene is about; end an exit as soon as the character is out of frame."
+  },
+  {
+   "id": "T02",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "then nothing happens",
+   "text": "A walk must have a reason: a line, an action or a reaction on arrival, or an exit."
+  },
+  {
+   "id": "T03",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "talk=",
+   "text": "Speak while walking (a go beat with talk=[line, mood, to]) rather than walking and then speaking, so no time is dead."
+  },
+  {
+   "id": "T04",
+   "stages": [
+    "scenes",
+    "film_spec",
+    "animation"
+   ],
+   "severity": "must",
+   "guard": "only for a chase or an emergency",
+   "text": "People only run when the story demands it (a chase, an emergency). Otherwise they walk; a hurry is a quicker walk (gait brisk)."
+  },
+  {
+   "id": "T05",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "no speech and no story event",
+   "text": "No stretch longer than 6 seconds without speech or a story event."
+  },
+  {
+   "id": "T06",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "cannot reach",
+   "text": "A person can take or put objects between about 0.9 and 1.1 metres high (on a pedestal or table of that height); a child a little lower. Objects on the floor are out of reach."
+  },
+  {
+   "id": "T07",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "does not carry it on",
+   "text": "An object carried at the end of a scene is carried into the next: start that character with holds=<prop id>."
+  },
+  {
+   "id": "T08",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "should",
+   "guard": "dead_cause",
+   "text": "Avoid sit beats on a bench the character must walk round to reach: a sit can cost 15 seconds. Sit characters near the seat, in front of it."
+  },
+  {
+   "id": "T09",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "must",
+   "guard": "AUDIT collision",
+   "text": "Characters must not overlap or stand in objects; keep at least a metre between standing characters."
+  },
+  {
+   "id": "T10",
+   "stages": [
+    "scenes",
+    "film_spec"
+   ],
+   "severity": "should",
+   "guard": "AUDIT eye line",
+   "text": "A character speaks to someone in front of them, within about 40 degrees. Seated characters face where the person they talk to stands."
+  },
+  {
+   "id": "K01",
+   "stages": [
+    "shots",
+    "film_spec"
+   ],
+   "severity": "should",
+   "guard": "_out_of_solids",
+   "text": "One idea per shot. Show faces for emotional lines, reveal what a character points at, never put the lens inside a tree, rock or building."
+  },
+  {
+   "id": "A01",
+   "stages": [
+    "animation"
+   ],
+   "severity": "must",
+   "guard": "AUDIT pose: arms held out in a T",
+   "text": "No character may ever hold a T-pose: every character always has an idle underneath its animations."
+  },
+  {
+   "id": "A02",
+   "stages": [
+    "animation"
+   ],
+   "severity": "must",
+   "guard": "relaxed hands",
+   "text": "Hands are relaxed and half open, never tight fists."
+  },
+  {
+   "id": "A03",
+   "stages": [
+    "animation"
+   ],
+   "severity": "must",
+   "guard": "stands almost motionless",
+   "text": "No character stands frozen: idles vary, with weight shifts, head tilts, glances, nods when addressed, gestures when speaking."
+  },
+  {
+   "id": "A04",
+   "stages": [
+    "animation"
+   ],
+   "severity": "should",
+   "guard": "follow-through",
+   "text": "Apply anticipation before a walk starts and follow-through when it stops; head and neck lag the body."
+  },
+  {
+   "id": "A05",
+   "stages": [
+    "animation",
+    "film_spec"
+   ],
+   "severity": "should",
+   "guard": "manual",
+   "text": "Joy is shown with a smile, a light gesture and a nod, not a dance. Keep celebrations short and restrained."
+  },
+  {
+   "id": "U01",
+   "stages": [
+    "unreal"
+   ],
+   "severity": "must",
+   "guard": "AUDIT 0",
+   "text": "Nothing goes to Unreal with an audit line open. Export only scenes that build with zero audit lines."
+  },
+  {
+   "id": "U02",
+   "stages": [
+    "unreal"
+   ],
+   "severity": "should",
+   "guard": "review_pack",
+   "text": "Review the review pack (every shot with its purpose, the lines and the audits) before exporting; render the draft last."
+  }
  ]
 }

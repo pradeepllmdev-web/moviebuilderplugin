@@ -53,3 +53,24 @@ def test_generate_repairs_a_bad_scene_with_the_error_text():
 
 def test_generate_returns_none_without_a_model():
     assert ffs.generate('x',provider='none',use_cache=False) is None
+
+
+def _one_scene(steps,cast_at=((-3,0),(1.5,0)),target=None):
+    s=scene_json('x',['a b c d','e f g h','i j k l']);s['steps']=steps;s['cast']=[{'id':'ann','at':list(cast_at[0]),'face':'ben'},{'id':'ben','at':list(cast_at[1]),'face':'ann'}]
+    if target:s['target_seconds']=target
+    return dict(id='f',title='F',cast=PEOPLE,scenes=[s])
+
+def test_lint_enforces_the_scene_length_the_brief_asks_for():
+    steps=[{'do':'say','who':'ann','text':'Morning, Ben, the bread smells wonderful.','mood':'warm','to':'ben'},{'do':'say','who':'ben','text':'It does, Ann. Warm from the oven.','mood':'joy','to':'ann'}]
+    rep=fl.lint(_one_scene(steps,target=3));assert any('but the brief asks for' in e for e in rep['errors']) and 'S09' in rep['rules']
+    assert not any('but the brief asks for' in e for e in fl.lint(_one_scene(steps,target=10))['errors'])
+
+def test_lint_flags_a_run_without_a_chase_or_an_emergency():
+    steps=[{'do':'go','who':'ann','to':[0,0],'gait':'run','talk':['Ben, wait for me please.','warm','ben']}]
+    rep=fl.lint(_one_scene(steps));assert 'T04' in rep['rules']
+    alarmed=[{'do':'icon','who':'ann','kind':'alarm','dur':1.5},{'do':'go','who':'ann','to':[0,0],'gait':'run','talk':['Ben, the bridge is falling!','concern','ben']}]
+    assert 'T04' not in fl.lint(_one_scene(alarmed))['rules']
+
+def test_two_beats_for_one_character_at_once_is_a_spec_error_the_model_sees():
+    steps=[[{'do':'act','who':'ann','clip':'nod'},{'do':'act','who':'ann','clip':'wave'}]]
+    rep=fl.lint(_one_scene(steps));assert any('two beats at the same time' in e for e in rep['errors'])

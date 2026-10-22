@@ -94,6 +94,11 @@ def story_check(film,plans):
    if sum(1 for g in ev if g['kind']=='go' and g['t0']<e['t1'] and g['t1']>e['t0'])>=3:continue     # a crowd on the move (a march, a flight)
    if near(e['who'],e['t0'],e['t1']+3.):continue   # speaks while walking, or something happens on arrival
    notes.append('%s: %s walks for %.0f s from %.0f s and then nothing happens (give the walk a reason, a line or an action on arrival, or cut it)'%(sid,e['who'],e['t1']-e['t0'],e['t0']))
+  for e in ev:       # a run is only for a chase or an emergency: another character runs too, or an alarm sign / an alarmed line comes just before
+   if e['kind']!='go' or e.get('gait')!='run':continue
+   chase=any(g['kind']=='go' and g.get('gait')=='run' and g['who']!=e['who'] and g['t0']<e['t1'] and g['t1']>e['t0'] for g in ev)
+   alarm=any((g['kind']=='icon' and g.get('what') in('alarm','anger') and e['t0']-8<g['t0']<=e['t0']+.5) or (g['kind']=='say' and g['mood'] in('angry','concern') and e['t0']-6<g['t1']<=e['t0']+.5) for g in ev)
+   if not (chase or alarm):notes.append('%s: %s runs at %.0f s with no chase or emergency: a run is only for a chase or an emergency (walk, or brisk for a hurry)'%(sid,e['who'],e['t0']))
   if P.lines:
    first=min(L['t0'] for L in P.lines)
    if first>9. and P.seconds>20:notes.append('%s: the first line comes at %.0f s: say what the scene is about sooner'%(sid,first))

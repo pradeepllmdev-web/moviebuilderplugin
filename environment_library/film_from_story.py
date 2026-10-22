@@ -13,7 +13,7 @@ from pathlib import Path
 H=Path(__file__).resolve().parent
 sys.path.insert(0,str(H))
 import llm,production_rules as pr,film_lint as fl
-MUST_SCENE_RULES=('T01','T02','T05','S01')
+MUST_SCENE_RULES=('T01','T02','T05','S01','T04','S09')
 OUTLINE_FORMAT='''Reply with one JSON object: {"id":"short_id","title":"...","logline":"one sentence","target_minutes":3,
  "cast":[{"id":"nell","name":"Nell","species":"person","height":1.7,"width":1.0,"depth":1.0,"posture":"neutral","outfit":"mayor","colors":[[0.2,0.35,0.6],[0.25,0.22,0.3],[0.2,0.12,0.08]],"description":"..."}],
  "scenes":[{"id":"rock","title":"...","objective":"the one goal","location":"meadow","time":"day","who":["nell"],"summary":"what happens, in two sentences, with the setup or payoff it carries"}]}'''

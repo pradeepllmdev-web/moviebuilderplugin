@@ -32,7 +32,7 @@ FORMAT_DOC='''FILM JSON (return exactly one JSON object):
  "cast":[{"id":"nell","name":"Nell","species":"person","height":1.7,"width":1.0,"depth":1.0,"posture":"neutral","outfit":"mayor","colors":[[r,g,b],[r,g,b],[r,g,b]],"description":"the clock keeper in a blue coat"}],
  "scenes":[{"id":"rock","title":"The key is left behind","objective":"Nell leaves her key behind","intent":"one sentence",
    "location":{"preset":"meadow","seed":6,"objects":[{"kind":"pedestal","at":[-1,-1],"id":"stand0","height":1.0,"size":0.4}]},
-   "time":"day","ambience":"wind","music":"mystery",
+   "time":"day","ambience":"wind","music":"mystery","target_seconds":30,   (optional: the length the brief asks for)
    "cast":[{"id":"nell","at":[-5,-3.5],"face":[-1,-1],"holds":"key"}],
    "props":[{"id":"key","kind":"key","at":[-5,-3.5],"z":1.0,"size":2.2}],
    "steps":[ BEAT, BEAT, [BEAT,BEAT] ]}]}

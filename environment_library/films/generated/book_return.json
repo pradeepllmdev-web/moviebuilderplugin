@@ -1,0 +1,136 @@
+{
+ "id": "book_return",
+ "title": "The Dropped Book",
+ "logline": "Ann returns the book Ben dropped.",
+ "target_minutes": 0.15,
+ "cast": [
+  {
+   "id": "ann",
+   "name": "Ann",
+   "species": "person",
+   "height": 1.65,
+   "width": 1.0,
+   "depth": 1.0,
+   "posture": "neutral",
+   "outfit": "villageress",
+   "colors": [
+    [
+     0.8,
+     0.3,
+     0.3
+    ],
+    [
+     0.25,
+     0.28,
+     0.4
+    ],
+    [
+     0.2,
+     0.12,
+     0.08
+    ]
+   ],
+   "description": "a woman in a red shirt"
+  },
+  {
+   "id": "ben",
+   "name": "Ben",
+   "species": "person",
+   "height": 1.88,
+   "width": 1.1,
+   "depth": 1.05,
+   "posture": "tired",
+   "outfit": "farmer",
+   "colors": [
+    [
+     0.3,
+     0.5,
+     0.8
+    ],
+    [
+     0.35,
+     0.3,
+     0.2
+    ],
+    [
+     0.2,
+     0.12,
+     0.08
+    ]
+   ],
+   "description": "a tall man in a blue shirt"
+  }
+ ],
+ "scenes": [
+  {
+   "id": "return",
+   "title": "The dropped book",
+   "objective": "Ann returns Ben's book",
+   "intent": "Ann catches up with Ben and gives back the book he dropped.",
+   "location": {
+    "preset": "village_square",
+    "seed": 3
+   },
+   "time": "day",
+   "ambience": "wind",
+   "music": "bright",
+   "cast": [
+    {
+     "id": "ann",
+     "at": [
+      0.0,
+      -1
+     ],
+     "face": "ben",
+     "holds": "book"
+    },
+    {
+     "id": "ben",
+     "at": [
+      0.74,
+      -1
+     ],
+     "face": "ann"
+    }
+   ],
+   "props": [
+    {
+     "id": "book",
+     "kind": "book",
+     "at": [
+      0.0,
+      -1
+     ],
+     "z": 1.0,
+     "size": 1.5
+    }
+   ],
+   "steps": [
+    {
+     "do": "say",
+     "who": "ann",
+     "text": "You dropped this, Ben!",
+     "mood": "warm",
+     "to": "ben"
+    },
+    [
+     {
+      "do": "give",
+      "who": "ann",
+      "to": "ben"
+     },
+     {
+      "do": "icon",
+      "who": "ben",
+      "kind": "joy",
+      "dur": 1.8
+     }
+    ]
+   ],
+   "target_seconds": 5,
+   "fog": 0.0,
+   "extras": null,
+   "fx": null
+  }
+ ]
+}

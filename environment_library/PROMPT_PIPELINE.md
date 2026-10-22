@@ -33,6 +33,9 @@ films/generated/<id>.json  ->  perf_movie.py  ->  review_pack.py  ->  (person re
 3. `tests/test_production_rules.py` fails if a rule's guard text is not in the code, so a rule can never silently lose its check.
 4. Prompts, the lint and the repair loop pick the rule up with no other change.
 
+## First real test (a 5 second scene, written by Claude acting as the model)
+Brief: "Ann returns the book Ben dropped, in 5 seconds". Draft 1 passed the old lint but ran 14 s and had Ann run for no reason, so two checks were added (rule S09 `target_seconds`, rule T04 now enforced). Draft 2 was 10 s; the engine then refused a character doing two things at once ("ann has two beats at the same time"); the accepted answer is one line, then a give with Ben's joy sign, 0.74 m apart: 7.2 s planned, 7.3 s built, 0 audit lines. Findings: a 5 second scene is one action and one line (the give alone is 1.9 s and every scene ends with a 2.6 s tail); and Blender-only audits (arm reach) cannot be seen by the plan-only lint, so a real loop needs a second stage that builds the scene and reads the audit lines (a reach error of 0.24 m was fixed by moving Ben 4 cm). Files: `films/generated/book_return.json`, `scenes/movie_book/`.
+
 ## Honest limits
 * `film_from_story.generate` is tested with a fake model that makes a mistake and must repair it; it has not been run against a real model yet. Set `LLM_PROVIDER` (`anthropic` with `ANTHROPIC_API_KEY`, or the existing `scene_ai`) and run `python film_from_story.py story.txt`; answers are cached in `analysis_cache/`.
 * The lint catches what can be measured. Dialogue quality, acting and story taste stay manual: the review pack puts them in front of a person.
