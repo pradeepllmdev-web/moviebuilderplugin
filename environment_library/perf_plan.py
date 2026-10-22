@@ -312,6 +312,7 @@ class Plan:
    if who not in s.actors:raise SpecError('step %d: %s has no character %r (cast: %s)'%(i,b['do'],who,', '.join(s.actors)))
    if who in used:raise SpecError('step %d: %s has two beats at the same time'%(i,who))
    used.add(who)
+   if s.actors[who].look.get('creature') and b['do'] not in ('go','turn','act','react'):raise SpecError('step %d: %s is a creature and cannot %s (creatures walk, run, turn, act and make sounds with sfx)'%(i,who,b['do']))
    if not hasattr(s,'b_'+b['do']):raise SpecError('step %d: unknown beat %r'%(i,b['do']))
    if delays.get(who):s.actors[who].hold(delays[who])
    r=getattr(s,'b_'+b['do'])(b,t0+delays.get(who,0.))

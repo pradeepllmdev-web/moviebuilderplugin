@@ -47,3 +47,12 @@ def test_camera_keeps_people_in_frame_and_shows_faces():
                 for u in (.15,.5,.85):
                     tot+=1;off,face=pc.shot_quality(P,c,c['t0']+(c['t1']-c['t0'])*u);bad+=off>.8 or face<.25
         assert bad<=.03*tot,(f.name,bad,tot)
+
+def test_creature_species_resolve_and_do_not_speak():
+    import perf_dsl as d,perf_plan as pp
+    L=cr.resolve(dict(id='pg',name='Percy',species='pig'));assert L['creature']=='Pig' and L['radius']>.3
+    reg=cr.Registry([dict(id='pg',name='Percy',species='pig'),dict(id='h',name='H',species='bear')])
+    ok=d.scene('t','t',d.loc('meadow',1),[d.at('pg',-3,0),d.at('h',3,0)],[d.go('pg',[2,2],gait='run'),d.act('pg','jump'),d.sfx('oink',0.1,who='pg')]);P=pp.compile(ok,reg);assert P.audit()==[]
+    bad=d.scene('t','t',d.loc('meadow',1),[d.at('pg',-3,0),d.at('h',3,0)],[d.say('pg','Hello','joy','h')])
+    try:pp.compile(bad,reg);assert False
+    except pp.SpecError:pass

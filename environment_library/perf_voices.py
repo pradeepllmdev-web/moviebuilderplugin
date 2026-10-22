@@ -59,7 +59,7 @@ def assign(registry,catalogue=None):
  """{character id: voice} - closest free pitch first, extreme characters choose first; the same registry always gets the same voices"""
  cat=catalogue if catalogue is not None else catalogue_voices()
  if not cat:return {}
- want={i:registry.resolve(i) for i in registry.ids()};order=sorted(want,key=lambda i:-abs(np.log(want[i]['pitch']/150.)));used=set();out={}
+ want={i:registry.resolve(i) for i in registry.ids() if not registry.resolve(i).get('creature')};order=sorted(want,key=lambda i:-abs(np.log(want[i]['pitch']/150.)));used=set();out={}
  for i in order:
   L=want[i];tgt=L['pitch'];best=None
   for c in cat:

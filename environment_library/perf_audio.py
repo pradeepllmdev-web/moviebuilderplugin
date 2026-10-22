@@ -87,8 +87,15 @@ def sfx(name,SR,rng):
  if name=='whoosh':tt=T(.7);return _noise(rng,len(tt),14)*np.sin(np.minimum(tt/.7,1)*PI)**2*.55
  if name=='hum':tt=T(2.4);return (np.sin(2*PI*110*tt)+.5*np.sin(2*PI*220.7*tt)+.25*np.sin(2*PI*331*tt))*np.sin(np.minimum(tt/2.4,1)*PI)*.18     # a warm lantern or beacon tone
  if name=='creak':tt=T(.9);return np.sin(2*PI*(260+90*np.sin(tt*9))*tt)*np.sin(np.minimum(tt/.9,1)*PI)*.22+_noise(rng,len(tt),8)*.08
+ if name=='oink':tt=T(.55);return ((np.sign(np.sin(2*PI*(210+60*np.sin(tt*11))*tt)))*.5+_noise(rng,len(tt),12)*.2)*np.sin(np.minimum(tt/.55,1)*PI)**.6*.5
+ if name=='moo':tt=T(1.6);f=150-45*tt/1.6+8*np.sin(tt*30);return (np.sin(2*PI*np.cumsum(f)/SR)+.5*np.sin(4*PI*np.cumsum(f)/SR))*np.sin(np.minimum(tt/1.6,1)*PI)**.5*.4
+ if name=='baa':tt=T(1.0);f=380+60*np.sin(tt*34);return (np.sin(2*PI*np.cumsum(f)/SR)+.6*np.sin(6*PI*np.cumsum(f)/SR))*np.sin(np.minimum(tt/1.0,1)*PI)**.7*.32
+ if name=='neigh':tt=T(1.2);f=420+380*np.sin(np.minimum(tt/1.2,1)*PI)-180*tt;return (np.sin(2*PI*np.cumsum(f)/SR)+.5*np.sin(4*PI*np.cumsum(f)/SR)+_noise(rng,len(tt),10)*.2)*np.sin(np.minimum(tt/1.2,1)*PI)**.5*.35
+ if name=='bark':tt=T(.35);return (_noise(rng,len(tt),6)*.6+np.sin(2*PI*(330-250*tt)*tt)*.6)*np.exp(-tt*11)*.7
+ if name=='roar':tt=T(2.2);return (_noise(rng,len(tt),50)*.7+np.sin(2*PI*(70+30*np.sin(tt*9))*tt)*.8)*np.sin(np.minimum(tt/2.2,1)*PI)**.6*.7
+ if name=='chomp':tt=T(.5);return _noise(rng,len(tt),10)*(np.sin(tt*34)**2)*np.exp(-tt*3)*.5
  raise ValueError('unknown sound effect %r'%name)
-SFX=('knock','door','thud','step','clang','bell','gong','crash','scrape','splash','thunder','chime','clap','sting','whoosh','hum','creak')
+SFX=('knock','door','thud','step','clang','bell','gong','crash','scrape','splash','thunder','chime','clap','sting','whoosh','hum','creak','oink','moo','baa','neigh','bark','roar','chomp')
 def mix_events(N,SR,events):
  """events: (time seconds, samples, gain) -> one array"""
  out=np.zeros(N+SR*4)

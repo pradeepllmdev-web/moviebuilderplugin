@@ -28,6 +28,12 @@ SPECIES={
  'badger': dict(height=1.4, width=1.25,depth=1.1,tint=(.38,.38,.4),parts=[dict(kind='ears',shape='round',size=.7,color=(.3,.3,.32)),dict(kind='tuft',size=.8,color=(.95,.95,.95))],posture='angry',pitch=(85,110)),
  'boar':   dict(height=1.55,width=1.3, depth=1.2, tint=(.62,.42,.4),parts=[dict(kind='tusks',size=1.,color=(.96,.94,.86)),dict(kind='ears',shape='side',size=.9,color=(.55,.38,.36))],posture='angry',pitch=(75,100)),
  'cat':    dict(height=1.45,width=.8, depth=.85, tint=(.4,.4,.5),parts=[dict(kind='ears',shape='point',size=.9,color=(.35,.35,.42))],posture='jaunty',pitch=(160,210)),
+ # creatures: low-poly animals with their own skeleton and animations (Quaternius, CC0); they walk, run, jump and idle, make sounds instead of speech, and do not carry props
+ 'pig':dict(height=.85,width=1.,depth=2.4,tint=(1.,1.,1.),parts=[],posture='neutral',pitch=(150,150),creature='Pig'),'cow':dict(height=1.45,width=1.,depth=2.3,tint=(1.,1.,1.),parts=[],posture='neutral',pitch=(150,150),creature='Cow'),
+ 'horse':dict(height=1.75,width=1.,depth=2.4,tint=(1.,1.,1.),parts=[],posture='proud',pitch=(150,150),creature='Horse'),'llama':dict(height=1.6,width=1.,depth=1.8,tint=(1.,1.,1.),parts=[],posture='proud',pitch=(150,150),creature='Llama'),
+ 'pug':dict(height=.5,width=1.,depth=2.6,tint=(1.,1.,1.),parts=[],posture='jaunty',pitch=(150,150),creature='Pug'),'sheep':dict(height=.9,width=1.,depth=2.2,tint=(1.,1.,1.),parts=[],posture='neutral',pitch=(150,150),creature='Sheep'),
+ 'zebra':dict(height=1.55,width=1.,depth=2.4,tint=(1.,1.,1.),parts=[],posture='jaunty',pitch=(150,150),creature='Zebra'),'trex':dict(height=3.6,width=1.,depth=2.2,tint=(1.,1.,1.),parts=[],posture='angry',pitch=(150,150),creature='Trex'),
+ 'triceratops':dict(height=2.3,width=1.,depth=2.2,tint=(1.,1.,1.),parts=[],posture='neutral',pitch=(150,150),creature='Triceratops'),'raptor':dict(height=1.5,width=1.,depth=2.4,tint=(1.,1.,1.),parts=[],posture='hurried',pitch=(150,150),creature='Velociraptor'),
  'elder':  dict(height=1.55,width=.9, depth=.9,  tint=(.85,.82,.78),parts=[],posture='hunched',pitch=(100,130)),
 }
 # accessory catalogue: where it attaches (rig bone) and what it is made of (the builder owns the geometry)
@@ -105,7 +111,7 @@ def resolve(rec):
  posture=rec.get('posture',sp['posture']);lo,hi=sp['pitch'];pitch=rec.get('voice_pitch',lo+(hi-lo)*hash_unit(rec['id'],'pitch'))
  acc=[_acc(a) for a in expand_outfit(rec)]
  return dict(id=rec['id'],name=rec['name'],species=rec.get('species','lion'),height=h,scale=(round(w*sz,4),round(d*sz,4),round(sz,4)),tint=tint,parts=list(parts.values()),accessories=acc,posture=posture,gait=GAIT_BY_POSTURE[posture],pace=rec.get('pace',1.),pitch=pitch,voice=rec.get('voice'),
-  reach=.55*sz,radius=round(max(w,d)*sz*.38,3))
+  reach=.55*sz,radius=round(max(w,d)*sz*.38,3),creature=sp.get('creature'))
 def from_series_character(rec):
  """a character of the sibling 3dobjectnew repo ({'name','details'|'description','character_type'}) -> a registry entry guessed from its words; nothing in that repo is touched"""
  name=rec.get('name') or 'Nameless';text=' '.join(str(rec.get(k) or '') for k in ('details','description','character_type'));low=text.lower()

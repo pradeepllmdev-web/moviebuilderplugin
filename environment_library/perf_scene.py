@@ -28,9 +28,10 @@ def _piper(L,k):
 dg.register_voice_provider('piper',_piper)
 orig_pitch=dg.pitch_of;PITCH={i:PLAN.actors[i].look['pitch'] for i in PLAN.actors}
 dg.pitch_of=lambda name:PITCH.get(name,orig_pitch(name))
-CH={}
+CH={};CRE={}      # people (the lion rig: lips, eyes, hands) and creatures (own skeleton and actions)
 for i,a in PLAN.actors.items():
- CH[i]=cb.build(S,a.look,i)
+ ch_=cb.build(S,a.look,i);(CRE if ch_.get('creature') else CH)[i]=ch_
+ALL=dict(CH,**CRE)
 EXTRAS={}
 for e in PLAN.extras:
  ch=cb.build(S,e['look'],e['id']);EXTRAS[e['id']]=ch;r=ch['root'];r.location=(e['x'],e['y'],0.);r.rotation_euler=(0,0,e['h']+PI/2)
@@ -54,12 +55,12 @@ def hop(i,t):
     if 0<=u<=1:z=max(z,.05*sz*4*u*(1-u))
  return z,back
 def keyroot(i):
- a=PLAN.actors[i];r=CH[i]['root'];prev=None
+ a=PLAN.actors[i];r=ALL[i]['root'];prev=None
  for f in S.keys():
   k=min(len(a.X)-1,f-1);hz_,hb_=hop(i,(f-1)/FPS);r.location=(a.X[k]-math.cos(a.H[k])*hb_,a.Y[k]-math.sin(a.H[k])*hb_,hz_);h=a.H[k]+PI/2
   if prev is not None:h=prev+pp.wrap(h-prev)
   prev=h;r.rotation_euler=(0,0,h);r.keyframe_insert('location',frame=f);r.keyframe_insert('rotation_euler',frame=f)
-for i in CH:keyroot(i)
+for i in ALL:keyroot(i)
 # ---------------------------------------------------------------------------------------------------------- clips on the NLA (planted feet: play scale from the gait table)
 def place(ch,name,t0,t1,sc,opt,first):
  act=S.clip(name);f0=opt.get('f0');f1=opt.get('f1');tr=ch['tracks'][ch['n']%2];ch['n']+=1;a=t0 if first else max(0,t0-.2)
@@ -83,6 +84,34 @@ for i,ch in CH.items():
   if segs and c[1]-c[0]<.35 and not c[4]:segs[-1]=segs[-1][:1]+(c[1],)+segs[-1][2:];continue
   segs.append(c)
  for k,(t0,t1,name,sc,opt) in enumerate(segs):place(ch,name,t0,t1,sc,opt,k==0)
+# creatures: the plan's clips become the animal's own actions (walk gaits -> Walk / WalkSlow / Run with the play speed from the planned ground speed, acts -> Jump / Death / Idle)
+CR_SPEED={'walk':1.6,'walkslow':.9,'run':4.2}     # ground speed in body lengths per second of each action at play scale 1
+def place_creature(i,ch,name,t0,t1,sc,opt,first):
+ a=PLAN.actors[i];ca=ch['cact'];sp=None
+ for (w0,w1,g,scl,speed) in a.walks:
+  if w0-1e-3<=t0<=w1+1e-3:sp=speed
+ if name in ('run','brisk'):key_='run'
+ elif name in ('shuffle','sneak','crawl'):key_='walkslow'
+ elif name in ('walk','strut','stomp','bounce'):key_='walk'
+ elif name in ('jump','cele','startle','dodge','kick','hit','punch','getup','hips','bow'):key_='jump'
+ elif name=='fall':key_='death'
+ else:key_='idle'
+ if key_ not in ca:key_='idle'
+ act=ca[key_];n=int(act.frame_range[1]-act.frame_range[0])+1;loop=key_ in('idle','walk','walkslow','run')
+ scale=1.
+ if key_ in('walk','walkslow','run') and sp:
+  length=a.look['height']*2.2;scale=max(.4,min(2.5,CR_SPEED[key_]*length/max(.2,sp)))    # slower planned speed -> a longer cycle
+ tr=ch['rig'].animation_data.nla_tracks.new();ch['n']+=1;f_start=S.F(t0 if first else max(0,t0-.2));st=tr.strips.new(key_,f_start,act);st.action_slot=act.slots[0];st.scale=scale     # one track per strip: strips may overlap for the blend
+ if loop:st.repeat=max(1.,(S.F(t1)-f_start)/(n*scale));st.extrapolation='NOTHING'
+ else:
+  st.scale=max(.5,(S.F(t1)-f_start)/n) if key_=='jump' else 1.;st.extrapolation='HOLD' if key_=='death' else 'NOTHING'
+ st.blend_in=6 if ch['n']>1 else 0;st.blend_out=0 if key_=='death' else 6
+for i,ch in CRE.items():
+ segs=[];cl=PLAN.actors[i].clips
+ for c in cl:
+  if segs and c[1]-c[0]<.35 and not c[4]:segs[-1]=segs[-1][:1]+(c[1],)+segs[-1][2:];continue
+  segs.append(c)
+ for k,(t0,t1,name,sc,opt) in enumerate(segs):place_creature(i,ch,name,t0,t1,sc,opt,k==0)
 for e in PLAN.extras:     # extras stand and breathe out of step with each other, looking at the focus
  ch=EXTRAS[e['id']];rx=random.Random(sum(map(ord,e['id']+SPEC['id'])));place(ch,'idle',0,S.seconds,1.,dict(f0=rx.randint(1,60),f1=96),True)
 # ---------------------------------------------------------------------------------------------------------- gaze
@@ -144,6 +173,7 @@ for L in PLAN.lines:
   t+=rb.uniform(.9,1.6)
 EMOTE={'smile':dict(WarmSmile=.8),'frown':dict(Frown=.6),'concern':dict(Concern=.6,ActingBrowL=.4,ActingBrowR=.4),'sad':dict(ConcernStrong=.6,Frown=.2),'brows':dict(ActingBrowL=.7,ActingBrowR=.7)}
 for i,a in PLAN.actors.items():
+ if i not in CH:continue
  for (t0,t1,kind) in a.emotes:
   for nm,val in EMOTE[kind].items():key(CH[i],nm,[(S.F(t0),0),(S.F(t0+.4),val),(S.F(t1-.3),val),(S.F(t1),0)])
 # ---------------------------------------------------------------------------------------------------------- props
@@ -308,7 +338,7 @@ for k,m in enumerate(marks):
  f=int((m.frame+(marks[k+1].frame if k+1<len(marks) else sc.frame_end))/2);S.settle(f);sc.camera=m.camera
  subs=[c['subject']] if c['kind'] not in ('track',) else (c.get('group') or [c['subject']]);ok=False;chk+=1
  for subj in subs:
-  pt=S.head_pos(CH[subj])+Vector((0,0,.28*PLAN.actors[subj].size))
+  pt=(S.head_pos(CH[subj]) if subj in CH else Vector(PLAN.head_pos(subj,(f-1)/FPS)))+Vector((0,0,.28*PLAN.actors[subj].size))
   if c['kind']=='insert':pt=Vector(PLAN.props[c['prop']].at((f-1)/FPS,PLAN))
   co=world_to_camera_view(sc,m.camera,pt)
   if 0.03<co.x<.97 and 0.03<co.y<.97 and co.z>0:ok=True;break
@@ -356,7 +386,7 @@ try:
  _tg=bpy.data.objects.new('FocusTarget',None);_tg.location=(_cx,_cy,1.0);S.link(_tg);_tc=_so.constraints.new('TRACK_TO');_tc.target=_tg;_tc.track_axis='TRACK_NEGATIVE_Z';_tc.up_axis='UP_Y'
 except Exception as _e:print('focus light skipped',_e)
 S.sky_hook=lambda sc:pl.sky(sc,TIME,float(SPEC.get('fog',0.)))
-S.finish(issues,[CH[i]['root'] for i in CH],color_type='TEXTURE',world=pl.normalise(SPEC.get('location',dict(preset='meadow'))).get('world') or scene_params.preset(TIME if TIME in scene_params.TIME_OF_DAY else 'day')['world'])
+S.finish(issues,[ALL[i]['root'] for i in ALL],color_type='TEXTURE',world=pl.normalise(SPEC.get('location',dict(preset='meadow'))).get('world') or scene_params.preset(TIME if TIME in scene_params.TIME_OF_DAY else 'day')['world'])
 if os.environ.get('PERF_DEBUG'):
  for nm in CH:
   S.settle(S.F(float(os.environ['PERF_DEBUG'])));print('DBG',nm,'head',tuple(round(v,2) for v in S.head_pos(CH[nm])),'face',tuple(round(v,2) for v in S.face_dir(CH[nm])),'root',tuple(round(v,2) for v in CH[nm]['root'].matrix_world.translation),'gz',tuple(round(v,2) for v in GZ[nm].matrix_world.translation),'H',round(math.degrees(PLAN.pos(nm,float(os.environ['PERF_DEBUG']))[2]),0))

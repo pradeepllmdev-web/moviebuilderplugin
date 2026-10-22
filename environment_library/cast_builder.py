@@ -266,11 +266,47 @@ def tint_textures(ch,tint,size=1024):
     if img.size[0]>size:img.scale(size,size)
     n=len(img.pixels);a=np.empty(n,np.float32);img.pixels.foreach_get(a);a=a.reshape(-1,4);mx=max(tint)+1e-6;f=[min(1.6,1.3*v/mx) for v in tint];a[:,0]*=f[0];a[:,1]*=f[1];a[:,2]*=f[2]  ;np.clip(a,0,1,out=a);img.pixels.foreach_set(a.reshape(-1));img.update();img.pack();_TINTED[key]=img
    base.image=_TINTED[key]
+import os
+_A=os.path.join(os.path.dirname(os.path.abspath(__file__)),'assets')
+_FARM=os.path.join(_A,'quaternius_farm_animals_download','extracted','Blends');_DINO=os.path.join(_A,'quaternius_dinosaurs_download','extracted','Dinosaur Animated Pack - Dec 2018','Blends')
+CREATURE_FILES={n:(os.path.join(_FARM,n+'.blend'),'') for n in ('Pig','Cow','Horse','Llama','Pug','Sheep','Zebra')}
+CREATURE_FILES.update({n:(os.path.join(_DINO,n+'.blend'),n+'_') for n in ('Trex','Triceratops','Velociraptor')})
+def build_creature(S,look,tag):
+ """a low-poly animal (own skeleton, own Idle/Walk/Run/Jump/Death actions) as a character dict: root (scaled to the look's height, facing like the lion rig), rig, objs, cact (short action name -> action), NLA tracks"""
+ import bpy
+ from mathutils import Vector
+ path,prefix=CREATURE_FILES[look['creature']]
+ with bpy.data.libraries.load(path,link=False) as (src,dst):dst.objects=list(src.objects);dst.actions=list(src.actions)
+ root=bpy.data.objects.new(tag+'Root',None);S.link(root);objs=[]
+ for o in dst.objects:
+  if o is None or o.type in('CAMERA','LIGHT'):continue
+  S.link(o);objs.append(o)
+ for o in objs:
+  if o.parent is None:o.parent=root
+ bpy.context.view_layer.update()
+ rig=next(o for o in objs if o.type=='ARMATURE');body=max((o for o in objs if o.type=='MESH'),key=lambda o:len(o.data.vertices))
+ zs=[(body.matrix_world@Vector(c)).z for c in body.bound_box];h0=max(zs)-min(zs);k=look['height']/max(1e-6,h0);root.scale=(k,k,k)
+ tint=look.get('tint',(1.,1.,1.))
+ for o in objs:
+  if o.type!='MESH':continue
+  for slot in o.material_slots:
+   m=slot.material
+   if m is None:continue
+   m=m.copy();slot.material=m;m.diffuse_color=(m.diffuse_color[0]*tint[0],m.diffuse_color[1]*tint[1],m.diffuse_color[2]*tint[2],1.)
+   if m.use_nodes:
+    b=m.node_tree.nodes.get('Principled BSDF')
+    if b:c=b.inputs['Base Color'].default_value;b.inputs['Base Color'].default_value=(c[0]*tint[0],c[1]*tint[1],c[2]*tint[2],1.)
+ import re
+ cact={re.sub(r'\.\d+$','',a.name)[len(prefix):].lower():a for a in dst.actions if a is not None and re.sub(r'\.\d+$','',a.name).lower().startswith(prefix.lower())}    # a second animal of the same model gets actions named Idle.001 ...
+ rig.animation_data_create();rig.animation_data.action=None
+ return dict(rig=rig,root=root,objs=objs+[root],tracks=[rig.animation_data.nla_tracks.new(),rig.animation_data.nla_tracks.new()],n=0,creature=True,cact=cact,look=look,dress=[])
 def build(S,look,tag=None):
  """the character: lion rig, tint, scaled root, parts and accessories. Returns the S.character dict plus ch['look'], ch['dress'] (the dressing objects)."""
  import bpy
  from mathutils import Matrix,Vector
- tag=tag or look['id'];ch=S.character(tag,look['tint']);rig=ch['rig'];root=ch['root'];ch['look']=look
+ tag=tag or look['id']
+ if look.get('creature'):return build_creature(S,look,tag)
+ ch=S.character(tag,look['tint']);rig=ch['rig'];root=ch['root'];ch['look']=look
  if tuple(look['tint'])!=(1.,1.,1.):tint_textures(ch,look['tint'])
  act=S.clip('idle');rig.animation_data.action=act;rig.animation_data.action_slot=act.slots[0];S.scene.frame_set(1);bpy.context.view_layer.update()
  W=lambda b:rig.matrix_world@rig.pose.bones[b].head;hr,hl=W('mixamorig:RightHand'),W('mixamorig:LeftHand');tail=rig.matrix_world@rig.pose.bones['Tail'].tail
