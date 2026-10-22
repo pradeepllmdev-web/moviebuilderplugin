@@ -5,7 +5,7 @@
     md=perf_storyboard.review_md(film, plans)        a table read: lines and words per scene, speech share, action density, dead time, repeated beats, screen time and a list of notes
 
 The purpose of a shot is read from what the plan puts in it: an establishing wide, a face for an emotional line, a reveal of what a character points at, a chase, a detail of the hands, a reaction. The review flags what makes a film drag: long stretches with no speech and no story event, scenes that are all talk, the same beat repeated, characters who never speak or act."""
-import collections
+import collections,math
 STORY_EVENTS=('take','put','give','push','point','icon','act','sit','stand')
 def _events(plan,a,b):return [e for e in plan.events if e.get('t0',0)<b-1e-6 and e.get('t1',0)>a+1e-6]
 def purpose(plan,c):
@@ -53,6 +53,54 @@ def scene_stats(plan):
  rep=[(k,v) for k,v in acts.items() if v>=3]
  n_story=sum(1 for e in plan.events if e['kind'] in STORY_EVENTS)
  return dict(seconds=secs,lines=len(plan.lines),words=words,speech=speech,events=n_story,density=10.*n_story/max(1.,secs),dead=worst[0],dead_at=worst[1],repeats=rep,speakers={L['speaker'] for L in plan.lines},actors=set(plan.actors))
+ACTIVE=('take','put','give','push','point','icon','sit','stand','act')
+def _norm(t):return ' '.join(''.join(ch for ch in t.lower() if ch.isalnum() or ch==' ').split())
+def story_check(film,plans):
+ """the story-level checks of a film (pure Python, from the plans): returns a list of notes. A scene without a goal; a walk that arrives at nothing (no line, action or sign within three seconds of arriving, and nobody speaks while walking); a prop that is picked up and never given, put down or carried into the next scene; a line used twice; a scene that is silent for too long at the start, or talks for a long time before anything is shown"""
+ notes=[];scenes=film['scenes'];taken={}
+ for k,(sp,P) in enumerate(zip(scenes,plans)):
+  if P is None:continue
+  sid=sp['id']
+  if not sp.get('objective') and not sp.get('intent'):notes.append('%s: no goal or intent written for the scene'%sid)
+  ev=P.events
+  def near(who,a,b):
+   for e in ev:
+    if e['kind']=='say' and (e['who']==who or e.get('to')==who) and e['t0']<b and e['t1']>a:return True
+    if e['kind'] in ACTIVE and e['who']==who and e['t0']<b and e['t1']>a and not (e['kind']=='act' and e.get('clip') in('idle','look')):return True
+   return False
+  for e in ev:
+   if e['kind']!='go' or e['t1']-e['t0']<4.:continue
+   if e['t1']>P.seconds-1.5:continue            # leaving the scene is a purpose
+   if e.get('gait') in('run','brisk'):continue     # a chase or a hurry has its own purpose
+   px,py=P.pos(e['who'],e['t1'])[:2]
+   if any(j!=e['who'] and math.hypot(px-P.pos(j,e['t1'])[0],py-P.pos(j,e['t1'])[1])<2.6 for j in P.actors):continue     # walks up to someone
+   if any(math.hypot(px-q.at(e['t1'],P)[0],py-q.at(e['t1'],P)[1])<1.6 for q in P.props.values()):continue     # walks up to a prop
+   if sum(1 for g in ev if g['kind']=='go' and g['t0']<e['t1'] and g['t1']>e['t0'])>=3:continue     # a crowd on the move (a march, a flight)
+   if near(e['who'],e['t0'],e['t1']+3.):continue   # speaks while walking, or something happens on arrival
+   notes.append('%s: %s walks for %.0f s from %.0f s and then nothing happens (give the walk a reason, a line or an action on arrival, or cut it)'%(sid,e['who'],e['t1']-e['t0'],e['t0']))
+  if P.lines:
+   first=min(L['t0'] for L in P.lines)
+   if first>9. and P.seconds>20:notes.append('%s: the first line comes at %.0f s: say what the scene is about sooner'%(sid,first))
+  held=set();
+  for pid,pr in P.props.items():
+   last=None
+   for seg in pr.track:
+    if seg[1]=='held':last=seg[2]
+    elif seg[1]=='world' and seg[0]>0:last=None
+   if last:held.add((pid,last))
+  for pid,who in held:
+   nxt=scenes[k+1] if k+1<len(scenes) else None
+   carried=nxt is not None and any(c.get('holds')==pid for c in nxt['cast'])
+   if nxt is not None and not carried and who in {c['id'] for c in nxt['cast']}:notes.append('%s: %s ends the scene holding %s but the next scene does not carry it on (at(..., holds=%r))'%(sid,who,pid,pid))
+  for pid,pr in P.props.items():
+   taken[pid]=taken.get(pid,0)+sum(1 for seg in pr.track if seg[1]=='held')
+ texts={}
+ for sp,P in zip(scenes,plans):
+  if P is None:continue
+  for L in P.lines:texts.setdefault(_norm(L['text']),[]).append(sp['id'])
+ for t,w in texts.items():
+  if len(w)>1 and len(t.split())>2:notes.append('the line %r is spoken %d times (%s): vary it'%(t,len(w),', '.join(w)))
+ return notes
 def review_md(film,plans):
  out=['# Table read: %s'%film.get('title',film.get('id','film')),'','| scene | s | lines | words | speech | events/10 s | longest dead stretch |','|---|---|---|---|---|---|---|'];notes=[];speak=collections.Counter();cast=set(c['id'] for c in film['cast']);total=0.;talk=0.;used=set()
  for sp,P in zip(film['scenes'],plans):
@@ -64,6 +112,7 @@ def review_md(film,plans):
   if s['speech']/max(1,s['seconds'])>.7:notes.append('%s: %.0f%% talk: show something while they speak (walk and talk, props, reactions)'%(sp['id'],100*s['speech']/s['seconds']))
   for (who,clip),n in s['repeats']:notes.append('%s: %s does %r %d times: vary it'%(sp['id'],who,clip,n))
   if s['lines']==0 and s['seconds']>20:notes.append('%s: no dialogue for %.0f s: make sure the action carries the story (icons, reveals)'%(sp['id'],s['seconds']))
+ notes+=story_check(film,plans)
  out+=['','Film: %.0f s, speech %.0f%%'%(total,100*talk/max(1,total))]
  mute=[c for c in cast if speak[c]==0 and c in used]
  if mute:notes.append('characters who never speak (fine for animals, a gap for people): %s'%', '.join(sorted(mute)))

@@ -62,7 +62,7 @@ S.append(scene('chime','The key comes home',loc('village_square',8,objects=[TOWE
  par(act('pol','cele'),act('ada','cele'),act('mina','cele'),act('joss','laugh')),
 ],time='day',ambience='wind',music='epic',intent='Mina returns the key. Nell winds the clock and the bell rings.'))
 # 6 ---------------------------------------------------------------------------------------------------------------- the bun
-S.append(scene('bun','A bun for a hero',loc('village_square',9,objects=[dict(kind='bench',at=[0,-2.5],id='bench0',yaw=0),KEYSTAND(-4,2,1.15)]),[at('mina',-1.5,-4.5,face=[0,-2.5]),at('pol',-4,0,face=[0,-2.5]),at('ada',4,-1,face=[0,-2.5]),at('joss',7,-5,face=[0,-2.5]),at('nell',5,2,face=[0,-2.5])],props=[prop('bun','basket',-4,2,on='stand0',size=.55)],steps=[
+S.append(scene('bun','A bun for a hero',loc('village_square',9,objects=[dict(kind='bench',at=[0,-2.5],id='bench0',yaw=0),KEYSTAND(-4,2,1.15)]),[at('mina',-1.5,-4.5,face=[0,-2.5]),at('pol',-4,0,face=[0,-2.5]),at('ada',4,-1,face=[0,-2.5]),at('joss',7,-5,face=[0,-2.5]),at('nell',5,2,face=[0,-2.5],holds='key')],props=[prop('bun','basket',-4,2,on='stand0',size=.55),prop('key','key',5,2,z=1.0,size=2.2)],steps=[
  par(take('pol','bun'),look('mina','pol',2)),
  par(go('pol',[-1.6,-3.6],gait='walk'),go('joss',[1.8,-3.8],gait='walk'),icon('joss','joy',1.8)),
  give('pol','mina'),
