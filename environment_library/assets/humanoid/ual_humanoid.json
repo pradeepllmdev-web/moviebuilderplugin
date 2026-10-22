@@ -1,0 +1,142 @@
+{
+ "actions": {
+  "A_TPose": 61,
+  "Chest_Open": 33,
+  "ClimbUp_1m_RM": 17,
+  "Consume": 33,
+  "Farm_Harvest": 61,
+  "Farm_PlantSeed": 67,
+  "Farm_Watering": 92,
+  "Hit_Knockback": 21,
+  "Hit_Knockback_RM": 21,
+  "Idle_FoldArms_Loop": 61,
+  "Idle_Lantern_Loop": 61,
+  "Idle_No_Loop": 61,
+  "Idle_Rail_Call": 61,
+  "Idle_Rail_Loop": 61,
+  "Idle_Shield_Break": 26,
+  "Idle_Shield_Loop": 61,
+  "Idle_TalkingPhone_Loop": 71,
+  "LayToIdle": 37,
+  "Melee_Hook": 12,
+  "Melee_Hook_Rec": 15,
+  "NinjaJump_Idle_Loop": 49,
+  "NinjaJump_Land": 31,
+  "NinjaJump_Start": 24,
+  "OverhandThrow": 33,
+  "Crouch_Fwd_Loop": 61,
+  "Crouch_Idle_Loop": 89,
+  "Dance_Loop": 31,
+  "Death01": 73,
+  "Driving_Loop": 51,
+  "Fixing_Kneeling": 157,
+  "Hit_Chest": 11,
+  "Hit_Head": 14,
+  "Idle_Loop": 76,
+  "Idle_Talking_Loop": 89,
+  "Idle_Torch_Loop": 39,
+  "Interact": 61,
+  "Jog_Fwd_Loop": 29,
+  "Jump_Land": 39,
+  "Jump_Loop": 76,
+  "Jump_Start": 41,
+  "PickUp_Table": 26,
+  "Pistol_Aim_Down": 6,
+  "Pistol_Aim_Neutral": 6,
+  "Pistol_Aim_Up": 6,
+  "Pistol_Idle_Loop": 51,
+  "Pistol_Reload": 51,
+  "Pistol_Shoot": 20,
+  "Punch_Cross": 31,
+  "Punch_Jab": 27,
+  "Push_Loop": 81,
+  "Roll": 45,
+  "Roll_RM": 45,
+  "Sitting_Enter": 40,
+  "Sitting_Exit": 32,
+  "Sitting_Idle_Loop": 51,
+  "Sitting_Talking_Loop": 89,
+  "Spell_Simple_Enter": 17,
+  "Spell_Simple_Exit": 14,
+  "Spell_Simple_Idle_Loop": 64,
+  "Spell_Simple_Shoot": 16,
+  "Sprint_Loop": 21,
+  "Swim_Fwd_Loop": 41,
+  "Swim_Idle_Loop": 101,
+  "Sword_Attack": 47,
+  "Sword_Attack_RM": 47,
+  "Sword_Idle": 51,
+  "Walk_Formal_Loop": 41,
+  "Walk_Loop": 41,
+  "Shield_Dash_RM": 27,
+  "Shield_OneShot": 21,
+  "Slide_Exit": 13,
+  "Slide_Loop": 49,
+  "Slide_Start": 21,
+  "Sword_Block": 30,
+  "Sword_Dash_RM": 38,
+  "Sword_Regular_A": 11,
+  "Sword_Regular_A_Rec": 24,
+  "Sword_Regular_B": 13,
+  "Sword_Regular_B_Rec": 25,
+  "Sword_Regular_C": 49,
+  "Sword_Regular_Combo": 73,
+  "TreeChopping_Loop": 24,
+  "Walk_Carry_Loop": 49,
+  "Yes": 61,
+  "Zombie_Idle_Loop": 33,
+  "Zombie_Scratch": 44,
+  "Zombie_Walk_Fwd_Loop": 33
+ },
+ "rest": {
+  "height": 1.828716989577515,
+  "zmin": 0.00046146291424520314,
+  "dims": [
+   1.9444537162780762,
+   0.3695984482765198,
+   1.8287169933319092
+  ]
+ },
+ "bones": {
+  "root": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "pelvis": [
+   0.0,
+   0.05,
+   0.917
+  ],
+  "spine_03": [
+   0.0,
+   0.005,
+   1.315
+  ],
+  "neck_01": [
+   0.0,
+   0.011,
+   1.488
+  ],
+  "Head": [
+   0.0,
+   -0.005,
+   1.569
+  ],
+  "hand_l": [
+   0.739,
+   0.065,
+   1.441
+  ],
+  "foot_l": [
+   0.089,
+   0.036,
+   0.104
+  ],
+  "ball_l": [
+   0.089,
+   -0.113,
+   0.015
+  ]
+ }
+}
