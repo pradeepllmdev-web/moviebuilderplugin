@@ -136,7 +136,7 @@ def _frame(plan,c,t):
   if kd=='follow_high':dist*=1.5
   dist*=c.get('dm',1.)*max(.72,size**.6)    # a small walker is followed from closer, so he stays big in the frame
   ahead=1.6*c.get('front',1.)    # the camera stands a little ahead of the walker, so the face is seen
-  return (cx+n[0]*dist+f[0]*ahead,cy+n[1]*dist+f[1]*ahead,hz),(cx+f[0]*lead*.5,cy+f[1]*lead*.5,1.1*size),lens
+  return (cx+n[0]*dist+f[0]*ahead,cy+n[1]*dist+f[1]*ahead,hz),(cx+f[0]*lead*.5,cy+f[1]*lead*.5,1.1*size*(1.12 if plan.actors[sp].look.get('humanoid') else 1.)),lens
  if kd=='insert':
   p=plan.props[c['prop']];pp=p.at(t,plan);x,y,h=plan.pos(sp,t);a=plan.actors[sp];dm=c.get('dm',1.)
   f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.))
@@ -146,7 +146,8 @@ def _frame(plan,c,t):
   return (hs[0]-d[0]*1.3+n[0]*.7,hs[1]-d[1]*1.3+n[1]*.7,hs[2]+.25),aim,lens
  if kd=='medium':
   x,y,h=plan.pos(sp,t);a=plan.actors[sp];f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.));d=4.6*max(.65,a.size)*c.get('dm',1.)*(.72 if c.get('close') else 1.)
-  fx,fy=_rotv(f,math.radians(30*c.get('side',1.)));return (x+fx*d,y+fy*d,1.35*a.size),(x,y,1.05*a.size),lens
+  fx,fy=_rotv(f,math.radians(30*c.get('side',1.)));hk=1.12 if a.look.get('humanoid') else 1.     # a person's head is higher for the same size than the lion's
+  return (x+fx*d,y+fy*d,1.35*a.size*hk),(x,y,1.05*a.size*hk),lens
  raise ValueError('unknown shot kind %r'%kd)
 
 def _obs(plan):

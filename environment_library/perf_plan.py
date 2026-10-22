@@ -250,6 +250,7 @@ class Plan:
  def cur_t(s):return max(a.t for a in s.actors.values())
  def local_to_world(s,a,t,l):
   f=min(len(a.X)-1,max(0,int(round(t*FPS))));h=a.H[f]+math.pi/2;c,sn=math.cos(h),math.sin(h);k=a.size
+  if a.look.get('humanoid'):l=(l[0]*.62,l[1]*.55,l[2]*1.2)     # a person's hands hold things closer to the body and higher than the lion's
   return (a.X[f]+(c*l[0]-sn*l[1])*k,a.Y[f]+(sn*l[0]+c*l[1])*k,l[2]*k)
  def hand_target(s,a,hand,t):
   """(influence, world position) of an actor's IK hand target at time t, from its keys"""
@@ -365,7 +366,7 @@ class Plan:
   a=s.actors[b['who']];tp=s.point(b['at']);dur=b.get('dur',1.6);hd=b.get('hand','R')
   if a.state!='stand':raise SpecError('point: %s must be standing'%a.id)
   dx,dy=tp[0]-a.X[-1],tp[1]-a.Y[-1];L=math.hypot(dx,dy) or 1.;ux,uy=dx/L,dy/L;side=-1. if hd=='R' else 1.
-  M=(a.X[-1]+ux*.62*a.size-uy*side*.12*a.size,a.Y[-1]+uy*.62*a.size+ux*side*.12*a.size,a.size*(1.18+.5*max(-.4,min(.5,(tp[2]-a.size*1.2)/max(1.,L)))))
+  fw=.45 if a.look.get('humanoid') else .62;M=(a.X[-1]+ux*fw*a.size-uy*side*.12*a.size,a.Y[-1]+uy*fw*a.size+ux*side*.12*a.size,a.size*(1.24 if a.look.get('humanoid') else 1.)*(1.18+.5*max(-.4,min(.5,(tp[2]-a.size*1.2)/max(1.,L)))))
   if abs(wrap(math.atan2(dy,dx)-a.H[-1]))>math.radians(35):a.face_point(tp,.7)
   ts=a.t;ks=a.hands[hd];prev=(ks[-1][1],ks[-1][2]) if ks else (0.,('local',(-.36 if hd=='R' else .36,-.1,.66)))
   ks.append((ts,prev[0],prev[1]));ks.append((ts+.35,1.,('world',M)));ks.append((ts+.35+dur,1.,('world',M)));ks.append((ts+.35+dur+.45,0.,('local',(-.36 if hd=='R' else .36,-.1,.66))))
@@ -468,8 +469,8 @@ class Plan:
   return p
  def _stand_spot(s,a,target,z,what):
   """where a stands to reach a target point at height z: free of solids and of other characters, within arm's reach of the point, nearest to where it is now"""
-  k=a.size;drop=1.12*k-z;arm=.5*k;lat=.22*k
-  if abs(drop)>arm*.97 or arm*arm-drop*drop-lat*lat<.01:raise SpecError('%s: %s cannot reach %s at height %.2f (shoulder %.2f, arm %.2f)'%(what,a.id,target,z,1.12*k,arm))
+  k=a.size;rk=1.24 if a.look.get('humanoid') else 1.;drop=1.12*k*rk-z;arm=.5*k*(1.04 if rk>1 else 1.);lat=.22*k     # a person's shoulder is higher and arm longer for the same size than the lion's
+  if abs(drop)>arm*.97 or arm*arm-drop*drop-lat*lat<.01:raise SpecError('%s: %s cannot reach %s at height %.2f (shoulder %.2f, arm %.2f)'%(what,a.id,target,z,1.12*k*rk,arm))
   dmax=min(.42*k,math.sqrt(arm*arm-drop*drop-lat*lat)+.07*k);dmin=min(.3*k,dmax*.7);obst=s.layout['obstacles']
   def ok(q):
    if any(math.hypot(q[0]-c[0],q[1]-c[1])<c[2]+.02+a.radius*.2 for c in obst):return False
@@ -521,6 +522,7 @@ class Plan:
   if mult==1. and tn>6.:mult=min(1.4,tn/6.)
   speed=nat*size*a.look['pace']*mult
   if a.look.get('creature'):speed=cr.creature_speed(a.look['creature'],gait)[0]*a.look['pace']     # a creature moves at the speed its animation was made for
+  elif a.look.get('humanoid'):speed=cr.humanoid_speed(gait,a.look['height'])[0]*a.look['pace']     # a person moves at a speed the walk, jog and sprint actions can be played at with planted feet
   sc=gaits.play_scale(gait,speed,size);t0=a.t;a.walk(path,speed,gait,sc)
   s.events.append(dict(kind='go',who=a.id,t0=t0,t1=a.t,gait=gait,to=tuple(end[:2]),speed=speed));return a.t-t0
  def b_go(s,b,t0):
@@ -612,11 +614,16 @@ class Plan:
   if p is None or a.holding!=pid:raise SpecError('give: %s holds nothing'%a.id)
   if r.holding:raise SpecError('give: %s already holds %s'%(r.id,r.holding))
   hand=p.track[-1][3];hs=('R','L') if hand=='both' else (hand,)
-  dist=.4*(a.size+r.size)+.1
+  dist=.4*(a.size+r.size)+.1-(.25 if r.state=='sit' else 0.)     # a seated receiver cannot lean out to meet the hand
   if math.hypot(r.X[-1]-a.X[-1],r.Y[-1]-a.Y[-1])>dist+.3:s._approach(a,(r.X[-1],r.Y[-1]),dist,b.get('gait'))
   a.face_point((r.X[-1],r.Y[-1]));r.face_point((a.X[-1],a.Y[-1]),.5)
   ts=max(a.t,r.t);a.pad_to(ts);r.pad_to(ts);fx,fy=math.cos(a.H[-1]),math.sin(a.H[-1])
-  M=(a.X[-1]+fx*(.4*a.size+.05),a.Y[-1]+fy*(.4*a.size+.05),.85*(a.size+r.size)/2);rh=p.carry if p.carry in ('R','L') else 'R'
+  zg=.85*(a.size+r.size)/2
+  if a.look.get('humanoid'):     # the exchange height: reachable for the taller giver and the shorter receiver, from their own shoulder heights
+   sh=lambda q:1.12*q.size*(1.24 if q.look.get('humanoid') else 1.);zg=max(sh(a)-.45,sh(r)-.45)+.05
+  fw=.4*a.size+.05
+  if a.look.get('humanoid'):fw=max(.3,min(.42*a.size,math.hypot(r.X[-1]-a.X[-1],r.Y[-1]-a.Y[-1])-.2))     # reach toward the receiver as far as the arm goes
+  M=(a.X[-1]+fx*fw,a.Y[-1]+fy*fw,zg);rh=p.carry if p.carry in ('R','L') else 'R'
   for h in hs:a.hands[h].append((ts,a.hands[h][-1][1],a.hands[h][-1][2]));a.hands[h].append((ts+.7,1.,('world',M)))
   r._reach_hand=rh;s._reach(r,(rh,),{rh:M},ts,.7)
   tg=ts+.9;a.hold(1.1);r.pad_to(a.t);p.track.append((tg,'held',r.id,rh));r.holding=pid;a.holding=None
@@ -641,9 +648,9 @@ class Plan:
  def pos(s,who,t):
   a=s.actors[who];f=min(len(a.X)-1,max(0,int(round(t*FPS))));return a.X[f],a.Y[f],a.H[f]
  def head_pos(s,who,t):
-  a=s.actors[who];x,y,h=s.pos(who,t);z=1.42*a.size
+  a=s.actors[who];x,y,h=s.pos(who,t);hu=a.look.get('humanoid');z=(1.57 if hu else 1.42)*a.size
   for (t0,t1,name,sc,opt) in a.clips:
-   if t0<=t<t1 and opt.get('sit') and not opt.get('reverse'):z=1.12*a.size if t>t0+1.6 else z
+   if t0<=t<t1 and opt.get('sit') and not opt.get('reverse'):z=(1.2 if hu else 1.12)*a.size if t>t0+1.6 else z
   return (x,y,z)
  def line_at(s,t,pad=.1):
   for L in s.lines:
@@ -710,7 +717,7 @@ class Plan:
    if dh.size and dh.max()>math.radians(420):out.append('AUDIT turn: %s turns %.0f deg/s'%(i,math.degrees(dh.max())))
    for (t0,t1,g,sc,speed) in a.walks:
     nat=gaits.natural_speed(g)*a.stride*a.look['pace']
-    if not a.look.get('creature') and (speed>nat*1.4 or speed<nat*.45):out.append('AUDIT gait: %s walks at %.2f m/s, natural for %s is %.2f'%(i,speed,g,nat))
+    if not a.look.get('creature') and not a.look.get('humanoid') and (speed>nat*1.4 or speed<nat*.45):out.append('AUDIT gait: %s walks at %.2f m/s, natural for %s is %.2f'%(i,speed,g,nat))
     f0,f1=int(t0*FPS),int(t1*FPS);
     if f1-f0>6:
      v=np.hypot(np.diff(X[n][f0:f1+1]),np.diff(Y[n][f0:f1+1])).mean()*FPS

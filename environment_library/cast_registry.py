@@ -28,6 +28,8 @@ SPECIES={
  'badger': dict(height=1.4, width=1.25,depth=1.1,tint=(.38,.38,.4),parts=[dict(kind='ears',shape='round',size=.7,color=(.3,.3,.32)),dict(kind='tuft',size=.8,color=(.95,.95,.95))],posture='angry',pitch=(85,110)),
  'boar':   dict(height=1.55,width=1.3, depth=1.2, tint=(.62,.42,.4),parts=[dict(kind='tusks',size=1.,color=(.96,.94,.86)),dict(kind='ears',shape='side',size=.9,color=(.55,.38,.36))],posture='angry',pitch=(75,100)),
  'cat':    dict(height=1.45,width=.8, depth=.85, tint=(.4,.4,.5),parts=[dict(kind='ears',shape='point',size=.9,color=(.35,.35,.42))],posture='jaunty',pitch=(160,210)),
+ # people on the Universal Animation Library rig (a mannequin with colours by region, a simple face, ~90 animations): record fields skin, shirt, pants, shoes, hair (colours), height (1.45-2.0 m)
+ 'person':dict(height=1.7,width=1.,depth=1.,tint=(1.,1.,1.),parts=[],posture='neutral',pitch=(95,230),humanoid='UAL'),
  # creatures: low-poly animals with their own skeleton and animations (Quaternius, CC0); they walk, run, jump and idle, make sounds instead of speech, and do not carry props
  'pig':dict(height=.85,width=1.,depth=2.4,tint=(1.,1.,1.),parts=[],posture='neutral',pitch=(150,150),creature='Pig'),'cow':dict(height=1.45,width=1.,depth=2.3,tint=(1.,1.,1.),parts=[],posture='neutral',pitch=(150,150),creature='Cow'),
  'horse':dict(height=1.75,width=1.,depth=2.4,tint=(1.,1.,1.),parts=[],posture='proud',pitch=(150,150),creature='Horse'),'llama':dict(height=1.6,width=1.,depth=1.8,tint=(1.,1.,1.),parts=[],posture='proud',pitch=(150,150),creature='Llama'),
@@ -108,6 +110,24 @@ def creature_speed(model,gait):
  if gait=='brisk':return r*.55,'run'
  if gait in('shuffle','sneak','crawl'):return sl,'walkslow'
  return w,'walk'
+SKINS=[(.94,.76,.62),(.84,.63,.47),(.68,.47,.33),(.5,.34,.24),(.36,.24,.17),(.96,.82,.7)]
+HAIRS=[(.08,.06,.05),(.25,.15,.08),(.45,.3,.15),(.75,.6,.3),(.55,.55,.55),(.7,.25,.1),(.15,.1,.2)]
+def _dress(rec):
+ """colours of a person (skin, shirt, pants, shoes, hair): the record's own or a deterministic pick from its id"""
+ h=lambda k,n:int(hash_unit(rec['id'],k)*n)%n
+ cols=rec.get('colors') or []
+ return dict(skin=tuple(rec.get('skin',SKINS[h('skin',len(SKINS))])),shirt=tuple(rec.get('shirt',cols[0] if cols else PALETTE_P[h('shirt',len(PALETTE_P))])),pants=tuple(rec.get('pants',cols[1] if len(cols)>1 else PALETTE_P[(h('pants',len(PALETTE_P))+3)%len(PALETTE_P)])),shoes=tuple(rec.get('shoes',(.2,.13,.09))),hair=tuple(rec.get('hair',HAIRS[h('hair',len(HAIRS))])))
+PALETTE_P=[(.75,.2,.18),(.2,.4,.75),(.25,.55,.3),(.9,.75,.2),(.55,.3,.65),(.9,.9,.85),(.55,.35,.2),(.2,.55,.6),(.3,.3,.35),(.85,.45,.2)]
+# measured ground speed of the person's Walk, Crouch, Jog and Sprint actions at play speed 1 for the 1.83 m mannequin (m/s); the planner moves a person at its own pace and the clip is played faster or slower to match, so the feet stay planted
+HUMAN_NAT=dict(walk=.65,slow=.5,jog=2.3,sprint=4.2)
+HUMAN_PLAN=dict(walk=1.05,slow=.6,brisk=2.0,run=3.4)       # m/s planned for a 1.83 m person (scaled by height)
+def humanoid_speed(gait,height):
+ """(planned m/s, clip key) of a gait for a person of this height"""
+ k=height/1.83
+ if gait=='run':return HUMAN_PLAN['run']*k,'sprint'
+ if gait=='brisk':return HUMAN_PLAN['brisk']*k,'jog'
+ if gait in('shuffle','sneak','crawl'):return HUMAN_PLAN['slow']*k,'slow'
+ return HUMAN_PLAN['walk']*k,'walk'
 def resolve(rec):
  """the full look: scale (sx,sy,sz), tint, parts (species parts overridden by kind), accessories, gait, pitch, pace"""
  bad=validate(rec)
@@ -120,7 +140,7 @@ def resolve(rec):
  posture=rec.get('posture',sp['posture']);lo,hi=sp['pitch'];pitch=rec.get('voice_pitch',lo+(hi-lo)*hash_unit(rec['id'],'pitch'))
  acc=[_acc(a) for a in expand_outfit(rec)]
  return dict(id=rec['id'],name=rec['name'],species=rec.get('species','lion'),height=h,scale=(round(w*sz,4),round(d*sz,4),round(sz,4)),tint=tint,parts=list(parts.values()),accessories=acc,posture=posture,gait=GAIT_BY_POSTURE[posture],pace=rec.get('pace',1.),pitch=pitch,voice=rec.get('voice'),
-  reach=.55*sz,radius=round(max(w,d)*sz*.38,3),creature=sp.get('creature'))
+  reach=.55*sz,radius=round(max(w,d)*sz*.38,3),creature=sp.get('creature'),humanoid=sp.get('humanoid'),dress=_dress(rec) if sp.get('humanoid') else None)
 def from_series_character(rec):
  """a character of the sibling 3dobjectnew repo ({'name','details'|'description','character_type'}) -> a registry entry guessed from its words; nothing in that repo is touched"""
  name=rec.get('name') or 'Nameless';text=' '.join(str(rec.get(k) or '') for k in ('details','description','character_type'));low=text.lower()

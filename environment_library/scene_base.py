@@ -11,6 +11,10 @@ import numpy as np
 from mathutils import Vector,Euler,Matrix
 import scene_kit as kit,scene_params,locations
 PI=math.pi;smooth=kit.smooth
+MIX=dict(head='mixamorig:Head',LH_fore='mixamorig:LeftForeArm',RH_fore='mixamorig:RightForeArm',LH_up='mixamorig:LeftArm',RH_up='mixamorig:RightArm',lfoot='mixamorig:LeftFoot',rfoot='mixamorig:RightFoot',lhand='mixamorig:LeftHand',rhand='mixamorig:RightHand')
+def B(ch,k):
+ """bone name of a role (head, forearms, upper arms, feet, hands) on this character's skeleton: the lion's Mixamo names unless the character carries its own map ch['bn']"""
+ return ch.get('bn',MIX)[k]
 class Scene:
  def __init__(self,name):
   args=sys.argv[sys.argv.index('--')+1:];self.assets,self.out=args[0],args[1]
@@ -80,27 +84,27 @@ class Scene:
    a,b,clip=s[:3];sc=s[3] if len(s)>3 else 1.;f0=s[4] if len(s)>4 else None;f1=s[5] if len(s)>5 else None;self.strip(ch,clip,a if not k else max(0,a-.2),b,sc,hold=(k==0),f0=f0,f1=f1)
  def ik(self,ch,influence=0.,pole_y=.5):
   IK={};TG={};rig=ch['rig']
-  for limb,bone in (('LH','LeftForeArm'),('RH','RightForeArm')):
+  for limb,bone in (('LH',B(ch,'LH_fore')),('RH',B(ch,'RH_fore'))):
    tg=bpy.data.objects.new('Wrist_%s_%s'%(ch['tag'],limb),None);tg.empty_display_size=.04;self.link(tg);TG[limb]=tg
    pole=bpy.data.objects.new('Pole_%s_%s'%(ch['tag'],limb),None);self.link(pole);pole.parent=ch['root'];sg=1 if limb=='LH' else -1;pole.location=(.5*sg,pole_y,.9)
-   k=rig.pose.bones['mixamorig:'+bone].constraints.new('IK');k.target=tg;k.pole_target=pole;k.pole_angle=math.radians(-90 if limb=='LH' else 90);k.chain_count=2;k.use_stretch=False;k.influence=influence;IK[limb]=k
+   k=rig.pose.bones[bone].constraints.new('IK');k.target=tg;k.pole_target=pole;k.pole_angle=math.radians(-90 if limb=='LH' else 90);k.chain_count=2;k.use_stretch=False;k.influence=influence;IK[limb]=k
   ch['IK']=IK;ch['TG']=TG;return IK,TG
  def shoulders(self,ch):
   self.scene.frame_set(1);bpy.context.view_layer.update();rig=ch['rig']
-  return {l:rig.matrix_world@rig.pose.bones['mixamorig:'+b+'Arm'].head for l,b in (('LH','Left'),('RH','Right'))}
+  return {l:rig.matrix_world@rig.pose.bones[B(ch,l+'_up')].head for l in ('LH','RH')}
  def gaze(self,ch,facing,influence=.8):
   """Head damped-track to an empty (returned) keyed by the caller; facing = world direction the character faces at frame 1."""
-  self.scene.frame_set(1);bpy.context.view_layer.update();rig=ch['rig'];hm=(rig.matrix_world@rig.pose.bones['mixamorig:Head'].matrix).to_3x3()
+  self.scene.frame_set(1);bpy.context.view_layer.update();rig=ch['rig'];hm=(rig.matrix_world@rig.pose.bones[B(ch,'head')].matrix).to_3x3()
   AX={'TRACK_X':hm.col[0],'TRACK_NEGATIVE_X':-hm.col[0],'TRACK_Y':hm.col[1],'TRACK_NEGATIVE_Y':-hm.col[1],'TRACK_Z':hm.col[2],'TRACK_NEGATIVE_Z':-hm.col[2]}
   fa=max(AX,key=lambda k:AX[k].normalized().dot(Vector(facing).normalized()));ch['face_axis']=fa;g=bpy.data.objects.new('Gaze_'+ch['tag'],None);self.link(g)
-  k=rig.pose.bones['mixamorig:Head'].constraints.new('DAMPED_TRACK');k.target=g;k.track_axis=fa;k.influence=influence;return g
+  k=rig.pose.bones[B(ch,'head')].constraints.new('DAMPED_TRACK');k.target=g;k.track_axis=fa;k.influence=influence;return g
  def face_dir(self,ch):
   """world direction the character's face points (needs gaze() to have run); call after settle(frame)"""
-  rig=ch['rig'];hm=(rig.matrix_world@rig.pose.bones['mixamorig:Head'].matrix).to_3x3();fa=ch['face_axis']
+  rig=ch['rig'];hm=(rig.matrix_world@rig.pose.bones[B(ch,'head')].matrix).to_3x3();fa=ch['face_axis']
   v=hm.col[0] if fa=='TRACK_X' else hm.col['XYZ'.index(fa[-1])]*(-1 if 'NEGATIVE' in fa else 1)
   return Vector(v).normalized()
  def head_pos(self,ch):
-  rig=ch['rig'];return rig.matrix_world@rig.pose.bones['mixamorig:Head'].head
+  rig=ch['rig'];return rig.matrix_world@rig.pose.bones[B(ch,'head')].head
  def blinks(self,ch,seed=1,t0=0.):
   """natural blinking: a 0.16 s blink every 2.2-5.5 s on every mesh of the character that has BlinkL/BlinkR shape keys (the lids and creases)"""
   import random

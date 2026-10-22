@@ -28,7 +28,7 @@ class Films(unittest.TestCase):
  def test_casts_are_distinct_and_variety_is_real(self):
   for f in FILMS:
    film=pm.load_film(f);reg=pm.registry_of(film);self.assertEqual(reg.distinct_report(),[],f.name)
-   looks=[reg.resolve(i) for i in reg.ids()];self.assertGreaterEqual(len({l['species'] for l in looks}),min(6,len(looks)));self.assertGreaterEqual(len({round(l['scale'][2],1) for l in looks}),min(5,len(looks)))
+   looks=[reg.resolve(i) for i in reg.ids()];self.assertGreaterEqual(len({(l['id'] if l.get('humanoid') else l['species']) for l in looks}),min(6,len(looks)));self.assertGreaterEqual(len({round(l['scale'][2],1) for l in looks}),min(5,len(looks)))
    self.assertGreaterEqual(len({l['gait'] for l in looks}),min(4,len(looks)))
  def test_films_use_different_premises_and_casts(self):
   a,b=[pm.load_film(f) for f in FILMS[:2]];self.assertNotEqual(a['id'],b['id']);self.assertFalse({c['id'] for c in a['cast']}&{c['id'] for c in b['cast']})

@@ -304,12 +304,52 @@ def build_creature(S,look,tag):
  cact={re.sub(r'\.\d+$','',a.name)[len(prefix):].lower():a for a in dst.actions if a is not None and re.sub(r'\.\d+$','',a.name).lower().startswith(prefix.lower())}    # a second animal of the same model gets actions named Idle.001 ...
  rig.animation_data_create();rig.animation_data.action=None
  return dict(rig=rig,root=root,objs=objs+[root],tracks=[rig.animation_data.nla_tracks.new(),rig.animation_data.nla_tracks.new()],n=0,creature=True,cact=cact,look=look,dress=[])
+HUM_LIB=os.path.join(_A,'humanoid','ual_humanoid.blend')
+def build_human2(S,look,tag):
+ """a person on the Universal Animation Library rig: the mannequin (colours by region), a simple cartoon face on the head bone (eyes, brows, mouth that the speech and the feelings animate), hair and hats, scaled to the look's height; cact holds all ~90 actions"""
+ import bpy,re,math
+ from mathutils import Vector,Matrix
+ with bpy.data.libraries.load(HUM_LIB,link=False) as (src,dst):dst.objects=list(src.objects);dst.actions=list(src.actions)
+ root=bpy.data.objects.new(tag+'Root',None);S.link(root);objs=[]
+ for o in dst.objects:
+  if o is None:continue
+  S.link(o);objs.append(o)
+ rig=next(o for o in objs if o.type=='ARMATURE');mesh=next(o for o in objs if o.type=='MESH');rig.parent=root
+ k=look['height']/1.8287;root.scale=(k,k,k);bpy.context.view_layer.update()
+ d=look['dress'];cols=(d['skin'],d['shirt'],d['pants'],d['shoes'])
+ for i,slot in enumerate(mesh.material_slots):
+  m=slot.material.copy();slot.material=m;m.diffuse_color=(*cols[i],1.)
+  if m.use_nodes:
+   b=m.node_tree.nodes.get('Principled BSDF')
+   if b:b.inputs['Base Color'].default_value=(*cols[i],1.)
+ cact={re.sub(r'\.\d+$','',a.name):a for a in dst.actions if a is not None}
+ rig.animation_data_create();rig.animation_data.action=None
+ head=rig.pose.bones['Head'];hw=rig.matrix_world
+ def bone_parent(o):
+  o.parent=rig;o.parent_type='BONE';o.parent_bone='Head';o.matrix_parent_inverse=Matrix.Identity(4)
+ def part(name,shape,loc,scale,color,mat_emit=0.):
+  o=S.prim(shape,name,tuple(k*v for v in loc),color,scale=tuple(k*v for v in scale),emit=mat_emit);objs.append(o);bpy.context.view_layer.update();Wm=o.matrix_world.copy();bone_parent(o);o.matrix_basis=Wm;bpy.context.view_layer.update()
+  Pm=o.matrix_world@Wm.inverted();o.matrix_parent_inverse=Pm.inverted();o.matrix_basis=Wm;return o
+ face={};hc=(0.,-.005,1.70);fy=-.108
+ for sg,nm in ((1,'L'),(-1,'R')):
+  face['eye'+nm]=part('%s_eye%s'%(tag,nm),'sphere',(sg*.034,fy,1.714),(.017,.012,.019),(1.,1.,1.))
+  face['pupil'+nm]=part('%s_pupil%s'%(tag,nm),'sphere',(sg*.034,fy-.008,1.714),(.009,.006,.011),(.04,.04,.06))
+  face['brow'+nm]=part('%s_brow%s'%(tag,nm),'cube',(sg*.034,fy-.003,1.748),(.021,.004,.004),d['hair'])
+ face['mouth']=part('%s_mouth'%tag,'sphere',(0.,-.121,1.622),(.023,.006,.004),(.4,.1,.12))
+ hair=part('%s_hair'%tag,'sphere',(0.,.012,1.752),(.099,.1,.082),d['hair']);face['hair']=hair
+ if int(hash_unit(look['id'],'longhair')*3)%3==0:part('%s_hairback'%tag,'sphere',(0.,.07,1.68),(.085,.05,.11),d['hair'])
+ for i,acc in enumerate(look['accessories']):
+  kd=acc['kind']
+  if kd in cg.HATS:
+   V,F,M=cg.hat(kd,zb=0.,cy=0.);kh=.42;V=[(x*kh,y*kh+.005,z*kh+1.752) for x,y,z in V];main,trim=HATCOL.get(kd,lambda c:(c,_trim(c)))(color_of(acc,look['id'],i));o=_mesh_object(S,'%s_%s'%(tag,kd),[(k*x,k*y,k*z) for x,y,z in V],F,M,[main,trim]);objs.append(o);bpy.context.view_layer.update();Wm=o.matrix_world.copy();bone_parent(o);o.matrix_basis=Wm;bpy.context.view_layer.update();Pm=o.matrix_world@Wm.inverted();o.matrix_parent_inverse=Pm.inverted();o.matrix_basis=Wm
+ return dict(rig=rig,root=root,objs=objs+[root],tracks=[],n=0,human2=True,cact=cact,face=face,look=look,k=k,dress=[],tag=tag,bn=dict(head='Head',LH_fore='lowerarm_l',RH_fore='lowerarm_r',LH_up='upperarm_l',RH_up='upperarm_r',lfoot='foot_l',rfoot='foot_r',lhand='hand_l',rhand='hand_r'))
 def build(S,look,tag=None):
  """the character: lion rig, tint, scaled root, parts and accessories. Returns the S.character dict plus ch['look'], ch['dress'] (the dressing objects)."""
  import bpy
  from mathutils import Matrix,Vector
  tag=tag or look['id']
  if look.get('creature'):return build_creature(S,look,tag)
+ if look.get('humanoid'):return build_human2(S,look,tag)
  ch=S.character(tag,look['tint']);rig=ch['rig'];root=ch['root'];ch['look']=look
  if tuple(look['tint'])!=(1.,1.,1.):tint_textures(ch,look['tint'])
  act=S.clip('idle');rig.animation_data.action=act;rig.animation_data.action_slot=act.slots[0];S.scene.frame_set(1);bpy.context.view_layer.update()

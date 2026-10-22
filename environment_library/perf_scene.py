@@ -93,12 +93,37 @@ def place(ch,name,t0,t1,sc,opt,first):
   st.extrapolation='NOTHING'
  walk=name in ('walk','strut','shuffle','bounce','sneak','stomp','brisk','run')
  st.blend_in=(8 if walk else 5) if ch['n']>1 else 0;st.blend_out=0 if opt.get('hold') else (8 if walk else 5);return st
+# people on the Universal Animation Library rig: the planned clips become the library actions (walk gaits -> Walk / Jog / Sprint / Crouch at the planned ground speed, sitting, gestures, falls ...)
+HUM_MAP={'idle':'Idle_Loop','look':'Idle_Loop','talk':'Idle_Talking_Loop','argue':'Idle_Talking_Loop','think':'Idle_FoldArms_Loop','nod':'Yes','laugh':'Idle_Talking_Loop','shrug':'Idle_No_Loop','wave':'Idle_Rail_Call','bow':'Yes','cele':'Dance_Loop','hips':'Dance_Loop','startle':'Hit_Chest','hit':'Punch_Jab','punch':'Punch_Jab','kick':'Melee_Hook','block':'Sword_Block','dodge':'Roll','cut':'Sword_Attack','push':'Push_Loop','pick':'PickUp_Table','kneel':'Fixing_Kneeling','climb':'Interact','fall':'Death01','getup':'LayToIdle','jump':'Jump_Start'}
+HUM_LOOPS=('Idle_Loop','Idle_Talking_Loop','Idle_FoldArms_Loop','Dance_Loop','Walk_Loop','Walk_Formal_Loop','Crouch_Fwd_Loop','Jog_Fwd_Loop','Sprint_Loop','Push_Loop','Sitting_Idle_Loop','Idle_No_Loop','Idle_Rail_Call')
+def place_h(i,ch,name,t0,t1,sc,opt,first):
+ a=PLAN.actors[i];ca=ch['cact'];k=ch['k'];sp=None
+ for (w0,w1,g,scl,speed) in a.walks:
+  if w0-1e-3<=t0<=w1+1e-3:sp=speed
+ scale=1.
+ if name in('run','brisk'):act_n,nat=('Sprint_Loop',cr.HUMAN_NAT['sprint']) if name=='run' else ('Jog_Fwd_Loop',cr.HUMAN_NAT['jog'])
+ elif name in('sneak','crawl'):act_n,nat='Crouch_Fwd_Loop',cr.HUMAN_NAT['slow']
+ elif name in('walk','strut','stomp','bounce','shuffle'):act_n,nat=('Walk_Formal_Loop' if name=='strut' else 'Walk_Loop'),cr.HUMAN_NAT['walk']
+ elif name=='sit':act_n,nat=('Sitting_Exit' if opt.get('reverse') else 'Sitting_Enter'),None
+ else:act_n,nat=HUM_MAP.get(name,'Idle_Loop'),None
+ if act_n not in ca:act_n='Idle_Loop'
+ if nat and sp:scale=max(.45,min(2.6,nat*k/max(.05,sp)))
+ act=ca[act_n];n=int(act.frame_range[1]-act.frame_range[0])+1;f_start=S.F(t0 if first else max(0,t0-.2));dur_f=S.F(t1)-f_start
+ def strip(act_,sc_,start,rep=1.,hold=False,end_extrap=None):
+  tr=ch['rig'].animation_data.nla_tracks.new();ch['n']+=1;st=tr.strips.new(act_.name,start,act_);st.action_slot=act_.slots[0];st.scale=sc_;st.repeat=rep;st.extrapolation=end_extrap or ('HOLD' if hold else 'NOTHING');st.blend_in=6 if ch['n']>1 else 0;st.blend_out=0 if hold else 6;return st
+ if name=='sit' and not opt.get('reverse'):      # sit down, then sit
+  d_=min(dur_f,int(3.2*FPS));strip(act,d_/n,f_start);idle=ca.get('Sitting_Idle_Loop')
+  if idle is not None and dur_f>d_+2:ni=int(idle.frame_range[1]-idle.frame_range[0])+1;strip(idle,1.,f_start+d_,max(1.,(dur_f-d_)/ni),False,'HOLD')
+  return
+ if act_n in HUM_LOOPS:strip(act,scale,f_start,max(1.,dur_f/(n*scale)))
+ elif name=='fall':strip(act,max(.5,dur_f/n),f_start,1.,True)
+ else:strip(act,max(.4,dur_f/n),f_start)
 for i,ch in CH.items():
  segs=[];cl=PLAN.actors[i].clips
  for c in cl:
   if segs and c[1]-c[0]<.35 and not c[4]:segs[-1]=segs[-1][:1]+(c[1],)+segs[-1][2:];continue
   segs.append(c)
- for k,(t0,t1,name,sc,opt) in enumerate(segs):place(ch,name,t0,t1,sc,opt,k==0)
+ for k,(t0,t1,name,sc,opt) in enumerate(segs):(place_h(i,ch,name,t0,t1,sc,opt,k==0) if ch.get('human2') else place(ch,name,t0,t1,sc,opt,k==0))
 # creatures: the plan's clips become the animal's own actions (walk gaits -> Walk / WalkSlow / Run with the play speed from the planned ground speed, acts -> Jump / Death / Idle)
 CR_STEPS=[]
 CR_SPEED={'walk':1.6,'walkslow':.9,'run':4.2}     # ground speed in body lengths per second of each action at play scale 1
@@ -170,6 +195,7 @@ for ch in CH.values():
  for o in ch['objs']:
   if o.type=='MESH' and o.data.shape_keys and o.data.shape_keys.animation_data is None:o.data.shape_keys.animation_data_create()
 def key(ch,name,pts):
+ if ch.get('human2'):ch.setdefault('fk',{}).setdefault(name,[]).extend(pts);return     # a person face is a few solids on the head: collected here, keyed together in finalize_faces()
  for kb in meshes_with(ch,name):
   b=kb.key_blocks[name]
   for fr,v in pts:b.value=v;b.keyframe_insert('value',frame=fr)
@@ -196,6 +222,29 @@ for i,a in PLAN.actors.items():
  if i not in CH:continue
  for (t0,t1,kind) in a.emotes:
   for nm,val in EMOTE[kind].items():key(CH[i],nm,[(S.F(t0),0),(S.F(t0+.4),val),(S.F(t1-.3),val),(S.F(t1),0)])
+def finalize_faces():
+ """the faces of the people: mouth, brows, eyes and pupils keyed from the collected speech, expression and gaze values (and a blink every few seconds)"""
+ import numpy as np
+ rb=random.Random(sum(map(ord,SPEC['id'])))
+ for i,ch in CH.items():
+  if not ch.get('human2'):continue
+  F=ch['face'];fk=ch.get('fk',{});frames=list(S.keys())
+  def val(nm,f):
+   p=sorted(fk.get(nm,[]))
+   if not p:return 0.
+   return float(np.interp(f,[q[0] for q in p],[q[1] for q in p],left=0.,right=0.))
+  blink=[];tb=rb.uniform(1.,3.)
+  while tb<S.seconds:blink.append(tb);tb+=rb.uniform(2.4,5.5)
+  base={n:o.matrix_basis.decompose() for n,o in F.items() if n!='hair'}
+  for f in frames:
+   t=(f-1)/FPS;j,wd,rd=val('JawOpen',f),val('Wide',f),val('Round',f);sm,fr_=val('WarmSmile',f),val('Frown',f)+.5*val('ConcernStrong',f);cn=val('Concern',f)+val('ConcernStrong',f)
+   bl=max([max(0.,1-abs(t-b)/.09) for b in blink if abs(t-b)<.1],default=0.)
+   loc,rot,scl=base['mouth'];o=F['mouth'];o.scale=(scl.x*(1+.4*wd+.5*sm-.35*rd),scl.y,scl.z*(1+5.*j+.7*rd-.25*fr_));o.location=(loc.x,loc.y,loc.z-.004*j+.002*sm);o.keyframe_insert('scale',frame=f);o.keyframe_insert('location',frame=f)
+   for sg,nm in ((1,'L'),(-1,'R')):
+    loc,rot,scl=base['brow'+nm];o=F['brow'+nm];up=val('ActingBrow'+nm,f);o.location=(loc.x,loc.y,loc.z+.007*up+.003*cn-.004*fr_);ang=sg*(.3*cn-.15*fr_);o.rotation_euler=(0,ang,0);o.keyframe_insert('location',frame=f);o.keyframe_insert('rotation_euler',frame=f)
+    loc,rot,scl=base['eye'+nm];e=F['eye'+nm];e.scale=(scl.x,scl.y,scl.z*(1-.92*bl));e.keyframe_insert('scale',frame=f)
+    loc,rot,scl=base['pupil'+nm];pu=F['pupil'+nm];pu.scale=(scl.x,scl.y,scl.z*(1-.92*bl));pu.location=(loc.x+.007*(val('GazeRight',f)-val('GazeLeft',f)),loc.y,loc.z);pu.keyframe_insert('scale',frame=f);pu.keyframe_insert('location',frame=f)
+finalize_faces()
 # ---------------------------------------------------------------------------------------------------------- props
 SHAPE={'cyl':('cup','jar','basket','barrel_small','scroll','tool','bell','pie'),'sphere':('sack','apple','egg','gem','boulder')}
 PROPOBJ={}
@@ -249,6 +298,7 @@ from bpy_extras import anim_utils
 def body_layer():
  fr=pbody.key_frames(PLAN)
  for i,ch in CH.items():
+  if ch.get('human2'):continue      # the library actions already breathe and sway
   rig=ch['rig'];sig=pbody.signals(PLAN,i);ad=rig.animation_data;pa_=PLAN.actors[i]
   tt=(np.array(fr)-1)/FPS;reach_=np.array([max(PLAN.hand_target(pa_,'R',t)[0],PLAN.hand_target(pa_,'L',t)[0]) for t in tt]) if any(pa_.hands[h] for h in ('R','L')) else np.zeros(len(fr))
   for b_ in ('Hips','Spine','Spine1','Spine2'):sig[b_]=sig[b_]*(1-.8*np.clip(reach_,0,1))[:,None]     # the trunk keeps still while an arm reaches for something
@@ -304,7 +354,7 @@ def clamp_cameras():
 clamp_cameras()
 # ---------------------------------------------------------------------------------------------------------- audits (Blender side)
 def lowest_feet(ch):
- rig=ch['rig'];w=lambda n:rig.matrix_world@rig.pose.bones['mixamorig:'+n].head;return w('LeftFoot'),w('RightFoot')
+ rig=ch['rig'];w=lambda n:rig.matrix_world@rig.pose.bones[sb.B(ch,n)].head;return w('lfoot'),w('rfoot')
 worst_sp=0.;worst_li=0.
 for L in PLAN.lines:
  t=L['t0']+(L['t1']-L['t0'])*.6;f=S.F(t);S.settle(f)
@@ -327,13 +377,13 @@ slip=0.;nslip=0
 for i,ch in CH.items():
  a=PLAN.actors[i]
  for (t0,t1,g,sc,speed) in a.walks:
-  if t1-t0<1.6 or g=='run':continue
+  if t1-t0<1.6 or g=='run' or (ch.get('human2') and g=='brisk'):continue     # a jog has a flight phase: no planted foot to measure
   fs=list(range(S.F(t0+.5),S.F(t1-.5),3))[:24];prev=None;vs=[]
   for f in fs:
    S.settle(f);L_,R_=lowest_feet(ch);low=L_ if L_.z<R_.z else R_
    if prev is not None and prev[1] is (L_ if low is L_ else R_) and False:pass
    cur=(Vector((low.x,low.y,0)),'L' if low is L_ else 'R')
-   if prev and prev[1]==cur[1] and low.z<.12*a.size+.06:vs.append((cur[0]-prev[0]).length*FPS/3.)
+   if prev and prev[1]==cur[1] and low.z<(.14*ch['k'] if ch.get('human2') else .12*a.size+.06):vs.append((cur[0]-prev[0]).length*FPS/3.)
    prev=cur
   if vs:slip+=sum(vs)/len(vs);nslip+=1
 mean_slip=slip/max(1,nslip)
@@ -341,11 +391,11 @@ if mean_slip>.35:issues.append('AUDIT foot slip: planted feet slide at %.2f m/s 
 reach_worst=0.;reach_n=0;reach_info=None
 for i,(IK,TG) in IKS.items():
  a=PLAN.actors[i];ch=CH[i]
- for hand,lb,bone in (('R','RH','RightHand'),('L','LH','LeftHand')):
+ for hand,lb,bone in (('R','RH','rhand'),('L','LH','lhand')):
   for f in range(1,S.frames+1,6):
    t=(f-1)/FPS;infl,pos=PLAN.hand_target(a,hand,t)
    if pos is None or infl<.98:continue
-   S.settle(f);hp=ch['rig'].matrix_world@ch['rig'].pose.bones['mixamorig:'+bone].head;e=(hp-Vector(pos)).length;reach_n+=1
+   S.settle(f);hp=ch['rig'].matrix_world@ch['rig'].pose.bones[sb.B(ch,bone)].head;e=(hp-Vector(pos)).length;reach_n+=1
    if e>reach_worst:reach_worst=e;reach_info=(i,hand,t,tuple(round(v,2) for v in pos),tuple(round(v,2) for v in hp))
 if reach_worst>.22:print('REACH worst',reach_info)
 if reach_worst>.22:issues.append('AUDIT reach: a hand ends %.2f m from its target (limit 0.22; the arm cannot reach, move the prop or the actor)'%reach_worst)
