@@ -39,7 +39,7 @@ S.append(scene('harbor','Clue one: the harbour',loc('harbor',4),[at('finn',-10,-
  point('bea',[-1,1.8],1.4),
  par(look('bea',[-1,1.8],1.5),act('bea','kneel')),
  convo([('bea','Finn, look! Wheel marks. Deep ones, like something heavy.','concern','finn'),('finn','Heavy and heading up the hill road. Toward the smithy!','serious','bea')]),
- par(act('finn','cut'),act('bea','cele')),
+ par(act('finn','cut'),act('bea','joy')),
 ],time='day',ambience='sea',music='mystery',intent='At the harbour, Finn and Bea find deep wheel marks leading toward the smithy.'))
 # 4 ---------------------------------------------------------------------------------------------------------------- market
 S.append(scene('market','Clue two: the painting',loc('market',5,objects=[dict(kind='pedestal',at=[-1.5,-2.2],id='crate_p',height=.7,size=.4)]),[at('lulu',-7,-5,face=[-1.5,-2.2]),at('marta',9,-7,face='lulu'),at('hugo',11,-8,face='lulu')],props=[prop('painting','scroll',-1.5,-2.2,on='crate_p')],steps=[
@@ -62,7 +62,7 @@ S.append(scene('smithy','The smithy',loc('workshop',2),[at('otto',-1.6,-2.4,face
  point('hugo','otto',1.2),
  par(emote('otto','concern',2.5),act('otto','shrug')),
  convo([('otto','It cracked at the last festival. I mended it at dawn. A gift. I wanted no fuss.','warm','hugo'),('marta','Otto. It is perfect.','joy','otto'),('hugo','Ahem. I may have shouted a little too early.','concern','otto')]),
- par(act('bea','cele'),emote('marta','smile',3)),
+ par(act('bea','joy'),emote('marta','smile',3)),
 ],time='day',ambience='fire',music='warm',intent='In the smithy, Otto reveals he secretly mended the cracked bell as a gift.'))
 # 7 ---------------------------------------------------------------------------------------------------------------- procession
 S.append(scene('procession','Bringing it home',loc('village_square',7,objects=[STAND,dict(kind='pedestal',at=[-5.0,-4.6],id='stand1',height=.8,size=.5)]),[at('otto',-8.5,-5.6,face=[-5,-4.6]),at('bea',-9.5,-8.2,face='otto'),at('marta',-9.2,-1.6,face='otto'),at('hugo',-7.4,-9,face='otto')],props=[BELL(-5.0,-4.6,on='stand1')],steps=[
@@ -74,15 +74,15 @@ S.append(scene('procession','Bringing it home',loc('village_square',7,objects=[S
 S.append(scene('ring','The bell rings',loc('village_square',7,objects=[STAND,dict(kind='pedestal',at=[-1.0,-2.0],id='stand1',height=.8,size=.5)]),[at('otto',-3.0,-3.2,face=[-1,-2]),at('bea',-5.0,-4.6,face=[3,-1.2]),at('marta',-6.2,-2.4,face=[3,-1.2]),at('hugo',-7.4,-4.4,face=[3,-1.2])],props=[BELL(-1.0,-2.0,on='stand1')],steps=[
  par(take('otto','bell')),
  put('otto',on='stand0'),
- par(emote('marta','smile',3),act('bea','cele')),
+ par(emote('marta','smile',3),act('bea','joy')),
  convo([('hugo','Citizens of the village! The festival bell rings again!','joy','marta')]),
- par(sfx('bell',0.3),sfx('bell',1.6),sfx('bell',2.9),act('bea','cele'),act('marta','cele'),act('hugo','bow')),
+ par(sfx('bell',0.3),sfx('bell',1.6),sfx('bell',2.9),act('bea','joy'),act('marta','joy'),act('hugo','bow')),
  wait(2.0),
 ],time='dusk',ambience='wind',music='epic',extras=crowd(8,[-14,-8,14,9],[3,-1.2],61),intent='The bell is back on its stand and rings at sunset.'))
 # 9 ---------------------------------------------------------------------------------------------------------------- festival night
 S.append(scene('festival','Festival night',loc('village_square',7,objects=[STAND]),[at('marta',-1.5,-3.0,face='otto'),at('otto',1.0,-3.6,face='marta'),at('bea',-3.0,-4.4,face='otto'),at('hugo',-5,-2,face='otto'),at('finn',-7,-4.5,face='otto'),at('lulu',5,-4,face='otto')],steps=[
  convo([('marta','Otto, the first dance is yours. And the first bowl of soup.','warm','otto'),('otto','I do not dance. But I will take the soup.','warm','marta')]),
- par(act('finn','cele'),act('lulu','cele'),act('bea','cele')),
+ par(act('finn','joy'),act('lulu','joy'),act('bea','joy')),
  convo([('hugo','From now on, the smithy is not the quiet house. It is the house of the bell.','joy','otto'),('bea','Next year I will ring it myself!','joy','otto')]),
  par(emote('otto','smile',4),emote('marta','smile',4)),
  wait(2.5),

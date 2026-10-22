@@ -24,7 +24,7 @@ S.append(scene('bakery','The giant pie',loc('room',2),[at('tilda',-3,-2.6,face='
  take('tilda','pie'),
  convo([('rosa','Tilda! It is the biggest pie I have ever seen!','joy','tilda'),('tilda','Cherries and cream. Three days of baking.','warm','rosa'),
   ('rosa','And today the mayor tastes it?','joy','tilda'),('tilda','At noon. And I will win the Golden Spoon!','joy','rosa')]),
- par(act('tilda','cele'),emote('rosa','smile',3)),
+ par(act('tilda','joy'),emote('rosa','smile',3)),
  par(go('tilda',[0,-3.2],gait='strut'),go('rosa',[1.2,-3.2],gait='walk')),
 ],time='day',ambience='hall',music='bright',intent='A baker proudly shows her giant cherry pie. Today she will try to win the Golden Spoon.'))
 # 2 ---------------------------------------------------------------------------------------------------------------- the contest
@@ -112,21 +112,21 @@ S.append(scene('forgive','Forgiveness',loc('hilltop',3,objects=[BENCH]),[at('fen
  convo([('tilda','Three days without food. And you still left half for the sheep.','warm','fen'),('fen','Only half. The rest is for Pip.','warm','tilda')]),
  par(act('tilda','kneel'),emote('pip','smile',3)),
  convo([('tilda','Pip, a pie is for eating. Next time, just ask.','warm','pip'),('pip','Yes, Miss Tilda.','joy','tilda')]),
- par(act('rosa','cele'),act('orin','nod')),
+ par(act('rosa','joy'),act('orin','nod')),
  convo([('gus','I will fetch your sheep, old man. They are afraid of nothing but my hammer.','joy','fen'),('orin','Then come to the square, everyone! The contest goes on!','joy','tilda')]),
 ],time='day',ambience='wind',music='warm',intent='Tilda forgives Pip. Gus offers to find Fen’s sheep, and everyone invites Fen to the square.'))
 # 11 --------------------------------------------------------------------------------------------------------------- the feast
 S.append(scene('feast','The Golden Spoon',loc('village_square',3,objects=[STAND(2.5,-1.0)]),[at('orin',-3,-1,face=[2.5,-1]),at('tilda',0.2,-3.2,face='orin'),at('pip',-1.2,-4.4,face='orin'),at('fen',-1,-4,face='orin'),at('rosa',-4.5,-5.2,face='orin'),at('gus',-6,-2,face='orin')],props=[PIE(2.5,-1.0,on='stand0')],steps=[
  par(go('orin',[4.6,-4.6],gait='strut')),
  convo([('orin','Neighbours! This year the Golden Spoon does not go to the biggest pie.','joy','tilda'),('orin','It goes to the kindest baker. Tilda, who forgave a hungry boy.','joy','tilda')]),
- par(act('tilda','bow'),act('pip','cele'),act('rosa','cele'),act('gus','laugh')),
+ par(act('tilda','bow'),act('pip','joy'),act('rosa','joy'),act('gus','laugh')),
  convo([('gus','And I get the first slice, because I was blamed!','joy','orin'),('tilda','The first slice is for Old Fen.','warm','gus')]),
  par(go('fen',[2.0,-1.8],gait='shuffle'),emote('fen','smile',3)),
 ],time='day',ambience='wind',music='bright',extras=crowd(8,[-14,-8,14,8],[2.5,-1],31),intent='The mayor gives the Golden Spoon to Tilda for her kindness, and Old Fen is served the first slice.'))
 # 12 --------------------------------------------------------------------------------------------------------------- apprentice
 S.append(scene('apprentice','A new apprentice',loc('village_square',6,objects=[dict(kind='bench',at=[-4,-3.5],id='bench_x')]),[at('tilda',-1.5,-1.5,face='pip'),at('pip',0.8,-1.2,face='tilda'),at('fen',-5.6,-2.4,face='pip'),at('rosa',4,-3,face='pip'),at('gus',7,-1,face='pip')],steps=[
  convo([('tilda','Pip, I need a helper in the bakery. The ovens are warm and the cherries are free.','warm','pip'),('pip','Me? An apprentice baker?','joy','tilda'),('tilda','Every day. And the first lesson: always share.','warm','pip')]),
- par(act('pip','cele'),act('fen','laugh'),act('rosa','cele')),
+ par(act('pip','joy'),act('fen','laugh'),act('rosa','joy')),
  convo([('fen','Now that is a pie worth stealing.','joy','tilda'),('gus','Never again. I am keeping my nose to the anvil.','joy','fen')]),
  par(emote('tilda','smile',4),emote('pip','smile',4)),
  wait(2.5),

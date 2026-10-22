@@ -170,7 +170,7 @@ S.append(scene('repair','The night repair',loc('workshop',4),[at('bram',-1.5,-1.
  par(sfx('clang',0.5)),
  convo([('rook','Hold the wheel steady. I will turn the arbor.','serious','bram'),('bram','Your hands remember it better than mine do.','warm','rook')]),
  put('bram',on='table',at=[1.2,-.4]),
- par(act('pip','cele'),sfx('chime',0.2)),
+ par(act('pip','joy'),sfx('chime',0.2)),
 ],time='night',ambience='fire',music='warm'))
 # 14 --------------------------------------------------------------------------------------------------------------- bread at midnight
 S.append(scene('bread','Bread at midnight',loc('courtyard',3),[at('odo',-4,-2,face=[0,0]),at('tilda',-9,4,face=[0,0])],steps=[
@@ -199,11 +199,11 @@ S.append(scene('twelve_strikes','Twelve strikes',square(8),[at('wren',0,-4,face=
  par(act('wren','talk',dur=3),look('bram',[0,17],4)),
  convo([('wren','Friends! The clock needed rest, and tonight it has had it. Now we ask it to speak.','warm','bram'),('bram','Gently, Rook. Wind her gently.','serious','rook')]),
  par(act('bram','nod'),act('rook','nod'),sfx('bell',0.5)),
- par(sfx('bell',0.5),sfx('bell',2.5),sfx('bell',4.5),act('pip','cele'),act('mara','cele'),act('tilda','laugh')),
- par(sfx('bell',0.5),sfx('bell',2.5),sfx('bell',4.5),act('odo','cele'),act('wren','laugh')),
+ par(sfx('bell',0.5),sfx('bell',2.5),sfx('bell',4.5),act('pip','joy'),act('mara','joy'),act('tilda','laugh')),
+ par(sfx('bell',0.5),sfx('bell',2.5),sfx('bell',4.5),act('odo','joy'),act('wren','laugh')),
  par(sfx('bell',0.5),sfx('bell',2.5),sfx('gong',4.5),act('bram','laugh'),act('rook','laugh'),act('pip','wave')),
  convo([('pip','Twelve! It counted twelve!','joy','mara'),('mara','And not a minute late!','joy','pip'),('tilda','Cake in the square! Come while it is warm!','joy','odo')]),
- par(act('odo','cele'),act('mara','wave')),
+ par(act('odo','joy'),act('mara','wave')),
 ],time='day',ambience='crowd',music='bright',extras=crowd(14,[-13,-8,13,11],[0,12],7)))
 # 17 --------------------------------------------------------------------------------------------------------------- an apology
 S.append(scene('apology','An apology',square(9),[at('odo',-4,-2,face=[0,0]),at('rook',4,-3,face=[0,0])],steps=[
@@ -241,7 +241,7 @@ S.append(scene('tea','Tea in the workshop',loc('workshop',5),[at('bram',-1.5,-2.
 S.append(scene('evening','The evening strike',square(10),[at('wren',-3,-4,face=[0,12]),at('tilda',3,-4,face=[0,12]),at('odo',0,-6,face=[0,12]),at('pip',1,2,face=[0,12]),at('mara',-6,-1,face=[0,12]),at('bram',-1,5,face=[0,12]),at('rook',1.5,5,face=[0,12])],steps=[
  par(look('wren',[0,17],3),emote('tilda','smile',3)),
  convo([('tilda','Cake for everyone! The tall bell-shaped kind!','joy','odo')]),
- par(act('odo','laugh'),act('pip','cele'),),
+ par(act('odo','laugh'),act('pip','joy'),),
  par(sfx('bell',0.3),sfx('bell',2.3),sfx('bell',4.3),look('bram',[0,17],4),look('rook',[0,17],4),),
  convo([('bram','Six strikes. Right on the hour.','warm','rook'),('rook','Right on the hour.','warm','bram')]),
  par(go('pip','bram',stop=1.2,gait='brisk'),go('mara','pip',stop=1.4)),

@@ -118,7 +118,7 @@ S.append(scene('murals','The painted cave',loc('cave',3,objects=[dict(kind='pede
  par(go('kit',[2.2,-.8],gait='walk'),go('wick',[1.0,-1.6],gait='walk')),
  take('kit','chart2'),
  convo([('kit','A map. Drawn by someone who knew the hills. There is a path under the cliffs.','serious','wick'),('wick','The captain is going over the top. That path is a day shorter.','concern','kit')]),
- act('wick','cele'),
+ act('wick','joy'),
  convo([('kit','Quiet! It is a sacred place. We do not cheer in sacred places.','concern','wick'),('wick','I am not cheering. I am vibrating respectfully.','joy','kit')]),
 ],time='night',ambience='cave',music='mystery'))
 # 11 --------------------------------------------------------------------------------------------------------------- the collapse
@@ -130,7 +130,7 @@ S.append(scene('collapse','The collapse',loc('cave',4),[at('kit',-4,-3,face=[0,0
  par(act('wick','getup'),go('sera',[0,-5],gait='run'),go('dorn',[-1.5,-6],gait='run')),
  convo([('sera','The way out is blocked. Dorn, the boulder.','angry','dorn'),('dorn','I am a cook, not a bulldozer!','angry','sera'),('sera','You are both. Push!','angry','dorn')]),
  push('dorn','rockfall',dist=2.4,dir=0),
- par(act('sera','cele'),act('kit','laugh')),
+ par(act('sera','joy'),act('kit','laugh')),
  convo([('dorn','It moved! I moved a boulder! Write that down.','joy','sera')]),
 ],time='night',ambience='cave',music='epic'))
 # 12 --------------------------------------------------------------------------------------------------------------- morning talk
@@ -177,7 +177,7 @@ S.append(scene('ledge','The ledge',loc('ruins',5),[at('thorne',0,5.5,face=[0,0])
  convo([('kit','He is breathing. His leg is bent wrong.','concern','sera'),('thorne','Go. The map is in the pocket. I am slow and you are not.','sad','sera')]),
  act('sera','kneel'),
  convo([('sera','I have a coal, a cook and a guide. I am not losing the guide.','angry','thorne'),('thorne','I sold the oil, Captain.','sad','sera'),('sera','And you walked nine years back. That is the thing I am keeping.','warm','thorne')]),
- par(act('thorne','getup'),act('kit','cele')),
+ par(act('thorne','getup'),act('kit','joy')),
  convo([('kit','He is up! He is up and a bit crooked!','joy','sera'),('thorne','Crooked and grateful. I will lead from the front.','warm','sera')]),
 ],time='day',ambience='wind',music='warm'))
 # 17 --------------------------------------------------------------------------------------------------------------- Cape Tern
@@ -195,7 +195,7 @@ S.append(scene('lens_repair','The night repair',loc('courtyard',5,objects=[dict(
  give('thorne','kit'),
  par(go('dorn','statue',stop=2.4,gait='walk'),go('wick',[5.5,0.2],gait='brisk')),
  convo([('dorn','Soup for the brave. Hot, dark and slightly wise.','warm','thorne'),('thorne','It tastes like a hat.','joy','dorn'),('dorn','It is a hat. Thank you for noticing.','joy','thorne')]),
- par(act('kit','cele'),sfx('chime',0.2)),
+ par(act('kit','joy'),sfx('chime',0.2)),
 ],time='night',ambience='night',music='warm'))
 # 19 --------------------------------------------------------------------------------------------------------------- relight
 S.append(scene('relight','The relighting',loc('courtyard',6,objects=[dict(kind='pedestal',at=[-3.4,-4.2],id='stand1',height=.8,size=.7),dict(kind='pedestal',at=[4.5,3.0],id='stand2',height=.8,size=.7)]),[at('sera',-3,-5,face='statue'),at('moss',-6,-3,face='statue'),at('thorne',-4,-7,face='statue'),at('dorn',-8,-5,face='statue'),at('wick',-5,-8,face='statue'),at('kit',-7,-8,face='statue')],props=[EMBER(-3.4,-4.2,on='stand1')],steps=[
@@ -206,7 +206,7 @@ S.append(scene('relight','The relighting',loc('courtyard',6,objects=[dict(kind='
  put('sera',on='stand2'),
  par(sfx('chime',0.2),sfx('bell',0.8),emote('sera','smile',3)),
  convo([('wick','It is warming. It is humming. It is the colour of tea.','joy','sera'),('moss','It is catching on the lens. Look at the walls. Look!','joy','thorne')]),
- par(act('kit','cele'),act('dorn','laugh'),act('wick','cele')),
+ par(act('kit','joy'),act('dorn','laugh'),act('wick','joy')),
  convo([('thorne','Every ship on this coast can see that.','warm','sera'),('sera','Every ship on this coast will thank a mouse, a cook and a crooked wolf.','warm','thorne')]),
 ],time='night',ambience='sea',music='epic'))
 # 20 --------------------------------------------------------------------------------------------------------------- sunrise

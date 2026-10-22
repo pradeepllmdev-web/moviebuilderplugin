@@ -154,7 +154,8 @@ def layout(loc):
    if k=='pedestal':top=o.get('height',.9)
    if k=='platform':top=o.get('height',.4)
    if top:r=max(.3,(fp[1]/2) if fp and fp[0]=='box' else (fp[1] if fp else .3));surf[o['id']]=(o['at'][0],o['at'][1],top,r)
- return dict(inside=loc.get('inside'),obstacles=obst,seats=seats,surfaces=surf,markers={k:tuple(v) for k,v in loc['markers'].items()},half=tuple(loc['half']),objects=loc['objects'],loc=loc,per_object=per)
+ walls=[c for o in loc['objects'] if o['kind']=='wall' for c in per[o['id']]]
+ return dict(walls=walls,inside=loc.get('inside'),obstacles=obst,seats=seats,surfaces=surf,markers={k:tuple(v) for k,v in loc['markers'].items()},half=tuple(loc['half']),objects=loc['objects'],loc=loc,per_object=per)
 def prims(loc):
  """primitive dicts for every object, in world space (yaw and position applied), plus ('light', ...) tuples"""
  loc=normalise(loc);out=[]

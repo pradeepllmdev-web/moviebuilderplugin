@@ -78,13 +78,13 @@ S.append(scene('chapel','Just in time',loc('courtyard',4,objects=[LOW(5,1.0,3.4,
  par(go('juno',[-1.2,1.2],gait='brisk'),go('marcel',[-2.4,0.4],gait='stomp'),go('bettina',[-3.6,1.6],gait='brisk'),go('dash',[-4.4,0.6],gait='bounce'),go('rufus',[-5.6,1.4],gait='stomp'),go('elm',[-6.4,0.4],gait='shuffle')),
  par(sfx('bell',0.2),sfx('bell',2.0)),
  convo([('marcel','Do you, Juno, take this cake, and also me?','joy','juno'),('juno','I do! Both! In that order!','joy','marcel',dict(overlap_by=.5))]),
- par(act('dash','cele'),act('rufus','cele'),act('bettina','cele'),act('elm','laugh')),
+ par(act('dash','joy'),act('rufus','joy'),act('bettina','joy'),act('elm','laugh')),
  par(sfx('chime',0.2),emote('juno','smile',3),emote('marcel','smile',3)),
 ],time='dusk',ambience='crowd',music='epic',fog=0.,extras=crowd(8,[-8,-8,8,-1],[0,3],91),intent='The wedding starts at four on the dot, wobbly cake and all.'))
 # 8 ---------------------------------------------------------------------------------------------------------------- the party
 S.append(scene('party','The best slice',loc('courtyard',4,objects=[LOW(5,1.0,3.4,.45)]),[at('juno',-1.5,1.2,face='marcel'),at('marcel',-0.2,1.0,face='juno'),at('bettina',-3.6,1.6,face='juno'),at('dash',-4.4,0.6,face='bettina'),at('rufus',-5.6,1.4,face='bettina'),at('elm',-2.6,-0.6,face='marcel')],props=[prop('smash','pie',1.0,3.4,on='stand5',size=1.6)],steps=[
  convo([('bettina','Next time I bake a cake, I am not letting anyone near it.','concern','juno'),('juno','Next time, bake two. One for eating, one for wobbling.','joy','bettina',dict(overlap_by=.3)),('dash','I will eat the wobbling one!','joy','bettina',dict(overlap_by=.3))]),
- par(act('rufus','laugh'),act('elm','laugh'),act('marcel','cele')),
+ par(act('rufus','laugh'),act('elm','laugh'),act('marcel','joy')),
  convo([('rufus','Best man. Worst carrier. Great cake.','joy','bettina')]),
  par(emote('bettina','smile',4),emote('juno','smile',4)),
  wait(2.0),

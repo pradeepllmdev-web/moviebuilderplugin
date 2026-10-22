@@ -35,10 +35,28 @@ def use_voices(film,reg,echo=True):
   return False
  if not pv.catalogue_voices():return False
  pv.prepare(film,reg,echo=echo);pp.DURATION_PROVIDER=pv.duration;return True
+def apply_continuity(film,reg):
+ """scenes that continue in the same place start where the previous scene ended: every character present in both keeps the position and heading it had (no jumping between scenes), and anyone who was there before but is not in the new cast stays in the background instead of vanishing"""
+ import perf_plan as pp
+ prev=None
+ for sp in film['scenes']:
+  loc=sp.get('location',{});key=(loc.get('preset'),loc.get('seed')) if loc.get('preset') else None
+  if prev and key and prev[0]==key and not sp.get('fresh'):
+   ids={c['id'] for c in sp['cast']}
+   for c in sp['cast']:
+    if c['id'] in prev[1]:
+     x,y,h=prev[1][c['id']];c['at']=[round(x,2),round(y,2)]
+     if c.get('face') is None:c['face']=[round(x+math.cos(h)*5,2),round(y+math.sin(h)*5,2)]
+   for i,(x,y,h) in prev[1].items():
+    if i not in ids and i in {c['id'] for c in film['cast']}:sp['cast'].append(dict(id=i,at=[round(x,2),round(y,2)],face=[round(x+math.cos(h)*5,2),round(y+math.sin(h)*5,2)]))
+  try:
+   P=pp.compile(sp,reg);prev=(key,{i:(a.X[-1],a.Y[-1],a.H[-1]) for i,a in P.actors.items()})
+  except pp.SpecError:prev=None
 def plan_check(film,reg=None):
  """compile every scene without Blender: [(index, id, seconds, lines, audit list or [error])]"""
  import perf_plan as pp
  reg=reg or registry_of(film);rows=[]
+ if not film.get('_continuity'):film['_continuity']=True;apply_continuity(film,reg)
  for i,sp in enumerate(film['scenes'],1):
   try:
    P=pp.compile(sp,reg);rows.append(dict(index=i,id=sp['id'],title=sp.get('title',''),seconds=round(P.seconds,1),lines=len(P.lines),cast=len(P.actors),audit=P.audit(),error=None))

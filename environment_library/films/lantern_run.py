@@ -19,7 +19,7 @@ S=[]
 # 1 ---------------------------------------------------------------------------------------------------------------- the great lantern
 S.append(scene('great_lantern','The Great Lantern',loc('village_square',9,objects=[STAND(0,2.5,-1.0)]),[at('pim',-3,1.5,face=[2.5,-1]),at('nell',-6,-3,face=[2.5,-1]),at('sal',7,2,face=[2.5,-1]),at('ferris',-8,-6,face=[2.5,-1]),at('dot',5,-6,face=[2.5,-1])],props=[LANTERN(2.5,-1.0,'stand0')],steps=[
  convo([('pim','Neighbours! Tonight the Great Lantern lights our festival!','joy','nell'),('sal','Brightest lamp in the county.','warm','pim')]),
- par(act('nell','cele'),act('sal','nod')),
+ par(act('nell','joy'),act('sal','nod')),
  par(look('dot',[0,-25],3),emote('dot','sad',3)),
  point('pim','stand0',1.4),
  convo([('pim','Brother Ferris, guard it until the feast.','serious','ferris'),('ferris','I never sleep on duty.','serious','pim')]),
@@ -89,7 +89,7 @@ S.append(scene('boats','The boats come home',loc('harbor',4,objects=[STAND(3,14.
  point('dot',[-4,-22],1.5),
  sfx('bell',0.4),
  convo([('dot','Papa! Look! A mast!','joy','rue'),('rue','Fourteen boats, and every one of them following that light!','joy','dot')]),
- par(act('rue','cele'),act('dot','cele'),act('nell','cele'),act('sal','cele'),act('pim','cele')),
+ par(act('rue','joy'),act('dot','joy'),act('nell','joy'),act('sal','joy'),act('pim','joy')),
  sfx('bell',0.4),
  wait(1.5),
 ],time='night',ambience='sea',music='epic',extras=crowd(8,[-4,-10,16,-1],[0,-6],81),intent='The fishing fleet follows the lantern into the harbour. Everyone is saved.'))
@@ -98,7 +98,7 @@ S.append(scene('festival','Festival at the quay',loc('harbor',4,objects=[STAND(3
  par(go('ferris',[5.6,-2.6],gait='brisk')),
  convo([('pim','Neighbours! The festival is moved to the quay tonight!','joy','nell'),('nell','I will fetch every cake in the village.','joy','pim')]),
  convo([('pim','To Dot, who stole the lantern and saved the fleet!','joy','dot'),('ferris','And to me, who was asleep for all of it.','joy','pim'),('sal','Especially you.','joy','ferris')]),
- par(act('dot','cele'),act('rue','laugh'),act('nell','cele')),
+ par(act('dot','joy'),act('rue','laugh'),act('nell','joy')),
  par(emote('dot','smile',4),emote('rue','smile',4)),
  wait(2.5),
 ],time='night',ambience='crowd',music='bright',extras=crowd(10,[-4,-10,16,-1],[2,-4],91),intent='The village celebrates at the harbour. Everyone toasts Dot.'))

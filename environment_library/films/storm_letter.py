@@ -26,7 +26,7 @@ S.append(scene('warning','Storm by sunset',loc('room',3),[at('odile',-2.6,-2.6,f
  convo([('odile','My barometer is falling like a stone. A great storm by sunset.','serious','pepper'),('odile','The ferry sails at sunset. Captain Tobias must read this letter. Do not stop for anything.','serious','pepper'),('pepper','I never stop!','joy','odile')]),
  point('odile',[10,12],1.6),
  give('odile','pepper'),
- par(act('pepper','cele'),sfx('thunder',0.3)),
+ par(act('pepper','joy'),sfx('thunder',0.3)),
  run('pepper',[0.2,-3.3]),
 ],time='day',ambience='wind',music='mystery',fog=.1,intent='Odile gives Pepper a storm warning for the ferry captain. The ferry sails at sunset.'))
 # 2 ---------------------------------------------------------------------------------------------------------------- the square
@@ -50,7 +50,7 @@ S.append(scene('cart','Never stop... except',loc('market',6,objects=[LOW(0,-9.6,
  par(go('pepper',[-2.6,-2.2],gait='brisk')),
  put('pepper',on='stand1'),
  push('pepper','cart',dist=3.0,dir=0),
- par(sfx('thud',0.2),act('mo','cele')),
+ par(sfx('thud',0.2),act('mo','joy')),
  convo([('mo','Bless you, child! Now run!','joy','pepper')]),
  par(go('vesper',[-1.6,-3.0],gait='brisk')),
  take('vesper','letter'),
@@ -76,7 +76,7 @@ S.append(scene('bridge','The broken bridge',loc('harbor',5,water=[-5,-9,5,3],obj
  par(take('pepper','plank')),
  par(go('pepper',[-5.6,-3.4],gait='brisk')),
  put('pepper',on='stand4'),
- par(act('vesper','cele'),emote('pepper','smile',2.5)),
+ par(act('vesper','joy'),emote('pepper','smile',2.5)),
 ],time='dusk',ambience='sea',music='mystery',fog=.35,intent='Vesper reveals she was racing to warn the ferry too. Together they bridge the gap with a plank.'))
 # 6 ---------------------------------------------------------------------------------------------------------------- the toll
 S.append(scene('toll','The toll',loc('harbor',5,water=[-5,-9,5,3],objects=[dict(kind='platform',at=[-12,-3.5],w=14,d=5,height=.05,id='bank_w',color=(.55,.5,.45)),dict(kind='platform',at=[12,-3.5],w=14,d=5,height=.05,id='bank_e',color=(.55,.5,.45)),LOW(3,-9.6,-0.6,.7)]),[at('grub',9,-3.2,face=[-6,-3.4]),at('pepper',-8,-3.4,face=[8,-3.4]),at('vesper',-10,-3.8,face=[8,-3.4]),at('mo',-11.4,-1.4,face=[8,-3.4])],props=[prop('apple','apple',-9.6,-0.6,on='stand3')],steps=[
@@ -107,14 +107,14 @@ S.append(scene('storm','The storm breaks',loc('harbor',7),[at('tobias',9,-3.2,fa
  convo([('tobias','A storm by sunset... Odile is never wrong.','serious','pepper')]),
  par(sfx('thunder',0.2),act('tobias','startle')),
  convo([('tobias','Everybody off the ferry! Passengers to shelter! Now!','angry','pepper')]),
- par(run('tobias',[13.5,-3.0]),act('pepper','cele'),act('vesper','cele')),
+ par(run('tobias',[13.5,-3.0]),act('pepper','joy'),act('vesper','joy')),
  sfx('thunder',0.5),
  convo([('tobias','Fastest courier on the coast. And the best rival she will ever have.','warm','vesper')]),
 ],time='night',ambience='rain',music='tense',fog=.6,extras=crowd(8,[4,-9,18,-1],[11,-5],71),intent='Tobias reads the letter, cancels the sailing, and the storm breaks over the empty ferry.'))
 # 9 ---------------------------------------------------------------------------------------------------------------- the inn
 S.append(scene('inn','Soup and thunder',loc('room',3),[at('odile',-2.4,-2.6,face='pepper'),at('pepper',0,-1.8,face='odile'),at('vesper',2.6,-2.4,face='pepper'),at('grub',3.4,-0.6,face='pepper'),at('mo',-3.2,1.4,face='pepper'),at('tobias',-1,1.8,face='pepper')],steps=[
  convo([('odile','Fourteen families would have sailed into that.','serious','pepper'),('tobias','Thanks to a small fox who never stops. Almost never.','warm','pepper')]),
- par(act('mo','laugh'),act('grub','laugh'),act('pepper','cele')),
+ par(act('mo','laugh'),act('grub','laugh'),act('pepper','joy')),
  convo([('vesper','Pepper, partner? The Harbour Couriers need a fast fox and a stylish cat.','joy','pepper'),('pepper','Deal. But I get to wear the cap.','joy','vesper')]),
  sfx('thunder',0.5),
  par(emote('pepper','smile',4),emote('vesper','smile',4)),

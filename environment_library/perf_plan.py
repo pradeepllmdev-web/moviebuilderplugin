@@ -218,8 +218,18 @@ class Plan:
    s.props[p['id']]=Prop(p,(p['at'][0],p['at'][1],(z if z is not None else base+sz/2)),None)
   for c in spec['cast']:
    a=s.actors[c['id']];f=c.get('face');a.H[0]=s._heading_to(a,f) if f is not None else math.pi/2
+  walls=s.layout.get('walls',[])
+  for c in spec['cast'] if walls else []:     # nobody starts squeezed against a wall or staring into one
+   a=s.actors[c['id']];x,y=a.X[0],a.Y[0];cx,cy,r=min(walls,key=lambda w:math.hypot(x-w[0],y-w[1])-w[2]);d=math.hypot(x-cx,y-cy)-r;need=.95+.3*a.radius
+   if d<need:
+    ux,uy=(x-cx,y-cy) if math.hypot(x-cx,y-cy)>1e-6 else (0.,1.);L=math.hypot(ux,uy);ux,uy=ux/L,uy/L;a.X[0]=x+ux*(need-d);a.Y[0]=y+uy*(need-d)
+   toward=abs(wrap(math.atan2(cy-a.Y[0],cx-a.X[0])-a.H[0]))
+   if d<1.8 and toward<math.radians(60):a.H[0]=math.atan2(a.Y[0]-cy,a.X[0]-cx)    # turn to face the room
   s.extras=make_extras(spec,s.layout,[(c['at'][0],c['at'][1]) for c in spec['cast']])
   if s.extras:s.layout=dict(s.layout,obstacles=s.layout['obstacles']+[(e['x'],e['y'],e['look']['radius']*1.1) for e in s.extras])
+  for c in spec['cast']:     # a start inside a solid (a new stand, a bench) is moved to the nearest free spot
+   a=s.actors[c['id']];fp=s._free_goal(a,(a.X[0],a.Y[0]))
+   if fp!=(a.X[0],a.Y[0]):a.X[0],a.Y[0]=fp
   s.t_end=0.;s.router=Router(s.layout['obstacles'],s.layout['half'],margin=.55)   # centre-to-solid clearance: a body, an apron or a skirt is wider than the walking point
  # ------------------------------------------------------------------------------------------------------ references
  def _heading_to(s,a,ref):
@@ -363,6 +373,11 @@ class Plan:
   a=s.actors[b['who']];d=b.get('dur',2.);a.emotes.append((t0,t0+d,b['kind']));s._hold_until=max(s._hold_until,t0+d);s.events.append(dict(kind='emote',who=a.id,t0=t0,t1=t0+d,what=b['kind']))
  def b_act(s,b,t0):
   a=s.actors[b['who']];clip=b['clip']
+  if clip=='joy':    # joy has ten different celebrations, picked per character and per time, so a crowd never repeats one animation
+   V=[[('cele',1.)],[('jump',1.)],[('laugh',1.),('cele',.85)],[('wave',1.),('cele',1.15)],[('hips',1.)],[('bow',1.),('jump',1.)],[('nod',1.2),('cele',1.)],[('cele',.8),('laugh',1.)],[('hips',1.),('wave',1.)],[('jump',1.),('laugh',1.)]]
+   s._joys=getattr(s,'_joys',0);i=(sum(map(ord,a.id))+3*s._joys)%len(V);s._joys+=1
+   for c2,sc2 in V[i]:s.b_act(dict(b,clip=c2,scale=sc2),t0)
+   return
   if clip not in ACT_CLIPS:raise SpecError('act: unknown clip %r (known: %s)'%(clip,', '.join(ACT_CLIPS)))
   if a.state=='sit' and clip not in SEATED_OK:raise SpecError('%s acts %r while seated'%(a.id,clip))
   if a.state=='down' and clip!='getup':raise SpecError('%s is on the ground and can only get up'%a.id)
@@ -457,7 +472,7 @@ class Plan:
   return best[1]
  def _free_goal(s,a,p):
   """a goal inside a solid (a rock, a tree) is moved to the nearest free spot"""
-  obst=s.layout['obstacles'];ok=lambda q:not any(math.hypot(q[0]-c[0],q[1]-c[1])<c[2]+.15+a.radius*.6 for c in obst)
+  obst=s.layout['obstacles'];walls=s.layout.get('walls',[]);ok=lambda q:not any(math.hypot(q[0]-c[0],q[1]-c[1])<c[2]+.15+a.radius*.6 for c in obst) and not any(math.hypot(q[0]-w[0],q[1]-w[1])<w[2]+.9+a.radius*.3 for w in walls)    # goals keep clear of walls
   p=(p[0],p[1])
   if ok(p):return p
   for r in [.25*k for k in range(1,16)]:
