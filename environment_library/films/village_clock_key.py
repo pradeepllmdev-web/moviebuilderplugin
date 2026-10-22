@@ -10,7 +10,7 @@ CAST=[
  dict(id='pol',name='Pol',species='person',height=1.8,width=1.22,depth=1.15,posture='jaunty',outfit='cook',colors=[(.95,.95,.92),(.35,.3,.28),(.25,.18,.12)],description='the baker in a white apron'),
  dict(id='ada',name='Granny Ada',species='person',height=1.5,width=.92,depth=1.0,posture='hunched',outfit='villageress',colors=[(.7,.25,.3),(.4,.3,.35),(.3,.2,.12)],description='an old woman in a red shawl'),
  dict(id='joss',name='Farmer Joss',species='person',height=1.98,width=1.1,depth=1.05,posture='proud',outfit='farmer',colors=[(.25,.5,.3),(.5,.4,.25),(.3,.2,.1)],description='the tall farmer in a green shirt'),
- dict(id='mina',name='Mina',species='person',height=1.4,posture='hurried',outfit='child',colors=[(.9,.55,.2),(.3,.4,.7),(.4,.25,.15)],description='a small girl in an orange dress'),
+ dict(id='mina',name='Mina',species='person',height=1.4,posture='neutral',outfit='child',colors=[(.9,.55,.2),(.3,.4,.7),(.4,.25,.15)],description='a small girl in an orange dress'),
 ]
 KEYSTAND=lambda x,y,h=1.0:dict(kind='pedestal',at=[x,y],id='stand0',height=h,size=.4)
 TOWER=dict(kind='tower',at=[0,12],id='clock_tower',size=1.2)

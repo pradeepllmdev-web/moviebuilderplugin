@@ -119,7 +119,7 @@ def _dress(rec):
  return dict(skin=tuple(rec.get('skin',SKINS[h('skin',len(SKINS))])),shirt=tuple(rec.get('shirt',cols[0] if cols else PALETTE_P[h('shirt',len(PALETTE_P))])),pants=tuple(rec.get('pants',cols[1] if len(cols)>1 else PALETTE_P[(h('pants',len(PALETTE_P))+3)%len(PALETTE_P)])),shoes=tuple(rec.get('shoes',(.2,.13,.09))),hair=tuple(rec.get('hair',HAIRS[h('hair',len(HAIRS))])))
 PALETTE_P=[(.75,.2,.18),(.2,.4,.75),(.25,.55,.3),(.9,.75,.2),(.55,.3,.65),(.9,.9,.85),(.55,.35,.2),(.2,.55,.6),(.3,.3,.35),(.85,.45,.2)]
 # measured ground speed of the person's Walk, Crouch, Jog and Sprint actions at play speed 1 for the 1.83 m mannequin (m/s); the planner moves a person at its own pace and the clip is played faster or slower to match, so the feet stay planted
-HUMAN_NAT=dict(walk=.65,slow=.5,jog=2.3,sprint=4.2)
+HUMAN_NAT=dict(walk=.65,slow=.5,jog=2.3,sprint=4.2,carry=.52)
 HUMAN_PLAN=dict(walk=1.05,slow=.6,brisk=2.0,run=3.4)       # m/s planned for a 1.83 m person (scaled by height)
 def humanoid_speed(gait,height):
  """(planned m/s, clip key) of a gait for a person of this height"""

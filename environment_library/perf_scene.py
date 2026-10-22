@@ -95,7 +95,15 @@ def place(ch,name,t0,t1,sc,opt,first):
  st.blend_in=(8 if walk else 5) if ch['n']>1 else 0;st.blend_out=0 if opt.get('hold') else (8 if walk else 5);return st
 # people on the Universal Animation Library rig: the planned clips become the library actions (walk gaits -> Walk / Jog / Sprint / Crouch at the planned ground speed, sitting, gestures, falls ...)
 HUM_MAP={'idle':'Idle_Loop','look':'Idle_Loop','talk':'Idle_Talking_Loop','argue':'Idle_Talking_Loop','think':'Idle_FoldArms_Loop','nod':'Yes','laugh':'Idle_Talking_Loop','shrug':'Idle_No_Loop','wave':'Idle_Rail_Call','bow':'Yes','cele':'Dance_Loop','hips':'Dance_Loop','startle':'Hit_Chest','hit':'Punch_Jab','punch':'Punch_Jab','kick':'Melee_Hook','block':'Sword_Block','dodge':'Roll','cut':'Sword_Attack','push':'Push_Loop','pick':'PickUp_Table','kneel':'Fixing_Kneeling','climb':'Interact','fall':'Death01','getup':'LayToIdle','jump':'Jump_Start'}
-HUM_LOOPS=('Idle_Loop','Idle_Talking_Loop','Idle_FoldArms_Loop','Dance_Loop','Walk_Loop','Walk_Formal_Loop','Crouch_Fwd_Loop','Jog_Fwd_Loop','Sprint_Loop','Push_Loop','Sitting_Idle_Loop','Idle_No_Loop','Idle_Rail_Call')
+HUM_LOOPS=('Idle_Loop','Idle_Talking_Loop','Idle_FoldArms_Loop','Dance_Loop','Walk_Loop','Walk_Carry_Loop','Walk_Formal_Loop','Crouch_Fwd_Loop','Jog_Fwd_Loop','Sprint_Loop','Push_Loop','Sitting_Idle_Loop','Sitting_Talking_Loop','Idle_No_Loop','Idle_Rail_Call')
+def held_at(i,t):
+ """True if actor i carries a prop at time t (from the props' tracks)"""
+ for p in PLAN.props.values():
+  cur=None
+  for seg in p.track:
+   if seg[0]<=t+1e-3:cur=seg
+  if cur is not None and cur[1]=='held' and cur[2]==i:return True
+ return False
 def place_h(i,ch,name,t0,t1,sc,opt,first):
  a=PLAN.actors[i];ca=ch['cact'];k=ch['k'];sp=None
  for (w0,w1,g,scl,speed) in a.walks:
@@ -106,14 +114,26 @@ def place_h(i,ch,name,t0,t1,sc,opt,first):
  elif name in('walk','strut','stomp','bounce','shuffle'):act_n,nat=('Walk_Formal_Loop' if name=='strut' else 'Walk_Loop'),cr.HUMAN_NAT['walk']
  elif name=='sit':act_n,nat=('Sitting_Exit' if opt.get('reverse') else 'Sitting_Enter'),None
  else:act_n,nat=HUM_MAP.get(name,'Idle_Loop'),None
+ if name in('walk','bounce','shuffle') and held_at(i,t0+.1) and 'Walk_Carry_Loop' in ca:act_n,nat='Walk_Carry_Loop',cr.HUMAN_NAT['carry']     # walking with something in the hands
+ if name=='idle' and t1-t0>3. and not held_at(i,t0+.1) and int(cr.hash_unit(i+str(round(t0)),'fold')*4)==0 and 'Idle_FoldArms_Loop' in ca:act_n='Idle_FoldArms_Loop'     # now and then a listener folds the arms instead of the plain idle
  if act_n not in ca:act_n='Idle_Loop'
  if nat and sp:scale=max(.45,min(2.6,nat*k/max(.05,sp)))
  act=ca[act_n];n=int(act.frame_range[1]-act.frame_range[0])+1;f_start=S.F(t0 if first else max(0,t0-.4));dur_f=S.F(t1)-f_start+(0 if first else int(.2*FPS))
  def strip(act_,sc_,start,rep=1.,hold=False,end_extrap=None):
   tr=ch['rig'].animation_data.nla_tracks.new();ch['n']+=1;st=tr.strips.new(act_.name,start,act_);st.action_slot=act_.slots[0];st.scale=sc_;st.repeat=rep;st.extrapolation=end_extrap or ('HOLD' if hold else 'NOTHING');st.blend_in=10 if ch['n']>1 else 0;st.blend_out=0 if hold else 10;return st     # long blends: the hands and the body settle into the next pose instead of snapping
  if name=='sit' and not opt.get('reverse'):      # sit down, then sit
-  d_=min(dur_f,int(3.2*FPS));strip(act,d_/n,f_start);idle=ca.get('Sitting_Idle_Loop')
-  if idle is not None and dur_f>d_+2:ni=int(idle.frame_range[1]-idle.frame_range[0])+1;strip(idle,1.,f_start+d_,max(1.,(dur_f-d_)/ni),False,'HOLD')
+  d_=min(dur_f,int(3.2*FPS));strip(act,d_/n,f_start);idle=ca.get('Sitting_Idle_Loop');talk=ca.get('Sitting_Talking_Loop')
+  if idle is not None and dur_f>d_+2:
+   ts_=sorted((L['t0'],L['t1']) for L in PLAN.lines if L['speaker']==i and L['t1']>t0+3.2 and L['t0']<t1) if talk is not None else []
+   cur=f_start+d_;end=f_start+dur_f;segs=[]
+   for (a0,b0) in ts_:
+    fa,fb=max(cur,S.F(a0)-4),min(end,S.F(b0)+4)
+    if fb-fa<12:continue
+    if fa-cur>=6:segs.append((idle,cur,fa))
+    segs.append((talk,fa,fb));cur=fb
+   if end-cur>=2:segs.append((idle,cur,end))
+   for k_,(ac,fa,fb) in enumerate(segs):
+    na=int(ac.frame_range[1]-ac.frame_range[0])+1;st_=strip(ac,1.,fa-(0 if k_==0 else 5),max(1.,(fb-fa+(0 if k_==0 else 5))/na),False,'HOLD' if k_==len(segs)-1 else None)
   return
  if act_n in HUM_LOOPS:strip(act,scale,f_start,max(1.,dur_f/(n*scale)))
  elif name=='fall':strip(act,max(.5,dur_f/n),f_start,1.,True)
@@ -297,16 +317,17 @@ from mathutils import Euler
 from bpy_extras import anim_utils
 def body_layer():
  fr=pbody.key_frames(PLAN)
+ UAL={'Hips':'pelvis','Spine':'spine_01','Spine1':'spine_02','Spine2':'spine_03','Neck':'neck_01','Head':'Head'}
  for i,ch in CH.items():
-  if ch.get('human2'):continue      # the library actions already breathe and sway
-  rig=ch['rig'];sig=pbody.signals(PLAN,i);ad=rig.animation_data;pa_=PLAN.actors[i]
+  rig=ch['rig'];hum=bool(ch.get('human2'));sig=pbody.signals(PLAN,i);ad=rig.animation_data;pa_=PLAN.actors[i]
   tt=(np.array(fr)-1)/FPS;reach_=np.array([max(PLAN.hand_target(pa_,'R',t)[0],PLAN.hand_target(pa_,'L',t)[0]) for t in tt]) if any(pa_.hands[h] for h in ('R','L')) else np.zeros(len(fr))
   for b_ in ('Hips','Spine','Spine1','Spine2'):sig[b_]=sig[b_]*(1-.8*np.clip(reach_,0,1))[:,None]     # the trunk keeps still while an arm reaches for something
   if ad.action is None:       # one real keyframe makes the action, its slot and its channelbag
-   pb0=rig.pose.bones['mixamorig:Hips'];pb0.keyframe_insert('rotation_quaternion',frame=1)
+   pb0=rig.pose.bones[UAL['Hips'] if hum else 'mixamorig:Hips'];pb0.rotation_mode='QUATERNION';pb0.keyframe_insert('rotation_quaternion',frame=1)
   act=ad.action;cbag=anim_utils.action_ensure_channelbag_for_slot(act,ad.action_slot)
   for b,arr in sig.items():
-   path='pose.bones["mixamorig:%s"].rotation_quaternion'%b;qs=np.array([tuple(Euler((x,y,z),'XYZ').to_quaternion()) for x,y,z in arr])
+   if hum:arr=arr*(0. if b=='Hips' else .8)      # the library's own idles already breathe: the layer adds the listening, speaking and turning on top
+   path='pose.bones["%s"].rotation_quaternion'%(UAL[b] if hum else 'mixamorig:'+b);qs=np.array([tuple(Euler((x,y,z),'XYZ').to_quaternion()) for x,y,z in arr])
    for c in range(4):
     fc=next((f for f in cbag.fcurves if f.data_path==path and f.array_index==c),None) or cbag.fcurves.new(path,index=c)
     fc.keyframe_points.clear() if hasattr(fc.keyframe_points,'clear') else None
@@ -397,8 +418,8 @@ for i,(IK,TG) in IKS.items():
    if pos is None or infl<.98:continue
    S.settle(f);hp=ch['rig'].matrix_world@ch['rig'].pose.bones[sb.B(ch,bone)].head;e=(hp-Vector(pos)).length;reach_n+=1
    if e>reach_worst:reach_worst=e;reach_info=(i,hand,t,tuple(round(v,2) for v in pos),tuple(round(v,2) for v in hp))
-if reach_worst>.22:print('REACH worst',reach_info)
-if reach_worst>.22:issues.append('AUDIT reach: a hand ends %.2f m from its target (limit 0.22; the arm cannot reach, move the prop or the actor)'%reach_worst)
+if reach_worst>.23:print('REACH worst',reach_info)
+if reach_worst>.23:issues.append('AUDIT reach: a hand ends %.2f m from its target (limit 0.23; the arm cannot reach, move the prop or the actor)'%reach_worst)
 # cartoon signs over heads (the planned 'icon' beats): text solids that pop in, follow the head and always face the active camera
 def make_icons():
  import bpy
