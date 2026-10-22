@@ -324,6 +324,7 @@ def build_human2(S,look,tag):
    if b:b.inputs['Base Color'].default_value=(*cols[i],1.)
  cact={re.sub(r'\.\d+$','',a.name):a for a in dst.actions if a is not None}
  rig.animation_data_create();rig.animation_data.action=None
+ for tr_ in list(rig.animation_data.nla_tracks):rig.animation_data.nla_tracks.remove(tr_)     # the library file keeps every clip as an NLA strip: the scene builds its own
  head=rig.pose.bones['Head'];hw=rig.matrix_world
  def bone_parent(o):
   o.parent=rig;o.parent_type='BONE';o.parent_bone='Head';o.matrix_parent_inverse=Matrix.Identity(4)

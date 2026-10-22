@@ -18,9 +18,9 @@ class Registry(unittest.TestCase):
   self.assertNotEqual(cr.resolve(person('ann',colors=[]))['dress'],cr.resolve(person('bob',colors=[]))['dress'])
  def test_speeds_scale_with_height_and_pick_the_clip(self):
   v,c=cr.humanoid_speed('walk',1.83);self.assertAlmostEqual(v,cr.HUMAN_PLAN['walk']);self.assertEqual(c,'walk')
-  self.assertLess(cr.humanoid_speed('walk',1.2)[0],v);self.assertEqual(cr.humanoid_speed('run',1.8)[1],'sprint');self.assertEqual(cr.humanoid_speed('brisk',1.8)[1],'jog');self.assertEqual(cr.humanoid_speed('sneak',1.8)[1],'slow')
+  self.assertLess(cr.humanoid_speed('walk',1.2)[0],v);self.assertEqual(cr.humanoid_speed('run',1.8)[1],'jog');self.assertEqual(cr.humanoid_speed('brisk',1.8)[1],'walk');self.assertEqual(cr.humanoid_speed('sneak',1.8)[1],'slow')
  def test_plan_speed_is_always_within_the_scale_range_of_a_clip(self):       # the clip is played at nat/planned: stay inside the 0.45 .. 2.6 clamp
-  for g,key in (('walk','walk'),('brisk','jog'),('run','sprint'),('slow','slow')):
+  for g,key in (('walk','walk'),('brisk','walk'),('run','jog'),('slow','slow')):
    ratio=cr.HUMAN_NAT[key]/cr.HUMAN_PLAN[g];self.assertTrue(.45<=ratio<=2.6,(g,ratio))
 class Planner(unittest.TestCase):
  def test_a_person_walks_at_a_human_pace(self):

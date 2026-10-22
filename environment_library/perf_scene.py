@@ -94,7 +94,7 @@ def place(ch,name,t0,t1,sc,opt,first):
  walk=name in ('walk','strut','shuffle','bounce','sneak','stomp','brisk','run')
  st.blend_in=(8 if walk else 5) if ch['n']>1 else 0;st.blend_out=0 if opt.get('hold') else (8 if walk else 5);return st
 # people on the Universal Animation Library rig: the planned clips become the library actions (walk gaits -> Walk / Jog / Sprint / Crouch at the planned ground speed, sitting, gestures, falls ...)
-HUM_MAP={'idle':'Idle_Loop','look':'Idle_Loop','talk':'Idle_Talking_Loop','argue':'Idle_Talking_Loop','think':'Idle_FoldArms_Loop','nod':'Yes','laugh':'Idle_Talking_Loop','shrug':'Idle_No_Loop','wave':'Idle_Rail_Call','bow':'Yes','cele':'Dance_Loop','hips':'Dance_Loop','startle':'Hit_Chest','hit':'Punch_Jab','punch':'Punch_Jab','kick':'Melee_Hook','block':'Sword_Block','dodge':'Roll','cut':'Sword_Attack','push':'Push_Loop','pick':'PickUp_Table','kneel':'Fixing_Kneeling','climb':'Interact','fall':'Death01','getup':'LayToIdle','jump':'Jump_Start'}
+HUM_MAP={'idle':'Idle_Loop','look':'Idle_Loop','talk':'Idle_Talking_Loop','argue':'Idle_Talking_Loop','think':'Idle_FoldArms_Loop','nod':'Yes','laugh':'Idle_Talking_Loop','shrug':'Idle_No_Loop','wave':'Idle_Rail_Call','bow':'Yes','cele':'Idle_Talking_Loop','hips':'Idle_Talking_Loop','startle':'Hit_Chest','hit':'Punch_Jab','punch':'Punch_Jab','kick':'Melee_Hook','block':'Sword_Block','dodge':'Roll','cut':'Sword_Attack','push':'Push_Loop','pick':'PickUp_Table','kneel':'Fixing_Kneeling','climb':'Interact','fall':'Death01','getup':'LayToIdle','jump':'Jump_Start'}
 HUM_LOOPS=('Idle_Loop','Idle_Talking_Loop','Idle_FoldArms_Loop','Dance_Loop','Walk_Loop','Walk_Carry_Loop','Walk_Formal_Loop','Crouch_Fwd_Loop','Jog_Fwd_Loop','Sprint_Loop','Push_Loop','Sitting_Idle_Loop','Sitting_Talking_Loop','Idle_No_Loop','Idle_Rail_Call')
 def held_at(i,t):
  """True if actor i carries a prop at time t (from the props' tracks)"""
@@ -109,13 +109,13 @@ def place_h(i,ch,name,t0,t1,sc,opt,first):
  for (w0,w1,g,scl,speed) in a.walks:
   if w0-1e-3<=t0<=w1+1e-3:sp=speed
  scale=1.
- if name in('run','brisk'):act_n,nat=('Sprint_Loop',cr.HUMAN_NAT['sprint']) if name=='run' else ('Jog_Fwd_Loop',cr.HUMAN_NAT['jog'])
+ if name=='run':act_n,nat='Jog_Fwd_Loop',cr.HUMAN_NAT['jog']     # a run is a jog: the sprint looks comic
+ elif name=='brisk':act_n,nat='Walk_Loop',cr.HUMAN_NAT['walk']     # a hurry is a quicker walk
  elif name in('sneak','crawl'):act_n,nat='Crouch_Fwd_Loop',cr.HUMAN_NAT['slow']
  elif name in('walk','strut','stomp','bounce','shuffle'):act_n,nat=('Walk_Formal_Loop' if name=='strut' else 'Walk_Loop'),cr.HUMAN_NAT['walk']
  elif name=='sit':act_n,nat=('Sitting_Exit' if opt.get('reverse') else 'Sitting_Enter'),None
  else:act_n,nat=HUM_MAP.get(name,'Idle_Loop'),None
  if name in('walk','bounce','shuffle') and held_at(i,t0+.1) and 'Walk_Carry_Loop' in ca:act_n,nat='Walk_Carry_Loop',cr.HUMAN_NAT['carry']     # walking with something in the hands
- if name=='idle' and t1-t0>3. and not held_at(i,t0+.1) and int(cr.hash_unit(i+str(round(t0)),'fold')*4)==0 and 'Idle_FoldArms_Loop' in ca:act_n='Idle_FoldArms_Loop'     # now and then a listener folds the arms instead of the plain idle
  if act_n not in ca:act_n='Idle_Loop'
  if nat and sp:scale=max(.45,min(2.6,nat*k/max(.05,sp)))
  act=ca[act_n];n=int(act.frame_range[1]-act.frame_range[0])+1;f_start=S.F(t0 if first else max(0,t0-.4));dur_f=S.F(t1)-f_start+(0 if first else int(.2*FPS))
@@ -135,10 +135,41 @@ def place_h(i,ch,name,t0,t1,sc,opt,first):
    for k_,(ac,fa,fb) in enumerate(segs):
     na=int(ac.frame_range[1]-ac.frame_range[0])+1;st_=strip(ac,1.,fa-(0 if k_==0 else 5),max(1.,(fb-fa+(0 if k_==0 else 5))/na),False,'HOLD' if k_==len(segs)-1 else None)
   return
+ if name in('idle','look') and t1-t0>3.4 and not held_at(i,t0+.1):
+  rr=random.Random(sum(map(ord,i+SPEC['id']))+int(t0*10));end=f_start+dur_f;plan_=[]
+  for L in PLAN.lines:       # speaking: the talking loop (hands that gesture); being addressed: a nod now and then
+   if L['speaker']==i and L['t1']>t0 and L['t0']<t1:plan_.append((max(f_start,S.F(L['t0'])-3),min(end,S.F(L['t1'])+3),'Idle_Talking_Loop'))
+   elif L.get('to')==i and L['speaker']!=i and L['mood'] not in('angry','sad') and t0<L['t0']+1.<t1 and rr.random()<.6:plan_.append((S.F(L['t0']+.8),S.F(L['t0']+.8)+int(1.7*FPS),'Yes'))
+  plan_.sort();clean=[];cur=f_start
+  for a0,b0,kd in plan_:
+   if a0>=cur and b0<=end:clean.append((a0,b0,kd));cur=b0
+  segs=[];cur=f_start
+  def fill(a0,b0):
+   x=a0
+   while b0-x>=int(1.2*FPS):
+    dl=int(rr.uniform(2.6,4.4)*FPS)
+    if b0-(x+dl)<int(1.6*FPS):dl=b0-x
+    pick=rr.random();ac='Idle_FoldArms_Loop' if (pick<.22 and dl>=int(3*FPS) and 'Idle_FoldArms_Loop' in ca) else 'Idle_Loop'
+    segs.append((x,x+dl,ac));x+=dl
+  for a0,b0,kd in clean:
+   fill(cur,a0);segs.append((a0,b0,kd));cur=b0
+  fill(cur,end)
+  if not segs:segs=[(f_start,end,'Idle_Loop')]
+  segs[-1]=(segs[-1][0],end,segs[-1][2])
+  for k_,(a0,b0,kd) in enumerate(segs):
+   ac=ca.get(kd) or ca['Idle_Loop'];na=int(ac.frame_range[1]-ac.frame_range[0])+1;over=0 if k_==0 else 6
+   if kd=='Yes':strip(ac,max(.5,(b0-a0)/na),a0-over)
+   else:strip(ac,1.,a0-over,max(1.,(b0-a0+over)/na),False,'HOLD' if k_==len(segs)-1 else None)
+  return
  if act_n in HUM_LOOPS:strip(act,scale,f_start,max(1.,dur_f/(n*scale)))
  elif name=='fall':strip(act,max(.5,dur_f/n),f_start,1.,True)
  else:strip(act,max(.4,dur_f/n),f_start)
+def add_base(ch):
+ """a looping idle under everything a person does: when a clip ends or blends out the body settles into an idle, never into the skeleton's rest pose (a T)"""
+ ac=ch['cact']['Idle_Loop'];tr=ch['rig'].animation_data.nla_tracks.new();n=int(ac.frame_range[1]-ac.frame_range[0])+1;total=S.F(PLAN.seconds)+120
+ st=tr.strips.new('base',1,ac);st.action_slot=ac.slots[0];st.repeat=total/n;st.extrapolation='HOLD';ch['n']=1
 for i,ch in CH.items():
+ if ch.get('human2'):add_base(ch)
  segs=[];cl=PLAN.actors[i].clips
  for c in cl:
   if segs and c[1]-c[0]<.35 and not c[4]:segs[-1]=segs[-1][:1]+(c[1],)+segs[-1][2:];continue
@@ -317,16 +348,28 @@ from mathutils import Euler
 from bpy_extras import anim_utils
 def body_layer():
  fr=pbody.key_frames(PLAN)
- UAL={'Hips':'pelvis','Spine':'spine_01','Spine1':'spine_02','Spine2':'spine_03','Neck':'neck_01','Head':'Head'}
+ UAL={'Hips':'pelvis','Spine':'spine_01','Spine1':'spine_02','Spine2':'spine_03','Neck':'neck_01','Head':'Head','ThighL':'thigh_l','ThighR':'thigh_r'}
  for i,ch in CH.items():
   rig=ch['rig'];hum=bool(ch.get('human2'));sig=pbody.signals(PLAN,i);ad=rig.animation_data;pa_=PLAN.actors[i]
-  tt=(np.array(fr)-1)/FPS;reach_=np.array([max(PLAN.hand_target(pa_,'R',t)[0],PLAN.hand_target(pa_,'L',t)[0]) for t in tt]) if any(pa_.hands[h] for h in ('R','L')) else np.zeros(len(fr))
+  tt=(np.array(fr)-1)/FPS
+  if hum:       # a narrower stance while standing (the library's idles stand with the feet wide apart): the thighs close in, and ease out again for walking, sitting and every action
+   stand=np.array([1. if (not PLAN._walking(i,t) and any(c0<=t<c1 and nm in('idle','look','talk','think','nod','laugh','shrug','wave','argue','cele','bow','hips','startle') for (c0,c1,nm,_s,_o) in pa_.clips) and not held_at(i,t)) else 0. for t in tt])
+   stand=np.convolve(np.pad(stand,6,mode='edge'),np.ones(13)/13.,mode='valid');sig['ThighL']=np.zeros((len(tt),3));sig['ThighR']=np.zeros((len(tt),3));sig['ThighL'][:,2]=-.10*stand;sig['ThighR'][:,2]=.10*stand
+   rf=random.Random(sum(map(ord,i+SPEC['id']))+7);tf=rf.uniform(1.5,4.)       # a person never stands frozen: every few seconds a weight shift, a head tilt, a glance away or a small settle
+   while tf<tt[-1]:
+    sg=rf.choice((-1,1));kd=rf.choice(('shift','tilt','glance','settle','shift','tilt'));gb=np.exp(-((tt-tf)/.6)**2)*stand
+    if kd=='shift':sig['Spine'][:,2]+=.05*sg*gb;sig['Spine1'][:,2]-=.03*sg*gb
+    elif kd=='tilt':sig['Head'][:,2]+=.09*sg*gb;sig['Neck'][:,2]+=.04*sg*gb
+    elif kd=='glance':sig['Head'][:,1]+=.26*sg*gb;sig['Neck'][:,1]+=.1*sg*gb
+    else:sig['Spine2'][:,0]+=.04*gb;sig['Head'][:,0]-=.03*gb
+    tf+=rf.uniform(3.5,7.)
+  reach_=np.array([max(PLAN.hand_target(pa_,'R',t)[0],PLAN.hand_target(pa_,'L',t)[0]) for t in tt]) if any(pa_.hands[h] for h in ('R','L')) else np.zeros(len(fr))
   for b_ in ('Hips','Spine','Spine1','Spine2'):sig[b_]=sig[b_]*(1-.8*np.clip(reach_,0,1))[:,None]     # the trunk keeps still while an arm reaches for something
   if ad.action is None:       # one real keyframe makes the action, its slot and its channelbag
    pb0=rig.pose.bones[UAL['Hips'] if hum else 'mixamorig:Hips'];pb0.rotation_mode='QUATERNION';pb0.keyframe_insert('rotation_quaternion',frame=1)
   act=ad.action;cbag=anim_utils.action_ensure_channelbag_for_slot(act,ad.action_slot)
   for b,arr in sig.items():
-   if hum:arr=arr*(0. if b=='Hips' else .8)      # the library's own idles already breathe: the layer adds the listening, speaking and turning on top
+   if hum:arr=arr*(0. if b=='Hips' else (1. if b.startswith('Thigh') else 1.1))      # the library's own idles already breathe: the layer adds the listening, speaking and turning on top
    path='pose.bones["%s"].rotation_quaternion'%(UAL[b] if hum else 'mixamorig:'+b);qs=np.array([tuple(Euler((x,y,z),'XYZ').to_quaternion()) for x,y,z in arr])
    for c in range(4):
     fc=next((f for f in cbag.fcurves if f.data_path==path and f.array_index==c),None) or cbag.fcurves.new(path,index=c)

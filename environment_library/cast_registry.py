@@ -120,12 +120,12 @@ def _dress(rec):
 PALETTE_P=[(.75,.2,.18),(.2,.4,.75),(.25,.55,.3),(.9,.75,.2),(.55,.3,.65),(.9,.9,.85),(.55,.35,.2),(.2,.55,.6),(.3,.3,.35),(.85,.45,.2)]
 # measured ground speed of the person's Walk, Crouch, Jog and Sprint actions at play speed 1 for the 1.83 m mannequin (m/s); the planner moves a person at its own pace and the clip is played faster or slower to match, so the feet stay planted
 HUMAN_NAT=dict(walk=.65,slow=.5,jog=2.3,sprint=4.2,carry=.52)
-HUMAN_PLAN=dict(walk=1.05,slow=.6,brisk=2.0,run=3.4)       # m/s planned for a 1.83 m person (scaled by height)
+HUMAN_PLAN=dict(walk=.85,slow=.6,brisk=1.25,run=2.4)       # m/s planned for a 1.83 m person (scaled by height)
 def humanoid_speed(gait,height):
  """(planned m/s, clip key) of a gait for a person of this height"""
  k=height/1.83
- if gait=='run':return HUMAN_PLAN['run']*k,'sprint'
- if gait=='brisk':return HUMAN_PLAN['brisk']*k,'jog'
+ if gait=='run':return HUMAN_PLAN['run']*k,'jog'          # a run is a jog: the library's sprint looks comic
+ if gait=='brisk':return HUMAN_PLAN['brisk']*k,'walk'      # a hurry is a quicker walk
  if gait in('shuffle','sneak','crawl'):return HUMAN_PLAN['slow']*k,'slow'
  return HUMAN_PLAN['walk']*k,'walk'
 def resolve(rec):

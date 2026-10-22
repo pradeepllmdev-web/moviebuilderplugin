@@ -24,6 +24,29 @@ for a in list(bpy.data.actions):
  if short in('A_TPose',) and a.name!='A_TPose' and short in {x.name for x in bpy.data.actions}:bpy.data.actions.remove(a);continue
  if short!=a.name and short in {x.name for x in bpy.data.actions if x is not a}:short='U1_'+short
  a.name=short;a.use_fake_user=True;out[short]=int(a.frame_range[1]-a.frame_range[0])+1
+# relaxed hands: nearly every library clip keeps the fingers in a tight fist, so every finger channel becomes one natural half-open pose (between the fist of Idle_Loop and the open hand of A_TPose)
+from mathutils import Quaternion
+FINGERS=('thumb','index','middle','ring','pinky')
+def _fc_map(act):
+ d={}
+ for l in act.layers:
+  for st in l.strips:
+   for cb in st.channelbags:
+    for f in cb.fcurves:
+     if '"' in f.data_path and f.data_path.endswith('rotation_quaternion') and any(k in f.data_path for k in FINGERS):d.setdefault(f.data_path.split('"')[1],{})[f.array_index]=f
+ return d
+def _q(fm,b):return Quaternion([fm[b][i].keyframe_points[0].co[1] for i in range(4)])
+fist=_fc_map(bpy.data.actions['Idle_Loop']);opened=_fc_map(bpy.data.actions['A_TPose']);RELAX={}
+for b in fist:
+ if b in opened:RELAX[b]=fist[b] and _q(fist,b).slerp(_q(opened,b),.55)
+nfix=0
+for a_ in bpy.data.actions:
+ for b,fcs in _fc_map(a_).items():
+  if b not in RELAX:continue
+  for i,f in fcs.items():
+   for kp in f.keyframe_points:kp.co[1]=RELAX[b][i];kp.handle_left[1]=RELAX[b][i];kp.handle_right[1]=RELAX[b][i]
+   f.update();nfix+=1
+print('relaxed finger channels',nfix)
 # regions of the mannequin
 names={g.index:g.name for g in mesh.vertex_groups};me=mesh.data
 def region(v_groups,z):
