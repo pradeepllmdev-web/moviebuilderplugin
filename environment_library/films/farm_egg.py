@@ -22,66 +22,74 @@ S=[]
 # 1 ---------------------------------------------------------------------------------------------------------------- dawn on the farm
 S.append(scene('dawn','A strange egg',loc('meadow',7),[at('hazel',-7,-2.6,face=[2,2]),at('moss',-9,-4.6,face=[-1.5,-6.4]),at('clara',2,3.5,face=[-6,-3]),at('percy',5.5,0.5,face=[-6,-3]),at('dolly',8,-3.2,face=[-6,-3]),at('biscuit',-4.5,-6,face=[-6,-3]),at('bolt',10,-6,face=[-6,-3])],props=[EGG(-1.5,-6.6)],steps=[
  par(sfx('moo',0.3,who='clara'),sfx('oink',0.9,who='percy'),sfx('baa',1.5,who='dolly')),
- convo([('hazel','Morning, everyone! Breakfast soon!','joy','moss')]),
+ convo([('hazel','Good morning, everyone. Another quiet morning on the farm.','warm','moss')]),
  par(go('moss',[-3.2,-5.4],gait='run'),sfx('bark',0.3,who='biscuit')),
+ icon('moss','alarm',1.6),
  point('moss','egg',1.6),
  par(go('hazel',[-4.6,-4.0],gait='walk')),
- convo([('moss','Farmer Hazel! Look! An egg!','joy','hazel'),('hazel','That is no hen’s egg. That is a very big egg.','concern','moss')]),
- par(sfx('sting',0.2),act('hazel','startle')),
+ convo([('moss','Farmer Hazel, come quick! There is something in the field!','joy','hazel'),('hazel','That is no hen’s egg. Whatever laid it must be enormous.','concern','moss')]),
+ par(sfx('sting',0.2),act('hazel','startle'),icon('hazel','question',2.0)),
 ],time='dawn',ambience='wind',music='mystery',fog=.1,extras=[],intent='Moss finds a giant egg in the field. Farmer Hazel has never seen one like it.'))
 # 2 ---------------------------------------------------------------------------------------------------------------- the egg hatches
 S.append(scene('hatch','It hatched!',loc('meadow',7),[at('zip',-1.5,-6.6,face=[-1,3]),at('moss',-4.2,-4.6,face='zip'),at('hazel',-6,-2.6,face='zip'),at('clara',2,3.5,face='zip'),at('percy',5.5,0.5,face='zip'),at('dolly',8,-3.2,face=[16,-8]),at('biscuit',-3.6,-7.2,face='zip'),at('bolt',10,-6,face='zip')],props=[EGG(-0.2,-7.6)],steps=[
+ convo([('moss','Hazel, the egg is moving!','concern','hazel')]),
  par(sfx('thud',0.2),sfx('crash',0.8)),
- par(act('moss','startle'),act('hazel','startle'),act('clara','startle'),act('percy','startle')),
- par(sfx('roar',0.2,who='zip'),act('zip','jump')),
+ par(act('moss','startle'),act('hazel','startle'),act('clara','startle'),act('percy','startle'),icon('clara','alarm',1.6),icon('percy','alarm',1.6)),
+ par(sfx('roar',0.2,who='zip'),act('zip','joy')),
  par(run('percy',[12,8]),run('dolly',[13,-7]),run('clara',[7,7.2]),sfx('oink',0.2,who='percy'),sfx('baa',0.6,who='dolly')),
- convo([('hazel','It hatched! It is a... what is it?','concern','moss'),('moss','He is a baby dinosaur!','joy','hazel')]),
+ convo([('hazel','It hatched! What on earth is it?','concern','moss'),('moss','He is a baby dinosaur! A real one!','joy','hazel')]),
+ icon('hazel','question',1.6),
 ],time='day',ambience='wind',music='comic',fog=0.,intent='The egg hatches into a baby raptor. The farm animals panic.'))
 # 3 ---------------------------------------------------------------------------------------------------------------- chaos
 S.append(scene('chaos','Chaos on the farm',loc('meadow',7),[at('zip',-1.0,-5.6,face=[8,0]),at('percy',9.5,5.5,face='zip'),at('dolly',11,-5.8,face=[18,-8]),at('clara',9.5,4.5,face='zip'),at('biscuit',-3.2,-6.4,face='zip'),at('bolt',10,-6,face='zip'),at('hazel',-5.6,-3.0,face='zip'),at('moss',-3.4,-4.4,face='zip')],steps=[
- par(run('zip',[7,2]),run('biscuit',[3,0]),sfx('bark',0.2,who='biscuit'),sfx('roar',0.6,who='zip')),
- par(run('percy',[-8,5]),run('clara',[-10,3]),run('dolly',[-8,-3]),sfx('oink',0.1,who='percy'),sfx('moo',0.3,who='clara'),sfx('baa',0.5,who='dolly')),
+ par(run('zip',[7,2]),run('biscuit',[3,0]),sfx('bark',0.2,who='biscuit'),sfx('roar',0.6,who='zip'),icon('biscuit','anger',2.0)),
+ par(run('percy',[-8,5]),run('clara',[-10,3]),run('dolly',[-8,-3]),sfx('oink',0.1,who='percy'),sfx('moo',0.3,who='clara'),sfx('baa',0.5,who='dolly'),icon('percy','alarm',1.6),icon('dolly','alarm',1.6)),
  par(run('zip',[-6,4]),act('bolt','jump'),sfx('neigh',0.2,who='bolt'),run('biscuit',[-2,3])),
  par(run('zip',[-1,-4]),run('percy',[6,-2]),run('dolly',[2,6]),run('clara',[4,-4])),
- convo([('hazel','Stop! Everybody stop!','angry','moss')]),
+ convo([('hazel','Stop! Stop! He is scaring the whole farm!','angry','moss')]),
  par(sfx('crash',0.2),act('hazel','fall')),
+ icon('moss','sad',1.6),
 ],time='day',ambience='wind',music='epic',fog=0.,intent='The baby raptor runs through the farm and every animal scatters. Hazel falls.'))
 # 4 ---------------------------------------------------------------------------------------------------------------- the apple
 S.append(scene('apple','Just hungry',loc('meadow',8,objects=[dict(kind='pedestal',at=[-6.0,-3.0],id='stand0',height=.6,size=.25),STAND(1,2.0,-2.0,.6)]),[at('moss',-6.0,-4.2,face=[-6,-3]),at('zip',6,1,face='moss'),at('hazel',-9,-6,face='moss'),at('biscuit',-9.5,-4,face='zip')],props=[prop('apple','apple',-6.0,-3.0,on='stand0',size=1.4)],steps=[
  take('moss','apple'),
- par(look('moss','zip',1.5),emote('moss','smile',2)),
- convo([('moss','Shh. It’s okay. He is not angry. He is just hungry.','warm','hazel')]),
+ par(look('moss','zip',1.5),icon('moss','idea',1.8)),
+ convo([('moss','Look at him. He is not angry. He is scared and hungry.','warm','hazel')]),
  par(go('moss',[1.0,-2.4],gait='walk'),go('zip',[4,-0.6],gait='walk')),
  put('moss',on='stand1'),
  par(go('moss',[-1.4,-3.4],gait='walk')),
  par(go('zip',[2.8,-1.4],gait='walk'),sfx('chomp',1.0,who='zip')),
- par(act('zip','jump'),sfx('roar',0.2,who='zip'),emote('moss','smile',3)),
- convo([('hazel','Well, I never. He is only a baby.','warm','moss'),('moss','He wants his mother.','sad','hazel')]),
+ par(act('zip','joy'),icon('zip','joy',2.0),emote('moss','smile',3)),
+ convo([('hazel','Well, I never. He is only a baby. Where did he come from?','warm','moss'),('moss','He must have lost his mother. He is looking for her.','sad','hazel')]),
 ],time='day',ambience='wind',music='warm',fog=0.,intent='Moss calms the baby raptor with an apple. He is just hungry, and lost.'))
 # 5 ---------------------------------------------------------------------------------------------------------------- the thunder
 S.append(scene('thunder','The ground shakes',loc('hilltop',3),[at('moss',-2.8,-2.4,face=[-16,10]),at('zip',-1.6,-3.6,face=[-16,10]),at('hazel',-5,-4,face=[-16,10]),at('clara',6,-3,face=[-16,10]),at('percy',4,4,face=[-16,10]),at('mama',-22,12,face='moss')],steps=[
- par(sfx('thunder',0.2),act('hazel','startle'),act('clara','startle')),
- par(go('mama',[-12,8],gait='walk',),sfx('thunder',1.2)),
- par(run('percy',[10,6]),run('clara',[12,-4]),sfx('oink',0.1,who='percy'),sfx('moo',0.4,who='clara')),
- convo([('hazel','Run! Something big is coming!','angry','moss')]),
+ par(sfx('thunder',0.2),act('hazel','startle'),act('clara','startle'),icon('clara','alarm',1.6)),
+ par(go('mama',[-12,8],gait='walk'),sfx('thunder',1.2)),
+ par(run('percy',[10,6]),run('clara',[12,-4]),sfx('oink',0.1,who='percy'),sfx('moo',0.4,who='clara'),icon('percy','alarm',1.8)),
+ convo([('hazel','The whole ground is shaking! Something much bigger is coming. Run!','angry','moss')]),
  par(go('mama',[-7,6],gait='walk'),sfx('roar',0.6,who='mama')),
- par(look('moss',[-7,6],2),point('hazel',[-7,6],1.2)),
+ par(look('moss',[-7,6],2),point('hazel',[-7,6],1.2),icon('moss','idea',2.0)),
+ convo([('moss','Wait. Maybe it is his mother.','concern','hazel')]),
 ],time='dusk',ambience='wind',music='tense',fog=.15,intent='The ground shakes. Something enormous walks toward the farm.'))
 # 6 ---------------------------------------------------------------------------------------------------------------- reunion
 S.append(scene('reunion','Mama',loc('hilltop',3),[at('moss',-2.8,-2.4,face='mama'),at('zip',-1.6,-3.6,face='mama'),at('hazel',-5.2,-4.6,face='mama'),at('mama',-8,6.4,face='moss')],steps=[
- convo([('moss','Don’t be scared, Hazel. Look at Zip.','warm','hazel')]),
- par(go('zip',[-6,5],gait='run'),sfx('roar',0.2,who='zip')),
- par(sfx('roar',0.1,who='mama'),act('mama','startle')),
- act('zip','jump'),
+ convo([('moss','Don’t be scared, Hazel. Look at Zip. He knows her.','warm','hazel')]),
+ par(go('zip',[-6,5],gait='run'),sfx('roar',0.2,who='zip'),icon('zip','joy',2.0)),
+ par(sfx('roar',0.1,who='mama'),act('mama','startle'),icon('mama','love',2.4)),
+ act('zip','joy'),
  go('zip',[-5.0,3.6],gait='walk'),
  par(act('moss','wave'),sfx('chime',0.5)),
- convo([('hazel','Mothers. They always find you.','warm','moss')]),
+ convo([('hazel','She searched all night for him. Mothers always find their children.','warm','moss')]),
+ act('mama','joy'),
 ],time='dusk',ambience='wind',music='warm',fog=.1,intent='Zip runs to his mother. The farmer and the child watch them reunite.'))
 # 7 ---------------------------------------------------------------------------------------------------------------- goodbye
 S.append(scene('goodbye','Over the hill',loc('hilltop',3),[at('moss',-2.8,-2.4,face='mama'),at('hazel',-5.2,-4.6,face='mama'),at('mama',-8,6.4,face=[-20,14]),at('zip',-7.4,5.4,face=[-20,14]),at('percy',6,2,face='moss'),at('clara',8,-2,face='moss'),at('dolly',3,5,face='moss')],steps=[
- par(go('mama',[-24,16],gait='walk'),go('zip',[-16,9],gait='run')),
- par(act('moss','wave'),sfx('roar',0.8,who='mama')),
+ convo([('moss','Goodbye, Zip! Come back and visit us!','joy','zip')]),
+ par(go('mama',[-24,16],gait='walk'),go('zip',[-16,9],gait='run'),act('moss','wave')),
+ par(sfx('roar',0.8,who='mama'),icon('mama','love',2.0)),
  par(go('percy',[-1.5,0.5],gait='walk'),go('clara',[-3.5,-1.6],gait='walk'),go('dolly',[-0.2,-1.8],gait='walk')),
+ par(act('percy','joy'),act('clara','joy'),act('dolly','joy')),
  convo([('hazel','Best egg we ever had.','joy','moss'),('moss','Can we have another one?','joy','hazel')]),
  par(act('hazel','laugh'),sfx('moo',0.4,who='clara'),sfx('oink',0.8,who='percy')),
  wait(2.0),
@@ -92,4 +100,4 @@ for _s in S:_s['objective']=OBJECTIVE[_s['id']]
 LOGLINE='A child finds a giant egg on the farm; it hatches into a baby raptor who panics the animals, until an apple, a lot of thunder and a very large mother bring everyone home.'
 THEME=dict(root=55,mode='dorian',tempo=104,motif=[(0,1),(2,.5),(4,.5),(7,1),(4,1)],motifs=dict(hazel=[0,-3,0],moss=[4,6,4],zip=[7,6,7],mama=[-5,-7,-5]),palette=dict(pad=48,bass=43,pluck=46,hit=47))
 for _c in CAST:_c.setdefault('pace',1.2)
-FILM=dict(id='farm_egg',title='The Egg on the Farm',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=3.5)
+FILM=dict(id='farm_egg',title='The Egg on the Farm',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=4)
