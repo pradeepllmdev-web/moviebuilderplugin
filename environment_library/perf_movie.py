@@ -25,6 +25,13 @@ def engine_hash():
 def registry_of(film):
  import cast_registry as cr
  return cr.Registry(film['cast'])
+def write_atomic(path,text):
+ """write a file so that an interrupted build never leaves half of it: write beside it, then replace"""
+ path=Path(path);tmp=path.with_name(path.name+'.tmp');tmp.write_text(text,encoding='utf-8');os.replace(tmp,path)
+def read_json(path):
+ """the parsed JSON file, or None when it is missing or damaged (the scene is then simply built again)"""
+ try:return json.loads(Path(path).read_text(encoding='utf-8'))
+ except (OSError,ValueError):return None
 def scene_key(spec,reg_json,eh):return hashlib.sha1((json.dumps(spec,sort_keys=True)+reg_json+eh).encode()).hexdigest()[:12]
 def use_voices(film,reg,echo=True):
  """assign Piper voices to the cast (stored in the registry records) and synthesise every line; falls back silently to the formant voices when Piper or the models are missing"""
@@ -67,18 +74,19 @@ def build_scene(spec,out,index,cast_json,force=False,sheets=12,eh=None):
  """build one scene file; returns the report record"""
  eh=eh or engine_hash();name='scene_%02d_%s'%(index,spec['id']);blend=out/(name+'.blend');sj=out/(name+'.spec.json');meta=out/(name+'.meta.json')
  reg_json=Path(cast_json).read_text(encoding='utf-8');key=scene_key(spec,reg_json,eh)
- if not force and blend.exists() and meta.exists():
-  m=json.loads(meta.read_text())
-  if m.get('key')==key:m['status']='reused';return m
+ m=read_json(meta) if (not force and blend.exists() and meta.exists()) else None
+ if m and m.get('key')==key:m['status']='reused';return m
  sj.write_text(json.dumps(spec,indent=1),encoding='utf-8');t=time.time()
  for old in (Path(str(blend)+'.plan.json'),):
   if old.exists():old.unlink()
  r=subprocess.run([BLENDER,'-b','--disable-autoexec','--python',str(H/'perf_scene.py'),'--',str(ASSETS),str(blend),str(sj),str(cast_json)],capture_output=True,text=True,errors='ignore')
  pj=Path(str(blend)+'.plan.json');rec=dict(index=index,id=spec['id'],title=spec.get('title',''),key=key,file=str(blend))
  if not pj.exists() or not blend.exists():
-  rec.update(status='build failed',audit=['BUILD FAILED: '+(r.stdout[-700:]+r.stderr[-500:]).strip().replace('\n',' | ')[-900:]],seconds=0,stats={});meta.write_text(json.dumps(rec));return rec
- info=json.loads(pj.read_text());rec.update(status='built in %.0fs'%(time.time()-t),audit=info['audit'],seconds=round(info['seconds'],1),stats=info['stats'],lines=len(info['lines']),cuts=len(info['cuts']),cast=info['cast'])
- meta.write_text(json.dumps(rec));return rec
+  rec.update(status='build failed',audit=['BUILD FAILED: '+(r.stdout[-700:]+r.stderr[-500:]).strip().replace('\n',' | ')[-900:]],seconds=0,stats={});write_atomic(meta,json.dumps(rec));return rec
+ info=read_json(pj)
+ if info is None:rec.update(status='build failed',audit=['BUILD FAILED: the scene plan file is missing or damaged'],seconds=0,stats={});write_atomic(meta,json.dumps(rec));return rec
+ rec.update(status='built in %.0fs'%(time.time()-t),audit=info['audit'],seconds=round(info['seconds'],1),stats=info['stats'],lines=len(info['lines']),cuts=len(info['cuts']),cast=info['cast'])
+ write_atomic(meta,json.dumps(rec));return rec
 SUB_COLORS=[(1,.92,.5,1),(.6,.9,1,1),(1,.7,.7,1),(.7,1,.7,1),(.9,.75,1,1),(1,.85,.6,1),(.8,.8,.8,1)]
 def subtitles_of(rec,film):
   """[{t0,t1,text,color}] of a built scene from its .plan.json: 'Name: line', coloured per character"""
@@ -129,7 +137,8 @@ def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=T
  for i,sp in enumerate(film['scenes'],1):
   if want and i not in want:
    meta=out/('scene_%02d_%s.meta.json'%(i,sp['id']))
-   if meta.exists():r=json.loads(meta.read_text());r['status']='kept';recs.append(r);files.append(dict(file=r['file'],title=sp.get('title',''),card=sp.get('intent',''),card_seconds=3.0,subtitles=subtitles_of(r,film),hud=hud_of(sp)))
+   r=read_json(meta) if meta.exists() else None
+   if r:r['status']='kept';recs.append(r);files.append(dict(file=r['file'],title=sp.get('title',''),card=sp.get('intent',''),card_seconds=3.0,subtitles=subtitles_of(r,film),hud=hud_of(sp)))
    continue
   if rows[i-1]['error']:recs.append(dict(index=i,id=sp['id'],title=sp.get('title',''),status='spec error',audit=['SPEC ERROR: '+rows[i-1]['error']],seconds=0,stats={}));continue
   rec=build_scene(sp,out,i,cast_json,force,sheets,eh);print('scene %02d %s: %s, %s s, %d audit lines'%(i,sp['id'],rec['status'],rec.get('seconds'),len(rec.get('audit',[]))),flush=True)
@@ -148,7 +157,7 @@ def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=T
   a=[x for x in r.get('audit',[]) if not x.startswith('AUDIT 0')];bad+=len(a)
   st=r.get('stats',{});lines.append('* scene %02d %s "%s": %s, %.1f s, %s lines, %s cuts; foot slip %.2f, reach %.2f, eye %.0f/%.0f, framing misses %s/%s%s'%(r['index'],r['id'],r.get('title',''),r['status'],r.get('seconds',0),r.get('lines','-'),r.get('cuts','-'),st.get('foot_slip',0),st.get('reach',0),st.get('eye_speaker',0),st.get('eye_listener',0),st.get('framing_misses','-'),st.get('framing_checked','-'),''.join('\n  * '+x for x in a)))
  total=sum(r.get('seconds',0) for r in recs);lines+=['','Built length: %.1f s = %.1f minutes; audit lines: %d; master: %s'%(total,total/60,bad,masterf)]
- (out/'report.md').write_text('\n'.join(lines),encoding='utf-8');(out/'report.json').write_text(json.dumps(dict(film=film.get('id'),records=recs,master=masterf,total_seconds=total,audit_lines=bad),indent=1))
+ (out/'report.md').write_text('\n'.join(lines),encoding='utf-8');write_atomic(out/'report.json',json.dumps(dict(film=film.get('id'),records=recs,master=masterf,total_seconds=total,audit_lines=bad),indent=1))
  print('\n'.join(lines[-6:]));return dict(records=recs,total=total,audit_lines=bad)
 if __name__=='__main__':
  a=sys.argv[1:]

@@ -43,14 +43,25 @@ def read_wav(p):
  with wave.open(str(p),'rb') as w:
   sr,nf=w.getframerate(),w.getnframes();x=np.frombuffer(w.readframes(nf),dtype='<i2').astype(float)/32768.
  return x,sr
+def usable(p):
+ """a cached line that exists and is not silent or truncated; a bad file (left by an interrupted or failed synthesis) is deleted so it is synthesised again"""
+ p=Path(p)
+ if not p.exists():return False
+ try:
+  x,sr=read_wav(p);ok=len(x)>=int(.15*sr) and float(np.max(np.abs(x)))>.02
+ except Exception:ok=False
+ if not ok:
+  try:p.unlink()
+  except OSError:pass
+ return ok
 def duration(voice,text,mood='serious'):
  """seconds of the cached line, or None when it has not been synthesised"""
  p=wav_path(key(voice,text,mood))
- if not p.exists():return None
+ if not usable(p):return None
  with wave.open(str(p),'rb') as w:return w.getnframes()/w.getframerate()
 def load(voice,text,mood='serious'):
  p=wav_path(key(voice,text,mood))
- return read_wav(p) if p.exists() else None
+ return read_wav(p) if usable(p) else None
 # ---------------------------------------------------------------------------------------------------------------- choosing voices
 def catalogue_voices():
  try:return json.loads(CATALOGUE.read_text())
@@ -81,7 +92,7 @@ def _voice(model):
 def synth(voice,text,mood='serious'):
  """synthesise one line into the cache (no-op when present); returns the wav path"""
  k=key(voice,text,mood);p=wav_path(k)
- if p.exists():return p
+ if usable(p):return p
  from piper import SynthesisConfig
  CACHE.mkdir(parents=True,exist_ok=True);v=_voice(voice['model']);r=voice.get('shift',1.)
  cfg=SynthesisConfig(speaker_id=int(voice['speaker']) if v.config.num_speakers>1 else None,length_scale=float(BASE_RATE*voice.get('rate',1.)*MOOD_RATE.get(mood,1.)*r),noise_scale=.6+(.1 if mood in('angry','joy') else 0),noise_w_scale=.8)
@@ -94,6 +105,7 @@ def synth(voice,text,mood='serious'):
  if len(i):x=x[max(0,i[0]-int(.03*SR)):i[-1]+int(.12*SR)]      # trim silence, keep a breath at the end
  x=prosody(x,text,mood)
  x=clarity(x)
+ if float(np.max(np.abs(x)))<1e-4:raise RuntimeError('the voice produced silence for %r: not cached'%text)
  pk=np.max(np.abs(x))+1e-9;x=x/pk*.85*min(1.1,MOOD_GAIN.get(mood,1.));x=np.clip(x,-1,1)
  tmp=str(p)+'.tmp'
  with wave.open(tmp,'wb') as w:w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((x*32767).astype('<i2').tobytes())
