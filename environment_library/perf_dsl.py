@@ -53,8 +53,9 @@ def convo(lines):
  for l in lines:
   who,text=l[0],l[1];mood=l[2] if len(l)>2 else None;to=l[3] if len(l)>3 else None;out.append(say(who,text,mood,to,**(l[4] if len(l)>4 else {})))
  return out
-def at(id_,x,y,face=None):
+def at(id_,x,y,face=None,holds=None):
  d=dict(id=id_,at=[x,y])
+ if holds:d['holds']=holds
  if face is not None:d['face']=list(face) if isinstance(face,(tuple,list)) else face
  return d
 def crowd(n,area,focus=(0,0),seed=1,species=None):

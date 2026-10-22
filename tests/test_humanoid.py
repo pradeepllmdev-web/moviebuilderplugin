@@ -26,12 +26,17 @@ class Planner(unittest.TestCase):
  def test_a_person_walks_at_a_human_pace(self):
   P2=pp.compile(spec([at('ann',-2,0)],steps=[go('ann',[2,0],gait='walk')]),_reg([person('ann')]))
   t=P2.actors['ann'].walks[0];speed=t[4];self.assertAlmostEqual(speed,cr.humanoid_speed('walk',1.75)[0]*P2.actors['ann'].look['pace'],2)
- def test_a_long_walk_becomes_a_jog_at_the_jog_pace(self):
-  P=pp.compile(spec([at('ann',-9,0)],steps=[go('ann',[9,0],gait='walk')]),_reg([person('ann')]));w=P.actors['ann'].walks[0];self.assertEqual(w[2],'brisk');self.assertAlmostEqual(w[4],cr.humanoid_speed('brisk',1.75)[0]*P.actors['ann'].look['pace'],2)
+ def test_a_long_walk_stays_a_walk(self):       # a person only runs when the story says run
+  P=pp.compile(spec([at('ann',-9,0)],steps=[go('ann',[9,0],gait='walk')]),_reg([person('ann')]));w=P.actors['ann'].walks[0];self.assertEqual(w[2],'walk');self.assertAlmostEqual(w[4],cr.humanoid_speed('walk',1.75)[0]*P.actors['ann'].look['pace'],2)
  def test_a_person_can_take_from_a_table_and_give_to_a_seated_person(self):
   c=[person('ann'),person('ben',1.85)];reg=_reg(c)
   s=spec([at('ann',-3,-2,face=[0,0]),at('ben',3,-2,face=[0,0])],props=[prop('apple','apple',4,3,on='stand0',size=1.4)],objects=[dict(kind='log',at=[0,0],id='seat1',w=2.4),dict(kind='pedestal',at=[4,3],id='stand0',height=1.05,size=.3)],steps=[sit('ann','seat1.0',face='ben'),take('ben','apple'),give('ben','ann')])
   P=pp.compile(s,reg);self.assertEqual([e['kind'] for e in P.events if e['kind'] in('take','give')],['take','give'])
+ def test_a_character_can_start_a_scene_holding_a_prop(self):
+  reg=_reg([person('ann'),person('ben',1.85)])
+  s=spec([at('ann',-1,0,face='ben',holds='key'),at('ben',1,0,face='ann')],props=[prop('key','key',-1,0,z=1.0)],steps=[give('ann','ben')])
+  P=pp.compile(s,reg);self.assertEqual([e['kind'] for e in P.events if e['kind']=='give'],['give']);self.assertEqual(P.actors['ben'].holding,'key')
+  with self.assertRaises(pp.SpecError):pp.compile(spec([at('ann',0,0,holds='nothing')]),reg)
  def test_a_low_prop_is_refused_for_a_person_who_cannot_bend(self):
   reg=_reg([person('ben',1.85)]);s=spec([at('ben',3,-2)],props=[prop('apple','apple',4,3,on='stand0',size=1.4)],objects=[dict(kind='pedestal',at=[4,3],id='stand0',height=.4,size=.3)],steps=[take('ben','apple')])
   with self.assertRaises(pp.SpecError):pp.compile(s,reg)

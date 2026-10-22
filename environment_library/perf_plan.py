@@ -220,6 +220,10 @@ class Plan:
    s.props[p['id']]=Prop(p,(p['at'][0],p['at'][1],(z if z is not None else base+sz/2)),None)
   for c in spec['cast']:
    a=s.actors[c['id']];f=c.get('face');a.H[0]=s._heading_to(a,f) if f is not None else math.pi/2
+   if c.get('holds'):      # the character starts the scene already carrying this prop (it was picked up in an earlier scene)
+    pid=c['holds'];pr=s.props.get(pid)
+    if pr is None or pr.carry is None:raise SpecError('%s holds %r which is not a carryable prop of the scene'%(a.id,pid))
+    hd=pr.carry;hs=('R','L') if hd=='both' else (hd,);pr.track.append((0.,'held',a.id,hd));a.holding=pid;s._carry(a,hs,0.,0.)
   walls=s.layout.get('walls',[])
   for c in spec['cast'] if walls else []:     # nobody starts squeezed against a wall or staring into one
    a=s.actors[c['id']];x,y=a.X[0],a.Y[0];cx,cy,r=min(walls,key=lambda w:math.hypot(x-w[0],y-w[1])-w[2]);d=math.hypot(x-cx,y-cy)-r;need=.95+.3*a.radius
@@ -366,7 +370,7 @@ class Plan:
   a=s.actors[b['who']];tp=s.point(b['at']);dur=b.get('dur',1.6);hd=b.get('hand','R')
   if a.state!='stand':raise SpecError('point: %s must be standing'%a.id)
   dx,dy=tp[0]-a.X[-1],tp[1]-a.Y[-1];L=math.hypot(dx,dy) or 1.;ux,uy=dx/L,dy/L;side=-1. if hd=='R' else 1.
-  fw=.45 if a.look.get('humanoid') else .62;M=(a.X[-1]+ux*fw*a.size-uy*side*.12*a.size,a.Y[-1]+uy*fw*a.size+ux*side*.12*a.size,a.size*(1.24 if a.look.get('humanoid') else 1.)*(1.18+.5*max(-.4,min(.5,(tp[2]-a.size*1.2)/max(1.,L)))))
+  fw=.45 if a.look.get('humanoid') else .62;M=(a.X[-1]+ux*fw*a.size-uy*side*.12*a.size,a.Y[-1]+uy*fw*a.size+ux*side*.12*a.size,a.size*(1.24 if a.look.get('humanoid') else 1.)*(1.18+(.2 if a.look.get('humanoid') else .5)*max(-.4,min(.5,(tp[2]-a.size*1.2)/max(1.,L)))))
   if abs(wrap(math.atan2(dy,dx)-a.H[-1]))>math.radians(35):a.face_point(tp,.7)
   ts=a.t;ks=a.hands[hd];prev=(ks[-1][1],ks[-1][2]) if ks else (0.,('local',(-.36 if hd=='R' else .36,-.1,.66)))
   ks.append((ts,prev[0],prev[1]));ks.append((ts+.35,1.,('world',M)));ks.append((ts+.35+dur,1.,('world',M)));ks.append((ts+.35+dur+.45,0.,('local',(-.36 if hd=='R' else .36,-.1,.66))))
@@ -516,7 +520,7 @@ class Plan:
    first=math.atan2(path[1][1]-path[0][1],path[1][0]-path[0][0]);a.turn_to(first,None)
   size=a.stride;nat=gaits.natural_speed(gait);L=sum(math.hypot(q[0]-p0[0],q[1]-p0[1]) for p0,q in zip(path,path[1:]))
   tn=L/(nat*size*a.look['pace'])
-  if tn>7. and gait in('shuffle','walk','strut','stomp'):    # a long walk is cut short by a quicker gait, then by a brisker cadence: the film never waits for someone to arrive
+  if tn>7. and gait in('shuffle','walk','strut','stomp') and not a.look.get('humanoid'):    # a long walk is cut short by a quicker gait, then by a brisker cadence: the film never waits for someone to arrive
    g2='walk' if gait=='shuffle' else 'brisk'
    if gaits.natural_speed(g2)>nat:gait=g2;nat=gaits.natural_speed(g2);tn=L/(nat*size*a.look['pace'])
   if mult==1. and tn>6.:mult=min(1.4,tn/6.)
@@ -620,7 +624,7 @@ class Plan:
   ts=max(a.t,r.t);a.pad_to(ts);r.pad_to(ts);fx,fy=math.cos(a.H[-1]),math.sin(a.H[-1])
   zg=.85*(a.size+r.size)/2
   if a.look.get('humanoid'):     # the exchange height: reachable for the taller giver and the shorter receiver, from their own shoulder heights
-   sh=lambda q:1.12*q.size*(1.24 if q.look.get('humanoid') else 1.);zg=max(sh(a)-.45,sh(r)-.45)+.05
+   sh=lambda q:1.12*q.size*(1.24 if q.look.get('humanoid') else 1.);zg=max(sh(a)-.45,sh(r)-.45)+.12
   fw=.4*a.size+.05
   if a.look.get('humanoid'):fw=max(.3,min(.42*a.size,math.hypot(r.X[-1]-a.X[-1],r.Y[-1]-a.Y[-1])-.2))     # reach toward the receiver as far as the arm goes
   M=(a.X[-1]+fx*fw,a.Y[-1]+fy*fw,zg);rh=p.carry if p.carry in ('R','L') else 'R'

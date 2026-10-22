@@ -108,9 +108,9 @@ def place_h(i,ch,name,t0,t1,sc,opt,first):
  else:act_n,nat=HUM_MAP.get(name,'Idle_Loop'),None
  if act_n not in ca:act_n='Idle_Loop'
  if nat and sp:scale=max(.45,min(2.6,nat*k/max(.05,sp)))
- act=ca[act_n];n=int(act.frame_range[1]-act.frame_range[0])+1;f_start=S.F(t0 if first else max(0,t0-.2));dur_f=S.F(t1)-f_start
+ act=ca[act_n];n=int(act.frame_range[1]-act.frame_range[0])+1;f_start=S.F(t0 if first else max(0,t0-.4));dur_f=S.F(t1)-f_start+(0 if first else int(.2*FPS))
  def strip(act_,sc_,start,rep=1.,hold=False,end_extrap=None):
-  tr=ch['rig'].animation_data.nla_tracks.new();ch['n']+=1;st=tr.strips.new(act_.name,start,act_);st.action_slot=act_.slots[0];st.scale=sc_;st.repeat=rep;st.extrapolation=end_extrap or ('HOLD' if hold else 'NOTHING');st.blend_in=6 if ch['n']>1 else 0;st.blend_out=0 if hold else 6;return st
+  tr=ch['rig'].animation_data.nla_tracks.new();ch['n']+=1;st=tr.strips.new(act_.name,start,act_);st.action_slot=act_.slots[0];st.scale=sc_;st.repeat=rep;st.extrapolation=end_extrap or ('HOLD' if hold else 'NOTHING');st.blend_in=10 if ch['n']>1 else 0;st.blend_out=0 if hold else 10;return st     # long blends: the hands and the body settle into the next pose instead of snapping
  if name=='sit' and not opt.get('reverse'):      # sit down, then sit
   d_=min(dur_f,int(3.2*FPS));strip(act,d_/n,f_start);idle=ca.get('Sitting_Idle_Loop')
   if idle is not None and dur_f>d_+2:ni=int(idle.frame_range[1]-idle.frame_range[0])+1;strip(idle,1.,f_start+d_,max(1.,(dur_f-d_)/ni),False,'HOLD')
