@@ -34,3 +34,10 @@ Films: pie_thief, silent_bell, lantern_run, storm_letter, wedding_cake, farm_egg
 3. **Review pack** (`python review_pack.py films/<name>.py scenes/<folder>`, about 20 seconds): `review_pack.html` shows every shot with its purpose, the lines and the audit results on one page. Look at it before watching anything.
 4. **Note what is wrong** and add the guard: `QUALITY_CHECKLIST.md` lists every complaint so far and the check that now catches it; `tests/test_quality_checklist.py` fails if a guard is removed. A complaint that no check can catch goes in the "Manual" rows.
 5. **Only then render** (`render_film.py --draft`, 10 to 20 minutes per film) for the sound and the motion that stills cannot show.
+
+## Pacing rules of thumb (from the Clock Tower Key tightening: 296 s down to 190 s, longest dead stretch 24 s down to 6 s)
+* `review.md` and the review pack name the cause of every dead stretch ("mina walks 14 m in 21 s") and the way out. A person walks about 0.85 m/s (a child about 0.65 m/s), so 10 m is 12 to 15 s: keep walks under about 8 s.
+* Start characters near each other, stage the scene around the thing it is about, and end an exit as soon as the character is out of frame.
+* Speak while walking: `go(who, to, talk=(line, mood, to))` puts the line on the walk. Several short walks beat one long one.
+* A sit or a long route round an obstacle can cost 15 s or more: check `dead_cause` before using `sit` on a bench you must walk round.
+* After a restage, the film's `target_minutes` must match its new length (the planning test checks 0.9 to 1.17 times the target).

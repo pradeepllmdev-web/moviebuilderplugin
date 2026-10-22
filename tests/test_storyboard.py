@@ -49,3 +49,15 @@ def test_story_check_flags_an_unused_prop_and_a_missing_closing_beat():
     f=_film([s1,s2,s3]);notes=sb.story_check(f,_plans(f))
     assert any("'gem' is set up but never used" in n for n in notes) and any('closing beat' in n for n in notes)
     s3['steps'].append(d.act('a','laugh'));assert not any('closing beat' in n for n in sb.story_check(f,_plans(f)))
+
+
+def test_pacing_advice_names_the_walk_that_causes_a_dead_stretch():
+    s=d.scene('s','S',d.loc('meadow',1),[d.at('a',-9,0),d.at('b',2,0)],[d.convo([('b','Hello there, friend.','warm','a')]),d.go('a',[-1,0],gait='walk'),d.wait(1.),d.convo([('a','Here I am at last.','warm','b')])],intent='x')
+    f=_film([s]);P=_plans(f)[0];st=sb.scene_stats(P);assert st['dead']>5.
+    c=sb.dead_cause(P,st['dead_at'],st['dead_at']+st['dead'])
+    assert c and c[0][0]=='a' and c[0][2]>5.
+    note=sb.pacing_advice(P,'s',st['dead'],st['dead_at']);assert 'a walks' in note and 'talk=' in note
+
+def test_review_flags_a_long_silent_walk():
+    s=d.scene('s','S',d.loc('meadow',1),[d.at('a',-26,0),d.at('b',4,0)],[d.go('a',[3,0],gait='walk'),d.convo([('a','At last.','warm','b')]),d.wait(2.),d.convo([('b','Yes.','warm','a')])],intent='x')
+    f=_film([s]);md=sb.review_md(f,_plans(f));assert 'walks for' in md and 'without speaking' in md

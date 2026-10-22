@@ -40,6 +40,22 @@ def storyboard_md(film,plans):
   for r in scene_rows(P):out.append('| %.1f-%.1f s | %s | %s | %s |'%(r['t0'],r['t1'],r['kind'],r['purpose'],r['detail']))
   out.append('')
  return '\n'.join(out)
+LONG_WALK=8.
+def dead_cause(plan,a,b):
+ """what fills the dead stretch [a, b]: the walks that overlap it, as (who, seconds, metres, from, to)"""
+ out=[]
+ for e in plan.events:
+  if e['kind']=='go' and e['t0']<b and e['t1']>a:
+   sp=e.get('speed') or 0.;out.append((e['who'],e['t1']-e['t0'],sp*(e['t1']-e['t0']),e['t0'],e['t1']))
+ return sorted(out,key=lambda x:-x[1])
+def pacing_advice(plan,sid,dead,at):
+ """the note for a dead stretch, with its cause and the ways out"""
+ c=dead_cause(plan,at,at+dead)
+ if c:
+  who,sec,m,t0,t1=c[0];why='%s walks %.0f m in %.0f s (%.0f-%.0f s)'%(who,m,sec,t0,t1)
+  fix='start the characters closer, end the exit sooner (the scene can cut once they are out of frame), or talk while walking: go(who, to, talk=(line, mood, to))'
+ else:why='nothing moves or speaks';fix='cut the stretch, or give it a line, a look or an action'
+ return '%s: %.0f s with no speech and no story event from %.0f s - %s. Fix: %s'%(sid,dead,at,why,fix)
 def scene_stats(plan):
  """numbers for one scene: seconds, lines, words, speech seconds, story events per ten seconds, the longest stretch with neither speech nor a story event, repeated acts"""
  secs=plan.seconds;words=sum(len(L['text'].split()) for L in plan.lines);speech=sum(L['t1']-L['t0'] for L in plan.lines)
@@ -121,7 +137,9 @@ def review_md(film,plans):
   if P is None:continue
   s=scene_stats(P);total+=s['seconds'];talk+=s['speech'];speak.update(L['speaker'] for L in P.lines);used|=s['actors']
   out.append('| %s | %.0f | %d | %d | %.0f%% | %.1f | %.1f s at %.0f s |'%(sp['id'],s['seconds'],s['lines'],s['words'],100*s['speech']/max(1,s['seconds']),s['density'],s['dead'],s['dead_at']))
-  if s['dead']>6.:notes.append('%s: %.0f s with no speech and no story event from %.0f s (cut it, speed the walk or add a beat)'%(sp['id'],s['dead'],s['dead_at']))
+  if s['dead']>6.:notes.append(pacing_advice(P,sp['id'],s['dead'],s['dead_at']))
+  for e in P.events:
+   if e['kind']=='go' and e['t1']-e['t0']>LONG_WALK and e['t1']<P.seconds-.5 and not any(L['t0']<e['t1'] and L['t1']>e['t0'] for L in P.lines if L['speaker']==e['who']):notes.append('%s: %s walks for %.0f s (%.0f-%.0f s) without speaking: shorten the path or talk while walking'%(sp['id'],e['who'],e['t1']-e['t0'],e['t0'],e['t1']))
   if s['density']<2.5 and s['seconds']>15:notes.append('%s: few story events (%.1f per 10 s): the scene may drag'%(sp['id'],s['density']))
   if s['speech']/max(1,s['seconds'])>.7:notes.append('%s: %.0f%% talk: show something while they speak (walk and talk, props, reactions)'%(sp['id'],100*s['speech']/s['seconds']))
   for (who,clip),n in s['repeats']:notes.append('%s: %s does %r %d times: vary it'%(sp['id'],who,clip,n))
