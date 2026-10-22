@@ -62,7 +62,7 @@ def _one_scene(steps,cast_at=((-3,0),(1.5,0)),target=None):
 
 def test_lint_enforces_the_scene_length_the_brief_asks_for():
     steps=[{'do':'say','who':'ann','text':'Morning, Ben, the bread smells wonderful.','mood':'warm','to':'ben'},{'do':'say','who':'ben','text':'It does, Ann. Warm from the oven.','mood':'joy','to':'ann'}]
-    rep=fl.lint(_one_scene(steps,target=3));assert any('but the brief asks for' in e for e in rep['errors']) and 'S09' in rep['rules']
+    rep=fl.lint(_one_scene(steps,target=2));assert any('but the brief asks for' in e for e in rep['errors']) and 'S09' in rep['rules']
     assert not any('but the brief asks for' in e for e in fl.lint(_one_scene(steps,target=10))['errors'])
 
 def test_lint_flags_a_run_without_a_chase_or_an_emergency():

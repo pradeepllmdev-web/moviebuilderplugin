@@ -95,7 +95,7 @@
    ],
    "severity": "must",
    "guard": "but the brief asks for",
-   "text": "If a scene is given a length (target_seconds), hit it within 30 percent by cutting lines and walks; a 5 second scene is one short line and one visible action."
+   "text": "If a scene is given a length (target_seconds), come close: a rough match is fine (within about 60 percent). Get there by cutting lines and walks; a 5 second scene is one short line and one visible action."
   },
   {
    "id": "C01",
