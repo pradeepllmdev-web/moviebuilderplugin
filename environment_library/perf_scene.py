@@ -355,6 +355,12 @@ def body_layer():
   if hum:       # a narrower stance while standing (the library's idles stand with the feet wide apart): the thighs close in, and ease out again for walking, sitting and every action
    stand=np.array([1. if (not PLAN._walking(i,t) and any(c0<=t<c1 and nm in('idle','look','talk','think','nod','laugh','shrug','wave','argue','cele','bow','hips','startle') for (c0,c1,nm,_s,_o) in pa_.clips) and not held_at(i,t)) else 0. for t in tt])
    stand=np.convolve(np.pad(stand,6,mode='edge'),np.ones(13)/13.,mode='valid');sig['ThighL']=np.zeros((len(tt),3));sig['ThighR']=np.zeros((len(tt),3));sig['ThighL'][:,2]=-.10*stand;sig['ThighR'][:,2]=.10*stand
+   for (w0,w1,wg,_sc,wsp) in pa_.walks:       # the principles of animation: anticipation before a walk begins, follow-through (the upper body carries on, then settles) when it ends
+    if w1-w0<.8:continue
+    amp=min(1.3,.6+.4*wsp)
+    ga=np.exp(-((tt-(w0-.12))/.16)**2);sig['Spine1'][:,0]-=.035*ga;sig['Head'][:,0]+=.02*ga
+    dt_=np.maximum(tt-w1,0.);gf=np.where(tt>=w1,np.exp(-dt_/.42)*np.cos(2*np.pi*1.9*dt_),0.)
+    sig['Spine1'][:,0]+=.06*amp*gf;sig['Spine2'][:,0]+=.04*amp*gf;sig['Neck'][:,0]+=.035*amp*gf;sig['Head'][:,0]+=.03*amp*gf
    rf=random.Random(sum(map(ord,i+SPEC['id']))+7);tf=rf.uniform(1.5,4.)       # a person never stands frozen: every few seconds a weight shift, a head tilt, a glance away or a small settle
    while tf<tt[-1]:
     sg=rf.choice((-1,1));kd=rf.choice(('shift','tilt','glance','settle','shift','tilt'));gb=np.exp(-((tt-tf)/.6)**2)*stand

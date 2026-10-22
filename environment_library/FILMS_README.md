@@ -21,3 +21,9 @@ Films: pie_thief, silent_bell, lantern_run, storm_letter, wedding_cake, farm_egg
 * People reach between about shoulder height minus 0.5 m and the shoulder: put props on pedestals of 0.9-1.1 m. A character can start a scene holding a prop with `at(id, x, y, holds='key')`.
 * People only run or jog when the film says `gait='run'` or `'brisk'`.
 * Tests: `python -m pytest tests` from the repository root.
+
+## Open-movie practices applied (Blender Studio films: Big Buck Bunny, Sintel, Glass Half, Sprite Fright ...)
+* **Storyboard, then animatic, then blocking, then polish**: every build writes `storyboard.md` (a purpose for every shot) and contact sheets before any full render; `render_film.py --draft` is the animatic-quality pass. Voice recordings set the timing (as when Glass Half re-edited its animatic after the voice session).
+* **Setups and payoffs, and a closing beat** (Big Buck Bunny): `review.md` flags props that are set up and never used, props that vanish between scenes, and a film that does not end on a small joke or a warm line.
+* **Live-action reference for acting** (Glass Half): people play captured motion (Universal Animation Library) rather than invented poses.
+* **Principles of animation**: anticipation before a walk starts and follow-through when it stops (the upper body carries on and settles), overlapping action from the head and neck lagging the body, ease in and out on every camera move, secondary action from idle fidgets, weight shifts and tail sway.

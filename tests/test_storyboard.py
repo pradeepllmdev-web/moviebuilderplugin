@@ -39,3 +39,13 @@ def test_story_check_flags_a_prop_that_vanishes_between_scenes_and_repeated_line
     assert any('does not carry it on' in n for n in notes) and any('spoken 2 times' in n for n in notes)
     s2['cast'][0]['holds']='key';s2['props']=[d.prop('key','key',0,0,z=.8)]
     assert not any('does not carry it on' in n for n in sb.story_check(f,_plans(f)))
+
+
+def test_story_check_flags_an_unused_prop_and_a_missing_closing_beat():
+    mk=lambda sid,steps,props=None:d.scene(sid,sid,d.loc('meadow',1,objects=[dict(kind='pedestal',at=[2,0],id='stand0',height=.8,size=.3)]),[d.at('a',0,0),d.at('b',-3,0)],steps,props=props,intent='x')
+    s1=mk('s1',[d.convo([('a','What a quiet morning.','serious','b')])],props=[d.prop('gem','gem',2,0,on='stand0')])
+    s2=mk('s2',[d.convo([('b','Indeed it is.','serious','a')])])
+    s3=mk('s3',[d.convo([('a','And so it ends.','serious','b')])])
+    f=_film([s1,s2,s3]);notes=sb.story_check(f,_plans(f))
+    assert any("'gem' is set up but never used" in n for n in notes) and any('closing beat' in n for n in notes)
+    s3['steps'].append(d.act('a','laugh'));assert not any('closing beat' in n for n in sb.story_check(f,_plans(f)))

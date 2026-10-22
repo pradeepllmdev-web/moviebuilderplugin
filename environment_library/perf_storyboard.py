@@ -94,6 +94,20 @@ def story_check(film,plans):
    if nxt is not None and not carried and who in {c['id'] for c in nxt['cast']}:notes.append('%s: %s ends the scene holding %s but the next scene does not carry it on (at(..., holds=%r))'%(sid,who,pid,pid))
   for pid,pr in P.props.items():
    taken[pid]=taken.get(pid,0)+sum(1 for seg in pr.track if seg[1]=='held')
+ used=set()                       # setup and payoff: a prop that is shown and never used, and a film that does not end on a button
+ for sp,P in zip(scenes,plans):
+  if P is None:continue
+  for pid,pr in P.props.items():
+   if any(seg[1]=='held' for seg in pr.track) or any(e.get('prop')==pid for e in P.events) or any(c.get('holds')==pid for c in sp['cast']):used.add(pid)
+ for sp,P in zip(scenes,plans):
+  if P is None:continue
+  for pid,pr in P.props.items():
+   if pid not in used and pr.kind not in('table','bench','crate','barrel','sack'):notes.append('%s: the prop %r is set up but never used (a setup needs a payoff, or it is just clutter)'%(sp['id'],pid))
+ last=next((P for P in reversed(plans) if P is not None),None)
+ if last is not None and len(scenes)>2:
+  tail=[e for e in last.events if e['t0']>last.seconds-9.]
+  button=any(e['kind']=='act' and e.get('clip') in('laugh','cele','joy','hips','bow','wave') for e in tail) or any(e['kind']=='icon' and e.get('what') in('joy','laugh','love') for e in tail) or any(L['mood'] in('joy','warm') for L in last.lines if L['t0']>last.seconds-12.)
+  if not button:notes.append('the last scene has no closing beat (a laugh, a warm line, a small joke): end on a button')
  texts={}
  for sp,P in zip(scenes,plans):
   if P is None:continue
