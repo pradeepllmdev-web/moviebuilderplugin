@@ -618,7 +618,7 @@ class Plan:
   if p is None or a.holding!=pid:raise SpecError('give: %s holds nothing'%a.id)
   if r.holding:raise SpecError('give: %s already holds %s'%(r.id,r.holding))
   hand=p.track[-1][3];hs=('R','L') if hand=='both' else (hand,)
-  dist=.4*(a.size+r.size)+.1-(.25 if r.state=='sit' else 0.)     # a seated receiver cannot lean out to meet the hand
+  dist=(.34*(a.size+r.size)+.05 if a.look.get('humanoid') else .4*(a.size+r.size)+.1)-(.25 if r.state=='sit' else 0.)     # a seated receiver cannot lean out to meet the hand
   if math.hypot(r.X[-1]-a.X[-1],r.Y[-1]-a.Y[-1])>dist+.3:s._approach(a,(r.X[-1],r.Y[-1]),dist,b.get('gait'))
   a.face_point((r.X[-1],r.Y[-1]));r.face_point((a.X[-1],a.Y[-1]),.5)
   ts=max(a.t,r.t);a.pad_to(ts);r.pad_to(ts);fx,fy=math.cos(a.H[-1]),math.sin(a.H[-1])

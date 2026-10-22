@@ -40,10 +40,19 @@ for nm,col in (('skin',(.9,.7,.55)),('shirt',(.3,.5,.8)),('trousers',(.25,.28,.4
  m=bpy.data.materials.new('H_'+nm);m.diffuse_color=(*col,1);m.use_nodes=True;b=m.node_tree.nodes.get('Principled BSDF')
  if b:b.inputs['Base Color'].default_value=(*col,1);b.inputs['Roughness'].default_value=.7
  me.materials.append(m)
+# clean colour boundaries: cut the mesh on exact planes (wrist, neck, waist, ankle) of the T-pose, then colour each face by where it lies
+import bmesh
+bm=bmesh.new();bm.from_mesh(me)
+for co,no in (((.745,0,0),(1,0,0)),((-.745,0,0),(1,0,0)),((0,0,1.50),(0,0,1)),((0,0,.95),(0,0,1)),((0,0,.10),(0,0,1))):
+ bmesh.ops.bisect_plane(bm,geom=list(bm.verts)+list(bm.edges)+list(bm.faces),plane_co=co,plane_no=no)
+def region_of(c):
+ if abs(c.x)>.745 or (c.z>1.50 and abs(c.x)<.14):return 0      # hands, head and neck
+ if c.z<.10:return 3                         # shoes
+ if c.z<.95 and abs(c.x)<.5:return 2          # trousers
+ return 1                                    # shirt (torso and arms)
+for f in bm.faces:f.material_index=region_of(f.calc_center_median());f.smooth=True
+bm.to_mesh(me);bm.free()
 zs=[v.co.z for v in me.vertices]
-for p in me.polygons:
- vs=[me.vertices[i] for i in p.vertices];rs=[region(v.groups,v.co.z) for v in vs];p.material_index=max(set(rs),key=rs.count)
- p.use_smooth=True
 mesh.parent=arm
 bpy.context.view_layer.update()
 rest=dict(height=max(zs)-min(zs),zmin=min(zs),dims=tuple(mesh.dimensions))

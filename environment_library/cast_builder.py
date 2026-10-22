@@ -315,7 +315,7 @@ def build_human2(S,look,tag):
   if o is None:continue
   S.link(o);objs.append(o)
  rig=next(o for o in objs if o.type=='ARMATURE');mesh=next(o for o in objs if o.type=='MESH');rig.parent=root
- k=look['height']/1.8287;root.scale=(k,k,k);bpy.context.view_layer.update()
+ k=look['height']/1.8287;wx=look['scale'][0]/look['scale'][2];wy=look['scale'][1]/look['scale'][2];root.scale=(k*wx,k*wy,k);bpy.context.view_layer.update()
  d=look['dress'];cols=(d['skin'],d['shirt'],d['pants'],d['shoes'])
  for i,slot in enumerate(mesh.material_slots):
   m=slot.material.copy();slot.material=m;m.diffuse_color=(*cols[i],1.)
@@ -336,8 +336,14 @@ def build_human2(S,look,tag):
   face['pupil'+nm]=part('%s_pupil%s'%(tag,nm),'sphere',(sg*.034,fy-.008,1.714),(.009,.006,.011),(.04,.04,.06))
   face['brow'+nm]=part('%s_brow%s'%(tag,nm),'cube',(sg*.034,fy-.003,1.748),(.021,.004,.004),d['hair'])
  face['mouth']=part('%s_mouth'%tag,'sphere',(0.,-.121,1.622),(.023,.006,.004),(.4,.1,.12))
- hair=part('%s_hair'%tag,'sphere',(0.,.012,1.752),(.099,.1,.082),d['hair']);face['hair']=hair
- if int(hash_unit(look['id'],'longhair')*3)%3==0:part('%s_hairback'%tag,'sphere',(0.,.07,1.68),(.085,.05,.11),d['hair'])
+ part('%s_nose'%tag,'sphere',(0.,-.112,1.668),(.011,.016,.021),d['skin']);part('%s_earL'%tag,'sphere',(.088,.004,1.69),(.01,.017,.028),d['skin']);part('%s_earR'%tag,'sphere',(-.088,.004,1.69),(.01,.017,.028),d['skin'])
+ hs=int(hash_unit(look['id'],'hairstyle')*5)%5;hr=d['hair']
+ if hs==4:hair=part('%s_hair'%tag,'sphere',(0.,.03,1.77),(.085,.085,.06),hr)      # thin and receding
+ else:hair=part('%s_hair'%tag,'sphere',(0.,.012,1.756),(.104,.106,.09),hr)
+ face['hair']=hair
+ if hs==1:part('%s_hairfront'%tag,'sphere',(0.,-.055,1.822),(.052,.04,.03),hr)             # a quiff
+ elif hs==2:part('%s_bun'%tag,'sphere',(0.,.07,1.83),(.04,.04,.04),hr)                      # a bun
+ elif hs==3:part('%s_hairback'%tag,'sphere',(0.,.07,1.68),(.085,.05,.11),hr);part('%s_hairside'%tag,'sphere',(0.,.05,1.74),(.105,.07,.08),hr)     # long
  for i,acc in enumerate(look['accessories']):
   kd=acc['kind']
   if kd in cg.HATS:
