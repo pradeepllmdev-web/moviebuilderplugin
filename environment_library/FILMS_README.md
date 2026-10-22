@@ -27,3 +27,10 @@ Films: pie_thief, silent_bell, lantern_run, storm_letter, wedding_cake, farm_egg
 * **Setups and payoffs, and a closing beat** (Big Buck Bunny): `review.md` flags props that are set up and never used, props that vanish between scenes, and a film that does not end on a small joke or a warm line.
 * **Live-action reference for acting** (Glass Half): people play captured motion (Universal Animation Library) rather than invented poses.
 * **Principles of animation**: anticipation before a walk starts and follow-through when it stops (the upper body carries on and settles), overlapping action from the head and neck lagging the body, ease in and out on every camera move, secondary action from idle fidgets, weight shifts and tail sway.
+
+## The workflow (cheap checks first, the slow render last)
+1. **Write the film** (`films/<name>.py`): one goal per scene, setups with payoffs, a closing beat. Run `python perf_movie.py films/<name>.py scenes/<folder> --plan-only`: a few seconds, finds spec errors and prints the plan; `review.md` lists the story notes (walks to nowhere, dead time, props that vanish, repeated lines).
+2. **Build** (`perf_movie.py ...`, a few minutes): every scene is audited (collisions, lip sync, eye lines, foot slip, reach, framing, poses, T-pose, frozen people). Fix every AUDIT line before anything else.
+3. **Review pack** (`python review_pack.py films/<name>.py scenes/<folder>`, about 20 seconds): `review_pack.html` shows every shot with its purpose, the lines and the audit results on one page. Look at it before watching anything.
+4. **Note what is wrong** and add the guard: `QUALITY_CHECKLIST.md` lists every complaint so far and the check that now catches it; `tests/test_quality_checklist.py` fails if a guard is removed. A complaint that no check can catch goes in the "Manual" rows.
+5. **Only then render** (`render_film.py --draft`, 10 to 20 minutes per film) for the sound and the motion that stills cannot show.

@@ -518,6 +518,41 @@ for i,(IK,TG) in IKS.items():
    if e>reach_worst:reach_worst=e;reach_info=(i,hand,t,tuple(round(v,2) for v in pos),tuple(round(v,2) for v in hp))
 if reach_worst>.23:print('REACH worst',reach_info)
 if reach_worst>.23:issues.append('AUDIT reach: a hand ends %.2f m from its target (limit 0.23; the arm cannot reach, move the prop or the actor)'%reach_worst)
+# the pose audit: what a person sees at a glance and the build used to miss: arms in a T, a body sunk into the ground, two bodies overlapping, and standing still like a figure in a game
+def pose_audit():
+ def W(ch,role):return ch['rig'].matrix_world@ch['rig'].pose.bones[sb.B(ch,role)].head
+ step=int(.75*FPS);frames=list(range(1,S.frames+1,step));rec={i:[] for i in CH};out=[]
+ for f in frames:
+  S.settle(f);t=(f-1)/FPS
+  for i,ch in CH.items():
+   rec[i].append((t,W(ch,'head').copy(),W(ch,'lhand').copy(),W(ch,'rhand').copy(),W(ch,'LH_up').copy(),W(ch,'RH_up').copy(),min(W(ch,'lfoot').z,W(ch,'rfoot').z)))
+ tpose=[];sunk=[];frozen=[]
+ for i,rows in rec.items():
+  a=PLAN.actors[i]
+  for (t,hd,lh,rh,lu,ru,fz) in rows:
+   sw=(lu-ru).length or .3;sp=(lh-rh).length
+   if sp>3.3*sw and abs(lh.z-lu.z)<.22*(lu.z or 1) and abs(rh.z-ru.z)<.22*(ru.z or 1) and not PLAN._walking(i,t):tpose.append((i,round(t,1)))
+   if fz<-.06*a.size:sunk.append((i,round(t,1)))
+  win=int(3./.75)             # standing still for 3 s: head and hands barely move
+  for k in range(0,len(rows)-win):
+   seg=rows[k:k+win+1];t0_,t1_=seg[0][0],seg[-1][0]
+   if any(PLAN._walking(i,tt) for tt in (t0_,(t0_+t1_)/2,t1_)):continue
+   if any(c0<t1_ and c1>t0_ and nm not in('idle','look','sit') for (c0,c1,nm,_s,_o) in a.clips):continue
+   mv=sum((seg[q+1][2]-seg[q][2]).length+(seg[q+1][3]-seg[q][3]).length+(seg[q+1][1]-seg[q][1]).length for q in range(len(seg)-1))
+   if mv<.12*max(.6,a.size):frozen.append((i,round(t0_,1)))
+ if tpose:out.append('AUDIT pose: arms held out in a T for %s'%', '.join('%s at %.1f s'%x for x in tpose[:4]))
+ if sunk:out.append('AUDIT pose: feet below the ground for %s'%', '.join('%s at %.1f s'%x for x in sunk[:4]))
+ fz_={}
+ for i,t in frozen:fz_.setdefault(i,[]).append(t)
+ for i,ts in fz_.items():
+  if len(ts)>=3:out.append('AUDIT pose: %s stands almost motionless for %.0f s (from %.1f s): more life needed'%(i,.75*len(ts)+3.,ts[0]))
+ ids=list(CH)
+ for ai,x in enumerate(ids):
+  for y in ids[ai+1:]:
+   for (t,hx,*_r1),(t2,hy,*_r2) in zip(rec[x],rec[y]):
+    if (hx-hy).length<.22:out.append('AUDIT pose: %s and %s overlap (heads %.2f m apart) at %.1f s'%(x,y,(hx-hy).length,t));break
+ return out
+issues+=pose_audit()
 # cartoon signs over heads (the planned 'icon' beats): text solids that pop in, follow the head and always face the active camera
 def make_icons():
  import bpy
