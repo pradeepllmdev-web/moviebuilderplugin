@@ -421,6 +421,12 @@ try:
  _so=bpy.data.objects.new('FocusSpot',_sp);_so.location=(_cx+2.5,_cy-5.5,8.5);S.link(_so)
  _tg=bpy.data.objects.new('FocusTarget',None);_tg.location=(_cx,_cy,1.0);S.link(_tg);_tc=_so.constraints.new('TRACK_TO');_tc.target=_tg;_tc.track_axis='TRACK_NEGATIVE_Z';_tc.up_axis='UP_Y'
 except Exception as _e:print('focus light skipped',_e)
+# atmosphere: dust, leaves, fireflies, rain or snow, chosen from the time of day, the ambience and the place (or the scene's own 'fx' list)
+try:
+ import perf_fx as fx
+ _pts=[PLAN.pos(i,PLAN.seconds*.5)[:2] for i in PLAN.actors];_kinds=fx.choose(TIME,SPEC.get('ambience'),SPEC.get('location',{}).get('preset'),float(SPEC.get('fog',0.)),SPEC.get('fx'))
+ if _kinds:print('FX',_kinds,fx.build(S,_kinds,(sum(p[0] for p in _pts)/len(_pts),sum(p[1] for p in _pts)/len(_pts)),S.seconds,seed=sum(map(ord,SPEC['id']))))
+except Exception as _e:print('fx skipped',_e)
 S.sky_hook=lambda sc:pl.sky(sc,TIME,float(SPEC.get('fog',0.)))
 S.finish(issues,[ALL[i]['root'] for i in ALL],color_type='TEXTURE',world=pl.normalise(SPEC.get('location',dict(preset='meadow'))).get('world') or scene_params.preset(TIME if TIME in scene_params.TIME_OF_DAY else 'day')['world'])
 if os.environ.get('PERF_DEBUG'):
