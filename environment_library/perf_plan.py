@@ -27,7 +27,7 @@ Everything is simulated at 24 fps; the planter never hides or removes anything. 
 Planted feet: a walk's ground speed comes from the gait table and the character's size, and the clip's play scale is derived from it, never tuned by hand."""
 import math,random
 import numpy as np
-import dialogue as dg,gaits,perf_locations as pl
+import dialogue as dg,gaits,perf_locations as pl,cast_registry as cr
 FPS=24
 CLIP_FRAMES=dict(argue=96,block=72,bow=72,cele=120,climb=96,crawl=96,cut=72,dodge=72,fall=72,getup=72,hips=72,hit=72,idle=96,jump=72,kick=72,kneel=96,laugh=96,lie=96,look=144,nod=72,pick=120,punch=72,push=72,run=48,shrug=72,sit=216,startle=72,talk=96,think=96,wave=72)
 for _g,_v in gaits.GAITS.items():CLIP_FRAMES.setdefault(_v['clip'],_v['cycle'])
@@ -200,6 +200,8 @@ class Actor:
    if hr is not None:h=h+wrap(hr-h)*k
    s.X.append(x);s.Y.append(y);s.H.append(h)
   t1=s.t;s.play(gaits.GAITS[gait]['clip'],t0,t1,scale);s.walks.append((t0,t1,gait,scale,speed));return t1-t0
+CREATURE_CALL={'Pig':'oink','Cow':'moo','Sheep':'baa','Llama':'baa','Horse':'neigh','Zebra':'neigh','Pug':'bark','Trex':'roar','Triceratops':'roar','Velociraptor':'roar'}
+ICONS={'alarm':('!',(1.,.2,.1)),'question':('?',(1.,.85,.2)),'love':('<3',(1.,.4,.65)),'anger':('#!',(1.,.15,.1)),'idea':('*',(1.,.95,.3)),'sleep':('Zzz',(.6,.75,1.)),'laugh':('HA!',(1.,.8,.2)),'sad':(';(',(.4,.6,1.)),'joy':('^o^',(.3,1.,.5))}
 class Plan:
  def __init__(s,spec,registry,layout=None):
   s.spec=spec;s.layout=layout or pl.layout(spec.get('location',dict(preset='meadow')));s.lint=[];s.lines=[];s.events=[];s.sfx=[];s.cams=[];s.steps_t=[];s.steps_text=[]
@@ -306,7 +308,7 @@ class Plan:
   for b in beats:
    who=b.get('who')
    if b['do'] in ('wait','sfx','cam'):getattr(s,'b_'+b['do'])(b,t0);continue
-   if b['do'] in ('look','emote'):
+   if b['do'] in ('look','emote','icon'):
     if b.get('who') not in s.actors:raise SpecError('step %d: %s has no character %r (cast: %s)'%(i,b['do'],b.get('who'),', '.join(s.actors)))
     getattr(s,'b_'+b['do'])(b,t0);continue
    if who not in s.actors:raise SpecError('step %d: %s has no character %r (cast: %s)'%(i,b['do'],who,', '.join(s.actors)))
@@ -370,10 +372,20 @@ class Plan:
   a.hold(.35+dur+.45);s.events.append(dict(kind='point',who=a.id,t0=ts,t1=a.t,to=b['at']));s.b_look(dict(do='look',who=a.id,at=b['at'],dur=dur+.6),ts)
  def b_look(s,b,t0):
   a=s.actors[b['who']];s._hold_until=max(s._hold_until,t0+b.get('dur',1.));s.events.append(dict(kind='look',who=a.id,t0=t0,t1=t0+b.get('dur',1.),to=b['at']))
+ def b_icon(s,b,t0):
+  """icon: a cartoon sign over a head for dur seconds (alarm, question, love, anger, idea, sleep, laugh, sad, joy): feelings and thoughts a viewer can read at a glance, for people and creatures alike"""
+  a=s.actors[b['who']];kind=b['kind'];d=b.get('dur',1.8)
+  if kind not in ICONS:raise SpecError('icon: unknown kind %r (known: %s)'%(kind,', '.join(ICONS)))
+  s._hold_until=max(s._hold_until,t0+d);s.events.append(dict(kind='icon',who=a.id,t0=t0,t1=t0+d,what=kind))
  def b_emote(s,b,t0):
   a=s.actors[b['who']];d=b.get('dur',2.);a.emotes.append((t0,t0+d,b['kind']));s._hold_until=max(s._hold_until,t0+d);s.events.append(dict(kind='emote',who=a.id,t0=t0,t1=t0+d,what=b['kind']))
  def b_act(s,b,t0):
   a=s.actors[b['who']];clip=b['clip']
+  if clip=='joy' and a.look.get('creature'):    # an animal's joy: a hop, three hops, a spin, a happy wiggle, a squash-and-stretch or a call, different for every animal and every time
+   VF=['hop','hop3','spin','wiggle','squash','call'];s._joys=getattr(s,'_joys',0);fl=VF[(sum(map(ord,a.id))*7+3*s._joys)%len(VF)];s._joys+=1
+   s.b_act(dict(b,clip='jump',scale=1.),t0);s.events[-1]['flair']=fl
+   if fl=='call':s.sfx.append((s.events[-1]['t0']+.2,CREATURE_CALL.get(a.look['creature'],'bark'),a.id,1.))
+   return
   if clip=='joy':    # joy has ten different celebrations, picked per character and per time, so a crowd never repeats one animation
    V=[[('cele',1.)],[('jump',1.)],[('laugh',1.),('cele',.85)],[('wave',1.),('cele',1.15)],[('hips',1.)],[('bow',1.),('jump',1.)],[('nod',1.2),('cele',1.)],[('cele',.8),('laugh',1.)],[('hips',1.),('wave',1.)],[('jump',1.),('laugh',1.)]]
    s._joys=getattr(s,'_joys',0);i=(sum(map(ord,a.id))+3*s._joys)%len(V);s._joys+=1
@@ -473,7 +485,7 @@ class Plan:
   return best[1]
  def _free_goal(s,a,p):
   """a goal inside a solid (a rock, a tree) is moved to the nearest free spot"""
-  obst=s.layout['obstacles'];walls=s.layout.get('walls',[]);ok=lambda q:not any(math.hypot(q[0]-c[0],q[1]-c[1])<c[2]+.15+a.radius*.6 for c in obst) and not any(math.hypot(q[0]-w[0],q[1]-w[1])<w[2]+.9+a.radius*.3 for w in walls)    # goals keep clear of walls
+  obst=s.layout['obstacles'];walls=s.layout.get('walls',[]);ok=lambda q:not any(math.hypot(q[0]-c[0],q[1]-c[1])<c[2]+.15+a.radius*.9 for c in obst) and not any(math.hypot(q[0]-w[0],q[1]-w[1])<w[2]+.9+a.radius*.3 for w in walls)    # goals keep clear of walls
   p=(p[0],p[1])
   if ok(p):return p
   for r in [.25*k for k in range(1,16)]:
@@ -481,6 +493,13 @@ class Plan:
     q=(p[0]+math.cos(j*math.pi/8)*r,p[1]+math.sin(j*math.pi/8)*r)
     if ok(q):return q
   return p
+ def _router_for(s,a):
+  """the route finder for this body: the wider the body, the wider the clearance round trees, rocks and mountains (a T-rex does not squeeze past a bush)"""
+  m=max(.55,round(a.radius*.85,1))
+  if m<=.6:return s.router
+  if not hasattr(s,'_routers'):s._routers={}
+  if m not in s._routers:s._routers[m]=Router(s.layout['obstacles'],s.layout['half'],margin=m)
+  return s._routers[m]
  def _walk_to(s,a,end,gait,mult=1.,via=(),exact=False):
   if not exact:end=s._clear_spot(a,s._free_goal(a,end))
   if a.state=='sit':s._stand(a)
@@ -489,7 +508,8 @@ class Plan:
   if gait not in gaits.GAITS:raise SpecError('unknown gait %r (known: %s)'%(gait,', '.join(gaits.GAITS)))
   pts=[a.pos()]+[tuple(v[:2]) for v in via]+[tuple(end[:2])];path=[pts[0]]
   extra=[(o.X[-1],o.Y[-1],o.radius+a.radius*.8) for o in s.actors.values() if o is not a]
-  for p in pts[1:]:path+=s.router.route(path[-1],p,free_r=.6 if exact else .7,extra=extra)[1:]
+  rt=s._router_for(a)
+  for p in pts[1:]:path+=rt.route(path[-1],p,free_r=.6 if exact else .7,extra=extra)[1:]
   path=round_corners(path,1.0*a.size)
   if len(path)>1:
    first=math.atan2(path[1][1]-path[0][1],path[1][0]-path[0][0]);a.turn_to(first,None)
@@ -499,7 +519,9 @@ class Plan:
    g2='walk' if gait=='shuffle' else 'brisk'
    if gaits.natural_speed(g2)>nat:gait=g2;nat=gaits.natural_speed(g2);tn=L/(nat*size*a.look['pace'])
   if mult==1. and tn>6.:mult=min(1.4,tn/6.)
-  speed=nat*size*a.look['pace']*mult;sc=gaits.play_scale(gait,speed,size);t0=a.t;a.walk(path,speed,gait,sc)
+  speed=nat*size*a.look['pace']*mult
+  if a.look.get('creature'):speed=cr.creature_speed(a.look['creature'],gait)[0]*a.look['pace']     # a creature moves at the speed its animation was made for
+  sc=gaits.play_scale(gait,speed,size);t0=a.t;a.walk(path,speed,gait,sc)
   s.events.append(dict(kind='go',who=a.id,t0=t0,t1=a.t,gait=gait,to=tuple(end[:2]),speed=speed));return a.t-t0
  def b_go(s,b,t0):
   a=s.actors[b['who']];ref=b['to'];tp=s.point(ref);gait=b.get('gait') or (None);t_start=a.t
@@ -688,7 +710,7 @@ class Plan:
    if dh.size and dh.max()>math.radians(420):out.append('AUDIT turn: %s turns %.0f deg/s'%(i,math.degrees(dh.max())))
    for (t0,t1,g,sc,speed) in a.walks:
     nat=gaits.natural_speed(g)*a.stride*a.look['pace']
-    if speed>nat*1.4 or speed<nat*.45:out.append('AUDIT gait: %s walks at %.2f m/s, natural for %s is %.2f'%(i,speed,g,nat))
+    if not a.look.get('creature') and (speed>nat*1.4 or speed<nat*.45):out.append('AUDIT gait: %s walks at %.2f m/s, natural for %s is %.2f'%(i,speed,g,nat))
     f0,f1=int(t0*FPS),int(t1*FPS);
     if f1-f0>6:
      v=np.hypot(np.diff(X[n][f0:f1+1]),np.diff(Y[n][f0:f1+1])).mean()*FPS

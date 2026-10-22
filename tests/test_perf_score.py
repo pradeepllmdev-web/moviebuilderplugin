@@ -14,7 +14,8 @@ class Compose(unittest.TestCase):
   for n in a[0]:self.assertTrue(20<=n['pitch']<=110 and 1<=n['vel']<=127 and n['t']>=0 and n['dur']>0 and 0<=n['ch']<16)
  def test_no_music_means_no_notes(self):self.assertEqual(ps.compose(plan(QUIET),THEME,'none')[0],[])
  def test_the_place_picks_the_lead_instrument(self):
-  self.assertEqual(ps.compose(plan(QUIET,'market'),THEME,'calm','market')[1][3],ps.BANDS['folk']['lead']);self.assertEqual(ps.compose(plan(QUIET,'room'),THEME,'calm','room')[1][3],ps.BANDS['cozy']['lead'])    # the place chooses the band, the band the instruments
+  leads={ps.BANDS[b]['lead'] for b in ps.ALT_BANDS['calm']+['folk','cozy']}
+  self.assertIn(ps.compose(plan(QUIET,'market'),THEME,'calm','market')[1][3],leads);self.assertIn(ps.compose(plan(QUIET,'room'),THEME,'calm','room')[1][3],leads)    # the mood and place offer bands, the scene picks one
  def test_melody_waits_for_speech(self):
   P=plan(SAY+QUIET);notes=ps.compose(P,THEME,'calm','meadow','day','x')[0];mel=[n for n in notes if n['ch']==3]
   for n in mel:
@@ -31,7 +32,7 @@ class Compose(unittest.TestCase):
  def test_cheering_adds_a_run(self):
   P=plan([dict(do='act',who='mara',clip='cele'),dict(do='wait',dur=8)]);self.assertTrue([n for n in ps.compose(P,THEME,'bright')[0] if n['ch']==8])
  def test_last_bar_resolves_on_the_tonic(self):
-  P=plan(QUIET);notes=ps.compose(P,THEME,'calm')[0];last=max(n['t'] for n in notes if n['ch']==0);tone=[n['pitch']%12 for n in notes if n['ch']==0 and n['t']==last];self.assertIn(THEME['root']%12,tone)
+  P=plan(QUIET);notes=ps.compose(P,THEME,'calm')[0];last=max(n['t'] for n in notes if n['ch']==0);tone=[n['pitch']%12 for n in notes if n['ch']==0 and n['t']==last];self.assertIn(ps.scene_root(THEME,'')%12,tone)    # each scene has its own key
  def test_night_is_lower_than_day(self):
   P=plan(QUIET);d=[n['pitch'] for n in ps.compose(P,THEME,'calm','meadow','day','x')[0] if n['ch']==0];n_=[n['pitch'] for n in ps.compose(P,THEME,'calm','meadow','night','x')[0] if n['ch']==0];self.assertLess(sum(n_)/len(n_),sum(d)/len(d))
 class Arc(unittest.TestCase):

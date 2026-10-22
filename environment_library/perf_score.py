@@ -36,15 +36,20 @@ BANDS={'folk':dict(pad=21,bass=32,pluck=24,lead=40,counter=71,arp=.5,pattern=[1,
  'whimsy':dict(pad=89,bass=58,pluck=12,lead=71,counter=105,arp=.5,pattern=[1,0,1,0,1,1,0,1],perc='comic',hi=True),
  'night':dict(pad=89,bass=43,pluck=8,lead=11,counter=42,arp=1.,pattern=[1,0,0,0,1,0,0,0],perc='heartbeat'),
  'piano':dict(pad=0,bass=32,pluck=0,lead=40,counter=42,arp=1.,pattern=[1,0,1,0,1,0,1,0],perc=None)}
+PATTERNS=[[1,0,1,1,0,1,1,0],[1,1,0,1,1,0,1,0],[1,0,0,1,0,1,0,0],[1,0,1,0,1,1,0,1],[1,1,1,0,1,0,1,1],[1,0,0,0,1,0,0,1],[0,1,1,0,0,1,1,0],[1,0,1,0,0,1,0,1]]
+def pick_pattern(seed,band,b=0):
+ """a different figure for every scene (and a change at every eighth bar), so no two scenes plink the same rhythm"""
+ return PATTERNS[int(hash_unit('pat'+str(seed)+band+str(b//8))*len(PATTERNS))%len(PATTERNS)]
+ALT_BANDS={'calm':['cozy','folk','piano'],'warm':['cozy','folk','whimsy'],'bright':['folk','whimsy','cozy'],'comic':['whimsy','folk'],'mystery':['night','orchestral','piano'],'sad':['piano','night','cozy'],'tense':['orchestral','night'],'epic':['orchestral','folk']}
+def scene_root(theme,seed):
+ return theme.get('root',57)+[-4,-2,0,2,3,5][int(hash_unit('key'+str(seed))*6)%6]
 def pick_band(mood,place,time,seed):
- r=hash_unit('band'+str(seed))
- if mood=='comic':return 'whimsy'
- if mood in('tense','epic'):return 'orchestral'
- if mood=='sad':return 'piano' if r<.5 else 'night'
- if mood=='mystery' or time=='night':return 'night' if r<.6 else 'orchestral'
- if place in('market','harbor','village_square','courtyard'):return 'folk'
- if place in('room','hall','workshop'):return 'cozy'
- return 'cozy' if r<.5 else 'folk'
+ """the band of a scene: the mood offers a few, the scene's own seed picks one (a market scene leans folk, a room cozy), so neighbouring scenes sound different"""
+ r=hash_unit('band'+str(seed));opts=list(ALT_BANDS.get(mood,['cozy','folk']))
+ lean={'market':'folk','harbor':'folk','village_square':'folk','courtyard':'folk','room':'cozy','hall':'cozy','workshop':'cozy','meadow':'cozy','hilltop':'orchestral'}.get(place)
+ if time=='night' and 'night' not in opts:opts.append('night')
+ if lean in BANDS and r<.4:return lean if (lean in opts or mood in ('calm','warm','bright')) else opts[int(r*10)%len(opts)]
+ return opts[int(r*len(opts)*2.5)%len(opts)]
 def perc_bar(style,a,beat,lv,sv,b,mood):
  """drum-channel hits (General MIDI: 36 kick, 38 snare, 39 clap, 42 closed hat, 41/45/47 toms, 76 wood block) for one bar"""
  out=[];g=lambda base,k=22:int((base+k*lv)*sv)
@@ -70,8 +75,8 @@ def perc_bar(style,a,beat,lv,sv,b,mood):
 def compose(plan,theme,mood='calm',place=None,time='day',seed='',cues=None,arc=None):
  m=MOODS.get(mood,MOODS['calm'])
  if mood=='none':return [],{},90.
- mode=m['mode'] or theme.get('mode','major');pal=dict(PALETTE,**theme.get('palette',{}));pal['lead']=PLACE_LEAD.get(place,pal['lead']) if theme.get('place_leads',True) else pal['lead']
- bpm=theme.get('tempo',90)*m['tempo']*(.88 if time=='night' else (1.05 if time=='dawn' else 1.));beat=60./bpm;bar=beat*4;secs=plan.seconds;nbar=int(math.ceil(secs/bar))+1
+ mode=m['mode'] or theme.get('mode','major');theme=dict(theme,root=scene_root(theme,seed));pal=dict(PALETTE,**theme.get('palette',{}));pal['lead']=PLACE_LEAD.get(place,pal['lead']) if theme.get('place_leads',True) else pal['lead']
+ bpm=theme.get('tempo',90)*m['tempo']*(.88 if time=='night' else (1.05 if time=='dawn' else 1.))*(.92+.16*hash_unit('tempo'+str(seed)));beat=60./bpm;bar=beat*4;secs=plan.seconds;nbar=int(math.ceil(secs/bar))+1
  lowered=-12 if time in('night','dusk') else 0
  speech=[(L['t0']-.2,L['t1']+.3) for L in plan.lines];sad=[(L['t0'],L['t1']) for L in plan.lines if L['mood']=='sad']
  def in_speech(a,b):return any(a<e and b>s for s,e in speech)
@@ -97,10 +102,11 @@ def compose(plan,theme,mood='calm',place=None,time='day',seed='',cues=None,arc=N
   fade=.55 if (b==0) else (.5 if last else 1.);sv=(.6 if sp else 1.)    # under speech everything stays, only quieter: the music keeps its groove and the voices keep the front
   if (b%2==0 or last) and (lv>.3 or b==0):    # the pad breathes: a swell every second bar, never a drone
    for p_ in tri:notes.append(dict(t=a,dur=bar*(1.9 if not last else 2.4),pitch=p_,vel=int((22+26*lv)*sv*fade),ch=0))
-  step=pc['arp']*beat if lv>.5 else beat;idx=0;t=a;pat=pc['pattern']
+  step=pc['arp']*beat if lv>.5 else beat;idx=0;t=a;pat=pick_pattern(seed,band,b)
+  breakdown=(b%8==7 and not last)     # every eighth bar the figure and the groove drop out for a breath
   while t<e-1e-6 and not last:       # the plucked figure: a pattern of the band, on the chord tones, sparser under speech
    k8=int(round((t-a)/(beat/2)))
-   if pat[k8%len(pat)] and ((not sp) or k8%4==0) and rnd.random()<(.6+.4*m['dens']):
+   if pat[k8%len(pat)] and not breakdown and ((not sp) or k8%4==0) and rnd.random()<(.6+.4*m['dens']):
     notes.append(dict(t=t,dur=step*1.5,pitch=tri[idx%3]+12*(1 if idx%6<3 else 0)+(12 if pc.get('hi') else 0),vel=int((34+34*lv)*sv),ch=2))
    idx+=1;t+=step
   if not last:      # bass: root on one, fifth on three (an oom-pah for the folk band)
@@ -116,8 +122,10 @@ def compose(plan,theme,mood='calm',place=None,time='day',seed='',cues=None,arc=N
     notes.append(dict(t=tt,dur=bt*beat*.95,pitch=pitch_of(theme,mode,root_d+deg,1)+lowered,vel=int((52+40*lv)*(.85+.3*j/max(1,nm-1))),ch=3));tt+=bt*beat
   if lv>.35 and not last and (b%2==1 or sp):    # a counter-line in long notes under the gaps
    notes.append(dict(t=a+beat*(0 if b%4<2 else 2),dur=bar*1.4,pitch=tri[1]-(12 if band!='night' else 0),vel=int((30+26*lv)*sv),ch=11))
-  if not last and pc['perc'] and mood!='none':      # percussion: a groove per band, a fill every fourth bar
+  if not last and pc['perc'] and mood!='none' and not breakdown:      # percussion: a groove per band, a fill every fourth bar
    for ev_ in perc_bar(pc['perc'],a,beat,lv,sv,b,mood):notes.append(ev_)
+  if any(s_<e and t_>a for s_,t_ in hot) and not last:      # the action bars: a driving eighth-note ostinato on the chord root
+   for k8 in range(8):notes.append(dict(t=a+k8*beat/2,dur=beat*.4,pitch=root+12+(7 if k8%4==3 else 0),vel=int(48+34*lv),ch=2))
   if lv>.45 and not last and b%4==3 and pc['perc'] in ('epic','oompah','comic'):    # rising run into the next phrase
    for kk,dg in enumerate((0,2,4,7)):notes.append(dict(t=e-beat*.9+kk*beat*.2,dur=beat*.3,pitch=pitch_of(theme,mode,d+dg,1)+lowered,vel=int(44+20*lv),ch=2))
  firsts={}

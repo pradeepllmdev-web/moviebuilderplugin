@@ -99,6 +99,15 @@ def validate(rec):
  return out
 def _acc(a):
  return dict(kind=a,color=None) if isinstance(a,str) else {**dict(color=None),**a}
+# measured ground speed (m/s at the animal's real size) of each model's Walk, WalkSlow and Run actions at play speed 1: the planner moves a creature at exactly this speed so its feet stay planted
+CREATURE_NAT={'Pig':(.69,.50,2.59),'Cow':(.83,.72,2.33),'Horse':(.95,.69,4.58),'Llama':(1.02,.63,3.52),'Pug':(.45,.32,1.34),'Sheep':(.77,.56,3.73),'Zebra':(.82,.60,3.96),'Trex':(1.29,1.0,6.0),'Triceratops':(.8,.6,1.68),'Velociraptor':(.71,.55,5.46)}
+def creature_speed(model,gait):
+ """(planned ground speed in m/s, which action) of a creature gait"""
+ w,sl,r=CREATURE_NAT[model]
+ if gait=='run':return r,'run'
+ if gait=='brisk':return r*.55,'run'
+ if gait in('shuffle','sneak','crawl'):return sl,'walkslow'
+ return w,'walk'
 def resolve(rec):
  """the full look: scale (sx,sy,sz), tint, parts (species parts overridden by kind), accessories, gait, pitch, pace"""
  bad=validate(rec)

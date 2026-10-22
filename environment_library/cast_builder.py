@@ -288,6 +288,10 @@ def build_creature(S,look,tag):
  zs=[(body.matrix_world@Vector(c)).z for c in body.bound_box];h0=max(zs)-min(zs);k=look['height']/max(1e-6,h0);root.scale=(k,k,k)
  tint=look.get('tint',(1.,1.,1.))
  for o in objs:
+  if o.type=='MESH':       # one level of subdivision and smooth shading: the low-poly body keeps its shape but loses the faceted edges
+   sm=o.modifiers.new('Soft','SUBSURF');sm.levels=1;sm.render_levels=1
+   for pl_ in o.data.polygons:pl_.use_smooth=True
+ for o in objs:
   if o.type!='MESH':continue
   for slot in o.material_slots:
    m=slot.material

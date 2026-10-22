@@ -19,6 +19,7 @@ def react(who,kind,to=None):
  return d
 def point(who,at,dur=1.6,hand='R'):return dict(do='point',who=who,at=at,dur=dur,hand=hand)
 def look(who,at,dur=1.5):return dict(do='look',who=who,at=at,dur=dur)
+def icon(who,kind,dur=1.8):return dict(do='icon',who=who,kind=kind,dur=dur)
 def emote(who,kind,dur=2.):return dict(do='emote',who=who,kind=kind,dur=dur)
 def wait(dur):return dict(do='wait',dur=dur)
 def take(who,prop,hand=None):

@@ -54,10 +54,25 @@ def hop(i,t):
     u=(t-(t0+.2+.35*k))/.28
     if 0<=u<=1:z=max(z,.05*sz*4*u*(1-u))
  return z,back
+def flair(i,t):
+ """(extra height, extra yaw, squash) of a creature at time t from its joy flair events"""
+ a=PLAN.actors[i];H=a.look['height'];z=0.;yaw=0.;sq=1.
+ for e in PLAN.events:
+  if e.get('who')!=i or e['kind']!='act' or not e.get('flair'):continue
+  t0,t1=e['t0'],e['t1']
+  if not t0<=t<=t1:continue
+  u=(t-t0)/max(.1,t1-t0);fl=e['flair']
+  if fl=='hop':z=max(z,.16*H*4*u*(1-u))
+  elif fl=='hop3':z=max(z,.1*H*abs(math.sin(u*3*PI)))
+  elif fl=='spin':yaw=2*PI*(u*u*(3-2*u));z=max(z,.1*H*4*u*(1-u))
+  elif fl=='wiggle':yaw=math.radians(24)*math.sin(u*PI*7)*(1-u)
+  elif fl=='squash':sq=1+.14*math.sin(u*PI*6)*(1-u)
+ return z,yaw,sq
 def keyroot(i):
- a=PLAN.actors[i];r=ALL[i]['root'];prev=None
+ a=PLAN.actors[i];r=ALL[i]['root'];prev=None;base_scale=tuple(r.scale)
  for f in S.keys():
-  k=min(len(a.X)-1,f-1);hz_,hb_=hop(i,(f-1)/FPS);r.location=(a.X[k]-math.cos(a.H[k])*hb_,a.Y[k]-math.sin(a.H[k])*hb_,hz_);h=a.H[k]+PI/2
+  k=min(len(a.X)-1,f-1);hz_,hb_=hop(i,(f-1)/FPS);fz_,fy_,fs_=flair(i,(f-1)/FPS) if a.look.get('creature') else (0.,0.,1.);r.location=(a.X[k]-math.cos(a.H[k])*hb_,a.Y[k]-math.sin(a.H[k])*hb_,hz_+fz_);h=a.H[k]+PI/2+fy_
+  if a.look.get('creature'):r.scale=tuple(v_*fs_ for v_ in base_scale);r.keyframe_insert('scale',frame=f)
   if prev is not None:h=prev+pp.wrap(h-prev)
   prev=h;r.rotation_euler=(0,0,h);r.keyframe_insert('location',frame=f);r.keyframe_insert('rotation_euler',frame=f)
 for i in ALL:keyroot(i)
@@ -100,7 +115,9 @@ def place_creature(i,ch,name,t0,t1,sc,opt,first):
  act=ca[key_];n=int(act.frame_range[1]-act.frame_range[0])+1;loop=key_ in('idle','walk','walkslow','run')
  scale=1.
  if key_ in('walk','walkslow','run') and sp:
-  length=a.look['height']*2.2;scale=max(.4,min(2.5,CR_SPEED[key_]*length/max(.2,sp)))    # slower planned speed -> a longer cycle
+  nat_=cr.CREATURE_NAT[a.look['creature']][('walk','walkslow','run').index(key_)]
+  if name=='brisk':nat_*=.55
+  scale=max(.4,min(2.6,nat_/max(.05,sp)))    # the clip's own ground speed over the planned one: feet stay planted
  tr=ch['rig'].animation_data.nla_tracks.new();ch['n']+=1;f_start=S.F(t0 if first else max(0,t0-.2));st=tr.strips.new(key_,f_start,act);st.action_slot=act.slots[0];st.scale=scale     # one track per strip: strips may overlap for the blend
  if loop:st.repeat=max(1.,(S.F(t1)-f_start)/(n*scale));st.extrapolation='NOTHING'
  else:
@@ -329,6 +346,25 @@ for i,(IK,TG) in IKS.items():
    if e>reach_worst:reach_worst=e;reach_info=(i,hand,t,tuple(round(v,2) for v in pos),tuple(round(v,2) for v in hp))
 if reach_worst>.22:print('REACH worst',reach_info)
 if reach_worst>.22:issues.append('AUDIT reach: a hand ends %.2f m from its target (limit 0.22; the arm cannot reach, move the prop or the actor)'%reach_worst)
+# cartoon signs over heads (the planned 'icon' beats): text solids that pop in, follow the head and always face the active camera
+def make_icons():
+ import bpy
+ ev=[e for e in PLAN.events if e['kind']=='icon']
+ if not ev:return
+ marks=sorted((m for m in S.scene.timeline_markers if m.camera),key=lambda m:m.frame)
+ for n,e in enumerate(ev):
+  txt,col=pp.ICONS[e['what']];cu=bpy.data.curves.new('Icon%d'%n,'FONT');cu.body=txt;cu.align_x='CENTER';cu.align_y='CENTER';cu.size=.5;cu.extrude=.04
+  o=bpy.data.objects.new('Icon%d'%n,cu);S.link(o);m=bpy.data.materials.new('Icon%d'%n);m.diffuse_color=(*col,1);m.use_nodes=True;bs=m.node_tree.nodes.get('Principled BSDF')
+  if bs:bs.inputs['Base Color'].default_value=(*col,1);bs.inputs['Emission Color'].default_value=(*col,1);bs.inputs['Emission Strength'].default_value=2.5
+  o.data.materials.append(m);sz=PLAN.actors[e['who']].size;f0,f1=S.F(e['t0']),S.F(e['t1'])
+  for f in range(f0,f1+1,2):
+   t=(f-1)/FPS;hx,hy,hz=PLAN.head_pos(e['who'],t);u=min(1.,(f-f0)/6.,(f1-f)/6.+.05);pop=max(.01,u*(1.15 if u<1. else 1.))
+   o.location=(hx,hy,hz+.62*max(.5,sz)+.05*math.sin((f-f0)*.5));o.scale=(pop*max(.6,sz),)*3
+   cam=next((m_.camera for m_ in reversed(marks) if m_.frame<=f),marks[0].camera if marks else None)
+   if cam is not None:
+    S.scene.frame_set(f);cp=cam.matrix_world.translation;o.rotation_euler=(PI/2,0,math.atan2(cp.y-hy,cp.x-hx)+PI/2)
+   for pth in ('location','scale','rotation_euler'):o.keyframe_insert(pth,frame=f)
+make_icons()
 # every dialogue cut shows its speaker: head inside the frame at the middle of the cut
 from bpy_extras.object_utils import world_to_camera_view
 sc=S.scene;marks=sorted(sc.timeline_markers,key=lambda m:m.frame);miss=0;chk=0

@@ -45,6 +45,25 @@ def captions():
    o.scale=(k,k,k)
   cap.data.body=sh.data.body=wrap(txt);cap.location=(0,-.205*k,-1);sh.location=(.0016*k,-.2066*k,-1.001);goal.location=(-.41*k,.22*k,-1);cap.hide_viewport=sh.hide_viewport=(txt=='')
  bpy.app.handlers.frame_change_post.append(update);update(s)
+def cards():
+ """movie mode: a big title card with the scene's goal for the first few seconds of every scene (not subtitles: it says what the scene is about)"""
+ blend=bpy.data.filepath;sj=blend.replace('.blend','.spec.json')
+ if not os.path.exists(sj):return
+ spec=json.load(open(sj));title=spec.get('title') or '';goal=spec.get('objective') or ''
+ if not (title or goal):return
+ s=bpy.context.scene
+ def mk(name,color,size):
+  cu=bpy.data.curves.new(name,'FONT');cu.size=size;cu.align_x='CENTER';cu.align_y='CENTER';o=bpy.data.objects.new(name,cu);s.collection.objects.link(o)
+  m=bpy.data.materials.new(name);m.diffuse_color=(*color,1);o.data.materials.append(m);return o
+ t1=mk('CardTitle',(1,.95,.7),.07);t2=mk('CardGoal',(1,1,1),.045);t1.data.body=title;t2.data.body=goal
+ def update(scn,*a):
+  cam=scn.camera
+  if cam is None:return
+  t=(scn.frame_current-scn.frame_start)/scn.render.fps;k=36./max(10.,cam.data.lens)/.9;vis=t<3.6
+  for o,y in ((t1,.10),(t2,.03)):
+   if o.parent is not cam:o.parent=cam;o.matrix_parent_inverse=type(o.matrix_world)()
+   o.scale=(k,k,k);o.location=(0,y*k,-1);o.hide_viewport=not vis
+ bpy.app.handlers.frame_change_post.append(update);update(s)
 def setup():
  s=bpy.context.scene;rig=next(o for o in s.objects if o.type=='ARMATURE')
  for o in s.objects:
@@ -52,6 +71,7 @@ def setup():
   if MODE=='single' and o.type=='MESH' and o.parent is None and not any(m.type=='ARMATURE' for m in o.modifiers) and not o.name.startswith('Proxy'):o.hide_set(True)
  proxies();s.frame_set(1)
  if MODE=='movie':
+  if os.environ.get('CARDS','1')=='1':cards()    # a title card with the goal opens every scene (CARDS=0 to hide)
   s.sync_mode='AUDIO_SYNC'    # a viewport slower than 24 fps drops frames to stay with the sound, instead of letting lips drift away from the voice
   if os.environ.get('CAPTIONS')=='1':captions()    # subtitles are off unless asked for
  for window in bpy.context.window_manager.windows:

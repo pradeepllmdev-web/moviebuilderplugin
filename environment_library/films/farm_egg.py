@@ -79,7 +79,7 @@ S.append(scene('reunion','Mama',loc('hilltop',3),[at('moss',-2.8,-2.4,face='mama
 ],time='dusk',ambience='wind',music='warm',fog=.1,intent='Zip runs to his mother. The farmer and the child watch them reunite.'))
 # 7 ---------------------------------------------------------------------------------------------------------------- goodbye
 S.append(scene('goodbye','Over the hill',loc('hilltop',3),[at('moss',-2.8,-2.4,face='mama'),at('hazel',-5.2,-4.6,face='mama'),at('mama',-8,6.4,face=[-20,14]),at('zip',-7.4,5.4,face=[-20,14]),at('percy',6,2,face='moss'),at('clara',8,-2,face='moss'),at('dolly',3,5,face='moss')],steps=[
- par(go('mama',[-22,14],gait='walk'),go('zip',[-20,13],gait='run')),
+ par(go('mama',[-24,16],gait='walk'),go('zip',[-16,9],gait='run')),
  par(act('moss','wave'),sfx('roar',0.8,who='mama')),
  par(go('percy',[-1.5,0.5],gait='walk'),go('clara',[-3.5,-1.6],gait='walk'),go('dolly',[-0.2,-1.8],gait='walk')),
  convo([('hazel','Best egg we ever had.','joy','moss'),('moss','Can we have another one?','joy','hazel')]),
@@ -92,4 +92,4 @@ for _s in S:_s['objective']=OBJECTIVE[_s['id']]
 LOGLINE='A child finds a giant egg on the farm; it hatches into a baby raptor who panics the animals, until an apple, a lot of thunder and a very large mother bring everyone home.'
 THEME=dict(root=55,mode='dorian',tempo=104,motif=[(0,1),(2,.5),(4,.5),(7,1),(4,1)],motifs=dict(hazel=[0,-3,0],moss=[4,6,4],zip=[7,6,7],mama=[-5,-7,-5]),palette=dict(pad=48,bass=43,pluck=46,hit=47))
 for _c in CAST:_c.setdefault('pace',1.2)
-FILM=dict(id='farm_egg',title='The Egg on the Farm',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=3)
+FILM=dict(id='farm_egg',title='The Egg on the Farm',cast=CAST,scenes=S,logline=LOGLINE,theme=THEME,target_minutes=3.5)
