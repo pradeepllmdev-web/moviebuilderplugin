@@ -26,6 +26,11 @@ def heading_at(plan,who,t,win=.8):
 def _step_edges(plan):
  ts=list(plan.steps_t)+[plan.seconds];return [(a,b) for a,b in zip(ts,ts[1:])]
 def _events_in(plan,a,b):return [e for e in plan.events if e.get('t0',0)<b-1e-6 and e.get('t1',0)>a+1e-6]
+def _target(plan,ref,t):
+ """(x,y,z) of what a character points at, at time t: a character's head, a prop where it is, or a point"""
+ if isinstance(ref,str) and ref in plan.actors:x,y,_=plan.pos(ref,t);return (x,y,1.0)
+ if isinstance(ref,str) and ref in plan.props:return tuple(plan.props[ref].at(t,plan))
+ return tuple(plan.point(ref))
 def direct(plan,seed=1):
  rnd=np.random.default_rng(seed);cuts=[];pair_side={};walk_side=[1.]
  hints={round(c['t0'],2):c for c in plan.cams}
@@ -50,9 +55,15 @@ def direct(plan,seed=1):
     t0=max(a,L['t0']-.25);t1=min(b,L['t1']+.3);mid=t0+(t1-t0)*.68
     kd='two' if k%3==2 and math.hypot(*[plan.pos(sp,mid)[i]-plan.pos(to,mid)[i] for i in (0,1)])<=5.5 and not plan.layout.get('inside') else 'medium'    # a face from the front quarter, never a foreground back of a head (a two-shot of people far apart is a tiny picture)   # a small room has no room for a two-shot
     if t0>cuts[-1]['t1']+.2 and mid-cuts[-1]['t1']>0:t0=cuts[-1]['t1']
-    cuts.append(dict(name='%s speaks'%sp,kind=kd,t0=t0,t1=mid,subject=sp,to=to,side=side,lens=40 if kd=='medium' else 36))
+    close=kd=='medium' and L.get('mood') in('sad','warm','joy','concern') and mid-t0>2.2     # an emotional line is played on the face
+    cuts.append(dict(name='%s speaks'%sp,kind=kd,t0=t0,t1=mid,subject=sp,to=to,side=side,lens=52 if close else (40 if kd=='medium' else 36),close=close))
     if t1-mid>1.6:cuts.append(dict(name='%s listens'%to,kind='medium',t0=mid,t1=t1,subject=to,to=sp,side=-side,lens=40))
    if cuts[-1]['t1']<b-.1:cuts[-1]['t1']=b
+  elif [e for e in evs if e['kind']=='point']:     # a character points: cut to what is pointed at, from behind the pointer's shoulder, then back
+   e=[e for e in evs if e['kind']=='point'][0];tp=_target(plan,e['to'],e['t0']);dur=max(1.6,min(b-a,e['t1']-e['t0']))
+   cuts.append(dict(name='%s points'%e['who'],kind='reveal',t0=a,t1=min(b,a+dur),subject=e['who'],target=tuple(tp),side=1.,lens=34))
+   if cuts[-1]['t1']<b-.2:cuts.append(dict(name='%s reacts'%e['who'],kind='medium',t0=cuts[-1]['t1'],t1=b,subject=e['who'],side=-1.,lens=40))
+   else:cuts[-1]['t1']=b
   elif gos:
    e=max(gos,key=lambda e:e['t1']-e['t0']);who=e['who'];mv=[g for g in gos if g['t0']<e['t1'] and g['t1']>e['t0']]
    walk_side[0]*=-1.;dur=b-a;tm=(a+b)/2;gp=[plan.pos(g['who'],tm)[:2] for g in mv]
@@ -93,7 +104,7 @@ def frame(plan,c,t):
  """(camera position, aim point, lens) at time t for a cut; inside a room the camera stays inside its walls"""
  pos,aim,lens=_frame(plan,c,t);ins=plan.layout.get('inside');u=max(0.,min(1.,(t-c['t0'])/max(.1,c['t1']-c['t0'])))
  e=u*u*(3-2*u)    # eased progress: every shot moves, starting and ending softly
- if c['kind'] in ('ots','single','medium','insert'):    # a push-in over the shot with a slow slide sideways (parallax against the background)
+ if c['kind'] in ('ots','single','medium','insert','reveal'):    # a push-in over the shot with a slow slide sideways (parallax against the background)
   k=1-.12*e;px,py=pos[0]-aim[0],pos[1]-aim[1];L=math.hypot(px,py) or 1.;sl=(e-.5)*(.5 if c['kind']=='insert' else .7)*c.get('side',1.)
   pos=(aim[0]+(pos[0]-aim[0])*k-py/L*sl,aim[1]+(pos[1]-aim[1])*k+px/L*sl,aim[2]+(pos[2]-aim[2])*k)
  elif c['kind'] in ('wide','group'):     # a slow orbit round the scene while the camera sinks a little
@@ -130,8 +141,11 @@ def _frame(plan,c,t):
   p=plan.props[c['prop']];pp=p.at(t,plan);x,y,h=plan.pos(sp,t);a=plan.actors[sp];dm=c.get('dm',1.)
   f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.))
   return (pp[0]+f[0]*.6*dm+n[0]*1.5*a.size*dm,pp[1]+f[1]*.6*dm+n[1]*1.5*a.size*dm,pp[2]+.45),(pp[0]-f[0]*.2,pp[1]-f[1]*.2,pp[2]),lens
+ if kd=='reveal':
+  hs=plan.head_pos(sp,t);tp=c['target'];d=_unit((tp[0]-hs[0],tp[1]-hs[1]));n=(-d[1],d[0]);aim=(tp[0],tp[1],max(.9,tp[2]) if len(tp)>2 else .9)
+  return (hs[0]-d[0]*1.3+n[0]*.7,hs[1]-d[1]*1.3+n[1]*.7,hs[2]+.25),aim,lens
  if kd=='medium':
-  x,y,h=plan.pos(sp,t);a=plan.actors[sp];f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.));d=4.6*max(.65,a.size)*c.get('dm',1.)
+  x,y,h=plan.pos(sp,t);a=plan.actors[sp];f=(math.cos(h),math.sin(h));n=(-f[1]*c.get('side',1.),f[0]*c.get('side',1.));d=4.6*max(.65,a.size)*c.get('dm',1.)*(.72 if c.get('close') else 1.)
   fx,fy=_rotv(f,math.radians(30*c.get('side',1.)));return (x+fx*d,y+fy*d,1.35*a.size),(x,y,1.05*a.size),lens
  raise ValueError('unknown shot kind %r'%kd)
 
@@ -165,13 +179,13 @@ def _score(plan,c,side):
 def shot_quality(plan,c,t):
  """(worst angle off the lens axis as a fraction of the half field of view over the people the shot is about, face-to-camera cosine of the main subject): a shot should keep them in frame and show the face"""
  pos,aim,lens=frame(plan,c,t);half=math.atan(18./lens);ax=np.array(aim)-np.array(pos);ax/=np.linalg.norm(ax) or 1.
- who=[c['subject']] if c.get('subject') and c['kind']!='insert' else []    # an insert is about the hands and the prop, not the face
+ who=[c['subject']] if c.get('subject') and c['kind'] not in ('insert','reveal') else []    # an insert is about the hands and the prop, not the face
  if c['kind']=='two' and c.get('to'):who.append(c['to'])
  off=0.
  for w in who:
   v=np.array(plan.head_pos(w,t))-np.array(pos);v/=np.linalg.norm(v) or 1.;off=max(off,math.acos(max(-1.,min(1.,float(ax@v))))/half)
  face=1.
- if who and c['kind'] not in ('wide','group','insert','ots','two'):
+ if who and c['kind'] not in ('wide','group','insert','reveal','ots','two'):
   w=who[0];x,y,h=plan.pos(w,t);d=_unit((pos[0]-x,pos[1]-y));face=math.cos(h)*d[0]+math.sin(h)*d[1]
  return off,face
 def _segdist2(a,b,p):

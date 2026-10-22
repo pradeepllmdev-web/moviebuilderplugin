@@ -114,6 +114,14 @@ def run(film_path,out,scenes=None,force=False,plan_only=False,sheets=12,master=T
  problems=reg.distinct_report();rows=plan_check(film,reg);cast_json=out/'cast.json';reg.save(str(cast_json));(out/'cast_story.json').write_text(json.dumps(reg.export_story_records(),indent=1),encoding='utf-8')
  lines=['# %s: build report'%film.get('title',film.get('id','film')),'','Cast: %d characters%s'%(len(film['cast']),''.join('\n* WARNING: %s and %s look alike (score %.2f)'%p for p in problems)),'','## Plan check (no Blender)','']
  for r in rows:lines.append('* scene %02d %s: %.1f s, %d characters, %d lines%s%s'%(r['index'],r['id'],r['seconds'],r['cast'],r['lines'],('\n  * SPEC ERROR: '+r['error']) if r['error'] else '',''.join('\n  * '+a for a in r['audit'])))
+ try:      # the storyboard (a shot list with a purpose for every shot) and the table read (pacing notes) of the film
+  import perf_plan as pp_,perf_storyboard as sb_
+  plans=[]
+  for sp_ in film['scenes']:
+   try:plans.append(pp_.compile(sp_,reg))
+   except pp_.SpecError:plans.append(None)
+  (out/'storyboard.md').write_text(sb_.storyboard_md(film,plans),encoding='utf-8');(out/'review.md').write_text(sb_.review_md(film,plans),encoding='utf-8')
+ except Exception as e_:print('storyboard skipped',e_)
  tot=total_seconds(rows);lines+=['','Planned length: %.1f s = %.1f minutes (target %.0f)'%(tot,tot/60,target_minutes),'']
  if plan_only:
   (out/'plan_report.md').write_text('\n'.join(lines),encoding='utf-8');print('\n'.join(lines));return dict(rows=rows,total=tot)
