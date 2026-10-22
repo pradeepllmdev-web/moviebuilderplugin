@@ -75,10 +75,10 @@ S.append(scene('thunder','The ground shakes',loc('hilltop',3),[at('moss',-2.8,-2
 # 6 ---------------------------------------------------------------------------------------------------------------- reunion
 S.append(scene('reunion','Mama',loc('hilltop',3),[at('moss',-2.8,-2.4,face='mama'),at('zip',-1.6,-3.6,face='mama'),at('hazel',-5.2,-4.6,face='mama'),at('mama',-8,6.4,face='moss')],steps=[
  convo([('moss','Don’t be scared, Hazel. Look at Zip. He knows her.','warm','hazel')]),
- par(go('zip',[-6,5],gait='run'),sfx('roar',0.2,who='zip'),icon('zip','joy',2.0)),
+ par(go('zip',[-4.6,7.6],gait='run'),sfx('roar',0.2,who='zip'),icon('zip','joy',2.0)),
  par(sfx('roar',0.1,who='mama'),act('mama','startle'),icon('mama','love',2.4)),
  act('zip','joy'),
- go('zip',[-5.0,3.6],gait='walk'),
+ go('zip',[-5.4,9.4],gait='walk'),
  par(act('moss','wave'),sfx('chime',0.5)),
  convo([('hazel','She searched all night for him. Mothers always find their children.','warm','moss')]),
  act('mama','joy'),
@@ -86,7 +86,7 @@ S.append(scene('reunion','Mama',loc('hilltop',3),[at('moss',-2.8,-2.4,face='mama
 # 7 ---------------------------------------------------------------------------------------------------------------- goodbye
 S.append(scene('goodbye','Over the hill',loc('hilltop',3),[at('moss',-2.8,-2.4,face='mama'),at('hazel',-5.2,-4.6,face='mama'),at('mama',-8,6.4,face=[-20,14]),at('zip',-7.4,5.4,face=[-20,14]),at('percy',6,2,face='moss'),at('clara',8,-2,face='moss'),at('dolly',3,5,face='moss')],steps=[
  convo([('moss','Goodbye, Zip! Come back and visit us!','joy','zip')]),
- par(go('mama',[-24,16],gait='walk'),go('zip',[-16,9],gait='run'),act('moss','wave')),
+ par(go('mama',[-24,16],gait='walk'),go('zip',[-12,3],gait='run'),act('moss','wave')),
  par(sfx('roar',0.8,who='mama'),icon('mama','love',2.0)),
  par(go('percy',[-1.5,0.5],gait='walk'),go('clara',[-3.5,-1.6],gait='walk'),go('dolly',[-0.2,-1.8],gait='walk')),
  par(act('percy','joy'),act('clara','joy'),act('dolly','joy')),

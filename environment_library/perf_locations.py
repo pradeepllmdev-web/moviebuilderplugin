@@ -30,13 +30,13 @@ def recipe(kind,o):
  elif kind=='tower':
   h=7*s;c=c or (.62,.6,.58);W=[_p('cyl',n('shaft'),(0,0,h/2),(1.5*s,1.5*s,h/2),c),_p('cone',n('cap'),(0,0,h+1.1*s),(1.9*s,1.9*s,1.1*s),_shade(c,.6),kw=dict(vertices=12))];fp=('circle',1.5*s)
  elif kind=='tree':
-  c=c or (.2,.5,.2);h=3.2*s;W=[_p('cyl',n('trunk'),(0,0,h*.35),(.18*s,.18*s,h*.35),(.4,.28,.16)),_p('sphere',n('crown'),(0,0,h*.85),(1.3*s,1.3*s,1.1*s),c),_p('sphere',n('crown2'),(.5*s,.3*s,h*1.05),(.9*s,.9*s,.8*s),_shade(c,1.15))];fp=('circle',.4*s)
+  c=c or (.2,.5,.2);h=3.2*s;W=[_p('cyl',n('trunk'),(0,0,h*.35),(.18*s,.18*s,h*.35),(.4,.28,.16)),_p('sphere',n('crown'),(0,0,h*.85),(1.3*s,1.3*s,1.1*s),c),_p('sphere',n('crown2'),(.5*s,.3*s,h*1.05),(.9*s,.9*s,.8*s),_shade(c,1.15))];fp=('circle',1.1*s)    # the crown, not the trunk: nobody (and no camera) walks into the leaves
  elif kind=='pine':
-  c=c or (.1,.38,.2);h=4*s;W=[_p('cyl',n('trunk'),(0,0,.4*s),(.14*s,.14*s,.4*s),(.35,.24,.14))]+[_p('cone',n('c%d'%i),(0,0,(1.0+i*1.05)*s),((1.35-i*.33)*s,(1.35-i*.33)*s,.9*s),_shade(c,1+i*.08),kw=dict(vertices=10)) for i in range(3)];fp=('circle',.35*s)
+  c=c or (.1,.38,.2);h=4*s;W=[_p('cyl',n('trunk'),(0,0,.4*s),(.14*s,.14*s,.4*s),(.35,.24,.14))]+[_p('cone',n('c%d'%i),(0,0,(1.0+i*1.05)*s),((1.35-i*.33)*s,(1.35-i*.33)*s,.9*s),_shade(c,1+i*.08),kw=dict(vertices=10)) for i in range(3)];fp=('circle',.9*s)
  elif kind=='rock':
   c=c or (.5,.5,.52);W=[_p('sphere',n('r'),(0,0,.45*s),(.9*s,.75*s,.6*s),c)];fp=('circle',.8*s)
  elif kind=='bush':
-  c=c or (.22,.5,.25);W=[_p('sphere',n('b'),(0,0,.4*s),(.7*s,.7*s,.45*s),c)];fp=('circle',.5*s)
+  c=c or (.22,.5,.25);W=[_p('sphere',n('b'),(0,0,.4*s),(.7*s,.7*s,.45*s),c)];fp=('circle',.75*s)
  elif kind=='wall':
   c=c or (.6,.58,.55);L=math.hypot(o['to'][0]-o['at'][0],o['to'][1]-o['at'][1]);h=o.get('height',1.6)*s;W=[_p('cube',n('w'),(L/2,0,h/2),(L/2,.25*s,h/2),c)];fp=('segment',L,.3*s)
  elif kind=='fence':
@@ -214,7 +214,7 @@ def harbor(rnd,p):
   dict(kind='house',at=[-10,8],id='house_a'),dict(kind='house',at=[8,9],id='house_b',color=(.6,.7,.8)),dict(kind='lamp',at=[-2,-1]),dict(kind='lamp',at=[5,-1]),dict(kind='bench',at=[0,1],id='bench'),dict(kind='sign',at=[-6,1],id='sign')]
  return dict(objects=o,ground=(.5,.46,.4),half=(30,26),water=[-40,-40,40,-6],markers=dict(center=(0,0),quay=(0,-3),boat=(6,-7)))
 def hilltop(rnd,p):
- return dict(objects=[dict(kind='tree',at=[-5,3],id='tree'),dict(kind='rock',at=[4,-2]),dict(kind='rock',at=[-2,-6],size=.7),dict(kind='bush',at=[6,5]),dict(kind='sign',at=[1,6],id='sign')]+[dict(kind='mountain',at=[x,40],size=s,id='mtn%d'%i) for i,(x,s) in enumerate(((-40,2.2),(0,3),(45,2.5)))],ground=(.4,.55,.3),half=(28,28),markers=dict(center=(0,0),edge=(10,12),view=(0,10)))
+ return dict(objects=[dict(kind='tree',at=[-5,3],id='tree'),dict(kind='rock',at=[4,-2]),dict(kind='rock',at=[-2,-6],size=.7),dict(kind='bush',at=[6,5]),dict(kind='sign',at=[1,6],id='sign')]+[dict(kind='mountain',at=[x,78],size=s,id='mtn%d'%i) for i,(x,s) in enumerate(((-45,2.2),(0,3),(50,2.5)))],ground=(.4,.55,.3),half=(28,28),markers=dict(center=(0,0),edge=(10,12),view=(0,10)))
 def courtyard(rnd,p):
  o=[dict(kind='wall',at=[-14,-10],to=[14,-10],id='wall_s',height=3.5),dict(kind='wall',at=[-14,10],to=[14,10],id='wall_n',height=3.5),dict(kind='wall',at=[-14,-10],to=[-14,10],id='wall_w',height=3.5),dict(kind='wall',at=[14,-10],to=[14,10],id='wall_e',height=3.5),dict(kind='tower',at=[-14,-10],id='tower_a'),dict(kind='tower',at=[14,10],id='tower_b'),
   dict(kind='well',at=[0,0],id='well'),dict(kind='bench',at=[-6,-4],id='bench_a'),dict(kind='statue',at=[8,4],id='statue'),dict(kind='haystack',at=[-10,6]),dict(kind='crate',at=[10,-7]),dict(kind='lamp',at=[-4,5]),dict(kind='lamp',at=[5,-5])]
@@ -244,7 +244,7 @@ def build(S,loc,time='day'):
  """create the location in the scene_base.Scene S: ground (and water), objects, lights, sun for the time of day; returns the normalised location"""
  import bpy
  import scene_params
- loc=normalise(loc);hx,hy=loc['half'];gr=S.prim('cube','Ground',(0,0,-.5),loc['ground'],scale=(hx+20,hy+20,.5));_ground_texture(gr,loc['ground'])
+ loc=normalise(loc);hx,hy=loc['half'];gr=S.prim('cube','Ground',(0,0,-.5),loc['ground'],scale=(hx+75,hy+75,.5));_ground_texture(gr,loc['ground'])
  if loc.get('water'):
   x0,y0,x1,y1=loc['water'];S.prim('cube','Water',((x0+x1)/2,(y0+y1)/2,-.12),(.2,.4,.6),scale=((x1-x0)/2,(y1-y0)/2,.1))
  for p in prims(loc):
