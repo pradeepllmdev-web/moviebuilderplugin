@@ -36,7 +36,7 @@ def f0_estimate(x,sr=SR,lo=60,hi=420):
   if seg[k]/ac[0]>.4:out.append(sr/(lag0+k))
  return float(np.median(out)) if out else None
 def key(voice,text,mood='serious'):
- s='|'.join(str(v) for v in ('v4',voice['model'],voice['speaker'],round(voice.get('shift',1.),3),round(voice.get('rate',1.),3),mood,text))
+ s='|'.join(str(v) for v in ('v5',voice['model'],voice['speaker'],round(voice.get('shift',1.),3),round(voice.get('rate',1.),3),mood,text))
  return hashlib.sha1(s.encode('utf-8')).hexdigest()[:16]
 def wav_path(k):return CACHE/(k+'.wav')
 def read_wav(p):
@@ -92,11 +92,23 @@ def synth(voice,text,mood='serious'):
  if sr!=SR:n=int(len(x)*SR/sr);x=np.interp(np.linspace(0,len(x)-1,n),np.arange(len(x)),x)
  i=np.nonzero(np.abs(x)>.01)[0]
  if len(i):x=x[max(0,i[0]-int(.03*SR)):i[-1]+int(.12*SR)]      # trim silence, keep a breath at the end
+ x=prosody(x,text,mood)
  x=clarity(x)
  pk=np.max(np.abs(x))+1e-9;x=x/pk*.85*min(1.1,MOOD_GAIN.get(mood,1.));x=np.clip(x,-1,1)
  tmp=str(p)+'.tmp'
  with wave.open(tmp,'wb') as w:w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((x*32767).astype('<i2').tobytes())
  os.replace(tmp,p);return p
+def prosody(x,text,mood,sr=SR):
+ """speech melody the voice model lacks: a question rises at the end, a statement settles, an exclamation and an angry or joyful line start brighter, a sad line sits lower, plus a slow gentle wave so no line is monotone (a time-varying resample; the length stays the same)"""
+ n=len(x)
+ if n<int(.3*sr):return x
+ t=np.linspace(0,1,n);f=np.ones(n);tx=text.rstrip();ph=(sum(map(ord,text))%97)/97.
+ if tx.endswith('?'):f+=.14*np.clip((t-.62)/.38,0,1)**1.3
+ elif not tx.endswith('!'):f-=.07*np.clip((t-.7)/.3,0,1)
+ if tx.endswith('!') or mood in('angry','joy'):f+=.05*np.exp(-((t-.12)/.1)**2)
+ if mood=='sad':f*=.97
+ f+=.015*np.sin(2*np.pi*(1.3*t+ph));pos=np.cumsum(f);pos=(pos-pos[0])/(pos[-1]-pos[0])*(n-1)
+ return np.interp(pos,np.arange(n),x)
 def clarity(x,sr=SR):
  """speech clarity: high-pass at 80 Hz, a presence lift around 2.5-4 kHz, then a soft compressor so quiet syllables are not lost under the score"""
  n=len(x)

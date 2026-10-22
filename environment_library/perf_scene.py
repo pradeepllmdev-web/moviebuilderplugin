@@ -100,6 +100,7 @@ for i,ch in CH.items():
   segs.append(c)
  for k,(t0,t1,name,sc,opt) in enumerate(segs):place(ch,name,t0,t1,sc,opt,k==0)
 # creatures: the plan's clips become the animal's own actions (walk gaits -> Walk / WalkSlow / Run with the play speed from the planned ground speed, acts -> Jump / Death / Idle)
+CR_STEPS=[]
 CR_SPEED={'walk':1.6,'walkslow':.9,'run':4.2}     # ground speed in body lengths per second of each action at play scale 1
 def place_creature(i,ch,name,t0,t1,sc,opt,first):
  a=PLAN.actors[i];ca=ch['cact'];sp=None
@@ -118,6 +119,8 @@ def place_creature(i,ch,name,t0,t1,sc,opt,first):
   nat_=cr.CREATURE_NAT[a.look['creature']][('walk','walkslow','run').index(key_)]
   if name=='brisk':nat_*=.55
   scale=max(.4,min(2.6,nat_/max(.05,sp)))    # the clip's own ground speed over the planned one: feet stay planted
+ if key_ in('walk','walkslow','run') and sp:
+  CR_STEPS.append((i,t0,t1,n*scale/FPS/4.,a.look['height']))     # a footfall every quarter of the cycle
  tr=ch['rig'].animation_data.nla_tracks.new();ch['n']+=1;f_start=S.F(t0 if first else max(0,t0-.2));st=tr.strips.new(key_,f_start,act);st.action_slot=act.slots[0];st.scale=scale     # one track per strip: strips may overlap for the blend
  if loop:st.repeat=max(1.,(S.F(t1)-f_start)/(n*scale));st.extrapolation='NOTHING'
  else:
@@ -400,6 +403,28 @@ def snd(A):
  if np.abs(mus).max()>0:A.track('music',mus*duck,.34)
  ev=pa.footstep_events(PLAN.footsteps(),SR,rng,'stone' if LOC.get('floor')=='stone' else 'dirt')
  if ev:A.track('steps',pa.mix_events(N,SR,ev)*duck_l,.1)   # footsteps sit far below the voices
+
+ # foley: cloth on every big gesture and turn, props taken, put and handed over, pointing, creature footfalls, birds by day and crickets by night
+ fo=[];CLOTH=('cele','wave','bow','shrug','startle','jump','hit','punch','kick','dodge','block','getup','fall','cut','hips','laugh','nod')
+ for e in PLAN.events:
+  who=PLAN.actors[e['who']] if e.get('who') in PLAN.actors else None
+  if who is not None and who.look.get('creature'):continue
+  if e['kind']=='act' and e.get('clip') in CLOTH:fo.append((e['t0']+.12,pa.sfx('cloth',SR,rng),.5))
+  elif e['kind']=='point':fo.append((e['t0']+.1,pa.sfx('swish',SR,rng),.45))
+  elif e['kind'] in('take','put','give'):
+   pk=PLAN.props[e['prop']].kind if e.get('prop') in PLAN.props else '';nm='rustle' if pk in('letter','scroll','map','book') else ('clink' if pk in('cup','key','bell','gem','jar','lantern') else ('pop' if pk in('apple','egg','pie') else 'thud'))
+   fo.append((e.get('t_grasp',e['t0']),pa.sfx(nm,SR,rng),.55 if nm!='thud' else .3));fo.append((e['t0']+.1,pa.sfx('cloth',SR,rng),.35))
+  elif e['kind'] in('sit','stand'):fo.append((e['t0']+.2,pa.sfx('cloth',SR,rng),.5))
+ for (i_,t0_,t1_,iv,hh) in CR_STEPS:      # animals: a footfall every quarter cycle, a very large body with a very large thud
+  tt_=t0_+.1;big=hh>2.
+  while tt_<t1_:fo.append((tt_,pa.sfx('bigstep' if big else 'step',SR,rng),.9 if big else .5*min(1.,hh+.2)));tt_+=max(.12,iv)
+ if fo:A.track('foley',pa.mix_events(N,SR,fo)*duck_l,.28)
+ outdoor=SPEC.get('location',{}).get('preset') not in('room','hall','workshop','cave')
+ if outdoor and SPEC.get('ambience') not in('rain','sea','fire'):
+  nat=[];tt_=rng.uniform(.5,2.5)
+  while tt_<S.seconds-.5:
+   nat.append((tt_,pa.sfx('chirp' if TIME in('day','dawn','dusk') else 'cricket',SR,rng),rng.uniform(.4,1.)));tt_+=rng.uniform(1.8,5.5) if TIME in('day','dawn','dusk') else rng.uniform(.8,2.4)
+  if nat:A.track('nature',pa.mix_events(N,SR,nat)*duck_l,.07)
  ev=[(t,pa.sfx(nm,SR,rng),g) for (t,nm,who,g) in PLAN.sfx]
  if ev:A.track('effects',pa.mix_events(N,SR,ev),.6)
 S.audio(snd)

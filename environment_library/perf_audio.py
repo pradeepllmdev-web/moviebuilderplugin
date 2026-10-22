@@ -94,8 +94,16 @@ def sfx(name,SR,rng):
  if name=='bark':tt=T(.35);return (_noise(rng,len(tt),6)*.6+np.sin(2*PI*(330-250*tt)*tt)*.6)*np.exp(-tt*11)*.7
  if name=='roar':tt=T(2.2);return (_noise(rng,len(tt),50)*.7+np.sin(2*PI*(70+30*np.sin(tt*9))*tt)*.8)*np.sin(np.minimum(tt/2.2,1)*PI)**.6*.7
  if name=='chomp':tt=T(.5);return _noise(rng,len(tt),10)*(np.sin(tt*34)**2)*np.exp(-tt*3)*.5
+ if name=='cloth':tt=T(.28);return _noise(rng,len(tt),5)*np.sin(np.minimum(tt/.28,1)*PI)**1.5*.32      # a soft swish of clothing
+ if name=='swish':tt=T(.35);return _noise(rng,len(tt),10)*np.sin(np.minimum(tt/.35,1)*PI)**2*.4
+ if name=='rustle':tt=T(.5);return _noise(rng,len(tt),3)*(.5+.5*np.sin(tt*60))*np.sin(np.minimum(tt/.5,1)*PI)*.3      # paper
+ if name=='clink':tt=T(.5);return sum(np.sin(2*PI*f*tt)*a_ for f,a_ in ((2100,1),(3300,.6),(4700,.35)))*np.exp(-tt*14)*.3
+ if name=='pop':tt=T(.12);return np.sin(2*PI*(500-300*tt/.12)*tt)*np.exp(-tt*35)*.5
+ if name=='chirp':tt=T(.35);f=2600+1400*np.sin(tt*25)+900*np.sin(tt*55);return np.sin(2*PI*np.cumsum(f)/SR)*np.sin(np.minimum(tt/.35,1)*PI)**2*.25
+ if name=='cricket':tt=T(.6);return np.sin(2*PI*4600*tt)*(np.sin(tt*2*PI*28)>0)*np.sin(np.minimum(tt/.6,1)*PI)*.1
+ if name=='bigstep':tt=T(.7);return (np.sin(2*PI*38*tt)*np.exp(-tt*7)+_noise(rng,len(tt),40)*np.exp(-tt*9)*.6)*.9       # a very large footfall
  raise ValueError('unknown sound effect %r'%name)
-SFX=('knock','door','thud','step','clang','bell','gong','crash','scrape','splash','thunder','chime','clap','sting','whoosh','hum','creak','oink','moo','baa','neigh','bark','roar','chomp')
+SFX=('knock','door','thud','step','clang','bell','gong','crash','scrape','splash','thunder','chime','clap','sting','whoosh','hum','creak','oink','moo','baa','neigh','bark','roar','chomp','cloth','swish','rustle','clink','pop','chirp','cricket','bigstep')
 def mix_events(N,SR,events):
  """events: (time seconds, samples, gain) -> one array"""
  out=np.zeros(N+SR*4)
