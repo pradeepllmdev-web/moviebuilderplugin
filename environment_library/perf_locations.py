@@ -251,6 +251,7 @@ def build(S,loc,time='day'):
   if isinstance(p,tuple):
    ld=bpy.data.lights.new(p[1],'POINT');ld.energy=p[3] if time in ('night','dusk','dawn') else p[3]*.2;ld.color=p[4];ld.shadow_soft_size=.3;lo=bpy.data.objects.new(p[1],ld);lo.location=p[2];S.link(lo);continue
   o=S.prim(p['shape'],p['name'],p['loc'],p['color'],scale=p['scale'],rot=p['rot'],emit=p['emit'] if (p['emit']<2.9 or time in ('night','dusk','dawn') or True) else 0.,**p['kw'])
+ _ground_cover(S,loc,time)
  pr=scene_params.preset(time if time in scene_params.TIME_OF_DAY else 'day')
  lk=LOOK.get(time,LOOK['day']);az=math.radians(-40+20*(int(loc.get('seed',1))%5));el=math.radians(lk['el'])
  def sun(name,col,energy,elev,azim,ang):
@@ -260,6 +261,31 @@ def build(S,loc,time='day'):
  sun('RimLight',lk['rim'],lk['re'],math.radians(14),az+math.pi,math.radians(5))           # a low back light that edges every character
  S.world_color=pr['world']
  return loc
+INDOOR=('hall','room','workshop','cave')
+def _ground_cover(S,loc,time):
+ """grass tufts, a few flowers and pebbles scattered over open ground (deterministic from the location seed; none indoors, none on paths or beside objects), so the ground is not a bare plane"""
+ if loc.get('preset') in INDOOR or loc.get('inside'):return
+ import random
+ rr=random.Random(int(loc.get('seed',1))*977+13);hx,hy=loc['half'];objs=loc.get('objects',[]);place=[];tries=0
+ def near(x,y):
+  for o in objs:
+   at=o.get('at')
+   if not at:continue
+   if o.get('kind')=='path' and o.get('to'):
+    ax,ay=at;bx,by=o['to'];dx,dy=bx-ax,by-ay;L2=dx*dx+dy*dy or 1.;u=max(0.,min(1.,((x-ax)*dx+(y-ay)*dy)/L2))
+    if math.hypot(ax+dx*u-x,ay+dy*u-y)<o.get('width',2.)/2+.4:return True
+   elif math.hypot(x-at[0],y-at[1])<(1.4+1.2*float(o.get('size',1.)) if o.get('kind') in('tree','pine','house','tower','rock','bush') else 1.1):return True
+  return False
+ while len(place)<90 and tries<600:
+  tries+=1;x=rr.uniform(-hx*.9,hx*.9);y=rr.uniform(-hy*.9,hy*.9)
+  if not near(x,y):place.append((x,y))
+ g=loc['ground'];FL=[(1.,.9,.25),(.97,.97,.95),(.95,.45,.6),(.5,.6,1.)]
+ for k,(x,y) in enumerate(place):
+  r=rr.random();j=rr.uniform(.8,1.15)
+  if r<.58:S.prim('cone','Tuft%d'%k,(x,y,.11),(g[0]*.8*j,g[1]*1.05*j,g[2]*.7*j),scale=(.1,.1,.22),vertices=5)
+  elif r<.8:
+   S.prim('cone','Stem%d'%k,(x,y,.09),(g[0]*.6,g[1]*.9,g[2]*.5),scale=(.03,.03,.18),vertices=4);S.prim('sphere','Flower%d'%k,(x,y,.21),FL[k%4],scale=(.07,.07,.05))
+  else:S.prim('cube','Pebble%d'%k,(x,y,.04),(.5*j,.5*j,.52*j),scale=(.12,.09,.05),rot=(0,0,rr.uniform(0,3.14)))
 LOOK={'day':dict(key=(1.,.86,.64),ke=3.6,el=30,fill=(.5,.62,1.),fe=.4,rim=(1.,.78,.55),re=1.0),
  'dawn':dict(key=(1.,.7,.5),ke=2.6,el=14,fill=(.6,.55,.9),fe=.5,rim=(1.,.6,.5),re=1.4),
  'dusk':dict(key=(1.,.5,.28),ke=2.4,el=9,fill=(.45,.4,.85),fe=.5,rim=(1.,.45,.6),re=1.6),

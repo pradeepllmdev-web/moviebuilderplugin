@@ -113,7 +113,24 @@ def frame(plan,c,t):
   k=1-.08*e;pos=(aim[0]+(pos[0]-aim[0])*k,aim[1]+(pos[1]-aim[1])*k,pos[2])
  if ins:
   pos=(min(max(pos[0],ins[0]),ins[2]),min(max(pos[1],ins[1]),ins[3]),min(max(pos[2],.6),2.5));lens=min(lens,{'wide':24,'group':24,'two':24,'track':26,'follow_high':26,'medium':30,'ots':30,'single':30,'insert':40}.get(c['kind'],lens))   # a small room has no room to step back: widen instead
+ if not ins:pos=_out_of_solids(plan,pos,aim)
  return pos,aim,lens
+def _out_of_solids(plan,pos,aim):
+ """the lens never sits inside a tree crown, rock, house or tower: if it would, it is moved straight out of the solid (continuously, so a moving shot does not jump)"""
+ O=_obs(plan)
+ if not len(O):return pos
+ x,y,z=pos
+ for _ in range(3):
+  moved=False
+  for cx,cy,r in O:
+   if r<=.5:continue
+   d=math.hypot(x-cx,y-cy)
+   if d<r+.45:
+    if d<1e-6:ux,uy=_unit((x-aim[0],y-aim[1]))
+    else:ux,uy=(x-cx)/d,(y-cy)/d
+    x,y=cx+ux*(r+.45),cy+uy*(r+.45);moved=True
+  if not moved:break
+ return (x,y,z)
 def _frame(plan,c,t):
  kd=c['kind'];lens=c['lens']
  if kd in ('wide','group'):
