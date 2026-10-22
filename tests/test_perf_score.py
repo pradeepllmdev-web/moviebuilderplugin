@@ -14,7 +14,7 @@ class Compose(unittest.TestCase):
   for n in a[0]:self.assertTrue(20<=n['pitch']<=110 and 1<=n['vel']<=127 and n['t']>=0 and n['dur']>0 and 0<=n['ch']<16)
  def test_no_music_means_no_notes(self):self.assertEqual(ps.compose(plan(QUIET),THEME,'none')[0],[])
  def test_the_place_picks_the_lead_instrument(self):
-  self.assertEqual(ps.compose(plan(QUIET,'market'),THEME,'calm','market')[1][3],21);self.assertEqual(ps.compose(plan(QUIET,'cave'),THEME,'calm','cave')[1][3],11)
+  self.assertEqual(ps.compose(plan(QUIET,'market'),THEME,'calm','market')[1][3],ps.BANDS['folk']['lead']);self.assertEqual(ps.compose(plan(QUIET,'room'),THEME,'calm','room')[1][3],ps.BANDS['cozy']['lead'])    # the place chooses the band, the band the instruments
  def test_melody_waits_for_speech(self):
   P=plan(SAY+QUIET);notes=ps.compose(P,THEME,'calm','meadow','day','x')[0];mel=[n for n in notes if n['ch']==3]
   for n in mel:
@@ -38,11 +38,10 @@ class Arc(unittest.TestCase):
  def test_the_climax_is_busier_than_the_opening(self):
   P=plan(QUIET+QUIET);lo=ps.compose(P,THEME,'calm','meadow','day','x',None,0.1)[0];hi=ps.compose(P,THEME,'calm','meadow','day','x',None,1.0)[0];self.assertGreater(len(hi),len(lo));self.assertTrue([n for n in hi if n['ch']==9])
  def test_bright_scenes_get_a_rhythm_section_and_tense_ones_a_tick(self):
-  P=plan(QUIET+QUIET);self.assertTrue([n for n in ps.compose(P,THEME,'bright')[0] if n['ch']==9 and n['pitch']==70]);self.assertTrue([n for n in ps.compose(P,THEME,'tense')[0] if n['ch']==9 and n['pitch']==75])
- def test_speech_bars_have_no_rhythm_section(self):
-  P=plan(SAY);notes=ps.compose(P,THEME,'bright')[0]
-  for n in notes:
-   if n['ch']==9:self.assertFalse(any(L['t0']<n['t']<L['t1'] for L in P.lines))
+  P=plan(QUIET+QUIET);self.assertTrue([n for n in ps.compose(P,THEME,'bright','market')[0] if n['ch']==9]);self.assertTrue([n for n in ps.compose(P,THEME,'tense')[0] if n['ch']==9])    # every band but the piano has a groove
+ def test_speech_bars_keep_a_quieter_rhythm_section(self):
+  P=plan(SAY+QUIET+QUIET);notes=ps.compose(P,THEME,'bright','market')[0];inside=[n['vel'] for n in notes if n['ch']==9 and any(L['t0']<n['t']<L['t1'] for L in P.lines)];outside=[n['vel'] for n in notes if n['ch']==9 and not any(L['t0']-.3<n['t']<L['t1']+.3 for L in P.lines)]
+  self.assertTrue(inside and outside);self.assertLess(sum(inside)/len(inside),sum(outside)/len(outside))    # the groove goes on under the voices, softer
 class Duck(unittest.TestCase):
  def test_music_dips_while_the_voices_speak(self):
   import numpy as np,perf_audio as pa;SR=22050;v=np.zeros(SR*6);v[SR:2*SR]=.4*np.sin(np.arange(SR)*.3);m=pa.duck_mask(v,SR,.7)
