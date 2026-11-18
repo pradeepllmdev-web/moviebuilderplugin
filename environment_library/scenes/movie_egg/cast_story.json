@@ -1,0 +1,147 @@
+[
+ {
+  "name": "Farmer Hazel",
+  "id": "hazel",
+  "description": "the farmer in blue overalls and a straw hat",
+  "species": "boar",
+  "height_m": 1.55,
+  "posture": "tired",
+  "accessories": [
+   "overalls",
+   "sleeves",
+   "boots",
+   "hat_straw"
+  ],
+  "tint": [
+   0.62,
+   0.42,
+   0.4
+  ],
+  "voice_pitch_hz": 78
+ },
+ {
+  "name": "Moss",
+  "id": "moss",
+  "description": "a small, brave child",
+  "species": "cat",
+  "height_m": 1.45,
+  "posture": "hurried",
+  "accessories": [
+   "shirt",
+   "sleeves",
+   "shorts",
+   "boots"
+  ],
+  "tint": [
+   0.4,
+   0.4,
+   0.5
+  ],
+  "voice_pitch_hz": 185
+ },
+ {
+  "name": "Percy",
+  "id": "percy",
+  "description": "the farm pig",
+  "species": "pig",
+  "height_m": 0.85,
+  "posture": "neutral",
+  "accessories": [],
+  "tint": [
+   1.0,
+   0.78,
+   0.78
+  ],
+  "voice_pitch_hz": 150
+ },
+ {
+  "name": "Clara",
+  "id": "clara",
+  "description": "the farm cow",
+  "species": "cow",
+  "height_m": 1.45,
+  "posture": "neutral",
+  "accessories": [],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 150
+ },
+ {
+  "name": "Dolly",
+  "id": "dolly",
+  "description": "a skittish sheep",
+  "species": "sheep",
+  "height_m": 0.9,
+  "posture": "jaunty",
+  "accessories": [],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 150
+ },
+ {
+  "name": "Biscuit",
+  "id": "biscuit",
+  "description": "the farm pug, always barking",
+  "species": "pug",
+  "height_m": 0.5,
+  "posture": "hurried",
+  "accessories": [],
+  "tint": [
+   0.9,
+   0.78,
+   0.55
+  ],
+  "voice_pitch_hz": 150
+ },
+ {
+  "name": "Bolt",
+  "id": "bolt",
+  "description": "the proud horse",
+  "species": "horse",
+  "height_m": 1.75,
+  "posture": "proud",
+  "accessories": [],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 150
+ },
+ {
+  "name": "Zip",
+  "id": "zip",
+  "description": "a baby raptor, hatched this morning",
+  "species": "raptor",
+  "height_m": 1.5,
+  "posture": "hurried",
+  "accessories": [],
+  "tint": [
+   0.7,
+   1.0,
+   0.55
+  ],
+  "voice_pitch_hz": 150
+ },
+ {
+  "name": "Mama",
+  "id": "mama",
+  "description": "a very large mother",
+  "species": "trex",
+  "height_m": 3.6,
+  "posture": "tired",
+  "accessories": [],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 150
+ }
+]

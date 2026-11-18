@@ -1,0 +1,242 @@
+{
+ "id": "contest",
+ "title": "The contest table",
+ "intent": "The pie is displayed in the village square. Everyone must wait until noon.",
+ "extras": {
+  "n": 6,
+  "area": [
+   -14,
+   -8,
+   14,
+   8
+  ],
+  "focus": [
+   2.5,
+   -1
+  ],
+  "seed": 21
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 3,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     2.5,
+     -1.0
+    ],
+    "id": "stand0",
+    "height": 0.7,
+    "size": 0.4
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     -8,
+     -4.4
+    ],
+    "id": "stand1",
+    "height": 0.8,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "bright",
+ "cast": [
+  {
+   "id": "orin",
+   "at": [
+    -4,
+    1.5
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "gus",
+   "at": [
+    9,
+    3
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "tilda",
+   "at": [
+    -9,
+    -5
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "rosa",
+   "at": [
+    -7.5,
+    -6
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "pie",
+   "kind": "pie",
+   "at": [
+    -8,
+    -4.4
+   ],
+   "on": "stand1"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "take",
+    "who": "tilda",
+    "prop": "pie"
+   },
+   {
+    "do": "look",
+    "who": "orin",
+    "at": "tilda",
+    "dur": 2
+   }
+  ],
+  {
+   "do": "say",
+   "who": "orin",
+   "text": "Friends of Applewick! At noon the Golden Spoon goes to the finest pie.",
+   "mood": "joy",
+   "to": "gus"
+  },
+  {
+   "do": "say",
+   "who": "gus",
+   "text": "Finest pie, finest pie. My stomach has been rumbling since breakfast.",
+   "mood": "concern",
+   "to": "orin"
+  },
+  [
+   {
+    "do": "go",
+    "who": "tilda",
+    "to": [
+     1.2,
+     -2.6
+    ],
+    "gait": "strut"
+   },
+   {
+    "do": "go",
+    "who": "rosa",
+    "to": [
+     0,
+     -3
+    ],
+    "gait": "walk"
+   }
+  ],
+  {
+   "do": "put",
+   "who": "tilda",
+   "on": "stand0"
+  },
+  {
+   "do": "say",
+   "who": "orin",
+   "text": "Magnificent! Nobody touch it until noon.",
+   "mood": "warm",
+   "to": "gus"
+  },
+  {
+   "do": "say",
+   "who": "gus",
+   "text": "Who, me? I would never.",
+   "mood": "concern",
+   "to": "orin"
+  }
+ ],
+ "objective": "Today: win the Golden Spoon",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.392
+}

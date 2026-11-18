@@ -1,0 +1,41 @@
+[
+ {
+  "name": "Ann",
+  "id": "ann",
+  "description": "a woman in a red shirt",
+  "species": "person",
+  "height_m": 1.65,
+  "posture": "neutral",
+  "accessories": [
+   "dress",
+   "apron",
+   "boots"
+  ],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 146
+ },
+ {
+  "name": "Ben",
+  "id": "ben",
+  "description": "a tall man in a blue shirt",
+  "species": "person",
+  "height_m": 1.88,
+  "posture": "tired",
+  "accessories": [
+   "overalls",
+   "sleeves",
+   "boots",
+   "hat_straw"
+  ],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 153
+ }
+]

@@ -1,0 +1,206 @@
+{
+ "id": "gone",
+ "title": "The pie is gone",
+ "intent": "Tilda returns with the ribbon. The pie has vanished.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 3,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     2.5,
+     -1.0
+    ],
+    "id": "stand0",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "sad",
+ "cast": [
+  {
+   "id": "tilda",
+   "at": [
+    -10.0,
+    -8.0
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "pip",
+   "at": [
+    14.46,
+    -2.81
+   ],
+   "face": [
+    15.96,
+    -7.58
+   ]
+  },
+  {
+   "id": "rosa",
+   "at": [
+    -5.0,
+    3.0
+   ],
+   "face": [
+    -9.2,
+    5.71
+   ]
+  },
+  {
+   "id": "gus",
+   "at": [
+    12.0,
+    2.0
+   ],
+   "face": [
+    7.07,
+    2.82
+   ]
+  },
+  {
+   "id": "orin",
+   "at": [
+    -8.81,
+    5.46
+   ],
+   "face": [
+    -4.32,
+    3.27
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "tilda",
+    "to": [
+     1.6,
+     -2.6
+    ],
+    "gait": "run"
+   }
+  ],
+  [
+   {
+    "do": "act",
+    "who": "tilda",
+    "clip": "startle"
+   },
+   {
+    "do": "emote",
+    "who": "tilda",
+    "kind": "sad",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "No. No, no, no. My pie! My Golden Spoon pie!",
+   "mood": "sad",
+   "to": "tilda"
+  },
+  {
+   "do": "go",
+   "who": "tilda",
+   "to": [
+    2.4,
+    -1.8
+   ],
+   "gait": "shuffle"
+  },
+  {
+   "do": "act",
+   "who": "tilda",
+   "clip": "argue"
+  },
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "Help! Somebody took my pie!",
+   "mood": "angry",
+   "to": "tilda"
+  }
+ ],
+ "objective": "Who took the pie?",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.768
+}

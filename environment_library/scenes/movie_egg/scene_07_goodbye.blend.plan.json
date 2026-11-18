@@ -1,0 +1,120 @@
+{
+ "id": "goodbye",
+ "title": "Over the hill",
+ "seconds": 45.458333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "mama runs",
+   "t0": 2.5,
+   "t1": 10.75,
+   "kind": "track",
+   "subject": "mama"
+  },
+  {
+   "name": "mama runs (b)",
+   "t0": 10.75,
+   "t1": 17.458333333333332,
+   "kind": "track",
+   "subject": "mama"
+  },
+  {
+   "name": "clara runs",
+   "t0": 17.458333333333332,
+   "t1": 24.0,
+   "kind": "track",
+   "subject": "clara"
+  },
+  {
+   "name": "clara runs (b)",
+   "t0": 24.0,
+   "t1": 30.541666666666668,
+   "kind": "track",
+   "subject": "clara"
+  },
+  {
+   "name": "clara runs",
+   "t0": 30.541666666666668,
+   "t1": 33.541666666666664,
+   "kind": "track",
+   "subject": "clara"
+  },
+  {
+   "name": "hazel speaks",
+   "t0": 33.541666666666664,
+   "t1": 38.166666666666664,
+   "kind": "medium",
+   "subject": "hazel"
+  },
+  {
+   "name": "hazel laugh",
+   "t0": 38.166666666666664,
+   "t1": 40.958333333333336,
+   "kind": "medium",
+   "subject": "hazel"
+  },
+  {
+   "name": "hazel laugh",
+   "t0": 40.958333333333336,
+   "t1": 43.15833333333334,
+   "kind": "medium",
+   "subject": "hazel"
+  },
+  {
+   "name": "end",
+   "t0": 43.15833333333334,
+   "t1": 45.458333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "moss",
+   "to": "zip",
+   "mood": "joy",
+   "text": "Goodbye, Zip! Come back and visit us!",
+   "t0": 0.12,
+   "t1": 2.483945578231293
+  },
+  {
+   "k": 1,
+   "speaker": "hazel",
+   "to": "moss",
+   "mood": "joy",
+   "text": "Best egg we ever had.",
+   "t0": 34.745,
+   "t1": 36.47021541950113
+  },
+  {
+   "k": 2,
+   "speaker": "moss",
+   "to": "hazel",
+   "mood": "joy",
+   "text": "Can we have another one?",
+   "t0": 36.66166666666666,
+   "t1": 38.073594104308384
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "moss",
+  "hazel"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.0,
+  "eye_speaker": 3.4266863074960487,
+  "eye_listener": 3.3535038631333745,
+  "framing_misses": 0,
+  "framing_checked": 8
+ }
+}

@@ -1,0 +1,166 @@
+{
+ "id": "chime",
+ "title": "The key comes home",
+ "seconds": 42.833333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "mina speaks",
+   "t0": 2.5,
+   "t1": 5.083333333333333,
+   "kind": "medium",
+   "subject": "mina"
+  },
+  {
+   "name": "mina walks",
+   "t0": 5.083333333333333,
+   "t1": 8.958333333333334,
+   "kind": "track",
+   "subject": "mina"
+  },
+  {
+   "name": "nell speaks",
+   "t0": 8.958333333333334,
+   "t1": 14.291666666666666,
+   "kind": "medium",
+   "subject": "nell"
+  },
+  {
+   "name": "joss speaks",
+   "t0": 14.291666666666666,
+   "t1": 16.791666666666668,
+   "kind": "two",
+   "subject": "joss"
+  },
+  {
+   "name": "pol speaks",
+   "t0": 16.791666666666668,
+   "t1": 20.041666666666668,
+   "kind": "medium",
+   "subject": "pol"
+  },
+  {
+   "name": "ada speaks",
+   "t0": 20.041666666666668,
+   "t1": 23.958333333333332,
+   "kind": "medium",
+   "subject": "ada"
+  },
+  {
+   "name": "nell cele",
+   "t0": 23.958333333333332,
+   "t1": 27.458333333333332,
+   "kind": "medium",
+   "subject": "nell"
+  },
+  {
+   "name": "nell speaks",
+   "t0": 27.458333333333332,
+   "t1": 37.416666666666664,
+   "kind": "two",
+   "subject": "nell"
+  },
+  {
+   "name": "pol speaks",
+   "t0": 37.416666666666664,
+   "t1": 39.63333333333333,
+   "kind": "medium",
+   "subject": "pol"
+  },
+  {
+   "name": "end",
+   "t0": 39.63333333333333,
+   "t1": 42.833333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "mina",
+   "to": "nell",
+   "mood": "joy",
+   "text": "Miss Nell? Is this what you are looking for? It was on the flat rock.",
+   "t0": 0.4,
+   "t1": 4.551882086167801
+  },
+  {
+   "k": 1,
+   "speaker": "nell",
+   "to": "mina",
+   "mood": "joy",
+   "text": "My key! Mina, you wonderful girl. I thought the whole village was lost to time.",
+   "t0": 9.078333333333333,
+   "t1": 14.213843537414967
+  },
+  {
+   "k": 2,
+   "speaker": "joss",
+   "to": "nell",
+   "mood": "joy",
+   "text": "She would not let me carry it once.",
+   "t0": 14.411666666666665,
+   "t1": 16.71756235827664
+  },
+  {
+   "k": 3,
+   "speaker": "pol",
+   "to": "nell",
+   "mood": "warm",
+   "text": "An honest soul picked it up. We have a few of those.",
+   "t0": 16.91166666666667,
+   "t1": 19.9693537414966
+  },
+  {
+   "k": 4,
+   "speaker": "ada",
+   "to": "nell",
+   "mood": "warm",
+   "text": "Or a magpie. They do love anything shiny.",
+   "t0": 20.16166666666667,
+   "t1": 23.875498866213153
+  },
+  {
+   "k": 5,
+   "speaker": "nell",
+   "to": "pol",
+   "mood": "warm",
+   "text": "Stand back, everyone. Time to wake up the clock.",
+   "t0": 27.85833333333333,
+   "t1": 31.31910430839002
+  },
+  {
+   "k": 6,
+   "speaker": "pol",
+   "to": "nell",
+   "mood": "joy",
+   "text": "Right on time. My bread thanks you, Nell!",
+   "t0": 37.53666666666666,
+   "t1": 40.23349206349206
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "nell",
+  "pol",
+  "ada",
+  "mina",
+  "joss"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.17590884437846785,
+  "reach": 0.21962595753671496,
+  "eye_speaker": 8.620846981594259,
+  "eye_listener": 27.921864188803816,
+  "framing_misses": 0,
+  "framing_checked": 9
+ }
+}

@@ -1,0 +1,201 @@
+{
+ "plan": {
+  "scenes": [
+   {
+    "index": 1,
+    "title": "At dawn a prison train thunders across the plain",
+    "text": "At dawn a prison train thunders across the plains while Leo escapes over the roofs and leaps from the bridge into the river.",
+    "builder": "set_piece",
+    "piece": "great_escape",
+    "location": "train_consist",
+    "params": {
+     "time_of_day": "dawn",
+     "hero_tint": [
+      1.0,
+      0.9,
+      0.8
+     ]
+    },
+    "seconds": 54,
+    "missing": [],
+    "time_of_day": "dawn"
+   },
+   {
+    "index": 2,
+    "title": "At night a stolen dinosaur egg lies in a prehist",
+    "text": "At night a stolen dinosaur egg lies in a prehistoric valley beside a glowing volcano and Leo carries it back to its mother.",
+    "builder": "set_piece",
+    "piece": "last_egg",
+    "location": "dino_valley",
+    "params": {
+     "time_of_day": "night",
+     "hero_tint": [
+      1.0,
+      0.9,
+      0.8
+     ]
+    },
+    "seconds": 50,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 3,
+    "title": "At dusk Leo climbs a sheer cliff to rescue a los",
+    "text": "At dusk Leo climbs a sheer cliff to rescue a lost cub and swings across the gap on a rope.",
+    "builder": "set_piece",
+    "piece": "cliff_rescue",
+    "location": "cliff_face",
+    "params": {},
+    "seconds": 62,
+    "missing": [],
+    "time_of_day": "dusk"
+   },
+   {
+    "index": 4,
+    "title": "In a storm Leo fights a sea serpent on the mast",
+    "text": "In a storm Leo fights a sea serpent on the mast of a sailing ship.",
+    "builder": "set_piece",
+    "piece": "storm_ship",
+    "location": "open_sea",
+    "params": {},
+    "seconds": 60,
+    "missing": [],
+    "time_of_day": "overcast"
+   },
+   {
+    "index": 5,
+    "title": "An army besieges the citadel with catapults and",
+    "text": "An army besieges the citadel with catapults and Leo opens the gate at dawn.",
+    "builder": "set_piece",
+    "piece": "siege",
+    "location": "citadel",
+    "params": {
+     "time_of_day": "dawn",
+     "hero_tint": [
+      1.0,
+      0.9,
+      0.8
+     ]
+    },
+    "seconds": 72,
+    "missing": [],
+    "time_of_day": "dawn"
+   },
+   {
+    "index": 6,
+    "title": "At night in the gladiator arena Leo faces the ri",
+    "text": "At night in the gladiator arena Leo faces the rival lion in a duel before the roaring crowd.",
+    "builder": "set_piece",
+    "piece": "arena_duel",
+    "location": "arena_ruins",
+    "params": {
+     "time_of_day": "night",
+     "hero_tint": [
+      1.0,
+      0.9,
+      0.8
+     ]
+    },
+    "seconds": 52,
+    "missing": [],
+    "time_of_day": "night"
+   }
+  ],
+  "total_seconds": 350,
+  "estimated_build_minutes": 12.0,
+  "warnings": [],
+  "hash": "a03af28f08"
+ },
+ "report": [
+  {
+   "index": 1,
+   "title": "At dawn a prison train thunders across the plain",
+   "piece": "great_escape",
+   "params": {
+    "time_of_day": "dawn",
+    "hero_tint": [
+     1.0,
+     0.9,
+     0.8
+    ]
+   },
+   "seconds": 54,
+   "status": "built in 31s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_six\\scene_01_great_escape.blend"
+  },
+  {
+   "index": 2,
+   "title": "At night a stolen dinosaur egg lies in a prehist",
+   "piece": "last_egg",
+   "params": {
+    "time_of_day": "night",
+    "hero_tint": [
+     1.0,
+     0.9,
+     0.8
+    ]
+   },
+   "seconds": 50,
+   "status": "built in 17s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_six\\scene_02_last_egg.blend"
+  },
+  {
+   "index": 3,
+   "title": "At dusk Leo climbs a sheer cliff to rescue a los",
+   "piece": "cliff_rescue",
+   "params": {},
+   "seconds": 62,
+   "status": "built in 10s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_six\\scene_03_cliff_rescue.blend"
+  },
+  {
+   "index": 4,
+   "title": "In a storm Leo fights a sea serpent on the mast",
+   "piece": "storm_ship",
+   "params": {},
+   "seconds": 60,
+   "status": "built in 15s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_six\\scene_04_storm_ship.blend"
+  },
+  {
+   "index": 5,
+   "title": "An army besieges the citadel with catapults and",
+   "piece": "siege",
+   "params": {
+    "time_of_day": "dawn",
+    "hero_tint": [
+     1.0,
+     0.9,
+     0.8
+    ]
+   },
+   "seconds": 72,
+   "status": "built in 96s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_six\\scene_05_siege.blend"
+  },
+  {
+   "index": 6,
+   "title": "At night in the gladiator arena Leo faces the ri",
+   "piece": "arena_duel",
+   "params": {
+    "time_of_day": "night",
+    "hero_tint": [
+     1.0,
+     0.9,
+     0.8
+    ]
+   },
+   "seconds": 52,
+   "status": "built in 16s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_six\\scene_06_arena_duel.blend"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_six\\movie.blend"
+}

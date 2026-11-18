@@ -1,0 +1,205 @@
+{
+ "id": "stream",
+ "title": "Something shiny",
+ "intent": "Mina finds a golden key by the stream. Joss knows what it opens.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "meadow",
+  "seed": 6,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     -1.5,
+     -1.0
+    ],
+    "id": "stand0",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "bright",
+ "cast": [
+  {
+   "id": "mina",
+   "at": [
+    -6,
+    -4
+   ],
+   "face": [
+    -1.5,
+    -1
+   ]
+  },
+  {
+   "id": "joss",
+   "at": [
+    7,
+    3
+   ],
+   "face": [
+    -4,
+    -3
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "key",
+   "kind": "key",
+   "at": [
+    -1.5,
+    -1.0
+   ],
+   "size": 2.2,
+   "on": "stand0"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "mina",
+    "to": [
+     -2.6,
+     -2.0
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "look",
+    "who": "mina",
+    "at": "key",
+    "dur": 2
+   }
+  ],
+  {
+   "do": "icon",
+   "who": "mina",
+   "kind": "idea",
+   "dur": 1.6
+  },
+  {
+   "do": "take",
+   "who": "mina",
+   "prop": "key"
+  },
+  {
+   "do": "say",
+   "who": "mina",
+   "text": "A golden key! Maybe it opens a treasure chest.",
+   "mood": "joy",
+   "to": "joss"
+  },
+  [
+   {
+    "do": "go",
+    "who": "joss",
+    "to": [
+     2,
+     0
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "icon",
+    "who": "joss",
+    "kind": "question",
+    "dur": 1.8
+   }
+  ],
+  {
+   "do": "say",
+   "who": "joss",
+   "text": "Let me see that. Mina, that is the key to the clock tower!",
+   "mood": "joy",
+   "to": "mina"
+  },
+  {
+   "do": "say",
+   "who": "mina",
+   "text": "Then we have to take it back right now!",
+   "mood": "joy",
+   "to": "joss"
+  },
+  [
+   {
+    "do": "act",
+    "who": "mina",
+    "clip": "cele"
+   },
+   {
+    "do": "act",
+    "who": "joss",
+    "clip": "laugh"
+   }
+  ]
+ ],
+ "objective": "A golden key",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.807
+}

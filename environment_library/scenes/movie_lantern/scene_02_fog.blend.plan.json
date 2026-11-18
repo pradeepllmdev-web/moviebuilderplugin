@@ -1,0 +1,115 @@
+{
+ "id": "fog",
+ "title": "Fog at sea",
+ "seconds": 33.958333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 3.0,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "dot runs",
+   "t0": 3.0,
+   "t1": 9.083333333333334,
+   "kind": "track",
+   "subject": "dot"
+  },
+  {
+   "name": "dot speaks",
+   "t0": 9.083333333333334,
+   "t1": 13.458333333333334,
+   "kind": "medium",
+   "subject": "dot"
+  },
+  {
+   "name": "rue speaks",
+   "t0": 13.458333333333334,
+   "t1": 17.5,
+   "kind": "medium",
+   "subject": "rue"
+  },
+  {
+   "name": "rue points",
+   "t0": 17.5,
+   "t1": 24.583333333333332,
+   "kind": "reveal",
+   "subject": "rue"
+  },
+  {
+   "name": "rue speaks",
+   "t0": 24.583333333333332,
+   "t1": 28.458333333333332,
+   "kind": "medium",
+   "subject": "rue"
+  },
+  {
+   "name": "hold",
+   "t0": 28.458333333333332,
+   "t1": 30.758333333333336,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "end",
+   "t0": 30.758333333333336,
+   "t1": 33.958333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "dot",
+   "to": "rue",
+   "mood": "concern",
+   "text": "Papa! The fog is thick. The boats cannot see the harbour!",
+   "t0": 9.203333333333333,
+   "t1": 13.387913832199546
+  },
+  {
+   "k": 1,
+   "speaker": "rue",
+   "to": "dot",
+   "mood": "sad",
+   "text": "The old beacon cracked last week. Nothing bright enough.",
+   "t0": 13.578333333333333,
+   "t1": 17.429263038548754
+  },
+  {
+   "k": 2,
+   "speaker": "dot",
+   "to": "rue",
+   "mood": "concern",
+   "text": "What about the Great Lantern?",
+   "t0": 22.78666666666667,
+   "t1": 24.490839002267577
+  },
+  {
+   "k": 3,
+   "speaker": "rue",
+   "to": "dot",
+   "mood": "serious",
+   "text": "It belongs to the village, Dot. Not to us.",
+   "t0": 24.703333333333333,
+   "t1": 28.392585034013607
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "rue",
+  "dot"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.01236401129612541,
+  "eye_speaker": 4.253221564529299,
+  "eye_listener": 7.184127601502663,
+  "framing_misses": 0,
+  "framing_checked": 4
+ }
+}

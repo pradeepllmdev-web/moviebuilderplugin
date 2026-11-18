@@ -1,0 +1,208 @@
+{
+ "id": "warning",
+ "title": "Storm by sunset",
+ "intent": "Odile gives Pepper a storm warning for the ferry captain. The ferry sails at sunset.",
+ "extras": null,
+ "fog": 0.1,
+ "fx": null,
+ "location": {
+  "preset": "room",
+  "seed": 3
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "odile",
+   "at": [
+    -2.6,
+    -2.6
+   ],
+   "face": "table"
+  },
+  {
+   "id": "pepper",
+   "at": [
+    3.4,
+    -3.0
+   ],
+   "face": "odile"
+  }
+ ],
+ "props": [
+  {
+   "id": "letter",
+   "kind": "letter",
+   "at": [
+    1.0,
+    -0.45
+   ],
+   "size": 1.6,
+   "on": "table"
+  }
+ ],
+ "steps": [
+  {
+   "do": "go",
+   "who": "odile",
+   "to": [
+    0.6,
+    -1.4
+   ],
+   "gait": "walk"
+  },
+  {
+   "do": "act",
+   "who": "odile",
+   "clip": "think"
+  },
+  {
+   "do": "sfx",
+   "name": "sting",
+   "at": 0.4,
+   "who": null,
+   "gain": 1.0
+  },
+  {
+   "do": "take",
+   "who": "odile",
+   "prop": "letter"
+  },
+  {
+   "do": "go",
+   "who": "pepper",
+   "to": [
+    2.0,
+    -2.2
+   ],
+   "gait": "run"
+  },
+  {
+   "do": "say",
+   "who": "odile",
+   "text": "My barometer is falling like a stone. A great storm by sunset.",
+   "mood": "serious",
+   "to": "pepper"
+  },
+  {
+   "do": "say",
+   "who": "odile",
+   "text": "The ferry sails at sunset. Captain Tobias must read this letter. Do not stop for anything.",
+   "mood": "serious",
+   "to": "pepper"
+  },
+  {
+   "do": "say",
+   "who": "pepper",
+   "text": "I never stop!",
+   "mood": "joy",
+   "to": "odile"
+  },
+  {
+   "do": "point",
+   "who": "odile",
+   "at": [
+    10,
+    12
+   ],
+   "dur": 1.6,
+   "hand": "R"
+  },
+  {
+   "do": "give",
+   "who": "odile",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "act",
+    "who": "pepper",
+    "clip": "joy"
+   },
+   {
+    "do": "sfx",
+    "name": "thunder",
+    "at": 0.3,
+    "who": null,
+    "gain": 1.0
+   }
+  ],
+  {
+   "do": "go",
+   "who": "pepper",
+   "to": [
+    0.2,
+    -3.3
+   ],
+   "gait": "run"
+  }
+ ],
+ "objective": "Sunset: warn the ferry in 3 hours",
+ "theme": {
+  "root": 53,
+  "mode": "dorian",
+  "tempo": 108,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "pepper": [
+    7,
+    6,
+    4
+   ],
+   "vesper": [
+    0,
+    3,
+    5
+   ],
+   "odile": [
+    2,
+    0,
+    -2
+   ],
+   "tobias": [
+    -5,
+    -3,
+    -5
+   ],
+   "grub": [
+    0,
+    0,
+    -3
+   ],
+   "mo": [
+    2,
+    1,
+    -1
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.25
+}

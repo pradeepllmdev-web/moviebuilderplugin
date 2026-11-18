@@ -1,0 +1,220 @@
+{
+ "id": "search",
+ "title": "Looking in the wrong places",
+ "intent": "Three villagers search the market and find nothing.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "market",
+  "seed": 5
+ },
+ "time": "day",
+ "ambience": "market",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "nell",
+   "at": [
+    -6,
+    -3
+   ],
+   "face": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "pol",
+   "at": [
+    -2,
+    -5
+   ],
+   "face": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "ada",
+   "at": [
+    4,
+    -3
+   ],
+   "face": [
+    0,
+    0
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "nell",
+    "to": [
+     -1,
+     -1
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "pol",
+    "to": [
+     2,
+     -3
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "go",
+    "who": "ada",
+    "to": [
+     5,
+     0
+    ],
+    "gait": "walk"
+   }
+  ],
+  [
+   {
+    "do": "look",
+    "who": "nell",
+    "at": [
+     -4,
+     4
+    ],
+    "dur": 1.4
+   },
+   {
+    "do": "look",
+    "who": "pol",
+    "at": [
+     4,
+     -5
+    ],
+    "dur": 1.4
+   },
+   {
+    "do": "look",
+    "who": "ada",
+    "at": [
+     0,
+     5
+    ],
+    "dur": 1.4
+   }
+  ],
+  [
+   {
+    "do": "act",
+    "who": "pol",
+    "clip": "shrug"
+   },
+   {
+    "do": "icon",
+    "who": "pol",
+    "kind": "question",
+    "dur": 1.6
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pol",
+   "text": "It is not in the bread baskets.",
+   "mood": "concern",
+   "to": "nell"
+  },
+  {
+   "do": "say",
+   "who": "ada",
+   "text": "Nor under the apples. I have checked three times.",
+   "mood": "concern",
+   "to": "nell"
+  },
+  [
+   {
+    "do": "act",
+    "who": "nell",
+    "clip": "think"
+   },
+   {
+    "do": "emote",
+    "who": "nell",
+    "kind": "sad",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "Without the key the whole village is out of time.",
+   "mood": "sad",
+   "to": "pol"
+  }
+ ],
+ "objective": "Where is the key?",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.555
+}

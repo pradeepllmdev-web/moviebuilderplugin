@@ -1,0 +1,286 @@
+{
+ "id": "chime",
+ "title": "The key comes home",
+ "intent": "Mina returns the key. Nell winds the clock and the bell rings.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 8,
+  "objects": [
+   {
+    "kind": "tower",
+    "at": [
+     0,
+     12
+    ],
+    "id": "clock_tower",
+    "size": 1.2
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "epic",
+ "cast": [
+  {
+   "id": "nell",
+   "at": [
+    -2,
+    1.5
+   ],
+   "face": [
+    0,
+    12
+   ]
+  },
+  {
+   "id": "pol",
+   "at": [
+    -5,
+    0.5
+   ],
+   "face": [
+    -2,
+    1.5
+   ]
+  },
+  {
+   "id": "ada",
+   "at": [
+    -1.2,
+    -1.2
+   ],
+   "face": [
+    -2,
+    1.5
+   ]
+  },
+  {
+   "id": "mina",
+   "at": [
+    3.0,
+    0.6
+   ],
+   "holds": "key",
+   "face": [
+    -2,
+    1.5
+   ]
+  },
+  {
+   "id": "joss",
+   "at": [
+    4.6,
+    -0.4
+   ],
+   "face": [
+    -2,
+    1.5
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "key",
+   "kind": "key",
+   "at": [
+    3.0,
+    0.6
+   ],
+   "size": 2.2,
+   "z": 1.0
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "mina",
+    "to": [
+     -0.4,
+     1.0
+    ],
+    "gait": "walk",
+    "talk": [
+     "Miss Nell? Is this what you are looking for? It was on the flat rock.",
+     "joy",
+     "nell"
+    ]
+   },
+   {
+    "do": "go",
+    "who": "joss",
+    "to": [
+     0.6,
+     0.4
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "icon",
+    "who": "nell",
+    "kind": "question",
+    "dur": 1.6
+   }
+  ],
+  {
+   "do": "give",
+   "who": "mina",
+   "to": "nell"
+  },
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "My key! Mina, you wonderful girl. I thought the whole village was lost to time.",
+   "mood": "joy",
+   "to": "mina"
+  },
+  {
+   "do": "say",
+   "who": "joss",
+   "text": "She would not let me carry it once.",
+   "mood": "joy",
+   "to": "nell"
+  },
+  {
+   "do": "say",
+   "who": "pol",
+   "text": "An honest soul picked it up. We have a few of those.",
+   "mood": "warm",
+   "to": "nell"
+  },
+  {
+   "do": "say",
+   "who": "ada",
+   "text": "Or a magpie. They do love anything shiny.",
+   "mood": "warm",
+   "to": "nell"
+  },
+  [
+   {
+    "do": "act",
+    "who": "nell",
+    "clip": "cele"
+   },
+   {
+    "do": "emote",
+    "who": "nell",
+    "kind": "smile",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "go",
+   "who": "nell",
+   "to": [
+    0,
+    6.4
+   ],
+   "gait": "walk",
+   "talk": [
+    "Stand back, everyone. Time to wake up the clock.",
+    "warm",
+    "pol"
+   ]
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 1.6,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "icon",
+    "who": "pol",
+    "kind": "joy",
+    "dur": 2.0
+   },
+   {
+    "do": "icon",
+    "who": "ada",
+    "kind": "joy",
+    "dur": 2.0
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pol",
+   "text": "Right on time. My bread thanks you, Nell!",
+   "mood": "joy",
+   "to": "nell"
+  }
+ ],
+ "objective": "The key comes home",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 1.0
+}

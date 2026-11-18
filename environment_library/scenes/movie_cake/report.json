@@ -1,0 +1,244 @@
+{
+ "film": "wedding_cake",
+ "records": [
+  {
+   "index": 1,
+   "id": "bakery",
+   "title": "Cake day",
+   "key": "847c29f07da1",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\scene_01_bakery.blend",
+   "status": "built in 9s",
+   "audit": [
+    "AUDIT eye line: the addressed listener looks 72 degrees off the speaker (limit 40)"
+   ],
+   "seconds": 21.5,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.023101447823785242,
+    "reach": 0.1202327354049047,
+    "eye_speaker": 4.023610750955614,
+    "eye_listener": 71.7111788929337,
+    "framing_misses": 0,
+    "framing_checked": 3
+   },
+   "lines": 5,
+   "cuts": 7,
+   "cast": [
+    "bettina",
+    "dash"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\sheets\\scene_01_bakery.png"
+  },
+  {
+   "index": 2,
+   "id": "market",
+   "title": "Through the market",
+   "key": "29ea03b61914",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\scene_02_market.blend",
+   "status": "built in 22s",
+   "audit": [
+    "AUDIT eye line: the addressed listener looks 49 degrees off the speaker (limit 40)",
+    "AUDIT reach: a hand ends 0.29 m from its target (limit 0.22; the arm cannot reach, move the prop or the actor)"
+   ],
+   "seconds": 39.3,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.1852313203360613,
+    "reach": 0.29028484899055884,
+    "eye_speaker": 7.185288524928886,
+    "eye_listener": 49.38990691667854,
+    "framing_misses": 0,
+    "framing_checked": 5
+   },
+   "lines": 6,
+   "cuts": 7,
+   "cast": [
+    "bettina",
+    "dash",
+    "rufus"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\sheets\\scene_02_market.png"
+  },
+  {
+   "index": 3,
+   "id": "drop",
+   "title": "The wobble",
+   "key": "666540a8bf97",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\scene_03_drop.blend",
+   "status": "built in 14s",
+   "audit": [
+    "AUDIT eye line: the addressed listener looks 63 degrees off the speaker (limit 40)"
+   ],
+   "seconds": 31.5,
+   "stats": {
+    "ground_lift": 0.5263748567818092,
+    "foot_slip": 0.16060168654438378,
+    "reach": 0.20021084213318469,
+    "eye_speaker": 30.947805440247144,
+    "eye_listener": 62.77047897123217,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 4,
+   "cuts": 5,
+   "cast": [
+    "rufus",
+    "bettina",
+    "dash"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\sheets\\scene_03_drop.png"
+  },
+  {
+   "index": 4,
+   "id": "despair",
+   "title": "All is lost",
+   "key": "6db84bf1609c",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\scene_04_despair.blend",
+   "status": "built in 12s",
+   "audit": [],
+   "seconds": 26.2,
+   "stats": {
+    "ground_lift": 0.02773771753033819,
+    "foot_slip": 0.3207266703622616,
+    "reach": 0.00206697935585329,
+    "eye_speaker": 9.595466312889565,
+    "eye_listener": 5.861998011341483,
+    "framing_misses": 0,
+    "framing_checked": 2
+   },
+   "lines": 3,
+   "cuts": 4,
+   "cast": [
+    "bettina",
+    "dash",
+    "rufus"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\sheets\\scene_04_despair.png"
+  },
+  {
+   "index": 5,
+   "id": "bride",
+   "title": "Late, late, late",
+   "key": "cbf7162c8727",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\scene_05_bride.blend",
+   "status": "built in 24s",
+   "audit": [],
+   "seconds": 48.5,
+   "stats": {
+    "ground_lift": 0.03201253112453994,
+    "foot_slip": 0.15300013298245513,
+    "reach": 0.0,
+    "eye_speaker": 8.941343099740882,
+    "eye_listener": 7.337527985178859,
+    "framing_misses": 0,
+    "framing_checked": 7
+   },
+   "lines": 5,
+   "cuts": 9,
+   "cast": [
+    "bettina",
+    "dash",
+    "rufus",
+    "juno",
+    "marcel",
+    "elm"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\sheets\\scene_05_bride.png"
+  },
+  {
+   "index": 6,
+   "id": "decision",
+   "title": "The wobbliest cake",
+   "key": "a7e83894d2bb",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\scene_06_decision.blend",
+   "status": "built in 22s",
+   "audit": [],
+   "seconds": 38.9,
+   "stats": {
+    "ground_lift": 0.03149727550953695,
+    "foot_slip": 0.12608998558710083,
+    "reach": 0.10182242476963618,
+    "eye_speaker": 3.036993177188162,
+    "eye_listener": 11.941064928774782,
+    "framing_misses": 0,
+    "framing_checked": 7
+   },
+   "lines": 4,
+   "cuts": 10,
+   "cast": [
+    "juno",
+    "bettina",
+    "dash",
+    "rufus",
+    "marcel",
+    "elm"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\sheets\\scene_06_decision.png"
+  },
+  {
+   "index": 7,
+   "id": "chapel",
+   "title": "Just in time",
+   "key": "132f5932acd3",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\scene_07_chapel.blend",
+   "status": "built in 27s",
+   "audit": [],
+   "seconds": 27.9,
+   "stats": {
+    "ground_lift": 0.04988119578468908,
+    "foot_slip": 0.15447704336086035,
+    "reach": 0.0,
+    "eye_speaker": 10.313481504060023,
+    "eye_listener": 13.604790490328043,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 2,
+   "cuts": 7,
+   "cast": [
+    "juno",
+    "marcel",
+    "bettina",
+    "dash",
+    "rufus",
+    "elm"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\sheets\\scene_07_chapel.png"
+  },
+  {
+   "index": 8,
+   "id": "party",
+   "title": "The best slice",
+   "key": "0a9413977288",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\scene_08_party.blend",
+   "status": "built in 26s",
+   "audit": [
+    "AUDIT eye line: the addressed listener looks 62 degrees off the speaker (limit 40)"
+   ],
+   "seconds": 27.9,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 0.0,
+    "eye_speaker": 6.251616182265334,
+    "eye_listener": 62.45538657562266,
+    "framing_misses": 0,
+    "framing_checked": 3
+   },
+   "lines": 4,
+   "cuts": 6,
+   "cast": [
+    "juno",
+    "marcel",
+    "bettina",
+    "dash",
+    "rufus",
+    "elm"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\sheets\\scene_08_party.png"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_cake\\movie.blend",
+ "total_seconds": 261.7,
+ "audit_lines": 5
+}

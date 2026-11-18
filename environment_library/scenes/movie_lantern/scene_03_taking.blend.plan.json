@@ -1,0 +1,81 @@
+{
+ "id": "taking",
+ "title": "Asleep on duty",
+ "seconds": 44.625,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 4.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "dot walks",
+   "t0": 4.5,
+   "t1": 12.75,
+   "kind": "follow_high",
+   "subject": "dot"
+  },
+  {
+   "name": "dot walks (b)",
+   "t0": 12.75,
+   "t1": 21.958333333333332,
+   "kind": "follow_high",
+   "subject": "dot"
+  },
+  {
+   "name": "dot walks",
+   "t0": 21.958333333333332,
+   "t1": 30.916666666666668,
+   "kind": "track",
+   "subject": "dot"
+  },
+  {
+   "name": "ferris speaks",
+   "t0": 30.916666666666668,
+   "t1": 35.25,
+   "kind": "medium",
+   "subject": "ferris"
+  },
+  {
+   "name": "dot runs",
+   "t0": 35.25,
+   "t1": 41.425,
+   "kind": "track",
+   "subject": "dot"
+  },
+  {
+   "name": "end",
+   "t0": 41.425,
+   "t1": 44.625,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "ferris",
+   "to": "dot",
+   "mood": "angry",
+   "text": "Wha? Thief! Stop! Somebody stop that child!",
+   "t0": 31.03666666666667,
+   "t1": 35.15371882086168
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "ferris",
+  "dot"
+ ],
+ "stats": {
+  "ground_lift": 0.8000000000000002,
+  "foot_slip": 0.1282414105800828,
+  "reach": 0.06377052181125915,
+  "eye_speaker": 2.2895790699667535,
+  "eye_listener": 2.2737525840484123,
+  "framing_misses": 0,
+  "framing_checked": 3
+ }
+}

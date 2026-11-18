@@ -1,0 +1,97 @@
+{
+ "id": "drop",
+ "title": "The wobble",
+ "seconds": 31.541666666666668,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "rufus speaks",
+   "t0": 2.5,
+   "t1": 9.041666666666666,
+   "kind": "medium",
+   "subject": "rufus"
+  },
+  {
+   "name": "rufus walks",
+   "t0": 9.041666666666666,
+   "t1": 14.583333333333334,
+   "kind": "track",
+   "subject": "rufus"
+  },
+  {
+   "name": "rufus walks",
+   "t0": 14.583333333333334,
+   "t1": 23.083333333333332,
+   "kind": "track",
+   "subject": "rufus"
+  },
+  {
+   "name": "bettina fall",
+   "t0": 23.083333333333332,
+   "t1": 31.541666666666668,
+   "kind": "medium",
+   "subject": "bettina"
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "rufus",
+   "to": "dash",
+   "mood": "joy",
+   "text": "See? Steady as a rock. Not a wobble. Not one single wobble.",
+   "t0": 2.775,
+   "t1": 6.285
+  },
+  {
+   "k": 1,
+   "speaker": "rufus",
+   "to": "bettina",
+   "mood": "concern",
+   "text": "Wobble.",
+   "t0": 12.661666666666665,
+   "t1": 13.520986394557822
+  },
+  {
+   "k": 2,
+   "speaker": "bettina",
+   "to": "rufus",
+   "mood": "angry",
+   "text": "Don\u2019t you dare...",
+   "t0": 13.411666666666665,
+   "t1": 14.498514739229023
+  },
+  {
+   "k": 3,
+   "speaker": "dash",
+   "to": "bettina",
+   "mood": "sad",
+   "text": "The top tier...",
+   "t0": 27.703333333333333,
+   "t1": 28.944331065759638
+  }
+ ],
+ "audit": [
+  "AUDIT eye line: the addressed listener looks 63 degrees off the speaker (limit 40)"
+ ],
+ "cast": [
+  "rufus",
+  "bettina",
+  "dash"
+ ],
+ "stats": {
+  "ground_lift": 0.5263748567818092,
+  "foot_slip": 0.16060168654438378,
+  "reach": 0.20021084213318469,
+  "eye_speaker": 30.947805440247144,
+  "eye_listener": 62.77047897123217,
+  "framing_misses": 0,
+  "framing_checked": 4
+ }
+}

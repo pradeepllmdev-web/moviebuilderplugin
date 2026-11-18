@@ -1,0 +1,197 @@
+{
+ "id": "storm",
+ "title": "The storm breaks",
+ "intent": "Tobias reads the letter, cancels the sailing, and the storm breaks over the empty ferry.",
+ "extras": {
+  "n": 8,
+  "area": [
+   4,
+   -9,
+   18,
+   -1
+  ],
+  "focus": [
+   11,
+   -5
+  ],
+  "seed": 71
+ },
+ "fog": 0.6,
+ "fx": null,
+ "location": {
+  "preset": "harbor",
+  "seed": 7
+ },
+ "time": "night",
+ "ambience": "rain",
+ "music": "tense",
+ "cast": [
+  {
+   "id": "tobias",
+   "at": [
+    11.6,
+    -3.4
+   ],
+   "face": "pepper"
+  },
+  {
+   "id": "pepper",
+   "at": [
+    8.2,
+    -3.4
+   ],
+   "face": "tobias"
+  },
+  {
+   "id": "vesper",
+   "at": [
+    7.0,
+    -4.6
+   ],
+   "face": "tobias"
+  }
+ ],
+ "props": [],
+ "steps": [
+  {
+   "do": "point",
+   "who": "pepper",
+   "at": [
+    -4,
+    -22
+   ],
+   "dur": 1.2,
+   "hand": "R"
+  },
+  {
+   "do": "say",
+   "who": "tobias",
+   "text": "A storm by sunset... Odile is never wrong.",
+   "mood": "serious",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "thunder",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "act",
+    "who": "tobias",
+    "clip": "startle"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "tobias",
+   "text": "Everybody off the ferry! Passengers to shelter! Now!",
+   "mood": "angry",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "go",
+    "who": "tobias",
+    "to": [
+     13.5,
+     -3.0
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "act",
+    "who": "pepper",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "vesper",
+    "clip": "joy"
+   }
+  ],
+  {
+   "do": "sfx",
+   "name": "thunder",
+   "at": 0.5,
+   "who": null,
+   "gain": 1.0
+  },
+  {
+   "do": "say",
+   "who": "tobias",
+   "text": "Fastest courier on the coast. And the best rival she will ever have.",
+   "mood": "warm",
+   "to": "vesper"
+  }
+ ],
+ "objective": "The storm breaks",
+ "theme": {
+  "root": 53,
+  "mode": "dorian",
+  "tempo": 108,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "pepper": [
+    7,
+    6,
+    4
+   ],
+   "vesper": [
+    0,
+    3,
+    5
+   ],
+   "odile": [
+    2,
+    0,
+    -2
+   ],
+   "tobias": [
+    -5,
+    -3,
+    -5
+   ],
+   "grub": [
+    0,
+    0,
+    -3
+   ],
+   "mo": [
+    2,
+    1,
+    -1
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.7
+}

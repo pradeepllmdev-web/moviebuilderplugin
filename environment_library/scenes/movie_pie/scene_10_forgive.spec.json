@@ -1,0 +1,230 @@
+{
+ "id": "forgive",
+ "title": "Forgiveness",
+ "intent": "Tilda forgives Pip. Gus offers to find Fen\u2019s sheep, and everyone invites Fen to the square.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "hilltop",
+  "seed": 3,
+  "objects": [
+   {
+    "kind": "bench",
+    "at": [
+     -1.5,
+     -1.0
+    ],
+    "id": "bench0",
+    "yaw": 0
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "fen",
+   "at": [
+    -2.03,
+    -0.31
+   ],
+   "face": "tilda"
+  },
+  {
+   "id": "pip",
+   "at": [
+    -1.0,
+    -0.2
+   ],
+   "face": "tilda"
+  },
+  {
+   "id": "tilda",
+   "at": [
+    3.4,
+    2.4
+   ],
+   "face": "pip"
+  },
+  {
+   "id": "rosa",
+   "at": [
+    4.4,
+    3.4
+   ],
+   "face": "tilda"
+  },
+  {
+   "id": "orin",
+   "at": [
+    5.4,
+    3.6
+   ],
+   "face": "tilda"
+  },
+  {
+   "id": "gus",
+   "at": [
+    6.45,
+    3.71
+   ],
+   "face": "fen"
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "tilda",
+    "to": [
+     0.8,
+     -0.5
+    ],
+    "gait": "shuffle"
+   },
+   {
+    "do": "emote",
+    "who": "tilda",
+    "kind": "sad",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "Three days without food. And you still left half for the sheep.",
+   "mood": "warm",
+   "to": "fen"
+  },
+  {
+   "do": "say",
+   "who": "fen",
+   "text": "Only half. The rest is for Pip.",
+   "mood": "warm",
+   "to": "tilda"
+  },
+  [
+   {
+    "do": "act",
+    "who": "tilda",
+    "clip": "kneel"
+   },
+   {
+    "do": "emote",
+    "who": "pip",
+    "kind": "smile",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "Pip, a pie is for eating. Next time, just ask.",
+   "mood": "warm",
+   "to": "pip"
+  },
+  {
+   "do": "say",
+   "who": "pip",
+   "text": "Yes, Miss Tilda.",
+   "mood": "joy",
+   "to": "tilda"
+  },
+  [
+   {
+    "do": "act",
+    "who": "rosa",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "orin",
+    "clip": "nod"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "gus",
+   "text": "I will fetch your sheep, old man. They are afraid of nothing but my hammer.",
+   "mood": "joy",
+   "to": "fen"
+  },
+  {
+   "do": "say",
+   "who": "orin",
+   "text": "Then come to the square, everyone! The contest goes on!",
+   "mood": "joy",
+   "to": "tilda"
+  }
+ ],
+ "objective": "Forgive or punish?",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.745
+}

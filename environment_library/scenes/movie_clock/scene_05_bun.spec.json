@@ -1,0 +1,273 @@
+{
+ "id": "bun",
+ "title": "A bun for a hero",
+ "intent": "The villagers share a bun and laugh. The clock keeps perfect time.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 9,
+  "objects": [
+   {
+    "kind": "bench",
+    "at": [
+     0,
+     -2.5
+    ],
+    "id": "bench0",
+    "yaw": 0
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     -3.2,
+     0.4
+    ],
+    "id": "stand0",
+    "height": 1.15,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "dusk",
+ "ambience": "wind",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "mina",
+   "at": [
+    -0.9,
+    -3.5
+   ],
+   "face": [
+    0,
+    -2.5
+   ]
+  },
+  {
+   "id": "pol",
+   "at": [
+    -3.2,
+    -0.8
+   ],
+   "face": [
+    0,
+    -2.5
+   ]
+  },
+  {
+   "id": "ada",
+   "at": [
+    3.2,
+    -1.2
+   ],
+   "face": [
+    0,
+    -2.5
+   ]
+  },
+  {
+   "id": "joss",
+   "at": [
+    1.7,
+    -3.6
+   ],
+   "face": [
+    0,
+    -2.5
+   ]
+  },
+  {
+   "id": "nell",
+   "at": [
+    4.2,
+    0.6
+   ],
+   "holds": "key",
+   "face": [
+    0,
+    -2.5
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "bun",
+   "kind": "basket",
+   "at": [
+    -3.2,
+    0.4
+   ],
+   "size": 0.55,
+   "on": "stand0"
+  },
+  {
+   "id": "key",
+   "kind": "key",
+   "at": [
+    4.2,
+    0.6
+   ],
+   "size": 2.2,
+   "z": 1.0
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "take",
+    "who": "pol",
+    "prop": "bun"
+   },
+   {
+    "do": "look",
+    "who": "mina",
+    "at": "pol",
+    "dur": 2
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "pol",
+    "to": [
+     -1.9,
+     -4.0
+    ],
+    "gait": "walk",
+    "talk": [
+     "This one is for you, Mina. Still warm from the oven.",
+     "warm",
+     "mina"
+    ]
+   },
+   {
+    "do": "icon",
+    "who": "joss",
+    "kind": "joy",
+    "dur": 1.8
+   }
+  ],
+  {
+   "do": "give",
+   "who": "pol",
+   "to": "mina"
+  },
+  {
+   "do": "say",
+   "who": "mina",
+   "text": "For me? It smells like cinnamon. Thank you, Pol!",
+   "mood": "joy",
+   "to": "pol"
+  },
+  {
+   "do": "say",
+   "who": "joss",
+   "text": "Not a bad morning, Pol. Mina found a key, and I found an excuse for a second breakfast.",
+   "mood": "joy",
+   "to": "pol"
+  },
+  {
+   "do": "say",
+   "who": "pol",
+   "text": "And I found a reason to bake a bigger batch tomorrow.",
+   "mood": "warm",
+   "to": "joss"
+  },
+  {
+   "do": "say",
+   "who": "ada",
+   "text": "Noon on the dot, Nell. It was almost worth the fright.",
+   "mood": "warm",
+   "to": "nell"
+  },
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "Never again. Tonight I tie that key to my belt with a double knot.",
+   "mood": "joy",
+   "to": "ada"
+  },
+  [
+   {
+    "do": "act",
+    "who": "nell",
+    "clip": "laugh"
+   },
+   {
+    "do": "act",
+    "who": "pol",
+    "clip": "laugh"
+   },
+   {
+    "do": "emote",
+    "who": "mina",
+    "kind": "smile",
+    "dur": 3
+   }
+  ]
+ ],
+ "objective": "A bun for a hero",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.6
+}

@@ -1,0 +1,104 @@
+{
+ "id": "reunion",
+ "title": "Mama",
+ "seconds": 27.208333333333332,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 4.416666666666667,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "zip runs",
+   "t0": 4.416666666666667,
+   "t1": 6.833333333333333,
+   "kind": "track",
+   "subject": "zip"
+  },
+  {
+   "name": "zip runs",
+   "t0": 6.833333333333333,
+   "t1": 9.25,
+   "kind": "track",
+   "subject": "zip"
+  },
+  {
+   "name": "zip jump",
+   "t0": 9.25,
+   "t1": 12.25,
+   "kind": "medium",
+   "subject": "zip"
+  },
+  {
+   "name": "zip walks",
+   "t0": 12.25,
+   "t1": 15.291666666666666,
+   "kind": "track",
+   "subject": "zip"
+  },
+  {
+   "name": "zip walks",
+   "t0": 15.291666666666666,
+   "t1": 17.541666666666668,
+   "kind": "track",
+   "subject": "zip"
+  },
+  {
+   "name": "hazel speaks",
+   "t0": 17.541666666666668,
+   "t1": 21.708333333333332,
+   "kind": "medium",
+   "subject": "hazel"
+  },
+  {
+   "name": "mama jump",
+   "t0": 21.708333333333332,
+   "t1": 24.008333333333333,
+   "kind": "medium",
+   "subject": "mama"
+  },
+  {
+   "name": "end",
+   "t0": 24.008333333333333,
+   "t1": 27.208333333333332,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "moss",
+   "to": "hazel",
+   "mood": "warm",
+   "text": "Don\u2019t be scared, Hazel. Look at Zip. He knows her.",
+   "t0": 1.2033333333333331,
+   "t1": 4.321927437641723
+  },
+  {
+   "k": 1,
+   "speaker": "hazel",
+   "to": "moss",
+   "mood": "warm",
+   "text": "She searched all night for him. Mothers always find their children.",
+   "t0": 17.66166666666667,
+   "t1": 21.643299319727895
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "moss",
+  "hazel"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.0,
+  "eye_speaker": 4.618580770443278,
+  "eye_listener": 2.8876038930892105,
+  "framing_misses": 0,
+  "framing_checked": 7
+ }
+}

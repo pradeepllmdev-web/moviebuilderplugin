@@ -1,0 +1,113 @@
+{
+ "id": "run",
+ "title": "A race to the tower",
+ "seconds": 31.416666666666668,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "mina runs",
+   "t0": 2.5,
+   "t1": 8.375,
+   "kind": "track",
+   "subject": "mina"
+  },
+  {
+   "name": "mina runs",
+   "t0": 8.375,
+   "t1": 13.583333333333334,
+   "kind": "track",
+   "subject": "mina"
+  },
+  {
+   "name": "mina runs",
+   "t0": 13.583333333333334,
+   "t1": 16.583333333333332,
+   "kind": "track",
+   "subject": "mina"
+  },
+  {
+   "name": "joss fall",
+   "t0": 16.583333333333332,
+   "t1": 19.0,
+   "kind": "medium",
+   "subject": "joss"
+  },
+  {
+   "name": "mina speaks",
+   "t0": 19.0,
+   "t1": 22.041666666666668,
+   "kind": "medium",
+   "subject": "mina"
+  },
+  {
+   "name": "joss speaks",
+   "t0": 22.041666666666668,
+   "t1": 24.708333333333332,
+   "kind": "medium",
+   "subject": "joss"
+  },
+  {
+   "name": "mina runs",
+   "t0": 24.708333333333332,
+   "t1": 28.21666666666667,
+   "kind": "track",
+   "subject": "mina"
+  },
+  {
+   "name": "end",
+   "t0": 28.21666666666667,
+   "t1": 31.416666666666668,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "joss",
+   "to": "mina",
+   "mood": "warm",
+   "text": "Mind the puddle, Mina!",
+   "t0": 6.786666666666667,
+   "t1": 8.291473922902494
+  },
+  {
+   "k": 1,
+   "speaker": "mina",
+   "to": "joss",
+   "mood": "concern",
+   "text": "Joss! Are you hurt?",
+   "t0": 20.203333333333333,
+   "t1": 21.96356009070295
+  },
+  {
+   "k": 2,
+   "speaker": "joss",
+   "to": "mina",
+   "mood": "warm",
+   "text": "Only my pride. Go, go, I am right behind you!",
+   "t0": 22.16166666666667,
+   "t1": 24.64171201814059
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "mina",
+  "joss"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.0,
+  "eye_speaker": 20.423944368559624,
+  "eye_listener": 20.588157402054414,
+  "framing_misses": 0,
+  "framing_checked": 7
+ }
+}

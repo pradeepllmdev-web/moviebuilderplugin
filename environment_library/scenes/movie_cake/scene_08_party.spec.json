@@ -1,0 +1,236 @@
+{
+ "id": "party",
+ "title": "The best slice",
+ "intent": "Everyone celebrates with the wobbly cake.",
+ "extras": {
+  "n": 10,
+  "area": [
+   -8,
+   -8,
+   8,
+   -1
+  ],
+  "focus": [
+   0,
+   3
+  ],
+  "seed": 93
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "courtyard",
+  "seed": 4,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     1.0,
+     3.4
+    ],
+    "id": "stand5",
+    "height": 0.45,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "dusk",
+ "ambience": "crowd",
+ "music": "bright",
+ "cast": [
+  {
+   "id": "juno",
+   "at": [
+    -1.2,
+    1.2
+   ],
+   "face": "marcel"
+  },
+  {
+   "id": "marcel",
+   "at": [
+    -2.4,
+    0.4
+   ],
+   "face": "juno"
+  },
+  {
+   "id": "bettina",
+   "at": [
+    -3.6,
+    1.6
+   ],
+   "face": "juno"
+  },
+  {
+   "id": "dash",
+   "at": [
+    -4.4,
+    0.6
+   ],
+   "face": "bettina"
+  },
+  {
+   "id": "rufus",
+   "at": [
+    -5.6,
+    1.4
+   ],
+   "face": "bettina"
+  },
+  {
+   "id": "elm",
+   "at": [
+    -6.4,
+    0.4
+   ],
+   "face": "marcel"
+  }
+ ],
+ "props": [
+  {
+   "id": "smash",
+   "kind": "pie",
+   "at": [
+    1.0,
+    3.4
+   ],
+   "size": 1.6,
+   "on": "stand5"
+  }
+ ],
+ "steps": [
+  {
+   "do": "say",
+   "who": "bettina",
+   "text": "Next time I bake a cake, I am not letting anyone near it.",
+   "mood": "concern",
+   "to": "juno"
+  },
+  {
+   "do": "say",
+   "who": "juno",
+   "text": "Next time, bake two. One for eating, one for wobbling.",
+   "overlap_by": 0.3,
+   "mood": "joy",
+   "to": "bettina"
+  },
+  {
+   "do": "say",
+   "who": "dash",
+   "text": "I will eat the wobbling one!",
+   "overlap_by": 0.3,
+   "mood": "joy",
+   "to": "bettina"
+  },
+  [
+   {
+    "do": "act",
+    "who": "rufus",
+    "clip": "laugh"
+   },
+   {
+    "do": "act",
+    "who": "elm",
+    "clip": "laugh"
+   },
+   {
+    "do": "act",
+    "who": "marcel",
+    "clip": "joy"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "rufus",
+   "text": "Best man. Worst carrier. Great cake.",
+   "mood": "joy",
+   "to": "bettina"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "bettina",
+    "kind": "smile",
+    "dur": 4
+   },
+   {
+    "do": "emote",
+    "who": "juno",
+    "kind": "smile",
+    "dur": 4
+   }
+  ],
+  {
+   "do": "wait",
+   "dur": 2.0
+  }
+ ],
+ "objective": "The wobbliest cake in history",
+ "theme": {
+  "root": 60,
+  "mode": "major",
+  "tempo": 116,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "bettina": [
+    0,
+    2,
+    4
+   ],
+   "dash": [
+    7,
+    9,
+    7
+   ],
+   "rufus": [
+    0,
+    0,
+    -3
+   ],
+   "marcel": [
+    2,
+    0,
+    -2
+   ],
+   "juno": [
+    4,
+    5,
+    7
+   ],
+   "elm": [
+    0,
+    3,
+    0
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 54,
+   "hit": 47
+  }
+ },
+ "arc": 0.6
+}

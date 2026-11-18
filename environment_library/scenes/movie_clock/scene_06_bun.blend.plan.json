@@ -1,0 +1,139 @@
+{
+ "id": "bun",
+ "title": "A bun for a hero",
+ "seconds": 46.958333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 4.25,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "pol and company",
+   "t0": 4.25,
+   "t1": 10.916666666666666,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "pol walks",
+   "t0": 10.916666666666666,
+   "t1": 13.458333333333334,
+   "kind": "track",
+   "subject": "pol"
+  },
+  {
+   "name": "pol speaks",
+   "t0": 13.458333333333334,
+   "t1": 16.916666666666668,
+   "kind": "medium",
+   "subject": "pol"
+  },
+  {
+   "name": "mina speaks",
+   "t0": 16.916666666666668,
+   "t1": 20.083333333333332,
+   "kind": "medium",
+   "subject": "mina"
+  },
+  {
+   "name": "mina runs",
+   "t0": 20.083333333333332,
+   "t1": 26.4375,
+   "kind": "track",
+   "subject": "mina"
+  },
+  {
+   "name": "mina runs (b)",
+   "t0": 26.4375,
+   "t1": 32.791666666666664,
+   "kind": "track",
+   "subject": "mina"
+  },
+  {
+   "name": "joss speaks",
+   "t0": 32.791666666666664,
+   "t1": 36.291666666666664,
+   "kind": "two",
+   "subject": "joss"
+  },
+  {
+   "name": "ada speaks",
+   "t0": 36.291666666666664,
+   "t1": 39.958333333333336,
+   "kind": "medium",
+   "subject": "ada"
+  },
+  {
+   "name": "nell laugh",
+   "t0": 39.958333333333336,
+   "t1": 42.958333333333336,
+   "kind": "medium",
+   "subject": "nell"
+  },
+  {
+   "name": "hold",
+   "t0": 42.958333333333336,
+   "t1": 46.958333333333336,
+   "kind": "group",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "pol",
+   "to": "mina",
+   "mood": "warm",
+   "text": "For the girl who saved my bread. Warm from the oven.",
+   "t0": 13.578333333333333,
+   "t1": 16.83624716553288
+  },
+  {
+   "k": 1,
+   "speaker": "mina",
+   "to": "pol",
+   "mood": "joy",
+   "text": "Thank you, Pol! It smells like the whole village.",
+   "t0": 17.03666666666667,
+   "t1": 20.00433106575964
+  },
+  {
+   "k": 2,
+   "speaker": "joss",
+   "to": "pol",
+   "mood": "joy",
+   "text": "Pol, next time I carry the bun and Mina can watch!",
+   "t0": 32.91166666666666,
+   "t1": 36.192800453514735
+  },
+  {
+   "k": 3,
+   "speaker": "ada",
+   "to": "nell",
+   "mood": "warm",
+   "text": "Noon, and not a minute wrong.",
+   "t0": 37.495,
+   "t1": 39.89246031746031
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "mina",
+  "pol",
+  "ada",
+  "joss",
+  "nell"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.1600672956226889,
+  "reach": 0.20014345410368697,
+  "eye_speaker": 11.146078889611742,
+  "eye_listener": 7.660130270587373,
+  "framing_misses": 0,
+  "framing_checked": 8
+ }
+}

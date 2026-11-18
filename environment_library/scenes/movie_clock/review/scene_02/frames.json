@@ -1,0 +1,68 @@
+[
+ {
+  "index": 0,
+  "frame": 31,
+  "time": 1.25,
+  "cut": "establish"
+ },
+ {
+  "index": 1,
+  "frame": 131,
+  "time": 5.416666666666667,
+  "cut": "nell speaks"
+ },
+ {
+  "index": 2,
+  "frame": 242,
+  "time": 10.041666666666666,
+  "cut": "ada speaks"
+ },
+ {
+  "index": 3,
+  "frame": 345,
+  "time": 14.333333333333334,
+  "cut": "nell speaks"
+ },
+ {
+  "index": 4,
+  "frame": 436,
+  "time": 18.125,
+  "cut": "pol startle"
+ },
+ {
+  "index": 5,
+  "frame": 498,
+  "time": 20.708333333333332,
+  "cut": "pol speaks"
+ },
+ {
+  "index": 6,
+  "frame": 590,
+  "time": 24.541666666666668,
+  "cut": "nell speaks"
+ },
+ {
+  "index": 7,
+  "frame": 690,
+  "time": 28.708333333333332,
+  "cut": "pol points"
+ },
+ {
+  "index": 8,
+  "frame": 788,
+  "time": 32.791666666666664,
+  "cut": "pol speaks"
+ },
+ {
+  "index": 9,
+  "frame": 909,
+  "time": 37.833333333333336,
+  "cut": "nell speaks"
+ },
+ {
+  "index": 10,
+  "frame": 1011,
+  "time": 42.083333333333336,
+  "cut": "end"
+ }
+]

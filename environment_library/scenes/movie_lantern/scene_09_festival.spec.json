@@ -1,0 +1,252 @@
+{
+ "id": "festival",
+ "title": "Festival at the quay",
+ "intent": "The village celebrates at the harbour. Everyone toasts Dot.",
+ "extras": {
+  "n": 10,
+  "area": [
+   -4,
+   -10,
+   16,
+   -1
+  ],
+  "focus": [
+   2,
+   -4
+  ],
+  "seed": 91
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "harbor",
+  "seed": 4,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     14.5,
+     -3.4
+    ],
+    "id": "stand3",
+    "height": 0.7,
+    "size": 0.5
+   }
+  ]
+ },
+ "time": "night",
+ "ambience": "crowd",
+ "music": "bright",
+ "cast": [
+  {
+   "id": "pim",
+   "at": [
+    7.6,
+    -3.0
+   ],
+   "face": "dot"
+  },
+  {
+   "id": "dot",
+   "at": [
+    14.06,
+    -3.01
+   ],
+   "face": "rue"
+  },
+  {
+   "id": "rue",
+   "at": [
+    2.12,
+    -2.49
+   ],
+   "face": "dot"
+  },
+  {
+   "id": "nell",
+   "at": [
+    0.0,
+    -2.4
+   ],
+   "face": "pim"
+  },
+  {
+   "id": "sal",
+   "at": [
+    2.0,
+    -3.6
+   ],
+   "face": "pim"
+  },
+  {
+   "id": "ferris",
+   "at": [
+    -3,
+    -3.2
+   ],
+   "face": "pim"
+  }
+ ],
+ "props": [
+  {
+   "id": "lantern",
+   "kind": "lantern",
+   "at": [
+    14.5,
+    -3.4
+   ],
+   "size": 2.0,
+   "on": "stand3"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "ferris",
+    "to": [
+     5.6,
+     -2.6
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pim",
+   "text": "Neighbours! The festival is moved to the quay tonight!",
+   "mood": "joy",
+   "to": "nell"
+  },
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "I will fetch every cake in the village.",
+   "mood": "joy",
+   "to": "pim"
+  },
+  {
+   "do": "say",
+   "who": "pim",
+   "text": "To Dot, who stole the lantern and saved the fleet!",
+   "mood": "joy",
+   "to": "dot"
+  },
+  {
+   "do": "say",
+   "who": "ferris",
+   "text": "And to me, who was asleep for all of it.",
+   "mood": "joy",
+   "to": "pim"
+  },
+  {
+   "do": "say",
+   "who": "sal",
+   "text": "Especially you.",
+   "mood": "joy",
+   "to": "ferris"
+  },
+  [
+   {
+    "do": "act",
+    "who": "dot",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "rue",
+    "clip": "laugh"
+   },
+   {
+    "do": "act",
+    "who": "nell",
+    "clip": "joy"
+   }
+  ],
+  [
+   {
+    "do": "emote",
+    "who": "dot",
+    "kind": "smile",
+    "dur": 4
+   },
+   {
+    "do": "emote",
+    "who": "rue",
+    "kind": "smile",
+    "dur": 4
+   }
+  ],
+  {
+   "do": "wait",
+   "dur": 2.5
+  }
+ ],
+ "objective": "Home safe",
+ "theme": {
+  "root": 50,
+  "mode": "dorian",
+  "tempo": 104,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "rue": [
+    0,
+    -3,
+    0
+   ],
+   "pim": [
+    0,
+    4,
+    7
+   ],
+   "dot": [
+    7,
+    6,
+    4
+   ],
+   "sal": [
+    0,
+    0,
+    -2
+   ],
+   "nell": [
+    4,
+    5,
+    4
+   ],
+   "ferris": [
+    -3,
+    -5,
+    -3
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.6
+}

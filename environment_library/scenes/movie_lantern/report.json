@@ -1,0 +1,270 @@
+{
+ "film": "lantern_run",
+ "records": [
+  {
+   "index": 1,
+   "id": "great_lantern",
+   "title": "The Great Lantern",
+   "key": "fe34f8d158c0",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\scene_01_great_lantern.blend",
+   "status": "built in 23s",
+   "audit": [],
+   "seconds": 44.8,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.17547694049710394,
+    "reach": 1.863796355217159e-05,
+    "eye_speaker": 8.319013593104364,
+    "eye_listener": 11.748839996834706,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 4,
+   "cuts": 9,
+   "cast": [
+    "pim",
+    "nell",
+    "sal",
+    "ferris",
+    "dot"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\sheets\\scene_01_great_lantern.png"
+  },
+  {
+   "index": 2,
+   "id": "fog",
+   "title": "Fog at sea",
+   "key": "2d0e71006913",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\scene_02_fog.blend",
+   "status": "built in 12s",
+   "audit": [],
+   "seconds": 34.0,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 0.01236401129612541,
+    "eye_speaker": 4.253221564529299,
+    "eye_listener": 7.184127601502663,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 4,
+   "cuts": 8,
+   "cast": [
+    "rue",
+    "dot"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\sheets\\scene_02_fog.png"
+  },
+  {
+   "index": 3,
+   "id": "taking",
+   "title": "Asleep on duty",
+   "key": "77d6c0aba91d",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\scene_03_taking.blend",
+   "status": "built in 15s",
+   "audit": [],
+   "seconds": 44.6,
+   "stats": {
+    "ground_lift": 0.8000000000000002,
+    "foot_slip": 0.1282414105800828,
+    "reach": 0.06377052181125915,
+    "eye_speaker": 2.2895790699667535,
+    "eye_listener": 2.2737525840484123,
+    "framing_misses": 0,
+    "framing_checked": 3
+   },
+   "lines": 1,
+   "cuts": 7,
+   "cast": [
+    "ferris",
+    "dot"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\sheets\\scene_03_taking.png"
+  },
+  {
+   "index": 4,
+   "id": "chase",
+   "title": "Stop that thief!",
+   "key": "85856675f005",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\scene_04_chase.blend",
+   "status": "built in 12s",
+   "audit": [
+    "AUDIT eye line: the addressed listener looks 48 degrees off the speaker (limit 40)"
+   ],
+   "seconds": 23.9,
+   "stats": {
+    "ground_lift": 0.46769966843634164,
+    "foot_slip": 0.0,
+    "reach": 0.06508474065122422,
+    "eye_speaker": 4.139016689536984,
+    "eye_listener": 48.25296076603466,
+    "framing_misses": 0,
+    "framing_checked": 1
+   },
+   "lines": 2,
+   "cuts": 5,
+   "cast": [
+    "dot",
+    "sal",
+    "nell",
+    "ferris"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\sheets\\scene_04_chase.png"
+  },
+  {
+   "index": 5,
+   "id": "quay",
+   "title": "Cornered on the quay",
+   "key": "3d0f6849f4da",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\scene_05_quay.blend",
+   "status": "built in 13s",
+   "audit": [
+    "AUDIT eye line: the addressed listener looks 91 degrees off the speaker (limit 40)"
+   ],
+   "seconds": 31.8,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.20632592751463857,
+    "reach": 0.09361145645745987,
+    "eye_speaker": 6.355705761895078,
+    "eye_listener": 91.25859884178742,
+    "framing_misses": 0,
+    "framing_checked": 2
+   },
+   "lines": 3,
+   "cuts": 6,
+   "cast": [
+    "dot",
+    "sal",
+    "nell",
+    "pim"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\sheets\\scene_05_quay.png"
+  },
+  {
+   "index": 6,
+   "id": "reason",
+   "title": "The reason",
+   "key": "18ebb9d3db8e",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\scene_06_reason.blend",
+   "status": "built in 13s",
+   "audit": [
+    "AUDIT framing: two cut \"pim speaks\" at 16.6 s has pim outside the frame (1.60,0.22)"
+   ],
+   "seconds": 26.3,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 0.0,
+    "eye_speaker": 5.288209645026833,
+    "eye_listener": 4.112470479792623,
+    "framing_misses": 1,
+    "framing_checked": 4
+   },
+   "lines": 4,
+   "cuts": 7,
+   "cast": [
+    "dot",
+    "pim",
+    "sal",
+    "nell",
+    "rue"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\sheets\\scene_06_reason.png"
+  },
+  {
+   "index": 7,
+   "id": "light",
+   "title": "Light the harbour",
+   "key": "65a5f18fb9d5",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\scene_07_light.blend",
+   "status": "built in 14s",
+   "audit": [],
+   "seconds": 29.4,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.11931142312222148,
+    "reach": 0.05747629827538081,
+    "eye_speaker": 1.7596182323573775,
+    "eye_listener": 10.183588989792913,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 2,
+   "cuts": 7,
+   "cast": [
+    "dot",
+    "pim",
+    "rue",
+    "sal",
+    "nell"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\sheets\\scene_07_light.png"
+  },
+  {
+   "index": 8,
+   "id": "boats",
+   "title": "The boats come home",
+   "key": "3ce038d72425",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\scene_08_boats.blend",
+   "status": "built in 22s",
+   "audit": [],
+   "seconds": 25.7,
+   "stats": {
+    "ground_lift": 0.06480483509363222,
+    "foot_slip": 0.0,
+    "reach": 0.13437597412956,
+    "eye_speaker": 2.1425023678980613,
+    "eye_listener": 1.971164511579752,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 2,
+   "cuts": 6,
+   "cast": [
+    "rue",
+    "dot",
+    "pim",
+    "nell",
+    "sal"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\sheets\\scene_08_boats.png"
+  },
+  {
+   "index": 9,
+   "id": "festival",
+   "title": "Festival at the quay",
+   "key": "6b91553f6475",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\scene_09_festival.blend",
+   "status": "built in 31s",
+   "audit": [
+    "AUDIT eye line: the addressed listener looks 78 degrees off the speaker (limit 40)"
+   ],
+   "seconds": 37.8,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.30814726670395404,
+    "reach": 0.0,
+    "eye_speaker": 2.0686708648553913,
+    "eye_listener": 77.9905059871434,
+    "framing_misses": 0,
+    "framing_checked": 7
+   },
+   "lines": 5,
+   "cuts": 10,
+   "cast": [
+    "pim",
+    "dot",
+    "rue",
+    "nell",
+    "sal",
+    "ferris"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\sheets\\scene_09_festival.png"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_lantern\\movie.blend",
+ "total_seconds": 298.30000000000007,
+ "audit_lines": 4
+}

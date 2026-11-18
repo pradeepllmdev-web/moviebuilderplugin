@@ -1,0 +1,109 @@
+{
+ "id": "stopped",
+ "title": "The clock stops",
+ "seconds": 26.708333333333332,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "pol speaks",
+   "t0": 2.5,
+   "t1": 7.25,
+   "kind": "medium",
+   "subject": "pol"
+  },
+  {
+   "name": "ada points",
+   "t0": 7.25,
+   "t1": 10.708333333333334,
+   "kind": "reveal",
+   "subject": "ada"
+  },
+  {
+   "name": "ada speaks",
+   "t0": 10.708333333333334,
+   "t1": 14.25,
+   "kind": "medium",
+   "subject": "ada"
+  },
+  {
+   "name": "nell runs",
+   "t0": 14.25,
+   "t1": 17.083333333333332,
+   "kind": "track",
+   "subject": "nell"
+  },
+  {
+   "name": "nell speaks",
+   "t0": 17.083333333333332,
+   "t1": 24.241666666666667,
+   "kind": "medium",
+   "subject": "nell"
+  },
+  {
+   "name": "end",
+   "t0": 24.241666666666667,
+   "t1": 26.708333333333332,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "pol",
+   "to": "ada",
+   "mood": "concern",
+   "text": "Half past six. Again. My bread will burn if I miss the bell.",
+   "t0": 1.2033333333333331,
+   "t1": 5.368458049886621
+  },
+  {
+   "k": 1,
+   "speaker": "ada",
+   "to": "pol",
+   "mood": "concern",
+   "text": "Look at the tower. The clock has stopped at the wrong hour.",
+   "t0": 10.828333333333333,
+   "t1": 14.179126984126984
+  },
+  {
+   "k": 2,
+   "speaker": "nell",
+   "to": "pol",
+   "mood": "sad",
+   "text": "The key! I have lost the winding key. It was on my belt this morning.",
+   "t0": 17.203333333333333,
+   "t1": 21.95408163265306
+  },
+  {
+   "k": 3,
+   "speaker": "pol",
+   "to": "nell",
+   "mood": "warm",
+   "text": "Then we must find it before noon.",
+   "t0": 22.16166666666667,
+   "t1": 24.130873015873018
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "pol",
+  "ada",
+  "nell"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.16979066226296236,
+  "eye_speaker": 14.136761008477164,
+  "eye_listener": 4.488996043348439,
+  "framing_misses": 0,
+  "framing_checked": 4
+ }
+}

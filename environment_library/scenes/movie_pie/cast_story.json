@@ -1,0 +1,126 @@
+[
+ {
+  "name": "Tilda",
+  "id": "tilda",
+  "description": "the baker, proud of her cherry pie",
+  "species": "lion",
+  "height_m": 1.71,
+  "posture": "jaunty",
+  "accessories": [
+   "tshirt",
+   "apron",
+   "pants",
+   "boots"
+  ],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 119
+ },
+ {
+  "name": "Mayor Orin",
+  "id": "orin",
+  "description": "the mayor in a blue suit and top hat",
+  "species": "wolf",
+  "height_m": 1.85,
+  "posture": "proud",
+  "accessories": [
+   "suit",
+   "tie",
+   "boots",
+   "hat_top",
+   "cane"
+  ],
+  "tint": [
+   0.55,
+   0.58,
+   0.64
+  ],
+  "voice_pitch_hz": 81
+ },
+ {
+  "name": "Gus",
+  "id": "gus",
+  "description": "the big blacksmith, always hungry",
+  "species": "boar",
+  "height_m": 1.55,
+  "posture": "angry",
+  "accessories": [
+   "tshirt",
+   "apron",
+   "gloves",
+   "pants",
+   "boots",
+   "belt"
+  ],
+  "tint": [
+   0.62,
+   0.42,
+   0.4
+  ],
+  "voice_pitch_hz": 77
+ },
+ {
+  "name": "Pip",
+  "id": "pip",
+  "description": "a small boy with a secret",
+  "species": "mouse",
+  "height_m": 1.05,
+  "posture": "hurried",
+  "accessories": [
+   "shirt",
+   "sleeves",
+   "shorts",
+   "boots"
+  ],
+  "tint": [
+   0.78,
+   0.72,
+   0.66
+  ],
+  "voice_pitch_hz": 235
+ },
+ {
+  "name": "Old Fen",
+  "id": "fen",
+  "description": "Pip\u2019s grandfather, a thin old shepherd",
+  "species": "elder",
+  "height_m": 1.55,
+  "posture": "hunched",
+  "accessories": [
+   "tunic",
+   "sleeves",
+   "pants",
+   "boots",
+   "hat_beanie",
+   "staff"
+  ],
+  "tint": [
+   0.85,
+   0.82,
+   0.78
+  ],
+  "voice_pitch_hz": 123
+ },
+ {
+  "name": "Rosa",
+  "id": "rosa",
+  "description": "the baker\u2019s friend, who notices small things",
+  "species": "rabbit",
+  "height_m": 1.25,
+  "posture": "neutral",
+  "accessories": [
+   "dress",
+   "apron",
+   "boots"
+  ],
+  "tint": [
+   0.92,
+   0.9,
+   0.85
+  ],
+  "voice_pitch_hz": 229
+ }
+]

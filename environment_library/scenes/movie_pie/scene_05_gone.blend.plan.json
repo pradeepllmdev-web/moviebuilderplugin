@@ -1,0 +1,100 @@
+{
+ "id": "gone",
+ "title": "The pie is gone",
+ "seconds": 23.375,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "tilda runs",
+   "t0": 2.5,
+   "t1": 4.75,
+   "kind": "track",
+   "subject": "tilda"
+  },
+  {
+   "name": "tilda runs",
+   "t0": 4.75,
+   "t1": 7.75,
+   "kind": "track",
+   "subject": "tilda"
+  },
+  {
+   "name": "tilda alone",
+   "t0": 7.75,
+   "t1": 12.541666666666666,
+   "kind": "medium",
+   "subject": "tilda"
+  },
+  {
+   "name": "tilda walks",
+   "t0": 12.541666666666666,
+   "t1": 14.916666666666666,
+   "kind": "track",
+   "subject": "tilda"
+  },
+  {
+   "name": "tilda walks",
+   "t0": 14.916666666666666,
+   "t1": 17.708333333333332,
+   "kind": "track",
+   "subject": "tilda"
+  },
+  {
+   "name": "tilda alone",
+   "t0": 17.708333333333332,
+   "t1": 20.861666666666668,
+   "kind": "medium",
+   "subject": "tilda"
+  },
+  {
+   "name": "end",
+   "t0": 20.861666666666668,
+   "t1": 23.375,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "tilda",
+   "to": "tilda",
+   "mood": "sad",
+   "text": "No. No, no, no. My pie! My Golden Spoon pie!",
+   "t0": 7.87,
+   "t1": 12.463106575963717
+  },
+  {
+   "k": 1,
+   "speaker": "tilda",
+   "to": "tilda",
+   "mood": "angry",
+   "text": "Help! Somebody took my pie!",
+   "t0": 18.91166666666667,
+   "t1": 20.806950113378686
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "tilda",
+  "pip",
+  "rosa",
+  "gus",
+  "orin"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.07015392091491929,
+  "reach": 0.0,
+  "eye_speaker": 0.0,
+  "eye_listener": 0.0,
+  "framing_misses": 0,
+  "framing_checked": 6
+ }
+}

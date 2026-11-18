@@ -1,0 +1,121 @@
+[
+ {
+  "name": "Bettina",
+  "id": "bettina",
+  "description": "the baker, flour to her elbows",
+  "species": "badger",
+  "height_m": 1.4,
+  "posture": "hurried",
+  "accessories": [
+   "tshirt",
+   "apron",
+   "pants",
+   "boots"
+  ],
+  "tint": [
+   0.38,
+   0.38,
+   0.4
+  ],
+  "voice_pitch_hz": 109
+ },
+ {
+  "name": "Dash",
+  "id": "dash",
+  "description": "the baker\u2019s bouncy apprentice",
+  "species": "fox",
+  "height_m": 1.5,
+  "posture": "jaunty",
+  "accessories": [
+   "shirt",
+   "sleeves",
+   "shorts",
+   "boots"
+  ],
+  "tint": [
+   1.0,
+   0.5,
+   0.22
+  ],
+  "voice_pitch_hz": 227
+ },
+ {
+  "name": "Rufus",
+  "id": "rufus",
+  "description": "the best man in a borrowed suit",
+  "species": "ox",
+  "height_m": 2.0,
+  "posture": "angry",
+  "accessories": [
+   "suit",
+   "tie",
+   "boots"
+  ],
+  "tint": [
+   0.45,
+   0.4,
+   0.36
+  ],
+  "voice_pitch_hz": 68
+ },
+ {
+  "name": "Marcel",
+  "id": "marcel",
+  "description": "the nervous, very tall groom",
+  "species": "heron",
+  "height_m": 2.3,
+  "posture": "tired",
+  "accessories": [
+   "suit",
+   "tie",
+   "boots",
+   "hat_top",
+   "cane"
+  ],
+  "tint": [
+   0.7,
+   0.78,
+   0.88
+  ],
+  "voice_pitch_hz": 150
+ },
+ {
+  "name": "Juno",
+  "id": "juno",
+  "description": "the small, cheerful bride",
+  "species": "mouse",
+  "height_m": 1.05,
+  "posture": "neutral",
+  "accessories": [
+   "dress",
+   "apron",
+   "boots"
+  ],
+  "tint": [
+   0.78,
+   0.72,
+   0.66
+  ],
+  "voice_pitch_hz": 270
+ },
+ {
+  "name": "Granny Elm",
+  "id": "elm",
+  "description": "the groom\u2019s granny, who has opinions",
+  "species": "elder",
+  "height_m": 1.55,
+  "posture": "hunched",
+  "accessories": [
+   "dress",
+   "sleeves",
+   "apron",
+   "boots"
+  ],
+  "tint": [
+   0.85,
+   0.82,
+   0.78
+  ],
+  "voice_pitch_hz": 119
+ }
+]

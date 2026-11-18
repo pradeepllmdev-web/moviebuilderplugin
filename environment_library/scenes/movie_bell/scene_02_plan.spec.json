@@ -1,0 +1,212 @@
+{
+ "id": "plan",
+ "title": "Splitting up",
+ "intent": "The mayor sends the villagers to search the harbour and the market.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 7,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     3.0,
+     -1.2
+    ],
+    "id": "stand0",
+    "height": 0.8,
+    "size": 0.5
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "hugo",
+   "at": [
+    -1.4,
+    -1.0
+   ],
+   "face": "marta"
+  },
+  {
+   "id": "marta",
+   "at": [
+    1.2,
+    -2.6
+   ],
+   "face": "hugo"
+  },
+  {
+   "id": "finn",
+   "at": [
+    -9,
+    -5
+   ],
+   "face": "hugo"
+  },
+  {
+   "id": "lulu",
+   "at": [
+    9,
+    -6
+   ],
+   "face": "hugo"
+  },
+  {
+   "id": "bea",
+   "at": [
+    5.0,
+    -2.8
+   ],
+   "face": [
+    1.58,
+    0.85
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "finn",
+    "to": [
+     -4.0,
+     -2.6
+    ],
+    "gait": "bounce"
+   },
+   {
+    "do": "go",
+    "who": "lulu",
+    "to": [
+     3.8,
+     -4.6
+    ],
+    "gait": "walk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hugo",
+   "text": "Finn, search the harbour. Lulu, the market. Marta and I will ask around here.",
+   "mood": "serious",
+   "to": "finn"
+  },
+  {
+   "do": "say",
+   "who": "finn",
+   "text": "Aye. A bell cannot hide from a fisherman.",
+   "mood": "joy",
+   "to": "hugo"
+  },
+  {
+   "do": "say",
+   "who": "lulu",
+   "text": "I will look carefully. I always do.",
+   "mood": "warm",
+   "to": "hugo"
+  },
+  [
+   {
+    "do": "go",
+    "who": "finn",
+    "to": [
+     -16,
+     -2
+    ],
+    "gait": "bounce"
+   },
+   {
+    "do": "go",
+    "who": "lulu",
+    "to": [
+     16,
+     -3
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "act",
+    "who": "hugo",
+    "clip": "cut"
+   }
+  ],
+  {
+   "do": "wait",
+   "dur": 1.0
+  }
+ ],
+ "objective": "Find the bell before sunset",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "marta": [
+    0,
+    4,
+    2
+   ],
+   "hugo": [
+    0,
+    0,
+    -3
+   ],
+   "finn": [
+    4,
+    6,
+    4
+   ],
+   "lulu": [
+    2,
+    4,
+    7
+   ],
+   "otto": [
+    -5,
+    -3,
+    -5
+   ],
+   "bea": [
+    7,
+    9,
+    7
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.444
+}

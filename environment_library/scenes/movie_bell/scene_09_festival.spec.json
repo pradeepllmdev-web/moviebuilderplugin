@@ -1,0 +1,223 @@
+{
+ "id": "festival",
+ "title": "Festival night",
+ "intent": "The village celebrates with a feast. Otto is thanked.",
+ "extras": {
+  "n": 10,
+  "area": [
+   -14,
+   -8,
+   14,
+   9
+  ],
+  "focus": [
+   0,
+   -3
+  ],
+  "seed": 71
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 7,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     3.0,
+     -1.2
+    ],
+    "id": "stand0",
+    "height": 0.8,
+    "size": 0.5
+   }
+  ]
+ },
+ "time": "night",
+ "ambience": "crowd",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "marta",
+   "at": [
+    -1.6,
+    -1.6
+   ],
+   "face": "otto"
+  },
+  {
+   "id": "otto",
+   "at": [
+    2.68,
+    -1.28
+   ],
+   "face": "marta"
+  },
+  {
+   "id": "bea",
+   "at": [
+    -0.6,
+    -3.4
+   ],
+   "face": "otto"
+  },
+  {
+   "id": "hugo",
+   "at": [
+    -3.95,
+    -1.15
+   ],
+   "face": "otto"
+  },
+  {
+   "id": "finn",
+   "at": [
+    -7,
+    -4.5
+   ],
+   "face": "otto"
+  },
+  {
+   "id": "lulu",
+   "at": [
+    5,
+    -4
+   ],
+   "face": "otto"
+  }
+ ],
+ "props": [],
+ "steps": [
+  {
+   "do": "say",
+   "who": "marta",
+   "text": "Otto, the first dance is yours. And the first bowl of soup.",
+   "mood": "warm",
+   "to": "otto"
+  },
+  {
+   "do": "say",
+   "who": "otto",
+   "text": "I do not dance. But I will take the soup.",
+   "mood": "warm",
+   "to": "marta"
+  },
+  [
+   {
+    "do": "act",
+    "who": "finn",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "lulu",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "bea",
+    "clip": "joy"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hugo",
+   "text": "From now on, the smithy is not the quiet house. It is the house of the bell.",
+   "mood": "joy",
+   "to": "otto"
+  },
+  {
+   "do": "say",
+   "who": "bea",
+   "text": "Next year I will ring it myself!",
+   "mood": "joy",
+   "to": "otto"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "otto",
+    "kind": "smile",
+    "dur": 4
+   },
+   {
+    "do": "emote",
+    "who": "marta",
+    "kind": "smile",
+    "dur": 4
+   }
+  ],
+  {
+   "do": "wait",
+   "dur": 2.5
+  }
+ ],
+ "objective": "The festival",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "marta": [
+    0,
+    4,
+    2
+   ],
+   "hugo": [
+    0,
+    0,
+    -3
+   ],
+   "finn": [
+    4,
+    6,
+    4
+   ],
+   "lulu": [
+    2,
+    4,
+    7
+   ],
+   "otto": [
+    -5,
+    -3,
+    -5
+   ],
+   "bea": [
+    7,
+    9,
+    7
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.6
+}

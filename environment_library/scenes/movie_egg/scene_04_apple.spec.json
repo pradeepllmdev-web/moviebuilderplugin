@@ -1,0 +1,258 @@
+{
+ "id": "apple",
+ "title": "Just hungry",
+ "intent": "Moss calms the baby raptor with an apple. He is just hungry, and lost.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "meadow",
+  "seed": 8,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     -6.0,
+     -3.0
+    ],
+    "id": "stand0",
+    "height": 0.6,
+    "size": 0.25
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     2.0,
+     -2.0
+    ],
+    "id": "stand1",
+    "height": 0.6,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "moss",
+   "at": [
+    -6.0,
+    -4.2
+   ],
+   "face": [
+    -6,
+    -3
+   ]
+  },
+  {
+   "id": "zip",
+   "at": [
+    6,
+    1
+   ],
+   "face": "moss"
+  },
+  {
+   "id": "hazel",
+   "at": [
+    -9,
+    -6
+   ],
+   "face": "moss"
+  },
+  {
+   "id": "biscuit",
+   "at": [
+    -9.5,
+    -4
+   ],
+   "face": "zip"
+  }
+ ],
+ "props": [
+  {
+   "id": "apple",
+   "kind": "apple",
+   "at": [
+    -6.0,
+    -3.0
+   ],
+   "size": 1.4,
+   "on": "stand0"
+  }
+ ],
+ "steps": [
+  {
+   "do": "take",
+   "who": "moss",
+   "prop": "apple"
+  },
+  [
+   {
+    "do": "look",
+    "who": "moss",
+    "at": "zip",
+    "dur": 1.5
+   },
+   {
+    "do": "icon",
+    "who": "moss",
+    "kind": "idea",
+    "dur": 1.8
+   }
+  ],
+  {
+   "do": "say",
+   "who": "moss",
+   "text": "Look at him. He is not angry. He is scared and hungry.",
+   "mood": "warm",
+   "to": "hazel"
+  },
+  [
+   {
+    "do": "go",
+    "who": "moss",
+    "to": [
+     1.0,
+     -2.4
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "go",
+    "who": "zip",
+    "to": [
+     4,
+     -0.6
+    ],
+    "gait": "walk"
+   }
+  ],
+  {
+   "do": "put",
+   "who": "moss",
+   "on": "stand1"
+  },
+  [
+   {
+    "do": "go",
+    "who": "moss",
+    "to": [
+     -1.4,
+     -3.4
+    ],
+    "gait": "walk"
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "zip",
+    "to": [
+     2.8,
+     -1.4
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "sfx",
+    "name": "chomp",
+    "at": 1.0,
+    "who": "zip",
+    "gain": 1.0
+   }
+  ],
+  [
+   {
+    "do": "act",
+    "who": "zip",
+    "clip": "joy"
+   },
+   {
+    "do": "icon",
+    "who": "zip",
+    "kind": "joy",
+    "dur": 2.0
+   },
+   {
+    "do": "emote",
+    "who": "moss",
+    "kind": "smile",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hazel",
+   "text": "Well, I never. He is only a baby. Where did he come from?",
+   "mood": "warm",
+   "to": "moss"
+  },
+  {
+   "do": "say",
+   "who": "moss",
+   "text": "He must have lost his mother. He is looking for her.",
+   "mood": "sad",
+   "to": "hazel"
+  }
+ ],
+ "objective": "A hungry baby",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 104,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1
+   ],
+   [
+    4,
+    1
+   ]
+  ],
+  "motifs": {
+   "hazel": [
+    0,
+    -3,
+    0
+   ],
+   "moss": [
+    4,
+    6,
+    4
+   ],
+   "zip": [
+    7,
+    6,
+    7
+   ],
+   "mama": [
+    -5,
+    -7,
+    -5
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.9
+}

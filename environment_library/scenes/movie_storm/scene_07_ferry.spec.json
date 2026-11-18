@@ -1,0 +1,286 @@
+{
+ "id": "ferry",
+ "title": "Last bell",
+ "intent": "At the last bell Pepper trips, Vesper helps her up, and they run the last steps together to hand over the letter.",
+ "extras": {
+  "n": 8,
+  "area": [
+   4,
+   -9,
+   18,
+   -1
+  ],
+  "focus": [
+   11,
+   -5
+  ],
+  "seed": 71
+ },
+ "fog": 0.45,
+ "fx": null,
+ "location": {
+  "preset": "harbor",
+  "seed": 7,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     -17.6,
+     -3.0
+    ],
+    "id": "stand5",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "dusk",
+ "ambience": "sea",
+ "music": "epic",
+ "cast": [
+  {
+   "id": "tobias",
+   "at": [
+    11.6,
+    -3.4
+   ],
+   "face": [
+    -14,
+    -3.2
+   ]
+  },
+  {
+   "id": "pepper",
+   "at": [
+    -17.6,
+    -4.2
+   ],
+   "face": [
+    -17.6,
+    -3.0
+   ]
+  },
+  {
+   "id": "vesper",
+   "at": [
+    -19.4,
+    -4.6
+   ],
+   "face": [
+    9,
+    -3.2
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "letter",
+   "kind": "letter",
+   "at": [
+    -17.6,
+    -3.0
+   ],
+   "size": 1.6,
+   "on": "stand5"
+  }
+ ],
+ "steps": [
+  {
+   "do": "take",
+   "who": "pepper",
+   "prop": "letter"
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 2.8,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 5.4,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "go",
+    "who": "pepper",
+    "to": [
+     -3,
+     -3.4
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "vesper",
+    "to": [
+     -5,
+     -4.2
+    ],
+    "gait": "run"
+   }
+  ],
+  [
+   {
+    "do": "act",
+    "who": "pepper",
+    "clip": "fall"
+   },
+   {
+    "do": "sfx",
+    "name": "thud",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   }
+  ],
+  [
+   {
+    "do": "act",
+    "who": "pepper",
+    "clip": "getup"
+   },
+   {
+    "do": "go",
+    "who": "vesper",
+    "to": [
+     -6.0,
+     -4.4
+    ],
+    "gait": "run"
+   }
+  ],
+  [
+   {
+    "do": "act",
+    "who": "vesper",
+    "clip": "nod"
+   },
+   {
+    "do": "emote",
+    "who": "pepper",
+    "kind": "smile",
+    "dur": 1.5
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "pepper",
+    "to": [
+     8.2,
+     -3.4
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "vesper",
+    "to": [
+     7.0,
+     -4.6
+    ],
+    "gait": "run"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pepper",
+   "text": "Captain! A letter from Odile! A storm is coming!",
+   "mood": "concern",
+   "to": "tobias"
+  },
+  [
+   {
+    "do": "act",
+    "who": "tobias",
+    "clip": "think"
+   },
+   {
+    "do": "sfx",
+    "name": "sting",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   }
+  ]
+ ],
+ "objective": "The last bell: 5 minutes",
+ "theme": {
+  "root": 53,
+  "mode": "dorian",
+  "tempo": 108,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "pepper": [
+    7,
+    6,
+    4
+   ],
+   "vesper": [
+    0,
+    3,
+    5
+   ],
+   "odile": [
+    2,
+    0,
+    -2
+   ],
+   "tobias": [
+    -5,
+    -3,
+    -5
+   ],
+   "grub": [
+    0,
+    0,
+    -3
+   ],
+   "mo": [
+    2,
+    1,
+    -1
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 1.0
+}

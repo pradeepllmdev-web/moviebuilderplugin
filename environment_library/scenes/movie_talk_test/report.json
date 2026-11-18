@@ -1,0 +1,105 @@
+{
+ "plan": {
+  "scenes": [
+   {
+    "index": 1,
+    "title": "In the council hall the elders argue about the q",
+    "text": "In the council hall the elders argue about the quest.\nElder (angry): \"No one has ever returned from the ice cave!\"\nLeo (serious): \"Then no one has ever tried with a friend beside them.\"\nMara (warm): \"I will go with him. Someone has to keep him out of trouble.\"\nElder (sad): \"Then take the old map, and come back to us.\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Elder",
+       "mood": "angry",
+       "text": "No one has ever returned from the ice cave!"
+      },
+      {
+       "speaker": "Leo",
+       "mood": "serious",
+       "text": "Then no one has ever tried with a friend beside them."
+      },
+      {
+       "speaker": "Mara",
+       "mood": "warm",
+       "text": "I will go with him. Someone has to keep him out of trouble."
+      },
+      {
+       "speaker": "Elder",
+       "mood": "sad",
+       "text": "Then take the old map, and come back to us."
+      }
+     ],
+     "setting": "hall"
+    },
+    "seconds": 22,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 2,
+    "title": "In the ice cave Leo leaps between drifting ice f",
+    "text": "In the ice cave Leo leaps between drifting ice floes while stalactites crash around him.",
+    "builder": "set_piece",
+    "piece": "ice",
+    "location": "ice_cave",
+    "params": {},
+    "seconds": 40,
+    "missing": [],
+    "time_of_day": null
+   }
+  ],
+  "total_seconds": 62,
+  "estimated_build_minutes": 4.0,
+  "warnings": [],
+  "hash": "02ad9f3fa1"
+ },
+ "report": [
+  {
+   "index": 1,
+   "title": "In the council hall the elders argue about the q",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Elder",
+      "mood": "angry",
+      "text": "No one has ever returned from the ice cave!"
+     },
+     {
+      "speaker": "Leo",
+      "mood": "serious",
+      "text": "Then no one has ever tried with a friend beside them."
+     },
+     {
+      "speaker": "Mara",
+      "mood": "warm",
+      "text": "I will go with him. Someone has to keep him out of trouble."
+     },
+     {
+      "speaker": "Elder",
+      "mood": "sad",
+      "text": "Then take the old map, and come back to us."
+     }
+    ],
+    "setting": "hall"
+   },
+   "seconds": 22,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_talk_test\\scene_01_talk.blend"
+  },
+  {
+   "index": 2,
+   "title": "In the ice cave Leo leaps between drifting ice f",
+   "piece": "ice",
+   "params": {},
+   "seconds": 40,
+   "status": "built in 11s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_talk_test\\scene_02_ice.blend"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_talk_test\\movie.blend"
+}

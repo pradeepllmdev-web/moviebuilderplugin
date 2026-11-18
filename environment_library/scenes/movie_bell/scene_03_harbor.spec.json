@@ -1,0 +1,188 @@
+{
+ "id": "harbor",
+ "title": "Clue one: the harbour",
+ "intent": "At the harbour, Finn and Bea find deep wheel marks leading toward the smithy.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "harbor",
+  "seed": 4
+ },
+ "time": "day",
+ "ambience": "sea",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "finn",
+   "at": [
+    -10,
+    -2.6
+   ],
+   "face": [
+    0,
+    -3
+   ]
+  },
+  {
+   "id": "bea",
+   "at": [
+    -12,
+    -3.2
+   ],
+   "face": [
+    0,
+    -3
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "finn",
+    "to": [
+     -3,
+     -1.0
+    ],
+    "gait": "bounce"
+   },
+   {
+    "do": "go",
+    "who": "bea",
+    "to": [
+     -5,
+     0.2
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "finn",
+   "text": "No bell in the boats. No bell in the nets. Only fish.",
+   "mood": "concern",
+   "to": "bea"
+  },
+  {
+   "do": "point",
+   "who": "bea",
+   "at": [
+    -1,
+    1.8
+   ],
+   "dur": 1.4,
+   "hand": "R"
+  },
+  [
+   {
+    "do": "look",
+    "who": "bea",
+    "at": [
+     -1,
+     1.8
+    ],
+    "dur": 1.5
+   },
+   {
+    "do": "act",
+    "who": "bea",
+    "clip": "kneel"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "bea",
+   "text": "Finn, look! Wheel marks. Deep ones, like something heavy.",
+   "mood": "concern",
+   "to": "finn"
+  },
+  {
+   "do": "say",
+   "who": "finn",
+   "text": "Heavy and heading up the hill road. Toward the smithy!",
+   "mood": "serious",
+   "to": "bea"
+  },
+  [
+   {
+    "do": "act",
+    "who": "finn",
+    "clip": "cut"
+   },
+   {
+    "do": "act",
+    "who": "bea",
+    "clip": "joy"
+   }
+  ]
+ ],
+ "objective": "Clue 1: heavy wheel marks",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "marta": [
+    0,
+    4,
+    2
+   ],
+   "hugo": [
+    0,
+    0,
+    -3
+   ],
+   "finn": [
+    4,
+    6,
+    4
+   ],
+   "lulu": [
+    2,
+    4,
+    7
+   ],
+   "otto": [
+    -5,
+    -3,
+    -5
+   ],
+   "bea": [
+    7,
+    9,
+    7
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.625
+}

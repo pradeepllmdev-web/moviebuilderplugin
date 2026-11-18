@@ -1,0 +1,208 @@
+{
+ "version": 1,
+ "characters": [
+  {
+   "id": "rue",
+   "name": "Captain Rue",
+   "species": "bear",
+   "posture": "tired",
+   "outfit": "fisherman",
+   "colors": [
+    [
+     0.2,
+     0.35,
+     0.6
+    ],
+    [
+     0.95,
+     0.75,
+     0.12
+    ],
+    [
+     0.2,
+     0.27,
+     0.38
+    ]
+   ],
+   "description": "a worried fishing captain",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 132,
+    "f0": 95.0,
+    "shift": 0.93,
+    "rate": 1.12
+   }
+  },
+  {
+   "id": "pim",
+   "name": "Mayor Pim",
+   "species": "badger",
+   "posture": "proud",
+   "outfit": "mayor",
+   "colors": [
+    [
+     0.5,
+     0.12,
+     0.2
+    ],
+    [
+     0.9,
+     0.8,
+     0.3
+    ],
+    [
+     0.22,
+     0.15,
+     0.1
+    ]
+   ],
+   "description": "the mayor in a plum suit and top hat",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 385,
+    "f0": 105.5,
+    "shift": 1.004,
+    "rate": 1.02
+   }
+  },
+  {
+   "id": "dot",
+   "name": "Dot",
+   "species": "fox",
+   "posture": "hurried",
+   "outfit": "child",
+   "colors": [
+    [
+     0.9,
+     0.55,
+     0.2
+    ],
+    [
+     0.3,
+     0.6,
+     0.6
+    ],
+    [
+     0.3,
+     0.3,
+     0.45
+    ],
+    [
+     0.4,
+     0.28,
+     0.2
+    ]
+   ],
+   "description": "the captain\u2019s brave daughter",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_GB-cori-high",
+    "speaker": 0,
+    "f0": 214.1,
+    "shift": 1.004,
+    "rate": 0.88
+   }
+  },
+  {
+   "id": "sal",
+   "name": "Sal",
+   "species": "wolf",
+   "posture": "angry",
+   "outfit": "cowboy",
+   "colors": [
+    [
+     0.55,
+     0.2,
+     0.2
+    ],
+    [
+     0.4,
+     0.3,
+     0.18
+    ],
+    [
+     0.3,
+     0.38,
+     0.55
+    ],
+    [
+     0.28,
+     0.18,
+     0.1
+    ],
+    [
+     0.8,
+     0.6,
+     0.3
+    ]
+   ],
+   "description": "the market trader, quick to shout",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 22,
+    "f0": 92.5,
+    "shift": 0.93,
+    "rate": 0.95
+   }
+  },
+  {
+   "id": "nell",
+   "name": "Nell",
+   "species": "rabbit",
+   "posture": "neutral",
+   "outfit": "villageress",
+   "colors": [
+    [
+     0.3,
+     0.5,
+     0.4
+    ],
+    [
+     0.93,
+     0.9,
+     0.85
+    ],
+    [
+     0.42,
+     0.27,
+     0.17
+    ]
+   ],
+   "description": "the baker, who wants everyone fed",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-lessac-high",
+    "speaker": 0,
+    "f0": 218.3,
+    "shift": 1.01,
+    "rate": 1.0
+   }
+  },
+  {
+   "id": "ferris",
+   "name": "Brother Ferris",
+   "species": "heron",
+   "posture": "tired",
+   "outfit": "monk",
+   "colors": [
+    [
+     0.5,
+     0.38,
+     0.25
+    ]
+   ],
+   "description": "the tall guard monk who falls asleep",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 594,
+    "f0": 175.0,
+    "shift": 0.997,
+    "rate": 1.12
+   }
+  }
+ ]
+}

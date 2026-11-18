@@ -1,0 +1,260 @@
+{
+ "film": "silent_bell",
+ "records": [
+  {
+   "index": 1,
+   "id": "empty_stand",
+   "title": "The empty stand",
+   "key": "078d706b9358",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\scene_01_empty_stand.blend",
+   "status": "built in 14s",
+   "audit": [],
+   "seconds": 34.1,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.1397792836750551,
+    "reach": 0.15106903984597866,
+    "eye_speaker": 7.34921656254096,
+    "eye_listener": 4.899024521222285,
+    "framing_misses": 0,
+    "framing_checked": 6
+   },
+   "lines": 4,
+   "cuts": 10,
+   "cast": [
+    "marta",
+    "hugo",
+    "bea"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\sheets\\scene_01_empty_stand.png"
+  },
+  {
+   "index": 2,
+   "id": "plan",
+   "title": "Splitting up",
+   "key": "c4073038ef2b",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\scene_02_plan.blend",
+   "status": "built in 17s",
+   "audit": [],
+   "seconds": 30.8,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.09612862959735138,
+    "reach": 0.0,
+    "eye_speaker": 9.429085641838634,
+    "eye_listener": 10.545149394568757,
+    "framing_misses": 0,
+    "framing_checked": 3
+   },
+   "lines": 3,
+   "cuts": 7,
+   "cast": [
+    "hugo",
+    "marta",
+    "finn",
+    "lulu",
+    "bea"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\sheets\\scene_02_plan.png"
+  },
+  {
+   "index": 3,
+   "id": "harbor",
+   "title": "Clue one: the harbour",
+   "key": "adf97632f665",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\scene_03_harbor.blend",
+   "status": "built in 13s",
+   "audit": [],
+   "seconds": 36.5,
+   "stats": {
+    "ground_lift": 0.11928010385774752,
+    "foot_slip": 0.09020036626109373,
+    "reach": 0.1405309685706985,
+    "eye_speaker": 11.16922419026912,
+    "eye_listener": 9.624964092127962,
+    "framing_misses": 0,
+    "framing_checked": 5
+   },
+   "lines": 3,
+   "cuts": 9,
+   "cast": [
+    "finn",
+    "bea"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\sheets\\scene_03_harbor.png"
+  },
+  {
+   "index": 4,
+   "id": "market",
+   "title": "Clue two: the painting",
+   "key": "0dda2723cf1f",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\scene_04_market.blend",
+   "status": "built in 18s",
+   "audit": [],
+   "seconds": 31.7,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.13732866235993121,
+    "reach": 0.09295406607510819,
+    "eye_speaker": 6.361714971974595,
+    "eye_listener": 6.461619565030443,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 4,
+   "cuts": 7,
+   "cast": [
+    "lulu",
+    "marta",
+    "hugo"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\sheets\\scene_04_market.png"
+  },
+  {
+   "index": 5,
+   "id": "march",
+   "title": "To the smithy",
+   "key": "e4de879ec120",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\scene_05_march.blend",
+   "status": "built in 15s",
+   "audit": [],
+   "seconds": 25.5,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.11886998454697495,
+    "reach": 0.0,
+    "eye_speaker": 4.049631336501397,
+    "eye_listener": 8.366103460239096,
+    "framing_misses": 0,
+    "framing_checked": 3
+   },
+   "lines": 3,
+   "cuts": 6,
+   "cast": [
+    "hugo",
+    "marta",
+    "finn",
+    "bea",
+    "lulu"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\sheets\\scene_05_march.png"
+  },
+  {
+   "index": 6,
+   "id": "smithy",
+   "title": "The smithy",
+   "key": "1ef8888cb44d",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\scene_06_smithy.blend",
+   "status": "built in 15s",
+   "audit": [],
+   "seconds": 36.6,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 0.003246625885063368,
+    "eye_speaker": 2.5658389243997193,
+    "eye_listener": 5.092357827221807,
+    "framing_misses": 0,
+    "framing_checked": 5
+   },
+   "lines": 4,
+   "cuts": 7,
+   "cast": [
+    "otto",
+    "hugo",
+    "marta",
+    "bea"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\sheets\\scene_06_smithy.png"
+  },
+  {
+   "index": 7,
+   "id": "procession",
+   "title": "Bringing it home",
+   "key": "b50d24b71f90",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\scene_07_procession.blend",
+   "status": "built in 18s",
+   "audit": [],
+   "seconds": 19.4,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.1699572531225804,
+    "reach": 2.9510259026350377e-05,
+    "eye_speaker": 7.0765022470759495,
+    "eye_listener": 21.378098125994235,
+    "framing_misses": 0,
+    "framing_checked": 3
+   },
+   "lines": 2,
+   "cuts": 5,
+   "cast": [
+    "otto",
+    "bea",
+    "marta",
+    "hugo"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\sheets\\scene_07_procession.png"
+  },
+  {
+   "index": 8,
+   "id": "ring",
+   "title": "The bell rings",
+   "key": "5d0f4f2be320",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\scene_08_ring.blend",
+   "status": "built in 27s",
+   "audit": [],
+   "seconds": 36.2,
+   "stats": {
+    "ground_lift": 0.05154473458163944,
+    "foot_slip": 0.10548686089080092,
+    "reach": 0.0023271568773534155,
+    "eye_speaker": 2.2033870542081266,
+    "eye_listener": 3.9502618052602028,
+    "framing_misses": 0,
+    "framing_checked": 5
+   },
+   "lines": 1,
+   "cuts": 7,
+   "cast": [
+    "otto",
+    "bea",
+    "marta",
+    "hugo"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\sheets\\scene_08_ring.png"
+  },
+  {
+   "index": 9,
+   "id": "festival",
+   "title": "Festival night",
+   "key": "c584d1576877",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\scene_09_festival.blend",
+   "status": "built in 30s",
+   "audit": [],
+   "seconds": 32.0,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 0.0,
+    "eye_speaker": 3.8367546757049706,
+    "eye_listener": 8.815821516444856,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 4,
+   "cuts": 7,
+   "cast": [
+    "marta",
+    "otto",
+    "bea",
+    "hugo",
+    "finn",
+    "lulu"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\sheets\\scene_09_festival.png"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_bell\\movie.blend",
+ "total_seconds": 282.8,
+ "audit_lines": 0
+}

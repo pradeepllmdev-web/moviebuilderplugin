@@ -1,0 +1,126 @@
+{
+ "id": "feast",
+ "title": "The Golden Spoon",
+ "seconds": 34.833333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "orin runs",
+   "t0": 2.5,
+   "t1": 5.333333333333333,
+   "kind": "track",
+   "subject": "orin"
+  },
+  {
+   "name": "orin speaks",
+   "t0": 5.333333333333333,
+   "t1": 10.708333333333334,
+   "kind": "medium",
+   "subject": "orin"
+  },
+  {
+   "name": "orin speaks",
+   "t0": 10.708333333333334,
+   "t1": 14.916666666666666,
+   "kind": "medium",
+   "subject": "orin"
+  },
+  {
+   "name": "tilda bow",
+   "t0": 14.916666666666666,
+   "t1": 21.916666666666668,
+   "kind": "medium",
+   "subject": "tilda"
+  },
+  {
+   "name": "gus speaks",
+   "t0": 21.916666666666668,
+   "t1": 24.833333333333332,
+   "kind": "medium",
+   "subject": "gus"
+  },
+  {
+   "name": "tilda speaks",
+   "t0": 24.833333333333332,
+   "t1": 27.083333333333332,
+   "kind": "medium",
+   "subject": "tilda"
+  },
+  {
+   "name": "fen walks",
+   "t0": 27.083333333333332,
+   "t1": 31.633333333333336,
+   "kind": "track",
+   "subject": "fen"
+  },
+  {
+   "name": "end",
+   "t0": 31.633333333333336,
+   "t1": 34.833333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "orin",
+   "to": "tilda",
+   "mood": "joy",
+   "text": "Neighbours! This year the Golden Spoon does not go to the biggest pie.",
+   "t0": 6.536666666666667,
+   "t1": 10.641836734693879
+  },
+  {
+   "k": 1,
+   "speaker": "orin",
+   "to": "tilda",
+   "mood": "joy",
+   "text": "It goes to the kindest baker. Tilda, who forgave a hungry boy.",
+   "t0": 10.828333333333333,
+   "t1": 14.854954648526077
+  },
+  {
+   "k": 2,
+   "speaker": "gus",
+   "to": "orin",
+   "mood": "joy",
+   "text": "And I get the first slice, because I was blamed!",
+   "t0": 22.03666666666667,
+   "t1": 24.74936507936508
+  },
+  {
+   "k": 3,
+   "speaker": "tilda",
+   "to": "gus",
+   "mood": "warm",
+   "text": "The first slice is for Old Fen.",
+   "t0": 24.953333333333333,
+   "t1": 27.01814058956916
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "orin",
+  "tilda",
+  "pip",
+  "fen",
+  "rosa",
+  "gus"
+ ],
+ "stats": {
+  "ground_lift": 0.04053398667076231,
+  "foot_slip": 0.26924569147656496,
+  "reach": 0.0,
+  "eye_speaker": 4.633477653083945,
+  "eye_listener": 4.049120675649776,
+  "framing_misses": 0,
+  "framing_checked": 7
+ }
+}

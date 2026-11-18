@@ -1,0 +1,95 @@
+{
+ "id": "march",
+ "title": "To the smithy",
+ "seconds": 25.5,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "marta and company",
+   "t0": 2.5,
+   "t1": 6.0,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "hugo speaks",
+   "t0": 6.0,
+   "t1": 12.333333333333334,
+   "kind": "medium",
+   "subject": "hugo"
+  },
+  {
+   "name": "finn speaks",
+   "t0": 12.333333333333334,
+   "t1": 15.916666666666666,
+   "kind": "two",
+   "subject": "finn"
+  },
+  {
+   "name": "bea runs",
+   "t0": 15.916666666666666,
+   "t1": 22.3,
+   "kind": "track",
+   "subject": "bea"
+  },
+  {
+   "name": "end",
+   "t0": 22.3,
+   "t1": 25.5,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "hugo",
+   "to": "marta",
+   "mood": "angry",
+   "text": "The blacksmith hates noise. He took the bell to silence it!",
+   "t0": 7.203333333333333,
+   "t1": 10.628185941043084
+  },
+  {
+   "k": 1,
+   "speaker": "marta",
+   "to": "hugo",
+   "mood": "concern",
+   "text": "Otto would never.",
+   "t0": 10.828333333333333,
+   "t1": 12.25187074829932
+  },
+  {
+   "k": 2,
+   "speaker": "finn",
+   "to": "hugo",
+   "mood": "serious",
+   "text": "We will see. The smithy is just over the hill.",
+   "t0": 13.536666666666665,
+   "t1": 15.838571428571427
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "hugo",
+  "marta",
+  "finn",
+  "bea",
+  "lulu"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.11886998454697495,
+  "reach": 0.0,
+  "eye_speaker": 4.049631336501397,
+  "eye_listener": 8.366103460239096,
+  "framing_misses": 0,
+  "framing_checked": 3
+ }
+}

@@ -1,0 +1,110 @@
+{
+ "id": "smithy",
+ "title": "The smithy",
+ "seconds": 36.583333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 4.666666666666667,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "hugo speaks",
+   "t0": 4.666666666666667,
+   "t1": 12.75,
+   "kind": "medium",
+   "subject": "hugo"
+  },
+  {
+   "name": "otto speaks",
+   "t0": 12.75,
+   "t1": 19.416666666666668,
+   "kind": "medium",
+   "subject": "otto"
+  },
+  {
+   "name": "marta speaks",
+   "t0": 19.416666666666668,
+   "t1": 22.333333333333332,
+   "kind": "medium",
+   "subject": "marta"
+  },
+  {
+   "name": "hugo speaks",
+   "t0": 22.333333333333332,
+   "t1": 25.5,
+   "kind": "medium",
+   "subject": "hugo"
+  },
+  {
+   "name": "bea cele",
+   "t0": 25.5,
+   "t1": 33.38333333333333,
+   "kind": "medium",
+   "subject": "bea"
+  },
+  {
+   "name": "end",
+   "t0": 33.38333333333333,
+   "t1": 36.583333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "hugo",
+   "to": "otto",
+   "mood": "angry",
+   "text": "Otto! You took our festival bell!",
+   "t0": 5.87,
+   "t1": 8.149319727891157
+  },
+  {
+   "k": 1,
+   "speaker": "otto",
+   "to": "hugo",
+   "mood": "warm",
+   "text": "It cracked at the last festival. I mended it at dawn. A gift. I wanted no fuss.",
+   "t0": 12.87,
+   "t1": 19.33312925170068
+  },
+  {
+   "k": 2,
+   "speaker": "marta",
+   "to": "otto",
+   "mood": "joy",
+   "text": "Otto. It is perfect.",
+   "t0": 20.62,
+   "t1": 22.264126984126985
+  },
+  {
+   "k": 3,
+   "speaker": "hugo",
+   "to": "otto",
+   "mood": "concern",
+   "text": "Ahem. I may have shouted a little too early.",
+   "t0": 22.453333333333333,
+   "t1": 25.42049886621315
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "otto",
+  "hugo",
+  "marta",
+  "bea"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.003246625885063368,
+  "eye_speaker": 2.5658389243997193,
+  "eye_listener": 5.092357827221807,
+  "framing_misses": 0,
+  "framing_checked": 5
+ }
+}

@@ -1,0 +1,627 @@
+{
+ "plan": {
+  "scenes": [
+   {
+    "index": 1,
+    "title": "Around the campfire Leo and Mara plan the quest",
+    "text": "Around the campfire Leo and Mara plan the quest for the moon crystal.\nMara (serious): \"The old map says the crystal sleeps beneath the observatory dome.\"\nLeo (warm): \"Then at moonrise we wake it.\"\nMara (concern): \"If the Rival gets there first, the valley will never see the sun again.\"\nLeo (serious): \"He will not get there first.\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Mara",
+       "mood": "serious",
+       "text": "The old map says the crystal sleeps beneath the observatory dome."
+      },
+      {
+       "speaker": "Leo",
+       "mood": "warm",
+       "text": "Then at moonrise we wake it."
+      },
+      {
+       "speaker": "Mara",
+       "mood": "concern",
+       "text": "If the Rival gets there first, the valley will never see the sun again."
+      },
+      {
+       "speaker": "Leo",
+       "mood": "serious",
+       "text": "He will not get there first."
+      }
+     ],
+     "setting": "campfire"
+    },
+    "seconds": 21,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 2,
+    "title": "At night in the old observatory Leo turns the mi",
+    "text": "At night in the old observatory Leo turns the mirror wheels until a moonbeam strikes the crystal and the dome opens.",
+    "builder": "set_piece",
+    "piece": "observatory",
+    "location": "observatory",
+    "params": {
+     "time_of_day": "night"
+    },
+    "seconds": 45,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 3,
+    "title": "A thief snatches the star map and Leo chases him",
+    "text": "A thief snatches the star map and Leo chases him through the crowded night market, vaulting the crates he topples.",
+    "builder": "set_piece",
+    "piece": "market",
+    "location": "night_market",
+    "params": {
+     "time_of_day": "night"
+    },
+    "seconds": 45,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 4,
+    "title": "Around the campfire Mara bandages Leo's hand whi",
+    "text": "Around the campfire Mara bandages Leo's hand while Tarn the scout brings news.\nTarn (concern): \"The thief took the road through the swamp. The Rival's men are with him.\"\nLeo (angry): \"Then we follow him through the swamp and we do not stop.\"\nMara (warm): \"You will not be going alone.\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Tarn",
+       "mood": "concern",
+       "text": "The thief took the road through the swamp. The Rival's men are with him."
+      },
+      {
+       "speaker": "Leo",
+       "mood": "angry",
+       "text": "Then we follow him through the swamp and we do not stop."
+      },
+      {
+       "speaker": "Mara",
+       "mood": "warm",
+       "text": "You will not be going alone."
+      }
+     ],
+     "setting": "campfire"
+    },
+    "seconds": 16,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 5,
+    "title": "Leo poles a punt through the mangrove swamp whil",
+    "text": "Leo poles a punt through the mangrove swamp while crocodiles lunge from the dark water.",
+    "builder": "set_piece",
+    "piece": "swamp",
+    "location": "swamp",
+    "params": {},
+    "seconds": 50,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 6,
+    "title": "Deep in the jungle Leo swings from vine to vine",
+    "text": "Deep in the jungle Leo swings from vine to vine across a ravine toward the ancient temple.",
+    "builder": "set_piece",
+    "piece": "jungle",
+    "location": "jungle_temple",
+    "params": {},
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 7,
+    "title": "Inside the desert temple a giant boulder is rele",
+    "text": "Inside the desert temple a giant boulder is released and Leo outruns it, jumps the pit and slides under the closing door.",
+    "builder": "set_piece",
+    "piece": "ruins",
+    "location": "desert_ruins",
+    "params": {},
+    "seconds": 28,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 8,
+    "title": "Around the campfire the travellers rest after th",
+    "text": "Around the campfire the travellers rest after the temple and the cold wind turns to snow.\nMara (sad): \"I thought we had lost you in the temple.\"\nLeo (warm): \"You will not lose me that easily.\"\nTarn (joy): \"Look, the pass to the ice cave is open. We can reach the north by morning!\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Mara",
+       "mood": "sad",
+       "text": "I thought we had lost you in the temple."
+      },
+      {
+       "speaker": "Leo",
+       "mood": "warm",
+       "text": "You will not lose me that easily."
+      },
+      {
+       "speaker": "Tarn",
+       "mood": "joy",
+       "text": "Look, the pass to the ice cave is open. We can reach the north by morning!"
+      }
+     ],
+     "setting": "campfire",
+     "time_of_day": "day"
+    },
+    "seconds": 17,
+    "missing": [],
+    "time_of_day": "day"
+   },
+   {
+    "index": 9,
+    "title": "In the ice cave Leo leaps between drifting ice f",
+    "text": "In the ice cave Leo leaps between drifting ice floes while stalactites crash around him.",
+    "builder": "set_piece",
+    "piece": "ice",
+    "location": "ice_cave",
+    "params": {},
+    "seconds": 40,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 10,
+    "title": "At the volcano forge Leo hammers a glowing sword",
+    "text": "At the volcano forge Leo hammers a glowing sword on the anvil beside the lava river and quenches it.",
+    "builder": "set_piece",
+    "piece": "forge",
+    "location": "forge",
+    "params": {},
+    "seconds": 45,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 11,
+    "title": "Leo dives into the coral reef, opens a giant cla",
+    "text": "Leo dives into the coral reef, opens a giant clam for the pearl and escapes a shark.",
+    "builder": "set_piece",
+    "piece": "reef",
+    "location": "reef",
+    "params": {},
+    "seconds": 55,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 12,
+    "title": "Leo sprints across the rotten rope bridge as the",
+    "text": "Leo sprints across the rotten rope bridge as the planks fall away behind him.",
+    "builder": "set_piece",
+    "piece": "bridge",
+    "location": "gorge_bridge",
+    "params": {},
+    "seconds": 20,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 13,
+    "title": "Leo crosses the floating city, riding the moving",
+    "text": "Leo crosses the floating city, riding the moving platforms above the clouds.",
+    "builder": "set_piece",
+    "piece": "sky",
+    "location": null,
+    "params": {},
+    "seconds": 40,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 14,
+    "title": "In the council hall the elder gives Leo the last",
+    "text": "In the council hall the elder gives Leo the last key before the final climb.\nElder (serious): \"The Rival has woken the stone giant, and only the core in its chest can stop it.\"\nLeo (serious): \"Then I will take the core from its chest.\"\nElder (concern): \"Be careful. Nobody has climbed it and come down.\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Elder",
+       "mood": "serious",
+       "text": "The Rival has woken the stone giant, and only the core in its chest can stop it."
+      },
+      {
+       "speaker": "Leo",
+       "mood": "serious",
+       "text": "Then I will take the core from its chest."
+      },
+      {
+       "speaker": "Elder",
+       "mood": "concern",
+       "text": "Be careful. Nobody has climbed it and come down."
+      }
+     ],
+     "setting": "hall"
+    },
+    "seconds": 19,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 15,
+    "title": "A stone giant lifts its arm and Leo rides the pa",
+    "text": "A stone giant lifts its arm and Leo rides the palm, walks to the shoulder and pulls the glowing core from its chest.",
+    "builder": "set_piece",
+    "piece": "colossus",
+    "location": "colossus_valley",
+    "params": {},
+    "seconds": 55,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 16,
+    "title": "At sunset Leo rides a dragon through the canyon",
+    "text": "At sunset Leo rides a dragon through the canyon between the rock spires and under the stone arch.",
+    "builder": "set_piece",
+    "piece": "flight",
+    "location": "sky_canyon",
+    "params": {
+     "time_of_day": "dusk"
+    },
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": "dusk"
+   },
+   {
+    "index": 17,
+    "title": "On the moonlit tower the rival mage and Leo trad",
+    "text": "On the moonlit tower the rival mage and Leo trade spells in a magic duel, and Leo's shield turns the last spell back.",
+    "builder": "set_piece",
+    "piece": "duel",
+    "location": null,
+    "params": {
+     "time_of_day": "night"
+    },
+    "seconds": 38,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 18,
+    "title": "Around the campfire the travellers laugh togethe",
+    "text": "Around the campfire the travellers laugh together at last.\nMara (joy): \"You did it! The valley will see the sun again!\"\nLeo (warm): \"We did it. All of us.\"\nTarn (joy): \"Then let us go home!\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Mara",
+       "mood": "joy",
+       "text": "You did it! The valley will see the sun again!"
+      },
+      {
+       "speaker": "Leo",
+       "mood": "warm",
+       "text": "We did it. All of us."
+      },
+      {
+       "speaker": "Tarn",
+       "mood": "joy",
+       "text": "Then let us go home!"
+      }
+     ],
+     "setting": "campfire"
+    },
+    "seconds": 14,
+    "missing": [],
+    "time_of_day": null
+   }
+  ],
+  "total_seconds": 620,
+  "estimated_build_minutes": 36.0,
+  "warnings": [],
+  "hash": "5bc348a899"
+ },
+ "report": [
+  {
+   "index": 1,
+   "title": "Around the campfire Leo and Mara plan the quest",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Mara",
+      "mood": "serious",
+      "text": "The old map says the crystal sleeps beneath the observatory dome."
+     },
+     {
+      "speaker": "Leo",
+      "mood": "warm",
+      "text": "Then at moonrise we wake it."
+     },
+     {
+      "speaker": "Mara",
+      "mood": "concern",
+      "text": "If the Rival gets there first, the valley will never see the sun again."
+     },
+     {
+      "speaker": "Leo",
+      "mood": "serious",
+      "text": "He will not get there first."
+     }
+    ],
+    "setting": "campfire"
+   },
+   "seconds": 21,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_01_talk.blend"
+  },
+  {
+   "index": 2,
+   "title": "At night in the old observatory Leo turns the mi",
+   "piece": "observatory",
+   "params": {
+    "time_of_day": "night"
+   },
+   "seconds": 45,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_02_observatory.blend"
+  },
+  {
+   "index": 3,
+   "title": "A thief snatches the star map and Leo chases him",
+   "piece": "market",
+   "params": {
+    "time_of_day": "night"
+   },
+   "seconds": 45,
+   "status": "built in 32s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_03_market.blend"
+  },
+  {
+   "index": 4,
+   "title": "Around the campfire Mara bandages Leo's hand whi",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Tarn",
+      "mood": "concern",
+      "text": "The thief took the road through the swamp. The Rival's men are with him."
+     },
+     {
+      "speaker": "Leo",
+      "mood": "angry",
+      "text": "Then we follow him through the swamp and we do not stop."
+     },
+     {
+      "speaker": "Mara",
+      "mood": "warm",
+      "text": "You will not be going alone."
+     }
+    ],
+    "setting": "campfire"
+   },
+   "seconds": 16,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_04_talk.blend"
+  },
+  {
+   "index": 5,
+   "title": "Leo poles a punt through the mangrove swamp whil",
+   "piece": "swamp",
+   "params": {},
+   "seconds": 50,
+   "status": "built in 43s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_05_swamp.blend"
+  },
+  {
+   "index": 6,
+   "title": "Deep in the jungle Leo swings from vine to vine",
+   "piece": "jungle",
+   "params": {},
+   "seconds": 36,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_06_jungle.blend"
+  },
+  {
+   "index": 7,
+   "title": "Inside the desert temple a giant boulder is rele",
+   "piece": "ruins",
+   "params": {},
+   "seconds": 28,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_07_ruins.blend"
+  },
+  {
+   "index": 8,
+   "title": "Around the campfire the travellers rest after th",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Mara",
+      "mood": "sad",
+      "text": "I thought we had lost you in the temple."
+     },
+     {
+      "speaker": "Leo",
+      "mood": "warm",
+      "text": "You will not lose me that easily."
+     },
+     {
+      "speaker": "Tarn",
+      "mood": "joy",
+      "text": "Look, the pass to the ice cave is open. We can reach the north by morning!"
+     }
+    ],
+    "setting": "campfire",
+    "time_of_day": "day"
+   },
+   "seconds": 17,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_08_talk.blend"
+  },
+  {
+   "index": 9,
+   "title": "In the ice cave Leo leaps between drifting ice f",
+   "piece": "ice",
+   "params": {},
+   "seconds": 40,
+   "status": "built in 10s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_09_ice.blend"
+  },
+  {
+   "index": 10,
+   "title": "At the volcano forge Leo hammers a glowing sword",
+   "piece": "forge",
+   "params": {},
+   "seconds": 45,
+   "status": "built in 17s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_10_forge.blend"
+  },
+  {
+   "index": 11,
+   "title": "Leo dives into the coral reef, opens a giant cla",
+   "piece": "reef",
+   "params": {},
+   "seconds": 55,
+   "status": "built in 47s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_11_reef.blend"
+  },
+  {
+   "index": 12,
+   "title": "Leo sprints across the rotten rope bridge as the",
+   "piece": "bridge",
+   "params": {},
+   "seconds": 20,
+   "status": "built in 14s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_12_bridge.blend"
+  },
+  {
+   "index": 13,
+   "title": "Leo crosses the floating city, riding the moving",
+   "piece": "sky",
+   "params": {},
+   "seconds": 40,
+   "status": "built in 6s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_13_sky.blend"
+  },
+  {
+   "index": 14,
+   "title": "In the council hall the elder gives Leo the last",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Elder",
+      "mood": "serious",
+      "text": "The Rival has woken the stone giant, and only the core in its chest can stop it."
+     },
+     {
+      "speaker": "Leo",
+      "mood": "serious",
+      "text": "Then I will take the core from its chest."
+     },
+     {
+      "speaker": "Elder",
+      "mood": "concern",
+      "text": "Be careful. Nobody has climbed it and come down."
+     }
+    ],
+    "setting": "hall"
+   },
+   "seconds": 19,
+   "status": "built in 6s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_14_talk.blend"
+  },
+  {
+   "index": 15,
+   "title": "A stone giant lifts its arm and Leo rides the pa",
+   "piece": "colossus",
+   "params": {},
+   "seconds": 55,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_15_colossus.blend"
+  },
+  {
+   "index": 16,
+   "title": "At sunset Leo rides a dragon through the canyon",
+   "piece": "flight",
+   "params": {
+    "time_of_day": "dusk"
+   },
+   "seconds": 36,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_16_flight.blend"
+  },
+  {
+   "index": 17,
+   "title": "On the moonlit tower the rival mage and Leo trad",
+   "piece": "duel",
+   "params": {
+    "time_of_day": "night"
+   },
+   "seconds": 38,
+   "status": "built in 12s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_17_duel.blend"
+  },
+  {
+   "index": 18,
+   "title": "Around the campfire the travellers laugh togethe",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Mara",
+      "mood": "joy",
+      "text": "You did it! The valley will see the sun again!"
+     },
+     {
+      "speaker": "Leo",
+      "mood": "warm",
+      "text": "We did it. All of us."
+     },
+     {
+      "speaker": "Tarn",
+      "mood": "joy",
+      "text": "Then let us go home!"
+     }
+    ],
+    "setting": "campfire"
+   },
+   "seconds": 14,
+   "status": "built in 6s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\scene_18_talk.blend"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_moon_crystal\\movie.blend"
+}

@@ -1,0 +1,217 @@
+{
+ "id": "chase",
+ "title": "The chase",
+ "intent": "Pepper races after Vesper through the market and past an angry toll keeper.",
+ "extras": null,
+ "fog": 0.3,
+ "fx": null,
+ "location": {
+  "preset": "market",
+  "seed": 6
+ },
+ "time": "dusk",
+ "ambience": "market",
+ "music": "epic",
+ "cast": [
+  {
+   "id": "vesper",
+   "at": [
+    16.0,
+    -4.4
+   ],
+   "face": [
+    16,
+    -6
+   ]
+  },
+  {
+   "id": "pepper",
+   "at": [
+    -1.66,
+    -4.72
+   ],
+   "face": [
+    16,
+    -6
+   ]
+  },
+  {
+   "id": "grub",
+   "at": [
+    -1,
+    -1.5
+   ],
+   "face": [
+    -1,
+    -6
+   ]
+  },
+  {
+   "id": "mo",
+   "at": [
+    -2.4,
+    -4.4
+   ],
+   "face": [
+    2.2,
+    -6.36
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "sfx",
+    "name": "whoosh",
+    "at": 0.1,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "go",
+    "who": "vesper",
+    "to": [
+     2,
+     -6.2
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "pepper",
+    "to": [
+     -4,
+     -6.0
+    ],
+    "gait": "run"
+   }
+  ],
+  [
+   {
+    "do": "act",
+    "who": "grub",
+    "clip": "startle"
+   },
+   {
+    "do": "emote",
+    "who": "grub",
+    "kind": "concern",
+    "dur": 2
+   }
+  ],
+  {
+   "do": "say",
+   "who": "grub",
+   "text": "No running in my market!",
+   "mood": "angry",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "whoosh",
+    "at": 0.1,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "go",
+    "who": "vesper",
+    "to": [
+     17,
+     -6.0
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "pepper",
+    "to": [
+     8,
+     -5.8
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "act",
+    "who": "grub",
+    "clip": "dodge"
+   }
+  ],
+  {
+   "do": "sfx",
+   "name": "crash",
+   "at": 0.2,
+   "who": null,
+   "gain": 1.0
+  }
+ ],
+ "objective": "The letter is stolen! 1 hour left",
+ "theme": {
+  "root": 53,
+  "mode": "dorian",
+  "tempo": 108,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "pepper": [
+    7,
+    6,
+    4
+   ],
+   "vesper": [
+    0,
+    3,
+    5
+   ],
+   "odile": [
+    2,
+    0,
+    -2
+   ],
+   "tobias": [
+    -5,
+    -3,
+    -5
+   ],
+   "grub": [
+    0,
+    0,
+    -3
+   ],
+   "mo": [
+    2,
+    1,
+    -1
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.78
+}

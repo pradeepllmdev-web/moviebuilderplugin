@@ -1,0 +1,219 @@
+{
+ "id": "hill",
+ "title": "Grandfather\u2019s hill",
+ "intent": "Pip gives the pie to his hungry grandfather, who realises it belongs to someone else.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "hilltop",
+  "seed": 3,
+  "objects": [
+   {
+    "kind": "bench",
+    "at": [
+     -1.5,
+     -1.0
+    ],
+    "id": "bench0",
+    "yaw": 0
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     4.2,
+     3.6
+    ],
+    "id": "stand2",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "sad",
+ "cast": [
+  {
+   "id": "fen",
+   "at": [
+    -4,
+    -3
+   ],
+   "face": [
+    -1.5,
+    -1
+   ]
+  },
+  {
+   "id": "pip",
+   "at": [
+    5,
+    4
+   ],
+   "face": [
+    -4,
+    -3
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "pie",
+   "kind": "pie",
+   "at": [
+    4.2,
+    3.6
+   ],
+   "on": "stand2"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "take",
+    "who": "pip",
+    "prop": "pie"
+   },
+   {
+    "do": "go",
+    "who": "fen",
+    "to": [
+     -1.5,
+     -1.0
+    ],
+    "gait": "shuffle"
+   }
+  ],
+  {
+   "do": "sit",
+   "who": "fen",
+   "on": "bench0.0",
+   "face": "pip"
+  },
+  [
+   {
+    "do": "go",
+    "who": "pip",
+    "to": [
+     0.2,
+     -1.0
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "give",
+   "who": "pip",
+   "to": "fen"
+  },
+  {
+   "do": "say",
+   "who": "pip",
+   "text": "Grandfather, eat. It is a cherry pie.",
+   "mood": "warm",
+   "to": "fen"
+  },
+  {
+   "do": "say",
+   "who": "fen",
+   "text": "Pip. Where did you get such a beautiful pie?",
+   "mood": "concern",
+   "to": "pip"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "pip",
+    "kind": "sad",
+    "dur": 3
+   },
+   {
+    "do": "act",
+    "who": "pip",
+    "clip": "kneel"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pip",
+   "text": "From the village. It was for the contest. You were so hungry.",
+   "mood": "sad",
+   "to": "fen"
+  },
+  {
+   "do": "say",
+   "who": "fen",
+   "text": "Oh, little one. A hungry belly does not make a pie ours.",
+   "mood": "serious",
+   "to": "pip"
+  }
+ ],
+ "objective": "Why was it taken?",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.979
+}

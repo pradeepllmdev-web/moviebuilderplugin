@@ -1,0 +1,62 @@
+[
+ {
+  "index": 0,
+  "frame": 31,
+  "time": 1.25,
+  "cut": "establish"
+ },
+ {
+  "index": 1,
+  "frame": 112,
+  "time": 4.625,
+  "cut": "mina walks"
+ },
+ {
+  "index": 2,
+  "frame": 244,
+  "time": 10.125,
+  "cut": "mina alone"
+ },
+ {
+  "index": 3,
+  "frame": 372,
+  "time": 15.458333333333334,
+  "cut": "joss walks"
+ },
+ {
+  "index": 4,
+  "frame": 472,
+  "time": 19.625,
+  "cut": "joss speaks"
+ },
+ {
+  "index": 5,
+  "frame": 569,
+  "time": 23.666666666666668,
+  "cut": "mina speaks"
+ },
+ {
+  "index": 6,
+  "frame": 653,
+  "time": 27.166666666666668,
+  "cut": "joss points"
+ },
+ {
+  "index": 7,
+  "frame": 726,
+  "time": 30.208333333333332,
+  "cut": "joss speaks"
+ },
+ {
+  "index": 8,
+  "frame": 816,
+  "time": 33.958333333333336,
+  "cut": "mina speaks"
+ },
+ {
+  "index": 9,
+  "frame": 912,
+  "time": 37.958333333333336,
+  "cut": "end"
+ }
+]

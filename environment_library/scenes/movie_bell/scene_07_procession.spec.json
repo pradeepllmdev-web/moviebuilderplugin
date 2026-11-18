@@ -1,0 +1,236 @@
+{
+ "id": "procession",
+ "title": "Bringing it home",
+ "intent": "Otto carries the mended bell back to the village square.",
+ "extras": {
+  "n": 6,
+  "area": [
+   -14,
+   -8,
+   14,
+   9
+  ],
+  "focus": [
+   3,
+   -1.2
+  ],
+  "seed": 51
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 7,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     3.0,
+     -1.2
+    ],
+    "id": "stand0",
+    "height": 0.8,
+    "size": 0.5
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     -5.0,
+     -4.6
+    ],
+    "id": "stand1",
+    "height": 0.8,
+    "size": 0.5
+   }
+  ]
+ },
+ "time": "dusk",
+ "ambience": "wind",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "otto",
+   "at": [
+    -8.5,
+    -5.6
+   ],
+   "face": [
+    -5,
+    -4.6
+   ]
+  },
+  {
+   "id": "bea",
+   "at": [
+    -9.5,
+    -8.2
+   ],
+   "face": "otto"
+  },
+  {
+   "id": "marta",
+   "at": [
+    -9.2,
+    -1.6
+   ],
+   "face": "otto"
+  },
+  {
+   "id": "hugo",
+   "at": [
+    -7.4,
+    -9
+   ],
+   "face": "otto"
+  }
+ ],
+ "props": [
+  {
+   "id": "bell",
+   "kind": "bell",
+   "at": [
+    -5.0,
+    -4.6
+   ],
+   "size": 1.6,
+   "on": "stand1"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "take",
+    "who": "otto",
+    "prop": "bell"
+   },
+   {
+    "do": "go",
+    "who": "bea",
+    "to": [
+     -6.8,
+     -6.2
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "bea",
+   "text": "Careful, Otto. It rings if you sneeze.",
+   "mood": "joy",
+   "to": "otto"
+  },
+  {
+   "do": "say",
+   "who": "otto",
+   "text": "I never sneeze.",
+   "mood": "warm",
+   "to": "bea"
+  },
+  [
+   {
+    "do": "go",
+    "who": "otto",
+    "to": [
+     1.2,
+     -2.4
+    ],
+    "gait": "shuffle"
+   },
+   {
+    "do": "go",
+    "who": "bea",
+    "to": [
+     -0.6,
+     -3.4
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "marta",
+    "to": [
+     -1.6,
+     -1.6
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "go",
+    "who": "hugo",
+    "to": [
+     -3.6,
+     -0.8
+    ],
+    "gait": "strut"
+   }
+  ]
+ ],
+ "objective": "Bring the bell home",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "marta": [
+    0,
+    4,
+    2
+   ],
+   "hugo": [
+    0,
+    0,
+    -3
+   ],
+   "finn": [
+    4,
+    6,
+    4
+   ],
+   "lulu": [
+    2,
+    4,
+    7
+   ],
+   "otto": [
+    -5,
+    -3,
+    -5
+   ],
+   "bea": [
+    7,
+    9,
+    7
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 1.0
+}

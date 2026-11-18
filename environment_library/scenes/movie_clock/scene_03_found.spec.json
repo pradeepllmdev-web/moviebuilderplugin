@@ -1,0 +1,237 @@
+{
+ "id": "found",
+ "title": "Mina finds the key",
+ "intent": "Mina finds the golden key on the rock. Joss knows it belongs to the clock tower.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "meadow",
+  "seed": 6,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     -1.0,
+     -1.0
+    ],
+    "id": "stand0",
+    "height": 1.0,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "bright",
+ "cast": [
+  {
+   "id": "mina",
+   "at": [
+    1.6,
+    -1.4
+   ],
+   "face": [
+    -1,
+    -1
+   ]
+  },
+  {
+   "id": "joss",
+   "at": [
+    5.5,
+    2.5
+   ],
+   "face": [
+    -1,
+    -1
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "key",
+   "kind": "key",
+   "at": [
+    -1.0,
+    -1.0
+   ],
+   "size": 2.2,
+   "on": "stand0"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "mina",
+    "to": [
+     0.2,
+     -1.6
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "icon",
+    "who": "mina",
+    "kind": "idea",
+    "dur": 1.6
+   }
+  ],
+  {
+   "do": "take",
+   "who": "mina",
+   "prop": "key"
+  },
+  {
+   "do": "say",
+   "who": "mina",
+   "text": "A golden key, lying on the flat rock. Maybe it opens a treasure chest!",
+   "mood": "joy",
+   "to": "mina"
+  },
+  [
+   {
+    "do": "go",
+    "who": "joss",
+    "to": [
+     3.0,
+     0.3
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "icon",
+    "who": "joss",
+    "kind": "question",
+    "dur": 1.8
+   }
+  ],
+  {
+   "do": "say",
+   "who": "joss",
+   "text": "Mina! That is no toy. That is the key to the clock tower.",
+   "mood": "concern",
+   "to": "mina"
+  },
+  {
+   "do": "say",
+   "who": "mina",
+   "text": "The clock stopped this morning. Somebody must be so worried!",
+   "mood": "concern",
+   "to": "joss"
+  },
+  [
+   {
+    "do": "point",
+    "who": "joss",
+    "at": [
+     0,
+     12,
+     7
+    ],
+    "dur": 1.6,
+    "hand": "R"
+   },
+   {
+    "do": "act",
+    "who": "mina",
+    "clip": "nod"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "joss",
+   "text": "We will take it back together.",
+   "mood": "warm",
+   "to": "mina"
+  },
+  [
+   {
+    "do": "go",
+    "who": "mina",
+    "to": [
+     2.5,
+     0.4
+    ],
+    "gait": "walk",
+    "talk": [
+     "I will carry it. I found it!",
+     "joy",
+     "joss"
+    ]
+   },
+   {
+    "do": "go",
+    "who": "joss",
+    "to": [
+     2.6,
+     1.4
+    ],
+    "gait": "walk"
+   }
+  ]
+ ],
+ "objective": "Mina finds a golden key",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.9
+}

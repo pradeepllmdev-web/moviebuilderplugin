@@ -1,0 +1,220 @@
+{
+ "id": "reason",
+ "title": "The reason",
+ "intent": "Dot explains: she took the lantern to guide the fishing boats home through the fog.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "harbor",
+  "seed": 4,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     9.4,
+     -2.4
+    ],
+    "id": "stand2",
+    "height": 0.8,
+    "size": 0.5
+   }
+  ]
+ },
+ "time": "overcast",
+ "ambience": "sea",
+ "music": "sad",
+ "cast": [
+  {
+   "id": "dot",
+   "at": [
+    12.5,
+    -3.6
+   ],
+   "face": [
+    3,
+    -3
+   ]
+  },
+  {
+   "id": "pim",
+   "at": [
+    7.6,
+    -3.0
+   ],
+   "face": "dot"
+  },
+  {
+   "id": "sal",
+   "at": [
+    2.0,
+    -3.6
+   ],
+   "face": "dot"
+  },
+  {
+   "id": "nell",
+   "at": [
+    0.0,
+    -2.4
+   ],
+   "face": "dot"
+  },
+  {
+   "id": "rue",
+   "at": [
+    -12,
+    -3.4
+   ],
+   "face": "dot"
+  }
+ ],
+ "props": [
+  {
+   "id": "lantern",
+   "kind": "lantern",
+   "at": [
+    11.2,
+    -3.0
+   ],
+   "size": 2.0,
+   "on": "stand2"
+  }
+ ],
+ "steps": [
+  {
+   "do": "go",
+   "who": "rue",
+   "to": [
+    2.2,
+    -3.0
+   ],
+   "gait": "run"
+  },
+  {
+   "do": "say",
+   "who": "rue",
+   "text": "Dot! What have you done?",
+   "mood": "concern",
+   "to": "dot"
+  },
+  {
+   "do": "say",
+   "who": "dot",
+   "text": "The boats are lost in the fog, Papa. I wanted them to see a light.",
+   "mood": "sad",
+   "to": "rue"
+  },
+  [
+   {
+    "do": "look",
+    "who": "pim",
+    "at": [
+     0,
+     -22
+    ],
+    "dur": 3
+   },
+   {
+    "do": "emote",
+    "who": "pim",
+    "kind": "concern",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pim",
+   "text": "Fog over the whole bay. And fourteen boats out there.",
+   "mood": "concern",
+   "to": "rue"
+  },
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "Oh, the poor sailors.",
+   "mood": "sad",
+   "to": "pim"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "sal",
+    "kind": "concern",
+    "dur": 2.5
+   },
+   {
+    "do": "act",
+    "who": "sal",
+    "clip": "shrug"
+   }
+  ]
+ ],
+ "objective": "Why did she take it?",
+ "theme": {
+  "root": 50,
+  "mode": "dorian",
+  "tempo": 104,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "rue": [
+    0,
+    -3,
+    0
+   ],
+   "pim": [
+    0,
+    4,
+    7
+   ],
+   "dot": [
+    7,
+    6,
+    4
+   ],
+   "sal": [
+    0,
+    0,
+    -2
+   ],
+   "nell": [
+    4,
+    5,
+    4
+   ],
+   "ferris": [
+    -3,
+    -5,
+    -3
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.974
+}

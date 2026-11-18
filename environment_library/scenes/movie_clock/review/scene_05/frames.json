@@ -1,0 +1,62 @@
+[
+ {
+  "index": 0,
+  "frame": 45,
+  "time": 1.8333333333333333,
+  "cut": "establish"
+ },
+ {
+  "index": 1,
+  "frame": 167,
+  "time": 6.916666666666667,
+  "cut": "pol speaks"
+ },
+ {
+  "index": 2,
+  "frame": 279,
+  "time": 11.583333333333334,
+  "cut": "pol walks"
+ },
+ {
+  "index": 3,
+  "frame": 353,
+  "time": 14.666666666666666,
+  "cut": "mina speaks"
+ },
+ {
+  "index": 4,
+  "frame": 463,
+  "time": 19.25,
+  "cut": "joss speaks"
+ },
+ {
+  "index": 5,
+  "frame": 566,
+  "time": 23.541666666666668,
+  "cut": "pol speaks"
+ },
+ {
+  "index": 6,
+  "frame": 658,
+  "time": 27.375,
+  "cut": "ada speaks"
+ },
+ {
+  "index": 7,
+  "frame": 776,
+  "time": 32.291666666666664,
+  "cut": "nell speaks"
+ },
+ {
+  "index": 8,
+  "frame": 864,
+  "time": 35.958333333333336,
+  "cut": "nell laugh"
+ },
+ {
+  "index": 9,
+  "frame": 930,
+  "time": 38.708333333333336,
+  "cut": "end"
+ }
+]

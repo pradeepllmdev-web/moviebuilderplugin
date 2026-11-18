@@ -1,0 +1,109 @@
+{
+ "id": "market",
+ "title": "Clue two: the painting",
+ "seconds": 31.708333333333332,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "marta and company",
+   "t0": 2.5,
+   "t1": 7.125,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "lulu speaks",
+   "t0": 7.125,
+   "t1": 11.541666666666666,
+   "kind": "medium",
+   "subject": "lulu"
+  },
+  {
+   "name": "lulu walks",
+   "t0": 11.541666666666666,
+   "t1": 19.083333333333332,
+   "kind": "track",
+   "subject": "lulu"
+  },
+  {
+   "name": "marta speaks",
+   "t0": 19.083333333333332,
+   "t1": 24.875,
+   "kind": "medium",
+   "subject": "marta"
+  },
+  {
+   "name": "lulu speaks",
+   "t0": 24.875,
+   "t1": 28.508333333333333,
+   "kind": "medium",
+   "subject": "lulu"
+  },
+  {
+   "name": "end",
+   "t0": 28.508333333333333,
+   "t1": 31.708333333333332,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "lulu",
+   "to": "marta",
+   "mood": "warm",
+   "text": "I painted the square at dawn. Look what is in the corner.",
+   "t0": 8.328333333333333,
+   "t1": 11.458537414965987
+  },
+  {
+   "k": 1,
+   "speaker": "marta",
+   "to": "hugo",
+   "mood": "concern",
+   "text": "A cart. With a big shape under a blanket.",
+   "t0": 20.328333333333333,
+   "t1": 23.412097505668935
+  },
+  {
+   "k": 2,
+   "speaker": "hugo",
+   "to": "lulu",
+   "mood": "angry",
+   "text": "Whose cart is that?",
+   "t0": 23.62,
+   "t1": 24.800589569160998
+  },
+  {
+   "k": 3,
+   "speaker": "lulu",
+   "to": "hugo",
+   "mood": "serious",
+   "text": "Otto the blacksmith. He rolled it up the hill road before breakfast.",
+   "t0": 24.995,
+   "t1": 29.125702947845806
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "lulu",
+  "marta",
+  "hugo"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.13732866235993121,
+  "reach": 0.09295406607510819,
+  "eye_speaker": 6.361714971974595,
+  "eye_listener": 6.461619565030443,
+  "framing_misses": 0,
+  "framing_checked": 4
+ }
+}

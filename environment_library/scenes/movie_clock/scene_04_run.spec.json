@@ -1,0 +1,201 @@
+{
+ "id": "run",
+ "title": "A race to the tower",
+ "intent": "Mina races toward the tower. Joss slips in the mud but sends her on.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "meadow",
+  "seed": 7
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "epic",
+ "cast": [
+  {
+   "id": "mina",
+   "at": [
+    -8,
+    -2
+   ],
+   "face": [
+    8,
+    2
+   ]
+  },
+  {
+   "id": "joss",
+   "at": [
+    -9.5,
+    -3
+   ],
+   "face": [
+    8,
+    2
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "mina",
+    "to": [
+     7,
+     2
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "joss",
+    "to": [
+     2,
+     0.5
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "joss",
+   "text": "Mind the puddle, Mina!",
+   "mood": "warm",
+   "to": "mina"
+  },
+  [
+   {
+    "do": "go",
+    "who": "mina",
+    "to": [
+     16,
+     4
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "joss",
+    "to": [
+     10,
+     2.5
+    ],
+    "gait": "brisk"
+   }
+  ],
+  [
+   {
+    "do": "sfx",
+    "name": "thud",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "act",
+    "who": "joss",
+    "clip": "fall"
+   }
+  ],
+  [
+   {
+    "do": "act",
+    "who": "mina",
+    "clip": "startle"
+   },
+   {
+    "do": "icon",
+    "who": "mina",
+    "kind": "alarm",
+    "dur": 1.6
+   }
+  ],
+  {
+   "do": "say",
+   "who": "mina",
+   "text": "Joss! Are you hurt?",
+   "mood": "concern",
+   "to": "joss"
+  },
+  {
+   "do": "say",
+   "who": "joss",
+   "text": "Only my pride. Go, go, I am right behind you!",
+   "mood": "warm",
+   "to": "mina"
+  },
+  {
+   "do": "go",
+   "who": "mina",
+   "to": [
+    20,
+    5
+   ],
+   "gait": "run"
+  }
+ ],
+ "objective": "Race to the tower",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.963
+}

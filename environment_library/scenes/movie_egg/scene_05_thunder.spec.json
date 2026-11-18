@@ -1,0 +1,282 @@
+{
+ "id": "thunder",
+ "title": "The ground shakes",
+ "intent": "The ground shakes. Something enormous walks toward the farm.",
+ "extras": null,
+ "fog": 0.15,
+ "fx": null,
+ "location": {
+  "preset": "hilltop",
+  "seed": 3
+ },
+ "time": "dusk",
+ "ambience": "wind",
+ "music": "tense",
+ "cast": [
+  {
+   "id": "moss",
+   "at": [
+    -2.8,
+    -2.4
+   ],
+   "face": [
+    -16,
+    10
+   ]
+  },
+  {
+   "id": "zip",
+   "at": [
+    -1.6,
+    -3.6
+   ],
+   "face": [
+    -16,
+    10
+   ]
+  },
+  {
+   "id": "hazel",
+   "at": [
+    -5,
+    -4
+   ],
+   "face": [
+    -16,
+    10
+   ]
+  },
+  {
+   "id": "clara",
+   "at": [
+    6,
+    -3
+   ],
+   "face": [
+    -16,
+    10
+   ]
+  },
+  {
+   "id": "percy",
+   "at": [
+    4,
+    4
+   ],
+   "face": [
+    -16,
+    10
+   ]
+  },
+  {
+   "id": "mama",
+   "at": [
+    -22,
+    12
+   ],
+   "face": "moss"
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "sfx",
+    "name": "thunder",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "act",
+    "who": "hazel",
+    "clip": "startle"
+   },
+   {
+    "do": "act",
+    "who": "clara",
+    "clip": "startle"
+   },
+   {
+    "do": "icon",
+    "who": "clara",
+    "kind": "alarm",
+    "dur": 1.6
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "mama",
+    "to": [
+     -12,
+     8
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "sfx",
+    "name": "thunder",
+    "at": 1.2,
+    "who": null,
+    "gain": 1.0
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "percy",
+    "to": [
+     10,
+     6
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "clara",
+    "to": [
+     12,
+     -4
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "sfx",
+    "name": "oink",
+    "at": 0.1,
+    "who": "percy",
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "moo",
+    "at": 0.4,
+    "who": "clara",
+    "gain": 1.0
+   },
+   {
+    "do": "icon",
+    "who": "percy",
+    "kind": "alarm",
+    "dur": 1.8
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hazel",
+   "text": "The whole ground is shaking! Something much bigger is coming. Run!",
+   "mood": "angry",
+   "to": "moss"
+  },
+  [
+   {
+    "do": "go",
+    "who": "mama",
+    "to": [
+     -7,
+     6
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "sfx",
+    "name": "roar",
+    "at": 0.6,
+    "who": "mama",
+    "gain": 1.0
+   }
+  ],
+  [
+   {
+    "do": "look",
+    "who": "moss",
+    "at": [
+     -7,
+     6
+    ],
+    "dur": 2
+   },
+   {
+    "do": "point",
+    "who": "hazel",
+    "at": [
+     -7,
+     6
+    ],
+    "dur": 1.2,
+    "hand": "R"
+   },
+   {
+    "do": "icon",
+    "who": "moss",
+    "kind": "idea",
+    "dur": 2.0
+   }
+  ],
+  {
+   "do": "say",
+   "who": "moss",
+   "text": "Wait. Maybe it is his mother.",
+   "mood": "concern",
+   "to": "hazel"
+  }
+ ],
+ "objective": "Something big is coming",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 104,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1
+   ],
+   [
+    4,
+    1
+   ]
+  ],
+  "motifs": {
+   "hazel": [
+    0,
+    -3,
+    0
+   ],
+   "moss": [
+    4,
+    6,
+    4
+   ],
+   "zip": [
+    7,
+    6,
+    7
+   ],
+   "mama": [
+    -5,
+    -7,
+    -5
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.989
+}

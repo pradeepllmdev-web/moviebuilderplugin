@@ -1,0 +1,204 @@
+{
+ "id": "fog",
+ "title": "Fog at sea",
+ "intent": "Fog traps the fishing boats. Captain Rue says the broken beacon cannot be replaced.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "harbor",
+  "seed": 4
+ },
+ "time": "overcast",
+ "ambience": "sea",
+ "music": "sad",
+ "cast": [
+  {
+   "id": "rue",
+   "at": [
+    -8,
+    -3.0
+   ],
+   "face": [
+    0,
+    -20
+   ]
+  },
+  {
+   "id": "dot",
+   "at": [
+    8,
+    -2.4
+   ],
+   "face": "rue"
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "look",
+    "who": "rue",
+    "at": [
+     0,
+     -22
+    ],
+    "dur": 3
+   },
+   {
+    "do": "emote",
+    "who": "rue",
+    "kind": "sad",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "go",
+   "who": "dot",
+   "to": [
+    -5.6,
+    -3.0
+   ],
+   "gait": "run"
+  },
+  {
+   "do": "say",
+   "who": "dot",
+   "text": "Papa! The fog is thick. The boats cannot see the harbour!",
+   "mood": "concern",
+   "to": "rue"
+  },
+  {
+   "do": "say",
+   "who": "rue",
+   "text": "The old beacon cracked last week. Nothing bright enough.",
+   "mood": "sad",
+   "to": "dot"
+  },
+  {
+   "do": "point",
+   "who": "rue",
+   "at": [
+    0,
+    -22
+   ],
+   "dur": 1.5,
+   "hand": "R"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "dot",
+    "kind": "brows",
+    "dur": 2
+   },
+   {
+    "do": "look",
+    "who": "dot",
+    "at": [
+     10,
+     10
+    ],
+    "dur": 2
+   }
+  ],
+  {
+   "do": "say",
+   "who": "dot",
+   "text": "What about the Great Lantern?",
+   "mood": "concern",
+   "to": "rue"
+  },
+  {
+   "do": "say",
+   "who": "rue",
+   "text": "It belongs to the village, Dot. Not to us.",
+   "mood": "serious",
+   "to": "dot"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "dot",
+    "kind": "sad",
+    "dur": 3
+   },
+   {
+    "do": "look",
+    "who": "dot",
+    "at": [
+     0,
+     -22
+    ],
+    "dur": 3
+   }
+  ]
+ ],
+ "objective": "The boats are lost in the fog",
+ "theme": {
+  "root": 50,
+  "mode": "dorian",
+  "tempo": 104,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    3,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "rue": [
+    0,
+    -3,
+    0
+   ],
+   "pim": [
+    0,
+    4,
+    7
+   ],
+   "dot": [
+    7,
+    6,
+    4
+   ],
+   "sal": [
+    0,
+    0,
+    -2
+   ],
+   "nell": [
+    4,
+    5,
+    4
+   ],
+   "ferris": [
+    -3,
+    -5,
+    -3
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.444
+}

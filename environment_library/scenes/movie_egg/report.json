@@ -1,0 +1,190 @@
+{
+ "film": "farm_egg",
+ "records": [
+  {
+   "index": 1,
+   "id": "dawn",
+   "title": "A strange egg",
+   "key": "83395e7d4d58",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\scene_01_dawn.blend",
+   "status": "built in 14s",
+   "audit": [],
+   "seconds": 28.9,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.17521385732605194,
+    "reach": 0.161675579777955,
+    "eye_speaker": 3.2842870868962235,
+    "eye_listener": 3.5214487221612862,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 3,
+   "cuts": 8,
+   "cast": [
+    "hazel",
+    "moss"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\sheets\\scene_01_dawn.png"
+  },
+  {
+   "index": 2,
+   "id": "hatch",
+   "title": "It hatched!",
+   "key": "7fc2ffb8655c",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\scene_02_hatch.blend",
+   "status": "built in 12s",
+   "audit": [],
+   "seconds": 22.3,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 0.0,
+    "eye_speaker": 3.1480580887533516,
+    "eye_listener": 2.7784563542980827,
+    "framing_misses": 0,
+    "framing_checked": 4
+   },
+   "lines": 3,
+   "cuts": 6,
+   "cast": [
+    "moss",
+    "hazel"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\sheets\\scene_02_hatch.png"
+  },
+  {
+   "index": 3,
+   "id": "chaos",
+   "title": "Chaos on the farm",
+   "key": "ca02c3924c52",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\scene_03_chaos.blend",
+   "status": "built in 17s",
+   "audit": [],
+   "seconds": 37.3,
+   "stats": {
+    "ground_lift": 0.5802224259259009,
+    "foot_slip": 0.0,
+    "reach": 0.0,
+    "eye_speaker": 0.7757926398454706,
+    "eye_listener": 14.83884293236983,
+    "framing_misses": 0,
+    "framing_checked": 7
+   },
+   "lines": 1,
+   "cuts": 8,
+   "cast": [
+    "hazel",
+    "moss"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\sheets\\scene_03_chaos.png"
+  },
+  {
+   "index": 4,
+   "id": "apple",
+   "title": "Just hungry",
+   "key": "73ddb03f1aa6",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\scene_04_apple.blend",
+   "status": "built in 16s",
+   "audit": [],
+   "seconds": 40.5,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.1257397313626737,
+    "reach": 0.084574470685533,
+    "eye_speaker": 5.471380802806854,
+    "eye_listener": 5.216327824190895,
+    "framing_misses": 0,
+    "framing_checked": 6
+   },
+   "lines": 3,
+   "cuts": 9,
+   "cast": [
+    "moss",
+    "hazel"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\sheets\\scene_04_apple.png"
+  },
+  {
+   "index": 5,
+   "id": "thunder",
+   "title": "The ground shakes",
+   "key": "00f927f097c9",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\scene_05_thunder.blend",
+   "status": "built in 19s",
+   "audit": [],
+   "seconds": 44.4,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 6.881174893217951e-06,
+    "eye_speaker": 3.7746963081359994,
+    "eye_listener": 3.6488217183362464,
+    "framing_misses": 0,
+    "framing_checked": 5
+   },
+   "lines": 2,
+   "cuts": 9,
+   "cast": [
+    "moss",
+    "hazel"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\sheets\\scene_05_thunder.png"
+  },
+  {
+   "index": 6,
+   "id": "reunion",
+   "title": "Mama",
+   "key": "50b2d7a875b2",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\scene_06_reunion.blend",
+   "status": "built in 14s",
+   "audit": [],
+   "seconds": 27.2,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 0.0,
+    "eye_speaker": 4.618580770443278,
+    "eye_listener": 2.8876038930892105,
+    "framing_misses": 0,
+    "framing_checked": 7
+   },
+   "lines": 2,
+   "cuts": 9,
+   "cast": [
+    "moss",
+    "hazel"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\sheets\\scene_06_reunion.png"
+  },
+  {
+   "index": 7,
+   "id": "goodbye",
+   "title": "Over the hill",
+   "key": "1f3654acdd12",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\scene_07_goodbye.blend",
+   "status": "built in 20s",
+   "audit": [],
+   "seconds": 45.5,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 0.0,
+    "eye_speaker": 3.4266863074960487,
+    "eye_listener": 3.3535038631333745,
+    "framing_misses": 0,
+    "framing_checked": 8
+   },
+   "lines": 3,
+   "cuts": 10,
+   "cast": [
+    "moss",
+    "hazel"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\sheets\\scene_07_goodbye.png"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg\\movie.blend",
+ "total_seconds": 246.1,
+ "audit_lines": 0
+}

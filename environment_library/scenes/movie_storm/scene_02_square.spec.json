@@ -1,0 +1,222 @@
+{
+ "id": "square",
+ "title": "Vesper notices",
+ "intent": "Vesper spots the letter and seems curious. Pepper dodges her and runs on.",
+ "extras": null,
+ "fog": 0.15,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 5
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "bright",
+ "cast": [
+  {
+   "id": "pepper",
+   "at": [
+    -9,
+    -1.5
+   ],
+   "face": [
+    14,
+    -2
+   ]
+  },
+  {
+   "id": "vesper",
+   "at": [
+    2,
+    -1.5
+   ],
+   "face": [
+    -6,
+    -3
+   ]
+  },
+  {
+   "id": "mo",
+   "at": [
+    13,
+    6
+   ],
+   "face": [
+    4,
+    6
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "cart",
+   "kind": "cart_load",
+   "at": [
+    9,
+    6
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "do": "go",
+   "who": "pepper",
+   "to": [
+    -2,
+    -2.8
+   ],
+   "gait": "run"
+  },
+  [
+   {
+    "do": "turn",
+    "who": "vesper",
+    "to": "pepper"
+   },
+   {
+    "do": "emote",
+    "who": "vesper",
+    "kind": "brows",
+    "dur": 2
+   }
+  ],
+  {
+   "do": "say",
+   "who": "vesper",
+   "text": "Where is the little courier going in such a hurry?",
+   "mood": "warm",
+   "to": "pepper"
+  },
+  {
+   "do": "say",
+   "who": "pepper",
+   "text": "Secret ferry business!",
+   "mood": "joy",
+   "to": "vesper"
+  },
+  {
+   "do": "say",
+   "who": "vesper",
+   "text": "Ferry business is my business.",
+   "mood": "serious",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "act",
+    "who": "pepper",
+    "clip": "dodge"
+   },
+   {
+    "do": "sfx",
+    "name": "whoosh",
+    "at": 0.1,
+    "who": null,
+    "gain": 1.0
+   }
+  ],
+  {
+   "do": "go",
+   "who": "pepper",
+   "to": [
+    16,
+    -4
+   ],
+   "gait": "run"
+  },
+  {
+   "do": "point",
+   "who": "vesper",
+   "at": [
+    16,
+    -4
+   ],
+   "dur": 1.4,
+   "hand": "R"
+  },
+  [
+   {
+    "do": "look",
+    "who": "vesper",
+    "at": [
+     16,
+     -4
+    ],
+    "dur": 2
+   },
+   {
+    "do": "emote",
+    "who": "vesper",
+    "kind": "smile",
+    "dur": 2.5
+   }
+  ]
+ ],
+ "objective": "2 hours to sunset",
+ "theme": {
+  "root": 53,
+  "mode": "dorian",
+  "tempo": 108,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "pepper": [
+    7,
+    6,
+    4
+   ],
+   "vesper": [
+    0,
+    3,
+    5
+   ],
+   "odile": [
+    2,
+    0,
+    -2
+   ],
+   "tobias": [
+    -5,
+    -3,
+    -5
+   ],
+   "grub": [
+    0,
+    0,
+    -3
+   ],
+   "mo": [
+    2,
+    1,
+    -1
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.444
+}

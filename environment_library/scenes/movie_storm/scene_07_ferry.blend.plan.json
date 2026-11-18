@@ -1,0 +1,91 @@
+{
+ "id": "ferry",
+ "title": "Last bell",
+ "seconds": 34.125,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "pepper runs",
+   "t0": 2.5,
+   "t1": 9.083333333333334,
+   "kind": "track",
+   "subject": "pepper"
+  },
+  {
+   "name": "pepper runs",
+   "t0": 9.083333333333334,
+   "t1": 12.083333333333334,
+   "kind": "track",
+   "subject": "pepper"
+  },
+  {
+   "name": "pepper fall",
+   "t0": 12.083333333333334,
+   "t1": 17.166666666666668,
+   "kind": "medium",
+   "subject": "pepper"
+  },
+  {
+   "name": "vesper and company",
+   "t0": 17.166666666666668,
+   "t1": 24.208333333333332,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "pepper speaks",
+   "t0": 24.208333333333332,
+   "t1": 28.625,
+   "kind": "medium",
+   "subject": "pepper"
+  },
+  {
+   "name": "hold",
+   "t0": 28.625,
+   "t1": 30.925,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "end",
+   "t0": 30.925,
+   "t1": 34.125,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "pepper",
+   "to": "tobias",
+   "mood": "concern",
+   "text": "Captain! A letter from Odile! A storm is coming!",
+   "t0": 24.328333333333333,
+   "t1": 28.538265306122447
+  }
+ ],
+ "audit": [
+  "AUDIT reach: a hand ends 0.53 m from its target (limit 0.22; the arm cannot reach, move the prop or the actor)"
+ ],
+ "cast": [
+  "tobias",
+  "pepper",
+  "vesper"
+ ],
+ "stats": {
+  "ground_lift": 0.8000000000000002,
+  "foot_slip": 0.0,
+  "reach": 0.526700042041944,
+  "eye_speaker": 3.6927519078876676,
+  "eye_listener": 0.9596404274213738,
+  "framing_misses": 0,
+  "framing_checked": 4
+ }
+}

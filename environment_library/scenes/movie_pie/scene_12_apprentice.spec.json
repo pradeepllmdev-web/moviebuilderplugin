@@ -1,0 +1,207 @@
+{
+ "id": "apprentice",
+ "title": "A new apprentice",
+ "intent": "Tilda makes Pip her apprentice. The village is happy again.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 6,
+  "objects": [
+   {
+    "kind": "bench",
+    "at": [
+     -4,
+     -3.5
+    ],
+    "id": "bench_x"
+   }
+  ]
+ },
+ "time": "dusk",
+ "ambience": "wind",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "tilda",
+   "at": [
+    -1.5,
+    -1.5
+   ],
+   "face": "pip"
+  },
+  {
+   "id": "pip",
+   "at": [
+    0.8,
+    -1.2
+   ],
+   "face": "tilda"
+  },
+  {
+   "id": "fen",
+   "at": [
+    -5.6,
+    -2.4
+   ],
+   "face": "pip"
+  },
+  {
+   "id": "rosa",
+   "at": [
+    4,
+    -3
+   ],
+   "face": "pip"
+  },
+  {
+   "id": "gus",
+   "at": [
+    7,
+    -1
+   ],
+   "face": "pip"
+  }
+ ],
+ "props": [],
+ "steps": [
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "Pip, I need a helper in the bakery. The ovens are warm and the cherries are free.",
+   "mood": "warm",
+   "to": "pip"
+  },
+  {
+   "do": "say",
+   "who": "pip",
+   "text": "Me? An apprentice baker?",
+   "mood": "joy",
+   "to": "tilda"
+  },
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "Every day. And the first lesson: always share.",
+   "mood": "warm",
+   "to": "pip"
+  },
+  [
+   {
+    "do": "act",
+    "who": "pip",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "fen",
+    "clip": "laugh"
+   },
+   {
+    "do": "act",
+    "who": "rosa",
+    "clip": "joy"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "fen",
+   "text": "Now that is a pie worth stealing.",
+   "mood": "joy",
+   "to": "tilda"
+  },
+  {
+   "do": "say",
+   "who": "gus",
+   "text": "Never again. I am keeping my nose to the anvil.",
+   "mood": "joy",
+   "to": "fen"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "tilda",
+    "kind": "smile",
+    "dur": 4
+   },
+   {
+    "do": "emote",
+    "who": "pip",
+    "kind": "smile",
+    "dur": 4
+   }
+  ],
+  {
+   "do": "wait",
+   "dur": 2.5
+  }
+ ],
+ "objective": "A new beginning",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.6
+}

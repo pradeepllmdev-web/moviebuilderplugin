@@ -1,0 +1,91 @@
+{
+ "id": "taking",
+ "title": "A small thief",
+ "seconds": 47.458333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "pip alone",
+   "t0": 2.5,
+   "t1": 5.416666666666667,
+   "kind": "medium",
+   "subject": "pip"
+  },
+  {
+   "name": "pip walks",
+   "t0": 5.416666666666667,
+   "t1": 13.666666666666668,
+   "kind": "follow_high",
+   "subject": "pip"
+  },
+  {
+   "name": "pip walks (b)",
+   "t0": 13.666666666666668,
+   "t1": 21.916666666666668,
+   "kind": "follow_high",
+   "subject": "pip"
+  },
+  {
+   "name": "pip walks (b) (b)",
+   "t0": 21.916666666666668,
+   "t1": 27.791666666666668,
+   "kind": "follow_high",
+   "subject": "pip"
+  },
+  {
+   "name": "pip runs",
+   "t0": 27.791666666666668,
+   "t1": 37.083333333333336,
+   "kind": "track",
+   "subject": "pip"
+  },
+  {
+   "name": "pip runs",
+   "t0": 37.083333333333336,
+   "t1": 44.25833333333333,
+   "kind": "track",
+   "subject": "pip"
+  },
+  {
+   "name": "end",
+   "t0": 44.25833333333333,
+   "t1": 47.458333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "pip",
+   "to": "pip",
+   "mood": "sad",
+   "text": "Grandfather has not eaten for two days. Forgive me, Tilda.",
+   "t0": 1.2033333333333331,
+   "t1": 5.338526077097505
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "pip",
+  "tilda",
+  "rosa",
+  "gus",
+  "orin"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.052263449317316725,
+  "reach": 0.1584963289072263,
+  "eye_speaker": 0.0,
+  "eye_listener": 0.0,
+  "framing_misses": 0,
+  "framing_checked": 3
+ }
+}

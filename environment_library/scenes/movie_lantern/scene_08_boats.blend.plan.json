@@ -1,0 +1,86 @@
+{
+ "id": "boats",
+ "title": "The boats come home",
+ "seconds": 25.708333333333332,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 3.0,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "dot points",
+   "t0": 3.0,
+   "t1": 5.291666666666667,
+   "kind": "reveal",
+   "subject": "dot"
+  },
+  {
+   "name": "dot speaks",
+   "t0": 5.291666666666667,
+   "t1": 8.583333333333334,
+   "kind": "medium",
+   "subject": "dot"
+  },
+  {
+   "name": "rue speaks",
+   "t0": 8.583333333333334,
+   "t1": 12.958333333333334,
+   "kind": "medium",
+   "subject": "rue"
+  },
+  {
+   "name": "rue laugh",
+   "t0": 12.958333333333334,
+   "t1": 19.333333333333332,
+   "kind": "medium",
+   "subject": "rue"
+  },
+  {
+   "name": "rue laugh (b)",
+   "t0": 19.333333333333332,
+   "t1": 25.708333333333332,
+   "kind": "medium",
+   "subject": "rue"
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "dot",
+   "to": "rue",
+   "mood": "joy",
+   "text": "Papa! Look! A mast!",
+   "t0": 6.495,
+   "t1": 8.496405895691609
+  },
+  {
+   "k": 1,
+   "speaker": "rue",
+   "to": "dot",
+   "mood": "joy",
+   "text": "Fourteen boats, and every one of them following that light!",
+   "t0": 8.703333333333333,
+   "t1": 12.871859410430838
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "rue",
+  "dot",
+  "pim",
+  "nell",
+  "sal"
+ ],
+ "stats": {
+  "ground_lift": 0.06480483509363222,
+  "foot_slip": 0.0,
+  "reach": 0.13437597412956,
+  "eye_speaker": 2.1425023678980613,
+  "eye_listener": 1.971164511579752,
+  "framing_misses": 0,
+  "framing_checked": 4
+ }
+}

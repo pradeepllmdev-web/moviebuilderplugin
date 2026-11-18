@@ -1,0 +1,92 @@
+{
+ "id": "hatch",
+ "title": "It hatched!",
+ "seconds": 22.333333333333332,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.875,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "moss startle",
+   "t0": 2.875,
+   "t1": 5.291666666666667,
+   "kind": "medium",
+   "subject": "moss"
+  },
+  {
+   "name": "zip jump",
+   "t0": 5.291666666666667,
+   "t1": 8.291666666666666,
+   "kind": "medium",
+   "subject": "zip"
+  },
+  {
+   "name": "percy and company",
+   "t0": 8.291666666666666,
+   "t1": 12.625,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "hazel speaks",
+   "t0": 12.625,
+   "t1": 14.958333333333334,
+   "kind": "medium",
+   "subject": "hazel"
+  },
+  {
+   "name": "moss speaks",
+   "t0": 14.958333333333334,
+   "t1": 22.333333333333332,
+   "kind": "two",
+   "subject": "moss"
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "moss",
+   "to": "hazel",
+   "mood": "concern",
+   "text": "Hazel, the egg is moving!",
+   "t0": 1.2033333333333331,
+   "t1": 2.8126303854875285
+  },
+  {
+   "k": 1,
+   "speaker": "hazel",
+   "to": "moss",
+   "mood": "concern",
+   "text": "It hatched! What on earth is it?",
+   "t0": 12.745,
+   "t1": 14.88109977324263
+  },
+  {
+   "k": 2,
+   "speaker": "moss",
+   "to": "hazel",
+   "mood": "joy",
+   "text": "He is a baby dinosaur! A real one!",
+   "t0": 15.078333333333333,
+   "t1": 18.169671201814058
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "moss",
+  "hazel"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.0,
+  "eye_speaker": 3.1480580887533516,
+  "eye_listener": 2.7784563542980827,
+  "framing_misses": 0,
+  "framing_checked": 4
+ }
+}

@@ -1,0 +1,268 @@
+{
+ "id": "market",
+ "title": "Through the market",
+ "intent": "The best man grabs the cake and strides off with it. 40 minutes left.",
+ "extras": {
+  "n": 6,
+  "area": [
+   -12,
+   -4,
+   12,
+   10
+  ],
+  "focus": [
+   0,
+   -2
+  ],
+  "seed": 41
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "market",
+  "seed": 3,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     -13.0,
+     -2.4
+    ],
+    "id": "stand1",
+    "height": 0.45,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "market",
+ "music": "comic",
+ "cast": [
+  {
+   "id": "bettina",
+   "at": [
+    -13.0,
+    -3.6
+   ],
+   "face": [
+    -13.0,
+    -2.4
+   ]
+  },
+  {
+   "id": "dash",
+   "at": [
+    -15,
+    -3.8
+   ],
+   "face": "bettina"
+  },
+  {
+   "id": "rufus",
+   "at": [
+    14,
+    -8
+   ],
+   "face": [
+    -5,
+    -5
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "cake",
+   "kind": "barrel_small",
+   "at": [
+    -13.0,
+    -2.4
+   ],
+   "size": 1.2,
+   "on": "stand1"
+  }
+ ],
+ "steps": [
+  {
+   "do": "take",
+   "who": "bettina",
+   "prop": "cake"
+  },
+  [
+   {
+    "do": "go",
+    "who": "bettina",
+    "to": [
+     -2,
+     -3.2
+    ],
+    "gait": "brisk",
+    "talk": [
+     "Out of the way, please! Wedding cake coming through!",
+     "angry",
+     "dash"
+    ]
+   },
+   {
+    "do": "go",
+    "who": "dash",
+    "to": [
+     -4.8,
+     -5.0
+    ],
+    "gait": "bounce"
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "rufus",
+    "to": [
+     -0.8,
+     -4.4
+    ],
+    "gait": "stomp",
+    "talk": [
+     "Is that the cake? Give it here, I am the best man!",
+     "joy",
+     "bettina"
+    ]
+   }
+  ],
+  {
+   "do": "say",
+   "who": "bettina",
+   "text": "You are the best man at what, exactly? Carrying?",
+   "mood": "concern",
+   "to": "rufus"
+  },
+  {
+   "do": "say",
+   "who": "rufus",
+   "text": "At everything! Hand it over!",
+   "overlap_by": 0.4,
+   "mood": "joy",
+   "to": "bettina"
+  },
+  {
+   "do": "say",
+   "who": "dash",
+   "text": "He\u2019s very big, Miss Bettina.",
+   "overlap_by": 0.3,
+   "mood": "concern",
+   "to": "bettina"
+  },
+  {
+   "do": "point",
+   "who": "bettina",
+   "at": "rufus",
+   "dur": 1.2,
+   "hand": "R"
+  },
+  {
+   "do": "give",
+   "who": "bettina",
+   "to": "rufus"
+  },
+  [
+   {
+    "do": "go",
+    "who": "rufus",
+    "to": [
+     14,
+     -3.2
+    ],
+    "gait": "stomp",
+    "talk": [
+     "Easy! Nothing could be easier!",
+     "joy",
+     "dash"
+    ]
+   },
+   {
+    "do": "go",
+    "who": "bettina",
+    "to": [
+     8.6,
+     -3.0
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "dash",
+    "to": [
+     7.0,
+     -5.8
+    ],
+    "gait": "bounce"
+   }
+  ]
+ ],
+ "objective": "Wedding at 4:00 - 40 minutes",
+ "theme": {
+  "root": 60,
+  "mode": "major",
+  "tempo": 116,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "bettina": [
+    0,
+    2,
+    4
+   ],
+   "dash": [
+    7,
+    9,
+    7
+   ],
+   "rufus": [
+    0,
+    0,
+    -3
+   ],
+   "marcel": [
+    2,
+    0,
+    -2
+   ],
+   "juno": [
+    4,
+    5,
+    7
+   ],
+   "elm": [
+    0,
+    3,
+    0
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 54,
+   "hit": 47
+  }
+ },
+ "arc": 0.471
+}

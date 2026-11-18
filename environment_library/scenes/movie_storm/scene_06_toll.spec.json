@@ -1,0 +1,304 @@
+{
+ "id": "toll",
+ "title": "The toll",
+ "intent": "The toll keeper blocks the way until Old Mo pays with an apple, to repay Pepper\u2019s kindness.",
+ "extras": null,
+ "fog": 0.4,
+ "fx": null,
+ "location": {
+  "preset": "harbor",
+  "seed": 5,
+  "water": [
+   -5,
+   -9,
+   5,
+   3
+  ],
+  "objects": [
+   {
+    "kind": "platform",
+    "at": [
+     -12,
+     -3.5
+    ],
+    "w": 14,
+    "d": 5,
+    "height": 0.05,
+    "id": "bank_w",
+    "color": [
+     0.55,
+     0.5,
+     0.45
+    ]
+   },
+   {
+    "kind": "platform",
+    "at": [
+     12,
+     -3.5
+    ],
+    "w": 14,
+    "d": 5,
+    "height": 0.05,
+    "id": "bank_e",
+    "color": [
+     0.55,
+     0.5,
+     0.45
+    ]
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     -9.6,
+     -0.6
+    ],
+    "id": "stand3",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "dusk",
+ "ambience": "sea",
+ "music": "comic",
+ "cast": [
+  {
+   "id": "grub",
+   "at": [
+    9,
+    -3.2
+   ],
+   "face": [
+    -6,
+    -3.4
+   ]
+  },
+  {
+   "id": "pepper",
+   "at": [
+    -0.21,
+    -3.5
+   ],
+   "face": [
+    8,
+    -3.4
+   ]
+  },
+  {
+   "id": "vesper",
+   "at": [
+    -6.6,
+    -3.6
+   ],
+   "face": [
+    8,
+    -3.4
+   ]
+  },
+  {
+   "id": "mo",
+   "at": [
+    -11.4,
+    -1.4
+   ],
+   "face": [
+    8,
+    -3.4
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "apple",
+   "kind": "apple",
+   "at": [
+    -9.6,
+    -0.6
+   ],
+   "on": "stand3"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "pepper",
+    "to": [
+     5.2,
+     -3.6
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "vesper",
+    "to": [
+     4.2,
+     -4.2
+    ],
+    "gait": "strut"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "grub",
+   "text": "Toll bridge. One apple each. No apple, no crossing.",
+   "mood": "angry",
+   "to": "pepper"
+  },
+  {
+   "do": "say",
+   "who": "vesper",
+   "text": "We have no apples. A storm is coming!",
+   "mood": "concern",
+   "to": "grub"
+  },
+  {
+   "do": "say",
+   "who": "grub",
+   "text": "No apple, no crossing.",
+   "mood": "angry",
+   "to": "vesper"
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "thunder",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "emote",
+    "who": "pepper",
+    "kind": "sad",
+    "dur": 2.5
+   }
+  ],
+  {
+   "do": "take",
+   "who": "mo",
+   "prop": "apple"
+  },
+  {
+   "do": "say",
+   "who": "mo",
+   "text": "These two children helped me with my cart. Grub, take mine.",
+   "mood": "warm",
+   "to": "grub"
+  },
+  {
+   "do": "give",
+   "who": "mo",
+   "to": "grub"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "grub",
+    "kind": "smile",
+    "dur": 2.5
+   },
+   {
+    "do": "act",
+    "who": "grub",
+    "clip": "shrug"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "grub",
+   "text": "...Fine. Cross. But mind the thunder.",
+   "mood": "concern",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "go",
+    "who": "pepper",
+    "to": [
+     18,
+     -3.6
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "vesper",
+    "to": [
+     17,
+     -4.4
+    ],
+    "gait": "run"
+   }
+  ]
+ ],
+ "objective": "No apple, no crossing",
+ "theme": {
+  "root": 53,
+  "mode": "dorian",
+  "tempo": 108,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "pepper": [
+    7,
+    6,
+    4
+   ],
+   "vesper": [
+    0,
+    3,
+    5
+   ],
+   "odile": [
+    2,
+    0,
+    -2
+   ],
+   "tobias": [
+    -5,
+    -3,
+    -5
+   ],
+   "grub": [
+    0,
+    0,
+    -3
+   ],
+   "mo": [
+    2,
+    1,
+    -1
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.974
+}

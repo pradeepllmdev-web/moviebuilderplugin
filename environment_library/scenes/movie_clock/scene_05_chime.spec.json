@@ -1,0 +1,242 @@
+{
+ "id": "chime",
+ "title": "The clock chimes",
+ "intent": "Mina hands over the key. The keeper winds the clock and the bell rings.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 8,
+  "objects": [
+   {
+    "kind": "tower",
+    "at": [
+     0,
+     12
+    ],
+    "id": "clock_tower",
+    "size": 1.2
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "epic",
+ "cast": [
+  {
+   "id": "nell",
+   "at": [
+    -4,
+    -3
+   ],
+   "face": [
+    2,
+    -2
+   ]
+  },
+  {
+   "id": "pol",
+   "at": [
+    -7,
+    -5
+   ],
+   "face": [
+    2,
+    -2
+   ]
+  },
+  {
+   "id": "ada",
+   "at": [
+    -9,
+    -3
+   ],
+   "face": [
+    2,
+    -2
+   ]
+  },
+  {
+   "id": "mina",
+   "at": [
+    9,
+    2
+   ],
+   "face": [
+    2,
+    -2
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "mina",
+    "to": [
+     2.8,
+     -1.2
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "icon",
+    "who": "nell",
+    "kind": "alarm",
+    "dur": 1.6
+   }
+  ],
+  {
+   "do": "say",
+   "who": "mina",
+   "text": "Nell! I found your key! It was in the grass by the stream!",
+   "mood": "joy",
+   "to": "nell"
+  },
+  [
+   {
+    "do": "act",
+    "who": "nell",
+    "clip": "cele"
+   },
+   {
+    "do": "emote",
+    "who": "nell",
+    "kind": "smile",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "You found it! Everyone, stand back. I will wind the clock.",
+   "mood": "joy",
+   "to": "mina"
+  },
+  [
+   {
+    "do": "go",
+    "who": "nell",
+    "to": [
+     0,
+     4
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "act",
+    "who": "mina",
+    "clip": "wave"
+   }
+  ],
+  [
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 1.6,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "icon",
+    "who": "pol",
+    "kind": "joy",
+    "dur": 2.0
+   },
+   {
+    "do": "icon",
+    "who": "ada",
+    "kind": "joy",
+    "dur": 2.0
+   }
+  ],
+  [
+   {
+    "do": "act",
+    "who": "pol",
+    "clip": "cele"
+   },
+   {
+    "do": "act",
+    "who": "ada",
+    "clip": "cele"
+   },
+   {
+    "do": "act",
+    "who": "mina",
+    "clip": "cele"
+   }
+  ]
+ ],
+ "objective": "The clock chimes",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.76
+}

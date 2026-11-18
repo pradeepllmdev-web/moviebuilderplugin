@@ -1,0 +1,5 @@
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_clock/render/scene_01_rock.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_clock/render/scene_02_stopped.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_clock/render/scene_03_found.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_clock/render/scene_04_chime.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_clock/render/scene_05_bun.mp4'

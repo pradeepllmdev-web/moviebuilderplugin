@@ -1,0 +1,93 @@
+{
+ "id": "storm",
+ "title": "The storm breaks",
+ "seconds": 29.666666666666668,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.875,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "tobias speaks",
+   "t0": 2.875,
+   "t1": 6.083333333333333,
+   "kind": "medium",
+   "subject": "tobias"
+  },
+  {
+   "name": "tobias startle",
+   "t0": 6.083333333333333,
+   "t1": 8.5,
+   "kind": "medium",
+   "subject": "tobias"
+  },
+  {
+   "name": "tobias speaks",
+   "t0": 8.5,
+   "t1": 13.0,
+   "kind": "medium",
+   "subject": "tobias"
+  },
+  {
+   "name": "pepper laugh",
+   "t0": 13.0,
+   "t1": 21.25,
+   "kind": "medium",
+   "subject": "pepper"
+  },
+  {
+   "name": "tobias speaks",
+   "t0": 21.25,
+   "t1": 29.666666666666668,
+   "kind": "medium",
+   "subject": "tobias"
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "tobias",
+   "to": "pepper",
+   "mood": "serious",
+   "text": "A storm by sunset... Odile is never wrong.",
+   "t0": 2.995,
+   "t1": 5.987108843537415
+  },
+  {
+   "k": 1,
+   "speaker": "tobias",
+   "to": "pepper",
+   "mood": "angry",
+   "text": "Everybody off the ferry! Passengers to shelter! Now!",
+   "t0": 8.62,
+   "t1": 12.903083900226756
+  },
+  {
+   "k": 2,
+   "speaker": "tobias",
+   "to": "vesper",
+   "mood": "warm",
+   "text": "Fastest courier on the coast. And the best rival she will ever have.",
+   "t0": 22.453333333333333,
+   "t1": 27.074603174603176
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "tobias",
+  "pepper",
+  "vesper"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.1203465879942304,
+  "eye_speaker": 3.8012084163139863,
+  "eye_listener": 3.259809667696125,
+  "framing_misses": 0,
+  "framing_checked": 5
+ }
+}

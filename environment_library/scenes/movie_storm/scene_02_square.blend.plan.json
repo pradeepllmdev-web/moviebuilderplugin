@@ -1,0 +1,107 @@
+{
+ "id": "square",
+ "title": "Vesper notices",
+ "seconds": 30.208333333333332,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 5.291666666666667,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "vesper speaks",
+   "t0": 5.291666666666667,
+   "t1": 10.333333333333334,
+   "kind": "medium",
+   "subject": "vesper"
+  },
+  {
+   "name": "vesper speaks",
+   "t0": 10.333333333333334,
+   "t1": 12.75,
+   "kind": "two",
+   "subject": "vesper"
+  },
+  {
+   "name": "pepper dodge",
+   "t0": 12.75,
+   "t1": 15.75,
+   "kind": "medium",
+   "subject": "pepper"
+  },
+  {
+   "name": "pepper runs",
+   "t0": 15.75,
+   "t1": 22.041666666666668,
+   "kind": "track",
+   "subject": "pepper"
+  },
+  {
+   "name": "vesper points",
+   "t0": 22.041666666666668,
+   "t1": 25.208333333333332,
+   "kind": "reveal",
+   "subject": "vesper"
+  },
+  {
+   "name": "vesper points",
+   "t0": 25.208333333333332,
+   "t1": 27.416666666666664,
+   "kind": "reveal",
+   "subject": "vesper"
+  },
+  {
+   "name": "vesper reacts",
+   "t0": 27.416666666666664,
+   "t1": 30.208333333333332,
+   "kind": "medium",
+   "subject": "vesper"
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "vesper",
+   "to": "pepper",
+   "mood": "warm",
+   "text": "Where is the little courier going in such a hurry?",
+   "t0": 5.411666666666667,
+   "t1": 8.696836734693878
+  },
+  {
+   "k": 1,
+   "speaker": "pepper",
+   "to": "vesper",
+   "mood": "joy",
+   "text": "Secret ferry business!",
+   "t0": 8.911666666666665,
+   "t1": 10.272800453514737
+  },
+  {
+   "k": 2,
+   "speaker": "vesper",
+   "to": "pepper",
+   "mood": "serious",
+   "text": "Ferry business is my business.",
+   "t0": 10.453333333333333,
+   "t1": 12.658820861678004
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "pepper",
+  "vesper",
+  "mo"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.13792529797030698,
+  "eye_speaker": 8.268904516138571,
+  "eye_listener": 8.694540902172756,
+  "framing_misses": 0,
+  "framing_checked": 5
+ }
+}

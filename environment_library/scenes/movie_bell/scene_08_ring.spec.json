@@ -1,0 +1,251 @@
+{
+ "id": "ring",
+ "title": "The bell rings",
+ "intent": "The bell is back on its stand and rings at sunset.",
+ "extras": {
+  "n": 8,
+  "area": [
+   -14,
+   -8,
+   14,
+   9
+  ],
+  "focus": [
+   3,
+   -1.2
+  ],
+  "seed": 61
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 7,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     3.0,
+     -1.2
+    ],
+    "id": "stand0",
+    "height": 0.8,
+    "size": 0.5
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     -1.0,
+     -2.0
+    ],
+    "id": "stand1",
+    "height": 0.8,
+    "size": 0.5
+   }
+  ]
+ },
+ "time": "dusk",
+ "ambience": "wind",
+ "music": "epic",
+ "cast": [
+  {
+   "id": "otto",
+   "at": [
+    1.2,
+    -2.4
+   ],
+   "face": [
+    -1,
+    -2
+   ]
+  },
+  {
+   "id": "bea",
+   "at": [
+    -0.6,
+    -3.4
+   ],
+   "face": [
+    3,
+    -1.2
+   ]
+  },
+  {
+   "id": "marta",
+   "at": [
+    -1.6,
+    -1.6
+   ],
+   "face": [
+    3,
+    -1.2
+   ]
+  },
+  {
+   "id": "hugo",
+   "at": [
+    -3.95,
+    -1.15
+   ],
+   "face": [
+    3,
+    -1.2
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "bell",
+   "kind": "bell",
+   "at": [
+    -1.0,
+    -2.0
+   ],
+   "size": 1.6,
+   "on": "stand1"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "take",
+    "who": "otto",
+    "prop": "bell"
+   }
+  ],
+  {
+   "do": "put",
+   "who": "otto",
+   "on": "stand0"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "marta",
+    "kind": "smile",
+    "dur": 3
+   },
+   {
+    "do": "act",
+    "who": "bea",
+    "clip": "joy"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hugo",
+   "text": "Citizens of the village! The festival bell rings again!",
+   "mood": "joy",
+   "to": "marta"
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 0.3,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 1.6,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 2.9,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "act",
+    "who": "bea",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "marta",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "hugo",
+    "clip": "bow"
+   }
+  ],
+  {
+   "do": "wait",
+   "dur": 2.0
+  }
+ ],
+ "objective": "Ring the bell at sunset",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "marta": [
+    0,
+    4,
+    2
+   ],
+   "hugo": [
+    0,
+    0,
+    -3
+   ],
+   "finn": [
+    4,
+    6,
+    4
+   ],
+   "lulu": [
+    2,
+    4,
+    7
+   ],
+   "otto": [
+    -5,
+    -3,
+    -5
+   ],
+   "bea": [
+    7,
+    9,
+    7
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.7
+}

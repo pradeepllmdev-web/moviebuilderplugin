@@ -1,0 +1,223 @@
+{
+ "version": 1,
+ "characters": [
+  {
+   "id": "marta",
+   "name": "Marta",
+   "species": "cat",
+   "posture": "hurried",
+   "outfit": "innkeeper",
+   "colors": [
+    [
+     0.92,
+     0.88,
+     0.8
+    ],
+    [
+     0.55,
+     0.2,
+     0.25
+    ],
+    [
+     0.88,
+     0.8,
+     0.6
+    ],
+    [
+     0.3,
+     0.25,
+     0.2
+    ]
+   ],
+   "description": "the innkeeper who runs the festival",
+   "pace": 1.15,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 748,
+    "f0": 188.5,
+    "shift": 1.002,
+    "rate": 0.88
+   }
+  },
+  {
+   "id": "hugo",
+   "name": "Mayor Hugo",
+   "species": "ox",
+   "posture": "proud",
+   "outfit": "gentleman",
+   "colors": [
+    [
+     0.3,
+     0.3,
+     0.34
+    ],
+    [
+     0.6,
+     0.1,
+     0.15
+    ],
+    [
+     0.2,
+     0.14,
+     0.1
+    ]
+   ],
+   "description": "the grumpy mayor in a grey suit",
+   "pace": 1.15,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 22,
+    "f0": 92.5,
+    "shift": 0.93,
+    "rate": 1.02
+   }
+  },
+  {
+   "id": "finn",
+   "name": "Finn",
+   "species": "fox",
+   "posture": "jaunty",
+   "outfit": "fisherman",
+   "colors": [
+    [
+     0.25,
+     0.4,
+     0.65
+    ],
+    [
+     0.95,
+     0.78,
+     0.15
+    ],
+    [
+     0.25,
+     0.3,
+     0.4
+    ]
+   ],
+   "description": "a cheerful fisherman in a yellow coat",
+   "pace": 1.15,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 143,
+    "f0": 197.8,
+    "shift": 1.004,
+    "rate": 0.94
+   }
+  },
+  {
+   "id": "lulu",
+   "name": "Lulu",
+   "species": "owl",
+   "posture": "neutral",
+   "outfit": "artist",
+   "colors": [
+    [
+     0.85,
+     0.35,
+     0.3
+    ],
+    [
+     0.25,
+     0.35,
+     0.65
+    ],
+    [
+     0.65,
+     0.25,
+     0.5
+    ],
+    [
+     0.95,
+     0.8,
+     0.25
+    ]
+   ],
+   "description": "a painter who notices everything",
+   "pace": 1.15,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 242,
+    "f0": 168.3,
+    "shift": 1.001,
+    "rate": 1.0
+   }
+  },
+  {
+   "id": "otto",
+   "name": "Otto",
+   "species": "bear",
+   "posture": "tired",
+   "outfit": "blacksmith",
+   "colors": [
+    [
+     0.5,
+     0.5,
+     0.55
+    ],
+    [
+     0.4,
+     0.26,
+     0.14
+    ],
+    [
+     0.22,
+     0.18,
+     0.14
+    ],
+    [
+     0.3,
+     0.3,
+     0.36
+    ]
+   ],
+   "description": "the big quiet blacksmith",
+   "pace": 1.15,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 132,
+    "f0": 95.0,
+    "shift": 0.93,
+    "rate": 1.12
+   }
+  },
+  {
+   "id": "bea",
+   "name": "Bea",
+   "species": "rabbit",
+   "posture": "hurried",
+   "outfit": "child",
+   "colors": [
+    [
+     0.9,
+     0.5,
+     0.6
+    ],
+    [
+     0.95,
+     0.85,
+     0.4
+    ],
+    [
+     0.35,
+     0.55,
+     0.4
+    ],
+    [
+     0.4,
+     0.28,
+     0.2
+    ]
+   ],
+   "description": "a curious child who follows the clues",
+   "pace": 1.15,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 693,
+    "f0": 247.8,
+    "shift": 0.972,
+    "rate": 0.88
+   }
+  }
+ ]
+}

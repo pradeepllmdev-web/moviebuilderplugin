@@ -1,0 +1,353 @@
+{
+ "film": "pie_thief",
+ "records": [
+  {
+   "index": 1,
+   "id": "bakery",
+   "title": "The giant pie",
+   "key": "7fd3b5d5bfca",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_01_bakery.blend",
+   "status": "built in 11s",
+   "audit": [],
+   "seconds": 32.6,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.12523017983850085,
+    "reach": 0.09880074224873589,
+    "eye_speaker": 3.0111535561516214,
+    "eye_listener": 2.8071857767416644,
+    "framing_misses": 0,
+    "framing_checked": 6
+   },
+   "lines": 4,
+   "cuts": 8,
+   "cast": [
+    "tilda",
+    "rosa"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_01_bakery.png"
+  },
+  {
+   "index": 2,
+   "id": "contest",
+   "title": "The contest table",
+   "key": "bdd0edd9a2ad",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_02_contest.blend",
+   "status": "built in 19s",
+   "audit": [],
+   "seconds": 30.0,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.17118855139422134,
+    "reach": 0.06170038008201472,
+    "eye_speaker": 6.3557031107382205,
+    "eye_listener": 5.307015368760701,
+    "framing_misses": 0,
+    "framing_checked": 5
+   },
+   "lines": 4,
+   "cuts": 7,
+   "cast": [
+    "orin",
+    "gus",
+    "tilda",
+    "rosa"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_02_contest.png"
+  },
+  {
+   "index": 3,
+   "id": "alone",
+   "title": "Alone with the pie",
+   "key": "f707e4fea28d",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_03_alone.blend",
+   "status": "built in 16s",
+   "audit": [],
+   "seconds": 39.3,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.15818978929929714,
+    "reach": 0.0,
+    "eye_speaker": 4.471428358581622,
+    "eye_listener": 19.041616603618333,
+    "framing_misses": 0,
+    "framing_checked": 7
+   },
+   "lines": 4,
+   "cuts": 10,
+   "cast": [
+    "tilda",
+    "rosa",
+    "gus",
+    "orin"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_03_alone.png"
+  },
+  {
+   "index": 4,
+   "id": "taking",
+   "title": "A small thief",
+   "key": "0b21d431c8d1",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_04_taking.blend",
+   "status": "built in 18s",
+   "audit": [],
+   "seconds": 47.5,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.052263449317316725,
+    "reach": 0.1584963289072263,
+    "eye_speaker": 0.0,
+    "eye_listener": 0.0,
+    "framing_misses": 0,
+    "framing_checked": 3
+   },
+   "lines": 1,
+   "cuts": 8,
+   "cast": [
+    "pip",
+    "tilda",
+    "rosa",
+    "gus",
+    "orin"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_04_taking.png"
+  },
+  {
+   "index": 5,
+   "id": "gone",
+   "title": "The pie is gone",
+   "key": "caab2288ea08",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_05_gone.blend",
+   "status": "built in 12s",
+   "audit": [],
+   "seconds": 23.4,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.07015392091491929,
+    "reach": 0.0,
+    "eye_speaker": 0.0,
+    "eye_listener": 0.0,
+    "framing_misses": 0,
+    "framing_checked": 6
+   },
+   "lines": 2,
+   "cuts": 8,
+   "cast": [
+    "tilda",
+    "pip",
+    "rosa",
+    "gus",
+    "orin"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_05_gone.png"
+  },
+  {
+   "index": 6,
+   "id": "blame",
+   "title": "Who took it?",
+   "key": "aeb2c504781a",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_06_blame.blend",
+   "status": "built in 23s",
+   "audit": [],
+   "seconds": 48.4,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.15322873081187713,
+    "reach": 0.1487577205339082,
+    "eye_speaker": 7.798754563397402,
+    "eye_listener": 14.624008337578132,
+    "framing_misses": 0,
+    "framing_checked": 9
+   },
+   "lines": 7,
+   "cuts": 12,
+   "cast": [
+    "tilda",
+    "rosa",
+    "orin",
+    "gus"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_06_blame.png"
+  },
+  {
+   "index": 7,
+   "id": "tracking",
+   "title": "Following the footprints",
+   "key": "4c76aecd5e2e",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_07_tracking.blend",
+   "status": "built in 16s",
+   "audit": [
+    "AUDIT eye line: the addressed listener looks 72 degrees off the speaker (limit 40)"
+   ],
+   "seconds": 34.6,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.19102631052027327,
+    "reach": 0.17630834594610684,
+    "eye_speaker": 7.990442107825483,
+    "eye_listener": 71.91704282472182,
+    "framing_misses": 0,
+    "framing_checked": 6
+   },
+   "lines": 5,
+   "cuts": 8,
+   "cast": [
+    "rosa",
+    "tilda",
+    "orin",
+    "gus"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_07_tracking.png"
+  },
+  {
+   "index": 8,
+   "id": "hill",
+   "title": "Grandfather\u2019s hill",
+   "key": "4a37d38a7937",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_08_hill.blend",
+   "status": "built in 17s",
+   "audit": [],
+   "seconds": 45.2,
+   "stats": {
+    "ground_lift": 0.10271069155194805,
+    "foot_slip": 0.13491480639889572,
+    "reach": 0.10229859482082218,
+    "eye_speaker": 13.9682596904653,
+    "eye_listener": 10.687965113814938,
+    "framing_misses": 0,
+    "framing_checked": 9
+   },
+   "lines": 4,
+   "cuts": 11,
+   "cast": [
+    "fen",
+    "pip"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_08_hill.png"
+  },
+  {
+   "index": 9,
+   "id": "caught",
+   "title": "Caught",
+   "key": "8e7bab44869f",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_09_caught.blend",
+   "status": "built in 18s",
+   "audit": [
+    "AUDIT eye line: the addressed listener looks 100 degrees off the speaker (limit 40)"
+   ],
+   "seconds": 33.7,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.180356440298256,
+    "reach": 0.148716201185164,
+    "eye_speaker": 8.000059861955478,
+    "eye_listener": 100.15210049253301,
+    "framing_misses": 0,
+    "framing_checked": 5
+   },
+   "lines": 4,
+   "cuts": 9,
+   "cast": [
+    "fen",
+    "pip",
+    "tilda",
+    "rosa",
+    "orin",
+    "gus"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_09_caught.png"
+  },
+  {
+   "index": 10,
+   "id": "forgive",
+   "title": "Forgiveness",
+   "key": "5099fb551e4f",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_10_forgive.blend",
+   "status": "built in 20s",
+   "audit": [],
+   "seconds": 41.5,
+   "stats": {
+    "ground_lift": 0.16521790464232075,
+    "foot_slip": 0.08393337931907591,
+    "reach": 0.0,
+    "eye_speaker": 6.424403518507257,
+    "eye_listener": 3.544234762953445,
+    "framing_misses": 0,
+    "framing_checked": 8
+   },
+   "lines": 6,
+   "cuts": 9,
+   "cast": [
+    "fen",
+    "pip",
+    "tilda",
+    "rosa",
+    "orin",
+    "gus"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_10_forgive.png"
+  },
+  {
+   "index": 11,
+   "id": "feast",
+   "title": "The Golden Spoon",
+   "key": "e5607566bec3",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_11_feast.blend",
+   "status": "built in 26s",
+   "audit": [],
+   "seconds": 34.8,
+   "stats": {
+    "ground_lift": 0.04053398667076231,
+    "foot_slip": 0.26924569147656496,
+    "reach": 0.0,
+    "eye_speaker": 4.633477653083945,
+    "eye_listener": 4.049120675649776,
+    "framing_misses": 0,
+    "framing_checked": 7
+   },
+   "lines": 4,
+   "cuts": 9,
+   "cast": [
+    "orin",
+    "tilda",
+    "pip",
+    "fen",
+    "rosa",
+    "gus"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_11_feast.png"
+  },
+  {
+   "index": 12,
+   "id": "apprentice",
+   "title": "A new apprentice",
+   "key": "3628d34b5ad3",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\scene_12_apprentice.blend",
+   "status": "built in 16s",
+   "audit": [],
+   "seconds": 32.3,
+   "stats": {
+    "ground_lift": 0.03896968003180345,
+    "foot_slip": 0.0,
+    "reach": 0.0,
+    "eye_speaker": 3.5324639483983016,
+    "eye_listener": 23.981300195116937,
+    "framing_misses": 0,
+    "framing_checked": 5
+   },
+   "lines": 5,
+   "cuts": 8,
+   "cast": [
+    "tilda",
+    "pip",
+    "fen",
+    "rosa",
+    "gus"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\sheets\\scene_12_apprentice.png"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_pie\\movie.blend",
+ "total_seconds": 443.3,
+ "audit_lines": 2
+}

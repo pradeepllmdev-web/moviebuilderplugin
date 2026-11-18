@@ -1,0 +1,219 @@
+{
+ "id": "bakery",
+ "title": "Cake day",
+ "intent": "Bettina and Dash realise the wedding cake is late. The wedding is at four.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "room",
+  "seed": 3,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     -1.0,
+     -0.9
+    ],
+    "id": "stand0",
+    "height": 0.45,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "hall",
+ "music": "comic",
+ "cast": [
+  {
+   "id": "bettina",
+   "at": [
+    -2.6,
+    -2.6
+   ],
+   "face": [
+    -1,
+    -0.9
+   ]
+  },
+  {
+   "id": "dash",
+   "at": [
+    3.2,
+    -3.0
+   ],
+   "face": "bettina"
+  }
+ ],
+ "props": [
+  {
+   "id": "cake",
+   "kind": "barrel_small",
+   "at": [
+    -1.0,
+    -0.9
+   ],
+   "size": 1.2,
+   "on": "stand0"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "bettina",
+    "to": [
+     -1.9,
+     -1.5
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "dash",
+    "to": [
+     1.2,
+     -2.2
+    ],
+    "gait": "bounce",
+    "talk": [
+     "Miss Bettina! The clock says three!",
+     "concern",
+     "bettina"
+    ]
+   }
+  ],
+  {
+   "do": "say",
+   "who": "bettina",
+   "text": "Three?! The wedding is at four!",
+   "mood": "angry",
+   "to": "dash"
+  },
+  {
+   "do": "say",
+   "who": "dash",
+   "text": "And the chapel is on the far hill!",
+   "overlap_by": 0.5,
+   "mood": "concern",
+   "to": "bettina"
+  },
+  {
+   "do": "say",
+   "who": "bettina",
+   "text": "Then we run. Take the left, I take the right.",
+   "overlap_by": 0.4,
+   "mood": "serious",
+   "to": "dash"
+  },
+  {
+   "do": "point",
+   "who": "dash",
+   "at": [
+    12,
+    -3
+   ],
+   "dur": 1.4,
+   "hand": "R"
+  },
+  [
+   {
+    "do": "take",
+    "who": "bettina",
+    "prop": "cake"
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "bettina",
+    "to": [
+     0,
+     -3.2
+    ],
+    "gait": "brisk",
+    "talk": [
+     "Mind the icing! Mind the icing!",
+     "concern",
+     "dash"
+    ]
+   },
+   {
+    "do": "go",
+    "who": "dash",
+    "to": [
+     1.2,
+     -3.4
+    ],
+    "gait": "bounce"
+   }
+  ]
+ ],
+ "objective": "Wedding at 4:00 - it is 3:00",
+ "theme": {
+  "root": 60,
+  "mode": "major",
+  "tempo": 116,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "bettina": [
+    0,
+    2,
+    4
+   ],
+   "dash": [
+    7,
+    9,
+    7
+   ],
+   "rufus": [
+    0,
+    0,
+    -3
+   ],
+   "marcel": [
+    2,
+    0,
+    -2
+   ],
+   "juno": [
+    4,
+    5,
+    7
+   ],
+   "elm": [
+    0,
+    3,
+    0
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 54,
+   "hit": 47
+  }
+ },
+ "arc": 0.25
+}

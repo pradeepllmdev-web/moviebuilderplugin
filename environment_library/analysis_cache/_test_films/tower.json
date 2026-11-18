@@ -1,0 +1,251 @@
+{
+ "id": "tower",
+ "title": "The Tower",
+ "logline": "x",
+ "target_minutes": 3,
+ "cast": [
+  {
+   "id": "ann",
+   "name": "Ann",
+   "species": "person",
+   "height": 1.6,
+   "colors": [
+    [
+     0.8,
+     0.3,
+     0.3
+    ],
+    [
+     0.25,
+     0.28,
+     0.4
+    ],
+    [
+     0.2,
+     0.12,
+     0.08
+    ]
+   ],
+   "description": "a woman in red"
+  },
+  {
+   "id": "ben",
+   "name": "Ben",
+   "species": "person",
+   "height": 1.9,
+   "width": 1.15,
+   "colors": [
+    [
+     0.3,
+     0.5,
+     0.8
+    ],
+    [
+     0.35,
+     0.3,
+     0.2
+    ],
+    [
+     0.2,
+     0.12,
+     0.08
+    ]
+   ],
+   "description": "a tall man in blue"
+  }
+ ],
+ "scenes": [
+  {
+   "id": "one",
+   "title": "One",
+   "objective": "talk about one",
+   "intent": "x",
+   "location": {
+    "preset": "meadow",
+    "seed": 3
+   },
+   "time": "day",
+   "ambience": "wind",
+   "music": "calm",
+   "cast": [
+    {
+     "id": "ann",
+     "at": [
+      -1.5,
+      0
+     ],
+     "face": "ben"
+    },
+    {
+     "id": "ben",
+     "at": [
+      1.5,
+      0
+     ],
+     "face": "ann"
+    }
+   ],
+   "steps": [
+    {
+     "do": "say",
+     "who": "ann",
+     "text": "The tower bell rang early today.",
+     "mood": "warm",
+     "to": "ben"
+    },
+    {
+     "do": "say",
+     "who": "ben",
+     "text": "I heard it from the bakery, Ann.",
+     "mood": "joy",
+     "to": "ann"
+    },
+    {
+     "do": "say",
+     "who": "ann",
+     "text": "Then somebody is awake before us.",
+     "mood": "warm",
+     "to": "ben"
+    },
+    {
+     "do": "icon",
+     "who": "ben",
+     "kind": "joy",
+     "dur": 1.5
+    }
+   ],
+   "props": [],
+   "fog": 0.0,
+   "extras": null,
+   "fx": null
+  },
+  {
+   "id": "two",
+   "title": "Two",
+   "objective": "talk about two",
+   "intent": "x",
+   "location": {
+    "preset": "meadow",
+    "seed": 3
+   },
+   "time": "day",
+   "ambience": "wind",
+   "music": "calm",
+   "cast": [
+    {
+     "id": "ann",
+     "at": [
+      -1.5,
+      0
+     ],
+     "face": "ben"
+    },
+    {
+     "id": "ben",
+     "at": [
+      1.5,
+      0
+     ],
+     "face": "ann"
+    }
+   ],
+   "steps": [
+    {
+     "do": "say",
+     "who": "ann",
+     "text": "Look at the tower, the door is open.",
+     "mood": "warm",
+     "to": "ben"
+    },
+    {
+     "do": "say",
+     "who": "ben",
+     "text": "Somebody has left a lantern burning.",
+     "mood": "joy",
+     "to": "ann"
+    },
+    {
+     "do": "say",
+     "who": "ann",
+     "text": "Let us see who it belongs to.",
+     "mood": "warm",
+     "to": "ben"
+    },
+    {
+     "do": "icon",
+     "who": "ben",
+     "kind": "joy",
+     "dur": 1.5
+    }
+   ],
+   "props": [],
+   "fog": 0.0,
+   "extras": null,
+   "fx": null
+  },
+  {
+   "id": "three",
+   "title": "Three",
+   "objective": "talk about three",
+   "intent": "x",
+   "location": {
+    "preset": "meadow",
+    "seed": 3
+   },
+   "time": "day",
+   "ambience": "wind",
+   "music": "calm",
+   "cast": [
+    {
+     "id": "ann",
+     "at": [
+      -1.5,
+      0
+     ],
+     "face": "ben"
+    },
+    {
+     "id": "ben",
+     "at": [
+      1.5,
+      0
+     ],
+     "face": "ann"
+    }
+   ],
+   "steps": [
+    {
+     "do": "say",
+     "who": "ann",
+     "text": "The lantern was the keeper\u2019s all along.",
+     "mood": "warm",
+     "to": "ben"
+    },
+    {
+     "do": "say",
+     "who": "ben",
+     "text": "He will be glad we found it.",
+     "mood": "joy",
+     "to": "ann"
+    },
+    {
+     "do": "say",
+     "who": "ann",
+     "text": "Then we return it with our thanks.",
+     "mood": "warm",
+     "to": "ben"
+    },
+    {
+     "do": "icon",
+     "who": "ben",
+     "kind": "joy",
+     "dur": 1.5
+    }
+   ],
+   "props": [],
+   "fog": 0.0,
+   "extras": null,
+   "fx": null
+  }
+ ]
+}

@@ -1,0 +1,209 @@
+{
+ "id": "empty_stand",
+ "title": "The empty stand",
+ "intent": "The festival bell has vanished from its stand. It must ring at sunset.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 7,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     3.0,
+     -1.2
+    ],
+    "id": "stand0",
+    "height": 0.8,
+    "size": 0.5
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "tense",
+ "cast": [
+  {
+   "id": "marta",
+   "at": [
+    -8,
+    -3.6
+   ],
+   "face": [
+    3,
+    -1.2
+   ]
+  },
+  {
+   "id": "hugo",
+   "at": [
+    -10,
+    3
+   ],
+   "face": [
+    3,
+    -1.2
+   ]
+  },
+  {
+   "id": "bea",
+   "at": [
+    8,
+    -6
+   ],
+   "face": [
+    3,
+    -1.2
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "marta",
+    "to": [
+     1.2,
+     -2.6
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "look",
+    "who": "hugo",
+    "at": "marta",
+    "dur": 2
+   }
+  ],
+  {
+   "do": "act",
+   "who": "marta",
+   "clip": "startle"
+  },
+  {
+   "do": "say",
+   "who": "marta",
+   "text": "Hugo! The festival bell is gone!",
+   "mood": "sad",
+   "to": "hugo"
+  },
+  {
+   "do": "point",
+   "who": "marta",
+   "at": "stand0",
+   "dur": 1.4,
+   "hand": "R"
+  },
+  [
+   {
+    "do": "go",
+    "who": "hugo",
+    "to": [
+     -1.4,
+     -1.0
+    ],
+    "gait": "stomp"
+   },
+   {
+    "do": "go",
+    "who": "bea",
+    "to": [
+     5.0,
+     -2.8
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hugo",
+   "text": "Gone? It must ring at sunset. That is five hours away!",
+   "mood": "angry",
+   "to": "marta"
+  },
+  {
+   "do": "say",
+   "who": "bea",
+   "text": "There are wheel tracks in the dust. Big ones.",
+   "mood": "concern",
+   "to": "hugo"
+  },
+  {
+   "do": "say",
+   "who": "hugo",
+   "text": "Then everyone looks. Everyone!",
+   "mood": "angry",
+   "to": "marta"
+  }
+ ],
+ "objective": "The festival bell is missing!",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "marta": [
+    0,
+    4,
+    2
+   ],
+   "hugo": [
+    0,
+    0,
+    -3
+   ],
+   "finn": [
+    4,
+    6,
+    4
+   ],
+   "lulu": [
+    2,
+    4,
+    7
+   ],
+   "otto": [
+    -5,
+    -3,
+    -5
+   ],
+   "bea": [
+    7,
+    9,
+    7
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.25
+}

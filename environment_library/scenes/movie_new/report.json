@@ -1,0 +1,83 @@
+{
+ "plan": {
+  "scenes": [
+   {
+    "index": 1,
+    "title": "At night the lion council sits around the round",
+    "text": "At night the lion council sits around the round table to debate whether to send Leo after the stolen crown.",
+    "builder": "set_piece",
+    "piece": "council",
+    "location": "council_hall",
+    "params": {},
+    "seconds": 66,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 2,
+    "title": "At midnight Leo sneaks into the museum past the",
+    "text": "At midnight Leo sneaks into the museum past the laser gate and the sentries and steals the jewel before the alarm sounds.",
+    "builder": "set_piece",
+    "piece": "heist",
+    "location": "museum_hall",
+    "params": {},
+    "seconds": 50,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 3,
+    "title": "At dawn an army besieges the citadel with catapu",
+    "text": "At dawn an army besieges the citadel with catapults and Leo opens the gate.",
+    "builder": "set_piece",
+    "piece": "siege",
+    "location": "citadel",
+    "params": {
+     "time_of_day": "dawn"
+    },
+    "seconds": 72,
+    "missing": [],
+    "time_of_day": "dawn"
+   }
+  ],
+  "total_seconds": 188,
+  "estimated_build_minutes": 6.0,
+  "warnings": [],
+  "hash": "16373c3db6"
+ },
+ "report": [
+  {
+   "index": 1,
+   "title": "At night the lion council sits around the round",
+   "piece": "council",
+   "params": {},
+   "seconds": 66,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new\\scene_01_council.blend"
+  },
+  {
+   "index": 2,
+   "title": "At midnight Leo sneaks into the museum past the",
+   "piece": "heist",
+   "params": {},
+   "seconds": 50,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new\\scene_02_heist.blend"
+  },
+  {
+   "index": 3,
+   "title": "At dawn an army besieges the citadel with catapu",
+   "piece": "siege",
+   "params": {
+    "time_of_day": "dawn"
+   },
+   "seconds": 72,
+   "status": "built in 102s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new\\scene_03_siege.blend"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new\\movie.blend"
+}

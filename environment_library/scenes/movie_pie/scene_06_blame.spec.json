@@ -1,0 +1,260 @@
+{
+ "id": "blame",
+ "title": "Who took it?",
+ "intent": "Everyone blames Gus, until Rosa notices small footprints leading away.",
+ "extras": {
+  "n": 4,
+  "area": [
+   -14,
+   -8,
+   14,
+   8
+  ],
+  "focus": [
+   2.5,
+   -1
+  ],
+  "seed": 7
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 4,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     2.5,
+     -1.0
+    ],
+    "id": "stand0",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "tense",
+ "cast": [
+  {
+   "id": "tilda",
+   "at": [
+    1.0,
+    -2.5
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "rosa",
+   "at": [
+    -5,
+    -3
+   ],
+   "face": "tilda"
+  },
+  {
+   "id": "orin",
+   "at": [
+    -6,
+    2
+   ],
+   "face": "tilda"
+  },
+  {
+   "id": "gus",
+   "at": [
+    10,
+    3
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "rosa",
+    "to": [
+     0,
+     -3
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "orin",
+    "to": [
+     -1,
+     0.5
+    ],
+    "gait": "walk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "orin",
+   "text": "Gus! You were sniffing the pie. I heard it from the anvil.",
+   "mood": "angry",
+   "to": "gus"
+  },
+  {
+   "do": "say",
+   "who": "gus",
+   "text": "I only sniffed! I would never take it.",
+   "mood": "angry",
+   "to": "orin"
+  },
+  [
+   {
+    "do": "go",
+    "who": "gus",
+    "to": [
+     4.5,
+     -0.5
+    ],
+    "gait": "stomp"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "Nobody else loves pie like you, Gus.",
+   "mood": "sad",
+   "to": "gus"
+  },
+  {
+   "do": "say",
+   "who": "gus",
+   "text": "This is a terrible thing to say about a blacksmith!",
+   "mood": "angry",
+   "to": "tilda"
+  },
+  [
+   {
+    "do": "go",
+    "who": "rosa",
+    "to": [
+     2.8,
+     -1.6
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "look",
+    "who": "rosa",
+    "at": [
+     2.5,
+     -2.4
+    ],
+    "dur": 2
+   }
+  ],
+  {
+   "do": "point",
+   "who": "rosa",
+   "at": [
+    2.5,
+    -2.4
+   ],
+   "dur": 1.4,
+   "hand": "R"
+  },
+  {
+   "do": "say",
+   "who": "rosa",
+   "text": "Wait. Look. Small footprints in the dust. Little ones. Going east.",
+   "mood": "concern",
+   "to": "orin"
+  },
+  {
+   "do": "say",
+   "who": "gus",
+   "text": "Small! Do I look small?",
+   "mood": "concern",
+   "to": "rosa"
+  },
+  {
+   "do": "say",
+   "who": "orin",
+   "text": "Follow them! The contest is at noon.",
+   "mood": "serious",
+   "to": "tilda"
+  }
+ ],
+ "objective": "Who took the pie?",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.861
+}

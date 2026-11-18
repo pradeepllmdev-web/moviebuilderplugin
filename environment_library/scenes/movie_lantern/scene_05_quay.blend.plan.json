@@ -1,0 +1,96 @@
+{
+ "id": "quay",
+ "title": "Cornered on the quay",
+ "seconds": 31.791666666666668,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 3.125,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "nell and company",
+   "t0": 3.125,
+   "t1": 11.375,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "nell and company (b)",
+   "t0": 11.375,
+   "t1": 21.541666666666664,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "sal reacts",
+   "t0": 21.541666666666664,
+   "t1": 25.916666666666668,
+   "kind": "medium",
+   "subject": "sal"
+  },
+  {
+   "name": "pim speaks",
+   "t0": 25.916666666666668,
+   "t1": 28.59166666666667,
+   "kind": "two",
+   "subject": "pim"
+  },
+  {
+   "name": "end",
+   "t0": 28.59166666666667,
+   "t1": 31.791666666666668,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "sal",
+   "to": "dot",
+   "mood": "angry",
+   "text": "Give it back, child!",
+   "t0": 13.62,
+   "t1": 14.968072562358277
+  },
+  {
+   "k": 1,
+   "speaker": "dot",
+   "to": "sal",
+   "mood": "sad",
+   "text": "I cannot. Not yet.",
+   "t0": 15.328333333333333,
+   "t1": 17.28769841269841
+  },
+  {
+   "k": 2,
+   "speaker": "pim",
+   "to": "dot",
+   "mood": "angry",
+   "text": "Dot! That is the village lantern! Explain yourself!",
+   "t0": 26.03666666666667,
+   "t1": 29.224920634920636
+  }
+ ],
+ "audit": [
+  "AUDIT eye line: the addressed listener looks 91 degrees off the speaker (limit 40)"
+ ],
+ "cast": [
+  "dot",
+  "sal",
+  "nell",
+  "pim"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.20632592751463857,
+  "reach": 0.09361145645745987,
+  "eye_speaker": 6.355705761895078,
+  "eye_listener": 91.25859884178742,
+  "framing_misses": 0,
+  "framing_checked": 2
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "id": "procession",
+ "title": "Bringing it home",
+ "seconds": 19.375,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "otto walks",
+   "t0": 2.5,
+   "t1": 6.291666666666667,
+   "kind": "track",
+   "subject": "otto"
+  },
+  {
+   "name": "bea speaks",
+   "t0": 6.291666666666667,
+   "t1": 10.458333333333334,
+   "kind": "medium",
+   "subject": "bea"
+  },
+  {
+   "name": "bea runs",
+   "t0": 10.458333333333334,
+   "t1": 16.175,
+   "kind": "track",
+   "subject": "bea"
+  },
+  {
+   "name": "end",
+   "t0": 16.175,
+   "t1": 19.375,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "bea",
+   "to": "otto",
+   "mood": "joy",
+   "text": "Careful, Otto. It rings if you sneeze.",
+   "t0": 6.411666666666667,
+   "t1": 8.861825396825397
+  },
+  {
+   "k": 1,
+   "speaker": "otto",
+   "to": "bea",
+   "mood": "warm",
+   "text": "I never sneeze.",
+   "t0": 9.078333333333333,
+   "t1": 10.376972789115646
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "otto",
+  "bea",
+  "marta",
+  "hugo"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.1699572531225804,
+  "reach": 2.9510259026350377e-05,
+  "eye_speaker": 7.0765022470759495,
+  "eye_listener": 21.378098125994235,
+  "framing_misses": 0,
+  "framing_checked": 3
+ }
+}

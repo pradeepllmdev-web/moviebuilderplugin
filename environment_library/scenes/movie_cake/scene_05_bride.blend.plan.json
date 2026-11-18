@@ -1,0 +1,135 @@
+{
+ "id": "bride",
+ "title": "Late, late, late",
+ "seconds": 48.5,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "bettina sit",
+   "t0": 2.5,
+   "t1": 4.791666666666667,
+   "kind": "medium",
+   "subject": "bettina"
+  },
+  {
+   "name": "juno speaks",
+   "t0": 4.791666666666667,
+   "t1": 11.375,
+   "kind": "medium",
+   "subject": "juno"
+  },
+  {
+   "name": "juno speaks (b)",
+   "t0": 11.375,
+   "t1": 17.958333333333332,
+   "kind": "medium",
+   "subject": "juno"
+  },
+  {
+   "name": "marcel speaks",
+   "t0": 17.958333333333332,
+   "t1": 23.625,
+   "kind": "medium",
+   "subject": "marcel"
+  },
+  {
+   "name": "elm speaks",
+   "t0": 23.625,
+   "t1": 30.833333333333332,
+   "kind": "two",
+   "subject": "elm"
+  },
+  {
+   "name": "bettina speaks",
+   "t0": 30.833333333333332,
+   "t1": 34.333333333333336,
+   "kind": "medium",
+   "subject": "bettina"
+  },
+  {
+   "name": "juno runs",
+   "t0": 34.333333333333336,
+   "t1": 45.3,
+   "kind": "track",
+   "subject": "juno"
+  },
+  {
+   "name": "end",
+   "t0": 45.3,
+   "t1": 48.5,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "juno",
+   "to": "marcel",
+   "mood": "joy",
+   "text": "Marcel, hurry! We are late for our own wedding!",
+   "t0": 5.191666666666667,
+   "t1": 8.161666666666667
+  },
+  {
+   "k": 1,
+   "speaker": "marcel",
+   "to": "juno",
+   "mood": "concern",
+   "text": "I know. I know. My legs are very long and very slow.",
+   "t0": 18.078333333333333,
+   "t1": 23.54250566893424
+  },
+  {
+   "k": 2,
+   "speaker": "elm",
+   "to": "marcel",
+   "mood": "serious",
+   "text": "In my day we ran to weddings.",
+   "t0": 24.453333333333333,
+   "t1": 26.658639455782314
+  },
+  {
+   "k": 3,
+   "speaker": "juno",
+   "to": "bettina",
+   "mood": "concern",
+   "text": "Bettina? Is that... the cake?",
+   "t0": 28.87,
+   "t1": 30.726734693877553
+  },
+  {
+   "k": 4,
+   "speaker": "bettina",
+   "to": "juno",
+   "mood": "sad",
+   "text": "It was. I am so sorry. It is ruined.",
+   "t0": 30.953333333333333,
+   "t1": 34.23446712018141
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "bettina",
+  "dash",
+  "rufus",
+  "juno",
+  "marcel",
+  "elm"
+ ],
+ "stats": {
+  "ground_lift": 0.03201253112453994,
+  "foot_slip": 0.15300013298245513,
+  "reach": 0.0,
+  "eye_speaker": 8.941343099740882,
+  "eye_listener": 7.337527985178859,
+  "framing_misses": 0,
+  "framing_checked": 7
+ }
+}

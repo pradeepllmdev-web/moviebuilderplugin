@@ -1,0 +1,128 @@
+{
+ "id": "tracking",
+ "title": "Following the footprints",
+ "seconds": 34.625,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "rosa runs",
+   "t0": 2.5,
+   "t1": 10.083333333333334,
+   "kind": "track",
+   "subject": "rosa"
+  },
+  {
+   "name": "rosa speaks",
+   "t0": 10.083333333333334,
+   "t1": 13.25,
+   "kind": "medium",
+   "subject": "rosa"
+  },
+  {
+   "name": "tilda speaks",
+   "t0": 13.25,
+   "t1": 15.458333333333334,
+   "kind": "medium",
+   "subject": "tilda"
+  },
+  {
+   "name": "orin speaks",
+   "t0": 15.458333333333334,
+   "t1": 19.416666666666668,
+   "kind": "two",
+   "subject": "orin"
+  },
+  {
+   "name": "rosa runs",
+   "t0": 19.416666666666668,
+   "t1": 26.541666666666668,
+   "kind": "track",
+   "subject": "rosa"
+  },
+  {
+   "name": "gus speaks",
+   "t0": 26.541666666666668,
+   "t1": 31.491666666666667,
+   "kind": "medium",
+   "subject": "gus"
+  },
+  {
+   "name": "end",
+   "t0": 31.491666666666667,
+   "t1": 34.625,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "rosa",
+   "to": "tilda",
+   "mood": "concern",
+   "text": "Here. A cherry crumb.",
+   "t0": 11.286666666666665,
+   "t1": 13.186213151927436
+  },
+  {
+   "k": 1,
+   "speaker": "tilda",
+   "to": "rosa",
+   "mood": "angry",
+   "text": "He ate my pie on the way?",
+   "t0": 13.37,
+   "t1": 15.389637188208615
+  },
+  {
+   "k": 2,
+   "speaker": "orin",
+   "to": "tilda",
+   "mood": "serious",
+   "text": "A thief with small feet and a big appetite.",
+   "t0": 16.66166666666667,
+   "t1": 19.34837868480726
+  },
+  {
+   "k": 3,
+   "speaker": "gus",
+   "to": "orin",
+   "mood": "warm",
+   "text": "Hungry thieves go uphill. I would.",
+   "t0": 26.66166666666667,
+   "t1": 29.192687074829934
+  },
+  {
+   "k": 4,
+   "speaker": "rosa",
+   "to": "tilda",
+   "mood": "serious",
+   "text": "The prints climb the shepherd\u2019s hill.",
+   "t0": 29.41166666666667,
+   "t1": 32.04264172335601
+  }
+ ],
+ "audit": [
+  "AUDIT eye line: the addressed listener looks 72 degrees off the speaker (limit 40)"
+ ],
+ "cast": [
+  "rosa",
+  "tilda",
+  "orin",
+  "gus"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.19102631052027327,
+  "reach": 0.17630834594610684,
+  "eye_speaker": 7.990442107825483,
+  "eye_listener": 71.91704282472182,
+  "framing_misses": 0,
+  "framing_checked": 6
+ }
+}

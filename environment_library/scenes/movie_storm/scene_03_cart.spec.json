@@ -1,0 +1,323 @@
+{
+ "id": "cart",
+ "title": "Never stop... except",
+ "intent": "Pepper breaks her promise to help Old Mo. While her back is turned, Vesper takes the letter and runs.",
+ "extras": {
+  "n": 3,
+  "area": [
+   -12,
+   -4,
+   12,
+   10
+  ],
+  "focus": [
+   0,
+   -4
+  ],
+  "seed": 41
+ },
+ "fog": 0.28,
+ "fx": null,
+ "location": {
+  "preset": "market",
+  "seed": 6,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     -9.6,
+     -3.2
+    ],
+    "id": "stand0",
+    "height": 0.7,
+    "size": 0.4
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     -1.6,
+     -2.2
+    ],
+    "id": "stand1",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "dusk",
+ "ambience": "market",
+ "music": "tense",
+ "cast": [
+  {
+   "id": "pepper",
+   "at": [
+    -9.6,
+    -4.4
+   ],
+   "face": [
+    -9.6,
+    -3.2
+   ]
+  },
+  {
+   "id": "mo",
+   "at": [
+    -2.4,
+    -4.4
+   ],
+   "face": [
+    -1,
+    -4.4
+   ]
+  },
+  {
+   "id": "vesper",
+   "at": [
+    3.5,
+    -7.6
+   ],
+   "face": [
+    -2,
+    -4
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "cart",
+   "kind": "cart_load",
+   "at": [
+    -1.0,
+    -4.6
+   ]
+  },
+  {
+   "id": "letter",
+   "kind": "letter",
+   "at": [
+    -9.6,
+    -3.2
+   ],
+   "size": 1.6,
+   "on": "stand0"
+  }
+ ],
+ "steps": [
+  {
+   "do": "take",
+   "who": "pepper",
+   "prop": "letter"
+  },
+  {
+   "do": "go",
+   "who": "pepper",
+   "to": [
+    -5.8,
+    -3.8
+   ],
+   "gait": "run"
+  },
+  [
+   {
+    "do": "act",
+    "who": "mo",
+    "clip": "argue"
+   },
+   {
+    "do": "sfx",
+    "name": "creak",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   }
+  ],
+  {
+   "do": "say",
+   "who": "mo",
+   "text": "Stuck! Stuck again! These old wheels hate me!",
+   "mood": "sad",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "look",
+    "who": "pepper",
+    "at": [
+     20,
+     -4
+    ],
+    "dur": 1.5
+   },
+   {
+    "do": "emote",
+    "who": "pepper",
+    "kind": "concern",
+    "dur": 2.5
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pepper",
+   "text": "I never stop. I never stop. ...Oh, bother.",
+   "mood": "concern",
+   "to": "mo"
+  },
+  [
+   {
+    "do": "go",
+    "who": "pepper",
+    "to": [
+     -2.6,
+     -2.2
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "put",
+   "who": "pepper",
+   "on": "stand1"
+  },
+  {
+   "do": "push",
+   "who": "pepper",
+   "prop": "cart",
+   "dist": 3.0,
+   "dir": 0
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "thud",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "act",
+    "who": "mo",
+    "clip": "joy"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "mo",
+   "text": "Bless you, child! Now run!",
+   "mood": "joy",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "go",
+    "who": "vesper",
+    "to": [
+     -1.6,
+     -3.0
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "take",
+   "who": "vesper",
+   "prop": "letter"
+  },
+  {
+   "do": "sfx",
+   "name": "sting",
+   "at": 0.1,
+   "who": null,
+   "gain": 1.0
+  },
+  [
+   {
+    "do": "act",
+    "who": "pepper",
+    "clip": "startle"
+   },
+   {
+    "do": "go",
+    "who": "vesper",
+    "to": [
+     16,
+     -4.4
+    ],
+    "gait": "run"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pepper",
+   "text": "Vesper! My letter!",
+   "mood": "angry",
+   "to": "vesper"
+  }
+ ],
+ "objective": "Pepper never stops...",
+ "theme": {
+  "root": 53,
+  "mode": "dorian",
+  "tempo": 108,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "pepper": [
+    7,
+    6,
+    4
+   ],
+   "vesper": [
+    0,
+    3,
+    5
+   ],
+   "odile": [
+    2,
+    0,
+    -2
+   ],
+   "tobias": [
+    -5,
+    -3,
+    -5
+   ],
+   "grub": [
+    0,
+    0,
+    -3
+   ],
+   "mo": [
+    2,
+    1,
+    -1
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.625
+}

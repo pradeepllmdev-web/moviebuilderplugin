@@ -1,0 +1,147 @@
+{
+ "plan": {
+  "scenes": [
+   {
+    "index": 1,
+    "title": "At night the lion council sits around the round",
+    "text": "At night the lion council sits around the round table to debate how to stop the coming flood.",
+    "builder": "set_piece",
+    "piece": "council",
+    "location": "council_hall",
+    "params": {},
+    "seconds": 66,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 2,
+    "title": "At dawn in his workshop Leo tinkers with clockwo",
+    "text": "At dawn in his workshop Leo tinkers with clockwork gears and assembles a music box with a crank.",
+    "builder": "set_piece",
+    "piece": "workshop",
+    "location": "workshop",
+    "params": {},
+    "seconds": 30,
+    "missing": [],
+    "time_of_day": "dawn"
+   },
+   {
+    "index": 3,
+    "title": "At midnight Leo sneaks into the museum past the",
+    "text": "At midnight Leo sneaks into the museum past the laser gate and the sentries to steal the jewel before the alarm sounds.",
+    "builder": "set_piece",
+    "piece": "heist",
+    "location": "museum_hall",
+    "params": {},
+    "seconds": 50,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 4,
+    "title": "At noon Leo paddles a raft through the rapids be",
+    "text": "At noon Leo paddles a raft through the rapids between the boulders of the canyon river.",
+    "builder": "set_piece",
+    "piece": "rapids",
+    "location": "rapids",
+    "params": {},
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": "day"
+   },
+   {
+    "index": 5,
+    "title": "At dusk a wall of water floods the valley and Le",
+    "text": "At dusk a wall of water floods the valley and Leo rescues a child and carries it to the hill.",
+    "builder": "set_piece",
+    "piece": "flood",
+    "location": "flood_valley",
+    "params": {},
+    "seconds": 30,
+    "missing": [],
+    "time_of_day": "dusk"
+   },
+   {
+    "index": 6,
+    "title": "At sunset Leo rides a dragon through the canyon",
+    "text": "At sunset Leo rides a dragon through the canyon between the rock spires and under the stone arch.",
+    "builder": "set_piece",
+    "piece": "flight",
+    "location": "sky_canyon",
+    "params": {},
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": "dusk"
+   }
+  ],
+  "total_seconds": 248,
+  "estimated_build_minutes": 12.0,
+  "warnings": [
+   "scenes 3 and 4 jump between night and day without a transition (add a dusk or dawn scene or a title card)"
+  ],
+  "hash": "7ed077e534"
+ },
+ "report": [
+  {
+   "index": 1,
+   "title": "At night the lion council sits around the round",
+   "piece": "council",
+   "params": {},
+   "seconds": 66,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new_six\\scene_01_council.blend"
+  },
+  {
+   "index": 2,
+   "title": "At dawn in his workshop Leo tinkers with clockwo",
+   "piece": "workshop",
+   "params": {},
+   "seconds": 30,
+   "status": "built in 4s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new_six\\scene_02_workshop.blend"
+  },
+  {
+   "index": 3,
+   "title": "At midnight Leo sneaks into the museum past the",
+   "piece": "heist",
+   "params": {},
+   "seconds": 50,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new_six\\scene_03_heist.blend"
+  },
+  {
+   "index": 4,
+   "title": "At noon Leo paddles a raft through the rapids be",
+   "piece": "rapids",
+   "params": {},
+   "seconds": 36,
+   "status": "built in 6s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new_six\\scene_04_rapids.blend"
+  },
+  {
+   "index": 5,
+   "title": "At dusk a wall of water floods the valley and Le",
+   "piece": "flood",
+   "params": {},
+   "seconds": 30,
+   "status": "built in 8s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new_six\\scene_05_flood.blend"
+  },
+  {
+   "index": 6,
+   "title": "At sunset Leo rides a dragon through the canyon",
+   "piece": "flight",
+   "params": {},
+   "seconds": 36,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new_six\\scene_06_flight.blend"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_new_six\\movie.blend"
+}

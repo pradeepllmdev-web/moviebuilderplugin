@@ -1,0 +1,194 @@
+{
+ "id": "rock",
+ "title": "The key is left behind",
+ "intent": "Nell sets her tower key on a flat rock to wash her hands, hears the bell and hurries away without it.",
+ "extras": null,
+ "fog": 0.05,
+ "fx": null,
+ "location": {
+  "preset": "meadow",
+  "seed": 6,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     -1.0,
+     -1.0
+    ],
+    "id": "stand0",
+    "height": 1.0,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "dawn",
+ "ambience": "wind",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "nell",
+   "at": [
+    -5,
+    -3.5
+   ],
+   "holds": "key",
+   "face": [
+    -1,
+    -1
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "key",
+   "kind": "key",
+   "at": [
+    -5,
+    -3.5
+   ],
+   "size": 2.2,
+   "z": 1.0
+  }
+ ],
+ "steps": [
+  {
+   "do": "go",
+   "who": "nell",
+   "to": [
+    -2.4,
+    -2.1
+   ],
+   "gait": "walk",
+   "talk": [
+    "Eight o\u2019clock sharp. The whole village sets its day by my clock.",
+    "warm",
+    "nell"
+   ]
+  },
+  [
+   {
+    "do": "look",
+    "who": "nell",
+    "at": [
+     -1,
+     -1
+    ],
+    "dur": 1.2
+   },
+   {
+    "do": "emote",
+    "who": "nell",
+    "kind": "smile",
+    "dur": 2
+   }
+  ],
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "Cold stream water first. A clock keeper needs clean hands.",
+   "mood": "warm",
+   "to": "nell"
+  },
+  {
+   "do": "put",
+   "who": "nell",
+   "on": "stand0"
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "bell",
+    "at": 0.3,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "icon",
+    "who": "nell",
+    "kind": "alarm",
+    "dur": 1.8
+   },
+   {
+    "do": "act",
+    "who": "nell",
+    "clip": "startle"
+   }
+  ],
+  {
+   "do": "go",
+   "who": "nell",
+   "to": [
+    -6.5,
+    -4.8
+   ],
+   "gait": "brisk",
+   "talk": [
+    "That was the quarter bell already? Oh, I am late!",
+    "concern",
+    "nell"
+   ]
+  }
+ ],
+ "objective": "Nell leaves her key behind",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.25
+}

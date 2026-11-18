@@ -1,0 +1,124 @@
+[
+ {
+  "name": "Captain Rue",
+  "id": "rue",
+  "description": "a worried fishing captain",
+  "species": "bear",
+  "height_m": 1.95,
+  "posture": "tired",
+  "accessories": [
+   "stripedshirt",
+   "jacket",
+   "pants",
+   "boots",
+   "hat_sou"
+  ],
+  "tint": [
+   0.55,
+   0.38,
+   0.26
+  ],
+  "voice_pitch_hz": 81
+ },
+ {
+  "name": "Mayor Pim",
+  "id": "pim",
+  "description": "the mayor in a plum suit and top hat",
+  "species": "badger",
+  "height_m": 1.4,
+  "posture": "proud",
+  "accessories": [
+   "suit",
+   "tie",
+   "boots",
+   "hat_top",
+   "cane"
+  ],
+  "tint": [
+   0.38,
+   0.38,
+   0.4
+  ],
+  "voice_pitch_hz": 106
+ },
+ {
+  "name": "Dot",
+  "id": "dot",
+  "description": "the captain\u2019s brave daughter",
+  "species": "fox",
+  "height_m": 1.5,
+  "posture": "hurried",
+  "accessories": [
+   "shirt",
+   "sleeves",
+   "shorts",
+   "boots"
+  ],
+  "tint": [
+   1.0,
+   0.5,
+   0.22
+  ],
+  "voice_pitch_hz": 215
+ },
+ {
+  "name": "Sal",
+  "id": "sal",
+  "description": "the market trader, quick to shout",
+  "species": "wolf",
+  "height_m": 1.85,
+  "posture": "angry",
+  "accessories": [
+   "plaidshirt",
+   "vest",
+   "pants",
+   "boots",
+   "hat_cowboy",
+   "scarf",
+   "belt"
+  ],
+  "tint": [
+   0.55,
+   0.58,
+   0.64
+  ],
+  "voice_pitch_hz": 76
+ },
+ {
+  "name": "Nell",
+  "id": "nell",
+  "description": "the baker, who wants everyone fed",
+  "species": "rabbit",
+  "height_m": 1.25,
+  "posture": "neutral",
+  "accessories": [
+   "dress",
+   "apron",
+   "boots"
+  ],
+  "tint": [
+   0.92,
+   0.9,
+   0.85
+  ],
+  "voice_pitch_hz": 220
+ },
+ {
+  "name": "Brother Ferris",
+  "id": "ferris",
+  "description": "the tall guard monk who falls asleep",
+  "species": "heron",
+  "height_m": 2.3,
+  "posture": "tired",
+  "accessories": [
+   "robe",
+   "belt"
+  ],
+  "tint": [
+   0.7,
+   0.78,
+   0.88
+  ],
+  "voice_pitch_hz": 175
+ }
+]

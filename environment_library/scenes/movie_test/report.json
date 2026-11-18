@@ -1,0 +1,106 @@
+{
+ "plan": {
+  "scenes": [
+   {
+    "index": 1,
+    "title": "At dawn a prison train thunders across the plain",
+    "text": "At dawn a prison train thunders across the plains while Leo escapes over the roofs.",
+    "builder": "set_piece",
+    "piece": "great_escape",
+    "params": {
+     "time_of_day": "dawn",
+     "hero_tint": [
+      1.0,
+      0.85,
+      0.7
+     ]
+    },
+    "seconds": 54,
+    "missing": [],
+    "time_of_day": "dawn"
+   },
+   {
+    "index": 2,
+    "title": "At night a village sleeps below the mountain whe",
+    "text": "At night a village sleeps below the mountain when an avalanche breaks loose and Leo warns everyone.",
+    "builder": "set_piece",
+    "piece": "avalanche",
+    "params": {
+     "time_of_day": "night",
+     "hero_tint": [
+      1.0,
+      0.85,
+      0.7
+     ]
+    },
+    "seconds": 48,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 3,
+    "title": "A quiet conversation by the fire where the survi",
+    "text": "A quiet conversation by the fire where the survivors decide what to do next.",
+    "builder": "shots",
+    "piece": null,
+    "params": {},
+    "seconds": 8,
+    "missing": [],
+    "time_of_day": null
+   }
+  ],
+  "total_seconds": 110,
+  "estimated_build_minutes": 5.0,
+  "warnings": [
+   "scene 3 has no set piece; the shot-by-shot planner (movie_prompt.py) has to build it"
+  ],
+  "hash": "dd0dd79ad2"
+ },
+ "report": [
+  {
+   "index": 1,
+   "title": "At dawn a prison train thunders across the plain",
+   "piece": "great_escape",
+   "params": {
+    "time_of_day": "dawn",
+    "hero_tint": [
+     1.0,
+     0.85,
+     0.7
+    ]
+   },
+   "seconds": 54,
+   "status": "reused",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_test\\scene_01_great_escape.blend"
+  },
+  {
+   "index": 2,
+   "title": "At night a village sleeps below the mountain whe",
+   "piece": "avalanche",
+   "params": {
+    "time_of_day": "night",
+    "hero_tint": [
+     1.0,
+     0.85,
+     0.7
+    ]
+   },
+   "seconds": 48,
+   "status": "reused",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_test\\scene_02_avalanche.blend"
+  },
+  {
+   "index": 3,
+   "title": "A quiet conversation by the fire where the survi",
+   "piece": null,
+   "params": {},
+   "seconds": 8,
+   "status": "needs the shot-by-shot planner",
+   "audit": [],
+   "file": null
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_test\\movie.blend"
+}

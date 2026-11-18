@@ -1,0 +1,80 @@
+{
+ "id": "chase",
+ "title": "Stop that thief!",
+ "seconds": 23.875,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.7916666666666665,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "nell and company",
+   "t0": 2.7916666666666665,
+   "t1": 10.291666666666666,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "nell fall",
+   "t0": 10.291666666666666,
+   "t1": 13.291666666666666,
+   "kind": "medium",
+   "subject": "nell"
+  },
+  {
+   "name": "dot and company",
+   "t0": 13.291666666666666,
+   "t1": 21.28333333333333,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "end",
+   "t0": 21.28333333333333,
+   "t1": 23.875,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "sal",
+   "to": "dot",
+   "mood": "angry",
+   "text": "Stop right there, little thief!",
+   "t0": 8.62,
+   "t1": 10.230521541950113
+  },
+  {
+   "k": 1,
+   "speaker": "nell",
+   "to": "sal",
+   "mood": "angry",
+   "text": "My cakes! Somebody catch her!",
+   "t0": 19.203333333333333,
+   "t1": 21.310408163265308
+  }
+ ],
+ "audit": [
+  "AUDIT eye line: the addressed listener looks 48 degrees off the speaker (limit 40)"
+ ],
+ "cast": [
+  "dot",
+  "sal",
+  "nell",
+  "ferris"
+ ],
+ "stats": {
+  "ground_lift": 0.46769966843634164,
+  "foot_slip": 0.0,
+  "reach": 0.06508474065122422,
+  "eye_speaker": 4.139016689536984,
+  "eye_listener": 48.25296076603466,
+  "framing_misses": 0,
+  "framing_checked": 1
+ }
+}

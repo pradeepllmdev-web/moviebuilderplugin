@@ -1,0 +1,79 @@
+{
+ "id": "despair",
+ "title": "All is lost",
+ "seconds": 26.208333333333332,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 3.9583333333333335,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "bettina walks",
+   "t0": 3.9583333333333335,
+   "t1": 9.291666666666666,
+   "kind": "track",
+   "subject": "bettina"
+  },
+  {
+   "name": "bettina speaks",
+   "t0": 9.291666666666666,
+   "t1": 15.833333333333334,
+   "kind": "medium",
+   "subject": "bettina"
+  },
+  {
+   "name": "hold",
+   "t0": 15.833333333333334,
+   "t1": 26.208333333333332,
+   "kind": "group",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "bettina",
+   "to": "dash",
+   "mood": "sad",
+   "text": "Twenty years of baking, and the best cake of my life is a pancake.",
+   "t0": 9.411666666666665,
+   "t1": 13.041099773242628
+  },
+  {
+   "k": 1,
+   "speaker": "rufus",
+   "to": "bettina",
+   "mood": "concern",
+   "text": "It was a very good pancake.",
+   "t0": 13.245,
+   "t1": 14.890079365079364
+  },
+  {
+   "k": 2,
+   "speaker": "dash",
+   "to": "rufus",
+   "mood": "angry",
+   "text": "Rufus!",
+   "t0": 14.786666666666665,
+   "t1": 15.768843537414964
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "bettina",
+  "dash",
+  "rufus"
+ ],
+ "stats": {
+  "ground_lift": 0.02773771753033819,
+  "foot_slip": 0.3207266703622616,
+  "reach": 0.00206697935585329,
+  "eye_speaker": 9.595466312889565,
+  "eye_listener": 5.861998011341483,
+  "framing_misses": 0,
+  "framing_checked": 2
+ }
+}

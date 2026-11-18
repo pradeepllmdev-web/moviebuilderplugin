@@ -1,0 +1,196 @@
+{
+ "id": "bakery",
+ "title": "The giant pie",
+ "intent": "A baker proudly shows her giant cherry pie. Today she will try to win the Golden Spoon.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "room",
+  "seed": 2
+ },
+ "time": "day",
+ "ambience": "hall",
+ "music": "bright",
+ "cast": [
+  {
+   "id": "tilda",
+   "at": [
+    -3,
+    -2.6
+   ],
+   "face": "table"
+  },
+  {
+   "id": "rosa",
+   "at": [
+    3.3,
+    -2.4
+   ],
+   "face": "table"
+  }
+ ],
+ "props": [
+  {
+   "id": "pie",
+   "kind": "pie",
+   "at": [
+    1.0,
+    -0.45
+   ],
+   "on": "table"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "tilda",
+    "to": [
+     1.0,
+     -1.2
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "look",
+    "who": "rosa",
+    "at": "table",
+    "dur": 2
+   }
+  ],
+  {
+   "do": "take",
+   "who": "tilda",
+   "prop": "pie"
+  },
+  {
+   "do": "say",
+   "who": "rosa",
+   "text": "Tilda! It is the biggest pie I have ever seen!",
+   "mood": "joy",
+   "to": "tilda"
+  },
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "Cherries and cream. Three days of baking.",
+   "mood": "warm",
+   "to": "rosa"
+  },
+  {
+   "do": "say",
+   "who": "rosa",
+   "text": "And today the mayor tastes it?",
+   "mood": "joy",
+   "to": "tilda"
+  },
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "At noon. And I will win the Golden Spoon!",
+   "mood": "joy",
+   "to": "rosa"
+  },
+  [
+   {
+    "do": "act",
+    "who": "tilda",
+    "clip": "joy"
+   },
+   {
+    "do": "emote",
+    "who": "rosa",
+    "kind": "smile",
+    "dur": 3
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "tilda",
+    "to": [
+     0,
+     -3.2
+    ],
+    "gait": "strut"
+   },
+   {
+    "do": "go",
+    "who": "rosa",
+    "to": [
+     1.2,
+     -3.2
+    ],
+    "gait": "walk"
+   }
+  ]
+ ],
+ "objective": "Today: win the Golden Spoon",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.25
+}

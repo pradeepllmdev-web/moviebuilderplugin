@@ -1,0 +1,7 @@
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_egg/render/scene_01_dawn.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_egg/render/scene_02_hatch.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_egg/render/scene_03_chaos.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_egg/render/scene_04_apple.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_egg/render/scene_05_thunder.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_egg/render/scene_06_reunion.mp4'
+file 'C:/Users/nagal/OneDrive/Documents/GitHub/moviebuilderplugin/environment_library/scenes/movie_egg/render/scene_07_goodbye.mp4'

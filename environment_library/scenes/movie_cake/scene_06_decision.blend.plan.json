@@ -1,0 +1,133 @@
+{
+ "id": "decision",
+ "title": "The wobbliest cake",
+ "seconds": 38.916666666666664,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "bettina sit",
+   "t0": 2.5,
+   "t1": 4.708333333333333,
+   "kind": "medium",
+   "subject": "bettina"
+  },
+  {
+   "name": "bettina sit",
+   "t0": 4.708333333333333,
+   "t1": 7.708333333333333,
+   "kind": "medium",
+   "subject": "bettina"
+  },
+  {
+   "name": "juno speaks",
+   "t0": 7.708333333333333,
+   "t1": 14.5,
+   "kind": "medium",
+   "subject": "juno"
+  },
+  {
+   "name": "marcel speaks",
+   "t0": 14.5,
+   "t1": 17.125,
+   "kind": "medium",
+   "subject": "marcel"
+  },
+  {
+   "name": "elm speaks",
+   "t0": 17.125,
+   "t1": 19.916666666666668,
+   "kind": "two",
+   "subject": "elm"
+  },
+  {
+   "name": "hold",
+   "t0": 19.916666666666668,
+   "t1": 22.916666666666668,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "juno walks",
+   "t0": 22.916666666666668,
+   "t1": 29.0,
+   "kind": "track",
+   "subject": "juno"
+  },
+  {
+   "name": "juno speaks",
+   "t0": 29.0,
+   "t1": 35.71666666666666,
+   "kind": "medium",
+   "subject": "juno"
+  },
+  {
+   "name": "end",
+   "t0": 35.71666666666666,
+   "t1": 38.916666666666664,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "juno",
+   "to": "bettina",
+   "mood": "warm",
+   "text": "Do you know what I want at my wedding? Friends. And something wobbly to laugh about.",
+   "t0": 8.911666666666665,
+   "t1": 14.434705215419498
+  },
+  {
+   "k": 1,
+   "speaker": "marcel",
+   "to": "juno",
+   "mood": "joy",
+   "text": "Wobbly is our whole family.",
+   "t0": 14.328333333333333,
+   "t1": 17.041984126984126
+  },
+  {
+   "k": 2,
+   "speaker": "elm",
+   "to": "marcel",
+   "mood": "warm",
+   "text": "And the cake is the best part.",
+   "t0": 18.03666666666667,
+   "t1": 19.820884353741498
+  },
+  {
+   "k": 3,
+   "speaker": "juno",
+   "to": "bettina",
+   "mood": "joy",
+   "text": "Everybody! To the chapel! With the wobbliest cake in history!",
+   "t0": 29.4,
+   "t1": 33.269999999999996
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "juno",
+  "bettina",
+  "dash",
+  "rufus",
+  "marcel",
+  "elm"
+ ],
+ "stats": {
+  "ground_lift": 0.03149727550953695,
+  "foot_slip": 0.12608998558710083,
+  "reach": 0.10182242476963618,
+  "eye_speaker": 3.036993177188162,
+  "eye_listener": 11.941064928774782,
+  "framing_misses": 0,
+  "framing_checked": 7
+ }
+}

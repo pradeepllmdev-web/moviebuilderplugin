@@ -1,0 +1,697 @@
+{
+ "plan": {
+  "scenes": [
+   {
+    "index": 1,
+    "title": "At night the lion council sits around the round",
+    "text": "At night the lion council sits around the round table and debates who will take the quest, and Leo volunteers.",
+    "builder": "set_piece",
+    "piece": "council",
+    "location": "council_hall",
+    "params": {
+     "time_of_day": "night"
+    },
+    "seconds": 66,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 2,
+    "title": "Around the campfire Leo and Pip plan the long ro",
+    "text": "Around the campfire Leo and Pip plan the long road to the valley of the sun.\nPip (concern): \"If the egg gets cold before we reach the valley it will never hatch.\"\nLeo (serious): \"Then we do not rest until it is warm.\"\nPip (warm): \"You carry the egg and I will watch the road.\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Pip",
+       "mood": "concern",
+       "text": "If the egg gets cold before we reach the valley it will never hatch."
+      },
+      {
+       "speaker": "Leo",
+       "mood": "serious",
+       "text": "Then we do not rest until it is warm."
+      },
+      {
+       "speaker": "Pip",
+       "mood": "warm",
+       "text": "You carry the egg and I will watch the road."
+      }
+     ],
+     "setting": "campfire"
+    },
+    "seconds": 17,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 3,
+    "title": "In his workshop Leo tinkers with clockwork gears",
+    "text": "In his workshop Leo tinkers with clockwork gears and turns the crank of a music box that points the way.",
+    "builder": "set_piece",
+    "piece": "workshop",
+    "location": "workshop",
+    "params": {},
+    "seconds": 30,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 4,
+    "title": "Downstream Leo paddles a raft through the rapids",
+    "text": "Downstream Leo paddles a raft through the rapids between the boulders of the canyon river.",
+    "builder": "set_piece",
+    "piece": "rapids",
+    "location": "rapids",
+    "params": {},
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 5,
+    "title": "Deep in the jungle Leo swings from vine to vine",
+    "text": "Deep in the jungle Leo swings from vine to vine across a ravine toward the ancient temple.",
+    "builder": "set_piece",
+    "piece": "jungle",
+    "location": "jungle_temple",
+    "params": {},
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 6,
+    "title": "Inside the desert temple a giant boulder is rele",
+    "text": "Inside the desert temple a giant boulder is released and Leo outruns it, jumps the pit and slides under the closing door.",
+    "builder": "set_piece",
+    "piece": "ruins",
+    "location": "desert_ruins",
+    "params": {},
+    "seconds": 28,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 7,
+    "title": "Around the campfire Pip warms the egg while Leo",
+    "text": "Around the campfire Pip warms the egg while Leo sharpens the quest map.\nPip (sad): \"I heard the egg thieves behind us on the river road.\"\nLeo (angry): \"Then they will meet me at the bridge.\"\nPip (concern): \"Be careful, Leo. They are many.\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Pip",
+       "mood": "sad",
+       "text": "I heard the egg thieves behind us on the river road."
+      },
+      {
+       "speaker": "Leo",
+       "mood": "angry",
+       "text": "Then they will meet me at the bridge."
+      },
+      {
+       "speaker": "Pip",
+       "mood": "concern",
+       "text": "Be careful, Leo. They are many."
+      }
+     ],
+     "setting": "campfire"
+    },
+    "seconds": 16,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 8,
+    "title": "Leo poles a punt through the mangrove swamp whil",
+    "text": "Leo poles a punt through the mangrove swamp while crocodiles lunge from the dark water.",
+    "builder": "set_piece",
+    "piece": "swamp",
+    "location": "swamp",
+    "params": {},
+    "seconds": 50,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 9,
+    "title": "At night a stolen dinosaur egg lies in a prehist",
+    "text": "At night a stolen dinosaur egg lies in a prehistoric valley beside a glowing volcano and Leo carries it back to its mother.",
+    "builder": "set_piece",
+    "piece": "last_egg",
+    "location": "dino_valley",
+    "params": {
+     "time_of_day": "night"
+    },
+    "seconds": 50,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 10,
+    "title": "At noon a herd of wild horses gallops along the",
+    "text": "At noon a herd of wild horses gallops along the river toward the mountains.",
+    "builder": "set_piece",
+    "piece": "horse_herd",
+    "location": null,
+    "params": {},
+    "seconds": 16,
+    "missing": [],
+    "time_of_day": "day"
+   },
+   {
+    "index": 11,
+    "title": "Leo rides a horse galloping across the plains an",
+    "text": "Leo rides a horse galloping across the plains and jumps the fence.",
+    "builder": "set_piece",
+    "piece": "rider",
+    "location": null,
+    "params": {},
+    "seconds": 22,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 12,
+    "title": "At dusk an avalanche thunders down the snowy mou",
+    "text": "At dusk an avalanche thunders down the snowy mountain and Leo outruns it with the cub.",
+    "builder": "set_piece",
+    "piece": "avalanche",
+    "location": "mountain_village",
+    "params": {
+     "time_of_day": "dusk"
+    },
+    "seconds": 48,
+    "missing": [],
+    "time_of_day": "dusk"
+   },
+   {
+    "index": 13,
+    "title": "At the foot of the mountains Leo climbs a sheer",
+    "text": "At the foot of the mountains Leo climbs a sheer cliff to rescue a lost cub and swings across the gap on a rope.",
+    "builder": "set_piece",
+    "piece": "cliff_rescue",
+    "location": "cliff_face",
+    "params": {},
+    "seconds": 62,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 14,
+    "title": "Around the campfire the travellers rest after th",
+    "text": "Around the campfire the travellers rest after the mountain and the egg begins to glow.\nLeo (joy): \"Look, the egg is glowing. It knows we are close!\"\nPip (joy): \"Then we must reach the valley before sunrise.\"\nLeo (warm): \"We will, my friend.\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Leo",
+       "mood": "joy",
+       "text": "Look, the egg is glowing. It knows we are close!"
+      },
+      {
+       "speaker": "Pip",
+       "mood": "joy",
+       "text": "Then we must reach the valley before sunrise."
+      },
+      {
+       "speaker": "Leo",
+       "mood": "warm",
+       "text": "We will, my friend."
+      }
+     ],
+     "setting": "campfire",
+     "time_of_day": "dawn"
+    },
+    "seconds": 15,
+    "missing": [],
+    "time_of_day": "dawn"
+   },
+   {
+    "index": 15,
+    "title": "A wall of water floods the valley below and Leo",
+    "text": "A wall of water floods the valley below and Leo rescues a child and carries it to the hill.",
+    "builder": "set_piece",
+    "piece": "flood",
+    "location": "flood_valley",
+    "params": {},
+    "seconds": 30,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 16,
+    "title": "Leo sprints across the rotten rope bridge as the",
+    "text": "Leo sprints across the rotten rope bridge as the planks fall away behind him.",
+    "builder": "set_piece",
+    "piece": "bridge",
+    "location": "gorge_bridge",
+    "params": {},
+    "seconds": 20,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 17,
+    "title": "In a storm Leo fights a sea serpent on the mast",
+    "text": "In a storm Leo fights a sea serpent on the mast of a sailing ship.",
+    "builder": "set_piece",
+    "piece": "storm_ship",
+    "location": "open_sea",
+    "params": {},
+    "seconds": 60,
+    "missing": [],
+    "time_of_day": "overcast"
+   },
+   {
+    "index": 18,
+    "title": "In the ice cave Leo leaps between drifting ice f",
+    "text": "In the ice cave Leo leaps between drifting ice floes while stalactites crash around him.",
+    "builder": "set_piece",
+    "piece": "ice",
+    "location": "ice_cave",
+    "params": {},
+    "seconds": 40,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 19,
+    "title": "At sunset Leo rides a dragon through the canyon",
+    "text": "At sunset Leo rides a dragon through the canyon between the rock spires and under the stone arch.",
+    "builder": "set_piece",
+    "piece": "flight",
+    "location": "sky_canyon",
+    "params": {
+     "time_of_day": "dusk"
+    },
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": "dusk"
+   },
+   {
+    "index": 20,
+    "title": "Leo crosses the floating city, riding the moving",
+    "text": "Leo crosses the floating city, riding the moving platforms above the clouds.",
+    "builder": "set_piece",
+    "piece": "sky",
+    "location": null,
+    "params": {},
+    "seconds": 40,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 21,
+    "title": "A stone giant lifts its arm and Leo rides the pa",
+    "text": "A stone giant lifts its arm and Leo rides the palm, walks to the shoulder and pulls the glowing core from its chest.",
+    "builder": "set_piece",
+    "piece": "colossus",
+    "location": "colossus_valley",
+    "params": {},
+    "seconds": 55,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 22,
+    "title": "At noon in the gladiator arena Leo faces the riv",
+    "text": "At noon in the gladiator arena Leo faces the rival lion in a duel before the roaring crowd.",
+    "builder": "set_piece",
+    "piece": "arena_duel",
+    "location": "arena_ruins",
+    "params": {
+     "time_of_day": "day"
+    },
+    "seconds": 52,
+    "missing": [],
+    "time_of_day": "day"
+   },
+   {
+    "index": 23,
+    "title": "Around the campfire at dawn Leo and Pip watch th",
+    "text": "Around the campfire at dawn Leo and Pip watch the egg crack open.\nPip (joy): \"It is hatching, Leo. It is really hatching!\"\nLeo (warm): \"Welcome to the world, little one.\"\nPip (warm): \"You brought it home.\"",
+    "builder": "set_piece",
+    "piece": "talk",
+    "location": "campfire",
+    "params": {
+     "dialogue": [
+      {
+       "speaker": "Pip",
+       "mood": "joy",
+       "text": "It is hatching, Leo. It is really hatching!"
+      },
+      {
+       "speaker": "Leo",
+       "mood": "warm",
+       "text": "Welcome to the world, little one."
+      },
+      {
+       "speaker": "Pip",
+       "mood": "warm",
+       "text": "You brought it home."
+      }
+     ],
+     "setting": "campfire",
+     "time_of_day": "dawn"
+    },
+    "seconds": 14,
+    "missing": [],
+    "time_of_day": "dawn"
+   }
+  ],
+  "total_seconds": 839,
+  "estimated_build_minutes": 46.0,
+  "warnings": [
+   "scenes 9 and 10 jump between night and day without a transition (add a dusk or dawn scene or a title card)"
+  ],
+  "hash": "cf9c393445"
+ },
+ "report": [
+  {
+   "index": 1,
+   "title": "At night the lion council sits around the round",
+   "piece": "council",
+   "params": {
+    "time_of_day": "night"
+   },
+   "seconds": 66,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_01_council.blend"
+  },
+  {
+   "index": 2,
+   "title": "Around the campfire Leo and Pip plan the long ro",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Pip",
+      "mood": "concern",
+      "text": "If the egg gets cold before we reach the valley it will never hatch."
+     },
+     {
+      "speaker": "Leo",
+      "mood": "serious",
+      "text": "Then we do not rest until it is warm."
+     },
+     {
+      "speaker": "Pip",
+      "mood": "warm",
+      "text": "You carry the egg and I will watch the road."
+     }
+    ],
+    "setting": "campfire"
+   },
+   "seconds": 17,
+   "status": "built in 3s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_02_talk.blend"
+  },
+  {
+   "index": 3,
+   "title": "In his workshop Leo tinkers with clockwork gears",
+   "piece": "workshop",
+   "params": {},
+   "seconds": 30,
+   "status": "built in 3s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_03_workshop.blend"
+  },
+  {
+   "index": 4,
+   "title": "Downstream Leo paddles a raft through the rapids",
+   "piece": "rapids",
+   "params": {},
+   "seconds": 36,
+   "status": "built in 6s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_04_rapids.blend"
+  },
+  {
+   "index": 5,
+   "title": "Deep in the jungle Leo swings from vine to vine",
+   "piece": "jungle",
+   "params": {},
+   "seconds": 36,
+   "status": "built in 4s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_05_jungle.blend"
+  },
+  {
+   "index": 6,
+   "title": "Inside the desert temple a giant boulder is rele",
+   "piece": "ruins",
+   "params": {},
+   "seconds": 28,
+   "status": "built in 4s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_06_ruins.blend"
+  },
+  {
+   "index": 7,
+   "title": "Around the campfire Pip warms the egg while Leo",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Pip",
+      "mood": "sad",
+      "text": "I heard the egg thieves behind us on the river road."
+     },
+     {
+      "speaker": "Leo",
+      "mood": "angry",
+      "text": "Then they will meet me at the bridge."
+     },
+     {
+      "speaker": "Pip",
+      "mood": "concern",
+      "text": "Be careful, Leo. They are many."
+     }
+    ],
+    "setting": "campfire"
+   },
+   "seconds": 16,
+   "status": "built in 3s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_07_talk.blend"
+  },
+  {
+   "index": 8,
+   "title": "Leo poles a punt through the mangrove swamp whil",
+   "piece": "swamp",
+   "params": {},
+   "seconds": 50,
+   "status": "built in 19s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_08_swamp.blend"
+  },
+  {
+   "index": 9,
+   "title": "At night a stolen dinosaur egg lies in a prehist",
+   "piece": "last_egg",
+   "params": {
+    "time_of_day": "night"
+   },
+   "seconds": 50,
+   "status": "built in 16s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_09_last_egg.blend"
+  },
+  {
+   "index": 10,
+   "title": "At noon a herd of wild horses gallops along the",
+   "piece": "horse_herd",
+   "params": {},
+   "seconds": 16,
+   "status": "built in 8s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_10_horse_herd.blend"
+  },
+  {
+   "index": 11,
+   "title": "Leo rides a horse galloping across the plains an",
+   "piece": "rider",
+   "params": {},
+   "seconds": 22,
+   "status": "built in 4s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_11_rider.blend"
+  },
+  {
+   "index": 12,
+   "title": "At dusk an avalanche thunders down the snowy mou",
+   "piece": "avalanche",
+   "params": {
+    "time_of_day": "dusk"
+   },
+   "seconds": 48,
+   "status": "built in 37s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_12_avalanche.blend"
+  },
+  {
+   "index": 13,
+   "title": "At the foot of the mountains Leo climbs a sheer",
+   "piece": "cliff_rescue",
+   "params": {},
+   "seconds": 62,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_13_cliff_rescue.blend"
+  },
+  {
+   "index": 14,
+   "title": "Around the campfire the travellers rest after th",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Leo",
+      "mood": "joy",
+      "text": "Look, the egg is glowing. It knows we are close!"
+     },
+     {
+      "speaker": "Pip",
+      "mood": "joy",
+      "text": "Then we must reach the valley before sunrise."
+     },
+     {
+      "speaker": "Leo",
+      "mood": "warm",
+      "text": "We will, my friend."
+     }
+    ],
+    "setting": "campfire",
+    "time_of_day": "dawn"
+   },
+   "seconds": 15,
+   "status": "built in 3s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_14_talk.blend"
+  },
+  {
+   "index": 15,
+   "title": "A wall of water floods the valley below and Leo",
+   "piece": "flood",
+   "params": {},
+   "seconds": 30,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_15_flood.blend"
+  },
+  {
+   "index": 16,
+   "title": "Leo sprints across the rotten rope bridge as the",
+   "piece": "bridge",
+   "params": {},
+   "seconds": 20,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_16_bridge.blend"
+  },
+  {
+   "index": 17,
+   "title": "In a storm Leo fights a sea serpent on the mast",
+   "piece": "storm_ship",
+   "params": {},
+   "seconds": 60,
+   "status": "built in 14s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_17_storm_ship.blend"
+  },
+  {
+   "index": 18,
+   "title": "In the ice cave Leo leaps between drifting ice f",
+   "piece": "ice",
+   "params": {},
+   "seconds": 40,
+   "status": "built in 5s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_18_ice.blend"
+  },
+  {
+   "index": 19,
+   "title": "At sunset Leo rides a dragon through the canyon",
+   "piece": "flight",
+   "params": {
+    "time_of_day": "dusk"
+   },
+   "seconds": 36,
+   "status": "built in 5s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_19_flight.blend"
+  },
+  {
+   "index": 20,
+   "title": "Leo crosses the floating city, riding the moving",
+   "piece": "sky",
+   "params": {},
+   "seconds": 40,
+   "status": "built in 3s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_20_sky.blend"
+  },
+  {
+   "index": 21,
+   "title": "A stone giant lifts its arm and Leo rides the pa",
+   "piece": "colossus",
+   "params": {},
+   "seconds": 55,
+   "status": "built in 5s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_21_colossus.blend"
+  },
+  {
+   "index": 22,
+   "title": "At noon in the gladiator arena Leo faces the riv",
+   "piece": "arena_duel",
+   "params": {
+    "time_of_day": "day"
+   },
+   "seconds": 52,
+   "status": "built in 15s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_22_arena_duel.blend"
+  },
+  {
+   "index": 23,
+   "title": "Around the campfire at dawn Leo and Pip watch th",
+   "piece": "talk",
+   "params": {
+    "dialogue": [
+     {
+      "speaker": "Pip",
+      "mood": "joy",
+      "text": "It is hatching, Leo. It is really hatching!"
+     },
+     {
+      "speaker": "Leo",
+      "mood": "warm",
+      "text": "Welcome to the world, little one."
+     },
+     {
+      "speaker": "Pip",
+      "mood": "warm",
+      "text": "You brought it home."
+     }
+    ],
+    "setting": "campfire",
+    "time_of_day": "dawn"
+   },
+   "seconds": 14,
+   "status": "built in 3s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\scene_23_talk.blend"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_egg_run\\movie.blend"
+}

@@ -1,0 +1,346 @@
+{
+ "id": "chaos",
+ "title": "Chaos on the farm",
+ "intent": "The baby raptor runs through the farm and every animal scatters. Hazel falls.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "meadow",
+  "seed": 7
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "epic",
+ "cast": [
+  {
+   "id": "zip",
+   "at": [
+    -1.5,
+    -6.6
+   ],
+   "face": [
+    8,
+    0
+   ]
+  },
+  {
+   "id": "percy",
+   "at": [
+    12.0,
+    8.0
+   ],
+   "face": "zip"
+  },
+  {
+   "id": "dolly",
+   "at": [
+    13.0,
+    -7.0
+   ],
+   "face": [
+    18,
+    -8
+   ]
+  },
+  {
+   "id": "clara",
+   "at": [
+    7.0,
+    7.2
+   ],
+   "face": "zip"
+  },
+  {
+   "id": "biscuit",
+   "at": [
+    -4.5,
+    -6
+   ],
+   "face": "zip"
+  },
+  {
+   "id": "bolt",
+   "at": [
+    10,
+    -6
+   ],
+   "face": "zip"
+  },
+  {
+   "id": "hazel",
+   "at": [
+    -4.6,
+    -4.0
+   ],
+   "face": "zip"
+  },
+  {
+   "id": "moss",
+   "at": [
+    -3.2,
+    -5.4
+   ],
+   "face": "zip"
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "zip",
+    "to": [
+     7,
+     2
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "biscuit",
+    "to": [
+     3,
+     0
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "sfx",
+    "name": "bark",
+    "at": 0.2,
+    "who": "biscuit",
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "roar",
+    "at": 0.6,
+    "who": "zip",
+    "gain": 1.0
+   },
+   {
+    "do": "icon",
+    "who": "biscuit",
+    "kind": "anger",
+    "dur": 2.0
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "percy",
+    "to": [
+     -8,
+     5
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "clara",
+    "to": [
+     -10,
+     3
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "dolly",
+    "to": [
+     -8,
+     -3
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "sfx",
+    "name": "oink",
+    "at": 0.1,
+    "who": "percy",
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "moo",
+    "at": 0.3,
+    "who": "clara",
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "baa",
+    "at": 0.5,
+    "who": "dolly",
+    "gain": 1.0
+   },
+   {
+    "do": "icon",
+    "who": "percy",
+    "kind": "alarm",
+    "dur": 1.6
+   },
+   {
+    "do": "icon",
+    "who": "dolly",
+    "kind": "alarm",
+    "dur": 1.6
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "zip",
+    "to": [
+     -6,
+     4
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "act",
+    "who": "bolt",
+    "clip": "jump"
+   },
+   {
+    "do": "sfx",
+    "name": "neigh",
+    "at": 0.2,
+    "who": "bolt",
+    "gain": 1.0
+   },
+   {
+    "do": "go",
+    "who": "biscuit",
+    "to": [
+     -2,
+     3
+    ],
+    "gait": "run"
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "zip",
+    "to": [
+     -1,
+     -4
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "percy",
+    "to": [
+     6,
+     -2
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "dolly",
+    "to": [
+     2,
+     6
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "clara",
+    "to": [
+     4,
+     -4
+    ],
+    "gait": "run"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hazel",
+   "text": "Stop! Stop! He is scaring the whole farm!",
+   "mood": "angry",
+   "to": "moss"
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "crash",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "act",
+    "who": "hazel",
+    "clip": "fall"
+   }
+  ],
+  {
+   "do": "icon",
+   "who": "moss",
+   "kind": "sad",
+   "dur": 1.6
+  }
+ ],
+ "objective": "Chaos on the farm",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 104,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1
+   ],
+   [
+    4,
+    1
+   ]
+  ],
+  "motifs": {
+   "hazel": [
+    0,
+    -3,
+    0
+   ],
+   "moss": [
+    4,
+    6,
+    4
+   ],
+   "zip": [
+    7,
+    6,
+    7
+   ],
+   "mama": [
+    -5,
+    -7,
+    -5
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.732
+}

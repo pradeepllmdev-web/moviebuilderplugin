@@ -1,0 +1,152 @@
+{
+ "id": "bun",
+ "title": "A bun for a hero",
+ "seconds": 40.333333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 3.7083333333333335,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "pol speaks",
+   "t0": 3.7083333333333335,
+   "t1": 10.166666666666666,
+   "kind": "medium",
+   "subject": "pol"
+  },
+  {
+   "name": "pol walks",
+   "t0": 10.166666666666666,
+   "t1": 13.041666666666666,
+   "kind": "track",
+   "subject": "pol"
+  },
+  {
+   "name": "mina speaks",
+   "t0": 13.041666666666666,
+   "t1": 16.333333333333332,
+   "kind": "medium",
+   "subject": "mina"
+  },
+  {
+   "name": "joss speaks",
+   "t0": 16.333333333333332,
+   "t1": 22.166666666666668,
+   "kind": "two",
+   "subject": "joss"
+  },
+  {
+   "name": "pol speaks",
+   "t0": 22.166666666666668,
+   "t1": 24.958333333333332,
+   "kind": "medium",
+   "subject": "pol"
+  },
+  {
+   "name": "ada speaks",
+   "t0": 24.958333333333332,
+   "t1": 29.791666666666668,
+   "kind": "medium",
+   "subject": "ada"
+  },
+  {
+   "name": "nell speaks",
+   "t0": 29.791666666666668,
+   "t1": 34.833333333333336,
+   "kind": "two",
+   "subject": "nell"
+  },
+  {
+   "name": "nell laugh",
+   "t0": 34.833333333333336,
+   "t1": 37.13333333333333,
+   "kind": "medium",
+   "subject": "nell"
+  },
+  {
+   "name": "end",
+   "t0": 37.13333333333333,
+   "t1": 40.333333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "pol",
+   "to": "mina",
+   "mood": "warm",
+   "text": "This one is for you, Mina. Still warm from the oven.",
+   "t0": 4.108333333333333,
+   "t1": 7.087607709750567
+  },
+  {
+   "k": 1,
+   "speaker": "mina",
+   "to": "pol",
+   "mood": "joy",
+   "text": "For me? It smells like cinnamon. Thank you, Pol!",
+   "t0": 13.161666666666665,
+   "t1": 16.245430839002267
+  },
+  {
+   "k": 2,
+   "speaker": "joss",
+   "to": "pol",
+   "mood": "joy",
+   "text": "Not a bad morning, Pol. Mina found a key, and I found an excuse for a second breakfast.",
+   "t0": 17.53666666666667,
+   "t1": 22.07167800453515
+  },
+  {
+   "k": 3,
+   "speaker": "pol",
+   "to": "joss",
+   "mood": "warm",
+   "text": "And I found a reason to bake a bigger batch tomorrow.",
+   "t0": 22.28666666666667,
+   "t1": 24.858231292517008
+  },
+  {
+   "k": 4,
+   "speaker": "ada",
+   "to": "nell",
+   "mood": "warm",
+   "text": "Noon on the dot, Nell. It was almost worth the fright.",
+   "t0": 26.16166666666667,
+   "t1": 29.719716553287984
+  },
+  {
+   "k": 5,
+   "speaker": "nell",
+   "to": "ada",
+   "mood": "joy",
+   "text": "Never again. Tonight I tie that key to my belt with a double knot.",
+   "t0": 29.91166666666667,
+   "t1": 34.755702947845805
+  }
+ ],
+ "audit": [
+  "AUDIT reach: a hand ends 0.23 m from its target (limit 0.23; the arm cannot reach, move the prop or the actor)"
+ ],
+ "cast": [
+  "mina",
+  "pol",
+  "ada",
+  "joss",
+  "nell"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.2921528460982736,
+  "reach": 0.23239377609767625,
+  "eye_speaker": 4.285084510167352,
+  "eye_listener": 21.510828094585627,
+  "framing_misses": 0,
+  "framing_checked": 8
+ }
+}

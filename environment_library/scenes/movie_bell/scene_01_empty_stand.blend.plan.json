@@ -1,0 +1,130 @@
+{
+ "id": "empty_stand",
+ "title": "The empty stand",
+ "seconds": 34.083333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "marta runs",
+   "t0": 2.5,
+   "t1": 6.291666666666667,
+   "kind": "track",
+   "subject": "marta"
+  },
+  {
+   "name": "marta runs",
+   "t0": 6.291666666666667,
+   "t1": 8.708333333333334,
+   "kind": "track",
+   "subject": "marta"
+  },
+  {
+   "name": "marta speaks",
+   "t0": 8.708333333333334,
+   "t1": 12.666666666666666,
+   "kind": "medium",
+   "subject": "marta"
+  },
+  {
+   "name": "marta points",
+   "t0": 12.666666666666666,
+   "t1": 15.75,
+   "kind": "reveal",
+   "subject": "marta"
+  },
+  {
+   "name": "marta points",
+   "t0": 15.75,
+   "t1": 17.958333333333336,
+   "kind": "reveal",
+   "subject": "marta"
+  },
+  {
+   "name": "marta reacts",
+   "t0": 17.958333333333336,
+   "t1": 22.041666666666668,
+   "kind": "medium",
+   "subject": "marta"
+  },
+  {
+   "name": "hugo speaks",
+   "t0": 22.041666666666668,
+   "t1": 26.125,
+   "kind": "medium",
+   "subject": "hugo"
+  },
+  {
+   "name": "bea speaks",
+   "t0": 26.125,
+   "t1": 31.116666666666667,
+   "kind": "medium",
+   "subject": "bea"
+  },
+  {
+   "name": "end",
+   "t0": 31.116666666666667,
+   "t1": 34.083333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "marta",
+   "to": "hugo",
+   "mood": "sad",
+   "text": "Hugo! The festival bell is gone!",
+   "t0": 9.911666666666665,
+   "t1": 12.565861678004534
+  },
+  {
+   "k": 1,
+   "speaker": "hugo",
+   "to": "marta",
+   "mood": "angry",
+   "text": "Gone? It must ring at sunset. That is five hours away!",
+   "t0": 22.16166666666667,
+   "t1": 26.037721088435376
+  },
+  {
+   "k": 2,
+   "speaker": "bea",
+   "to": "hugo",
+   "mood": "concern",
+   "text": "There are wheel tracks in the dust. Big ones.",
+   "t0": 26.245,
+   "t1": 28.828219954648528
+  },
+  {
+   "k": 3,
+   "speaker": "hugo",
+   "to": "marta",
+   "mood": "angry",
+   "text": "Then everyone looks. Everyone!",
+   "t0": 29.03666666666667,
+   "t1": 31.504603174603176
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "marta",
+  "hugo",
+  "bea"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.1397792836750551,
+  "reach": 0.15106903984597866,
+  "eye_speaker": 7.34921656254096,
+  "eye_listener": 4.899024521222285,
+  "framing_misses": 0,
+  "framing_checked": 6
+ }
+}

@@ -1,0 +1,148 @@
+{
+ "film": "clock_key",
+ "records": [
+  {
+   "index": 1,
+   "id": "rock",
+   "title": "The key is left behind",
+   "key": "a02a65fe180d",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\scene_01_rock.blend",
+   "status": "built in 10s",
+   "audit": [],
+   "seconds": 25.1,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.18422445267136434,
+    "reach": 0.04122631809432083,
+    "eye_speaker": 0.0,
+    "eye_listener": 0.0,
+    "framing_misses": 0,
+    "framing_checked": 3
+   },
+   "lines": 3,
+   "cuts": 5,
+   "cast": [
+    "nell"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\sheets\\scene_01_rock.png"
+  },
+  {
+   "index": 2,
+   "id": "stopped",
+   "title": "The clock stops",
+   "key": "a2a2bdae3eff",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\scene_02_stopped.blend",
+   "status": "built in 18s",
+   "audit": [
+    "AUDIT framing: medium cut \"ada speaks\" at 10.0 s has ada outside the frame (0.49,1.12)"
+   ],
+   "seconds": 43.7,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.0,
+    "reach": 0.13618998756318823,
+    "eye_speaker": 3.6829355678064557,
+    "eye_listener": 8.687197853077665,
+    "framing_misses": 1,
+    "framing_checked": 8
+   },
+   "lines": 7,
+   "cuts": 11,
+   "cast": [
+    "nell",
+    "pol",
+    "ada"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\sheets\\scene_02_stopped.png"
+  },
+  {
+   "index": 3,
+   "id": "found",
+   "title": "Mina finds the key",
+   "key": "a1395ce71c65",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\scene_03_found.blend",
+   "status": "built in 15s",
+   "audit": [],
+   "seconds": 39.6,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.17967964514879603,
+    "reach": 0.1453841843509568,
+    "eye_speaker": 4.918257697092709,
+    "eye_listener": 6.4499898506064985,
+    "framing_misses": 0,
+    "framing_checked": 7
+   },
+   "lines": 5,
+   "cuts": 10,
+   "cast": [
+    "mina",
+    "joss"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\sheets\\scene_03_found.png"
+  },
+  {
+   "index": 4,
+   "id": "chime",
+   "title": "The key comes home",
+   "key": "7cc51e1c97ad",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\scene_04_chime.blend",
+   "status": "built in 22s",
+   "audit": [],
+   "seconds": 42.8,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.17590884437846785,
+    "reach": 0.21962595753671496,
+    "eye_speaker": 8.620846981594259,
+    "eye_listener": 27.921864188803816,
+    "framing_misses": 0,
+    "framing_checked": 9
+   },
+   "lines": 7,
+   "cuts": 11,
+   "cast": [
+    "nell",
+    "pol",
+    "ada",
+    "mina",
+    "joss"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\sheets\\scene_04_chime.png"
+  },
+  {
+   "index": 5,
+   "id": "bun",
+   "title": "A bun for a hero",
+   "key": "1958b93a63c4",
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\scene_05_bun.blend",
+   "status": "built in 21s",
+   "audit": [
+    "AUDIT reach: a hand ends 0.23 m from its target (limit 0.23; the arm cannot reach, move the prop or the actor)"
+   ],
+   "seconds": 40.3,
+   "stats": {
+    "ground_lift": 0.0,
+    "foot_slip": 0.2921528460982736,
+    "reach": 0.23239377609767625,
+    "eye_speaker": 4.285084510167352,
+    "eye_listener": 21.510828094585627,
+    "framing_misses": 0,
+    "framing_checked": 8
+   },
+   "lines": 6,
+   "cuts": 10,
+   "cast": [
+    "mina",
+    "pol",
+    "ada",
+    "joss",
+    "nell"
+   ],
+   "sheet": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\sheets\\scene_05_bun.png"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_clock\\movie.blend",
+ "total_seconds": 191.5,
+ "audit_lines": 2
+}

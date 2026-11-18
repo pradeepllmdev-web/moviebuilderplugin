@@ -1,0 +1,277 @@
+{
+ "id": "bridge",
+ "title": "The broken bridge",
+ "intent": "Vesper reveals she was racing to warn the ferry too. Together they bridge the gap with a plank.",
+ "extras": null,
+ "fog": 0.35,
+ "fx": null,
+ "location": {
+  "preset": "harbor",
+  "seed": 5,
+  "water": [
+   -5,
+   -9,
+   5,
+   3
+  ],
+  "objects": [
+   {
+    "kind": "platform",
+    "at": [
+     -12,
+     -3.5
+    ],
+    "w": 14,
+    "d": 5,
+    "height": 0.05,
+    "id": "bank_w",
+    "color": [
+     0.55,
+     0.5,
+     0.45
+    ]
+   },
+   {
+    "kind": "platform",
+    "at": [
+     12,
+     -3.5
+    ],
+    "w": 14,
+    "d": 5,
+    "height": 0.05,
+    "id": "bank_e",
+    "color": [
+     0.55,
+     0.5,
+     0.45
+    ]
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     -8.6,
+     -2.4
+    ],
+    "id": "stand2",
+    "height": 0.7,
+    "size": 0.4
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     0,
+     -3.5
+    ],
+    "id": "stand4",
+    "height": 0.58,
+    "size": 0.3
+   }
+  ]
+ },
+ "time": "dusk",
+ "ambience": "sea",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "vesper",
+   "at": [
+    -6.6,
+    -3.6
+   ],
+   "face": [
+    5,
+    -3.6
+   ]
+  },
+  {
+   "id": "pepper",
+   "at": [
+    -20,
+    -3.6
+   ],
+   "face": [
+    -6.6,
+    -3.6
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "plank",
+   "kind": "plank",
+   "at": [
+    -8.6,
+    -2.4
+   ],
+   "size": 3.5,
+   "on": "stand2"
+  }
+ ],
+ "steps": [
+  {
+   "do": "go",
+   "who": "pepper",
+   "to": [
+    -9.4,
+    -3.6
+   ],
+   "gait": "run"
+  },
+  {
+   "do": "say",
+   "who": "pepper",
+   "text": "Give it back, Vesper!",
+   "mood": "angry",
+   "to": "vesper"
+  },
+  {
+   "do": "say",
+   "who": "vesper",
+   "text": "I read it. A storm! I was taking it to Tobias myself. You were too slow.",
+   "mood": "serious",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "act",
+    "who": "pepper",
+    "clip": "startle"
+   },
+   {
+    "do": "sfx",
+    "name": "thunder",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   }
+  ],
+  {
+   "do": "point",
+   "who": "vesper",
+   "at": [
+    5,
+    -3.6
+   ],
+   "dur": 1.5,
+   "hand": "R"
+  },
+  {
+   "do": "say",
+   "who": "pepper",
+   "text": "You were warning him?",
+   "mood": "concern",
+   "to": "vesper"
+  },
+  {
+   "do": "say",
+   "who": "vesper",
+   "text": "But the bridge is out. We cannot cross.",
+   "mood": "sad",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "take",
+    "who": "pepper",
+    "prop": "plank"
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "pepper",
+    "to": [
+     -5.6,
+     -3.4
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "put",
+   "who": "pepper",
+   "on": "stand4"
+  },
+  [
+   {
+    "do": "act",
+    "who": "vesper",
+    "clip": "joy"
+   },
+   {
+    "do": "emote",
+    "who": "pepper",
+    "kind": "smile",
+    "dur": 2.5
+   }
+  ]
+ ],
+ "objective": "The bridge is broken",
+ "theme": {
+  "root": 53,
+  "mode": "dorian",
+  "tempo": 108,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "pepper": [
+    7,
+    6,
+    4
+   ],
+   "vesper": [
+    0,
+    3,
+    5
+   ],
+   "odile": [
+    2,
+    0,
+    -2
+   ],
+   "tobias": [
+    -5,
+    -3,
+    -5
+   ],
+   "grub": [
+    0,
+    0,
+    -3
+   ],
+   "mo": [
+    2,
+    1,
+    -1
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.9
+}

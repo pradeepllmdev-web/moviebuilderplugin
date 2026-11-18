@@ -1,0 +1,32 @@
+[
+ {
+  "index": 0,
+  "frame": 71,
+  "time": 2.9166666666666665,
+  "cut": "establish"
+ },
+ {
+  "index": 1,
+  "frame": 190,
+  "time": 7.875,
+  "cut": "nell alone"
+ },
+ {
+  "index": 2,
+  "frame": 312,
+  "time": 12.958333333333334,
+  "cut": "nell put"
+ },
+ {
+  "index": 3,
+  "frame": 456,
+  "time": 18.958333333333332,
+  "cut": "nell alone"
+ },
+ {
+  "index": 4,
+  "frame": 565,
+  "time": 23.5,
+  "cut": "end"
+ }
+]

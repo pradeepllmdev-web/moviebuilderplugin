@@ -1,0 +1,270 @@
+{
+ "id": "dawn",
+ "title": "A strange egg",
+ "intent": "Moss finds a giant egg in the field. Farmer Hazel has never seen one like it.",
+ "extras": [],
+ "fog": 0.1,
+ "fx": null,
+ "location": {
+  "preset": "meadow",
+  "seed": 7
+ },
+ "time": "dawn",
+ "ambience": "wind",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "hazel",
+   "at": [
+    -7,
+    -2.6
+   ],
+   "face": [
+    2,
+    2
+   ]
+  },
+  {
+   "id": "moss",
+   "at": [
+    -9,
+    -4.6
+   ],
+   "face": [
+    -1.5,
+    -6.4
+   ]
+  },
+  {
+   "id": "clara",
+   "at": [
+    2,
+    3.5
+   ],
+   "face": [
+    -6,
+    -3
+   ]
+  },
+  {
+   "id": "percy",
+   "at": [
+    5.5,
+    0.5
+   ],
+   "face": [
+    -6,
+    -3
+   ]
+  },
+  {
+   "id": "dolly",
+   "at": [
+    8,
+    -3.2
+   ],
+   "face": [
+    -6,
+    -3
+   ]
+  },
+  {
+   "id": "biscuit",
+   "at": [
+    -4.5,
+    -6
+   ],
+   "face": [
+    -6,
+    -3
+   ]
+  },
+  {
+   "id": "bolt",
+   "at": [
+    10,
+    -6
+   ],
+   "face": [
+    -6,
+    -3
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "egg",
+   "kind": "egg",
+   "at": [
+    -1.5,
+    -6.6
+   ],
+   "size": 3.2
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "sfx",
+    "name": "moo",
+    "at": 0.3,
+    "who": "clara",
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "oink",
+    "at": 0.9,
+    "who": "percy",
+    "gain": 1.0
+   },
+   {
+    "do": "sfx",
+    "name": "baa",
+    "at": 1.5,
+    "who": "dolly",
+    "gain": 1.0
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hazel",
+   "text": "Good morning, everyone. Another quiet morning on the farm.",
+   "mood": "warm",
+   "to": "moss"
+  },
+  [
+   {
+    "do": "go",
+    "who": "moss",
+    "to": [
+     -3.2,
+     -5.4
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "sfx",
+    "name": "bark",
+    "at": 0.3,
+    "who": "biscuit",
+    "gain": 1.0
+   }
+  ],
+  {
+   "do": "icon",
+   "who": "moss",
+   "kind": "alarm",
+   "dur": 1.6
+  },
+  {
+   "do": "point",
+   "who": "moss",
+   "at": "egg",
+   "dur": 1.6,
+   "hand": "R"
+  },
+  [
+   {
+    "do": "go",
+    "who": "hazel",
+    "to": [
+     -4.6,
+     -4.0
+    ],
+    "gait": "walk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "moss",
+   "text": "Farmer Hazel, come quick! There is something in the field!",
+   "mood": "joy",
+   "to": "hazel"
+  },
+  {
+   "do": "say",
+   "who": "hazel",
+   "text": "That is no hen\u2019s egg. Whatever laid it must be enormous.",
+   "mood": "concern",
+   "to": "moss"
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "sting",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "act",
+    "who": "hazel",
+    "clip": "startle"
+   },
+   {
+    "do": "icon",
+    "who": "hazel",
+    "kind": "question",
+    "dur": 2.0
+   }
+  ]
+ ],
+ "objective": "A strange egg in the field",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 104,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1
+   ],
+   [
+    4,
+    1
+   ]
+  ],
+  "motifs": {
+   "hazel": [
+    0,
+    -3,
+    0
+   ],
+   "moss": [
+    4,
+    6,
+    4
+   ],
+   "zip": [
+    7,
+    6,
+    7
+   ],
+   "mama": [
+    -5,
+    -7,
+    -5
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.25
+}

@@ -1,0 +1,213 @@
+{
+ "version": 1,
+ "characters": [
+  {
+   "id": "bettina",
+   "name": "Bettina",
+   "species": "badger",
+   "posture": "hurried",
+   "outfit": "cook",
+   "colors": [
+    [
+     0.96,
+     0.96,
+     0.94
+    ],
+    [
+     0.85,
+     0.35,
+     0.45
+    ],
+    [
+     0.3,
+     0.3,
+     0.38
+    ],
+    [
+     0.25,
+     0.18,
+     0.12
+    ]
+   ],
+   "description": "the baker, flour to her elbows",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 704,
+    "f0": 108.6,
+    "shift": 1.004,
+    "rate": 0.88
+   }
+  },
+  {
+   "id": "dash",
+   "name": "Dash",
+   "species": "fox",
+   "posture": "jaunty",
+   "outfit": "child",
+   "colors": [
+    [
+     0.25,
+     0.55,
+     0.7
+    ],
+    [
+     0.95,
+     0.8,
+     0.25
+    ],
+    [
+     0.35,
+     0.5,
+     0.35
+    ],
+    [
+     0.4,
+     0.28,
+     0.2
+    ]
+   ],
+   "description": "the baker\u2019s bouncy apprentice",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 517,
+    "f0": 229.7,
+    "shift": 0.987,
+    "rate": 0.94
+   }
+  },
+  {
+   "id": "rufus",
+   "name": "Rufus",
+   "species": "ox",
+   "posture": "angry",
+   "outfit": "gentleman",
+   "colors": [
+    [
+     0.25,
+     0.28,
+     0.4
+    ],
+    [
+     0.8,
+     0.2,
+     0.25
+    ],
+    [
+     0.2,
+     0.14,
+     0.1
+    ]
+   ],
+   "description": "the best man in a borrowed suit",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 22,
+    "f0": 92.5,
+    "shift": 0.93,
+    "rate": 0.95
+   }
+  },
+  {
+   "id": "marcel",
+   "name": "Marcel",
+   "species": "heron",
+   "posture": "tired",
+   "outfit": "mayor",
+   "colors": [
+    [
+     0.2,
+     0.3,
+     0.25
+    ],
+    [
+     0.85,
+     0.8,
+     0.3
+    ],
+    [
+     0.2,
+     0.15,
+     0.1
+    ]
+   ],
+   "description": "the nervous, very tall groom",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 363,
+    "f0": 146.5,
+    "shift": 1.021,
+    "rate": 1.12
+   }
+  },
+  {
+   "id": "juno",
+   "name": "Juno",
+   "species": "mouse",
+   "posture": "neutral",
+   "outfit": "villageress",
+   "colors": [
+    [
+     0.95,
+     0.92,
+     0.88
+    ],
+    [
+     0.9,
+     0.7,
+     0.8
+    ],
+    [
+     0.4,
+     0.3,
+     0.25
+    ]
+   ],
+   "description": "the small, cheerful bride",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 737,
+    "f0": 253.4,
+    "shift": 1.064,
+    "rate": 1.0
+   }
+  },
+  {
+   "id": "elm",
+   "name": "Granny Elm",
+   "species": "elder",
+   "posture": "hunched",
+   "outfit": "mother",
+   "colors": [
+    [
+     0.5,
+     0.4,
+     0.6
+    ],
+    [
+     0.9,
+     0.88,
+     0.8
+    ],
+    [
+     0.3,
+     0.22,
+     0.15
+    ]
+   ],
+   "description": "the groom\u2019s granny, who has opinions",
+   "pace": 1.2,
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 198,
+    "f0": 119.2,
+    "shift": 0.999,
+    "rate": 1.1
+   }
+  }
+ ]
+}

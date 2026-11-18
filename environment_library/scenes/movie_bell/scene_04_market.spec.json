@@ -1,0 +1,207 @@
+{
+ "id": "market",
+ "title": "Clue two: the painting",
+ "intent": "Lulu\u2019s painting shows a covered cart belonging to Otto the blacksmith.",
+ "extras": {
+  "n": 5,
+  "area": [
+   -12,
+   -4,
+   12,
+   10
+  ],
+  "focus": [
+   0,
+   -2
+  ],
+  "seed": 41
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "market",
+  "seed": 5,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     -1.5,
+     -2.2
+    ],
+    "id": "crate_p",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "market",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "lulu",
+   "at": [
+    -7,
+    -5
+   ],
+   "face": [
+    -1.5,
+    -2.2
+   ]
+  },
+  {
+   "id": "marta",
+   "at": [
+    9,
+    -7
+   ],
+   "face": "lulu"
+  },
+  {
+   "id": "hugo",
+   "at": [
+    11,
+    -8
+   ],
+   "face": "lulu"
+  }
+ ],
+ "props": [
+  {
+   "id": "painting",
+   "kind": "scroll",
+   "at": [
+    -1.5,
+    -2.2
+   ],
+   "on": "crate_p"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "take",
+    "who": "lulu",
+    "prop": "painting"
+   },
+   {
+    "do": "go",
+    "who": "marta",
+    "to": [
+     3.0,
+     -3.4
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "hugo",
+    "to": [
+     4.6,
+     -3.8
+    ],
+    "gait": "stomp"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "lulu",
+   "text": "I painted the square at dawn. Look what is in the corner.",
+   "mood": "warm",
+   "to": "marta"
+  },
+  {
+   "do": "give",
+   "who": "lulu",
+   "to": "marta"
+  },
+  {
+   "do": "say",
+   "who": "marta",
+   "text": "A cart. With a big shape under a blanket.",
+   "mood": "concern",
+   "to": "hugo"
+  },
+  {
+   "do": "say",
+   "who": "hugo",
+   "text": "Whose cart is that?",
+   "mood": "angry",
+   "to": "lulu"
+  },
+  {
+   "do": "say",
+   "who": "lulu",
+   "text": "Otto the blacksmith. He rolled it up the hill road before breakfast.",
+   "mood": "serious",
+   "to": "hugo"
+  }
+ ],
+ "objective": "Clue 2: a painting",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "marta": [
+    0,
+    4,
+    2
+   ],
+   "hugo": [
+    0,
+    0,
+    -3
+   ],
+   "finn": [
+    4,
+    6,
+    4
+   ],
+   "lulu": [
+    2,
+    4,
+    7
+   ],
+   "otto": [
+    -5,
+    -3,
+    -5
+   ],
+   "bea": [
+    7,
+    9,
+    7
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.78
+}

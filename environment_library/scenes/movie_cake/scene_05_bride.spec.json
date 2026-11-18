@@ -1,0 +1,275 @@
+{
+ "id": "bride",
+ "title": "Late, late, late",
+ "intent": "The bride and groom arrive, also late, and meet the despairing baker. 10 minutes left.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "hilltop",
+  "seed": 4,
+  "objects": [
+   {
+    "kind": "bench",
+    "at": [
+     -1.5,
+     -1.0
+    ],
+    "id": "bench0",
+    "yaw": 0
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     3.0,
+     -2.2
+    ],
+    "id": "stand4",
+    "height": 0.45,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "bettina",
+   "at": [
+    -1.75,
+    -0.29
+   ],
+   "face": [
+    3,
+    -2.2
+   ]
+  },
+  {
+   "id": "dash",
+   "at": [
+    -0.4,
+    -2.8
+   ],
+   "face": "bettina"
+  },
+  {
+   "id": "rufus",
+   "at": [
+    1.4,
+    -3.4
+   ],
+   "face": "bettina"
+  },
+  {
+   "id": "juno",
+   "at": [
+    -14,
+    -5
+   ],
+   "face": [
+    3,
+    -2.2
+   ]
+  },
+  {
+   "id": "marcel",
+   "at": [
+    -18,
+    -7
+   ],
+   "face": [
+    3,
+    -2.2
+   ]
+  },
+  {
+   "id": "elm",
+   "at": [
+    -12,
+    -8
+   ],
+   "face": [
+    3,
+    -2.2
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "smash",
+   "kind": "pie",
+   "at": [
+    3.0,
+    -2.2
+   ],
+   "size": 1.6,
+   "on": "stand4"
+  }
+ ],
+ "steps": [
+  {
+   "do": "sit",
+   "who": "bettina",
+   "on": "bench0.0",
+   "face": [
+    3,
+    -2.2
+   ]
+  },
+  [
+   {
+    "do": "go",
+    "who": "juno",
+    "to": [
+     0.4,
+     -3.4
+    ],
+    "gait": "brisk",
+    "talk": [
+     "Marcel, hurry! We are late for our own wedding!",
+     "joy",
+     "marcel"
+    ]
+   },
+   {
+    "do": "go",
+    "who": "marcel",
+    "to": [
+     -5.4,
+     -5.4
+    ],
+    "gait": "shuffle"
+   },
+   {
+    "do": "go",
+    "who": "elm",
+    "to": [
+     -6,
+     -7
+    ],
+    "gait": "shuffle"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "marcel",
+   "text": "I know. I know. My legs are very long and very slow.",
+   "mood": "concern",
+   "to": "juno"
+  },
+  {
+   "do": "say",
+   "who": "elm",
+   "text": "In my day we ran to weddings.",
+   "overlap_by": 0.4,
+   "mood": "serious",
+   "to": "marcel"
+  },
+  [
+   {
+    "do": "turn",
+    "who": "juno",
+    "to": "bettina"
+   },
+   {
+    "do": "emote",
+    "who": "juno",
+    "kind": "brows",
+    "dur": 2
+   }
+  ],
+  {
+   "do": "say",
+   "who": "juno",
+   "text": "Bettina? Is that... the cake?",
+   "mood": "concern",
+   "to": "bettina"
+  },
+  {
+   "do": "say",
+   "who": "bettina",
+   "text": "It was. I am so sorry. It is ruined.",
+   "mood": "sad",
+   "to": "juno"
+  },
+  [
+   {
+    "do": "go",
+    "who": "juno",
+    "to": [
+     1.2,
+     -2.2
+    ],
+    "gait": "walk"
+   }
+  ]
+ ],
+ "objective": "Wedding at 4:00 - 10 minutes",
+ "theme": {
+  "root": 60,
+  "mode": "major",
+  "tempo": 116,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "bettina": [
+    0,
+    2,
+    4
+   ],
+   "dash": [
+    7,
+    9,
+    7
+   ],
+   "rufus": [
+    0,
+    0,
+    -3
+   ],
+   "marcel": [
+    2,
+    0,
+    -2
+   ],
+   "juno": [
+    4,
+    5,
+    7
+   ],
+   "elm": [
+    0,
+    3,
+    0
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 54,
+   "hit": 47
+  }
+ },
+ "arc": 0.948
+}

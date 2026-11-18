@@ -1,0 +1,237 @@
+{
+ "id": "smithy",
+ "title": "The smithy",
+ "intent": "In the smithy, Otto reveals he secretly mended the cracked bell as a gift.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "workshop",
+  "seed": 2
+ },
+ "time": "day",
+ "ambience": "fire",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "otto",
+   "at": [
+    -1.6,
+    -2.4
+   ],
+   "face": [
+    -3,
+    -1
+   ]
+  },
+  {
+   "id": "hugo",
+   "at": [
+    0,
+    -3.2
+   ],
+   "face": "otto"
+  },
+  {
+   "id": "marta",
+   "at": [
+    1.4,
+    -3.2
+   ],
+   "face": "otto"
+  },
+  {
+   "id": "bea",
+   "at": [
+    2.6,
+    -2.9
+   ],
+   "face": "otto"
+  }
+ ],
+ "props": [
+  {
+   "id": "bell",
+   "kind": "bell",
+   "at": [
+    1.0,
+    -0.45
+   ],
+   "size": 1.6,
+   "on": "table"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "act",
+    "who": "otto",
+    "clip": "hit"
+   },
+   {
+    "do": "sfx",
+    "name": "clang",
+    "at": 0.3,
+    "who": null,
+    "gain": 1.0
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "hugo",
+    "to": [
+     -0.2,
+     -1.2
+    ],
+    "gait": "stomp"
+   },
+   {
+    "do": "go",
+    "who": "marta",
+    "to": [
+     1.1,
+     -1.8
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "bea",
+    "to": [
+     2.6,
+     -1.6
+    ],
+    "gait": "brisk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hugo",
+   "text": "Otto! You took our festival bell!",
+   "mood": "angry",
+   "to": "otto"
+  },
+  {
+   "do": "point",
+   "who": "hugo",
+   "at": "otto",
+   "dur": 1.2,
+   "hand": "R"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "otto",
+    "kind": "concern",
+    "dur": 2.5
+   },
+   {
+    "do": "act",
+    "who": "otto",
+    "clip": "shrug"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "otto",
+   "text": "It cracked at the last festival. I mended it at dawn. A gift. I wanted no fuss.",
+   "mood": "warm",
+   "to": "hugo"
+  },
+  {
+   "do": "say",
+   "who": "marta",
+   "text": "Otto. It is perfect.",
+   "mood": "joy",
+   "to": "otto"
+  },
+  {
+   "do": "say",
+   "who": "hugo",
+   "text": "Ahem. I may have shouted a little too early.",
+   "mood": "concern",
+   "to": "otto"
+  },
+  [
+   {
+    "do": "act",
+    "who": "bea",
+    "clip": "joy"
+   },
+   {
+    "do": "emote",
+    "who": "marta",
+    "kind": "smile",
+    "dur": 3
+   }
+  ]
+ ],
+ "objective": "Who took the bell?",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "marta": [
+    0,
+    4,
+    2
+   ],
+   "hugo": [
+    0,
+    0,
+    -3
+   ],
+   "finn": [
+    4,
+    6,
+    4
+   ],
+   "lulu": [
+    2,
+    4,
+    7
+   ],
+   "otto": [
+    -5,
+    -3,
+    -5
+   ],
+   "bea": [
+    7,
+    9,
+    7
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.974
+}

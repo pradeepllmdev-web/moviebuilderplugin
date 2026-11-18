@@ -1,0 +1,241 @@
+{
+ "id": "decision",
+ "title": "The wobbliest cake",
+ "intent": "The bride decides the wobbly cake is part of the wedding. 5 minutes left.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "hilltop",
+  "seed": 4,
+  "objects": [
+   {
+    "kind": "bench",
+    "at": [
+     -1.5,
+     -1.0
+    ],
+    "id": "bench0",
+    "yaw": 0
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     3.0,
+     -2.2
+    ],
+    "id": "stand4",
+    "height": 0.45,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "juno",
+   "at": [
+    1.2,
+    -2.2
+   ],
+   "face": [
+    3,
+    -2.2
+   ]
+  },
+  {
+   "id": "bettina",
+   "at": [
+    -1.75,
+    -0.29
+   ],
+   "face": "juno"
+  },
+  {
+   "id": "dash",
+   "at": [
+    -0.4,
+    -2.8
+   ],
+   "face": "juno"
+  },
+  {
+   "id": "rufus",
+   "at": [
+    1.4,
+    -3.4
+   ],
+   "face": "juno"
+  },
+  {
+   "id": "marcel",
+   "at": [
+    -5.4,
+    -5.4
+   ],
+   "face": "juno"
+  },
+  {
+   "id": "elm",
+   "at": [
+    -6.0,
+    -7.0
+   ],
+   "face": "juno"
+  }
+ ],
+ "props": [
+  {
+   "id": "smash",
+   "kind": "pie",
+   "at": [
+    3.0,
+    -2.2
+   ],
+   "size": 1.6,
+   "on": "stand4"
+  }
+ ],
+ "steps": [
+  {
+   "do": "sit",
+   "who": "bettina",
+   "on": "bench0.0",
+   "face": "juno"
+  },
+  [
+   {
+    "do": "act",
+    "who": "juno",
+    "clip": "think"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "juno",
+   "text": "Do you know what I want at my wedding? Friends. And something wobbly to laugh about.",
+   "mood": "warm",
+   "to": "bettina"
+  },
+  {
+   "do": "say",
+   "who": "marcel",
+   "text": "Wobbly is our whole family.",
+   "overlap_by": 0.3,
+   "mood": "joy",
+   "to": "juno"
+  },
+  {
+   "do": "say",
+   "who": "elm",
+   "text": "And the cake is the best part.",
+   "overlap_by": 0.3,
+   "mood": "warm",
+   "to": "marcel"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "bettina",
+    "kind": "smile",
+    "dur": 3
+   },
+   {
+    "do": "emote",
+    "who": "dash",
+    "kind": "smile",
+    "dur": 3
+   }
+  ],
+  [
+   {
+    "do": "take",
+    "who": "juno",
+    "prop": "smash"
+   }
+  ],
+  {
+   "do": "go",
+   "who": "juno",
+   "to": [
+    8.0,
+    2.6
+   ],
+   "gait": "brisk",
+   "talk": [
+    "Everybody! To the chapel! With the wobbliest cake in history!",
+    "joy",
+    "bettina"
+   ]
+  }
+ ],
+ "objective": "Wedding at 4:00 - 5 minutes",
+ "theme": {
+  "root": 60,
+  "mode": "major",
+  "tempo": 116,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "bettina": [
+    0,
+    2,
+    4
+   ],
+   "dash": [
+    7,
+    9,
+    7
+   ],
+   "rufus": [
+    0,
+    0,
+    -3
+   ],
+   "marcel": [
+    2,
+    0,
+    -2
+   ],
+   "juno": [
+    4,
+    5,
+    7
+   ],
+   "elm": [
+    0,
+    3,
+    0
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 54,
+   "hit": 47
+  }
+ },
+ "arc": 0.998
+}

@@ -1,0 +1,172 @@
+{
+ "id": "blame",
+ "title": "Who took it?",
+ "seconds": 48.375,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "rosa runs",
+   "t0": 2.5,
+   "t1": 5.125,
+   "kind": "track",
+   "subject": "rosa"
+  },
+  {
+   "name": "orin speaks",
+   "t0": 5.125,
+   "t1": 8.958333333333334,
+   "kind": "medium",
+   "subject": "orin"
+  },
+  {
+   "name": "gus speaks",
+   "t0": 8.958333333333334,
+   "t1": 11.416666666666666,
+   "kind": "medium",
+   "subject": "gus"
+  },
+  {
+   "name": "gus walks",
+   "t0": 11.416666666666666,
+   "t1": 17.5,
+   "kind": "track",
+   "subject": "gus"
+  },
+  {
+   "name": "tilda speaks",
+   "t0": 17.5,
+   "t1": 20.875,
+   "kind": "two",
+   "subject": "tilda"
+  },
+  {
+   "name": "gus speaks",
+   "t0": 20.875,
+   "t1": 23.833333333333332,
+   "kind": "medium",
+   "subject": "gus"
+  },
+  {
+   "name": "rosa walks",
+   "t0": 23.833333333333332,
+   "t1": 30.75,
+   "kind": "track",
+   "subject": "rosa"
+  },
+  {
+   "name": "rosa points",
+   "t0": 30.75,
+   "t1": 33.833333333333336,
+   "kind": "reveal",
+   "subject": "rosa"
+  },
+  {
+   "name": "rosa speaks",
+   "t0": 33.833333333333336,
+   "t1": 43.291666666666664,
+   "kind": "medium",
+   "subject": "rosa"
+  },
+  {
+   "name": "orin speaks",
+   "t0": 43.291666666666664,
+   "t1": 45.49166666666667,
+   "kind": "medium",
+   "subject": "orin"
+  },
+  {
+   "name": "end",
+   "t0": 45.49166666666667,
+   "t1": 48.375,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "orin",
+   "to": "gus",
+   "mood": "angry",
+   "text": "Gus! You were sniffing the pie. I heard it from the anvil.",
+   "t0": 5.245,
+   "t1": 8.866768707482994
+  },
+  {
+   "k": 1,
+   "speaker": "gus",
+   "to": "orin",
+   "mood": "angry",
+   "text": "I only sniffed! I would never take it.",
+   "t0": 9.078333333333333,
+   "t1": 11.325
+  },
+  {
+   "k": 2,
+   "speaker": "tilda",
+   "to": "gus",
+   "mood": "sad",
+   "text": "Nobody else loves pie like you, Gus.",
+   "t0": 17.62,
+   "t1": 20.80172335600907
+  },
+  {
+   "k": 3,
+   "speaker": "gus",
+   "to": "tilda",
+   "mood": "angry",
+   "text": "This is a terrible thing to say about a blacksmith!",
+   "t0": 20.995,
+   "t1": 23.742573696145126
+  },
+  {
+   "k": 4,
+   "speaker": "rosa",
+   "to": "orin",
+   "mood": "concern",
+   "text": "Wait. Look. Small footprints in the dust. Little ones. Going east.",
+   "t0": 35.03666666666666,
+   "t1": 41.23190476190476
+  },
+  {
+   "k": 5,
+   "speaker": "gus",
+   "to": "rosa",
+   "mood": "concern",
+   "text": "Small! Do I look small?",
+   "t0": 41.41166666666666,
+   "t1": 43.231530612244896
+  },
+  {
+   "k": 6,
+   "speaker": "orin",
+   "to": "tilda",
+   "mood": "serious",
+   "text": "Follow them! The contest is at noon.",
+   "t0": 43.41166666666666,
+   "t1": 45.808083900226755
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "tilda",
+  "rosa",
+  "orin",
+  "gus"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.15322873081187713,
+  "reach": 0.1487577205339082,
+  "eye_speaker": 7.798754563397402,
+  "eye_listener": 14.624008337578132,
+  "framing_misses": 0,
+  "framing_checked": 9
+ }
+}

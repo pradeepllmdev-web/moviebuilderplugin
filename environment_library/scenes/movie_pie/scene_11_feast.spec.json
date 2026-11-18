@@ -1,0 +1,251 @@
+{
+ "id": "feast",
+ "title": "The Golden Spoon",
+ "intent": "The mayor gives the Golden Spoon to Tilda for her kindness, and Old Fen is served the first slice.",
+ "extras": {
+  "n": 8,
+  "area": [
+   -14,
+   -8,
+   14,
+   8
+  ],
+  "focus": [
+   2.5,
+   -1
+  ],
+  "seed": 31
+ },
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 3,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     2.5,
+     -1.0
+    ],
+    "id": "stand0",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "bright",
+ "cast": [
+  {
+   "id": "orin",
+   "at": [
+    -3,
+    -1
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "tilda",
+   "at": [
+    0.2,
+    -3.2
+   ],
+   "face": "orin"
+  },
+  {
+   "id": "pip",
+   "at": [
+    -1.2,
+    -4.4
+   ],
+   "face": "orin"
+  },
+  {
+   "id": "fen",
+   "at": [
+    -1,
+    -4
+   ],
+   "face": "orin"
+  },
+  {
+   "id": "rosa",
+   "at": [
+    -4.5,
+    -5.2
+   ],
+   "face": "orin"
+  },
+  {
+   "id": "gus",
+   "at": [
+    -6,
+    -2
+   ],
+   "face": "orin"
+  }
+ ],
+ "props": [
+  {
+   "id": "pie",
+   "kind": "pie",
+   "at": [
+    2.5,
+    -1.0
+   ],
+   "on": "stand0"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "orin",
+    "to": [
+     4.6,
+     -4.6
+    ],
+    "gait": "strut"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "orin",
+   "text": "Neighbours! This year the Golden Spoon does not go to the biggest pie.",
+   "mood": "joy",
+   "to": "tilda"
+  },
+  {
+   "do": "say",
+   "who": "orin",
+   "text": "It goes to the kindest baker. Tilda, who forgave a hungry boy.",
+   "mood": "joy",
+   "to": "tilda"
+  },
+  [
+   {
+    "do": "act",
+    "who": "tilda",
+    "clip": "bow"
+   },
+   {
+    "do": "act",
+    "who": "pip",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "rosa",
+    "clip": "joy"
+   },
+   {
+    "do": "act",
+    "who": "gus",
+    "clip": "laugh"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "gus",
+   "text": "And I get the first slice, because I was blamed!",
+   "mood": "joy",
+   "to": "orin"
+  },
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "The first slice is for Old Fen.",
+   "mood": "warm",
+   "to": "gus"
+  },
+  [
+   {
+    "do": "go",
+    "who": "fen",
+    "to": [
+     2.0,
+     -1.8
+    ],
+    "gait": "shuffle"
+   },
+   {
+    "do": "emote",
+    "who": "fen",
+    "kind": "smile",
+    "dur": 3
+   }
+  ]
+ ],
+ "objective": "The Golden Spoon",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.673
+}

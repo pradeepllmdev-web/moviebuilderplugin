@@ -1,0 +1,241 @@
+{
+ "id": "taking",
+ "title": "A small thief",
+ "intent": "Little Pip secretly takes the pie. He has a reason: his grandfather is hungry.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 3,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     2.5,
+     -1.0
+    ],
+    "id": "stand0",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "tense",
+ "cast": [
+  {
+   "id": "pip",
+   "at": [
+    -6,
+    5
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "tilda",
+   "at": [
+    -10.0,
+    -8.0
+   ],
+   "face": [
+    -5.61,
+    -5.61
+   ]
+  },
+  {
+   "id": "rosa",
+   "at": [
+    -5.0,
+    3.0
+   ],
+   "face": [
+    -9.2,
+    5.71
+   ]
+  },
+  {
+   "id": "gus",
+   "at": [
+    12.0,
+    2.0
+   ],
+   "face": [
+    16.78,
+    3.48
+   ]
+  },
+  {
+   "id": "orin",
+   "at": [
+    -8.81,
+    5.46
+   ],
+   "face": [
+    -4.32,
+    3.27
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "pie",
+   "kind": "pie",
+   "at": [
+    2.5,
+    -1.0
+   ],
+   "on": "stand0"
+  }
+ ],
+ "steps": [
+  {
+   "do": "say",
+   "who": "pip",
+   "text": "Grandfather has not eaten for two days. Forgive me, Tilda.",
+   "mood": "sad",
+   "to": "pip"
+  },
+  [
+   {
+    "do": "go",
+    "who": "pip",
+    "to": [
+     0,
+     1.5
+    ],
+    "gait": "sneak"
+   },
+   {
+    "do": "look",
+    "who": "pip",
+    "at": [
+     -3,
+     0
+    ],
+    "dur": 1
+   }
+  ],
+  [
+   {
+    "do": "look",
+    "who": "pip",
+    "at": [
+     6,
+     0
+    ],
+    "dur": 1.2
+   },
+   {
+    "do": "look",
+    "who": "pip",
+    "at": [
+     -4,
+     -4
+    ],
+    "dur": 1.2
+   }
+  ],
+  {
+   "do": "take",
+   "who": "pip",
+   "prop": "pie"
+  },
+  [
+   {
+    "do": "look",
+    "who": "pip",
+    "at": [
+     -8,
+     2
+    ],
+    "dur": 1
+   },
+   {
+    "do": "act",
+    "who": "pip",
+    "clip": "startle"
+   }
+  ],
+  {
+   "do": "go",
+   "who": "pip",
+   "to": [
+    14,
+    -3
+   ],
+   "gait": "run"
+  }
+ ],
+ "objective": "Who took the pie?",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.655
+}

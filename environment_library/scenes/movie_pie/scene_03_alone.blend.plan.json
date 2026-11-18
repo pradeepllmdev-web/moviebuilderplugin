@@ -1,0 +1,131 @@
+{
+ "id": "alone",
+ "title": "Alone with the pie",
+ "seconds": 39.333333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "tilda speaks",
+   "t0": 2.5,
+   "t1": 4.958333333333333,
+   "kind": "medium",
+   "subject": "tilda"
+  },
+  {
+   "name": "orin speaks",
+   "t0": 4.958333333333333,
+   "t1": 8.083333333333334,
+   "kind": "medium",
+   "subject": "orin"
+  },
+  {
+   "name": "rosa and company",
+   "t0": 8.083333333333334,
+   "t1": 15.291666666666666,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "rosa runs",
+   "t0": 15.291666666666666,
+   "t1": 20.416666666666668,
+   "kind": "track",
+   "subject": "rosa"
+  },
+  {
+   "name": "gus alone",
+   "t0": 20.416666666666668,
+   "t1": 25.125,
+   "kind": "medium",
+   "subject": "gus"
+  },
+  {
+   "name": "orin speaks",
+   "t0": 25.125,
+   "t1": 28.25,
+   "kind": "medium",
+   "subject": "orin"
+  },
+  {
+   "name": "hold",
+   "t0": 28.25,
+   "t1": 30.5,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "gus runs",
+   "t0": 30.5,
+   "t1": 35.833333333333336,
+   "kind": "track",
+   "subject": "gus"
+  },
+  {
+   "name": "gus runs",
+   "t0": 35.833333333333336,
+   "t1": 39.333333333333336,
+   "kind": "track",
+   "subject": "gus"
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "tilda",
+   "to": "rosa",
+   "mood": "concern",
+   "text": "Oh no. I forgot the red ribbon! I will be back in a moment.",
+   "t0": 1.2033333333333331,
+   "t1": 4.890907029478457
+  },
+  {
+   "k": 1,
+   "speaker": "orin",
+   "to": "rosa",
+   "mood": "serious",
+   "text": "Rosa! I need help with the judges chairs.",
+   "t0": 5.078333333333333,
+   "t1": 8.020736961451247
+  },
+  {
+   "k": 2,
+   "speaker": "gus",
+   "to": "gus",
+   "mood": "warm",
+   "text": "Cherries. Warm cherries. Just one little sniff.",
+   "t0": 21.62,
+   "t1": 25.03859410430839
+  },
+  {
+   "k": 3,
+   "speaker": "orin",
+   "to": "gus",
+   "mood": "angry",
+   "text": "Gus! Your anvil is ringing! Customers!",
+   "t0": 25.245,
+   "t1": 28.179920634920634
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "tilda",
+  "rosa",
+  "gus",
+  "orin"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.15818978929929714,
+  "reach": 0.0,
+  "eye_speaker": 4.471428358581622,
+  "eye_listener": 19.041616603618333,
+  "framing_misses": 0,
+  "framing_checked": 7
+ }
+}

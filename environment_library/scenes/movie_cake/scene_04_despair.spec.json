@@ -1,0 +1,219 @@
+{
+ "id": "despair",
+ "title": "All is lost",
+ "intent": "Bettina sits on a bench, sure the wedding is ruined. 15 minutes left.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "hilltop",
+  "seed": 4,
+  "objects": [
+   {
+    "kind": "bench",
+    "at": [
+     -1.5,
+     -1.0
+    ],
+    "id": "bench0",
+    "yaw": 0
+   },
+   {
+    "kind": "pedestal",
+    "at": [
+     3.0,
+     -2.2
+    ],
+    "id": "stand4",
+    "height": 0.45,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "sad",
+ "cast": [
+  {
+   "id": "bettina",
+   "at": [
+    -2.8,
+    -2.4
+   ],
+   "face": [
+    3,
+    -2.2
+   ]
+  },
+  {
+   "id": "dash",
+   "at": [
+    -0.4,
+    -2.8
+   ],
+   "face": "bettina"
+  },
+  {
+   "id": "rufus",
+   "at": [
+    1.4,
+    -3.4
+   ],
+   "face": "bettina"
+  }
+ ],
+ "props": [
+  {
+   "id": "smash",
+   "kind": "pie",
+   "at": [
+    3.0,
+    -2.2
+   ],
+   "size": 1.6,
+   "on": "stand4"
+  }
+ ],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "bettina",
+    "to": [
+     -1.5,
+     -1.0
+    ],
+    "gait": "shuffle"
+   }
+  ],
+  {
+   "do": "sit",
+   "who": "bettina",
+   "on": "bench0.0",
+   "face": [
+    3,
+    -2.2
+   ]
+  },
+  {
+   "do": "say",
+   "who": "bettina",
+   "text": "Twenty years of baking, and the best cake of my life is a pancake.",
+   "mood": "sad",
+   "to": "dash"
+  },
+  {
+   "do": "say",
+   "who": "rufus",
+   "text": "It was a very good pancake.",
+   "mood": "concern",
+   "to": "bettina"
+  },
+  {
+   "do": "say",
+   "who": "dash",
+   "text": "Rufus!",
+   "overlap_by": 0.3,
+   "mood": "angry",
+   "to": "rufus"
+  },
+  [
+   {
+    "do": "emote",
+    "who": "bettina",
+    "kind": "sad",
+    "dur": 4
+   },
+   {
+    "do": "look",
+    "who": "bettina",
+    "at": [
+     3,
+     -2.2
+    ],
+    "dur": 3
+   }
+  ],
+  {
+   "do": "point",
+   "who": "rufus",
+   "at": [
+    3,
+    -2.2
+   ],
+   "dur": 1.2,
+   "hand": "R"
+  },
+  {
+   "do": "wait",
+   "dur": 1.0
+  }
+ ],
+ "objective": "Wedding at 4:00 - 15 minutes",
+ "theme": {
+  "root": 60,
+  "mode": "major",
+  "tempo": 116,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "bettina": [
+    0,
+    2,
+    4
+   ],
+   "dash": [
+    7,
+    9,
+    7
+   ],
+   "rufus": [
+    0,
+    0,
+    -3
+   ],
+   "marcel": [
+    2,
+    0,
+    -2
+   ],
+   "juno": [
+    4,
+    5,
+    7
+   ],
+   "elm": [
+    0,
+    3,
+    0
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 54,
+   "hit": 47
+  }
+ },
+ "arc": 0.836
+}

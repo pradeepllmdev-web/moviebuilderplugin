@@ -1,0 +1,166 @@
+{
+ "id": "stopped",
+ "title": "The clock stops",
+ "seconds": 43.708333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "nell speaks",
+   "t0": 2.5,
+   "t1": 8.333333333333334,
+   "kind": "medium",
+   "subject": "nell"
+  },
+  {
+   "name": "ada speaks",
+   "t0": 8.333333333333334,
+   "t1": 11.791666666666666,
+   "kind": "medium",
+   "subject": "ada"
+  },
+  {
+   "name": "nell speaks",
+   "t0": 11.791666666666666,
+   "t1": 16.916666666666668,
+   "kind": "two",
+   "subject": "nell"
+  },
+  {
+   "name": "pol startle",
+   "t0": 16.916666666666668,
+   "t1": 19.333333333333332,
+   "kind": "medium",
+   "subject": "pol"
+  },
+  {
+   "name": "pol speaks",
+   "t0": 19.333333333333332,
+   "t1": 22.083333333333332,
+   "kind": "medium",
+   "subject": "pol"
+  },
+  {
+   "name": "nell speaks",
+   "t0": 22.083333333333332,
+   "t1": 27.0,
+   "kind": "medium",
+   "subject": "nell"
+  },
+  {
+   "name": "pol points",
+   "t0": 27.0,
+   "t1": 30.416666666666668,
+   "kind": "reveal",
+   "subject": "pol"
+  },
+  {
+   "name": "pol speaks",
+   "t0": 30.416666666666668,
+   "t1": 35.166666666666664,
+   "kind": "two",
+   "subject": "pol"
+  },
+  {
+   "name": "nell speaks",
+   "t0": 35.166666666666664,
+   "t1": 40.50833333333333,
+   "kind": "medium",
+   "subject": "nell"
+  },
+  {
+   "name": "end",
+   "t0": 40.50833333333333,
+   "t1": 43.708333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "nell",
+   "to": "ada",
+   "mood": "concern",
+   "text": "Granny Ada, the clock has stopped! It still says half past six.",
+   "t0": 3.7866666666666666,
+   "t1": 8.262947845804987
+  },
+  {
+   "k": 1,
+   "speaker": "ada",
+   "to": "nell",
+   "mood": "warm",
+   "text": "It is nearly nine, Nell. Did you wind it this morning?",
+   "t0": 8.453333333333333,
+   "t1": 11.714920634920635
+  },
+  {
+   "k": 2,
+   "speaker": "nell",
+   "to": "ada",
+   "mood": "sad",
+   "text": "I was about to... oh no. My key is not on my belt.",
+   "t0": 11.911666666666665,
+   "t1": 16.82082766439909
+  },
+  {
+   "k": 3,
+   "speaker": "pol",
+   "to": "nell",
+   "mood": "concern",
+   "text": "Where did you last have it?",
+   "t0": 20.53666666666667,
+   "t1": 21.997709750566894
+  },
+  {
+   "k": 4,
+   "speaker": "nell",
+   "to": "pol",
+   "mood": "concern",
+   "text": "At the stream. I set it on the flat rock while I washed my hands.",
+   "t0": 22.203333333333333,
+   "t1": 26.931451247165533
+  },
+  {
+   "k": 5,
+   "speaker": "pol",
+   "to": "nell",
+   "mood": "warm",
+   "text": "Then the rock is where we start. Go, we will keep the village calm.",
+   "t0": 31.62,
+   "t1": 35.08253968253968
+  },
+  {
+   "k": 6,
+   "speaker": "nell",
+   "to": "pol",
+   "mood": "warm",
+   "text": "Thank you, both. I will be quick!",
+   "t0": 35.56666666666666,
+   "t1": 37.276666666666664
+  }
+ ],
+ "audit": [
+  "AUDIT framing: medium cut \"ada speaks\" at 10.0 s has ada outside the frame (0.49,1.12)"
+ ],
+ "cast": [
+  "nell",
+  "pol",
+  "ada"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.0,
+  "reach": 0.13618998756318823,
+  "eye_speaker": 3.6829355678064557,
+  "eye_listener": 8.687197853077665,
+  "framing_misses": 1,
+  "framing_checked": 8
+ }
+}

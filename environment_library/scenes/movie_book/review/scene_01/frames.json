@@ -1,0 +1,20 @@
+[
+ {
+  "index": 0,
+  "frame": 31,
+  "time": 1.25,
+  "cut": "establish"
+ },
+ {
+  "index": 1,
+  "frame": 87,
+  "time": 3.5833333333333335,
+  "cut": "ann give"
+ },
+ {
+  "index": 2,
+  "frame": 144,
+  "time": 5.958333333333333,
+  "cut": "ann works"
+ }
+]

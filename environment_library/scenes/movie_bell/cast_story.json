@@ -1,0 +1,125 @@
+[
+ {
+  "name": "Marta",
+  "id": "marta",
+  "description": "the innkeeper who runs the festival",
+  "species": "cat",
+  "height_m": 1.45,
+  "posture": "hurried",
+  "accessories": [
+   "shirt",
+   "vest",
+   "apron",
+   "pants",
+   "boots"
+  ],
+  "tint": [
+   0.4,
+   0.4,
+   0.5
+  ],
+  "voice_pitch_hz": 189
+ },
+ {
+  "name": "Mayor Hugo",
+  "id": "hugo",
+  "description": "the grumpy mayor in a grey suit",
+  "species": "ox",
+  "height_m": 2.0,
+  "posture": "proud",
+  "accessories": [
+   "suit",
+   "tie",
+   "boots"
+  ],
+  "tint": [
+   0.45,
+   0.4,
+   0.36
+  ],
+  "voice_pitch_hz": 78
+ },
+ {
+  "name": "Finn",
+  "id": "finn",
+  "description": "a cheerful fisherman in a yellow coat",
+  "species": "fox",
+  "height_m": 1.5,
+  "posture": "jaunty",
+  "accessories": [
+   "stripedshirt",
+   "jacket",
+   "pants",
+   "boots",
+   "hat_sou"
+  ],
+  "tint": [
+   1.0,
+   0.5,
+   0.22
+  ],
+  "voice_pitch_hz": 199
+ },
+ {
+  "name": "Lulu",
+  "id": "lulu",
+  "description": "a painter who notices everything",
+  "species": "owl",
+  "height_m": 1.4,
+  "posture": "neutral",
+  "accessories": [
+   "tshirt",
+   "overalls",
+   "scarf",
+   "boots"
+  ],
+  "tint": [
+   0.66,
+   0.55,
+   0.42
+  ],
+  "voice_pitch_hz": 168
+ },
+ {
+  "name": "Otto",
+  "id": "otto",
+  "description": "the big quiet blacksmith",
+  "species": "bear",
+  "height_m": 1.95,
+  "posture": "tired",
+  "accessories": [
+   "tshirt",
+   "apron",
+   "gloves",
+   "pants",
+   "boots",
+   "belt"
+  ],
+  "tint": [
+   0.55,
+   0.38,
+   0.26
+  ],
+  "voice_pitch_hz": 86
+ },
+ {
+  "name": "Bea",
+  "id": "bea",
+  "description": "a curious child who follows the clues",
+  "species": "rabbit",
+  "height_m": 1.25,
+  "posture": "hurried",
+  "accessories": [
+   "shirt",
+   "sleeves",
+   "shorts",
+   "boots"
+  ],
+  "tint": [
+   0.92,
+   0.9,
+   0.85
+  ],
+  "voice_pitch_hz": 241
+ }
+]

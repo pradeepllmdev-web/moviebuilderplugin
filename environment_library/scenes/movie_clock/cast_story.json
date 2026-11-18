@@ -1,0 +1,102 @@
+[
+ {
+  "name": "Nell",
+  "id": "nell",
+  "description": "the clock keeper, in a blue coat",
+  "species": "person",
+  "height_m": 1.7,
+  "posture": "hurried",
+  "accessories": [
+   "suit",
+   "tie",
+   "boots",
+   "hat_top",
+   "cane"
+  ],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 150
+ },
+ {
+  "name": "Pol",
+  "id": "pol",
+  "description": "the baker in a white apron",
+  "species": "person",
+  "height_m": 1.8,
+  "posture": "jaunty",
+  "accessories": [
+   "tshirt",
+   "apron",
+   "pants",
+   "boots"
+  ],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 184
+ },
+ {
+  "name": "Granny Ada",
+  "id": "ada",
+  "description": "an old woman in a red shawl",
+  "species": "person",
+  "height_m": 1.5,
+  "posture": "hunched",
+  "accessories": [
+   "dress",
+   "apron",
+   "boots"
+  ],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 206
+ },
+ {
+  "name": "Farmer Joss",
+  "id": "joss",
+  "description": "the tall farmer in a green shirt",
+  "species": "person",
+  "height_m": 1.98,
+  "posture": "proud",
+  "accessories": [
+   "overalls",
+   "sleeves",
+   "boots",
+   "hat_straw"
+  ],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 114
+ },
+ {
+  "name": "Mina",
+  "id": "mina",
+  "description": "a small girl in an orange dress",
+  "species": "person",
+  "height_m": 1.4,
+  "posture": "neutral",
+  "accessories": [
+   "shirt",
+   "sleeves",
+   "shorts",
+   "boots"
+  ],
+  "tint": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "voice_pitch_hz": 188
+ }
+]

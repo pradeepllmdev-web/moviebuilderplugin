@@ -1,0 +1,154 @@
+{
+ "id": "toll",
+ "title": "The toll",
+ "seconds": 59.75,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "vesper runs",
+   "t0": 2.5,
+   "t1": 7.0,
+   "kind": "track",
+   "subject": "vesper"
+  },
+  {
+   "name": "grub speaks",
+   "t0": 7.0,
+   "t1": 10.458333333333334,
+   "kind": "medium",
+   "subject": "grub"
+  },
+  {
+   "name": "vesper speaks",
+   "t0": 10.458333333333334,
+   "t1": 15.416666666666666,
+   "kind": "medium",
+   "subject": "vesper"
+  },
+  {
+   "name": "hold",
+   "t0": 15.416666666666666,
+   "t1": 17.916666666666668,
+   "kind": "group",
+   "subject": null
+  },
+  {
+   "name": "mo walks",
+   "t0": 17.916666666666668,
+   "t1": 24.208333333333332,
+   "kind": "track",
+   "subject": "mo"
+  },
+  {
+   "name": "mo speaks",
+   "t0": 24.208333333333332,
+   "t1": 29.333333333333332,
+   "kind": "medium",
+   "subject": "mo"
+  },
+  {
+   "name": "mo walks",
+   "t0": 29.333333333333332,
+   "t1": 37.58333333333333,
+   "kind": "follow_high",
+   "subject": "mo"
+  },
+  {
+   "name": "mo walks (b)",
+   "t0": 37.58333333333333,
+   "t1": 48.208333333333336,
+   "kind": "follow_high",
+   "subject": "mo"
+  },
+  {
+   "name": "grub speaks",
+   "t0": 48.208333333333336,
+   "t1": 50.958333333333336,
+   "kind": "medium",
+   "subject": "grub"
+  },
+  {
+   "name": "vesper runs",
+   "t0": 50.958333333333336,
+   "t1": 56.55,
+   "kind": "track",
+   "subject": "vesper"
+  },
+  {
+   "name": "end",
+   "t0": 56.55,
+   "t1": 59.75,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "grub",
+   "to": "pepper",
+   "mood": "angry",
+   "text": "Toll bridge. One apple each. No apple, no crossing.",
+   "t0": 7.12,
+   "t1": 10.3784126984127
+  },
+  {
+   "k": 1,
+   "speaker": "vesper",
+   "to": "grub",
+   "mood": "concern",
+   "text": "We have no apples. A storm is coming!",
+   "t0": 10.578333333333333,
+   "t1": 13.592709750566893
+  },
+  {
+   "k": 2,
+   "speaker": "grub",
+   "to": "vesper",
+   "mood": "angry",
+   "text": "No apple, no crossing.",
+   "t0": 13.786666666666665,
+   "t1": 15.347619047619046
+  },
+  {
+   "k": 3,
+   "speaker": "mo",
+   "to": "grub",
+   "mood": "warm",
+   "text": "These two children helped me with my cart. Grub, take mine.",
+   "t0": 25.41166666666667,
+   "t1": 29.250306122448983
+  },
+  {
+   "k": 4,
+   "speaker": "grub",
+   "to": "pepper",
+   "mood": "concern",
+   "text": "...Fine. Cross. But mind the thunder.",
+   "t0": 48.32833333333333,
+   "t1": 50.86833333333333
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "grub",
+  "pepper",
+  "vesper",
+  "mo"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.11674403811511325,
+  "reach": 0.17554088622952296,
+  "eye_speaker": 6.616613311043687,
+  "eye_listener": 6.630878635544431,
+  "framing_misses": 0,
+  "framing_checked": 7
+ }
+}

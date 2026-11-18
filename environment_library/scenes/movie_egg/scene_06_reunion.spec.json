@@ -1,0 +1,222 @@
+{
+ "id": "reunion",
+ "title": "Mama",
+ "intent": "Zip runs to his mother. The farmer and the child watch them reunite.",
+ "extras": null,
+ "fog": 0.1,
+ "fx": null,
+ "location": {
+  "preset": "hilltop",
+  "seed": 3
+ },
+ "time": "dusk",
+ "ambience": "wind",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "moss",
+   "at": [
+    -2.8,
+    -2.4
+   ],
+   "face": "mama"
+  },
+  {
+   "id": "zip",
+   "at": [
+    -1.6,
+    -3.6
+   ],
+   "face": "mama"
+  },
+  {
+   "id": "hazel",
+   "at": [
+    -5,
+    -4
+   ],
+   "face": "mama"
+  },
+  {
+   "id": "mama",
+   "at": [
+    -7.0,
+    6.0
+   ],
+   "face": "moss"
+  },
+  {
+   "id": "clara",
+   "at": [
+    12.0,
+    -4.0
+   ],
+   "face": [
+    7.0,
+    -4.0
+   ]
+  },
+  {
+   "id": "percy",
+   "at": [
+    10.0,
+    6.0
+   ],
+   "face": [
+    5.84,
+    3.23
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  {
+   "do": "say",
+   "who": "moss",
+   "text": "Don\u2019t be scared, Hazel. Look at Zip. He knows her.",
+   "mood": "warm",
+   "to": "hazel"
+  },
+  [
+   {
+    "do": "go",
+    "who": "zip",
+    "to": [
+     -4.6,
+     7.6
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "sfx",
+    "name": "roar",
+    "at": 0.2,
+    "who": "zip",
+    "gain": 1.0
+   },
+   {
+    "do": "icon",
+    "who": "zip",
+    "kind": "joy",
+    "dur": 2.0
+   }
+  ],
+  [
+   {
+    "do": "sfx",
+    "name": "roar",
+    "at": 0.1,
+    "who": "mama",
+    "gain": 1.0
+   },
+   {
+    "do": "act",
+    "who": "mama",
+    "clip": "startle"
+   },
+   {
+    "do": "icon",
+    "who": "mama",
+    "kind": "love",
+    "dur": 2.4
+   }
+  ],
+  {
+   "do": "act",
+   "who": "zip",
+   "clip": "joy"
+  },
+  {
+   "do": "go",
+   "who": "zip",
+   "to": [
+    -5.4,
+    9.4
+   ],
+   "gait": "walk"
+  },
+  [
+   {
+    "do": "act",
+    "who": "moss",
+    "clip": "wave"
+   },
+   {
+    "do": "sfx",
+    "name": "chime",
+    "at": 0.5,
+    "who": null,
+    "gain": 1.0
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hazel",
+   "text": "She searched all night for him. Mothers always find their children.",
+   "mood": "warm",
+   "to": "moss"
+  },
+  {
+   "do": "act",
+   "who": "mama",
+   "clip": "joy"
+  }
+ ],
+ "objective": "Mama",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 104,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1
+   ],
+   [
+    4,
+    1
+   ]
+  ],
+  "motifs": {
+   "hazel": [
+    0,
+    -3,
+    0
+   ],
+   "moss": [
+    4,
+    6,
+    4
+   ],
+   "zip": [
+    7,
+    6,
+    7
+   ],
+   "mama": [
+    -5,
+    -7,
+    -5
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.733
+}

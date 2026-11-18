@@ -1,0 +1,197 @@
+{
+ "id": "stopped",
+ "title": "The clock stops",
+ "intent": "The village clock has stopped, and Nell the keeper has lost the winding key.",
+ "extras": null,
+ "fog": 0.05,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 4,
+  "objects": [
+   {
+    "kind": "tower",
+    "at": [
+     0,
+     12
+    ],
+    "id": "clock_tower",
+    "size": 1.2
+   }
+  ]
+ },
+ "time": "dawn",
+ "ambience": "wind",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "pol",
+   "at": [
+    -5,
+    -3
+   ],
+   "face": [
+    0,
+    6
+   ]
+  },
+  {
+   "id": "ada",
+   "at": [
+    3,
+    -4
+   ],
+   "face": [
+    0,
+    6
+   ]
+  },
+  {
+   "id": "nell",
+   "at": [
+    7,
+    3
+   ],
+   "face": [
+    0,
+    6
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  {
+   "do": "say",
+   "who": "pol",
+   "text": "Half past six. Again. My bread will burn if I miss the bell.",
+   "mood": "concern",
+   "to": "ada"
+  },
+  [
+   {
+    "do": "sfx",
+    "name": "clang",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "icon",
+    "who": "ada",
+    "kind": "question",
+    "dur": 1.8
+   }
+  ],
+  {
+   "do": "point",
+   "who": "ada",
+   "at": [
+    0,
+    12,
+    7
+   ],
+   "dur": 1.8,
+   "hand": "R"
+  },
+  {
+   "do": "say",
+   "who": "ada",
+   "text": "Look at the tower. The clock has stopped at the wrong hour.",
+   "mood": "concern",
+   "to": "pol"
+  },
+  [
+   {
+    "do": "go",
+    "who": "nell",
+    "to": [
+     1.5,
+     -1.5
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "icon",
+    "who": "nell",
+    "kind": "alarm",
+    "dur": 1.6
+   }
+  ],
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "The key! I have lost the winding key. It was on my belt this morning.",
+   "mood": "sad",
+   "to": "pol"
+  },
+  {
+   "do": "say",
+   "who": "pol",
+   "text": "Then we must find it before noon.",
+   "mood": "warm",
+   "to": "nell"
+  }
+ ],
+ "objective": "The clock stops",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.25
+}

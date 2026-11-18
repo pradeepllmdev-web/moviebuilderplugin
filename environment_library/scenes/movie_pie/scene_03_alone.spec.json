@@ -1,0 +1,252 @@
+{
+ "id": "alone",
+ "title": "Alone with the pie",
+ "intent": "Everyone leaves the pie alone for a moment. Gus is tempted, but his anvil calls him away.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 3,
+  "objects": [
+   {
+    "kind": "pedestal",
+    "at": [
+     2.5,
+     -1.0
+    ],
+    "id": "stand0",
+    "height": 0.7,
+    "size": 0.4
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "tilda",
+   "at": [
+    2.39,
+    -1.2
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "rosa",
+   "at": [
+    -0.0,
+    -3.0
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "gus",
+   "at": [
+    9,
+    3
+   ],
+   "face": [
+    2.5,
+    -1
+   ]
+  },
+  {
+   "id": "orin",
+   "at": [
+    -4,
+    1.5
+   ],
+   "face": [
+    0,
+    0
+   ]
+  }
+ ],
+ "props": [
+  {
+   "id": "pie",
+   "kind": "pie",
+   "at": [
+    2.5,
+    -1.0
+   ],
+   "on": "stand0"
+  }
+ ],
+ "steps": [
+  {
+   "do": "say",
+   "who": "tilda",
+   "text": "Oh no. I forgot the red ribbon! I will be back in a moment.",
+   "mood": "concern",
+   "to": "rosa"
+  },
+  {
+   "do": "say",
+   "who": "orin",
+   "text": "Rosa! I need help with the judges chairs.",
+   "mood": "serious",
+   "to": "rosa"
+  },
+  [
+   {
+    "do": "go",
+    "who": "tilda",
+    "to": [
+     -10,
+     -8
+    ],
+    "gait": "run"
+   },
+   {
+    "do": "go",
+    "who": "rosa",
+    "to": [
+     -5,
+     3
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "orin",
+    "to": [
+     -9,
+     5
+    ],
+    "gait": "walk"
+   }
+  ],
+  [
+   {
+    "do": "go",
+    "who": "gus",
+    "to": [
+     3.6,
+     -0.6
+    ],
+    "gait": "walk"
+   },
+   {
+    "do": "emote",
+    "who": "gus",
+    "kind": "smile",
+    "dur": 3
+   }
+  ],
+  {
+   "do": "say",
+   "who": "gus",
+   "text": "Cherries. Warm cherries. Just one little sniff.",
+   "mood": "warm",
+   "to": "gus"
+  },
+  {
+   "do": "sfx",
+   "name": "clang",
+   "at": 0.2,
+   "who": null,
+   "gain": 1.0
+  },
+  {
+   "do": "say",
+   "who": "orin",
+   "text": "Gus! Your anvil is ringing! Customers!",
+   "mood": "angry",
+   "to": "gus"
+  },
+  {
+   "do": "act",
+   "who": "gus",
+   "clip": "shrug"
+  },
+  {
+   "do": "go",
+   "who": "gus",
+   "to": [
+    12,
+    2
+   ],
+   "gait": "stomp"
+  },
+  {
+   "do": "wait",
+   "dur": 1.0
+  }
+ ],
+ "objective": "Noon is near",
+ "theme": {
+  "root": 57,
+  "mode": "major",
+  "tempo": 96,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    0,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "tilda": [
+    0,
+    2,
+    4
+   ],
+   "orin": [
+    0,
+    4,
+    7
+   ],
+   "gus": [
+    0,
+    -3,
+    0
+   ],
+   "pip": [
+    7,
+    6,
+    4
+   ],
+   "fen": [
+    2,
+    0,
+    -1
+   ],
+   "rosa": [
+    4,
+    5,
+    4
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 45,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.529
+}

@@ -1,0 +1,176 @@
+{
+ "version": 1,
+ "characters": [
+  {
+   "id": "nell",
+   "name": "Nell",
+   "species": "person",
+   "height": 1.7,
+   "posture": "hurried",
+   "outfit": "mayor",
+   "colors": [
+    [
+     0.2,
+     0.35,
+     0.6
+    ],
+    [
+     0.25,
+     0.22,
+     0.3
+    ],
+    [
+     0.2,
+     0.12,
+     0.08
+    ]
+   ],
+   "description": "the clock keeper, in a blue coat",
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 363,
+    "f0": 146.5,
+    "shift": 1.026,
+    "rate": 0.88
+   }
+  },
+  {
+   "id": "pol",
+   "name": "Pol",
+   "species": "person",
+   "height": 1.8,
+   "width": 1.22,
+   "depth": 1.15,
+   "posture": "jaunty",
+   "outfit": "cook",
+   "colors": [
+    [
+     0.95,
+     0.95,
+     0.92
+    ],
+    [
+     0.35,
+     0.3,
+     0.28
+    ],
+    [
+     0.25,
+     0.18,
+     0.12
+    ]
+   ],
+   "description": "the baker in a white apron",
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 0,
+    "f0": 185.3,
+    "shift": 0.995,
+    "rate": 0.94
+   }
+  },
+  {
+   "id": "ada",
+   "name": "Granny Ada",
+   "species": "person",
+   "height": 1.5,
+   "width": 0.92,
+   "depth": 1.0,
+   "posture": "hunched",
+   "outfit": "villageress",
+   "colors": [
+    [
+     0.7,
+     0.25,
+     0.3
+    ],
+    [
+     0.4,
+     0.3,
+     0.35
+    ],
+    [
+     0.3,
+     0.2,
+     0.12
+    ]
+   ],
+   "description": "an old woman in a red shawl",
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 44,
+    "f0": 204.2,
+    "shift": 1.006,
+    "rate": 1.1
+   }
+  },
+  {
+   "id": "joss",
+   "name": "Farmer Joss",
+   "species": "person",
+   "height": 1.98,
+   "width": 1.1,
+   "depth": 1.05,
+   "posture": "proud",
+   "outfit": "farmer",
+   "colors": [
+    [
+     0.25,
+     0.5,
+     0.3
+    ],
+    [
+     0.5,
+     0.4,
+     0.25
+    ],
+    [
+     0.3,
+     0.2,
+     0.1
+    ]
+   ],
+   "description": "the tall farmer in a green shirt",
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 847,
+    "f0": 114.2,
+    "shift": 1.001,
+    "rate": 1.02
+   }
+  },
+  {
+   "id": "mina",
+   "name": "Mina",
+   "species": "person",
+   "height": 1.4,
+   "posture": "neutral",
+   "outfit": "child",
+   "colors": [
+    [
+     0.9,
+     0.55,
+     0.2
+    ],
+    [
+     0.3,
+     0.4,
+     0.7
+    ],
+    [
+     0.4,
+     0.25,
+     0.15
+    ]
+   ],
+   "description": "a small girl in an orange dress",
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 33,
+    "f0": 187.7,
+    "shift": 0.999,
+    "rate": 1.0
+   }
+  }
+ ]
+}

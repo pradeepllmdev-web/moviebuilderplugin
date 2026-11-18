@@ -1,0 +1,257 @@
+{
+ "id": "march",
+ "title": "To the smithy",
+ "intent": "The search party marches to the smithy. The mayor thinks Otto took the bell.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "meadow",
+  "seed": 3
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "tense",
+ "cast": [
+  {
+   "id": "hugo",
+   "at": [
+    -10,
+    -6
+   ],
+   "face": [
+    8,
+    4
+   ]
+  },
+  {
+   "id": "marta",
+   "at": [
+    -12,
+    -7.5
+   ],
+   "face": [
+    8,
+    4
+   ]
+  },
+  {
+   "id": "finn",
+   "at": [
+    -13,
+    -5
+   ],
+   "face": [
+    8,
+    4
+   ]
+  },
+  {
+   "id": "bea",
+   "at": [
+    -14,
+    -7
+   ],
+   "face": [
+    8,
+    4
+   ]
+  },
+  {
+   "id": "lulu",
+   "at": [
+    -15,
+    -5.5
+   ],
+   "face": [
+    8,
+    4
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "go",
+    "who": "hugo",
+    "to": [
+     -2,
+     -2
+    ],
+    "gait": "stomp"
+   },
+   {
+    "do": "go",
+    "who": "marta",
+    "to": [
+     -4,
+     -3.4
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "finn",
+    "to": [
+     -5,
+     -1.4
+    ],
+    "gait": "bounce"
+   },
+   {
+    "do": "go",
+    "who": "bea",
+    "to": [
+     -6.4,
+     -3.2
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "lulu",
+    "to": [
+     -7.6,
+     -2
+    ],
+    "gait": "walk"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "hugo",
+   "text": "The blacksmith hates noise. He took the bell to silence it!",
+   "mood": "angry",
+   "to": "marta"
+  },
+  {
+   "do": "say",
+   "who": "marta",
+   "text": "Otto would never.",
+   "mood": "concern",
+   "to": "hugo"
+  },
+  {
+   "do": "say",
+   "who": "finn",
+   "text": "We will see. The smithy is just over the hill.",
+   "mood": "serious",
+   "to": "hugo"
+  },
+  [
+   {
+    "do": "go",
+    "who": "hugo",
+    "to": [
+     6,
+     3
+    ],
+    "gait": "stomp"
+   },
+   {
+    "do": "go",
+    "who": "marta",
+    "to": [
+     4.2,
+     2.2
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "finn",
+    "to": [
+     3,
+     3.8
+    ],
+    "gait": "bounce"
+   },
+   {
+    "do": "go",
+    "who": "bea",
+    "to": [
+     2,
+     2.4
+    ],
+    "gait": "brisk"
+   },
+   {
+    "do": "go",
+    "who": "lulu",
+    "to": [
+     1,
+     3.6
+    ],
+    "gait": "walk"
+   }
+  ]
+ ],
+ "objective": "Follow the clues to the smithy",
+ "theme": {
+  "root": 55,
+  "mode": "dorian",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    0.5
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "marta": [
+    0,
+    4,
+    2
+   ],
+   "hugo": [
+    0,
+    0,
+    -3
+   ],
+   "finn": [
+    4,
+    6,
+    4
+   ],
+   "lulu": [
+    2,
+    4,
+    7
+   ],
+   "otto": [
+    -5,
+    -3,
+    -5
+   ],
+   "bea": [
+    7,
+    9,
+    7
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.9
+}

@@ -1,0 +1,240 @@
+{
+ "id": "stopped",
+ "title": "The clock stops",
+ "intent": "The clock stops. Nell has lost her key and sets off to look at the stream.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "village_square",
+  "seed": 4,
+  "objects": [
+   {
+    "kind": "tower",
+    "at": [
+     0,
+     12
+    ],
+    "id": "clock_tower",
+    "size": 1.2
+   }
+  ]
+ },
+ "time": "day",
+ "ambience": "wind",
+ "music": "mystery",
+ "cast": [
+  {
+   "id": "nell",
+   "at": [
+    -1.5,
+    -1.5
+   ],
+   "face": [
+    0,
+    12
+   ]
+  },
+  {
+   "id": "pol",
+   "at": [
+    -4.5,
+    -2.5
+   ],
+   "face": [
+    0,
+    12
+   ]
+  },
+  {
+   "id": "ada",
+   "at": [
+    1.8,
+    -2.5
+   ],
+   "face": [
+    0,
+    12
+   ]
+  }
+ ],
+ "props": [],
+ "steps": [
+  [
+   {
+    "do": "sfx",
+    "name": "clang",
+    "at": 0.2,
+    "who": null,
+    "gain": 1.0
+   },
+   {
+    "do": "icon",
+    "who": "ada",
+    "kind": "question",
+    "dur": 1.8
+   },
+   {
+    "do": "point",
+    "who": "nell",
+    "at": [
+     0,
+     12,
+     7
+    ],
+    "dur": 1.8,
+    "hand": "R"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "Granny Ada, the clock has stopped! It still says half past six.",
+   "mood": "concern",
+   "to": "ada"
+  },
+  {
+   "do": "say",
+   "who": "ada",
+   "text": "It is nearly nine, Nell. Did you wind it this morning?",
+   "mood": "warm",
+   "to": "nell"
+  },
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "I was about to... oh no. My key is not on my belt.",
+   "mood": "sad",
+   "to": "ada"
+  },
+  [
+   {
+    "do": "act",
+    "who": "pol",
+    "clip": "startle"
+   },
+   {
+    "do": "icon",
+    "who": "pol",
+    "kind": "question",
+    "dur": 1.6
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pol",
+   "text": "Where did you last have it?",
+   "mood": "concern",
+   "to": "nell"
+  },
+  {
+   "do": "say",
+   "who": "nell",
+   "text": "At the stream. I set it on the flat rock while I washed my hands.",
+   "mood": "concern",
+   "to": "pol"
+  },
+  [
+   {
+    "do": "point",
+    "who": "pol",
+    "at": [
+     -9,
+     -6,
+     1
+    ],
+    "dur": 1.6,
+    "hand": "R"
+   },
+   {
+    "do": "icon",
+    "who": "nell",
+    "kind": "idea",
+    "dur": 1.8
+   }
+  ],
+  {
+   "do": "say",
+   "who": "pol",
+   "text": "Then the rock is where we start. Go, we will keep the village calm.",
+   "mood": "warm",
+   "to": "nell"
+  },
+  {
+   "do": "go",
+   "who": "nell",
+   "to": [
+    -5,
+    -3.6
+   ],
+   "gait": "brisk",
+   "talk": [
+    "Thank you, both. I will be quick!",
+    "warm",
+    "pol"
+   ]
+  }
+ ],
+ "objective": "The clock stops",
+ "theme": {
+  "root": 53,
+  "mode": "major",
+  "tempo": 100,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    7,
+    0.5
+   ],
+   [
+    12,
+    1
+   ],
+   [
+    7,
+    1
+   ]
+  ],
+  "motifs": {
+   "nell": [
+    0,
+    4,
+    7
+   ],
+   "pol": [
+    2,
+    5,
+    2
+   ],
+   "ada": [
+    -3,
+    0,
+    -3
+   ],
+   "joss": [
+    7,
+    4,
+    0
+   ],
+   "mina": [
+    9,
+    12,
+    9
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 41,
+   "pluck": 46,
+   "hit": 47
+  }
+ },
+ "arc": 0.625
+}

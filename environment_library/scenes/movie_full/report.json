@@ -1,0 +1,363 @@
+{
+ "plan": {
+  "scenes": [
+   {
+    "index": 1,
+    "title": "At night the lion council sits around the round",
+    "text": "At night the lion council sits around the round table and debates who will recover the stolen heart stone, and Leo volunteers.",
+    "builder": "set_piece",
+    "piece": "council",
+    "location": "council_hall",
+    "params": {},
+    "seconds": 66,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 2,
+    "title": "At dawn in his workshop Leo tinkers with clockwo",
+    "text": "At dawn in his workshop Leo tinkers with clockwork gears and turns the crank of a music box that points toward the thieves.",
+    "builder": "set_piece",
+    "piece": "workshop",
+    "location": "workshop",
+    "params": {},
+    "seconds": 30,
+    "missing": [],
+    "time_of_day": "dawn"
+   },
+   {
+    "index": 3,
+    "title": "At dawn a prison train thunders across the plain",
+    "text": "At dawn a prison train thunders across the plains while Leo, captured by the thieves, escapes over the roofs and leaps from the bridge into the river.",
+    "builder": "set_piece",
+    "piece": "great_escape",
+    "location": "train_consist",
+    "params": {
+     "time_of_day": "dawn"
+    },
+    "seconds": 54,
+    "missing": [],
+    "time_of_day": "dawn"
+   },
+   {
+    "index": 4,
+    "title": "Downstream Leo paddles a raft through the rapids",
+    "text": "Downstream Leo paddles a raft through the rapids between the boulders of the canyon river.",
+    "builder": "set_piece",
+    "piece": "rapids",
+    "location": "rapids",
+    "params": {},
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 5,
+    "title": "At noon a herd of wild horses gallops along the",
+    "text": "At noon a herd of wild horses gallops along the river toward the mountains.",
+    "builder": "set_piece",
+    "piece": "horse_herd",
+    "location": null,
+    "params": {},
+    "seconds": 16,
+    "missing": [],
+    "time_of_day": "day"
+   },
+   {
+    "index": 6,
+    "title": "Leo rides a horse galloping across the plains an",
+    "text": "Leo rides a horse galloping across the plains and jumps the fence.",
+    "builder": "set_piece",
+    "piece": "rider",
+    "location": null,
+    "params": {},
+    "seconds": 22,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 7,
+    "title": "At the foot of the mountains Leo climbs a sheer",
+    "text": "At the foot of the mountains Leo climbs a sheer cliff to rescue a lost cub and swings across the gap on a rope.",
+    "builder": "set_piece",
+    "piece": "cliff_rescue",
+    "location": "cliff_face",
+    "params": {},
+    "seconds": 62,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 8,
+    "title": "At dusk an avalanche thunders down the snowy mou",
+    "text": "At dusk an avalanche thunders down the snowy mountain and Leo outruns it with the cub.",
+    "builder": "set_piece",
+    "piece": "avalanche",
+    "location": "mountain_village",
+    "params": {
+     "time_of_day": "dusk"
+    },
+    "seconds": 48,
+    "missing": [],
+    "time_of_day": "dusk"
+   },
+   {
+    "index": 9,
+    "title": "At dusk a wall of water floods the valley below",
+    "text": "At dusk a wall of water floods the valley below and Leo rescues a child and carries it to the hill.",
+    "builder": "set_piece",
+    "piece": "flood",
+    "location": "flood_valley",
+    "params": {},
+    "seconds": 30,
+    "missing": [],
+    "time_of_day": "dusk"
+   },
+   {
+    "index": 10,
+    "title": "At sunset Leo rides a dragon through the canyon",
+    "text": "At sunset Leo rides a dragon through the canyon between the rock spires and under the stone arch.",
+    "builder": "set_piece",
+    "piece": "flight",
+    "location": "sky_canyon",
+    "params": {},
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": "dusk"
+   },
+   {
+    "index": 11,
+    "title": "In a storm Leo fights a sea serpent on the mast",
+    "text": "In a storm Leo fights a sea serpent on the mast of a sailing ship.",
+    "builder": "set_piece",
+    "piece": "storm_ship",
+    "location": "open_sea",
+    "params": {},
+    "seconds": 60,
+    "missing": [],
+    "time_of_day": "overcast"
+   },
+   {
+    "index": 12,
+    "title": "At night a stolen dinosaur egg lies in a prehist",
+    "text": "At night a stolen dinosaur egg lies in a prehistoric valley beside a glowing volcano and Leo carries it back to its mother.",
+    "builder": "set_piece",
+    "piece": "last_egg",
+    "location": "dino_valley",
+    "params": {
+     "time_of_day": "night"
+    },
+    "seconds": 50,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 13,
+    "title": "At midnight Leo sneaks into the museum past the",
+    "text": "At midnight Leo sneaks into the museum past the laser gate and the sentries and steals the jewel before the alarm sounds.",
+    "builder": "set_piece",
+    "piece": "heist",
+    "location": "museum_hall",
+    "params": {},
+    "seconds": 50,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 14,
+    "title": "At dawn an army besieges the citadel with catapu",
+    "text": "At dawn an army besieges the citadel with catapults and Leo opens the gate.",
+    "builder": "set_piece",
+    "piece": "siege",
+    "location": "citadel",
+    "params": {
+     "time_of_day": "dawn"
+    },
+    "seconds": 72,
+    "missing": [],
+    "time_of_day": "dawn"
+   },
+   {
+    "index": 15,
+    "title": "At noon in the gladiator arena Leo faces the riv",
+    "text": "At noon in the gladiator arena Leo faces the rival lion in a duel before the roaring crowd.",
+    "builder": "set_piece",
+    "piece": "arena_duel",
+    "location": "arena_ruins",
+    "params": {
+     "time_of_day": "day"
+    },
+    "seconds": 52,
+    "missing": [],
+    "time_of_day": "day"
+   }
+  ],
+  "total_seconds": 684,
+  "estimated_build_minutes": 30.0,
+  "warnings": [],
+  "hash": "d369ddceaf"
+ },
+ "report": [
+  {
+   "index": 1,
+   "title": "At night the lion council sits around the round",
+   "piece": "council",
+   "params": {},
+   "seconds": 66,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_01_council.blend"
+  },
+  {
+   "index": 2,
+   "title": "At dawn in his workshop Leo tinkers with clockwo",
+   "piece": "workshop",
+   "params": {},
+   "seconds": 30,
+   "status": "built in 4s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_02_workshop.blend"
+  },
+  {
+   "index": 3,
+   "title": "At dawn a prison train thunders across the plain",
+   "piece": "great_escape",
+   "params": {
+    "time_of_day": "dawn"
+   },
+   "seconds": 54,
+   "status": "built in 73s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_03_great_escape.blend"
+  },
+  {
+   "index": 4,
+   "title": "Downstream Leo paddles a raft through the rapids",
+   "piece": "rapids",
+   "params": {},
+   "seconds": 36,
+   "status": "built in 6s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_04_rapids.blend"
+  },
+  {
+   "index": 5,
+   "title": "At noon a herd of wild horses gallops along the",
+   "piece": "horse_herd",
+   "params": {},
+   "seconds": 16,
+   "status": "built in 8s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_05_horse_herd.blend"
+  },
+  {
+   "index": 6,
+   "title": "Leo rides a horse galloping across the plains an",
+   "piece": "rider",
+   "params": {},
+   "seconds": 22,
+   "status": "built in 4s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_06_rider.blend"
+  },
+  {
+   "index": 7,
+   "title": "At the foot of the mountains Leo climbs a sheer",
+   "piece": "cliff_rescue",
+   "params": {},
+   "seconds": 62,
+   "status": "built in 15s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_07_cliff_rescue.blend"
+  },
+  {
+   "index": 8,
+   "title": "At dusk an avalanche thunders down the snowy mou",
+   "piece": "avalanche",
+   "params": {
+    "time_of_day": "dusk"
+   },
+   "seconds": 48,
+   "status": "built in 44s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_08_avalanche.blend"
+  },
+  {
+   "index": 9,
+   "title": "At dusk a wall of water floods the valley below",
+   "piece": "flood",
+   "params": {},
+   "seconds": 30,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_09_flood.blend"
+  },
+  {
+   "index": 10,
+   "title": "At sunset Leo rides a dragon through the canyon",
+   "piece": "flight",
+   "params": {},
+   "seconds": 36,
+   "status": "built in 5s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_10_flight.blend"
+  },
+  {
+   "index": 11,
+   "title": "In a storm Leo fights a sea serpent on the mast",
+   "piece": "storm_ship",
+   "params": {},
+   "seconds": 60,
+   "status": "built in 19s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_11_storm_ship.blend"
+  },
+  {
+   "index": 12,
+   "title": "At night a stolen dinosaur egg lies in a prehist",
+   "piece": "last_egg",
+   "params": {
+    "time_of_day": "night"
+   },
+   "seconds": 50,
+   "status": "built in 61s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_12_last_egg.blend"
+  },
+  {
+   "index": 13,
+   "title": "At midnight Leo sneaks into the museum past the",
+   "piece": "heist",
+   "params": {},
+   "seconds": 50,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_13_heist.blend"
+  },
+  {
+   "index": 14,
+   "title": "At dawn an army besieges the citadel with catapu",
+   "piece": "siege",
+   "params": {
+    "time_of_day": "dawn"
+   },
+   "seconds": 72,
+   "status": "built in 94s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_14_siege.blend"
+  },
+  {
+   "index": 15,
+   "title": "At noon in the gladiator arena Leo faces the riv",
+   "piece": "arena_duel",
+   "params": {
+    "time_of_day": "day"
+   },
+   "seconds": 52,
+   "status": "built in 23s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\scene_15_arena_duel.blend"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_full\\movie.blend"
+}

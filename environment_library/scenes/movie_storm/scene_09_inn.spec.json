@@ -1,0 +1,205 @@
+{
+ "id": "inn",
+ "title": "Soup and thunder",
+ "intent": "Everybody shelters at the inn. The rivals become partners.",
+ "extras": null,
+ "fog": 0.0,
+ "fx": null,
+ "location": {
+  "preset": "room",
+  "seed": 3
+ },
+ "time": "night",
+ "ambience": "rain",
+ "music": "warm",
+ "cast": [
+  {
+   "id": "odile",
+   "at": [
+    -2.4,
+    -2.6
+   ],
+   "face": "pepper"
+  },
+  {
+   "id": "pepper",
+   "at": [
+    0,
+    -1.8
+   ],
+   "face": "odile"
+  },
+  {
+   "id": "vesper",
+   "at": [
+    2.6,
+    -2.4
+   ],
+   "face": "pepper"
+  },
+  {
+   "id": "grub",
+   "at": [
+    3.4,
+    -0.6
+   ],
+   "face": "pepper"
+  },
+  {
+   "id": "mo",
+   "at": [
+    -3.2,
+    1.4
+   ],
+   "face": "pepper"
+  },
+  {
+   "id": "tobias",
+   "at": [
+    -1,
+    1.8
+   ],
+   "face": "pepper"
+  }
+ ],
+ "props": [],
+ "steps": [
+  {
+   "do": "say",
+   "who": "odile",
+   "text": "Fourteen families would have sailed into that.",
+   "mood": "serious",
+   "to": "pepper"
+  },
+  {
+   "do": "say",
+   "who": "tobias",
+   "text": "Thanks to a small fox who never stops. Almost never.",
+   "mood": "warm",
+   "to": "pepper"
+  },
+  [
+   {
+    "do": "act",
+    "who": "mo",
+    "clip": "laugh"
+   },
+   {
+    "do": "act",
+    "who": "grub",
+    "clip": "laugh"
+   },
+   {
+    "do": "act",
+    "who": "pepper",
+    "clip": "joy"
+   }
+  ],
+  {
+   "do": "say",
+   "who": "vesper",
+   "text": "Pepper, partner? The Harbour Couriers need a fast fox and a stylish cat.",
+   "mood": "joy",
+   "to": "pepper"
+  },
+  {
+   "do": "say",
+   "who": "pepper",
+   "text": "Deal. But I get to wear the cap.",
+   "mood": "joy",
+   "to": "vesper"
+  },
+  {
+   "do": "sfx",
+   "name": "thunder",
+   "at": 0.5,
+   "who": null,
+   "gain": 1.0
+  },
+  [
+   {
+    "do": "emote",
+    "who": "pepper",
+    "kind": "smile",
+    "dur": 4
+   },
+   {
+    "do": "emote",
+    "who": "vesper",
+    "kind": "smile",
+    "dur": 4
+   }
+  ],
+  {
+   "do": "wait",
+   "dur": 2.0
+  }
+ ],
+ "objective": "Safe",
+ "theme": {
+  "root": 53,
+  "mode": "dorian",
+  "tempo": 108,
+  "motif": [
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    4,
+    0.5
+   ],
+   [
+    3,
+    0.5
+   ],
+   [
+    7,
+    1.5
+   ]
+  ],
+  "motifs": {
+   "pepper": [
+    7,
+    6,
+    4
+   ],
+   "vesper": [
+    0,
+    3,
+    5
+   ],
+   "odile": [
+    2,
+    0,
+    -2
+   ],
+   "tobias": [
+    -5,
+    -3,
+    -5
+   ],
+   "grub": [
+    0,
+    0,
+    -3
+   ],
+   "mo": [
+    2,
+    1,
+    -1
+   ]
+  },
+  "palette": {
+   "pad": 48,
+   "bass": 43,
+   "pluck": 52,
+   "hit": 47
+  }
+ },
+ "arc": 0.6
+}

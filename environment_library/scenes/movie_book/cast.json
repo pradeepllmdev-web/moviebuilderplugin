@@ -1,0 +1,75 @@
+{
+ "version": 1,
+ "characters": [
+  {
+   "id": "ann",
+   "name": "Ann",
+   "species": "person",
+   "height": 1.65,
+   "width": 1.0,
+   "depth": 1.0,
+   "posture": "neutral",
+   "outfit": "villageress",
+   "colors": [
+    [
+     0.8,
+     0.3,
+     0.3
+    ],
+    [
+     0.25,
+     0.28,
+     0.4
+    ],
+    [
+     0.2,
+     0.12,
+     0.08
+    ]
+   ],
+   "description": "a woman in a red shirt",
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 363,
+    "f0": 146.5,
+    "shift": 0.997,
+    "rate": 1.0
+   }
+  },
+  {
+   "id": "ben",
+   "name": "Ben",
+   "species": "person",
+   "height": 1.88,
+   "width": 1.1,
+   "depth": 1.05,
+   "posture": "tired",
+   "outfit": "farmer",
+   "colors": [
+    [
+     0.3,
+     0.5,
+     0.8
+    ],
+    [
+     0.35,
+     0.3,
+     0.2
+    ],
+    [
+     0.2,
+     0.12,
+     0.08
+    ]
+   ],
+   "description": "a tall man in a blue shirt",
+   "voice": {
+    "model": "en_US-libritts-high",
+    "speaker": 572,
+    "f0": 156.4,
+    "shift": 0.977,
+    "rate": 1.12
+   }
+  }
+ ]
+}

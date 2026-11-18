@@ -1,0 +1,277 @@
+{
+ "plan": {
+  "scenes": [
+   {
+    "index": 1,
+    "title": "At night in the old observatory Leo turns the mi",
+    "text": "At night in the old observatory Leo turns the mirror wheels until a moonbeam strikes the crystal and the dome opens.",
+    "builder": "set_piece",
+    "piece": "observatory",
+    "location": "observatory",
+    "params": {},
+    "seconds": 45,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 2,
+    "title": "A thief snatches the star map and Leo chases him",
+    "text": "A thief snatches the star map and Leo chases him through the crowded night market, vaulting the crates he topples.",
+    "builder": "set_piece",
+    "piece": "market",
+    "location": "night_market",
+    "params": {},
+    "seconds": 45,
+    "missing": [],
+    "time_of_day": "night"
+   },
+   {
+    "index": 3,
+    "title": "Leo poles a punt through the mangrove swamp whil",
+    "text": "Leo poles a punt through the mangrove swamp while crocodiles lunge from the dark water.",
+    "builder": "set_piece",
+    "piece": "swamp",
+    "location": "swamp",
+    "params": {},
+    "seconds": 50,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 4,
+    "title": "Deep in the jungle Leo swings from vine to vine",
+    "text": "Deep in the jungle Leo swings from vine to vine across a ravine toward the ancient temple.",
+    "builder": "set_piece",
+    "piece": "jungle",
+    "location": "jungle_temple",
+    "params": {},
+    "seconds": 36,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 5,
+    "title": "Inside the desert temple a giant boulder is rele",
+    "text": "Inside the desert temple a giant boulder is released and Leo outruns it, jumps the pit and slides under the closing door.",
+    "builder": "set_piece",
+    "piece": "ruins",
+    "location": "desert_ruins",
+    "params": {},
+    "seconds": 28,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 6,
+    "title": "In the ice cave Leo leaps between drifting ice f",
+    "text": "In the ice cave Leo leaps between drifting ice floes while stalactites crash around him.",
+    "builder": "set_piece",
+    "piece": "ice",
+    "location": "ice_cave",
+    "params": {},
+    "seconds": 40,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 7,
+    "title": "At the volcano forge Leo hammers a glowing sword",
+    "text": "At the volcano forge Leo hammers a glowing sword on the anvil beside the lava river and quenches it.",
+    "builder": "set_piece",
+    "piece": "forge",
+    "location": "forge",
+    "params": {},
+    "seconds": 45,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 8,
+    "title": "Leo dives into the coral reef, opens a giant cla",
+    "text": "Leo dives into the coral reef, opens a giant clam for the pearl and escapes a shark.",
+    "builder": "set_piece",
+    "piece": "reef",
+    "location": "reef",
+    "params": {},
+    "seconds": 55,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 9,
+    "title": "Leo sprints across the rotten rope bridge as the",
+    "text": "Leo sprints across the rotten rope bridge as the planks fall away behind him.",
+    "builder": "set_piece",
+    "piece": "bridge",
+    "location": "gorge_bridge",
+    "params": {},
+    "seconds": 20,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 10,
+    "title": "Leo crosses the floating city, riding the moving",
+    "text": "Leo crosses the floating city, riding the moving platforms above the clouds.",
+    "builder": "set_piece",
+    "piece": "sky",
+    "location": null,
+    "params": {},
+    "seconds": 40,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 11,
+    "title": "A stone giant lifts its arm and Leo rides the pa",
+    "text": "A stone giant lifts its arm and Leo rides the palm, walks to the shoulder and pulls the glowing core from its chest.",
+    "builder": "set_piece",
+    "piece": "colossus",
+    "location": "colossus_valley",
+    "params": {},
+    "seconds": 55,
+    "missing": [],
+    "time_of_day": null
+   },
+   {
+    "index": 12,
+    "title": "On the moonlit tower the rival mage and Leo trad",
+    "text": "On the moonlit tower the rival mage and Leo trade spells in a magic duel, and Leo's shield turns the last spell back.",
+    "builder": "set_piece",
+    "piece": "duel",
+    "location": null,
+    "params": {},
+    "seconds": 38,
+    "missing": [],
+    "time_of_day": "night"
+   }
+  ],
+  "total_seconds": 497,
+  "estimated_build_minutes": 24.0,
+  "warnings": [],
+  "hash": "d23de451ab"
+ },
+ "report": [
+  {
+   "index": 1,
+   "title": "At night in the old observatory Leo turns the mi",
+   "piece": "observatory",
+   "params": {},
+   "seconds": 45,
+   "status": "built in 5s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_01_observatory.blend"
+  },
+  {
+   "index": 2,
+   "title": "A thief snatches the star map and Leo chases him",
+   "piece": "market",
+   "params": {},
+   "seconds": 45,
+   "status": "built in 16s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_02_market.blend"
+  },
+  {
+   "index": 3,
+   "title": "Leo poles a punt through the mangrove swamp whil",
+   "piece": "swamp",
+   "params": {},
+   "seconds": 50,
+   "status": "built in 22s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_03_swamp.blend"
+  },
+  {
+   "index": 4,
+   "title": "Deep in the jungle Leo swings from vine to vine",
+   "piece": "jungle",
+   "params": {},
+   "seconds": 36,
+   "status": "built in 8s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_04_jungle.blend"
+  },
+  {
+   "index": 5,
+   "title": "Inside the desert temple a giant boulder is rele",
+   "piece": "ruins",
+   "params": {},
+   "seconds": 28,
+   "status": "built in 5s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_05_ruins.blend"
+  },
+  {
+   "index": 6,
+   "title": "In the ice cave Leo leaps between drifting ice f",
+   "piece": "ice",
+   "params": {},
+   "seconds": 40,
+   "status": "built in 7s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_06_ice.blend"
+  },
+  {
+   "index": 7,
+   "title": "At the volcano forge Leo hammers a glowing sword",
+   "piece": "forge",
+   "params": {},
+   "seconds": 45,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_07_forge.blend"
+  },
+  {
+   "index": 8,
+   "title": "Leo dives into the coral reef, opens a giant cla",
+   "piece": "reef",
+   "params": {},
+   "seconds": 55,
+   "status": "built in 28s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_08_reef.blend"
+  },
+  {
+   "index": 9,
+   "title": "Leo sprints across the rotten rope bridge as the",
+   "piece": "bridge",
+   "params": {},
+   "seconds": 20,
+   "status": "built in 9s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_09_bridge.blend"
+  },
+  {
+   "index": 10,
+   "title": "Leo crosses the floating city, riding the moving",
+   "piece": "sky",
+   "params": {},
+   "seconds": 40,
+   "status": "built in 4s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_10_sky.blend"
+  },
+  {
+   "index": 11,
+   "title": "A stone giant lifts its arm and Leo rides the pa",
+   "piece": "colossus",
+   "params": {},
+   "seconds": 55,
+   "status": "built in 5s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_11_colossus.blend"
+  },
+  {
+   "index": 12,
+   "title": "On the moonlit tower the rival mage and Leo trad",
+   "piece": "duel",
+   "params": {},
+   "seconds": 38,
+   "status": "built in 6s",
+   "audit": [],
+   "file": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\scene_12_duel.blend"
+  }
+ ],
+ "master": "C:\\Users\\nagal\\OneDrive\\Documents\\GitHub\\moviebuilderplugin\\environment_library\\scenes\\movie_world2\\movie.blend"
+}

@@ -1,0 +1,138 @@
+{
+ "id": "found",
+ "title": "Mina finds the key",
+ "seconds": 39.583333333333336,
+ "cuts": [
+  {
+   "name": "establish",
+   "t0": 0.0,
+   "t1": 2.5,
+   "kind": "wide",
+   "subject": null
+  },
+  {
+   "name": "mina walks",
+   "t0": 2.5,
+   "t1": 6.75,
+   "kind": "track",
+   "subject": "mina"
+  },
+  {
+   "name": "mina alone",
+   "t0": 6.75,
+   "t1": 13.5,
+   "kind": "medium",
+   "subject": "mina"
+  },
+  {
+   "name": "joss walks",
+   "t0": 13.5,
+   "t1": 17.416666666666668,
+   "kind": "track",
+   "subject": "joss"
+  },
+  {
+   "name": "joss speaks",
+   "t0": 17.416666666666668,
+   "t1": 21.833333333333332,
+   "kind": "medium",
+   "subject": "joss"
+  },
+  {
+   "name": "mina speaks",
+   "t0": 21.833333333333332,
+   "t1": 25.541666666666668,
+   "kind": "two",
+   "subject": "mina"
+  },
+  {
+   "name": "joss points",
+   "t0": 25.541666666666668,
+   "t1": 28.833333333333332,
+   "kind": "reveal",
+   "subject": "joss"
+  },
+  {
+   "name": "joss speaks",
+   "t0": 28.833333333333332,
+   "t1": 31.583333333333332,
+   "kind": "medium",
+   "subject": "joss"
+  },
+  {
+   "name": "mina speaks",
+   "t0": 31.583333333333332,
+   "t1": 36.38333333333333,
+   "kind": "medium",
+   "subject": "mina"
+  },
+  {
+   "name": "end",
+   "t0": 36.38333333333333,
+   "t1": 39.583333333333336,
+   "kind": "wide",
+   "subject": null
+  }
+ ],
+ "lines": [
+  {
+   "k": 0,
+   "speaker": "mina",
+   "to": "mina",
+   "mood": "joy",
+   "text": "A golden key, lying on the flat rock. Maybe it opens a treasure chest!",
+   "t0": 7.953333333333333,
+   "t1": 13.405532879818594
+  },
+  {
+   "k": 1,
+   "speaker": "joss",
+   "to": "mina",
+   "mood": "concern",
+   "text": "Mina! That is no toy. That is the key to the clock tower.",
+   "t0": 17.53666666666667,
+   "t1": 21.758208616780045
+  },
+  {
+   "k": 2,
+   "speaker": "mina",
+   "to": "joss",
+   "mood": "concern",
+   "text": "The clock stopped this morning. Somebody must be so worried!",
+   "t0": 21.953333333333333,
+   "t1": 25.47827664399093
+  },
+  {
+   "k": 3,
+   "speaker": "joss",
+   "to": "mina",
+   "mood": "warm",
+   "text": "We will take it back together.",
+   "t0": 30.03666666666667,
+   "t1": 31.495034013605444
+  },
+  {
+   "k": 4,
+   "speaker": "mina",
+   "to": "joss",
+   "mood": "joy",
+   "text": "I will carry it. I found it!",
+   "t0": 31.98333333333333,
+   "t1": 34.312448979591835
+  }
+ ],
+ "audit": [],
+ "cast": [
+  "mina",
+  "joss"
+ ],
+ "stats": {
+  "ground_lift": 0.0,
+  "foot_slip": 0.17967964514879603,
+  "reach": 0.1453841843509568,
+  "eye_speaker": 4.918257697092709,
+  "eye_listener": 6.4499898506064985,
+  "framing_misses": 0,
+  "framing_checked": 7
+ }
+}

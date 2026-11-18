@@ -1,0 +1,126 @@
+[
+ {
+  "name": "Pepper",
+  "id": "pepper",
+  "description": "a small, fast courier who never stops",
+  "species": "fox",
+  "height_m": 1.5,
+  "posture": "hurried",
+  "accessories": [
+   "shirt",
+   "sleeves",
+   "shorts",
+   "boots"
+  ],
+  "tint": [
+   1.0,
+   0.5,
+   0.22
+  ],
+  "voice_pitch_hz": 205
+ },
+ {
+  "name": "Vesper",
+  "id": "vesper",
+  "description": "a stylish rival in a purple suit",
+  "species": "rabbit",
+  "height_m": 1.25,
+  "posture": "proud",
+  "accessories": [
+   "suit",
+   "tie",
+   "boots"
+  ],
+  "tint": [
+   0.92,
+   0.9,
+   0.85
+  ],
+  "voice_pitch_hz": 242
+ },
+ {
+  "name": "Odile",
+  "id": "odile",
+  "description": "the tall weather scholar",
+  "species": "owl",
+  "height_m": 1.4,
+  "posture": "neutral",
+  "accessories": [
+   "robe",
+   "sleeves",
+   "glasses",
+   "satchel",
+   "boots"
+  ],
+  "tint": [
+   0.66,
+   0.55,
+   0.42
+  ],
+  "voice_pitch_hz": 167
+ },
+ {
+  "name": "Captain Tobias",
+  "id": "tobias",
+  "description": "the ferry captain in a yellow coat",
+  "species": "wolf",
+  "height_m": 1.85,
+  "posture": "tired",
+  "accessories": [
+   "stripedshirt",
+   "jacket",
+   "pants",
+   "boots",
+   "hat_sou"
+  ],
+  "tint": [
+   0.55,
+   0.58,
+   0.64
+  ],
+  "voice_pitch_hz": 97
+ },
+ {
+  "name": "Grub",
+  "id": "grub",
+  "description": "the toll keeper who counts apples",
+  "species": "ox",
+  "height_m": 2.0,
+  "posture": "angry",
+  "accessories": [
+   "shirt",
+   "vest",
+   "apron",
+   "pants",
+   "boots"
+  ],
+  "tint": [
+   0.45,
+   0.4,
+   0.36
+  ],
+  "voice_pitch_hz": 76
+ },
+ {
+  "name": "Old Mo",
+  "id": "mo",
+  "description": "an old farmer with a stuck cart",
+  "species": "elder",
+  "height_m": 1.55,
+  "posture": "hunched",
+  "accessories": [
+   "tunic",
+   "sleeves",
+   "pants",
+   "boots",
+   "hat_beanie",
+   "staff"
+  ],
+  "tint": [
+   0.85,
+   0.82,
+   0.78
+  ],
+  "voice_pitch_hz": 121
+ }
+]
